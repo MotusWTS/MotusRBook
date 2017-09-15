@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Motus</title>
   <meta name="description" content="R for Motus">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Motus" />
   <meta property="og:type" content="book" />
@@ -25,6 +25,7 @@
 <meta name="author" content="Tara L. Crewe, Zoe Crysler, ?">
 
 
+<meta name="date" content="2017-09-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -101,7 +102,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><strong><a href="./">R for Motus</a></strong></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>A walk through the use of R to analyze Motus automated radio-telemetry data</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>A walk through the use of R for Motus automated radio-telemetry data</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#what-this-book-does-not-cover"><i class="fa fa-check"></i><b>1.1</b> What this book does not cover</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.2</b> Prerequisites</a></li>
@@ -113,14 +114,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.2" data-path="loading-the-motus-r-package.html"><a href="loading-the-motus-r-package.html#internal-data-processing"><i class="fa fa-check"></i><b>2.2</b> Internal data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
-<li class="chapter" data-level="3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#data-structure"><i class="fa fa-check"></i><b>3.1</b> Data structure</a></li>
-<li class="chapter" data-level="3.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#importing-tag-detections"><i class="fa fa-check"></i><b>3.2</b> Importing tag detections</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#download-data-for-a-project-or-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.2.1</b> Download data for a project or receiver for the <em>first time</em></a></li>
-<li class="chapter" data-level="3.2.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#open-a-local-tag-database"><i class="fa fa-check"></i><b>3.2.2</b> Open a local tag database</a></li>
-<li class="chapter" data-level="3.2.3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#update-and-open-a-local-tag-database"><i class="fa fa-check"></i><b>3.2.3</b> Update and open a local tag database</a></li>
-<li class="chapter" data-level="3.2.4" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#check-if-new-data-are-available"><i class="fa fa-check"></i><b>3.2.4</b> Check if new data are available</a></li>
-<li class="chapter" data-level="3.2.5" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#force-an-updatere-import-of-metadata"><i class="fa fa-check"></i><b>3.2.5</b> Force an update/re-import of metadata</a></li>
+<li class="chapter" data-level="3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#database-types"><i class="fa fa-check"></i><b>3.1</b> Database types</a></li>
+<li class="chapter" data-level="3.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#importing-tag-detections"><i class="fa fa-check"></i><b>3.2</b> Importing tag detections</a></li>
+<li class="chapter" data-level="3.3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#data-structure"><i class="fa fa-check"></i><b>3.3</b> Data structure</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#convert-the-virtual-alltags-table-to-a-flat-dataframe"><i class="fa fa-check"></i><b>3.3.1</b> Convert the virtual ‘alltags’ table to a flat dataframe</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#searching-for-false-positives"><i class="fa fa-check"></i><b>3.4</b> Searching for false positives</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html"><i class="fa fa-check"></i><b>4</b> Exploring data with the Motus R package</a><ul>
+<li class="chapter" data-level="4.1" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#summarizing-your-data"><i class="fa fa-check"></i><b>4.1</b> Summarizing your data</a></li>
+<li class="chapter" data-level="4.2" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#plotting-your-data"><i class="fa fa-check"></i><b>4.2</b> Plotting your data</a></li>
 </ul></li>
 </ul>
 
@@ -141,26 +144,32 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="loading-the-motus-r-package" class="section level1">
 <h1><span class="header-section-number">2</span> Loading the Motus R Package</h1>
-<p>Motus <strong>users</strong> can install the latest stable version of the Motus R package by:</p>
+<p>Motus <strong>users</strong> can install the latest stable version of the Motus R package using the following code. You only need to install the packages once, but once installed, you do need to load each package (using library() or require()) each time you open a new R session.</p>
+<p>Please note that some functionalities of the devtools package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of R (<a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a>) and RStudio (<a href="https://www.rstudio.com/products/RStudio/" class="uri">https://www.rstudio.com/products/RStudio/</a>), and update your R packages using update.pacakges() in the R console.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update.packages</span>()                         ## to update your existing R packages</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)              ## if you haven&#39;t already done this
-<span class="kw">install_github</span>(<span class="st">&quot;jbrzusto/motus@master&quot;</span>)   ## the last stable version</code></pre></div>
+<span class="kw">library</span>(devtools)                         ## load devtools
+
+<span class="kw">install_github</span>(<span class="st">&quot;jbrzusto/motus@master&quot;</span>)   ## the last stable version
+<span class="kw">library</span>(motus)</code></pre></div>
 <p>For <strong>developers</strong>, the ‘staging’ branch is for work-in-progress. Install it with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)               ## if you haven&#39;t already done this
-<span class="kw">install_github</span>(<span class="st">&quot;jbrzusto/motus@staging&quot;</span>)   ## the development version</code></pre></div>
+<span class="kw">library</span>(devtools) 
+
+<span class="kw">install_github</span>(<span class="st">&quot;jbrzusto/motus@staging&quot;</span>)   ## the development version
+<span class="kw">library</span>(motus)</code></pre></div>
 <p>Throughout the book, we use Tidyverse <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>, which is a collection of R packages, including tidyr() and dplyr(). These can be installed with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)             ## again, you only need to install once.
+<span class="kw">library</span>(tidyverse)</code></pre></div>
 <p>More information on Tidyverse can be found at <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>, or by browsing ‘R for Data Science’ by Garrett Grolemund and Hadley Wickham: <a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>.</p>
 <div id="user-authentication" class="section level2">
 <h2><span class="header-section-number">2.1</span> User Authentication</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;F:/Motus/Motus_RPackage/pics/MotusLogo.png&quot;</span>)</code></pre></div>
-<p><img src="F:/Motus/Motus_RPackage/pics/MotusLogo.png" width="853" /></p>
-<p>The first time you call a function using the Motus R package, you will be asked for your motus.org username and password to authenticate your access to the data. This will only happen once per R session.</p>
+<p>The first time you call a function using the Motus R package, you will be asked for your motus.org username and password to authenticate your access to project data. This will only happen once per R session. If you do not have a Motus user name and password, you can sign up at <a href="https://motus.org/data/user/new" class="uri">https://motus.org/data/user/new</a>. Permission to access project data will then be granted by Motus staff or the project principal investigator.</p>
 </div>
 <div id="internal-data-processing" class="section level2">
 <h2><span class="header-section-number">2.2</span> Internal data processing</h2>
-<p>As an animal moves within the detection range of a Motus station, radio transmissions, or ‘bursts’, are detected by antenna(s) and recorded by a receiver. These raw detection data are either uploaded to the Motus database instantaneously via internet connection, or downloaded from the receiver and uploaded to Motus manually. Behind the scenes, various functions read and process the raw detections data to produce the tag detections file that users access using the R package (see ‘Data Import’ below). While most users will not need to call on the internal data processing functions, a complete list of functions within the R package can be found on GitHub: <a href="https://github.com/jbrzusto/motus" class="uri">https://github.com/jbrzusto/motus</a>. The code behind each function can be viewed on GitHub, or by typing:</p>
+<p>As an animal moves within the detection range of a Motus station, radio transmissions, or ‘bursts’, are detected by antenna(s) and recorded by a receiver. These raw detection data are either uploaded to the Motus database instantaneously via internet connection, or downloaded from the receiver and uploaded to Motus manually. Behind the scenes, various functions read and process the raw detections data to produce the tag detections file that users access using the R package (see ‘Data Import’ below). While most users will not need to call on the internal data processing functions, a complete list of functions within the Motus server R package can be found on GitHub: <a href="https://github.com/jbrzusto/motusServer" class="uri">https://github.com/jbrzusto/motusServer</a>. The code behind each function can be viewed on GitHub, or by typing the following in the R console after loading the R package, replacing ‘function.name’ with the name of the R function of interest:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">function.name</span>() </code></pre></div>
-<p>in the R console after loading the Motus R package (you would replace ‘function.name’ with the name of the R function of interest).</p>
 
 </div>
 </div>
@@ -181,7 +190,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
