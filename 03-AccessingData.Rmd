@@ -1,0 +1,124 @@
+# Accessing and understanding detections data
+
+It is important to note that the success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators.  Users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.
+
+## Database types
+
+```{r fig3}
+knitr::include_graphics("F:/Motus/Motus_RPackage/pics/DataStructure.png")
+```
+
+<br>
+
+There are two types of tag databases:
+
+1. **receiver database**: includes all detections of any registered tags from a single receiver. A receiver database has a name like SG-1234BBBK5678.motus; where the name is the serial number of the receiver.
+
+2. **project database**: includes all detections of your registered tags from across the motus network. A tag project database has a name like project-123.motus, where the number is the motus project ID.
+
+
+These two databases correspond to the basic model of data sharing:
+
+1. you get all detections of anyone's tags by *your* receivers (i.e., one receiver tag database for each receiver you deploy)
+
+2. you get all detections of *your* tags by *anyone's* receivers (i.e., one project tag database for each of your motus projects)
+
+## Importing tag detections
+
+Your project's .motus file is available for download at <www.motus.org> under your project profile. Once downloaded, you can import your tag detections into R using the following code:
+
+```{r import, eval = FALSE}
+
+file.name <- "C:/data/project-123.motus"    ## replace with the full location of your project data
+t <- dplyr::src_sqlite(file.name)
+
+```
+
+## Data structure
+
+Your tag database is stored as an SQLite ('dplyr::src_sqlite') file with the extension '.motus'. The sqlite format was chosen because:
+
+1. it is flexible, allowing for many data formats.
+2. it is accessible from many software platforms (not just R).
+3. it is **appendable**: the database can be created and updated on disk without having to read in and resave the entire contents. This will save time and computer memory when searching to see if any new detections are available for your project or receiver.
+
+The .motus file contains a series of interelated tables where data are stored in a condensed format to save memory. The following tables are included in the .motus file; a complete list of parameters stored in each table can be found in Appendix Table A1:
+
+1. hits: detections data at the level of individual hits.
+2. runs: detections data associated with a run (continuous detections of a unique tag on a given receiver).
+3. batches: detections data for a given receiver and boot number.
+4. tags: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).
+5. tagDep: metadata related to tag deployments, e.g., deployment date, location, and species.
+6. recvDeps: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.
+7. antDeps: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.
+8. species: metadata related to species, e.g., unique identifier, scientific name, common name.
+9. projs: metadata related to projects, e.g., project name, principal investigator.
+10. gps: metadata related to gps position of receiver. 
+
+
+Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be used to filter and summarize your .motus database, without needing to first save the data as a *flat* file, i.e., a typical two-dimensional dataframe with every record for each field filled in. 
+
+Within the .motus database, the *virtual* table 'alltags' contains everything most users will need, and can be accessed using the dplyr tbl() function:  
+
+```{r getTable, eval = FALSE}
+df <- tbl(t, "alltags")
+```
+
+If you look at the underlying structure of the data using str(), you will see that df is a list of length 2:
+
+```{r dfStructure, eval = FALSE}
+str(df)
+```
+
+The first part of the list, 'src', is a list that provides details of the SQLiteConnection, which includes information on where the database is stored. The second part of the list, 'ops', is also a list, and includes the names of the variables included in the 'alltags' table. In other words, in its current form, the R object 'df' does not hold the data itself (i.e., it is a *virtual* table); rather, it includes the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and the dplyr package can be used to manipulate and summarize the 'alltags' table before collecting the results into a typical "flat" format dataframe.
+
+The following table lists the parameters available in the 'alltags' table, along with a description of each parameter.
+
+```{r parameterTable, echo = FALSE}
+param.table <- dplyr::select(read.csv("./data/DatabaseParameters.csv"), 1:2)
+knitr::kable(param.table, caption = "Description of fields in the tag detections database") 
+```
+
+
+### Convert the virtual 'alltags' table to a flat dataframe
+
+If you want your entire dataframe in a typical "flat" format, i.e., with every record for each field filled in, you can use the collect() function.  The output can then be used to generate a .rds or .csv file of your data, but we caution that producing such a table using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets:
+
+```{r collect, eval = FALSE}
+df.flat <- df %>% collect %>% as.data.frame      ## for all fields in the df
+```
+
+```{r quickLook, eval = FALSE}
+head(df.flat)      ## Look at first 6 rows of your df
+summary(df.flat)   ## summary of each column in your df
+str(df.flat)       ## Look at the structure of your data fields
+names(df.flat)     ## field names
+```
+
+If you want to load only part of your entire data frame (eg. certain fields, only certain tags, all tags from a specified project, species, etc.), you can use dplyr funtions to filter results before collecting the data into a flat dataframe.  Some examples are below:
+
+1. To select certain fields;
+```{r collect1, eval = FALSE}
+df.flat.subset <- select(df, recv, ant, motusTagID) %>% distinct %>% collect %>% as.data.frame      ## to grab a subset of fields, in this case a unique list of motus tag IDs at each receiver and antenna.
+```
+
+2. To select certain tag IDs;
+```{r collect2, eval = FALSE}
+df.flat.subset <- filter(df, motusTagID %in% c(9939, 25643)) %>% collect %>% as.data.frame    ## filter to only include detections of motus tag IDs 9939 and 25643
+```
+
+3. To select a specified species;
+```{r collect3, eval = FALSE}
+df.flat.subset <- filter(df, speciesID == 15580) %>% collect %>% as.data.frame    ## filter to only include detections of Swainson's Thrush by species ID
+df.flat.subset <- filter(df, spEN == "Swainson's Thrush") %>% collect %>% as.data.frame    ## filter to only include detections of Swainson's Thrush by English name
+```
+
+You can also summarize your data before converting to a flat file. For example, to find the first hourly detection of each tag in each hour by receiver and antenna, you could do this:
+
+```{r collectSum, eval = FALSE}
+
+hourly <- df %>% mutate (hour = 3600 * round(ts / 3600, 0)) %>% distinct (recv, ant, motusTagID, hour)
+
+## and collect these into a data.frame
+
+hh <- hourly %>% collect %>% as.data.frame

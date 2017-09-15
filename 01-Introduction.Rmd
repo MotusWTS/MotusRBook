@@ -1,0 +1,35 @@
+
+
+# Introduction
+```{r fig1}
+knitr::include_graphics("F:/Motus/Motus_RPackage/pics/Motus-System-IG-final.png")
+```
+ <br>
+The Motus Wildlife Tracking System ('Motus'; Taylor et al. 2017; <https://www.motus.org>) is an international, collaborative automated radio-telemetry network that is used to track the movement and behaviour of primarily small flying organisms affixed with digitally encoded radio-transmitters.  Motus has its roots in the SensorGnome network piloted in 2012-2013. In 2014, a major infrastructure expansion was made possible through a Canada Foundation for Innovation grant to Western University, The University of Guelph, and Acadia University.  Since then, Motus has continued to grow through the collaboration of independent researchers and organizations <https://motus.org/about/>, and is now managed as a program of Bird Studies Canada (<https://www.birdscanada.org>) in partnership with Acadia University. 
+
+Motus is unique among automated telemetry arrays in that all researchers in a geographic region (e.g., the Americas or Europe) use a shared radio frequency. This allows tagged animals to be detected by any receiving station across the network, greatly broadening the spatial scope of potential research questions.  Motus users also use a shared data infrastructure and web portal: all data collected from across the network are centrally stored and archived, which allows users to access detections of their tags by anyone's receiver in the network, and individuals that maintain receivers have access to all detections of anyone's tags on those receivers.
+
+Having a shared data infrastructure also means that users can benefit from R functions written specifically for Motus data by any and all users. A Motus R package is in continual development, and the intent of this online 'handbook' is to help users learn how the various functionalities of the package, and additional R packages like ggplot, can be used to retrieve tag detections, explore, visualize, transform, and analyze Motus data. The content of the handbook will continue to evolve and grow along with the analytical needs of the network. Those interested in contributing code to the Motus R package or this handbook can send proposed additions to Tara Crewe (tcrewe@birdscanada.org) or Zoe Crysler (zcrysler@birdscanada.org) (??).  
+
+Taylor, P. D., T. L. Crewe, S. A. Mackenzie, D. Lepage, Y. Aubry, Z. Crysler, G. Finney, C. M. Francis, C. G. Guglielmo, D. J. Hamilton, R. L. Holberton, P. H. Loring, G. W. Mitchell, D. R. Noriis, J. Paquet, R. A. Ronconi, J. Smetzer, P. A. Smith, L. J. Welch, and B. K. Woodworth. 2017. The Motus Wildlife Tracking System: a collaborative research network to enhance the understanding of wildlife movement. Avian Conservation and Ecology 12(1):8. https://doi.org/10.5751/ACE-00953-120108.
+
+## What this book does not cover
+
+This book does not currently cover how to register radio tags with Motus, manage tags and station deployments, upload data, and so on. Information to guide you through those tasks can be found under the 'resources' tab on the Motus website at <https://motus.org/resources/>.  Please remember to register your tags and enter tag and station metadata with Motus prior to deploying your tags. Please also see <https://motus.org/policy/> to review our collaboration policy and tag registration and fee schedule.
+
+## Prerequisites
+
+This book assumes that you have a basic understanding of R. If you are new to R, we highly recommend 'R for Data Science' by Garrett Grolemund and Hadley Wickham (<http://r4ds.had.co.nz/>), which covers how to import, visualize, and summarize data in R using the Tidyverse collection of R packages <https://www.tidyverse.org/>. It also provides useful tips for organizing your workflow to create clean, reproducible code (<http://r4ds.had.co.nz/workflow-projects.html>). We follow their lead by using Tidyverse throughout this book, and where possible within the package functions.
+
+## How this book is organized
+
+Each section of this book will begin with a paragraph or figure describing the broader intention or outcome of the section, followed by details on how to get there using R. For example, the section on accessing and downloading tag detection data begins with a screenshot of the structure of a dataframe, followed by the R code required to access the data.
+
+## Acknowledgements
+
+Some of the text included in this book was adapted from John Brzustowski's github repository for the Motus R package at: <https://github.com/jbrzusto/motus>.
+
+Motus was conceived as the SensorGnome network by Philip Taylor and John Brzustowski at Acadia University. Initial expansion of the network was supported by a Canada Foundation for Innovation Grant to Western University (Christopher Guglielmo), The University of Guelph (D. Ryan Norris), and Acadia University (Philip Taylor). The development of the Motus web interface, R package, and accompanying handbook were made possible through a Canarie grant to Bird Studies Canada (<https://www.canarie.ca/>). Motus continues to grow as a program of Bird Studies Canada, through the collaboration of numerous independent researchers, organizations, and individuals. A non-exhaustive list of Motus partners and collaborators can be found at <https://motus.org/data/partners.jsp>. If your organization is not listed, please contact motus@birdscanada.org.
+
+Many people have worked together to bring Motus technology, the web interface, and R-package together. The core 'Motus Team' includes John Brzustowski, Zoe Crysler, Tara Crewe, Jeremy Hussell, Catherine Jardine, Denis Lepage, Stuart Mackenzie, Paul Morrill, and Philip Taylor. 
+

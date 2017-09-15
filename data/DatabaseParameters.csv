@@ -1,0 +1,59 @@
+Field,Description
+hitID,unique Motus ID for this tag detection
+runID,unique Motus ID for the run this detection belongs to
+batchID,unique Motus ID for the processing batch this detection came from
+ts,"Timestamp, in seconds since 1 Jan, 1970 GMT; precision: 0.1 ms (SG); 2.5 ms (Lotek). "
+sig,"Signal strength in ""native units""; for SG: dB (max) (logarithmic, 0 = max possible, -10 = 0.1 * max, etc.); for Lotek: raw value (0...255)	"
+sigSD,Std. dev. in signal strength among pulses in this burst. SG Only; NA for Lotek
+noise,"Estimate of background radio noise when tag detected, in dB (max) for SG; NA for Lotek"
+freq,"frequency offset from antenna listening frequency, in kHz for SG only; NA for Lote"
+freqSD,"Std. dev. of freq offset among pulses in this burst, in kHz. Values larger than 0.1 kHz suggest a bogus detection. SG only; NA for Lotek. "
+slop,Total absolute difference (milliseconds) in inter-pulse intervals for this burst between registration and detection. SG only; NA for Lotek
+burstSlop,"Signed difference (seconds) between detection and registration burst intervals.  This is always 0 for the first burst in a run (see posInRun)	"
+done,logical: is run finished?
+motusTagID,"Motus tag ID - unique to each individual tag registered	"
+ant,"Antenna code (for sensorgnomes, USB port number; for Lotek, whatever they use, usually numeric, but can be e.g. AH0)"
+runLen,"Number of tag bursts in the current run; constant for all records having the same runID	"
+bootnum,boot session of receiver for SG; NA for Lotek
+tagProjectID,The ID of the project that manages this tag. 
+id,manufacturer ID
+tagType,"all rows are ""ID""??"
+codeSet,"For coded tags, the name of the codeset (e.g. 'Lotek-3')"
+mfg,tag manufacturer
+tagModel,manufacturer's model name for a tag (e.g. 'NTQB-3-2')
+tagLifespan,Estimated lifespan of tag (days)
+nomFreq,"Nominal tag frequency  (MOTUS: Nominal frequency receiver was tuned to, in Mhz.  This really only applies to SG, where we usually tune 4 kHz below the nominal tag frequency.  So in that case, antFreq = 166.376 while nomFreq = 166.380	"
+tagBI,"burst interval of tag, in seconds (e.g., 5.8984)"
+pulseLen,"Tag pulse length (milliseconds), if applicable. This value is only assigned based on the sample recording of the tag."
+speciesID,Unique numeric Motus ID (integer) for the species on which the tag was deployed
+markerNumber,"Number for any additional marker placed on organism (e.g., bird band #)"
+markerType,Type of additional marker (e.g. metal band)
+depLat,"Latitude of tag deployment,  in decimal degrees N - negative values for Southern hemisphere"
+depLon,"Longitude of tag deployment, in decimal degrees E - negative values for Western hemisphere"
+depAlt,"Altitude of tag deployment, in meters ASL"
+comments,Additional comments or unclassified metadata for tag (often in JSON format)
+startCode,Integer code giving method for determining tag deployment start timestamp
+endCode,Integer code giving method for determining tag deployment end timestamp
+fullID,full tag ID as PROJECT#MFGID:BI@NOMFREQ. Not necessarily unique over time. See motusTagID for a unique tag
+recv,"Serial number of the receiver; e.g., SG-1234BBBK5678 or Lotek-12345"
+site,"Name assigned to a site by the project manager (e.g. location name). This field is optional, and the same label can be used for multiple deployments."
+isMobile,"Logical; whether the sensor is deployed on a mobile platform (eg. a ship)	"
+projID,"The unique (numeric) ID of the project that deployed this receiver (e.g., 8)"
+antType,"Character; Antenna Type, e.g. ""9-element Yagi"", ""Omni""	"
+antBearing,"Numeric; Compass direction antenna main axis is pointing at (degrees clockwise from local magnetic North 0-360°)	"
+antHeight,Numeric; Height (meters) of antenna main axis above ground
+cableLen,Numeric; Length of coax cable (meters) connecting antenna to funcubedongle radio (optional)
+cableType,Type of coax cable connecting antenna to funcubedongle radio (optional)
+mountDistance,Numeric; Distance (meters) between antenna mounting (axis centre) and receiver GPS; SG only
+mountBearing,Numeric; Bearing of base of antenna mounting from receiver GPS (degrees clockwise from magnetic north: 0-360); SG only
+polarization1,Numeric; Antenna polarization angle: azimuth component (degrees clockwise from local magnetic north)
+polarization2,Numeric; Antenna polarization angle: elevation component (degrees above horizon)
+spEN,Species English (common) name
+spFR,Species French (common) name
+spSci,Species scientific name
+spGroup,"Species group, e.g., BIRDS, BATS"
+tagProj,"Short label of project that deployed the tag, e.g., ""HolbSESA"""
+projID,Short label of project that deployed the receiver
+lat,Latitude of receiver GPS location at time of writing the hourly detections file (degrees North)
+lon,Longitude of receiver GPS  location at time of writing the hourly detections file (degrees East)
+alt,Altitude of receiver GPS at time of writing the hourly detections file (meters)

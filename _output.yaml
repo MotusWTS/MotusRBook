@@ -1,0 +1,8 @@
+bookdown::gitbook:
+  config:
+    toc:
+      collapse: section
+      before: |
+        <li><strong><a href="./">R for Motus</a></strong></li>
+
+
