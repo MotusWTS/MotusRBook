@@ -1,9 +1,6 @@
-# Loading the Motus R Package
+# Loading Required Packages
 
-Motus **users** can install the latest stable version of the Motus R package using the following code. You only need to install the packages once, but once installed, you do need to load each package (using library() or require()) each time you open a new R session. 
-
-Please note that some functionalities of the devtools package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of R (<https://www.r-project.org/>) and RStudio (<https://www.rstudio.com/products/RStudio/>), and update your R packages using update.pacakges() in the R console.
-
+Please note that some functionalities of the devtools package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of R (<https://www.r-project.org/>) and RStudio (<https://www.rstudio.com/products/RStudio/>), and update your R packages using update.packages() in the R console.
 
 ```{r update packages, eval = FALSE}
 update.packages()                         ## to update your existing R packages
@@ -13,19 +10,6 @@ update.packages()                         ## to update your existing R packages
 install.packages("devtools")              ## if you haven't already done this
 library(devtools)                         ## load devtools
 
-install_github("jbrzusto/motus@master")   ## the last stable version
-library(motus)
-```
-
-
-For **developers**, the 'staging' branch is for work-in-progress. Install it with:
-
-```{r install packages developer, eval = FALSE}   
-install.packages("devtools")               ## if you haven't already done this
-library(devtools) 
-
-install_github("jbrzusto/motus@staging")   ## the development version
-library(motus)
 ```
 
 Throughout the book, we use Tidyverse <https://www.tidyverse.org/>, which is a collection of R packages, including tidyr() and dplyr(). These can be installed with:
@@ -37,9 +21,6 @@ library(tidyverse)
 
 More information on Tidyverse can be found at <https://www.tidyverse.org/>, or by browsing 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>.
 
-## User Authentication
-
-The first time you call a function using the Motus R package, you will be asked for your motus.org username and password to authenticate your access to project data. This will only happen once per R session. If you do not have a Motus user name and password, you can sign up at <https://motus.org/data/user/new>. Permission to access project data will then be granted by Motus staff or the project principal investigator.
 
 ## Internal data processing
 

@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Motus</title>
   <meta name="description" content="R for Motus">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Motus" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,6 @@
 <meta name="author" content="Tara L. Crewe, Zoe Crysler, ?">
 
 
-<meta name="date" content="2017-09-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -119,11 +118,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#data-structure"><i class="fa fa-check"></i><b>3.3</b> Data structure</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#convert-the-virtual-alltags-table-to-a-flat-dataframe"><i class="fa fa-check"></i><b>3.3.1</b> Convert the virtual ‘alltags’ table to a flat dataframe</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#searching-for-false-positives"><i class="fa fa-check"></i><b>3.4</b> Searching for false positives</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html"><i class="fa fa-check"></i><b>4</b> Exploring data with the Motus R package</a><ul>
-<li class="chapter" data-level="4.1" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#summarizing-your-data"><i class="fa fa-check"></i><b>4.1</b> Summarizing your data</a></li>
-<li class="chapter" data-level="4.2" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#plotting-your-data"><i class="fa fa-check"></i><b>4.2</b> Plotting your data</a></li>
 </ul></li>
 </ul>
 
@@ -145,8 +139,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="loading-the-motus-r-package" class="section level1">
 <h1><span class="header-section-number">2</span> Loading the Motus R Package</h1>
 <p>Motus <strong>users</strong> can install the latest stable version of the Motus R package using the following code. You only need to install the packages once, but once installed, you do need to load each package (using library() or require()) each time you open a new R session.</p>
-<p>Please note that some functionalities of the devtools package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of R (<a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a>) and RStudio (<a href="https://www.rstudio.com/products/RStudio/" class="uri">https://www.rstudio.com/products/RStudio/</a>), and update your R packages using update.pacakges() in the R console.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update.packages</span>()                         ## to update your existing R packages</code></pre></div>
+<p>Please note that some functionalities of the devtools package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of R (<a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a>) and RStudio (<a href="https://www.rstudio.com/products/RStudio/" class="uri">https://www.rstudio.com/products/RStudio/</a>), and update your R packages using update.packages() in the R console.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)              ## if you haven&#39;t already done this
 <span class="kw">library</span>(devtools)                         ## load devtools
 
@@ -190,7 +183,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-gitbook.require(["gitbook"], function(gitbook) {
+require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
