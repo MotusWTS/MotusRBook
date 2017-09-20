@@ -2,24 +2,15 @@
 
 It is important to note that the success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators.  Users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.
 
-## Database types
+## Detection data
 
-There are two types of tag databases:
+The static files available for download from <https://motus.org/data/downloads> contains all detections of your registered tags from across the motus network.  A tag project database has a name like project-NNN.motus, where the NNN is the motus project ID.
 
-1. **receiver database**: includes all detections of any registered tags from a single receiver. A receiver database has a name like SG-1234BBBK5678.motus; where the name is the serial number of the receiver.
-
-2. **project database**: includes all detections of your registered tags from across the motus network. A tag project database has a name like project-123.motus, where the number is the motus project ID.
-
-
-These two databases correspond to the basic model of data sharing:
-
-1. you get all detections of anyone's tags by *your* receivers (i.e., one receiver tag database for each receiver you deploy)
-
-2. you get all detections of *your* tags by *anyone's* receivers (i.e., one project tag database for each of your motus projects)
+Eventually, the R package under development will allow you to download all detections of any registered tags from a single receiver that is registered to your project.
 
 ## Importing tag detections
 
-Your project's .motus file is available for download at <www.motus.org> under your project profile. Once downloaded, you can import your tag detections into R using the following code:
+Your project's .motus file is available for download at <www.motus.org/data/downloads> under your project profile. Once downloaded, **make sure that you have the appropriate packages installed and loaded in R as outlined in Chapter 2-LoadingPackage**. Once packages are loaded, you can import your tag detections into R using the following code:
 
 ```{r import, eval = FALSE}
 
@@ -116,5 +107,13 @@ hourly <- df %>% mutate (hour = 3600 * round(ts / 3600, 0)) %>% distinct (recv, 
 ## and collect these into a data.frame
 
 hh <- hourly %>% collect %>% as.data.frame
+
+```
+
+### Export a "flat" dataframe and save as a .csv on your computer
+The below example is how you would save the flat file called "df.flat" within R, as a .csv file called "motus_detecitons.csv" on your computer in the location C:/data.
+```{r collectSum, eval = FALSE}
+
+write.csv(df.flat, "C:/data/motus_detections.csv")  ## "df.flat"" is the name of the flat file within R that you want to convert to a .csv; "C:/data/" is the the location where you would like your .csv stored; "motus_detections.csv", is the name of the .csv file you are creating, this can be anything you like but must end with .csv.
 
 ```
