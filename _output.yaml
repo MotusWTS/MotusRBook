@@ -6,3 +6,5 @@ bookdown::gitbook:
         <li><strong><a href="./">R for Motus</a></strong></li>
 
 
+bookdown::pdf_book: 
+  latex_engine: "pdflatex" 

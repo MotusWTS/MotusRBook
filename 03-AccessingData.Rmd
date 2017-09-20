@@ -4,12 +4,6 @@ It is important to note that the success of the Motus network is dependent on th
 
 ## Database types
 
-```{r fig3}
-knitr::include_graphics("F:/Motus/Motus_RPackage/pics/DataStructure.png")
-```
-
-<br>
-
 There are two types of tag databases:
 
 1. **receiver database**: includes all detections of any registered tags from a single receiver. A receiver database has a name like SG-1234BBBK5678.motus; where the name is the serial number of the receiver.
@@ -122,3 +116,5 @@ hourly <- df %>% mutate (hour = 3600 * round(ts / 3600, 0)) %>% distinct (recv, 
 ## and collect these into a data.frame
 
 hh <- hourly %>% collect %>% as.data.frame
+
+```

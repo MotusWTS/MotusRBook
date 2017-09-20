@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Motus</title>
   <meta name="description" content="R for Motus">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Motus" />
   <meta property="og:type" content="book" />
@@ -22,7 +22,7 @@
   
   <meta name="twitter:image" content="MotusLogo.png" />
 
-<meta name="author" content="Tara L. Crewe, Zoe Crysler, ?">
+<meta name="author" content="Tara L. Crewe and Zoe Crysler">
 
 
 
@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="loading-the-motus-r-package.html">
+<link rel="prev" href="loading-required-packages.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -101,25 +101,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><strong><a href="./">R for Motus</a></strong></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>A walk through the use of R to analyze Motus automated radio-telemetry data</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>A walk through the use of R for Motus automated radio-telemetry data</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#what-this-book-does-not-cover"><i class="fa fa-check"></i><b>1.1</b> What this book does not cover</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.2</b> Prerequisites</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#how-this-book-is-organized"><i class="fa fa-check"></i><b>1.3</b> How this book is organized</a></li>
 <li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="loading-the-motus-r-package.html"><a href="loading-the-motus-r-package.html"><i class="fa fa-check"></i><b>2</b> Loading the Motus R Package</a><ul>
-<li class="chapter" data-level="2.1" data-path="loading-the-motus-r-package.html"><a href="loading-the-motus-r-package.html#user-authentication"><i class="fa fa-check"></i><b>2.1</b> User Authentication</a></li>
-<li class="chapter" data-level="2.2" data-path="loading-the-motus-r-package.html"><a href="loading-the-motus-r-package.html#internal-data-processing"><i class="fa fa-check"></i><b>2.2</b> Internal data processing</a></li>
+<li class="chapter" data-level="2" data-path="loading-required-packages.html"><a href="loading-required-packages.html"><i class="fa fa-check"></i><b>2</b> Loading Required Packages</a><ul>
+<li class="chapter" data-level="2.1" data-path="loading-required-packages.html"><a href="loading-required-packages.html#internal-data-processing"><i class="fa fa-check"></i><b>2.1</b> Internal data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
-<li class="chapter" data-level="3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#data-structure"><i class="fa fa-check"></i><b>3.1</b> Data structure</a></li>
-<li class="chapter" data-level="3.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#importing-tag-detections"><i class="fa fa-check"></i><b>3.2</b> Importing tag detections</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#download-data-for-a-project-or-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.2.1</b> Download data for a project or receiver for the <em>first time</em></a></li>
-<li class="chapter" data-level="3.2.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#open-a-local-tag-database"><i class="fa fa-check"></i><b>3.2.2</b> Open a local tag database</a></li>
-<li class="chapter" data-level="3.2.3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#update-and-open-a-local-tag-database"><i class="fa fa-check"></i><b>3.2.3</b> Update and open a local tag database</a></li>
-<li class="chapter" data-level="3.2.4" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#check-if-new-data-are-available"><i class="fa fa-check"></i><b>3.2.4</b> Check if new data are available</a></li>
-<li class="chapter" data-level="3.2.5" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#force-an-updatere-import-of-metadata"><i class="fa fa-check"></i><b>3.2.5</b> Force an update/re-import of metadata</a></li>
+<li class="chapter" data-level="3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#database-types"><i class="fa fa-check"></i><b>3.1</b> Database types</a></li>
+<li class="chapter" data-level="3.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#importing-tag-detections"><i class="fa fa-check"></i><b>3.2</b> Importing tag detections</a></li>
+<li class="chapter" data-level="3.3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#data-structure"><i class="fa fa-check"></i><b>3.3</b> Data structure</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#convert-the-virtual-alltags-table-to-a-flat-dataframe"><i class="fa fa-check"></i><b>3.3.1</b> Convert the virtual ‘alltags’ table to a flat dataframe</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -141,61 +137,325 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="accessing-and-understanding-detections-data" class="section level1">
 <h1><span class="header-section-number">3</span> Accessing and understanding detections data</h1>
-<div id="data-structure" class="section level2">
-<h2><span class="header-section-number">3.1</span> Data structure</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;F:/Motus/Motus_RPackage/pics/DataStructure.png&quot;</span>)</code></pre></div>
-<p><img src="F:/Motus/Motus_RPackage/pics/DataStructure.png" width="804" /></p>
-<p><br></p>
-<p>There are two types of tag database:</p>
+<p>It is important to note that the success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators. Users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.</p>
+<div id="database-types" class="section level2">
+<h2><span class="header-section-number">3.1</span> Database types</h2>
+<p>There are two types of tag databases:</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>receiver database</strong>: all detections of any tags from a single receiver. A receiver database has a name like SG-1234BBBK5678.motus; where the name is the serial number of the receiver.</p></li>
-<li><p><strong>project database</strong>: all detections of your tags from across the motus network A tag project database has a name like project-123.motus, where the number is the motus project ID.</p></li>
+<li><p><strong>receiver database</strong>: includes all detections of any registered tags from a single receiver. A receiver database has a name like SG-1234BBBK5678.motus; where the name is the serial number of the receiver.</p></li>
+<li><p><strong>project database</strong>: includes all detections of your registered tags from across the motus network. A tag project database has a name like project-123.motus, where the number is the motus project ID.</p></li>
 </ol>
 <p>These two databases correspond to the basic model of data sharing:</p>
 <ol style="list-style-type: decimal">
 <li><p>you get all detections of anyone’s tags by <em>your</em> receivers (i.e., one receiver tag database for each receiver you deploy)</p></li>
 <li><p>you get all detections of <em>your</em> tags by <em>anyone’s</em> receivers (i.e., one project tag database for each of your motus projects)</p></li>
 </ol>
-<p><br></p>
-<p>The following table lists the parameters downloaded with the project and receiver tag databases, along with a description of each parameter.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">param.table &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/DatabaseParameters.csv&quot;</span>)
-<span class="kw">library</span>(knitr)
-<span class="kw">kable</span>(param.table, <span class="dt">caption =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
-<p><br></p>
 </div>
 <div id="importing-tag-detections" class="section level2">
 <h2><span class="header-section-number">3.2</span> Importing tag detections</h2>
-<p>To import tag detections for your project or receiver, you need a numerical project id or character scalar receiver serial number.</p>
-<div id="download-data-for-a-project-or-receiver-for-the-first-time" class="section level3">
-<h3><span class="header-section-number">3.2.1</span> Download data for a project or receiver for the <em>first time</em></h3>
-<p>When downloading data for the first time, you must specify update = TRUE and new = TRUE. Unless the directory is stated explicitly within the function call, data will be downloaded to the current working directory:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>() <span class="co"># to see what the current working directory is. </span>
-<span class="co"># use setwd() if you want to change the working directory.</span>
-t &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> <span class="dv">123</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>)  <span class="co"># for project tag database OR:</span>
-t &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> <span class="st">&quot;SG-1234BBBK4567&quot;</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>)  <span class="co"># for receiver tag database</span></code></pre></div>
-<p>Or specify a directory to create and open a local tag database using “dir =”:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> <span class="dv">123</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;C:/Data/&quot;</span>) </code></pre></div>
+<p>Your project’s .motus file is available for download at &lt;www.motus.org&gt; under your project profile. Once downloaded, you can import your tag detections into R using the following code:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">file.name &lt;-<span class="st"> &quot;C:/data/project-123.motus&quot;</span>    ## replace with the full location of your project data
+t &lt;-<span class="st"> </span>dplyr::<span class="kw">src_sqlite</span>(file.name)</code></pre></div>
 </div>
-<div id="open-a-local-tag-database" class="section level3">
-<h3><span class="header-section-number">3.2.2</span> Open a local tag database</h3>
-<p>To open a database that already exists (has been downloaded previously):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> <span class="dv">123</span>) ## if the file is in the local working directory, OR:
-t &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> <span class="dv">123</span>, <span class="dt">dir =</span> <span class="st">&quot;C:/Data/&quot;</span>) ## use dir = to specify a directory</code></pre></div>
-</div>
-<div id="update-and-open-a-local-tag-database" class="section level3">
-<h3><span class="header-section-number">3.2.3</span> Update and open a local tag database</h3>
-<p>To download any new data for a project or receiver that has already been downloaded to a local file in the current directory:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> <span class="dv">123</span>)</code></pre></div>
-</div>
-<div id="check-if-new-data-are-available" class="section level3">
-<h3><span class="header-section-number">3.2.4</span> Check if new data are available</h3>
-<p>To check if new data are available without downloading the new data, you can add the countOnly parameter, which will provide a count of items that would need to be transferred to update the database. This assumes that a local copy of the database already exists:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> <span class="dv">123</span>, <span class="dt">countOnly =</span> <span class="ot">TRUE</span>)</code></pre></div>
-</div>
-<div id="force-an-updatere-import-of-metadata" class="section level3">
-<h3><span class="header-section-number">3.2.5</span> Force an update/re-import of metadata</h3>
-<p>Tag and receiver metadata are automatically merged with tag detections when data are downloaded. However, if you want to force a re-import of the metadata when updating a database, you can run:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> <span class="dv">123</span>, <span class="dt">forceMeta =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div id="data-structure" class="section level2">
+<h2><span class="header-section-number">3.3</span> Data structure</h2>
+<p>Your tag database is stored as an SQLite (‘dplyr::src_sqlite’) file with the extension ‘.motus’. The sqlite format was chosen because:</p>
+<ol style="list-style-type: decimal">
+<li>it is flexible, allowing for many data formats.</li>
+<li>it is accessible from many software platforms (not just R).</li>
+<li>it is <strong>appendable</strong>: the database can be created and updated on disk without having to read in and resave the entire contents. This will save time and computer memory when searching to see if any new detections are available for your project or receiver.</li>
+</ol>
+<p>The .motus file contains a series of interelated tables where data are stored in a condensed format to save memory. The following tables are included in the .motus file; a complete list of parameters stored in each table can be found in Appendix Table A1:</p>
+<ol style="list-style-type: decimal">
+<li>hits: detections data at the level of individual hits.</li>
+<li>runs: detections data associated with a run (continuous detections of a unique tag on a given receiver).</li>
+<li>batches: detections data for a given receiver and boot number.</li>
+<li>tags: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).</li>
+<li>tagDep: metadata related to tag deployments, e.g., deployment date, location, and species.</li>
+<li>recvDeps: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.</li>
+<li>antDeps: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.</li>
+<li>species: metadata related to species, e.g., unique identifier, scientific name, common name.</li>
+<li>projs: metadata related to projects, e.g., project name, principal investigator.</li>
+<li>gps: metadata related to gps position of receiver.</li>
+</ol>
+<p>Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be used to filter and summarize your .motus database, without needing to first save the data as a <em>flat</em> file, i.e., a typical two-dimensional dataframe with every record for each field filled in.</p>
+<p>Within the .motus database, the <em>virtual</em> table ‘alltags’ contains everything most users will need, and can be accessed using the dplyr tbl() function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">tbl</span>(t, <span class="st">&quot;alltags&quot;</span>)</code></pre></div>
+<p>If you look at the underlying structure of the data using str(), you will see that df is a list of length 2:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(df)</code></pre></div>
+<p>The first part of the list, ‘src’, is a list that provides details of the SQLiteConnection, which includes information on where the database is stored. The second part of the list, ‘ops’, is also a list, and includes the names of the variables included in the ‘alltags’ table. In other words, in its current form, the R object ‘df’ does not hold the data itself (i.e., it is a <em>virtual</em> table); rather, it includes the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and the dplyr package can be used to manipulate and summarize the ‘alltags’ table before collecting the results into a typical “flat” format dataframe.</p>
+<p>The following table lists the parameters available in the ‘alltags’ table, along with a description of each parameter.</p>
+<table>
+<caption><span id="tab:parameterTable">Table 3.1: </span>Description of fields in the tag detections database</caption>
+<thead>
+<tr class="header">
+<th align="left">Field</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">hitID</td>
+<td align="left">unique Motus ID for this tag detection</td>
+</tr>
+<tr class="even">
+<td align="left">runID</td>
+<td align="left">unique Motus ID for the run this detection belongs to</td>
+</tr>
+<tr class="odd">
+<td align="left">batchID</td>
+<td align="left">unique Motus ID for the processing batch this detection came from</td>
+</tr>
+<tr class="even">
+<td align="left">ts</td>
+<td align="left">timestamp, in seconds since 1 Jan, 1970 GMT; precision: 0.1 ms (SG); 2.5 ms (Lotek).</td>
+</tr>
+<tr class="odd">
+<td align="left">sig</td>
+<td align="left">signal strength in “native units”; for SG: dB (max) (logarithmic, 0 = max possible, -10 = 0.1 * max, etc.); for Lotek: raw value (0…255)</td>
+</tr>
+<tr class="even">
+<td align="left">sigSD</td>
+<td align="left">std. dev. in signal strength among pulses in this burst. SG Only; NA for Lotek</td>
+</tr>
+<tr class="odd">
+<td align="left">noise</td>
+<td align="left">estimate of background radio noise when tag detected, in dB (max) for SG; NA for Lotek</td>
+</tr>
+<tr class="even">
+<td align="left">freq</td>
+<td align="left">frequency offset from antenna listening frequency, in kHz for SG only; NA for Lote</td>
+</tr>
+<tr class="odd">
+<td align="left">freqSD</td>
+<td align="left">std. dev. of freq offset among pulses in this burst, in kHz. Values larger than 0.1 kHz suggest a bogus detection. SG only; NA for Lotek.</td>
+</tr>
+<tr class="even">
+<td align="left">slop</td>
+<td align="left">total absolute difference (milliseconds) in inter-pulse intervals for this burst between registration and detection. SG only; NA for Lotek</td>
+</tr>
+<tr class="odd">
+<td align="left">burstSlop</td>
+<td align="left">signed difference (seconds) between detection and registration burst intervals.  This is always 0 for the first burst in a run (see posInRun)</td>
+</tr>
+<tr class="even">
+<td align="left">done</td>
+<td align="left">logical: is run finished?</td>
+</tr>
+<tr class="odd">
+<td align="left">motusTagID</td>
+<td align="left">Motus tag ID - unique to each individual tag registered</td>
+</tr>
+<tr class="even">
+<td align="left">ant</td>
+<td align="left">antenna code (for sensorgnomes, USB port number; for Lotek, whatever they use, usually numeric, but can be e.g. AH0)</td>
+</tr>
+<tr class="odd">
+<td align="left">runLen</td>
+<td align="left">number of tag bursts in the current run; constant for all records having the same runID</td>
+</tr>
+<tr class="even">
+<td align="left">bootnum</td>
+<td align="left">boot session of receiver for SG; NA for Lotek</td>
+</tr>
+<tr class="odd">
+<td align="left">tagProjectID</td>
+<td align="left">ID of the project that manages this tag.</td>
+</tr>
+<tr class="even">
+<td align="left">id</td>
+<td align="left">manufacturer ID</td>
+</tr>
+<tr class="odd">
+<td align="left">tagType</td>
+<td align="left">all rows are “ID”??</td>
+</tr>
+<tr class="even">
+<td align="left">codeSet</td>
+<td align="left">for coded tags, the name of the codeset (e.g. ‘Lotek-3’)</td>
+</tr>
+<tr class="odd">
+<td align="left">mfg</td>
+<td align="left">tag manufacturer</td>
+</tr>
+<tr class="even">
+<td align="left">tagModel</td>
+<td align="left">manufacturer’s model name for a tag (e.g. ‘NTQB-3-2’)</td>
+</tr>
+<tr class="odd">
+<td align="left">tagLifespan</td>
+<td align="left">estimated lifespan of tag (days)</td>
+</tr>
+<tr class="even">
+<td align="left">nomFreq</td>
+<td align="left">nominal tag frequency (MOTUS: Nominal frequency receiver was tuned to, in Mhz.  This really only applies to SG, where we usually tune 4 kHz below the nominal tag frequency.  So in that case, antFreq = 166.376 while nomFreq = 166.380</td>
+</tr>
+<tr class="odd">
+<td align="left">tagBI</td>
+<td align="left">burst interval of tag, in seconds (e.g., 5.8984)</td>
+</tr>
+<tr class="even">
+<td align="left">pulseLen</td>
+<td align="left">tag pulse length (milliseconds), if applicable. This value is only assigned based on the sample recording of the tag.</td>
+</tr>
+<tr class="odd">
+<td align="left">speciesID</td>
+<td align="left">unique numeric Motus ID (integer) for the species on which the tag was deployed</td>
+</tr>
+<tr class="even">
+<td align="left">markerNumber</td>
+<td align="left">number for any additional marker placed on organism (e.g., bird band #)</td>
+</tr>
+<tr class="odd">
+<td align="left">markerType</td>
+<td align="left">type of additional marker (e.g. metal band)</td>
+</tr>
+<tr class="even">
+<td align="left">depLat</td>
+<td align="left">latitude of tag deployment, in decimal degrees N - negative values for Southern hemisphere</td>
+</tr>
+<tr class="odd">
+<td align="left">depLon</td>
+<td align="left">longitude of tag deployment, in decimal degrees E - negative values for Western hemisphere</td>
+</tr>
+<tr class="even">
+<td align="left">depAlt</td>
+<td align="left">altitude of tag deployment, in meters ASL</td>
+</tr>
+<tr class="odd">
+<td align="left">comments</td>
+<td align="left">additional comments or unclassified metadata for tag (often in JSON format)</td>
+</tr>
+<tr class="even">
+<td align="left">startCode</td>
+<td align="left">integer code giving method for determining tag deployment start timestamp</td>
+</tr>
+<tr class="odd">
+<td align="left">endCode</td>
+<td align="left">integer code giving method for determining tag deployment end timestamp</td>
+</tr>
+<tr class="even">
+<td align="left">fullID</td>
+<td align="left">full tag ID as PROJECT#MFGID:<a href="mailto:BI@NOMFREQ">BI@NOMFREQ</a>. Not necessarily unique over time. See motusTagID for a unique tag</td>
+</tr>
+<tr class="odd">
+<td align="left">recv</td>
+<td align="left">serial number of the receiver; e.g., SG-1234BBBK5678 or Lotek-12345</td>
+</tr>
+<tr class="even">
+<td align="left">site</td>
+<td align="left">name assigned to a site by the project manager (e.g. location name). This field is optional, and the same label can be used for multiple deployments.</td>
+</tr>
+<tr class="odd">
+<td align="left">isMobile</td>
+<td align="left">logical; whether the sensor is deployed on a mobile platform (eg. a ship)</td>
+</tr>
+<tr class="even">
+<td align="left">projID</td>
+<td align="left">unique (numeric) ID of the project that deployed this receiver (e.g., 8)</td>
+</tr>
+<tr class="odd">
+<td align="left">antType</td>
+<td align="left">character; antenna type, e.g. “9-element Yagi”, “Omni”</td>
+</tr>
+<tr class="even">
+<td align="left">antBearing</td>
+<td align="left">numeric; compass direction antenna main axis is pointing at (degrees clockwise from local magnetic North 0-360°)</td>
+</tr>
+<tr class="odd">
+<td align="left">antHeight</td>
+<td align="left">numeric; height (meters) of antenna main axis above ground</td>
+</tr>
+<tr class="even">
+<td align="left">cableLen</td>
+<td align="left">numeric; length of coax cable (meters) connecting antenna to funcubedongle radio (optional)</td>
+</tr>
+<tr class="odd">
+<td align="left">cableType</td>
+<td align="left">type of coax cable connecting antenna to funcubedongle radio (optional)</td>
+</tr>
+<tr class="even">
+<td align="left">mountDistance</td>
+<td align="left">numeric; distance (meters) between antenna mounting (axis centre) and receiver GPS; SG only</td>
+</tr>
+<tr class="odd">
+<td align="left">mountBearing</td>
+<td align="left">numeric; bearing of base of antenna mounting from receiver GPS (degrees clockwise from magnetic north: 0-360); SG only</td>
+</tr>
+<tr class="even">
+<td align="left">polarization1</td>
+<td align="left">numeric; antenna polarization angle: azimuth component (degrees clockwise from local magnetic north)</td>
+</tr>
+<tr class="odd">
+<td align="left">polarization2</td>
+<td align="left">numeric; antenna polarization angle: elevation component (degrees above horizon)</td>
+</tr>
+<tr class="even">
+<td align="left">spEN</td>
+<td align="left">species English (common) name</td>
+</tr>
+<tr class="odd">
+<td align="left">spFR</td>
+<td align="left">species French (common) name</td>
+</tr>
+<tr class="even">
+<td align="left">spSci</td>
+<td align="left">species scientific name</td>
+</tr>
+<tr class="odd">
+<td align="left">spGroup</td>
+<td align="left">species group, e.g., BIRDS, BATS</td>
+</tr>
+<tr class="even">
+<td align="left">tagProj</td>
+<td align="left">short label of project that deployed the tag, e.g., “HolbSESA”</td>
+</tr>
+<tr class="odd">
+<td align="left">projID</td>
+<td align="left">short label of project that deployed the receiver</td>
+</tr>
+<tr class="even">
+<td align="left">lat</td>
+<td align="left">latitude of receiver GPS location at time of writing the hourly detections file (degrees North)</td>
+</tr>
+<tr class="odd">
+<td align="left">lon</td>
+<td align="left">longitude of receiver GPS location at time of writing the hourly detections file (degrees East)</td>
+</tr>
+<tr class="even">
+<td align="left">alt</td>
+<td align="left">altitude of receiver GPS at time of writing the hourly detections file (meters)</td>
+</tr>
+</tbody>
+</table>
+<div id="convert-the-virtual-alltags-table-to-a-flat-dataframe" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Convert the virtual ‘alltags’ table to a flat dataframe</h3>
+<p>If you want your entire dataframe in a typical “flat” format, i.e., with every record for each field filled in, you can use the collect() function. The output can then be used to generate a .rds or .csv file of your data, but we caution that producing such a table using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.flat &lt;-<span class="st"> </span>df %&gt;%<span class="st"> </span>collect %&gt;%<span class="st"> </span>as.data.frame      ## for all fields in the df</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df.flat)      ## Look at first 6 rows of your df
+<span class="kw">summary</span>(df.flat)   ## summary of each column in your df
+<span class="kw">str</span>(df.flat)       ## Look at the structure of your data fields
+<span class="kw">names</span>(df.flat)     ## field names</code></pre></div>
+<p>If you want to load only part of your entire data frame (eg. certain fields, only certain tags, all tags from a specified project, species, etc.), you can use dplyr funtions to filter results before collecting the data into a flat dataframe. Some examples are below:</p>
+<ol style="list-style-type: decimal">
+<li>To select certain fields;</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.flat.subset &lt;-<span class="st"> </span><span class="kw">select</span>(df, recv, ant, motusTagID) %&gt;%<span class="st"> </span>distinct %&gt;%<span class="st"> </span>collect %&gt;%<span class="st"> </span>as.data.frame      ## to grab a subset of fields, in this case a unique list of motus tag IDs at each receiver and antenna.</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>To select certain tag IDs;</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.flat.subset &lt;-<span class="st"> </span><span class="kw">filter</span>(df, motusTagID %in%<span class="st"> </span><span class="kw">c</span>(<span class="dv">9939</span>, <span class="dv">25643</span>)) %&gt;%<span class="st"> </span>collect %&gt;%<span class="st"> </span>as.data.frame    ## filter to only include detections of motus tag IDs 9939 and 25643</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>To select a specified species;</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.flat.subset &lt;-<span class="st"> </span><span class="kw">filter</span>(df, speciesID ==<span class="st"> </span><span class="dv">15580</span>) %&gt;%<span class="st"> </span>collect %&gt;%<span class="st"> </span>as.data.frame    ## filter to only include detections of Swainson&#39;s Thrush by species ID
+df.flat.subset &lt;-<span class="st"> </span><span class="kw">filter</span>(df, spEN ==<span class="st"> &quot;Swainson&#39;s Thrush&quot;</span>) %&gt;%<span class="st"> </span>collect %&gt;%<span class="st"> </span>as.data.frame    ## filter to only include detections of Swainson&#39;s Thrush by English name</code></pre></div>
+<p>You can also summarize your data before converting to a flat file. For example, to find the first hourly detection of each tag in each hour by receiver and antenna, you could do this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hourly &lt;-<span class="st"> </span>df %&gt;%<span class="st"> </span><span class="kw">mutate</span> (<span class="dt">hour =</span> <span class="dv">3600</span> *<span class="st"> </span><span class="kw">round</span>(ts /<span class="st"> </span><span class="dv">3600</span>, <span class="dv">0</span>)) %&gt;%<span class="st"> </span><span class="kw">distinct</span> (recv, ant, motusTagID, hour)
+
+## and collect these into a data.frame
+
+hh &lt;-<span class="st"> </span>hourly %&gt;%<span class="st"> </span>collect %&gt;%<span class="st"> </span>as.data.frame</code></pre></div>
 
 </div>
 </div>
@@ -205,7 +465,7 @@ t &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">p
           </div>
         </div>
       </div>
-<a href="loading-the-motus-r-package.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="loading-required-packages.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
@@ -217,7 +477,7 @@ t &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">p
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -238,7 +498,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"download": ["MotusRBook.pdf"],
 "toc": {
 "collapse": "section"
 }
