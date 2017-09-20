@@ -22,17 +22,18 @@
   
   <meta name="twitter:image" content="MotusLogo.png" />
 
-<meta name="author" content="Tara L. Crewe and Zoe Crysler">
+<meta name="author" content="Tara L. Crewe, Zoe Crysler, ?">
 
 
+<meta name="date" content="2017-09-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="loading-required-packages.html">
-
+<link rel="prev" href="loading-the-motus-r-package.html">
+<link rel="next" href="exploring-data-with-the-motus-r-package.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -108,8 +109,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#how-this-book-is-organized"><i class="fa fa-check"></i><b>1.3</b> How this book is organized</a></li>
 <li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="loading-required-packages.html"><a href="loading-required-packages.html"><i class="fa fa-check"></i><b>2</b> Loading Required Packages</a><ul>
-<li class="chapter" data-level="2.1" data-path="loading-required-packages.html"><a href="loading-required-packages.html#internal-data-processing"><i class="fa fa-check"></i><b>2.1</b> Internal data processing</a></li>
+<li class="chapter" data-level="2" data-path="loading-the-motus-r-package.html"><a href="loading-the-motus-r-package.html"><i class="fa fa-check"></i><b>2</b> Loading the Motus R Package</a><ul>
+<li class="chapter" data-level="2.1" data-path="loading-the-motus-r-package.html"><a href="loading-the-motus-r-package.html#user-authentication"><i class="fa fa-check"></i><b>2.1</b> User Authentication</a></li>
+<li class="chapter" data-level="2.2" data-path="loading-the-motus-r-package.html"><a href="loading-the-motus-r-package.html#internal-data-processing"><i class="fa fa-check"></i><b>2.2</b> Internal data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
 <li class="chapter" data-level="3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#database-types"><i class="fa fa-check"></i><b>3.1</b> Database types</a></li>
@@ -117,6 +119,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#data-structure"><i class="fa fa-check"></i><b>3.3</b> Data structure</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#convert-the-virtual-alltags-table-to-a-flat-dataframe"><i class="fa fa-check"></i><b>3.3.1</b> Convert the virtual ‘alltags’ table to a flat dataframe</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#searching-for-false-positives"><i class="fa fa-check"></i><b>3.4</b> Searching for false positives</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html"><i class="fa fa-check"></i><b>4</b> Exploring data with the Motus R package</a><ul>
+<li class="chapter" data-level="4.1" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#summarizing-your-data"><i class="fa fa-check"></i><b>4.1</b> Summarizing your data</a></li>
+<li class="chapter" data-level="4.2" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#plotting-your-data"><i class="fa fa-check"></i><b>4.2</b> Plotting your data</a></li>
 </ul></li>
 </ul>
 
@@ -140,6 +147,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>It is important to note that the success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators. Users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.</p>
 <div id="database-types" class="section level2">
 <h2><span class="header-section-number">3.1</span> Database types</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::<span class="kw">include_graphics</span>(<span class="st">&quot;images/DataStructure.png&quot;</span>)</code></pre></div>
+<p><img src="images/DataStructure.png" /><!-- --></p>
+<p><br></p>
 <p>There are two types of tag databases:</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>receiver database</strong>: includes all detections of any registered tags from a single receiver. A receiver database has a name like SG-1234BBBK5678.motus; where the name is the serial number of the receiver.</p></li>
@@ -208,19 +218,19 @@ t &lt;-<span class="st"> </span>dplyr::<span class="kw">src_sqlite</span>(file.n
 </tr>
 <tr class="even">
 <td align="left">ts</td>
-<td align="left">timestamp, in seconds since 1 Jan, 1970 GMT; precision: 0.1 ms (SG); 2.5 ms (Lotek).</td>
+<td align="left">Timestamp, in seconds since 1 Jan, 1970 GMT; precision: 0.1 ms (SG); 2.5 ms (Lotek).</td>
 </tr>
 <tr class="odd">
 <td align="left">sig</td>
-<td align="left">signal strength in “native units”; for SG: dB (max) (logarithmic, 0 = max possible, -10 = 0.1 * max, etc.); for Lotek: raw value (0…255)</td>
+<td align="left">Signal strength in “native units”; for SG: dB (max) (logarithmic, 0 = max possible, -10 = 0.1 * max, etc.); for Lotek: raw value (0…255)</td>
 </tr>
 <tr class="even">
 <td align="left">sigSD</td>
-<td align="left">std. dev. in signal strength among pulses in this burst. SG Only; NA for Lotek</td>
+<td align="left">Std. dev. in signal strength among pulses in this burst. SG Only; NA for Lotek</td>
 </tr>
 <tr class="odd">
 <td align="left">noise</td>
-<td align="left">estimate of background radio noise when tag detected, in dB (max) for SG; NA for Lotek</td>
+<td align="left">Estimate of background radio noise when tag detected, in dB (max) for SG; NA for Lotek</td>
 </tr>
 <tr class="even">
 <td align="left">freq</td>
@@ -228,15 +238,15 @@ t &lt;-<span class="st"> </span>dplyr::<span class="kw">src_sqlite</span>(file.n
 </tr>
 <tr class="odd">
 <td align="left">freqSD</td>
-<td align="left">std. dev. of freq offset among pulses in this burst, in kHz. Values larger than 0.1 kHz suggest a bogus detection. SG only; NA for Lotek.</td>
+<td align="left">Std. dev. of freq offset among pulses in this burst, in kHz. Values larger than 0.1 kHz suggest a bogus detection. SG only; NA for Lotek.</td>
 </tr>
 <tr class="even">
 <td align="left">slop</td>
-<td align="left">total absolute difference (milliseconds) in inter-pulse intervals for this burst between registration and detection. SG only; NA for Lotek</td>
+<td align="left">Total absolute difference (milliseconds) in inter-pulse intervals for this burst between registration and detection. SG only; NA for Lotek</td>
 </tr>
 <tr class="odd">
 <td align="left">burstSlop</td>
-<td align="left">signed difference (seconds) between detection and registration burst intervals.  This is always 0 for the first burst in a run (see posInRun)</td>
+<td align="left">Signed difference (seconds) between detection and registration burst intervals.  This is always 0 for the first burst in a run (see posInRun)</td>
 </tr>
 <tr class="even">
 <td align="left">done</td>
@@ -248,11 +258,11 @@ t &lt;-<span class="st"> </span>dplyr::<span class="kw">src_sqlite</span>(file.n
 </tr>
 <tr class="even">
 <td align="left">ant</td>
-<td align="left">antenna code (for sensorgnomes, USB port number; for Lotek, whatever they use, usually numeric, but can be e.g. AH0)</td>
+<td align="left">Antenna code (for sensorgnomes, USB port number; for Lotek, whatever they use, usually numeric, but can be e.g. AH0)</td>
 </tr>
 <tr class="odd">
 <td align="left">runLen</td>
-<td align="left">number of tag bursts in the current run; constant for all records having the same runID</td>
+<td align="left">Number of tag bursts in the current run; constant for all records having the same runID</td>
 </tr>
 <tr class="even">
 <td align="left">bootnum</td>
@@ -260,7 +270,7 @@ t &lt;-<span class="st"> </span>dplyr::<span class="kw">src_sqlite</span>(file.n
 </tr>
 <tr class="odd">
 <td align="left">tagProjectID</td>
-<td align="left">ID of the project that manages this tag.</td>
+<td align="left">The ID of the project that manages this tag.</td>
 </tr>
 <tr class="even">
 <td align="left">id</td>
@@ -272,7 +282,7 @@ t &lt;-<span class="st"> </span>dplyr::<span class="kw">src_sqlite</span>(file.n
 </tr>
 <tr class="even">
 <td align="left">codeSet</td>
-<td align="left">for coded tags, the name of the codeset (e.g. ‘Lotek-3’)</td>
+<td align="left">For coded tags, the name of the codeset (e.g. ‘Lotek-3’)</td>
 </tr>
 <tr class="odd">
 <td align="left">mfg</td>
@@ -284,11 +294,11 @@ t &lt;-<span class="st"> </span>dplyr::<span class="kw">src_sqlite</span>(file.n
 </tr>
 <tr class="odd">
 <td align="left">tagLifespan</td>
-<td align="left">estimated lifespan of tag (days)</td>
+<td align="left">Estimated lifespan of tag (days)</td>
 </tr>
 <tr class="even">
 <td align="left">nomFreq</td>
-<td align="left">nominal tag frequency (MOTUS: Nominal frequency receiver was tuned to, in Mhz.  This really only applies to SG, where we usually tune 4 kHz below the nominal tag frequency.  So in that case, antFreq = 166.376 while nomFreq = 166.380</td>
+<td align="left">Nominal tag frequency (MOTUS: Nominal frequency receiver was tuned to, in Mhz.  This really only applies to SG, where we usually tune 4 kHz below the nominal tag frequency.  So in that case, antFreq = 166.376 while nomFreq = 166.380</td>
 </tr>
 <tr class="odd">
 <td align="left">tagBI</td>
@@ -296,43 +306,43 @@ t &lt;-<span class="st"> </span>dplyr::<span class="kw">src_sqlite</span>(file.n
 </tr>
 <tr class="even">
 <td align="left">pulseLen</td>
-<td align="left">tag pulse length (milliseconds), if applicable. This value is only assigned based on the sample recording of the tag.</td>
+<td align="left">Tag pulse length (milliseconds), if applicable. This value is only assigned based on the sample recording of the tag.</td>
 </tr>
 <tr class="odd">
 <td align="left">speciesID</td>
-<td align="left">unique numeric Motus ID (integer) for the species on which the tag was deployed</td>
+<td align="left">Unique numeric Motus ID (integer) for the species on which the tag was deployed</td>
 </tr>
 <tr class="even">
 <td align="left">markerNumber</td>
-<td align="left">number for any additional marker placed on organism (e.g., bird band #)</td>
+<td align="left">Number for any additional marker placed on organism (e.g., bird band #)</td>
 </tr>
 <tr class="odd">
 <td align="left">markerType</td>
-<td align="left">type of additional marker (e.g. metal band)</td>
+<td align="left">Type of additional marker (e.g. metal band)</td>
 </tr>
 <tr class="even">
 <td align="left">depLat</td>
-<td align="left">latitude of tag deployment, in decimal degrees N - negative values for Southern hemisphere</td>
+<td align="left">Latitude of tag deployment, in decimal degrees N - negative values for Southern hemisphere</td>
 </tr>
 <tr class="odd">
 <td align="left">depLon</td>
-<td align="left">longitude of tag deployment, in decimal degrees E - negative values for Western hemisphere</td>
+<td align="left">Longitude of tag deployment, in decimal degrees E - negative values for Western hemisphere</td>
 </tr>
 <tr class="even">
 <td align="left">depAlt</td>
-<td align="left">altitude of tag deployment, in meters ASL</td>
+<td align="left">Altitude of tag deployment, in meters ASL</td>
 </tr>
 <tr class="odd">
 <td align="left">comments</td>
-<td align="left">additional comments or unclassified metadata for tag (often in JSON format)</td>
+<td align="left">Additional comments or unclassified metadata for tag (often in JSON format)</td>
 </tr>
 <tr class="even">
 <td align="left">startCode</td>
-<td align="left">integer code giving method for determining tag deployment start timestamp</td>
+<td align="left">Integer code giving method for determining tag deployment start timestamp</td>
 </tr>
 <tr class="odd">
 <td align="left">endCode</td>
-<td align="left">integer code giving method for determining tag deployment end timestamp</td>
+<td align="left">Integer code giving method for determining tag deployment end timestamp</td>
 </tr>
 <tr class="even">
 <td align="left">fullID</td>
@@ -340,91 +350,91 @@ t &lt;-<span class="st"> </span>dplyr::<span class="kw">src_sqlite</span>(file.n
 </tr>
 <tr class="odd">
 <td align="left">recv</td>
-<td align="left">serial number of the receiver; e.g., SG-1234BBBK5678 or Lotek-12345</td>
+<td align="left">Serial number of the receiver; e.g., SG-1234BBBK5678 or Lotek-12345</td>
 </tr>
 <tr class="even">
 <td align="left">site</td>
-<td align="left">name assigned to a site by the project manager (e.g. location name). This field is optional, and the same label can be used for multiple deployments.</td>
+<td align="left">Name assigned to a site by the project manager (e.g. location name). This field is optional, and the same label can be used for multiple deployments.</td>
 </tr>
 <tr class="odd">
 <td align="left">isMobile</td>
-<td align="left">logical; whether the sensor is deployed on a mobile platform (eg. a ship)</td>
+<td align="left">Logical; whether the sensor is deployed on a mobile platform (eg. a ship)</td>
 </tr>
 <tr class="even">
 <td align="left">projID</td>
-<td align="left">unique (numeric) ID of the project that deployed this receiver (e.g., 8)</td>
+<td align="left">The unique (numeric) ID of the project that deployed this receiver (e.g., 8)</td>
 </tr>
 <tr class="odd">
 <td align="left">antType</td>
-<td align="left">character; antenna type, e.g. “9-element Yagi”, “Omni”</td>
+<td align="left">Character; Antenna Type, e.g. “9-element Yagi”, “Omni”</td>
 </tr>
 <tr class="even">
 <td align="left">antBearing</td>
-<td align="left">numeric; compass direction antenna main axis is pointing at (degrees clockwise from local magnetic North 0-360°)</td>
+<td align="left">Numeric; Compass direction antenna main axis is pointing at (degrees clockwise from local magnetic North 0-360°)</td>
 </tr>
 <tr class="odd">
 <td align="left">antHeight</td>
-<td align="left">numeric; height (meters) of antenna main axis above ground</td>
+<td align="left">Numeric; Height (meters) of antenna main axis above ground</td>
 </tr>
 <tr class="even">
 <td align="left">cableLen</td>
-<td align="left">numeric; length of coax cable (meters) connecting antenna to funcubedongle radio (optional)</td>
+<td align="left">Numeric; Length of coax cable (meters) connecting antenna to funcubedongle radio (optional)</td>
 </tr>
 <tr class="odd">
 <td align="left">cableType</td>
-<td align="left">type of coax cable connecting antenna to funcubedongle radio (optional)</td>
+<td align="left">Type of coax cable connecting antenna to funcubedongle radio (optional)</td>
 </tr>
 <tr class="even">
 <td align="left">mountDistance</td>
-<td align="left">numeric; distance (meters) between antenna mounting (axis centre) and receiver GPS; SG only</td>
+<td align="left">Numeric; Distance (meters) between antenna mounting (axis centre) and receiver GPS; SG only</td>
 </tr>
 <tr class="odd">
 <td align="left">mountBearing</td>
-<td align="left">numeric; bearing of base of antenna mounting from receiver GPS (degrees clockwise from magnetic north: 0-360); SG only</td>
+<td align="left">Numeric; Bearing of base of antenna mounting from receiver GPS (degrees clockwise from magnetic north: 0-360); SG only</td>
 </tr>
 <tr class="even">
 <td align="left">polarization1</td>
-<td align="left">numeric; antenna polarization angle: azimuth component (degrees clockwise from local magnetic north)</td>
+<td align="left">Numeric; Antenna polarization angle: azimuth component (degrees clockwise from local magnetic north)</td>
 </tr>
 <tr class="odd">
 <td align="left">polarization2</td>
-<td align="left">numeric; antenna polarization angle: elevation component (degrees above horizon)</td>
+<td align="left">Numeric; Antenna polarization angle: elevation component (degrees above horizon)</td>
 </tr>
 <tr class="even">
 <td align="left">spEN</td>
-<td align="left">species English (common) name</td>
+<td align="left">Species English (common) name</td>
 </tr>
 <tr class="odd">
 <td align="left">spFR</td>
-<td align="left">species French (common) name</td>
+<td align="left">Species French (common) name</td>
 </tr>
 <tr class="even">
 <td align="left">spSci</td>
-<td align="left">species scientific name</td>
+<td align="left">Species scientific name</td>
 </tr>
 <tr class="odd">
 <td align="left">spGroup</td>
-<td align="left">species group, e.g., BIRDS, BATS</td>
+<td align="left">Species group, e.g., BIRDS, BATS</td>
 </tr>
 <tr class="even">
 <td align="left">tagProj</td>
-<td align="left">short label of project that deployed the tag, e.g., “HolbSESA”</td>
+<td align="left">Short label of project that deployed the tag, e.g., “HolbSESA”</td>
 </tr>
 <tr class="odd">
 <td align="left">projID</td>
-<td align="left">short label of project that deployed the receiver</td>
+<td align="left">Short label of project that deployed the receiver</td>
 </tr>
 <tr class="even">
 <td align="left">lat</td>
-<td align="left">latitude of receiver GPS location at time of writing the hourly detections file (degrees North)</td>
+<td align="left">Latitude of receiver GPS location at time of writing the hourly detections file (degrees North)</td>
 </tr>
 <tr class="odd">
 <td align="left">lon</td>
-<td align="left">longitude of receiver GPS location at time of writing the hourly detections file (degrees East)</td>
+<td align="left">Longitude of receiver GPS location at time of writing the hourly detections file (degrees East)</td>
 </tr>
 <tr class="even">
 <td align="left">alt</td>
-<td align="left">altitude of receiver GPS at time of writing the hourly detections file (meters)</td>
+<td align="left">Altitude of receiver GPS at time of writing the hourly detections file (meters)</td>
 </tr>
 </tbody>
 </table>
@@ -455,9 +465,63 @@ df.flat.subset &lt;-<span class="st"> </span><span class="kw">filter</span>(df, 
 
 ## and collect these into a data.frame
 
-hh &lt;-<span class="st"> </span>hourly %&gt;%<span class="st"> </span>collect %&gt;%<span class="st"> </span>as.data.frame</code></pre></div>
+hh &lt;-<span class="st"> </span>hourly %&gt;%<span class="st"> </span>collect %&gt;%<span class="st"> </span>as.data.frame
 
+&lt;!--chapter:end:<span class="dv">03</span>-AccessingData.Rmd--&gt;
+
+<span class="co"># Checking Metadata and Cleaning False Positives</span>
+
+Once you have your data in R, it is good practice to run data summaries to check for missing tag or receiver deployment metadata and for false positive detections of your tags.  
+
+## Checking for missing metadata
+
+Ensuring your metadata is up to date and accurate means detection data will be be properly linked to your project, and allow other users to benefit fully from the network.
+
+**Missing or incorrect tag metadata**<span class="st"> </span>can result in a lack of tag detections in your data. For example, if deployment date is missing or wrong, the tag finder, which processes the data from each receiver in the network, might not look for your tag in the data, or might not look at the appropriate time when the tag is actually active. This will result in missing tags in your detections data.
+
+**Missing or incorrect receiver metadata**<span class="st"> </span>can result in a loss of information for both your project and the projects of other Motus users. For example, missing deployment latitude and longitude can result in a loss of information on the location of a receiver. Particularly when the same receiver is moved from one location to another, it is important your metadata reflect this, so that other users can properly analyze their data. Receiving antenna properties
+
+### Tag Metadata
+
+Only tags registered with <span class="kw">Motus</span> (&lt;https:<span class="er">//</span>motus.org/tag-registration/<span class="er">&gt;</span>) prior to deployment will appear in detection data.  To view a full list of tags registered to your project:
+
+<span class="er">**</span>INSERT CODE**
+
+If previously registered tags are missing from your data, please contact motus@birdscanada.org
+
+Required tag metadata includes deployment start date/time, end date/time if applicable, deployment latitude, deployment longitude, and species.  You can determine which of your tags are missing this metadata as follows:
+
+<span class="er">**</span>INSERT CODE**
+
+Please update missing tag metadata online at &lt;www.motus.org&gt;<span class="st"> </span>by logging in to your project and selecting the <span class="st">&#39;Manage your tags&#39;</span> option.
+
+### Receiver Metadata
+
+To obtain detection data from a receiver, it must be registered online to your project by it<span class="st">&#39;s serial number.  Receiver deployments are then required to link the appropriate metadata to each detection.  To determine a list of receivers registered to your project:</span>
+
+<span class="st">***INSERT CODE***</span>
+
+<span class="st">If you are missing any receivers, please register them online through your project management page</span>
+
+<span class="st">Each receiver requires a deployment which includes a deployment name, site, station type, deployment start/end dates/times, latitude, longitude, and antenna properties including port number, antenna type, and bearing. To view a full list of your current deployments:</span>
+
+<span class="st">***INSERT CODE***</span>
+
+<span class="st">To view which current deployments are missing required information:</span>
+
+<span class="st">***INSERT CODE***</span>
+
+<span class="st">Any missing receiver metadata needs to be updated online.</span>
+
+<span class="st">If you have updated any metadata online, you&#39;</span>ll need to force an update on the data you have downloaded, it<span class="st">&#39;s good practice to check for updates prior to any analysis as other users may have updated metadata associated with your detection files:</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> <span class="dv">123</span>, <span class="dt">forceMeta =</span> <span class="ot">TRUE</span>)</code></pre></div>
 </div>
+</div>
+<div id="searching-for-false-positives" class="section level2">
+<h2><span class="header-section-number">3.4</span> Searching for false positives</h2>
+<p>You may need to check it for false positives, particularely at sites with high levels of background noise, below we outline a number of ways to determine if detections are likely false positives.</p>
+<p><strong><em>NOT DONE</em></strong></p>
+
 </div>
 </div>
             </section>
@@ -465,8 +529,8 @@ hh &lt;-<span class="st"> </span>hourly %&gt;%<span class="st"> </span>collect %
           </div>
         </div>
       </div>
-<a href="loading-required-packages.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="loading-the-motus-r-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exploring-data-with-the-motus-r-package.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -498,7 +562,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["MotusRBook.pdf"],
+"download": null,
 "toc": {
 "collapse": "section"
 }
