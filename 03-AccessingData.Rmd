@@ -10,7 +10,7 @@ Eventually, the R package under development will allow you to download all detec
 
 ## Importing tag detections
 
-Your project's .motus file is available for download at <www.motus.org/data/downloads> under your project profile. Once downloaded, **make sure that you have the appropriate packages installed and loaded in R as outlined in Chapter 2-LoadingPackage**. Once packages are loaded, you can import your tag detections into R using the following code:
+Your project's .motus file is available for download at <https://motus.org/data/downloads> under your project profile. Once downloaded, **make sure that you have the appropriate packages installed and loaded in R as outlined in Chapter 2-LoadingPackage**. Once packages are loaded, you can import your tag detections into R using the following code:
 
 ```{r import, eval = FALSE}
 
@@ -114,6 +114,8 @@ hh <- hourly %>% collect %>% as.data.frame
 The below example is how you would save the flat file called "df.flat" within R, as a .csv file called "motus_detecitons.csv" on your computer in the location C:/data.
 ```{r collectSum, eval = FALSE}
 
-write.csv(df.flat, "C:/data/motus_detections.csv")  ## "df.flat"" is the name of the flat file within R that you want to convert to a .csv; "C:/data/" is the the location where you would like your .csv stored; "motus_detections.csv", is the name of the .csv file you are creating, this can be anything you like but must end with .csv.
+write.csv(df.flat, "C:/data/motus_detections.csv")  ## "df.flat"" is the name of the flat file within R that you want to convert to a .csv
+## "C:/data/" is the the location where you would like your .csv stored
+## "motus_detections.csv", is the name of the .csv file you are creating, this can be anything you like but must end with .csv.
 
 ```
