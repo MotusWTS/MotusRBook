@@ -2,26 +2,11 @@
 
 It is important to note that the success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators.  Users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.
 
-## Database types
+## Detection Data
 
-```{r fig3}
-knitr::include_graphics("images/DataStructure.png")
-```
+The static files available for download from <https://motus.org/data/downloads> contains all detections of your registered tags from across the motus network. A tag project database has a name like project-NNN.motus, where the NNN is the motus project ID.
 
-<br>
-
-There are two types of tag databases:
-
-1. **receiver database**: includes all detections of any registered tags from a single receiver. A receiver database has a name like SG-1234BBBK5678.motus; where the name is the serial number of the receiver.
-
-2. **project database**: includes all detections of your registered tags from across the motus network. A tag project database has a name like project-123.motus, where the number is the motus project ID.
-
-
-These two databases correspond to the basic model of data sharing:
-
-1. you get all detections of anyone's tags by *your* receivers (i.e., one receiver tag database for each receiver you deploy)
-
-2. you get all detections of *your* tags by *anyone's* receivers (i.e., one project tag database for each of your motus projects)
+Eventually, the R package under development will allow you to download all detections of any registered tags from a single receiver that is registered to your project.
 
 ## Importing tag detections
 
