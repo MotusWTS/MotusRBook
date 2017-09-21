@@ -1,0 +1,38 @@
+<project name="MotusRBook" default="beta" basedir=".">
+ <property file="build.properties" />
+
+ <target name="live" description="copy the Motus R Book to the live server">
+  <deployBook server="live" />
+ </target>
+
+ <target name="beta" description="copy the Motus R Book to the beta server">
+  <deployBook server="beta" />
+ </target>
+
+ <target name="sandbox" description="copy the Motus R Book to the sandbox server" >
+  <deployBook server="sandbox" />
+ </target>
+
+ <macrodef name="deployBook">
+  <attribute name="server" />
+  <sequential>
+   <toRemote server="@{server}" remoteDir="motus_@{server}_iis/MotusRBook" localDir="_book">
+    <include name="/**/*" />
+   </toRemote>
+  </sequential>
+ </macrodef>
+
+ <macrodef name="toRemote">
+  <attribute name="server" />
+  <attribute name="remoteDir" />
+  <attribute name="localDir" />
+  <element name="filesToCopy" implicit="yes" />
+  <sequential>
+   <ftp userid="${@{server}.ftp.userid}" password="${@{server}.ftp.password}" server="174.140.177.45" port="212" remotedir="@{remoteDir}" verbose="yes" passive="yes" depends="yes" timediffauto="true" timestampGranularity="NONE">
+    <fileset dir="@{localDir}">
+     <filesToCopy />
+    </fileset>
+   </ftp>
+  </sequential>
+ </macrodef>
+</project>
