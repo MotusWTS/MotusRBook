@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Motus</title>
   <meta name="description" content="R for Motus">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Motus" />
   <meta property="og:type" content="book" />
@@ -152,11 +152,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="accessing-and-understanding-detections-data" class="section level1">
 <h1><span class="header-section-number">3</span> Accessing and understanding detections data</h1>
-<p>It is important to note that the success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators. Users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.</p>
+<p>It’s important to note that the success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators. Users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.</p>
 <div id="database-types" class="section level2">
 <h2><span class="header-section-number">3.1</span> Database types</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;images/DataStructure.png&quot;</span>)</code></pre></div>
-<p><img src="images/DataStructure.png" width="804" /></p>
+<p><img src="images/DataStructure.PNG" width="804" /></p>
 <p><br></p>
 <p>There are two types of tag databases:</p>
 <ol style="list-style-type: decimal">
@@ -226,19 +226,19 @@ t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">
 </tr>
 <tr class="even">
 <td align="left">ts</td>
-<td align="left">Timestamp, in seconds since 1 Jan, 1970 GMT; precision: 0.1 ms (SG); 2.5 ms (Lotek).</td>
+<td align="left">timestamp, in seconds since 1 Jan, 1970 GMT; precision: 0.1 ms (SG); 2.5 ms (Lotek).</td>
 </tr>
 <tr class="odd">
 <td align="left">sig</td>
-<td align="left">Signal strength in “native units”; for SG: dB (max) (logarithmic, 0 = max possible, -10 = 0.1 * max, etc.); for Lotek: raw value (0…255)</td>
+<td align="left">signal strength in “native units”; for SG: dB (max) (logarithmic, 0 = max possible, -10 = 0.1 * max, etc.); for Lotek: raw value (0…255)</td>
 </tr>
 <tr class="even">
 <td align="left">sigSD</td>
-<td align="left">Std. dev. in signal strength among pulses in this burst. SG Only; NA for Lotek</td>
+<td align="left">std. dev. in signal strength among pulses in this burst. SG Only; NA for Lotek</td>
 </tr>
 <tr class="odd">
 <td align="left">noise</td>
-<td align="left">Estimate of background radio noise when tag detected, in dB (max) for SG; NA for Lotek</td>
+<td align="left">estimate of background radio noise when tag detected, in dB (max) for SG; NA for Lotek</td>
 </tr>
 <tr class="even">
 <td align="left">freq</td>
@@ -246,15 +246,15 @@ t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">
 </tr>
 <tr class="odd">
 <td align="left">freqSD</td>
-<td align="left">Std. dev. of freq offset among pulses in this burst, in kHz. Values larger than 0.1 kHz suggest a bogus detection. SG only; NA for Lotek.</td>
+<td align="left">std. dev. of freq offset among pulses in this burst, in kHz. Values larger than 0.1 kHz suggest a bogus detection. SG only; NA for Lotek.</td>
 </tr>
 <tr class="even">
 <td align="left">slop</td>
-<td align="left">Total absolute difference (milliseconds) in inter-pulse intervals for this burst between registration and detection. SG only; NA for Lotek</td>
+<td align="left">total absolute difference (milliseconds) in inter-pulse intervals for this burst between registration and detection. SG only; NA for Lotek</td>
 </tr>
 <tr class="odd">
 <td align="left">burstSlop</td>
-<td align="left">Signed difference (seconds) between detection and registration burst intervals.  This is always 0 for the first burst in a run (see posInRun)</td>
+<td align="left">signed difference (seconds) between detection and registration burst intervals. This is always 0 for the first burst in a run (see posInRun)</td>
 </tr>
 <tr class="even">
 <td align="left">done</td>
@@ -266,11 +266,11 @@ t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">
 </tr>
 <tr class="even">
 <td align="left">ant</td>
-<td align="left">Antenna code (for sensorgnomes, USB port number; for Lotek, whatever they use, usually numeric, but can be e.g. AH0)</td>
+<td align="left">antenna code (for sensorgnomes, USB port number; for Lotek, whatever they use, usually numeric, but can be e.g. AH0)</td>
 </tr>
 <tr class="odd">
 <td align="left">runLen</td>
-<td align="left">Number of tag bursts in the current run; constant for all records having the same runID</td>
+<td align="left">number of tag bursts in the current run; constant for all records having the same runID</td>
 </tr>
 <tr class="even">
 <td align="left">bootnum</td>
@@ -278,7 +278,7 @@ t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">
 </tr>
 <tr class="odd">
 <td align="left">tagProjectID</td>
-<td align="left">The ID of the project that manages this tag.</td>
+<td align="left">ID of the project that manages this tag.</td>
 </tr>
 <tr class="even">
 <td align="left">id</td>
@@ -290,7 +290,7 @@ t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">
 </tr>
 <tr class="even">
 <td align="left">codeSet</td>
-<td align="left">For coded tags, the name of the codeset (e.g. ‘Lotek-3’)</td>
+<td align="left">for coded tags, the name of the codeset (e.g. ‘Lotek-3’)</td>
 </tr>
 <tr class="odd">
 <td align="left">mfg</td>
@@ -302,11 +302,11 @@ t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">
 </tr>
 <tr class="odd">
 <td align="left">tagLifespan</td>
-<td align="left">Estimated lifespan of tag (days)</td>
+<td align="left">estimated lifespan of tag (days)</td>
 </tr>
 <tr class="even">
 <td align="left">nomFreq</td>
-<td align="left">Nominal tag frequency (MOTUS: Nominal frequency receiver was tuned to, in Mhz.  This really only applies to SG, where we usually tune 4 kHz below the nominal tag frequency.  So in that case, antFreq = 166.376 while nomFreq = 166.380</td>
+<td align="left">nominal tag frequency (MOTUS: Nominal frequency receiver was tuned to, in Mhz. This really only applies to SG, where we usually tune 4 kHz below the nominal tag frequency. So in that case, antFreq = 166.376 while nomFreq = 166.380</td>
 </tr>
 <tr class="odd">
 <td align="left">tagBI</td>
@@ -314,43 +314,43 @@ t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">
 </tr>
 <tr class="even">
 <td align="left">pulseLen</td>
-<td align="left">Tag pulse length (milliseconds), if applicable. This value is only assigned based on the sample recording of the tag.</td>
+<td align="left">tag pulse length (milliseconds), if applicable. This value is only assigned based on the sample recording of the tag.</td>
 </tr>
 <tr class="odd">
 <td align="left">speciesID</td>
-<td align="left">Unique numeric Motus ID (integer) for the species on which the tag was deployed</td>
+<td align="left">unique numeric Motus ID (integer) for the species on which the tag was deployed</td>
 </tr>
 <tr class="even">
 <td align="left">markerNumber</td>
-<td align="left">Number for any additional marker placed on organism (e.g., bird band #)</td>
+<td align="left">number for any additional marker placed on organism (e.g., bird band #)</td>
 </tr>
 <tr class="odd">
 <td align="left">markerType</td>
-<td align="left">Type of additional marker (e.g. metal band)</td>
+<td align="left">type of additional marker (e.g. metal band)</td>
 </tr>
 <tr class="even">
 <td align="left">depLat</td>
-<td align="left">Latitude of tag deployment, in decimal degrees N - negative values for Southern hemisphere</td>
+<td align="left">latitude of tag deployment, in decimal degrees N - negative values for Southern hemisphere</td>
 </tr>
 <tr class="odd">
 <td align="left">depLon</td>
-<td align="left">Longitude of tag deployment, in decimal degrees E - negative values for Western hemisphere</td>
+<td align="left">longitude of tag deployment, in decimal degrees E - negative values for Western hemisphere</td>
 </tr>
 <tr class="even">
 <td align="left">depAlt</td>
-<td align="left">Altitude of tag deployment, in meters ASL</td>
+<td align="left">altitude of tag deployment, in meters ASL</td>
 </tr>
 <tr class="odd">
 <td align="left">comments</td>
-<td align="left">Additional comments or unclassified metadata for tag (often in JSON format)</td>
+<td align="left">additional comments or unclassified metadata for tag (often in JSON format)</td>
 </tr>
 <tr class="even">
 <td align="left">startCode</td>
-<td align="left">Integer code giving method for determining tag deployment start timestamp</td>
+<td align="left">integer code giving method for determining tag deployment start timestamp</td>
 </tr>
 <tr class="odd">
 <td align="left">endCode</td>
-<td align="left">Integer code giving method for determining tag deployment end timestamp</td>
+<td align="left">integer code giving method for determining tag deployment end timestamp</td>
 </tr>
 <tr class="even">
 <td align="left">fullID</td>
@@ -358,91 +358,91 @@ t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">
 </tr>
 <tr class="odd">
 <td align="left">recv</td>
-<td align="left">Serial number of the receiver; e.g., SG-1234BBBK5678 or Lotek-12345</td>
+<td align="left">serial number of the receiver; e.g., SG-1234BBBK5678 or Lotek-12345</td>
 </tr>
 <tr class="even">
 <td align="left">site</td>
-<td align="left">Name assigned to a site by the project manager (e.g. location name). This field is optional, and the same label can be used for multiple deployments.</td>
+<td align="left">name assigned to a site by the project manager (e.g. location name). This field is optional, and the same label can be used for multiple deployments.</td>
 </tr>
 <tr class="odd">
 <td align="left">isMobile</td>
-<td align="left">Logical; whether the sensor is deployed on a mobile platform (eg. a ship)</td>
+<td align="left">logical; whether the sensor is deployed on a mobile platform (eg. a ship)</td>
 </tr>
 <tr class="even">
 <td align="left">projID</td>
-<td align="left">The unique (numeric) ID of the project that deployed this receiver (e.g., 8)</td>
+<td align="left">unique (numeric) ID of the project that deployed this receiver (e.g., 8)</td>
 </tr>
 <tr class="odd">
 <td align="left">antType</td>
-<td align="left">Character; Antenna Type, e.g. “9-element Yagi”, “Omni”</td>
+<td align="left">character; antenna type, e.g. “9-element Yagi”, “Omni”</td>
 </tr>
 <tr class="even">
 <td align="left">antBearing</td>
-<td align="left">Numeric; Compass direction antenna main axis is pointing at (degrees clockwise from local magnetic North 0-360°)</td>
+<td align="left">numeric; compass direction antenna main axis is pointing at (degrees clockwise from local magnetic North 0-360)</td>
 </tr>
 <tr class="odd">
 <td align="left">antHeight</td>
-<td align="left">Numeric; Height (meters) of antenna main axis above ground</td>
+<td align="left">numeric; height (meters) of antenna main axis above ground</td>
 </tr>
 <tr class="even">
 <td align="left">cableLen</td>
-<td align="left">Numeric; Length of coax cable (meters) connecting antenna to funcubedongle radio (optional)</td>
+<td align="left">numeric; length of coax cable (meters) connecting antenna to funcubedongle radio (optional)</td>
 </tr>
 <tr class="odd">
 <td align="left">cableType</td>
-<td align="left">Type of coax cable connecting antenna to funcubedongle radio (optional)</td>
+<td align="left">type of coax cable connecting antenna to funcubedongle radio (optional)</td>
 </tr>
 <tr class="even">
 <td align="left">mountDistance</td>
-<td align="left">Numeric; Distance (meters) between antenna mounting (axis centre) and receiver GPS; SG only</td>
+<td align="left">numeric; distance (meters) between antenna mounting (axis centre) and receiver GPS; SG only</td>
 </tr>
 <tr class="odd">
 <td align="left">mountBearing</td>
-<td align="left">Numeric; Bearing of base of antenna mounting from receiver GPS (degrees clockwise from magnetic north: 0-360); SG only</td>
+<td align="left">numeric; bearing of base of antenna mounting from receiver GPS (degrees clockwise from magnetic north: 0-360); SG only</td>
 </tr>
 <tr class="even">
 <td align="left">polarization1</td>
-<td align="left">Numeric; Antenna polarization angle: azimuth component (degrees clockwise from local magnetic north)</td>
+<td align="left">numeric; antenna polarization angle: azimuth component (degrees clockwise from local magnetic north)</td>
 </tr>
 <tr class="odd">
 <td align="left">polarization2</td>
-<td align="left">Numeric; Antenna polarization angle: elevation component (degrees above horizon)</td>
+<td align="left">numeric; antenna polarization angle: elevation component (degrees above horizon)</td>
 </tr>
 <tr class="even">
 <td align="left">spEN</td>
-<td align="left">Species English (common) name</td>
+<td align="left">species English (common) name</td>
 </tr>
 <tr class="odd">
 <td align="left">spFR</td>
-<td align="left">Species French (common) name</td>
+<td align="left">species French (common) name</td>
 </tr>
 <tr class="even">
 <td align="left">spSci</td>
-<td align="left">Species scientific name</td>
+<td align="left">species scientific name</td>
 </tr>
 <tr class="odd">
 <td align="left">spGroup</td>
-<td align="left">Species group, e.g., BIRDS, BATS</td>
+<td align="left">species group, e.g., BIRDS, BATS</td>
 </tr>
 <tr class="even">
 <td align="left">tagProj</td>
-<td align="left">Short label of project that deployed the tag, e.g., “HolbSESA”</td>
+<td align="left">short label of project that deployed the tag, e.g., “HolbSESA”</td>
 </tr>
 <tr class="odd">
 <td align="left">projID</td>
-<td align="left">Short label of project that deployed the receiver</td>
+<td align="left">short label of project that deployed the receiver</td>
 </tr>
 <tr class="even">
 <td align="left">lat</td>
-<td align="left">Latitude of receiver GPS location at time of writing the hourly detections file (degrees North)</td>
+<td align="left">latitude of receiver GPS location at time of writing the hourly detections file (degrees North)</td>
 </tr>
 <tr class="odd">
 <td align="left">lon</td>
-<td align="left">Longitude of receiver GPS location at time of writing the hourly detections file (degrees East)</td>
+<td align="left">longitude of receiver GPS location at time of writing the hourly detections file (degrees East)</td>
 </tr>
 <tr class="even">
 <td align="left">alt</td>
-<td align="left">Altitude of receiver GPS at time of writing the hourly detections file (meters)</td>
+<td align="left">altitude of receiver GPS at time of writing the hourly detections file (meters)</td>
 </tr>
 </tbody>
 </table>
@@ -502,7 +502,7 @@ hh &lt;-<span class="st"> </span>hourly <span class="op">%&gt;%</span><span clas
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
