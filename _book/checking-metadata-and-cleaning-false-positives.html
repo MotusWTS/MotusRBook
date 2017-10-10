@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="accessing-and-understanding-detections-data.html">
-<link rel="next" href="exploring-data-with-the-motus-r-package.html">
+<link rel="next" href="cleaning-data-to-remove-false-detections.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -128,12 +128,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.1.2" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#receiver-metadata"><i class="fa fa-check"></i><b>4.1.2</b> Receiver Metadata</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#searching-for-false-positives"><i class="fa fa-check"></i><b>4.2</b> Searching for false positives</a></li>
-<li class="chapter" data-level="4.3" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#r-markdown"><i class="fa fa-check"></i><b>4.3</b> R Markdown</a></li>
-<li class="chapter" data-level="4.4" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#including-plots"><i class="fa fa-check"></i><b>4.4</b> Including Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html"><i class="fa fa-check"></i><b>5</b> Exploring data with the Motus R package</a><ul>
-<li class="chapter" data-level="5.1" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#summarizing-your-data"><i class="fa fa-check"></i><b>5.1</b> Summarizing your data</a></li>
-<li class="chapter" data-level="5.2" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#plotting-your-data"><i class="fa fa-check"></i><b>5.2</b> Plotting your data</a></li>
+<li class="chapter" data-level="5" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html"><i class="fa fa-check"></i><b>5</b> Cleaning data to remove false detections</a><ul>
+<li class="chapter" data-level="5.1" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-outside-of-deployment-range"><i class="fa fa-check"></i><b>5.1</b> Removing detections outside of deployment range</a></li>
+<li class="chapter" data-level="5.2" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-based-on-visual-geographic-positions"><i class="fa fa-check"></i><b>5.2</b> Removing detections based on visual geographic positions</a></li>
+<li class="chapter" data-level="5.3" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-based-on-estimated-flight-speed"><i class="fa fa-check"></i><b>5.3</b> Removing detections based on estimated flight speed</a></li>
+<li class="chapter" data-level="5.4" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-based-on-automated-filtering"><i class="fa fa-check"></i><b>5.4</b> Removing detections based on automated filtering</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
+<li class="chapter" data-level="6.1" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#summarizing-your-data"><i class="fa fa-check"></i><b>6.1</b> Summarizing your data</a></li>
+<li class="chapter" data-level="6.2" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#plotting-your-data"><i class="fa fa-check"></i><b>6.2</b> Plotting your data</a></li>
 </ul></li>
 </ul>
 
@@ -189,26 +193,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><strong><em>NOT DONE</em></strong></p>
 
 </div>
-<div id="r-markdown" class="section level2">
-<h2><span class="header-section-number">4.3</span> R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars)</code></pre></div>
-<pre><code>##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</code></pre>
-</div>
-<div id="including-plots" class="section level2">
-<h2><span class="header-section-number">4.4</span> Including Plots</h2>
-<p>You can also embed plots, for example:</p>
-<p><img src="MotusRBook_files/figure-html/pressure-1.png" width="672" /></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
-
-</div>
 </div>
             </section>
 
@@ -216,7 +200,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </div>
       </div>
 <a href="accessing-and-understanding-detections-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="exploring-data-with-the-motus-r-package.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="cleaning-data-to-remove-false-detections.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -1,28 +1,32 @@
----
-title: "05-DataCleaning"
-output: html_document
----
+# Cleaning data to remove false detections
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+Background radio noise will sometimes create false positives in your detection data, some sites will inherently have more background noise than others, and some tag IDs are more prone to false positives than others.  Once you download your data, the first step should be cleaning it of false detections.  There are a few ways to do this, ultimately it is up to you to determine which detections are true and which should be removed.  Below we outline a number of ways to determine if detections are likely false positives.
+
+## Removing detections outside of deployment range
+A first step to removing definite false positives, is to remove any detections that fall outside of the tag deployment dates.  To do this we will need to import the tagging metadata and merge it with the tag detection files to see tag deployment start/end dates.
+
+1. **Download tag deployment metadata**: from the download page <https://motus.org/data/downloads>, select your project from the dropdown menu and click "Tag Deployments" to get a tag-deployments.csv file.  Alternatively, you can download the same deployments file from your project tag page.
+2. **Import tag deployment metadata into R**
+```{r tagMeta, eval = FALSE}
+
+tagMeta <- read.csv("C:/data/tag-deployments.csv") ## replace the location with the file path where you saved the .csv file.
+
 ```
 
-## R Markdown
+3. **Join tag metadata and detection data**: Join the tagMeta database to your detection data, here we only include the start/end date columns from the tagMeta database, however you can choose to keep all columns if necessary.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+4. **Remove detections that fall outside tag deployment dates**
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## Removing detections based on visual geographic positions
+A few simple plots of latitude/longitude vs. time can highlight detections that occur in areas outside of the expected geographic range of the species for that date, or flights showing impossible speeds over large distances.
 
-```{r cars}
-summary(cars)
-```
+Once you identify detections you would like to remove, you can filter out those points based on hitID
 
-## Including Plots
+## Removing detections based on estimated flight speed
+By looking at the rate of movement between sites with consicutive detections, we can quickly view flights that are not physically possible.  Further examination of these detections will be required to determine which detections are true and which are false.
 
-You can also embed plots, for example:
+## Removing detections based on automated filtering
+You can also remove spurious detections through some simple automated filters if you do not wish to examine each tag individually.  But note that by applying a general filter to all your detections, you risk removing true detections as well.  Detections can be filtered by freqSD or by runLen.  FreqSD refers to the standard deviation of frequency offset among bulses in a burst, in kHz.  Values larger than 0.1  kHz suggest a bogus detection, however this is for detections on SensorGnomes only.  runLen is the number of tag bursts in the current run, a run is defined as a group of consecutive detections of a tag detected on a receiver.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
