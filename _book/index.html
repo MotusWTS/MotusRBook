@@ -7,12 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Motus</title>
   <meta name="description" content="R for Motus">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Motus" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:image" content="MotusLogo.png" />
+  <meta property="og:image" content="BSC_Motus_Logo.png" />
   
   
 
@@ -20,12 +20,12 @@
   <meta name="twitter:title" content="R for Motus" />
   
   
-  <meta name="twitter:image" content="MotusLogo.png" />
+  <meta name="twitter:image" content="BSC_Motus_Logo.png" />
 
-<meta name="author" content="Tara L. Crewe, Zoe Crysler, ?">
+<meta name="author" content="Tara L. Crewe and Zoe Crysler">
 
 
-<meta name="date" content="2017-09-19">
+<meta name="date" content="2017-10-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -107,7 +107,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#what-this-book-does-not-cover"><i class="fa fa-check"></i><b>1.1</b> What this book does not cover</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.2</b> Prerequisites</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#how-this-book-is-organized"><i class="fa fa-check"></i><b>1.3</b> How this book is organized</a></li>
-<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#sample-dataset"><i class="fa fa-check"></i><b>1.4</b> Sample dataset</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.5</b> Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="loading-the-motus-r-package.html"><a href="loading-the-motus-r-package.html"><i class="fa fa-check"></i><b>2</b> Loading the Motus R Package</a><ul>
 <li class="chapter" data-level="2.1" data-path="loading-the-motus-r-package.html"><a href="loading-the-motus-r-package.html#user-authentication"><i class="fa fa-check"></i><b>2.1</b> User Authentication</a></li>
@@ -118,12 +119,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#importing-tag-detections"><i class="fa fa-check"></i><b>3.2</b> Importing tag detections</a></li>
 <li class="chapter" data-level="3.3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#data-structure"><i class="fa fa-check"></i><b>3.3</b> Data structure</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#convert-the-virtual-alltags-table-to-a-flat-dataframe"><i class="fa fa-check"></i><b>3.3.1</b> Convert the virtual ‘alltags’ table to a flat dataframe</a></li>
+<li class="chapter" data-level="3.3.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#export-a-flat-dataframe-and-save-as-a-.csv-on-your-computer"><i class="fa fa-check"></i><b>3.3.2</b> Export a “flat” dataframe and save as a .csv on your computer</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#searching-for-false-positives"><i class="fa fa-check"></i><b>3.4</b> Searching for false positives</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html"><i class="fa fa-check"></i><b>4</b> Exploring data with the Motus R package</a><ul>
-<li class="chapter" data-level="4.1" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#summarizing-your-data"><i class="fa fa-check"></i><b>4.1</b> Summarizing your data</a></li>
-<li class="chapter" data-level="4.2" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#plotting-your-data"><i class="fa fa-check"></i><b>4.2</b> Plotting your data</a></li>
+<li class="chapter" data-level="4" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html"><i class="fa fa-check"></i><b>4</b> Checking Metadata and Cleaning False Positives</a><ul>
+<li class="chapter" data-level="4.1" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#checking-for-missing-metadata"><i class="fa fa-check"></i><b>4.1</b> Checking for missing metadata</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#tag-metadata"><i class="fa fa-check"></i><b>4.1.1</b> Tag Metadata</a></li>
+<li class="chapter" data-level="4.1.2" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#receiver-metadata"><i class="fa fa-check"></i><b>4.1.2</b> Receiver Metadata</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#searching-for-false-positives"><i class="fa fa-check"></i><b>4.2</b> Searching for false positives</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html"><i class="fa fa-check"></i><b>5</b> Exploring data with the Motus R package</a><ul>
+<li class="chapter" data-level="5.1" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#summarizing-your-data"><i class="fa fa-check"></i><b>5.1</b> Summarizing your data</a></li>
+<li class="chapter" data-level="5.2" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#plotting-your-data"><i class="fa fa-check"></i><b>5.2</b> Plotting your data</a></li>
 </ul></li>
 </ul>
 
@@ -144,8 +152,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">R for Motus</h1>
-<h4 class="author"><em>Tara L. Crewe, Zoe Crysler, ?</em></h4>
-<h4 class="date"><em>2017-09-19</em></h4>
+<h4 class="author"><em>Tara L. Crewe and Zoe Crysler</em></h4>
+<h4 class="date"><em>2017-10-10</em></h4>
 </div>
 <div id="a-walk-through-the-use-of-r-for-motus-automated-radio-telemetry-data" class="section level1 unnumbered">
 <h1>A walk through the use of R for Motus automated radio-telemetry data</h1>
@@ -170,7 +178,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-gitbook.require(["gitbook"], function(gitbook) {
+require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -191,7 +199,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"download": ["MotusRBook.pdf"],
 "toc": {
 "collapse": "section"
 }

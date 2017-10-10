@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="introduction.html">
-<link rel="next" href="accessing-and-understanding-detections-data.html">
+<link rel="prev" href="accessing-and-understanding-detections-data.html">
+<link rel="next" href="exploring-data-with-the-motus-r-package.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -150,34 +150,41 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="loading-the-motus-r-package" class="section level1">
-<h1><span class="header-section-number">2</span> Loading the Motus R Package</h1>
-<p>Motus <strong>users</strong> can install the latest stable version of the Motus R package using the following code. You only need to install the packages once, but once installed, you do need to load each package (using library() or require()) each time you open a new R session.</p>
-<p>Please note that some functionalities of the devtools package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of R (<a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a>) and RStudio (<a href="https://www.rstudio.com/products/RStudio/" class="uri">https://www.rstudio.com/products/RStudio/</a>), and update your R packages using update.pacakges() in the R console.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update.packages</span>()                         ## to update your existing R packages</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)              ## if you haven&#39;t already done this
-<span class="kw">library</span>(devtools)                         ## load devtools
-
-<span class="kw">install_github</span>(<span class="st">&quot;jbrzusto/motus@master&quot;</span>)   ## the last stable version
-<span class="kw">library</span>(motus)</code></pre></div>
-<p>For <strong>developers</strong>, the ‘staging’ branch is for work-in-progress. Install it with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)               ## if you haven&#39;t already done this
-<span class="kw">library</span>(devtools) 
-
-<span class="kw">install_github</span>(<span class="st">&quot;jbrzusto/motus@staging&quot;</span>)   ## the development version
-<span class="kw">library</span>(motus)</code></pre></div>
-<p>Throughout the book, we use Tidyverse <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>, which is a collection of R packages, including tidyr() and dplyr(). These can be installed with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)             ## again, you only need to install once.
-<span class="kw">library</span>(tidyverse)</code></pre></div>
-<p>More information on Tidyverse can be found at <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>, or by browsing ‘R for Data Science’ by Garrett Grolemund and Hadley Wickham: <a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>.</p>
-<div id="user-authentication" class="section level2">
-<h2><span class="header-section-number">2.1</span> User Authentication</h2>
-<p>The first time you call a function using the Motus R package, you will be asked for your motus.org username and password to authenticate your access to project data. This will only happen once per R session. If you do not have a Motus user name and password, you can sign up at <a href="https://motus.org/data/user/new" class="uri">https://motus.org/data/user/new</a>. Permission to access project data will then be granted by Motus staff or the project principal investigator.</p>
+<div id="checking-metadata-and-cleaning-false-positives" class="section level1">
+<h1><span class="header-section-number">4</span> Checking Metadata and Cleaning False Positives</h1>
+<p>Once you have your data in R, it is good practice to run data summaries to check for missing tag or receiver deployment metadata and for false positive detections of your tags.</p>
+<div id="checking-for-missing-metadata" class="section level2">
+<h2><span class="header-section-number">4.1</span> Checking for missing metadata</h2>
+<p>Ensuring your metadata is up to date and accurate means detection data will be be properly linked to your project, and allow other users to benefit fully from the network.</p>
+<p><strong>Missing or incorrect tag metadata</strong> can result in a lack of tag detections in your data. For example, if deployment date is missing or wrong, the tag finder, which processes the data from each receiver in the network, might not look for your tag in the data, or might not look at the appropriate time when the tag is actually active. This will result in missing tags in your detections data.</p>
+<p><strong>Missing or incorrect receiver metadata</strong> can result in a loss of information for both your project and the projects of other Motus users. For example, missing deployment latitude and longitude can result in a loss of information on the location of a receiver. Particularly when the same receiver is moved from one location to another, it is important your metadata reflect this, so that other users can properly analyze their data. Receiving antenna properties</p>
+<div id="tag-metadata" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Tag Metadata</h3>
+<p>Only tags registered with Motus (<a href="https://motus.org/tag-registration/" class="uri">https://motus.org/tag-registration/</a>) prior to deployment will appear in detection data. To view a full list of tags registered to your project:</p>
+<p><strong>INSERT CODE</strong></p>
+<p>If previously registered tags are missing from your data, please contact <a href="mailto:motus@birdscanada.org">motus@birdscanada.org</a></p>
+<p>Required tag metadata includes deployment start date/time, end date/time if applicable, deployment latitude, deployment longitude, and species. You can determine which of your tags are missing this metadata as follows:</p>
+<p><strong>INSERT CODE</strong></p>
+<p>Please update missing tag metadata online at &lt;www.motus.org&gt; by logging in to your project and selecting the ‘Manage your tags’ option.</p>
 </div>
-<div id="internal-data-processing" class="section level2">
-<h2><span class="header-section-number">2.2</span> Internal data processing</h2>
-<p>As an animal moves within the detection range of a Motus station, radio transmissions, or ‘bursts’, are detected by antenna(s) and recorded by a receiver. These raw detection data are either uploaded to the Motus database instantaneously via internet connection, or downloaded from the receiver and uploaded to Motus manually. Behind the scenes, various functions read and process the raw detections data to produce the tag detections file that users access using the R package (see ‘Data Import’ below). While most users will not need to call on the internal data processing functions, a complete list of functions within the Motus server R package can be found on GitHub: <a href="https://github.com/jbrzusto/motusServer" class="uri">https://github.com/jbrzusto/motusServer</a>. The code behind each function can be viewed on GitHub, or by typing the following in the R console after loading the R package, replacing ‘function.name’ with the name of the R function of interest:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">function.name</span>() </code></pre></div>
+<div id="receiver-metadata" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Receiver Metadata</h3>
+<p>To obtain detection data from a receiver, it must be registered online to your project by it’s serial number. Receiver deployments are then required to link the appropriate metadata to each detection. To determine a list of receivers registered to your project:</p>
+<p><strong><em>INSERT CODE</em></strong></p>
+<p>If you are missing any receivers, please register them online through your project management page</p>
+<p>Each receiver requires a deployment which includes a deployment name, site, station type, deployment start/end dates/times, latitude, longitude, and antenna properties including port number, antenna type, and bearing. To view a full list of your current deployments:</p>
+<p><strong><em>INSERT CODE</em></strong></p>
+<p>To view which current deployments are missing required information:</p>
+<p><strong><em>INSERT CODE</em></strong></p>
+<p>Any missing receiver metadata needs to be updated online.</p>
+<p>If you have updated any metadata online, you’ll need to force an update on the data you have downloaded, it’s good practice to check for updates prior to any analysis as other users may have updated metadata associated with your detection files:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> <span class="dv">123</span>, <span class="dt">forceMeta =</span> <span class="ot">TRUE</span>)</code></pre></div>
+</div>
+</div>
+<div id="searching-for-false-positives" class="section level2">
+<h2><span class="header-section-number">4.2</span> Searching for false positives</h2>
+<p>You may need to check it for false positives, particularely at sites with high levels of background noise, below we outline a number of ways to determine if detections are likely false positives.</p>
+<p><strong><em>NOT DONE</em></strong></p>
 
 </div>
 </div>
@@ -186,8 +193,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="accessing-and-understanding-detections-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="accessing-and-understanding-detections-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exploring-data-with-the-motus-r-package.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
