@@ -7,12 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Motus</title>
   <meta name="description" content="R for Motus">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Motus" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:image" content="MotusLogo.png" />
+  <meta property="og:image" content="BSC_Motus_Logo.png" />
   
   
 
@@ -20,7 +20,7 @@
   <meta name="twitter:title" content="R for Motus" />
   
   
-  <meta name="twitter:image" content="MotusLogo.png" />
+  <meta name="twitter:image" content="BSC_Motus_Logo.png" />
 
 <meta name="author" content="Tara L. Crewe and Zoe Crysler">
 
@@ -112,10 +112,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.1" data-path="loading-required-packages.html"><a href="loading-required-packages.html#internal-data-processing"><i class="fa fa-check"></i><b>2.1</b> Internal data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
-<li class="chapter" data-level="3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#database-types"><i class="fa fa-check"></i><b>3.1</b> Database types</a></li>
+<li class="chapter" data-level="3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#detection-data"><i class="fa fa-check"></i><b>3.1</b> Detection data</a></li>
 <li class="chapter" data-level="3.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#importing-tag-detections"><i class="fa fa-check"></i><b>3.2</b> Importing tag detections</a></li>
 <li class="chapter" data-level="3.3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#data-structure"><i class="fa fa-check"></i><b>3.3</b> Data structure</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#convert-the-virtual-alltags-table-to-a-flat-dataframe"><i class="fa fa-check"></i><b>3.3.1</b> Convert the virtual ‘alltags’ table to a flat dataframe</a></li>
+<li class="chapter" data-level="3.3.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#export-a-flat-dataframe-and-save-as-a-.csv-on-your-computer"><i class="fa fa-check"></i><b>3.3.2</b> Export a “flat” dataframe and save as a .csv on your computer</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -138,24 +139,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="accessing-and-understanding-detections-data" class="section level1">
 <h1><span class="header-section-number">3</span> Accessing and understanding detections data</h1>
 <p>It is important to note that the success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators. Users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.</p>
-<div id="database-types" class="section level2">
-<h2><span class="header-section-number">3.1</span> Database types</h2>
-<p>There are two types of tag databases:</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>receiver database</strong>: includes all detections of any registered tags from a single receiver. A receiver database has a name like SG-1234BBBK5678.motus; where the name is the serial number of the receiver.</p></li>
-<li><p><strong>project database</strong>: includes all detections of your registered tags from across the motus network. A tag project database has a name like project-123.motus, where the number is the motus project ID.</p></li>
-</ol>
-<p>These two databases correspond to the basic model of data sharing:</p>
-<ol style="list-style-type: decimal">
-<li><p>you get all detections of anyone’s tags by <em>your</em> receivers (i.e., one receiver tag database for each receiver you deploy)</p></li>
-<li><p>you get all detections of <em>your</em> tags by <em>anyone’s</em> receivers (i.e., one project tag database for each of your motus projects)</p></li>
-</ol>
+<div id="detection-data" class="section level2">
+<h2><span class="header-section-number">3.1</span> Detection data</h2>
+<p>The static files available for download from <a href="https://motus.org/data/downloads" class="uri">https://motus.org/data/downloads</a> contains all detections of your registered tags from across the motus network. A tag project database has a name like project-NNN.motus, where the NNN is the motus project ID.</p>
+<p>Eventually, the R package under development will allow you to download all detections of any registered tags from a single receiver that is registered to your project.</p>
 </div>
 <div id="importing-tag-detections" class="section level2">
 <h2><span class="header-section-number">3.2</span> Importing tag detections</h2>
-<p>Your project’s .motus file is available for download at &lt;www.motus.org&gt; under your project profile. Once downloaded, you can import your tag detections into R using the following code:</p>
+<p>Your project’s .motus file is available for download at <a href="https://motus.org/data/downloads" class="uri">https://motus.org/data/downloads</a> under your project profile. Once downloaded, <strong>make sure that you have the appropriate packages installed and loaded in R as outlined in Chapter 2-LoadingPackage</strong>. Once packages are loaded, you can import your tag detections into R using the following code:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">file.name &lt;-<span class="st"> &quot;C:/data/project-123.motus&quot;</span>    ## replace with the full location of your project data
-t &lt;-<span class="st"> </span>dplyr::<span class="kw">src_sqlite</span>(file.name)</code></pre></div>
+t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">src_sqlite</span>(file.name)</code></pre></div>
 </div>
 <div id="data-structure" class="section level2">
 <h2><span class="header-section-number">3.3</span> Data structure</h2>
@@ -431,7 +424,7 @@ t &lt;-<span class="st"> </span>dplyr::<span class="kw">src_sqlite</span>(file.n
 <div id="convert-the-virtual-alltags-table-to-a-flat-dataframe" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Convert the virtual ‘alltags’ table to a flat dataframe</h3>
 <p>If you want your entire dataframe in a typical “flat” format, i.e., with every record for each field filled in, you can use the collect() function. The output can then be used to generate a .rds or .csv file of your data, but we caution that producing such a table using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.flat &lt;-<span class="st"> </span>df %&gt;%<span class="st"> </span>collect %&gt;%<span class="st"> </span>as.data.frame      ## for all fields in the df</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.flat &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span>collect <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame      ## for all fields in the df</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df.flat)      ## Look at first 6 rows of your df
 <span class="kw">summary</span>(df.flat)   ## summary of each column in your df
 <span class="kw">str</span>(df.flat)       ## Look at the structure of your data fields
@@ -440,22 +433,29 @@ t &lt;-<span class="st"> </span>dplyr::<span class="kw">src_sqlite</span>(file.n
 <ol style="list-style-type: decimal">
 <li>To select certain fields;</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.flat.subset &lt;-<span class="st"> </span><span class="kw">select</span>(df, recv, ant, motusTagID) %&gt;%<span class="st"> </span>distinct %&gt;%<span class="st"> </span>collect %&gt;%<span class="st"> </span>as.data.frame      ## to grab a subset of fields, in this case a unique list of motus tag IDs at each receiver and antenna.</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.flat.subset &lt;-<span class="st"> </span><span class="kw">select</span>(df, recv, ant, motusTagID) <span class="op">%&gt;%</span><span class="st"> </span>distinct <span class="op">%&gt;%</span><span class="st"> </span>collect <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame      ## to grab a subset of fields, in this case a unique list of motus tag IDs at each receiver and antenna.</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>To select certain tag IDs;</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.flat.subset &lt;-<span class="st"> </span><span class="kw">filter</span>(df, motusTagID %in%<span class="st"> </span><span class="kw">c</span>(<span class="dv">9939</span>, <span class="dv">25643</span>)) %&gt;%<span class="st"> </span>collect %&gt;%<span class="st"> </span>as.data.frame    ## filter to only include detections of motus tag IDs 9939 and 25643</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.flat.subset &lt;-<span class="st"> </span><span class="kw">filter</span>(df, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">9939</span>, <span class="dv">25643</span>)) <span class="op">%&gt;%</span><span class="st"> </span>collect <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame    ## filter to only include detections of motus tag IDs 9939 and 25643</code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>To select a specified species;</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.flat.subset &lt;-<span class="st"> </span><span class="kw">filter</span>(df, speciesID ==<span class="st"> </span><span class="dv">15580</span>) %&gt;%<span class="st"> </span>collect %&gt;%<span class="st"> </span>as.data.frame    ## filter to only include detections of Swainson&#39;s Thrush by species ID
-df.flat.subset &lt;-<span class="st"> </span><span class="kw">filter</span>(df, spEN ==<span class="st"> &quot;Swainson&#39;s Thrush&quot;</span>) %&gt;%<span class="st"> </span>collect %&gt;%<span class="st"> </span>as.data.frame    ## filter to only include detections of Swainson&#39;s Thrush by English name</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.flat.subset &lt;-<span class="st"> </span><span class="kw">filter</span>(df, speciesID <span class="op">==</span><span class="st"> </span><span class="dv">15580</span>) <span class="op">%&gt;%</span><span class="st"> </span>collect <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame    ## filter to only include detections of Swainson&#39;s Thrush by species ID
+df.flat.subset &lt;-<span class="st"> </span><span class="kw">filter</span>(df, spEN <span class="op">==</span><span class="st"> &quot;Swainson&#39;s Thrush&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>collect <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame    ## filter to only include detections of Swainson&#39;s Thrush by English name</code></pre></div>
 <p>You can also summarize your data before converting to a flat file. For example, to find the first hourly detection of each tag in each hour by receiver and antenna, you could do this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hourly &lt;-<span class="st"> </span>df %&gt;%<span class="st"> </span><span class="kw">mutate</span> (<span class="dt">hour =</span> <span class="dv">3600</span> *<span class="st"> </span><span class="kw">round</span>(ts /<span class="st"> </span><span class="dv">3600</span>, <span class="dv">0</span>)) %&gt;%<span class="st"> </span><span class="kw">distinct</span> (recv, ant, motusTagID, hour)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hourly &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span> (<span class="dt">hour =</span> <span class="dv">3600</span> <span class="op">*</span><span class="st"> </span><span class="kw">round</span>(ts <span class="op">/</span><span class="st"> </span><span class="dv">3600</span>, <span class="dv">0</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span> (recv, ant, motusTagID, hour)
 
 ## and collect these into a data.frame
 
-hh &lt;-<span class="st"> </span>hourly %&gt;%<span class="st"> </span>collect %&gt;%<span class="st"> </span>as.data.frame</code></pre></div>
+hh &lt;-<span class="st"> </span>hourly <span class="op">%&gt;%</span><span class="st"> </span>collect <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</code></pre></div>
+</div>
+<div id="export-a-flat-dataframe-and-save-as-a-.csv-on-your-computer" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Export a “flat” dataframe and save as a .csv on your computer</h3>
+<p>The below example is how you would save the flat file called “df.flat” within R, as a .csv file called “motus_detecitons.csv” on your computer in the location C:/data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.csv</span>(df.flat, <span class="st">&quot;C:/data/motus_detections.csv&quot;</span>)  ## &quot;df.flat&quot;&quot; is the name of the flat file within R that you want to convert to a .csv
+## &quot;C:/data/&quot; is the the location where you would like your .csv stored
+## &quot;motus_detections.csv&quot;, is the name of the .csv file you are creating, this can be anything you like but must end with .csv.</code></pre></div>
 
 </div>
 </div>
@@ -477,7 +477,7 @@ hh &lt;-<span class="st"> </span>hourly %&gt;%<span class="st"> </span>collect %
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-gitbook.require(["gitbook"], function(gitbook) {
+require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
