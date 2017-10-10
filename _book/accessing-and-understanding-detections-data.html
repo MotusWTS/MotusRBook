@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Motus</title>
   <meta name="description" content="R for Motus">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Motus" />
   <meta property="og:type" content="book" />
@@ -138,7 +138,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="accessing-and-understanding-detections-data" class="section level1">
 <h1><span class="header-section-number">3</span> Accessing and understanding detections data</h1>
-<p>It is important to note that the success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators. Users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.</p>
+<p>It’s important to note that the success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators. Users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.</p>
 <div id="detection-data" class="section level2">
 <h2><span class="header-section-number">3.1</span> Detection data</h2>
 <p>The static files available for download from <a href="https://motus.org/data/downloads" class="uri">https://motus.org/data/downloads</a> contains all detections of your registered tags from across the motus network. A tag project database has a name like project-NNN.motus, where the NNN is the motus project ID.</p>
@@ -221,7 +221,7 @@ t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">
 </tr>
 <tr class="odd">
 <td align="left">freqSD</td>
-<td align="left">std. dev. of freq offset among pulses in this burst, in kHz. Values larger than 0.1 kHz suggest a bogus detection. SG only; NA for Lotek.</td>
+<td align="left">std. dev. of freq offset among pulses in this burst, in kHz. Values larger than 0.1 kHz suggest a bogus detection. SG only; NA for Lotek.</td>
 </tr>
 <tr class="even">
 <td align="left">slop</td>
@@ -229,7 +229,7 @@ t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">
 </tr>
 <tr class="odd">
 <td align="left">burstSlop</td>
-<td align="left">signed difference (seconds) between detection and registration burst intervals.  This is always 0 for the first burst in a run (see posInRun)</td>
+<td align="left">signed difference (seconds) between detection and registration burst intervals. This is always 0 for the first burst in a run (see posInRun)</td>
 </tr>
 <tr class="even">
 <td align="left">done</td>
@@ -281,7 +281,7 @@ t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">
 </tr>
 <tr class="even">
 <td align="left">nomFreq</td>
-<td align="left">nominal tag frequency (MOTUS: Nominal frequency receiver was tuned to, in Mhz.  This really only applies to SG, where we usually tune 4 kHz below the nominal tag frequency.  So in that case, antFreq = 166.376 while nomFreq = 166.380</td>
+<td align="left">nominal tag frequency (MOTUS: Nominal frequency receiver was tuned to, in Mhz. This really only applies to SG, where we usually tune 4 kHz below the nominal tag frequency. So in that case, antFreq = 166.376 while nomFreq = 166.380</td>
 </tr>
 <tr class="odd">
 <td align="left">tagBI</td>
@@ -353,7 +353,7 @@ t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">
 </tr>
 <tr class="even">
 <td align="left">antBearing</td>
-<td align="left">numeric; compass direction antenna main axis is pointing at (degrees clockwise from local magnetic North 0-360°)</td>
+<td align="left">numeric; compass direction antenna main axis is pointing at (degrees clockwise from local magnetic North 0-360)</td>
 </tr>
 <tr class="odd">
 <td align="left">antHeight</td>
@@ -477,7 +477,7 @@ hh &lt;-<span class="st"> </span>hourly <span class="op">%&gt;%</span><span clas
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,

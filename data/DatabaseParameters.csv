@@ -7,12 +7,12 @@ sig,"signal strength in ""native units""; for SG: dB (max) (logarithmic, 0 = max
 sigSD,std. dev. in signal strength among pulses in this burst. SG Only; NA for Lotek
 noise,"estimate of background radio noise when tag detected, in dB (max) for SG; NA for Lotek"
 freq,"frequency offset from antenna listening frequency, in kHz for SG only; NA for Lote"
-freqSD,"std. dev. of freq offset among pulses in this burst, in kHz. Values larger than 0.1 kHz suggest a bogus detection. SG only; NA for Lotek. "
+freqSD,"std. dev. of freq offset among pulses in this burst, in kHz. Values larger than 0.1 kHz suggest a bogus detection. SG only; NA for Lotek. "
 slop,total absolute difference (milliseconds) in inter-pulse intervals for this burst between registration and detection. SG only; NA for Lotek
-burstSlop,"signed difference (seconds) between detection and registration burst intervals.  This is always 0 for the first burst in a run (see posInRun)	"
+burstSlop,"signed difference (seconds) between detection and registration burst intervals. This is always 0 for the first burst in a run (see posInRun)	"
 done,logical: is run finished?
 motusTagID,"Motus tag ID - unique to each individual tag registered	"
-ant,"antenna code (for sensorgnomes, USB port number; for Lotek, whatever they use, usually numeric, but can be e.g. AH0)"
+ant,"antenna code (for sensorgnomes, USB port number; for Lotek, whatever they use, usually numeric, but can be e.g. AH0)"
 runLen,"number of tag bursts in the current run; constant for all records having the same runID	"
 bootnum,boot session of receiver for SG; NA for Lotek
 tagProjectID,ID of the project that manages this tag. 
@@ -22,7 +22,7 @@ codeSet,"for coded tags, the name of the codeset (e.g. 'Lotek-3')"
 mfg,tag manufacturer
 tagModel,manufacturer's model name for a tag (e.g. 'NTQB-3-2')
 tagLifespan,estimated lifespan of tag (days)
-nomFreq,"nominal tag frequency  (MOTUS: Nominal frequency receiver was tuned to, in Mhz.  This really only applies to SG, where we usually tune 4 kHz below the nominal tag frequency.  So in that case, antFreq = 166.376 while nomFreq = 166.380	"
+nomFreq,"nominal tag frequency  (MOTUS: Nominal frequency receiver was tuned to, in Mhz. This really only applies to SG, where we usually tune 4 kHz below the nominal tag frequency. So in that case, antFreq = 166.376 while nomFreq = 166.380"
 tagBI,"burst interval of tag, in seconds (e.g., 5.8984)"
 pulseLen,"tag pulse length (milliseconds), if applicable. This value is only assigned based on the sample recording of the tag."
 speciesID,unique numeric Motus ID (integer) for the species on which the tag was deployed
@@ -40,7 +40,7 @@ site,"name assigned to a site by the project manager (e.g. location name). This 
 isMobile,"logical; whether the sensor is deployed on a mobile platform (eg. a ship)	"
 projID,"unique (numeric) ID of the project that deployed this receiver (e.g., 8)"
 antType,"character; antenna type, e.g. ""9-element Yagi"", ""Omni""	"
-antBearing,"numeric; compass direction antenna main axis is pointing at (degrees clockwise from local magnetic North 0-360°)	"
+antBearing,numeric; compass direction antenna main axis is pointing at (degrees clockwise from local magnetic North 0-360)
 antHeight,numeric; height (meters) of antenna main axis above ground
 cableLen,numeric; length of coax cable (meters) connecting antenna to funcubedongle radio (optional)
 cableType,type of coax cable connecting antenna to funcubedongle radio (optional)
