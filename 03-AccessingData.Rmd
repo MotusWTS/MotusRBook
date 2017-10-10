@@ -112,7 +112,7 @@ hh <- hourly %>% collect %>% as.data.frame
 
 ### Export a "flat" dataframe and save as a .csv on your computer
 The below example is how you would save the flat file called "df.flat" within R, as a .csv file called "motus_detecitons.csv" on your computer in the location C:/data.
-```{r collectSum, eval = FALSE}
+```{r createFlat, eval = FALSE}
 
 write.csv(df.flat, "C:/data/motus_detections.csv")  ## "df.flat"" is the name of the flat file within R that you want to convert to a .csv
 ## "C:/data/" is the the location where you would like your .csv stored
