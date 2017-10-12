@@ -163,11 +163,11 @@ hh <- hourly %>% collect %>% as.data.frame
 
 ### Export your "flat" dataframe to a .csv file
 
-The below example is how you would save the flat file called "df.flat" within R, as a .csv file called "motus_detecitons.csv" on your computer in the 'data' folder of your working directory.
+The below example is how you would save the flat file called "df.flat" within R, as a .csv file called "JB_raw.csv" on your computer in the 'data' folder of your working directory. In this case, JB stands for James Bay, and we are simply converting the data without subsetting.
 
 ```{r createFlat, message = FALSE, warning = FALSE}
 
-write.csv(df.flat, "./data/df_raw.csv")  ## "df.flat"" is the name of the flat file within R that you want to convert to a .csv
+write.csv(df.flat, "./data/JB_raw.csv")  ## "df.flat"" is the name of the flat file within R that you want to convert to a .csv
 ## "C:/data/" is the the location where you would like your .csv stored
 ## "motus_detections.csv", is the name of the .csv file you are creating, this can be anything you like but must end with .csv.
 
