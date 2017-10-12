@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Motus</title>
   <meta name="description" content="R for Motus">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Motus" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Tara L. Crewe and Zoe Crysler">
 
 
-<meta name="date" content="2017-10-10">
+<meta name="date" content="2017-10-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -116,18 +116,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
 <li class="chapter" data-level="3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#database-types"><i class="fa fa-check"></i><b>3.1</b> Database types</a></li>
-<li class="chapter" data-level="3.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#importing-tag-detections"><i class="fa fa-check"></i><b>3.2</b> Importing tag detections</a></li>
-<li class="chapter" data-level="3.3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#data-structure"><i class="fa fa-check"></i><b>3.3</b> Data structure</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#convert-the-virtual-alltags-table-to-a-flat-dataframe"><i class="fa fa-check"></i><b>3.3.1</b> Convert the virtual ‘alltags’ table to a flat dataframe</a></li>
-<li class="chapter" data-level="3.3.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#export-a-flat-dataframe-and-save-as-a-.csv-on-your-computer"><i class="fa fa-check"></i><b>3.3.2</b> Export a “flat” dataframe and save as a .csv on your computer</a></li>
+<li class="chapter" data-level="3.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#load-relevant-r-packages"><i class="fa fa-check"></i><b>3.2</b> Load relevant R packages</a></li>
+<li class="chapter" data-level="3.3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#importing-tag-detections"><i class="fa fa-check"></i><b>3.3</b> Importing tag detections</a></li>
+<li class="chapter" data-level="3.4" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#data-structure"><i class="fa fa-check"></i><b>3.4</b> Data structure</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#convert-a-virtual-table-to-a-flat-dataframe"><i class="fa fa-check"></i><b>3.4.1</b> Convert a virtual table to a flat dataframe</a></li>
+<li class="chapter" data-level="3.4.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#export-a-flat-dataframe-and-save-as-a-.csv-on-your-computer"><i class="fa fa-check"></i><b>3.4.2</b> Export a “flat” dataframe and save as a .csv on your computer</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html"><i class="fa fa-check"></i><b>4</b> Checking Metadata and Cleaning False Positives</a><ul>
-<li class="chapter" data-level="4.1" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#checking-for-missing-metadata"><i class="fa fa-check"></i><b>4.1</b> Checking for missing metadata</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#tag-metadata"><i class="fa fa-check"></i><b>4.1.1</b> Tag Metadata</a></li>
-<li class="chapter" data-level="4.1.2" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#receiver-metadata"><i class="fa fa-check"></i><b>4.1.2</b> Receiver Metadata</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#searching-for-false-positives"><i class="fa fa-check"></i><b>4.2</b> Searching for false positives</a></li>
+<li class="chapter" data-level="4" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html"><i class="fa fa-check"></i><b>4</b> Data Checking: Metadata</a><ul>
+<li class="chapter" data-level="4.0.1" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#tag-metadata"><i class="fa fa-check"></i><b>4.0.1</b> Tag Metadata</a></li>
+<li class="chapter" data-level="4.0.2" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#receiver-metadata"><i class="fa fa-check"></i><b>4.0.2</b> Receiver Metadata</a></li>
+<li class="chapter" data-level="4.1" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#searching-for-false-positives"><i class="fa fa-check"></i><b>4.1</b> Searching for false positives</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html"><i class="fa fa-check"></i><b>5</b> Cleaning data to remove false detections</a><ul>
 <li class="chapter" data-level="5.1" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-outside-of-deployment-range"><i class="fa fa-check"></i><b>5.1</b> Removing detections outside of deployment range</a></li>
@@ -184,7 +183,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-gitbook.require(["gitbook"], function(gitbook) {
+require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -213,6 +212,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Motus</title>
   <meta name="description" content="R for Motus">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Motus" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Tara L. Crewe and Zoe Crysler">
 
 
-<meta name="date" content="2017-10-10">
+<meta name="date" content="2017-10-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="loading-the-motus-r-package.html">
-<link rel="next" href="checking-metadata-and-cleaning-false-positives.html">
+<link rel="next" href="data-checking-metadata.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -116,18 +116,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
 <li class="chapter" data-level="3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#database-types"><i class="fa fa-check"></i><b>3.1</b> Database types</a></li>
-<li class="chapter" data-level="3.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#importing-tag-detections"><i class="fa fa-check"></i><b>3.2</b> Importing tag detections</a></li>
-<li class="chapter" data-level="3.3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#data-structure"><i class="fa fa-check"></i><b>3.3</b> Data structure</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#convert-the-virtual-alltags-table-to-a-flat-dataframe"><i class="fa fa-check"></i><b>3.3.1</b> Convert the virtual ‘alltags’ table to a flat dataframe</a></li>
-<li class="chapter" data-level="3.3.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#export-a-flat-dataframe-and-save-as-a-.csv-on-your-computer"><i class="fa fa-check"></i><b>3.3.2</b> Export a “flat” dataframe and save as a .csv on your computer</a></li>
+<li class="chapter" data-level="3.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#load-relevant-r-packages"><i class="fa fa-check"></i><b>3.2</b> Load relevant R packages</a></li>
+<li class="chapter" data-level="3.3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#importing-tag-detections"><i class="fa fa-check"></i><b>3.3</b> Importing tag detections</a></li>
+<li class="chapter" data-level="3.4" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#data-structure"><i class="fa fa-check"></i><b>3.4</b> Data structure</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#convert-a-virtual-table-to-a-flat-dataframe"><i class="fa fa-check"></i><b>3.4.1</b> Convert a virtual table to a flat dataframe</a></li>
+<li class="chapter" data-level="3.4.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#export-a-flat-dataframe-and-save-as-a-.csv-on-your-computer"><i class="fa fa-check"></i><b>3.4.2</b> Export a “flat” dataframe and save as a .csv on your computer</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html"><i class="fa fa-check"></i><b>4</b> Checking Metadata and Cleaning False Positives</a><ul>
-<li class="chapter" data-level="4.1" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#checking-for-missing-metadata"><i class="fa fa-check"></i><b>4.1</b> Checking for missing metadata</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#tag-metadata"><i class="fa fa-check"></i><b>4.1.1</b> Tag Metadata</a></li>
-<li class="chapter" data-level="4.1.2" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#receiver-metadata"><i class="fa fa-check"></i><b>4.1.2</b> Receiver Metadata</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="checking-metadata-and-cleaning-false-positives.html"><a href="checking-metadata-and-cleaning-false-positives.html#searching-for-false-positives"><i class="fa fa-check"></i><b>4.2</b> Searching for false positives</a></li>
+<li class="chapter" data-level="4" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html"><i class="fa fa-check"></i><b>4</b> Data Checking: Metadata</a><ul>
+<li class="chapter" data-level="4.0.1" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#tag-metadata"><i class="fa fa-check"></i><b>4.0.1</b> Tag Metadata</a></li>
+<li class="chapter" data-level="4.0.2" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#receiver-metadata"><i class="fa fa-check"></i><b>4.0.2</b> Receiver Metadata</a></li>
+<li class="chapter" data-level="4.1" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#searching-for-false-positives"><i class="fa fa-check"></i><b>4.1</b> Searching for false positives</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html"><i class="fa fa-check"></i><b>5</b> Cleaning data to remove false detections</a><ul>
 <li class="chapter" data-level="5.1" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-outside-of-deployment-range"><i class="fa fa-check"></i><b>5.1</b> Removing detections outside of deployment range</a></li>
@@ -161,8 +160,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>It’s important to note that the success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators. Users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.</p>
 <div id="database-types" class="section level2">
 <h2><span class="header-section-number">3.1</span> Database types</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;images/DataStructure.png&quot;</span>)</code></pre></div>
-<p><img src="images/DataStructure.PNG" width="804" /></p>
+<p><img src="images/DataStructure.png" width="804" /></p>
 <p><br></p>
 <p>There are two types of tag databases:</p>
 <ol style="list-style-type: decimal">
@@ -175,14 +173,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><p>you get all detections of <em>your</em> tags by <em>anyone’s</em> receivers (i.e., one project tag database for each of your motus projects)</p></li>
 </ol>
 </div>
+<div id="load-relevant-r-packages" class="section level2">
+<h2><span class="header-section-number">3.2</span> Load relevant R packages</h2>
+</div>
 <div id="importing-tag-detections" class="section level2">
-<h2><span class="header-section-number">3.2</span> Importing tag detections</h2>
+<h2><span class="header-section-number">3.3</span> Importing tag detections</h2>
 <p>Your project’s .motus file is available for download at <a href="https://motus.org/data/downloads" class="uri">https://motus.org/data/downloads</a> under your project profile. Once downloaded, <strong>make sure that you have the appropriate packages installed and loaded in R as outlined in Chapter 2-LoadingPackage</strong>. Once packages are loaded, you can import your tag detections into R using the following code:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">file.name &lt;-<span class="st"> &quot;C:/data/project-123.motus&quot;</span>    ## replace with the full location of your project data
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">file.name &lt;-<span class="st"> &quot;./data/project-8.motus&quot;</span>    ## replace with the full location of your project data
 t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">src_sqlite</span>(file.name)</code></pre></div>
 </div>
 <div id="data-structure" class="section level2">
-<h2><span class="header-section-number">3.3</span> Data structure</h2>
+<h2><span class="header-section-number">3.4</span> Data structure</h2>
 <p>Your tag database is stored as an SQLite (‘dplyr::src_sqlite’) file with the extension ‘.motus’. The sqlite format was chosen because:</p>
 <ol style="list-style-type: decimal">
 <li>it is flexible, allowing for many data formats.</li>
@@ -195,19 +196,152 @@ t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">
 <li>runs: detections data associated with a run (continuous detections of a unique tag on a given receiver).</li>
 <li>batches: detections data for a given receiver and boot number.</li>
 <li>tags: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).</li>
-<li>tagDep: metadata related to tag deployments, e.g., deployment date, location, and species.</li>
+<li>tagDeps: metadata related to tag deployments, e.g., deployment date, location, and species.</li>
 <li>recvDeps: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.</li>
 <li>antDeps: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.</li>
 <li>species: metadata related to species, e.g., unique identifier, scientific name, common name.</li>
 <li>projs: metadata related to projects, e.g., project name, principal investigator.</li>
-<li>gps: metadata related to gps position of receiver.</li>
+<li>gps: metadata related to Geographic Positioning System (GPS) position of receiver.</li>
 </ol>
 <p>Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be used to filter and summarize your .motus database, without needing to first save the data as a <em>flat</em> file, i.e., a typical two-dimensional dataframe with every record for each field filled in.</p>
-<p>Within the .motus database, the <em>virtual</em> table ‘alltags’ contains everything most users will need, and can be accessed using the dplyr tbl() function:</p>
+<p>You can access each table in the .motus file using the tbl() function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tag hits</span>
+hits &lt;-<span class="st"> </span><span class="kw">tbl</span>(t, <span class="st">&quot;hits&quot;</span>)
+<span class="kw">head</span>(hits)            <span class="co"># to see the first 6 rows of the table</span></code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 11]
+## # Database: sqlite 3.19.3
+## #   [F:\Motus\Motus_RPackage\MotusRBook\data\project-8.motus]
+##    hitID runID batchID         ts      sig   sigSD    noise   freq freqSD
+##    &lt;int&gt; &lt;int&gt;   &lt;int&gt;      &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 111271  9939       6 1376506387 -77.1754 13.8101 -86.2537 4.5027 0.0155
+## 2 111272  9939       6 1376506446 -73.1833 37.1073 -86.4007 4.5000 0.0045
+## 3 111273  9939       6 1376506452 -73.2568  5.9520 -86.6243 4.5118 0.0050
+## 4 111274  9939       6 1376506505 -71.7469 33.0531 -86.5210 4.4960 0.0053
+## 5 111275  9939       6 1376506511 -71.2332 13.2288 -86.4900 4.5005 0.0081
+## 6 111276  9939       6 1376506564 -69.9040 33.1407 -86.3431 4.4967 0.0060
+## # ... with 2 more variables: slop &lt;dbl&gt;, burstSlop &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hits<span class="op">$</span>ops<span class="op">$</span>vars         <span class="co"># list of variables in the table</span></code></pre></div>
+<pre><code>##  [1] &quot;hitID&quot;     &quot;runID&quot;     &quot;batchID&quot;   &quot;ts&quot;        &quot;sig&quot;      
+##  [6] &quot;sigSD&quot;     &quot;noise&quot;     &quot;freq&quot;      &quot;freqSD&quot;    &quot;slop&quot;     
+## [11] &quot;burstSlop&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tag deployment metadata</span>
+tagMeta &lt;-<span class="st"> </span><span class="kw">tbl</span>(t, <span class="st">&quot;tagDeps&quot;</span>)
+<span class="kw">head</span>(tagMeta)           </code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 19]
+## # Database: sqlite 3.19.3
+## #   [F:\Motus\Motus_RPackage\MotusRBook\data\project-8.motus]
+##   deployID tagID projectID status    tsStart      tsEnd deferSec speciesID
+##      &lt;int&gt; &lt;int&gt;     &lt;int&gt;  &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;    &lt;int&gt;     &lt;int&gt;
+## 1     1243 17382         8   &lt;NA&gt; 1376982000 1381815586        0      4690
+## 2     1244 17383         8   &lt;NA&gt; 1376982000 1381815808        0      4690
+## 3     1245 17384         8   &lt;NA&gt; 1376982000 1381815863        0      4690
+## 4     1246 17385         8   &lt;NA&gt; 1376982000 1381870868        0      4690
+## 5     1247 17386         8   &lt;NA&gt; 1376982000 1381870923        0      4690
+## 6     1248 17387         8   &lt;NA&gt; 1376982000 1381870923        0      4690
+## # ... with 11 more variables: markerNumber &lt;chr&gt;, markerType &lt;chr&gt;,
+## #   latitude &lt;dbl&gt;, longitude &lt;dbl&gt;, elevation &lt;dbl&gt;, comments &lt;chr&gt;,
+## #   id &lt;int&gt;, bi &lt;dbl&gt;, tsStartCode &lt;int&gt;, tsEndCode &lt;int&gt;, fullID &lt;chr&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tagMeta<span class="op">$</span>ops<span class="op">$</span>vars        </code></pre></div>
+<pre><code>##  [1] &quot;deployID&quot;     &quot;tagID&quot;        &quot;projectID&quot;    &quot;status&quot;      
+##  [5] &quot;tsStart&quot;      &quot;tsEnd&quot;        &quot;deferSec&quot;     &quot;speciesID&quot;   
+##  [9] &quot;markerNumber&quot; &quot;markerType&quot;   &quot;latitude&quot;     &quot;longitude&quot;   
+## [13] &quot;elevation&quot;    &quot;comments&quot;     &quot;id&quot;           &quot;bi&quot;          
+## [17] &quot;tsStartCode&quot;  &quot;tsEndCode&quot;    &quot;fullID&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># receiver deployment metadata</span>
+recvMeta &lt;-<span class="st"> </span><span class="kw">tbl</span>(t, <span class="st">&quot;recvDeps&quot;</span>)
+<span class="kw">head</span>(recvMeta)          </code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 15]
+## # Database: sqlite 3.19.3
+## #   [F:\Motus\Motus_RPackage\MotusRBook\data\project-8.motus]
+##   deployID           serno receiverType deviceID macAddress   status
+##      &lt;int&gt;           &lt;chr&gt;        &lt;chr&gt;    &lt;int&gt;      &lt;chr&gt;    &lt;chr&gt;
+## 1      935 SG-0613BB000613  SENSORGNOME      547       &lt;NA&gt; deployed
+## 2      936 SG-0613BB000613  SENSORGNOME      547       &lt;NA&gt; deployed
+## 3      954 SG-1013BB000626  SENSORGNOME      563       &lt;NA&gt; deployed
+## 4     1573 SG-1013BB000626  SENSORGNOME      563       &lt;NA&gt; deployed
+## 5     3351 SG-1013BB000626  SENSORGNOME      563       &lt;NA&gt; deployed
+## 6     3352 SG-0613BB000613  SENSORGNOME      547       &lt;NA&gt; deployed
+## # ... with 9 more variables: name &lt;chr&gt;, fixtureType &lt;chr&gt;,
+## #   latitude &lt;dbl&gt;, longitude &lt;dbl&gt;, isMobile &lt;int&gt;, tsStart &lt;dbl&gt;,
+## #   tsEnd &lt;dbl&gt;, projectID &lt;int&gt;, elevation &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">recvMeta<span class="op">$</span>ops<span class="op">$</span>vars       </code></pre></div>
+<pre><code>##  [1] &quot;deployID&quot;     &quot;serno&quot;        &quot;receiverType&quot; &quot;deviceID&quot;    
+##  [5] &quot;macAddress&quot;   &quot;status&quot;       &quot;name&quot;         &quot;fixtureType&quot; 
+##  [9] &quot;latitude&quot;     &quot;longitude&quot;    &quot;isMobile&quot;     &quot;tsStart&quot;     
+## [13] &quot;tsEnd&quot;        &quot;projectID&quot;    &quot;elevation&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># antenna deployment metadata</span>
+antMeta &lt;-<span class="st"> </span><span class="kw">tbl</span>(t, <span class="st">&quot;antDeps&quot;</span>)
+<span class="kw">head</span>(antMeta)           </code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 11]
+## # Database: sqlite 3.19.3
+## #   [F:\Motus\Motus_RPackage\MotusRBook\data\project-8.motus]
+##   deployID  port antennaType bearing heightMeters cableLengthMeters
+##      &lt;int&gt; &lt;int&gt;       &lt;chr&gt;   &lt;dbl&gt;        &lt;dbl&gt;             &lt;dbl&gt;
+## 1      935     2      yagi-9     212           NA                NA
+## 2      935     3      yagi-9     168           NA                NA
+## 3      935     4      yagi-9     260           NA                NA
+## 4      936     1      yagi-9     191           NA                NA
+## 5     3352     1      yagi-9     294           52                NA
+## 6     3352     2      yagi-9     360           53                NA
+## # ... with 5 more variables: cableType &lt;chr&gt;, mountDistanceMeters &lt;dbl&gt;,
+## #   mountBearing &lt;dbl&gt;, polarization2 &lt;dbl&gt;, polarization1 &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">antMeta<span class="op">$</span>ops<span class="op">$</span>vars        </code></pre></div>
+<pre><code>##  [1] &quot;deployID&quot;            &quot;port&quot;                &quot;antennaType&quot;        
+##  [4] &quot;bearing&quot;             &quot;heightMeters&quot;        &quot;cableLengthMeters&quot;  
+##  [7] &quot;cableType&quot;           &quot;mountDistanceMeters&quot; &quot;mountBearing&quot;       
+## [10] &quot;polarization2&quot;       &quot;polarization1&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># species metadata</span>
+spMeta &lt;-<span class="st"> </span><span class="kw">tbl</span>(t, <span class="st">&quot;species&quot;</span>)
+<span class="kw">head</span>(spMeta)            </code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 6]
+## # Database: sqlite 3.19.3
+## #   [F:\Motus\Motus_RPackage\MotusRBook\data\project-8.motus]
+##      id                english                french
+##   &lt;int&gt;                  &lt;chr&gt;                 &lt;chr&gt;
+## 1  4180    Semipalmated Plover    Pluvier semipalmÃ©
+## 2  4690 Semipalmated Sandpiper BÃ©casseau semipalmÃ©
+## 3  4750        Least Sandpiper  BÃ©casseau minuscule
+## # ... with 3 more variables: scientific &lt;chr&gt;, group &lt;chr&gt;, sort &lt;int&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spMeta<span class="op">$</span>ops<span class="op">$</span>vars         </code></pre></div>
+<pre><code>## [1] &quot;id&quot;         &quot;english&quot;    &quot;french&quot;     &quot;scientific&quot; &quot;group&quot;     
+## [6] &quot;sort&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># receiver GPS metadata</span>
+gpsMeta &lt;-<span class="st"> </span><span class="kw">tbl</span>(t, <span class="st">&quot;gps&quot;</span>)
+<span class="kw">head</span>(gpsMeta)            </code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 6]
+## # Database: sqlite 3.19.3
+## #   [F:\Motus\Motus_RPackage\MotusRBook\data\project-8.motus]
+##   batchID         ts gpsts     lat      lon   alt
+##     &lt;int&gt;      &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+## 1      11 1408394790    NA 44.5431 -67.7528  14.7
+## 2      11 1408398390    NA 44.5432 -67.7528  16.5
+## 3      11 1408401990    NA 44.5431 -67.7528  16.0
+## 4      11 1408405590    NA 44.5431 -67.7528  17.3
+## 5      11 1408409190    NA 44.5432 -67.7528  20.9
+## 6      11 1408412790    NA 44.5431 -67.7528  12.2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gpsMeta<span class="op">$</span>ops<span class="op">$</span>vars         </code></pre></div>
+<pre><code>## [1] &quot;batchID&quot; &quot;ts&quot;      &quot;gpsts&quot;   &quot;lat&quot;     &quot;lon&quot;     &quot;alt&quot;</code></pre>
+<p>If you look at the underlying structure of these tables using str(), you will see that each is a list of length 2:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(tagMeta)</code></pre></div>
+<pre><code>## List of 2
+##  $ src:List of 2
+##   ..$ con  :Formal class &#39;SQLiteConnection&#39; [package &quot;RSQLite&quot;] with 6 slots
+##   .. .. ..@ ptr                :&lt;externalptr&gt; 
+##   .. .. ..@ dbname             : chr &quot;F:\\Motus\\Motus_RPackage\\MotusRBook\\data\\project-8.motus&quot;
+##   .. .. ..@ loadable.extensions: logi TRUE
+##   .. .. ..@ flags              : int 70
+##   .. .. ..@ vfs                : chr &quot;&quot;
+##   .. .. ..@ ref                :&lt;environment: 0x00000000062eb448&gt; 
+##   ..$ disco:&lt;environment: 0x000000000d08ba80&gt; 
+##   ..- attr(*, &quot;class&quot;)= chr [1:3] &quot;src_dbi&quot; &quot;src_sql&quot; &quot;src&quot;
+##  $ ops:List of 2
+##   ..$ x   :Classes &#39;ident&#39;, &#39;character&#39;  chr &quot;tagDeps&quot;
+##   ..$ vars: chr [1:19] &quot;deployID&quot; &quot;tagID&quot; &quot;projectID&quot; &quot;status&quot; ...
+##   ..- attr(*, &quot;class&quot;)= chr [1:3] &quot;op_base_remote&quot; &quot;op_base&quot; &quot;op&quot;
+##  - attr(*, &quot;class&quot;)= chr [1:4] &quot;tbl_dbi&quot; &quot;tbl_sql&quot; &quot;tbl_lazy&quot; &quot;tbl&quot;</code></pre>
+<p>The first part of the list, ‘src’, is a list that provides details of the SQLiteConnection, which includes information on where the database is stored. The second part of the list, ‘ops’, is also a list, and includes the names of the variables (‘tagMeta<span class="math inline">\(ops\)</span>vars’) included in the table. In other words, in its current form, the R object ‘tagMeta’ does not hold the data itself (i.e., it is a <em>virtual</em> table); rather, it includes the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and the dplyr package can be used to manipulate and summarize the tables before collecting the results into a typical “flat” format dataframe.</p>
+<p>For your convienience, the <em>virtual</em> table ‘alltags’ contains all fields that most users will need from the various .motus tables, and can also be accessed using the dplyr tbl() function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">tbl</span>(t, <span class="st">&quot;alltags&quot;</span>)</code></pre></div>
-<p>If you look at the underlying structure of the data using str(), you will see that df is a list of length 2:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(df)</code></pre></div>
-<p>The first part of the list, ‘src’, is a list that provides details of the SQLiteConnection, which includes information on where the database is stored. The second part of the list, ‘ops’, is also a list, and includes the names of the variables included in the ‘alltags’ table. In other words, in its current form, the R object ‘df’ does not hold the data itself (i.e., it is a <em>virtual</em> table); rather, it includes the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and the dplyr package can be used to manipulate and summarize the ‘alltags’ table before collecting the results into a typical “flat” format dataframe.</p>
 <p>The following table lists the parameters available in the ‘alltags’ table, along with a description of each parameter.</p>
 <table>
 <caption><span id="tab:parameterTable">Table 3.1: </span>Description of fields in the tag detections database</caption>
@@ -452,15 +586,279 @@ t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">
 </tr>
 </tbody>
 </table>
-<div id="convert-the-virtual-alltags-table-to-a-flat-dataframe" class="section level3">
-<h3><span class="header-section-number">3.3.1</span> Convert the virtual ‘alltags’ table to a flat dataframe</h3>
-<p>If you want your entire dataframe in a typical “flat” format, i.e., with every record for each field filled in, you can use the collect() function. The output can then be used to generate a .rds or .csv file of your data, but we caution that producing such a table using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets:</p>
+<div id="convert-a-virtual-table-to-a-flat-dataframe" class="section level3">
+<h3><span class="header-section-number">3.4.1</span> Convert a virtual table to a flat dataframe</h3>
+<p>If you want your entire dataframe in a typical “flat” format, i.e., with every record for each field filled in, you can use the collect() function. The output can then be used to generate a .rds or .csv file of your data. However, we caution that producing such a table using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.flat &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span>collect <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame      ## for all fields in the df</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df.flat)      ## Look at first 6 rows of your df
-<span class="kw">summary</span>(df.flat)   ## summary of each column in your df
-<span class="kw">str</span>(df.flat)       ## Look at the structure of your data fields
-<span class="kw">names</span>(df.flat)     ## field names</code></pre></div>
-<p>If you want to load only part of your entire data frame (eg. certain fields, only certain tags, all tags from a specified project, species, etc.), you can use dplyr funtions to filter results before collecting the data into a flat dataframe. Some examples are below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df.flat)      ## Look at first 6 rows of your df</code></pre></div>
+<pre><code>##    hitID runID batchID         ts      sig   sigsd    noise   freq freqsd
+## 1 111271  9939       6 1376506387 -77.1754 13.8101 -86.2537 4.5027 0.0155
+## 2 111272  9939       6 1376506446 -73.1833 37.1073 -86.4007 4.5000 0.0045
+## 3 111273  9939       6 1376506452 -73.2568  5.9520 -86.6243 4.5118 0.0050
+## 4 111274  9939       6 1376506505 -71.7469 33.0531 -86.5210 4.4960 0.0053
+## 5 111275  9939       6 1376506511 -71.2332 13.2288 -86.4900 4.5005 0.0081
+## 6 111276  9939       6 1376506564 -69.9040 33.1407 -86.3431 4.4967 0.0060
+##     slop burstSlop done motusTagID ant runLen bootnum tagProjID id tagType
+## 1 0.0012    0.0000    1      17367   2     11      24         8 60      ID
+## 2 0.0014    0.0003    1      17367   2     11      24         8 60      ID
+## 3 0.0012    0.0011    1      17367   2     11      24         8 60      ID
+## 4 0.0016    0.0003    1      17367   2     11      24         8 60      ID
+## 5 0.0013    0.0011    1      17367   2     11      24         8 60      ID
+## 6 0.0013    0.0002    1      17367   2     11      24         8 60      ID
+##   codeSet   mfg tagModel tagLifespan nomFreq  tagBI pulseLen speciesID
+## 1  Lotek3 Lotek   NTQB-2          NA   166.3 5.8984      2.5      4690
+## 2  Lotek3 Lotek   NTQB-2          NA   166.3 5.8984      2.5      4690
+## 3  Lotek3 Lotek   NTQB-2          NA   166.3 5.8984      2.5      4690
+## 4  Lotek3 Lotek   NTQB-2          NA   166.3 5.8984      2.5      4690
+## 5  Lotek3 Lotek   NTQB-2          NA   166.3 5.8984      2.5      4690
+## 6  Lotek3 Lotek   NTQB-2          NA   166.3 5.8984      2.5      4690
+##   markerNumber markerType  depLat   depLon depAlt
+## 1    131153432 metal band 44.5759 -67.8401     NA
+## 2    131153432 metal band 44.5759 -67.8401     NA
+## 3    131153432 metal band 44.5759 -67.8401     NA
+## 4    131153432 metal band 44.5759 -67.8401     NA
+## 5    131153432 metal band 44.5759 -67.8401     NA
+## 6    131153432 metal band 44.5759 -67.8401     NA
+##                                                                                                                                                                               comments
+## 1 {&quot;ageID&quot;:&quot;AHY&quot;,&quot;bill&quot;:19.2,&quot;blood&quot;:&quot;N&quot;,&quot;country&quot;:&quot;US&quot;,&quot;culmen&quot;:19.2,&quot;locationID&quot;:&quot;MILL RIVER&quot;,&quot;province&quot;:&quot;Maine&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:21.35,&quot;weight&quot;:28.4,&quot;wing&quot;:98,&quot;comments&quot;:null}
+## 2 {&quot;ageID&quot;:&quot;AHY&quot;,&quot;bill&quot;:19.2,&quot;blood&quot;:&quot;N&quot;,&quot;country&quot;:&quot;US&quot;,&quot;culmen&quot;:19.2,&quot;locationID&quot;:&quot;MILL RIVER&quot;,&quot;province&quot;:&quot;Maine&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:21.35,&quot;weight&quot;:28.4,&quot;wing&quot;:98,&quot;comments&quot;:null}
+## 3 {&quot;ageID&quot;:&quot;AHY&quot;,&quot;bill&quot;:19.2,&quot;blood&quot;:&quot;N&quot;,&quot;country&quot;:&quot;US&quot;,&quot;culmen&quot;:19.2,&quot;locationID&quot;:&quot;MILL RIVER&quot;,&quot;province&quot;:&quot;Maine&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:21.35,&quot;weight&quot;:28.4,&quot;wing&quot;:98,&quot;comments&quot;:null}
+## 4 {&quot;ageID&quot;:&quot;AHY&quot;,&quot;bill&quot;:19.2,&quot;blood&quot;:&quot;N&quot;,&quot;country&quot;:&quot;US&quot;,&quot;culmen&quot;:19.2,&quot;locationID&quot;:&quot;MILL RIVER&quot;,&quot;province&quot;:&quot;Maine&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:21.35,&quot;weight&quot;:28.4,&quot;wing&quot;:98,&quot;comments&quot;:null}
+## 5 {&quot;ageID&quot;:&quot;AHY&quot;,&quot;bill&quot;:19.2,&quot;blood&quot;:&quot;N&quot;,&quot;country&quot;:&quot;US&quot;,&quot;culmen&quot;:19.2,&quot;locationID&quot;:&quot;MILL RIVER&quot;,&quot;province&quot;:&quot;Maine&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:21.35,&quot;weight&quot;:28.4,&quot;wing&quot;:98,&quot;comments&quot;:null}
+## 6 {&quot;ageID&quot;:&quot;AHY&quot;,&quot;bill&quot;:19.2,&quot;blood&quot;:&quot;N&quot;,&quot;country&quot;:&quot;US&quot;,&quot;culmen&quot;:19.2,&quot;locationID&quot;:&quot;MILL RIVER&quot;,&quot;province&quot;:&quot;Maine&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:21.35,&quot;weight&quot;:28.4,&quot;wing&quot;:98,&quot;comments&quot;:null}
+##   startCode endCode          fullID            recv site isMobile projID
+## 1        NA      NA ?proj?-8#60:5.9 SG-1013BB000626 SECO        0      8
+## 2        NA      NA ?proj?-8#60:5.9 SG-1013BB000626 SECO        0      8
+## 3        NA      NA ?proj?-8#60:5.9 SG-1013BB000626 SECO        0      8
+## 4        NA      NA ?proj?-8#60:5.9 SG-1013BB000626 SECO        0      8
+## 5        NA      NA ?proj?-8#60:5.9 SG-1013BB000626 SECO        0      8
+## 6        NA      NA ?proj?-8#60:5.9 SG-1013BB000626 SECO        0      8
+##   antType antBearing antHeight cableLen cableType mountDistance
+## 1    &lt;NA&gt;         NA        NA       NA      &lt;NA&gt;            NA
+## 2    &lt;NA&gt;         NA        NA       NA      &lt;NA&gt;            NA
+## 3    &lt;NA&gt;         NA        NA       NA      &lt;NA&gt;            NA
+## 4    &lt;NA&gt;         NA        NA       NA      &lt;NA&gt;            NA
+## 5    &lt;NA&gt;         NA        NA       NA      &lt;NA&gt;            NA
+## 6    &lt;NA&gt;         NA        NA       NA      &lt;NA&gt;            NA
+##   mountBearing polarization1 polarization2                   spEN
+## 1           NA            NA            NA Semipalmated Sandpiper
+## 2           NA            NA            NA Semipalmated Sandpiper
+## 3           NA            NA            NA Semipalmated Sandpiper
+## 4           NA            NA            NA Semipalmated Sandpiper
+## 5           NA            NA            NA Semipalmated Sandpiper
+## 6           NA            NA            NA Semipalmated Sandpiper
+##                    spFR            spSci spGroup  tagProj     proj lat lon
+## 1 BÃ©casseau semipalmÃ© Calidris pusilla   BIRDS HolbSESA HolbSESA  NA  NA
+## 2 BÃ©casseau semipalmÃ© Calidris pusilla   BIRDS HolbSESA HolbSESA  NA  NA
+## 3 BÃ©casseau semipalmÃ© Calidris pusilla   BIRDS HolbSESA HolbSESA  NA  NA
+## 4 BÃ©casseau semipalmÃ© Calidris pusilla   BIRDS HolbSESA HolbSESA  NA  NA
+## 5 BÃ©casseau semipalmÃ© Calidris pusilla   BIRDS HolbSESA HolbSESA  NA  NA
+## 6 BÃ©casseau semipalmÃ© Calidris pusilla   BIRDS HolbSESA HolbSESA  NA  NA
+##   alt
+## 1  NA
+## 2  NA
+## 3  NA
+## 4  NA
+## 5  NA
+## 6  NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(df.flat)   ## summary of each column in your df</code></pre></div>
+<pre><code>##      hitID             runID          batchID            ts           
+##  Min.   : 111271   Min.   : 9939   Min.   : 6.00   Min.   :1.377e+09  
+##  1st Qu.:1040431   1st Qu.:28435   1st Qu.:42.00   1st Qu.:1.409e+09  
+##  Median :1159076   Median :36693   Median :80.00   Median :1.409e+09  
+##  Mean   : 962936   Mean   :33790   Mean   :59.92   Mean   :1.407e+09  
+##  3rd Qu.:1274282   3rd Qu.:44347   3rd Qu.:82.00   3rd Qu.:1.410e+09  
+##  Max.   :1389548   Max.   :52450   Max.   :90.00   Max.   :1.412e+09  
+##                                                                       
+##       sig             sigsd              noise             freq       
+##  Min.   :-80.83   Min.   :  0.1085   Min.   :-87.99   Min.   :0.8088  
+##  1st Qu.:-73.41   1st Qu.:  7.8464   1st Qu.:-85.05   1st Qu.:4.1065  
+##  Median :-67.54   Median : 13.3681   Median :-83.57   Median :4.4722  
+##  Mean   :-66.27   Mean   : 17.7302   Mean   :-81.40   Mean   :4.5620  
+##  3rd Qu.:-60.70   3rd Qu.: 22.6841   3rd Qu.:-78.77   3rd Qu.:4.9043  
+##  Max.   :-21.16   Max.   :133.1690   Max.   :-55.62   Max.   :8.5403  
+##                                                                       
+##      freqsd             slop            burstSlop               done  
+##  Min.   :0.00000   Min.   :0.000000   Min.   :-6.510e-02   Min.   :1  
+##  1st Qu.:0.00890   1st Qu.:0.000200   1st Qu.:-1.000e-04   1st Qu.:1  
+##  Median :0.01470   Median :0.000300   Median : 0.000e+00   Median :1  
+##  Mean   :0.02197   Mean   :0.000393   Mean   : 8.322e-05   Mean   :1  
+##  3rd Qu.:0.02630   3rd Qu.:0.000400   3rd Qu.: 2.000e-04   3rd Qu.:1  
+##  Max.   :0.27600   Max.   :0.005600   Max.   : 6.560e-02   Max.   :1  
+##                                                                       
+##    motusTagID         ant            runLen          bootnum     
+##  Min.   :10466   Min.   :1.000   Min.   :   2.0   Min.   :20.00  
+##  1st Qu.:10472   1st Qu.:2.000   1st Qu.:  15.0   1st Qu.:26.00  
+##  Median :10486   Median :3.000   Median :  29.0   Median :26.00  
+##  Mean   :10905   Mean   :2.604   Mean   : 219.7   Mean   :26.37  
+##  3rd Qu.:10500   3rd Qu.:3.000   3rd Qu.:  63.0   3rd Qu.:26.00  
+##  Max.   :17400   Max.   :4.000   Max.   :6943.0   Max.   :29.00  
+##                                                                  
+##    tagProjID      id              tagType            codeSet         
+##  Min.   :8   Length:450752      Length:450752      Length:450752     
+##  1st Qu.:8   Class :character   Class :character   Class :character  
+##  Median :8   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   :8                                                           
+##  3rd Qu.:8                                                           
+##  Max.   :8                                                           
+##                                                                      
+##      mfg              tagModel          tagLifespan        nomFreq     
+##  Length:450752      Length:450752      Min.   : NA      Min.   :166.3  
+##  Class :character   Class :character   1st Qu.: NA      1st Qu.:166.4  
+##  Mode  :character   Mode  :character   Median : NA      Median :166.4  
+##                                        Mean   :NaN      Mean   :166.4  
+##                                        3rd Qu.: NA      3rd Qu.:166.4  
+##                                        Max.   : NA      Max.   :166.4  
+##                                        NA&#39;s   :450752                  
+##      tagBI          pulseLen     speciesID    markerNumber      
+##  Min.   :5.898   Min.   :2.5   Min.   :4180   Length:450752     
+##  1st Qu.:5.898   1st Qu.:2.5   1st Qu.:4690   Class :character  
+##  Median :6.096   Median :2.5   Median :4690   Mode  :character  
+##  Mean   :6.249   Mean   :2.5   Mean   :4689                     
+##  3rd Qu.:6.697   3rd Qu.:2.5   3rd Qu.:4690                     
+##  Max.   :7.097   Max.   :2.5   Max.   :4750                     
+##                                                                 
+##   markerType            depLat          depLon           depAlt      
+##  Length:450752      Min.   :44.52   Min.   :-67.84   Min.   : NA     
+##  Class :character   1st Qu.:44.52   1st Qu.:-67.77   1st Qu.: NA     
+##  Mode  :character   Median :44.56   Median :-67.77   Median : NA     
+##                     Mean   :44.54   Mean   :-67.77   Mean   :NaN     
+##                     3rd Qu.:44.56   3rd Qu.:-67.76   3rd Qu.: NA     
+##                     Max.   :44.58   Max.   :-67.76   Max.   : NA     
+##                                                      NA&#39;s   :450752  
+##    comments           startCode         endCode          fullID         
+##  Length:450752      Min.   : NA      Min.   : NA      Length:450752     
+##  Class :character   1st Qu.: NA      1st Qu.: NA      Class :character  
+##  Mode  :character   Median : NA      Median : NA      Mode  :character  
+##                     Mean   :NaN      Mean   :NaN                        
+##                     3rd Qu.: NA      3rd Qu.: NA                        
+##                     Max.   : NA      Max.   : NA                        
+##                     NA&#39;s   :450752   NA&#39;s   :450752                     
+##      recv               site              isMobile     projID 
+##  Length:450752      Length:450752      Min.   :0   Min.   :8  
+##  Class :character   Class :character   1st Qu.:0   1st Qu.:8  
+##  Mode  :character   Mode  :character   Median :0   Median :8  
+##                                        Mean   :0   Mean   :8  
+##                                        3rd Qu.:0   3rd Qu.:8  
+##                                        Max.   :0   Max.   :8  
+##                                                               
+##    antType            antBearing      antHeight         cableLen     
+##  Length:450752      Min.   :168.0   Min.   : NA      Min.   : NA     
+##  Class :character   1st Qu.:168.0   1st Qu.: NA      1st Qu.: NA     
+##  Mode  :character   Median :212.0   Median : NA      Median : NA     
+##                     Mean   :223.9   Mean   :NaN      Mean   :NaN     
+##                     3rd Qu.:260.0   3rd Qu.: NA      3rd Qu.: NA     
+##                     Max.   :350.0   Max.   : NA      Max.   : NA     
+##                     NA&#39;s   :6303    NA&#39;s   :450752   NA&#39;s   :450752  
+##   cableType         mountDistance     mountBearing    polarization1   
+##  Length:450752      Min.   : NA      Min.   : NA      Min.   : NA     
+##  Class :character   1st Qu.: NA      1st Qu.: NA      1st Qu.: NA     
+##  Mode  :character   Median : NA      Median : NA      Median : NA     
+##                     Mean   :NaN      Mean   :NaN      Mean   :NaN     
+##                     3rd Qu.: NA      3rd Qu.: NA      3rd Qu.: NA     
+##                     Max.   : NA      Max.   : NA      Max.   : NA     
+##                     NA&#39;s   :450752   NA&#39;s   :450752   NA&#39;s   :450752  
+##  polarization2        spEN               spFR              spSci          
+##  Min.   : NA      Length:450752      Length:450752      Length:450752     
+##  1st Qu.: NA      Class :character   Class :character   Class :character  
+##  Median : NA      Mode  :character   Mode  :character   Mode  :character  
+##  Mean   :NaN                                                              
+##  3rd Qu.: NA                                                              
+##  Max.   : NA                                                              
+##  NA&#39;s   :450752                                                           
+##    spGroup            tagProj              proj                lat        
+##  Length:450752      Length:450752      Length:450752      Min.   :44.54   
+##  Class :character   Class :character   Class :character   1st Qu.:44.54   
+##  Mode  :character   Mode  :character   Mode  :character   Median :44.56   
+##                                                           Mean   :44.56   
+##                                                           3rd Qu.:44.56   
+##                                                           Max.   :44.56   
+##                                                           NA&#39;s   :220519  
+##       lon              alt        
+##  Min.   :-67.81   Min.   :-0.10   
+##  1st Qu.:-67.81   1st Qu.:13.30   
+##  Median :-67.81   Median :16.00   
+##  Mean   :-67.78   Mean   :15.86   
+##  3rd Qu.:-67.75   3rd Qu.:17.80   
+##  Max.   :-67.75   Max.   :37.20   
+##  NA&#39;s   :220519   NA&#39;s   :220519</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(df.flat)       ## Look at the structure of your data fields</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    450752 obs. of  58 variables:
+##  $ hitID        : int  111271 111272 111273 111274 111275 111276 111277 111278 111279 111280 ...
+##  $ runID        : int  9939 9939 9939 9939 9939 9939 9939 9939 9939 9939 ...
+##  $ batchID      : int  6 6 6 6 6 6 6 6 6 6 ...
+##  $ ts           : num  1.38e+09 1.38e+09 1.38e+09 1.38e+09 1.38e+09 ...
+##  $ sig          : num  -77.2 -73.2 -73.3 -71.7 -71.2 ...
+##  $ sigsd        : num  13.81 37.11 5.95 33.05 13.23 ...
+##  $ noise        : num  -86.3 -86.4 -86.6 -86.5 -86.5 ...
+##  $ freq         : num  4.5 4.5 4.51 4.5 4.5 ...
+##  $ freqsd       : num  0.0155 0.0045 0.005 0.0053 0.0081 0.006 0.007 0.0132 0.0075 0.0118 ...
+##  $ slop         : num  0.0012 0.0014 0.0012 0.0016 0.0013 0.0013 0.0014 0.0014 0.0014 0.0014 ...
+##  $ burstSlop    : num  0 0.0003 0.0011 0.0003 0.0011 0.0002 0.0009 0.0002 0.0012 0.0002 ...
+##  $ done         : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ motusTagID   : int  17367 17367 17367 17367 17367 17367 17367 17367 17367 17367 ...
+##  $ ant          : int  2 2 2 2 2 2 2 2 2 2 ...
+##  $ runLen       : int  11 11 11 11 11 11 11 11 11 11 ...
+##  $ bootnum      : int  24 24 24 24 24 24 24 24 24 24 ...
+##  $ tagProjID    : int  8 8 8 8 8 8 8 8 8 8 ...
+##  $ id           : chr  &quot;60&quot; &quot;60&quot; &quot;60&quot; &quot;60&quot; ...
+##  $ tagType      : chr  &quot;ID&quot; &quot;ID&quot; &quot;ID&quot; &quot;ID&quot; ...
+##  $ codeSet      : chr  &quot;Lotek3&quot; &quot;Lotek3&quot; &quot;Lotek3&quot; &quot;Lotek3&quot; ...
+##  $ mfg          : chr  &quot;Lotek&quot; &quot;Lotek&quot; &quot;Lotek&quot; &quot;Lotek&quot; ...
+##  $ tagModel     : chr  &quot;NTQB-2&quot; &quot;NTQB-2&quot; &quot;NTQB-2&quot; &quot;NTQB-2&quot; ...
+##  $ tagLifespan  : int  NA NA NA NA NA NA NA NA NA NA ...
+##  $ nomFreq      : num  166 166 166 166 166 ...
+##  $ tagBI        : num  5.9 5.9 5.9 5.9 5.9 ...
+##  $ pulseLen     : num  2.5 2.5 2.5 2.5 2.5 2.5 2.5 2.5 2.5 2.5 ...
+##  $ speciesID    : int  4690 4690 4690 4690 4690 4690 4690 4690 4690 4690 ...
+##  $ markerNumber : chr  &quot;131153432&quot; &quot;131153432&quot; &quot;131153432&quot; &quot;131153432&quot; ...
+##  $ markerType   : chr  &quot;metal band&quot; &quot;metal band&quot; &quot;metal band&quot; &quot;metal band&quot; ...
+##  $ depLat       : num  44.6 44.6 44.6 44.6 44.6 ...
+##  $ depLon       : num  -67.8 -67.8 -67.8 -67.8 -67.8 ...
+##  $ depAlt       : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ comments     : chr  &quot;{\&quot;ageID\&quot;:\&quot;AHY\&quot;,\&quot;bill\&quot;:19.2,\&quot;blood\&quot;:\&quot;N\&quot;,\&quot;country\&quot;:\&quot;US\&quot;,\&quot;culmen\&quot;:19.2,\&quot;locationID\&quot;:\&quot;MILL RIVER&quot;| __truncated__ &quot;{\&quot;ageID\&quot;:\&quot;AHY\&quot;,\&quot;bill\&quot;:19.2,\&quot;blood\&quot;:\&quot;N\&quot;,\&quot;country\&quot;:\&quot;US\&quot;,\&quot;culmen\&quot;:19.2,\&quot;locationID\&quot;:\&quot;MILL RIVER&quot;| __truncated__ &quot;{\&quot;ageID\&quot;:\&quot;AHY\&quot;,\&quot;bill\&quot;:19.2,\&quot;blood\&quot;:\&quot;N\&quot;,\&quot;country\&quot;:\&quot;US\&quot;,\&quot;culmen\&quot;:19.2,\&quot;locationID\&quot;:\&quot;MILL RIVER&quot;| __truncated__ &quot;{\&quot;ageID\&quot;:\&quot;AHY\&quot;,\&quot;bill\&quot;:19.2,\&quot;blood\&quot;:\&quot;N\&quot;,\&quot;country\&quot;:\&quot;US\&quot;,\&quot;culmen\&quot;:19.2,\&quot;locationID\&quot;:\&quot;MILL RIVER&quot;| __truncated__ ...
+##  $ startCode    : int  NA NA NA NA NA NA NA NA NA NA ...
+##  $ endCode      : int  NA NA NA NA NA NA NA NA NA NA ...
+##  $ fullID       : chr  &quot;?proj?-8#60:5.9&quot; &quot;?proj?-8#60:5.9&quot; &quot;?proj?-8#60:5.9&quot; &quot;?proj?-8#60:5.9&quot; ...
+##  $ recv         : chr  &quot;SG-1013BB000626&quot; &quot;SG-1013BB000626&quot; &quot;SG-1013BB000626&quot; &quot;SG-1013BB000626&quot; ...
+##  $ site         : chr  &quot;SECO&quot; &quot;SECO&quot; &quot;SECO&quot; &quot;SECO&quot; ...
+##  $ isMobile     : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ projID       : int  8 8 8 8 8 8 8 8 8 8 ...
+##  $ antType      : chr  NA NA NA NA ...
+##  $ antBearing   : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ antHeight    : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ cableLen     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ cableType    : chr  NA NA NA NA ...
+##  $ mountDistance: num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ mountBearing : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ polarization1: num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ polarization2: num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ spEN         : chr  &quot;Semipalmated Sandpiper&quot; &quot;Semipalmated Sandpiper&quot; &quot;Semipalmated Sandpiper&quot; &quot;Semipalmated Sandpiper&quot; ...
+##  $ spFR         : chr  &quot;BÃ©casseau semipalmÃ©&quot; &quot;BÃ©casseau semipalmÃ©&quot; &quot;BÃ©casseau semipalmÃ©&quot; &quot;BÃ©casseau semipalmÃ©&quot; ...
+##  $ spSci        : chr  &quot;Calidris pusilla&quot; &quot;Calidris pusilla&quot; &quot;Calidris pusilla&quot; &quot;Calidris pusilla&quot; ...
+##  $ spGroup      : chr  &quot;BIRDS&quot; &quot;BIRDS&quot; &quot;BIRDS&quot; &quot;BIRDS&quot; ...
+##  $ tagProj      : chr  &quot;HolbSESA&quot; &quot;HolbSESA&quot; &quot;HolbSESA&quot; &quot;HolbSESA&quot; ...
+##  $ proj         : chr  &quot;HolbSESA&quot; &quot;HolbSESA&quot; &quot;HolbSESA&quot; &quot;HolbSESA&quot; ...
+##  $ lat          : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ lon          : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ alt          : num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(df.flat)     ## field names</code></pre></div>
+<pre><code>##  [1] &quot;hitID&quot;         &quot;runID&quot;         &quot;batchID&quot;       &quot;ts&quot;           
+##  [5] &quot;sig&quot;           &quot;sigsd&quot;         &quot;noise&quot;         &quot;freq&quot;         
+##  [9] &quot;freqsd&quot;        &quot;slop&quot;          &quot;burstSlop&quot;     &quot;done&quot;         
+## [13] &quot;motusTagID&quot;    &quot;ant&quot;           &quot;runLen&quot;        &quot;bootnum&quot;      
+## [17] &quot;tagProjID&quot;     &quot;id&quot;            &quot;tagType&quot;       &quot;codeSet&quot;      
+## [21] &quot;mfg&quot;           &quot;tagModel&quot;      &quot;tagLifespan&quot;   &quot;nomFreq&quot;      
+## [25] &quot;tagBI&quot;         &quot;pulseLen&quot;      &quot;speciesID&quot;     &quot;markerNumber&quot; 
+## [29] &quot;markerType&quot;    &quot;depLat&quot;        &quot;depLon&quot;        &quot;depAlt&quot;       
+## [33] &quot;comments&quot;      &quot;startCode&quot;     &quot;endCode&quot;       &quot;fullID&quot;       
+## [37] &quot;recv&quot;          &quot;site&quot;          &quot;isMobile&quot;      &quot;projID&quot;       
+## [41] &quot;antType&quot;       &quot;antBearing&quot;    &quot;antHeight&quot;     &quot;cableLen&quot;     
+## [45] &quot;cableType&quot;     &quot;mountDistance&quot; &quot;mountBearing&quot;  &quot;polarization1&quot;
+## [49] &quot;polarization2&quot; &quot;spEN&quot;          &quot;spFR&quot;          &quot;spSci&quot;        
+## [53] &quot;spGroup&quot;       &quot;tagProj&quot;       &quot;proj&quot;          &quot;lat&quot;          
+## [57] &quot;lon&quot;           &quot;alt&quot;</code></pre>
+<p>If you want to load only part of your entire data frame (eg. certain fields, only certain tags, all tags from a specified project, species, etc.), you can use dplyr funtions to filter the data before collecting into a flat dataframe. Some examples are below:</p>
 <ol style="list-style-type: decimal">
 <li>To select certain fields;</li>
 </ol>
@@ -482,9 +880,9 @@ df.flat.subset &lt;-<span class="st"> </span><span class="kw">filter</span>(df, 
 hh &lt;-<span class="st"> </span>hourly <span class="op">%&gt;%</span><span class="st"> </span>collect <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</code></pre></div>
 </div>
 <div id="export-a-flat-dataframe-and-save-as-a-.csv-on-your-computer" class="section level3">
-<h3><span class="header-section-number">3.3.2</span> Export a “flat” dataframe and save as a .csv on your computer</h3>
-<p>The below example is how you would save the flat file called “df.flat” within R, as a .csv file called “motus_detecitons.csv” on your computer in the location C:/data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.csv</span>(df.flat, <span class="st">&quot;C:/data/motus_detections.csv&quot;</span>)  ## &quot;df.flat&quot;&quot; is the name of the flat file within R that you want to convert to a .csv
+<h3><span class="header-section-number">3.4.2</span> Export a “flat” dataframe and save as a .csv on your computer</h3>
+<p>The below example is how you would save the flat file called “df.flat” within R, as a .csv file called “motus_detecitons.csv” on your computer in the ‘data’ folder of your working directory.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.csv</span>(df.flat, <span class="st">&quot;./data/motus_detections.csv&quot;</span>)  ## &quot;df.flat&quot;&quot; is the name of the flat file within R that you want to convert to a .csv
 ## &quot;C:/data/&quot; is the the location where you would like your .csv stored
 ## &quot;motus_detections.csv&quot;, is the name of the .csv file you are creating, this can be anything you like but must end with .csv.</code></pre></div>
 
@@ -497,7 +895,7 @@ hh &lt;-<span class="st"> </span>hourly <span class="op">%&gt;%</span><span clas
         </div>
       </div>
 <a href="loading-the-motus-r-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="checking-metadata-and-cleaning-false-positives.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-checking-metadata.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -508,7 +906,7 @@ hh &lt;-<span class="st"> </span>hourly <span class="op">%&gt;%</span><span clas
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-gitbook.require(["gitbook"], function(gitbook) {
+require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -537,6 +935,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

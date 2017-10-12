@@ -1,12 +1,14 @@
 # Cleaning data to remove false detections
 
-Background radio noise will sometimes create false positives in your detection data, some sites will inherently have more background noise than others, and some tag IDs are more prone to false positives than others.  Once you download your data, the first step should be cleaning it of false detections.  There are a few ways to do this, ultimately it is up to you to determine which detections are true and which should be removed.  Below we outline a number of ways to determine if detections are likely false positives.
+Background radio noise will sometimes create false positives in your detection data, some sites will inherently have more background noise than others, and some tag IDs are more prone to false positives than others. Once you download your data, the first step should be cleaning it of false detections. There are a few ways to do this, ultimately it is up to you to determine which detections are true and which should be removed. Below we outline a number of ways to determine if detections are likely false positives.
 
 ## Removing detections outside of deployment range
-A first step to removing definite false positives, is to remove any detections that fall outside of the tag deployment dates.  To do this we will need to import the tagging metadata and merge it with the tag detection files to see tag deployment start/end dates.
+A first step to removing definite false positives, is to remove any detections that fall outside of the tag deployment dates. To do this we will need to import the tagging metadata and merge it with the tag detection files to see tag deployment start/end dates.
 
-1. **Download tag deployment metadata**: from the download page <https://motus.org/data/downloads>, select your project from the dropdown menu and click "Tag Deployments" to get a tag-deployments.csv file.  Alternatively, you can download the same deployments file from your project tag page.
+1. **Download tag deployment metadata**: from the download page <https://motus.org/data/downloads>, select your project from the dropdown menu and click "Tag Deployments" to get a tag-deployments.csv file. Alternatively, you can download the same deployments file from your project tag page.
+
 2. **Import tag deployment metadata into R**
+
 ```{r tagMeta, eval = FALSE}
 
 tagMeta <- read.csv("C:/data/tag-deployments.csv") ## replace the location with the file path where you saved the .csv file.
