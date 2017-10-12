@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="introduction.html">
-<link rel="next" href="accessing-and-understanding-detections-data.html">
+<link rel="prev" href="checking-metadata-and-cleaning-false-positives.html">
+<link rel="next" href="exploring-data-with-the-motus-r-package.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -156,34 +156,34 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="loading-the-motus-r-package" class="section level1">
-<h1><span class="header-section-number">2</span> Loading the Motus R Package</h1>
-<p>Motus <strong>users</strong> can install the latest stable version of the Motus R package using the following code. You only need to install the packages once, but once installed, you do need to load each package (using library() or require()) each time you open a new R session.</p>
-<p>Please note that some functionalities of the devtools package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of R (<a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a>) and RStudio (<a href="https://www.rstudio.com/products/RStudio/" class="uri">https://www.rstudio.com/products/RStudio/</a>), and update your R packages using update.pacakges() in the R console.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update.packages</span>()                         ## to update your existing R packages</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)              ## if you haven&#39;t already done this
-<span class="kw">library</span>(devtools)                         ## load devtools
-
-<span class="kw">install_github</span>(<span class="st">&quot;jbrzusto/motus@master&quot;</span>)   ## the last stable version
-<span class="kw">library</span>(motus)</code></pre></div>
-<p>For <strong>developers</strong>, the ‘staging’ branch is for work-in-progress. Install it with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)               ## if you haven&#39;t already done this
-<span class="kw">library</span>(devtools) 
-
-<span class="kw">install_github</span>(<span class="st">&quot;jbrzusto/motus@staging&quot;</span>)   ## the development version
-<span class="kw">library</span>(motus)</code></pre></div>
-<p>Throughout the book, we use Tidyverse <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>, which is a collection of R packages, including tidyr() and dplyr(). These can be installed with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)             ## again, you only need to install once.
-<span class="kw">library</span>(tidyverse)</code></pre></div>
-<p>More information on Tidyverse can be found at <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>, or by browsing ‘R for Data Science’ by Garrett Grolemund and Hadley Wickham: <a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>.</p>
-<div id="user-authentication" class="section level2">
-<h2><span class="header-section-number">2.1</span> User Authentication</h2>
-<p>The first time you call a function using the Motus R package, you will be asked for your motus.org username and password to authenticate your access to project data. This will only happen once per R session. If you do not have a Motus user name and password, you can sign up at <a href="https://motus.org/data/user/new" class="uri">https://motus.org/data/user/new</a>. Permission to access project data will then be granted by Motus staff or the project principal investigator.</p>
+<div id="cleaning-data-to-remove-false-detections" class="section level1">
+<h1><span class="header-section-number">5</span> Cleaning data to remove false detections</h1>
+<p>Background radio noise will sometimes create false positives in your detection data, some sites will inherently have more background noise than others, and some tag IDs are more prone to false positives than others. Once you download your data, the first step should be cleaning it of false detections. There are a few ways to do this, ultimately it is up to you to determine which detections are true and which should be removed. Below we outline a number of ways to determine if detections are likely false positives.</p>
+<div id="removing-detections-outside-of-deployment-range" class="section level2">
+<h2><span class="header-section-number">5.1</span> Removing detections outside of deployment range</h2>
+<p>A first step to removing definite false positives, is to remove any detections that fall outside of the tag deployment dates. To do this we will need to import the tagging metadata and merge it with the tag detection files to see tag deployment start/end dates.</p>
+<ol style="list-style-type: decimal">
+<li><strong>Download tag deployment metadata</strong>: from the download page <a href="https://motus.org/data/downloads" class="uri">https://motus.org/data/downloads</a>, select your project from the dropdown menu and click “Tag Deployments” to get a tag-deployments.csv file. Alternatively, you can download the same deployments file from your project tag page.</li>
+<li><strong>Import tag deployment metadata into R</strong></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tagMeta &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;C:/data/tag-deployments.csv&quot;</span>) ## replace the location with the file path where you saved the .csv file.</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li><p><strong>Join tag metadata and detection data</strong>: Join the tagMeta database to your detection data, here we only include the start/end date columns from the tagMeta database, however you can choose to keep all columns if necessary.</p></li>
+<li><p><strong>Remove detections that fall outside tag deployment dates</strong></p></li>
+</ol>
 </div>
-<div id="internal-data-processing" class="section level2">
-<h2><span class="header-section-number">2.2</span> Internal data processing</h2>
-<p>As an animal moves within the detection range of a Motus station, radio transmissions, or ‘bursts’, are detected by antenna(s) and recorded by a receiver. These raw detection data are either uploaded to the Motus database instantaneously via internet connection, or downloaded from the receiver and uploaded to Motus manually. Behind the scenes, various functions read and process the raw detections data to produce the tag detections file that users access using the R package (see ‘Data Import’ below). While most users will not need to call on the internal data processing functions, a complete list of functions within the Motus server R package can be found on GitHub: <a href="https://github.com/jbrzusto/motusServer" class="uri">https://github.com/jbrzusto/motusServer</a>. The code behind each function can be viewed on GitHub, or by typing the following in the R console after loading the R package, replacing ‘function.name’ with the name of the R function of interest:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">function.name</span>() </code></pre></div>
+<div id="removing-detections-based-on-visual-geographic-positions" class="section level2">
+<h2><span class="header-section-number">5.2</span> Removing detections based on visual geographic positions</h2>
+<p>A few simple plots of latitude/longitude vs. time can highlight detections that occur in areas outside of the expected geographic range of the species for that date, or flights showing impossible speeds over large distances.</p>
+<p>Once you identify detections you would like to remove, you can filter out those points based on hitID</p>
+</div>
+<div id="removing-detections-based-on-estimated-flight-speed" class="section level2">
+<h2><span class="header-section-number">5.3</span> Removing detections based on estimated flight speed</h2>
+<p>By looking at the rate of movement between sites with consicutive detections, we can quickly view flights that are not physically possible. Further examination of these detections will be required to determine which detections are true and which are false.</p>
+</div>
+<div id="removing-detections-based-on-automated-filtering" class="section level2">
+<h2><span class="header-section-number">5.4</span> Removing detections based on automated filtering</h2>
+<p>You can also remove spurious detections through some simple automated filters if you do not wish to examine each tag individually. But note that by applying a general filter to all your detections, you risk removing true detections as well. Detections can be filtered by freqSD or by runLen. FreqSD refers to the standard deviation of frequency offset among bulses in a burst, in kHz. Values larger than 0.1 kHz suggest a bogus detection, however this is for detections on SensorGnomes only. runLen is the number of tag bursts in the current run, a run is defined as a group of consecutive detections of a tag detected on a receiver.</p>
 
 </div>
 </div>
@@ -192,8 +192,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="accessing-and-understanding-detections-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="checking-metadata-and-cleaning-false-positives.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exploring-data-with-the-motus-r-package.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
