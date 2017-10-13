@@ -1,6 +1,15 @@
 # Cleaning data to remove false detections
 
-Background radio noise will sometimes create false positives in your detection data, some sites will inherently have more background noise than others, and some tag IDs are more prone to false positives than others. Once you download your data, the first step should be cleaning it of false detections. There are a few ways to do this, ultimately it is up to you to determine which detections are true and which should be removed. Below we outline a number of ways to determine if detections are likely false positives.
+Background radio noise will sometimes create false positives in your detection data. Some sites will inherently have more background noise than others, and some tag IDs are more prone to false positives than others. Once you download your data, the first step should be cleaning it of false detections. There are a few ways to do this, ultimately it is up to you to determine which detections are true and which should be removed. Below we outline a number of ways to determine if detections are likely false positives.
+
+## Load relevant R packages
+
+```{r loadPackages, warning = FALSE, message = FALSE}
+
+require(devtools)
+require(tidyverse)
+
+```
 
 ## Removing detections outside of deployment range
 A first step to removing definite false positives, is to remove any detections that fall outside of the tag deployment dates. To do this we will need to import the tagging metadata and merge it with the tag detection files to see tag deployment start/end dates.
@@ -15,7 +24,27 @@ tagMeta <- read.csv("C:/data/tag-deployments.csv") ## replace the location with 
 
 ```
 
+OR (we should probably go this way, and work from the .motus file) 
+
+1-2. **Import tag deployment metadata from your .motus file**
+To import and convert your tag metadata in your .motus file to a flat file (for more information see 'Accessing Data' chapter): 
+
+```{r importTagMeta, message = FALSE, warning = FALSE}
+
+t <- dplyr::src_sqlite("./data/project-38.motus")     # import .motus file from your local directory (change directory to match)
+tagMeta <- tbl(t, "tagDeps")                          # extract tagDeps table, with tag deployment metadata
+tagMeta <- tagMeta %>% collect %>% as.data.frame      # convert tag metadata to a flat file
+
+```
+
 3. **Join tag metadata and detection data**: Join the tagMeta database to your detection data, here we only include the start/end date columns from the tagMeta database, however you can choose to keep all columns if necessary.
+
+Once you've created a flat .csv file of your data (see 'Accessing Data' Chapter), you can import using the following statement:
+```{r importDetectData, message = FALSE, warning = FALSE}
+
+df <- read.csv("./data/project-38_raw.csv")
+
+```
 
 4. **Remove detections that fall outside tag deployment dates**
 

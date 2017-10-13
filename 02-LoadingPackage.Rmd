@@ -1,6 +1,12 @@
 # Loading the Motus R Package
 
-Motus **users** can install the latest stable version of the Motus R package using the following code. You only need to install the packages once, but once installed, you do need to load each package (using library() or require()) each time you open a new R session. 
+There are two R packages available to Motus users:
+
+1. motusClient: provides functions to download and update detections data and tag and receiver deployment metadata from the Motus server.
+
+2. motus: provides functions to output summary plots, and to transform (add sun rise/sun set times), and analyze Motus data.
+
+Motus **users** can install the latest stable versions of the R packages using the following code. You only need to install the packages once, but once installed, you do need to load each package (using library() or require()) each time you open a new R session. 
 
 Please note that some functionalities of the devtools package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of R (<https://www.r-project.org/>) and RStudio (<https://www.rstudio.com/products/RStudio/>), and update your R packages using update.pacakges() in the R console.
 
@@ -13,6 +19,11 @@ update.packages()                         ## to update your existing R packages
 install.packages("devtools")              ## if you haven't already done this
 library(devtools)                         ## load devtools
 
+# install motusClient for data download
+install_github("jbrzusto/motusClient@master")   ## the last stable version
+library(motusClient)
+
+# install motus for data manipulation, visualization and analysis
 install_github("jbrzusto/motus@master")   ## the last stable version
 library(motus)
 ```

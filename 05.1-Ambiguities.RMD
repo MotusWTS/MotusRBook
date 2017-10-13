@@ -1,0 +1,24 @@
+## Duplicate tags and ambiguous detections
+
+Duplicate tags occur when there are two or more tags with the same Lotek ID code, burst interval, and nominal transmit frequency (i.e., tags are indistinguishable). 
+
+The tag finder program only looks for tags in the raw detetions data during their active lifetimes.  Tag lifetimes are estimated based on tag metadata, including deployment date, tag model (battery size), and burst interval. If duplicate tags do not overlap in their active lifetimes, there is no ambiguity in terms of which project and tag the detections belongs to, and each detection is assigned unambiguously to the correct project and tag. This is by far the most common situation for duplicate tags in the Motus system.
+
+In the rare situation when duplicate tags are deployed with overlapping lifetimes, this can result in ambiguous tag detections, where more than one tag (up to 6) could be the source of those detections. In your detections data, these ambiguous detections are identified by a unique negative value in the 'motusTagID'. 
+
+
+
+### Check for ambiguous tags
+
+First, make a list of motusTagIDs in your detections data.  If your motusTagIDs are all > 0, then you don't have ambiguous detections in your data.
+
+```{r checkAmbig, message = FALSE, warning = FALSE}
+
+select(df.flat, motusTagID) %>% distinct() %>% arrange(motusTagID)
+
+```
+
+In this case, there are several ambiguities in the data. 
+
+
+
