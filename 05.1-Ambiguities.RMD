@@ -2,21 +2,38 @@
 
 Duplicate tags occur when there are two or more tags with the same Lotek ID code, burst interval, and nominal transmit frequency (i.e., tags are indistinguishable). 
 
-The tag finder program only looks for tags in the raw detetions data during their active lifetimes.  Tag lifetimes are estimated based on tag metadata, including deployment date, tag model (battery size), and burst interval. If duplicate tags do not overlap in their active lifetimes, there is no ambiguity in terms of which project and tag the detections belongs to, and each detection is assigned unambiguously to the correct project and tag. This is by far the most common situation for duplicate tags in the Motus system.
+The tag finder program only looks for tags in the raw detetions data during their active lifetimes.  Tag lifetimes are estimated based on tag metadata, including deployment date, tag model (battery size), and burst interval. If duplicate tags do not overlap in their active lifetimes, there is no ambiguity in terms of which project and tag the detections belong to, and each detection is assigned unambiguously to the correct project and tag. This is by far the most common situation for duplicate tags in the Motus system.
 
 In the rare situation when duplicate tags are deployed with overlapping lifetimes, this can result in ambiguous tag detections, where more than one tag (up to 6) could be the source of those detections. In your detections data, these ambiguous detections are identified by a unique negative value in the 'motusTagID'. 
 
+### Check for ambiguous tags in detections data
 
+First we will look in your detections data to see if there are ambiguous detections represented by a negative motusTagID.
 
-### Check for ambiguous tags
+```{r importdata}
 
-First, make a list of motusTagIDs in your detections data.  If your motusTagIDs are all > 0, then you don't have ambiguous detections in your data.
+file.name <- "F:/Motus/Motus_JamesBay/project-38.motus"    ## replace with the full location of your project data
+t <- dplyr::src_sqlite(file.name)
+df <- tbl(t, "alltags")
 
-```{r checkAmbig, message = FALSE, warning = FALSE}
+# list of motusTagIDs in detections data
 
-select(df.flat, motusTagID) %>% distinct() %>% arrange(motusTagID)
+tags <- select(df, motusTagID) %>% distinct() %>% arrange(motusTagID) %>% collect( )%>% as.data.frame()
+
+filter(tags, motusTagID < 0) %>% as.list()
 
 ```
+We see from the list of motusTagIDs that there are 47 ambiguities in the data. To see which of your registered tags these correspond to, you can use the clarify() function in the motusClient R package:
+
+```{r clarify}
+
+ambig <- clarify(t)
+
+```
+
+To look more closely at these ambiguities, and see whether they correspond to detections of your tags or not, you need to download you tag metadata, which will include the deployment start and end times, and...
+
+
 
 In this case, there are several ambiguities in the data. 
 
