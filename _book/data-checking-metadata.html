@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Motus</title>
   <meta name="description" content="R for Motus">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Motus" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Tara L. Crewe and Zoe Crysler">
 
 
-<meta name="date" content="2017-10-12">
+<meta name="date" content="2017-10-18">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -120,19 +120,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#importing-tag-detections"><i class="fa fa-check"></i><b>3.3</b> Importing tag detections</a></li>
 <li class="chapter" data-level="3.4" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#data-structure"><i class="fa fa-check"></i><b>3.4</b> Data structure</a><ul>
 <li class="chapter" data-level="3.4.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#convert-a-virtual-table-to-a-flat-dataframe"><i class="fa fa-check"></i><b>3.4.1</b> Convert a virtual table to a flat dataframe</a></li>
-<li class="chapter" data-level="3.4.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#export-a-flat-dataframe-and-save-as-a-.csv-on-your-computer"><i class="fa fa-check"></i><b>3.4.2</b> Export a “flat” dataframe and save as a .csv on your computer</a></li>
+<li class="chapter" data-level="3.4.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#export-your-flat-dataframe-to-a-.csv-file"><i class="fa fa-check"></i><b>3.4.2</b> Export your “flat” dataframe to a .csv file</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html"><i class="fa fa-check"></i><b>4</b> Data Checking: Metadata</a><ul>
-<li class="chapter" data-level="4.0.1" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#tag-metadata"><i class="fa fa-check"></i><b>4.0.1</b> Tag Metadata</a></li>
-<li class="chapter" data-level="4.0.2" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#receiver-metadata"><i class="fa fa-check"></i><b>4.0.2</b> Receiver Metadata</a></li>
-<li class="chapter" data-level="4.1" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#searching-for-false-positives"><i class="fa fa-check"></i><b>4.1</b> Searching for false positives</a></li>
+<li class="chapter" data-level="4.1" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#load-relevant-r-packages-1"><i class="fa fa-check"></i><b>4.1</b> Load relevant R packages</a></li>
+<li class="chapter" data-level="4.2" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#tag-metadata"><i class="fa fa-check"></i><b>4.2</b> Tag Metadata</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#import-data"><i class="fa fa-check"></i><b>4.2.1</b> Import Data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#tag-metadata-checks"><i class="fa fa-check"></i><b>4.2.2</b> Tag Metadata Checks</a></li>
+<li class="chapter" data-level="4.2.3" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#receiver-metadata"><i class="fa fa-check"></i><b>4.2.3</b> Receiver Metadata</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#searching-for-false-positives"><i class="fa fa-check"></i><b>4.3</b> Searching for false positives</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html"><i class="fa fa-check"></i><b>5</b> Cleaning data to remove false detections</a><ul>
-<li class="chapter" data-level="5.1" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-outside-of-deployment-range"><i class="fa fa-check"></i><b>5.1</b> Removing detections outside of deployment range</a></li>
-<li class="chapter" data-level="5.2" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-based-on-visual-geographic-positions"><i class="fa fa-check"></i><b>5.2</b> Removing detections based on visual geographic positions</a></li>
-<li class="chapter" data-level="5.3" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-based-on-estimated-flight-speed"><i class="fa fa-check"></i><b>5.3</b> Removing detections based on estimated flight speed</a></li>
-<li class="chapter" data-level="5.4" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-based-on-automated-filtering"><i class="fa fa-check"></i><b>5.4</b> Removing detections based on automated filtering</a></li>
+<li class="chapter" data-level="5.1" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#load-relevant-r-packages-2"><i class="fa fa-check"></i><b>5.1</b> Load relevant R packages</a></li>
+<li class="chapter" data-level="5.2" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-outside-of-deployment-range"><i class="fa fa-check"></i><b>5.2</b> Removing detections outside of deployment range</a></li>
+<li class="chapter" data-level="5.3" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-based-on-visual-geographic-positions"><i class="fa fa-check"></i><b>5.3</b> Removing detections based on visual geographic positions</a></li>
+<li class="chapter" data-level="5.4" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-based-on-estimated-flight-speed"><i class="fa fa-check"></i><b>5.4</b> Removing detections based on estimated flight speed</a></li>
+<li class="chapter" data-level="5.5" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-false-positives-based-on-hitids"><i class="fa fa-check"></i><b>5.5</b> Removing false positives based on hitID’s</a></li>
+<li class="chapter" data-level="5.6" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-based-on-automated-filtering"><i class="fa fa-check"></i><b>5.6</b> Removing detections based on automated filtering</a></li>
+<li class="chapter" data-level="5.7" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#duplicate-tags-and-ambiguous-detections"><i class="fa fa-check"></i><b>5.7</b> Duplicate tags and ambiguous detections</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#check-for-ambiguous-tags"><i class="fa fa-check"></i><b>5.7.1</b> Check for ambiguous tags</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
 <li class="chapter" data-level="6.1" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#summarizing-your-data"><i class="fa fa-check"></i><b>6.1</b> Summarizing your data</a></li>
@@ -158,12 +167,103 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="data-checking-metadata" class="section level1">
 <h1><span class="header-section-number">4</span> Data Checking: Metadata</h1>
 <p>Data quality for your projects and the projects of others depends on complete and accurate tag and receiver metadata. Complete metadata will allow detections to be properly linked to your project, and allow other users to benefit fully from data collected by the Motus network of receivers. Once you have imported your data using R, it is therefore good practice to run data summaries to check for missing or incorrect tag and receiver deployment metadata.</p>
-<p>As you run through the following code to check your metadata, please fix metadata errors or omissions in your project by signing in to www.motus.org, and under the ‘Manage Data’ tab, select either ‘Manage Tags’ to fix tag deployment metadata or ‘Manage Receivers’ to fix receiver deployment metadata. It is important to fix metadata errors online, so that errors are fixed at the source, are archived on the Motus Server, and to ensure all users have access to the appropriate tag or receiver metadata.</p>
 <p><strong>Missing or incorrect tag metadata</strong> can result in a lack of tag detections in your data. For example, if deployment date is missing or wrong, the tag finder, which processes the data from each receiver in the network, might not look for your tag in the data, or might not look at the appropriate time when the tag is actually active. This will result in missing tags in your detections data.</p>
-<p><strong>Missing or incorrect receiver metadata</strong> can result in a loss of information for both your project and the projects of other Motus users. For example, missing deployment latitude and longitude can result in a loss of information on the location of a receiver. Particularly when the same receiver is moved from one location to another, it is important your metadata reflect this, so that you and other users can properly analyze your/their data. Missing antenna deployments, including port number, height and orientation, can also limit what users can do with their data. For example, departure orientation cannot be estimated without the properties (latitude, longitude, orientation, height, antenna type) of the antenna(s) with detections.</p>
-<div id="tag-metadata" class="section level3">
-<h3><span class="header-section-number">4.0.1</span> Tag Metadata</h3>
-<p>Only tags registered with Motus (<a href="https://motus.org/tag-registration/" class="uri">https://motus.org/tag-registration/</a>) prior to deployment will appear in detections data. To view a full list of registered tags in your tag metadata:</p>
+<p><strong>Missing or incorrect receiver metadata</strong> can result in a loss of information for both your project and the projects of other Motus users. For example, missing deployment latitude and longitude can result in a loss of information on the location of a receiver. Particularly when the same receiver is moved from one location to another, it is important your metadata reflect this, so that you and other users can properly analyze your/their data. Missing antenna deployments, including port number, height and orientation, can also limit what users can do with their data. For example, departure orientation cannot be estimated without the latitude, longitude, orientation, height, antenna type, and port of each antenna. If orientation isn’t something you are interested in, please keep in mind that others with tags detected on your receivers might be. We therefore encourage you to enter <em>all</em> tower and antenna metadata, even if it may not seem relevant to your own project goals.</p>
+<p>As you run through the following code to check your metadata, <strong>please fix metadata errors or omissions</strong> in your project by signing in to <a href="https://motus.org/" class="uri">https://motus.org/</a>, and under the ‘Manage Data’ tab, select either ‘Manage Tags’ to fix tag deployment metadata or ‘Manage Receivers’ to fix receiver deployment metadata. It is important to fix metadata errors online, so that errors are fixed at the source, are archived on the Motus Server, and to ensure all users have access to the correct tag and receiver metadata.</p>
+<div id="load-relevant-r-packages-1" class="section level2">
+<h2><span class="header-section-number">4.1</span> Load relevant R packages</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(devtools)
+<span class="kw">require</span>(tidyverse)</code></pre></div>
+</div>
+<div id="tag-metadata" class="section level2">
+<h2><span class="header-section-number">4.2</span> Tag Metadata</h2>
+<div id="import-data" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Import Data</h3>
+<p>We will import both the tag metadata, to check which tags are registered to your project, and also the tag detections data, to compare which of the registered tags and present in your detections data.</p>
+<div id="metadata" class="section level4">
+<h4><span class="header-section-number">4.2.1.1</span> Metadata</h4>
+<p>To import and convert your tag metadata in your .motus file to a flat file:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">src_sqlite</span>(<span class="st">&quot;./data/project-8.motus&quot;</span>)      <span class="co"># import .motus file from your local directory (change directory to match)</span>
+tagMeta &lt;-<span class="st"> </span><span class="kw">tbl</span>(t, <span class="st">&quot;tagDeps&quot;</span>)                          <span class="co"># extract tagDeps table, with tag deployment metadata</span>
+tagMeta &lt;-<span class="st"> </span>tagMeta <span class="op">%&gt;%</span><span class="st"> </span>collect <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame      <span class="co"># convert tag metadata to a flat file</span></code></pre></div>
+</div>
+<div id="detections-data" class="section level4">
+<h4><span class="header-section-number">4.2.1.2</span> Detections Data</h4>
+<p>Instructions to access and convert your detections data into a flat file are available in Accessing Data chapter. Here we import the resulting .csv file from a local directory.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/JB_raw.csv&quot;</span>)</code></pre></div>
+</div>
+</div>
+<div id="tag-metadata-checks" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Tag Metadata Checks</h3>
+<p>Only tags registered with Motus (<a href="https://motus.org/tag-registration/" class="uri">https://motus.org/tag-registration/</a>) prior to deployment will appear in detections data.</p>
+<p>To view a full list of registered tags in your tag metadata:</p>
+<pre><code>##    tagID deployID
+## 1  17382     1243
+## 2  17383     1244
+## 3  17384     1245
+## 4  17386     1247
+## 5  17387     1248
+## 6  17389     1250
+## 7  17390     1251
+## 8  17391     1252
+## 9  17375     1253
+## 10 17376     1254
+## 11 17367     1255
+## 12 17368     1257
+## 13 17392     1258
+## 14 17369     1259
+## 15 17370     1260
+## 16 17371     1261
+## 17 17372     1262
+## 18 17373     1263
+## 19 17378     1264
+## 20 17374     1266
+## 21 17380     1267
+## 22 17381     1269
+## 23 17394     1270
+## 24 17395     1271
+## 25 17396     1272
+## 26 17398     1274
+## 27 17399     1275
+## 28 10466     1278
+## 29 10467     1279
+## 30 10468     1280
+## 31 10469     1281
+## 32 10470     1282
+## 33 10471     1283
+## 34 10472     1284
+## 35 10473     1285
+## 36 10475     1287
+## 37 10476     1288
+## 38 10477     1289
+## 39 10478     1290
+## 40 10479     1291
+## 41 10480     1292
+## 42 10481     1293
+## 43 10482     1294
+## 44 10483     1295
+## 45 10485     1296
+## 46 10486     1297
+## 47 10487     1298
+## 48 10488     1299
+## 49 10489     1300
+## 50 10490     1301
+## 51 10491     1302
+## 52 10492     1303
+## 53 10493     1304
+## 54 10494     1305
+## 55 10495     1306
+## 56 10496     1307
+## 57 10498     1309
+## 58 10499     1310
+## 59 10500     1311
+## 60 10501     1312
+## 61 10502     1313
+## 62 10503     1314
+## 63 10504     1315
+## 64 10506     1317
+## 65 10465     3608
+## 66 10474     3617</code></pre>
 <p>***** might want to have a list of registered tags from metadata vs. list of tags in data</p>
 <p>If previously registered tags are missing from your data, please contact <a href="mailto:motus@birdscanada.org">motus@birdscanada.org</a></p>
 <p>Required tag metadata includes deployment start date/time, end date/time if applicable, deployment latitude, deployment longitude, and species. You can determine which of your tags are missing this metadata as follows:</p>
@@ -171,7 +271,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Please update missing tag metadata online at &lt;www.motus.org&gt; by logging in to your project and selecting the ‘Manage your tags’ option.</p>
 </div>
 <div id="receiver-metadata" class="section level3">
-<h3><span class="header-section-number">4.0.2</span> Receiver Metadata</h3>
+<h3><span class="header-section-number">4.2.3</span> Receiver Metadata</h3>
 <p>To obtain detection data from a receiver, it must be registered online to your project by it’s serial number. Receiver deployments are then required to link the appropriate metadata to each detection. To determine a list of receivers registered to your project:</p>
 <p><strong><em>INSERT CODE</em></strong></p>
 <p>If you are missing any receivers, please register them online through your project management page</p>
@@ -183,8 +283,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>If you have updated any metadata online, you’ll need to force an update on the data you have downloaded, it’s good practice to check for updates prior to any analysis as other users may have updated metadata associated with your detection files:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> <span class="dv">123</span>, <span class="dt">forceMeta =</span> <span class="ot">TRUE</span>)</code></pre></div>
 </div>
+</div>
 <div id="searching-for-false-positives" class="section level2">
-<h2><span class="header-section-number">4.1</span> Searching for false positives</h2>
+<h2><span class="header-section-number">4.3</span> Searching for false positives</h2>
 <p>You may need to check it for false positives, particularely at sites with high levels of background noise, below we outline a number of ways to determine if detections are likely false positives.</p>
 <p><strong><em>NOT DONE</em></strong></p>
 
@@ -207,7 +308,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,

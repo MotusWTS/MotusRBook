@@ -4,10 +4,12 @@ Background radio noise will sometimes create false positives in your detection d
 
 ## Load relevant R packages
 
-```{r loadPackages, warning = FALSE, message = FALSE}
+```{r loadPackages.5, warning = FALSE, message = FALSE}
 
-require(devtools)
-require(tidyverse)
+library(devtools)
+library(tidyverse)
+library(motus)
+library(lubridate)
 
 ```
 
@@ -18,9 +20,11 @@ A first step to removing definite false positives, is to remove any detections t
 
 2. **Import tag deployment metadata into R**
 
-```{r tagMeta, eval = FALSE}
+```{r tagMeta, message = FALSE, warning = FALSE}
 
-tagMeta <- read.csv("C:/data/tag-deployments.csv") ## replace the location with the file path where you saved the .csv file.
+tagMeta <- read.csv("./data/tag-deployments-jb.csv") ## replace the location with the file path where you saved the .csv file.
+## rename columns
+tagMeta <- rename(tagMeta, motusTagID = tagID, tagStart = tsStart, tagEnd = tsEnd)
 
 ```
 
@@ -29,35 +33,136 @@ OR (we should probably go this way, and work from the .motus file)
 1-2. **Import tag deployment metadata from your .motus file**
 To import and convert your tag metadata in your .motus file to a flat file (for more information see 'Accessing Data' chapter): 
 
-```{r importTagMeta, message = FALSE, warning = FALSE}
+```{r importTagMeta.5, message = FALSE, warning = FALSE}
 
-t <- dplyr::src_sqlite("./data/project-38.motus")     # import .motus file from your local directory (change directory to match)
-tagMeta <- tbl(t, "tagDeps")                          # extract tagDeps table, with tag deployment metadata
-tagMeta <- tagMeta %>% collect %>% as.data.frame      # convert tag metadata to a flat file
+#t <- dplyr::src_sqlite("./data/project-38.motus")     # import .motus file from your local directory (change directory to match)
+#tagMeta <- tbl(t, "tagDeps")                          # extract tagDeps table, with tag deployment metadata
+#tagMeta <- tagMeta %>% collect %>% as.data.frame      # convert tag metadata to a flat file
 
 ```
 
-3. **Join tag metadata and detection data**: Join the tagMeta database to your detection data, here we only include the start/end date columns from the tagMeta database, however you can choose to keep all columns if necessary.
-
-Once you've created a flat .csv file of your data (see 'Accessing Data' Chapter), you can import using the following statement:
+3. **Join tag metadata and detection data**: Once you've created a flat .csv file of your data (see 'Accessing Data' Chapter), you can import using the following statement:
 ```{r importDetectData, message = FALSE, warning = FALSE}
 
-df <- read.csv("./data/project-38_raw.csv")
+JBraw <- read.csv("./data/JB_sample_data_all.csv")
+
+```
+Join the tagMeta database to your detection data, here we only include the start/end date columns from the tagMeta database, however you can choose to keep all columns if necessary.
+```{r mergeDepswithDet, message = FALSE, warnings = FALSE}
+
+JBraw <- dplyr::left_join(JBraw, select(tagMeta, tagDeployID, motusTagID, tagStart, tagEnd))
 
 ```
 
 4. **Remove detections that fall outside tag deployment dates**
+```{r detectionsOutsideDep, message = FALSE, warning = FALSE}
+## first ensure that all times are in POSIXct
+JBraw$ts <- as_datetime(JBraw$ts, tz = "UTC")
+JBraw$tagStart <- as_datetime(JBraw$tagStart, tz = "UTC")
+JBraw$tagEnd <- as_datetime(JBraw$tagEnd, tz = "UTC")
+## subset to keep anything within tag deployment range, making sure to account for NAs in end dates
+JBraw <- subset(JBraw, ts < tagEnd | is.na(tagEnd))
+JBraw <- subset(JBraw, ts > tagStart)
+```
 
 ## Removing detections based on visual geographic positions
 A few simple plots of latitude/longitude vs. time can highlight detections that occur in areas outside of the expected geographic range of the species for that date, or flights showing impossible speeds over large distances.
-
-Once you identify detections you would like to remove, you can filter out those points based on hitID
+First, lets replace any instances with no GPS coordinates with the given locations from receiver deployment metadata:
+```{r replaceMissingCoords, message = FALSE, warning = FALSE}
+## NEED TO ADD SCRIPT
+## for now:
+JBraw <- filter(JBraw, lat > 0)
+```
+Now, lets make a simple plot
+```{r falseByLat1, message = FALSE, warning = FALSE}
+## make lat vs time plots of all tags
+## now the data looks better and only tag 16038 looks odd
+ggplot(JBraw, aes(ts, lat, group = motusTagID)) + geom_point() + geom_line() + facet_wrap(~motusTagID)
+```
+Tag 16038 looks strange, so we can examine that detection period closer, and then remove any hitIDs we disagree with
+```{r falseByLat2, message = FALSE, warning = FALSE}
+## filter JBraw to only show motusTagID 16038, and only before 2015-10-01
+ggplot(filter(JBraw, motusTagID == 16038 & ts < as.POSIXct("2015-10-01")), aes(ts, lat, group = motusTagID)) + geom_point() + geom_line() + facet_wrap(~motusTagID)
+```
+It is highly unlikely/implausible that this bird travelled such a distance in one day, especially returning to the same receiver, but to confirm we can examine the signal strength of the potentially false detections.
+```{r falseByLat3, message = FALSE, warning = FALSE}
+## this time filter by motusTagID and by latitude so we only see the strange detections
+ggplot(filter(JBraw, motusTagID == 16038 & lat < 42), aes(ts, sig, colour = as.factor(ant))) + geom_point() + facet_wrap(~motusTagID)
+```
+It appears that there were only two detections at this receiver, both detections were captured by all 3 antennas, and they were over a minute apart.  Since the burst rate of this tag is 6.09 seconds, we know that these are not consecutive detections.  These detections are false positives.  So lets identify the hitIDs so we can remove them later.
+```{r falseByLat4, message = FALSE, warning = FALSE}
+## using a filter that will provide us with only the spurious detections:
+filter(JBraw, motusTagID == 16038 & lat < 42)
+```
+We can see that the hitIDs we want to remove are 239875440 - 239875445.  For now we will keep them in the data to continue looking for false positives.  We will remove all of them together at the end of this chapter.
 
 ## Removing detections based on estimated flight speed
 By looking at the rate of movement between sites with consicutive detections, we can quickly view flights that are not physically possible.  Further examination of these detections will be required to determine which detections are true and which are false.
+Rate of movement between sites can be determined using the siteTrans function in the motus R package.  For instructions on installing the package, see chapter "Loading Packages".
+```{r falseBySpeed1, message = FALSE, warning = FALSE}
+JBtrans <- siteTrans(JBraw) ## create new data.base consisting of transitions between consecutive sites for each tag
+head(JBtrans)
+## so we see that tag 16047 has lots of high speeds due to close towers - 16038 has high speeds due to false detections
+## same as what we saw with the plots, so lets remove those hitIDs
+tmp <- filter(JBraw, !(hitID %in% c(239875440, 239875441, 239875442, 239875443, 239875444, 239875445)))
+```
+The resulting database JBtrans shows information on the last detection at site x, and the first detection at site y.  So in the above table, we can see the total time, distance, rate of movement, bearing, and rhumbline_bearing of potential flights between sites.  Rate of movement is presented as m/s.
+Because rate of movement is based on receiver location at the time of last and first detection at two sites, it is only an estimation and sites closer together will have less accurate results.  For example, lets look at row 58 from JBtrans:
+```{r falseBySpeed2, message = FALSE, warning = FALSE}
+JBtrans[58,]
+```
+It would appear that the bird is travelling at a rage of 2203.543 m/s (7,932 km/hr)!  Based on rate alone you may think this is due to false detections, however the two sites are only 22km apart, and the time between detections was only 10 seconds.  This high estimated rate of movement is likely due to the tag being detected at the edge of the detection range of both receivers; remember we do not know how far the tag is from the receiver location at time of detection.
+It's therefore important to take all information into consideration when looking at high rates of movement.  Let's look at all cases of high rates of movements, we can be conservative and only look at rates > 50 m/s
+```{r falseBySpeed3, message = FALSE, warning = FALSE}
+filter(JBtrans, rate > 50)
+```
+Almost all of these flights are between stations that are < 30 km apart so high rates of movement are not surprising.  Only one flight had an impossible rate of movement with stations far apart:
+```{r falseBySpeed4, message = FALSE, warning = FALSE}
+filter(JBtrans, rate > 50 & dist > 40000)
+```
+Not surprisingly, this is the same tag we identified as having false positives when examining latitudinal plots above.  We can confirm the hitID's by making the same plots as above, or similar ones identifying site name:
+```{r falseBySpeed5, message = FALSE, warning = FALSE}
+ggplot(filter(JBraw, motusTagID == 16038), aes(ts, lat, col = as.factor(site))) + geom_point()
+```
+We can see that the detections at Illini State Park are the spurious detections, so to determine their hitIDs we can filter by site:
+```{r falseBySpeed6, message = FALSE, warning = FALSE}
+filter(JBraw, motusTagID == 16038 & site == "Illini State Park ")
+```
+Once again we determine that we should remove hitID's 239875440 - 239875445.
+
+## Removing false positives based on hitID's
+Now that we have a list of hitID's that we have determined to be false positives, we can easily remove them from our database
+```{r falseHitIDs, message = FALSE, warning = FALSE}
+JBfiltered <- filter(JBraw, !(hitID %in% c(239875440, 239875441, 239875442, 239875443, 239875444, 239875445)))
+```
 
 ## Removing detections based on automated filtering
-You can also remove spurious detections through some simple automated filters if you do not wish to examine each tag individually.  But note that by applying a general filter to all your detections, you risk removing true detections as well.  Detections can be filtered by freqSD or by runLen.  FreqSD refers to the standard deviation of frequency offset among bulses in a burst, in kHz.  Values larger than 0.1  kHz suggest a bogus detection, however this is for detections on SensorGnomes only.  runLen is the number of tag bursts in the current run, a run is defined as a group of consecutive detections of a tag detected on a receiver.
+You can also remove spurious detections through some simple automated filters if you do not wish to examine each tag individually.  But note that by applying a general filter to all your detections, you risk removing true detections as well.  Detections can be filtered by freqsd or by runLen.  
+**freqsd** refers to the standard deviation of frequency offset among pulses in a burst, in kHz.  Values larger than 0.1  kHz suggest a bogus detection, however this is for detections on SensorGnomes only.  
+**runLen** is the number of tag bursts in the current run, a run is defined as a group of consecutive detections of a tag detected on a receiver.
+If you decide to run these filters on your data, it is recommended that you identify the detections you would be removing and examine them to ensure you aren't removing an unwanted amount of true detections.
+```{r autofilter1, message = FALSE, warning = FALSE}
+## first convert freqsd to NA for all Lotek receivers
+JBraw$freqsd <- ifelse(grepl("Lotek", JBraw$recv), "NA",JBraw$freqsd)
+## identify which detections would be removed by creating a new column "filter"
+JBraw$filter <- "KEEP"
+JBraw$filter[JBraw$runLen <= 2 & JBraw$freqsd >= 0.1] <- "FILTER"
+```
+Based on these filters, we can summarize how many detections would be removed based on tag, site, or receiver type:
+```{r autofilter2, message = FALSE, warning = FALSE}
+## potential detections to filter by site
+table(JBraw$filter, JBraw$site)
+```
+Sable West Light 2, and Hogback seem to have relatively higher numbers of spurious detections, note that it didn't filter out the false positives at Illini State Park
+```{r autofilter3, message = FALSE, warning = FALSE}
+## potential detections to filter by motusTagID
+table(JBraw$filter, JBraw$motusTagID)
+```
+motusTagID 16038 seems to have a higher number of spurious detections
 
+From here it is a judgement call whether to filter based on freqsd or runLen, and how strict to make the filters.  You may wish to apply them only to certain sites or certain tag IDs.  There is a balance between removing all questionable detections along with some true detections, vs keeping all detections and potentially having some false positives.  To filter based on the above criteria:
+```{r autofilter4, message = FALSE, warning = FALSE}
+JBraw <- filter(JBraw, filter == "KEEP")
+```
 
-
+Ultimately, how strictly you filter your detection data is up to each individual, but it is well worth your time to work through some or all of these methods to be confident in the accuracy of your detection data.
