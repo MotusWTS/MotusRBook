@@ -1,4 +1,4 @@
-# Loading the Motus R Package
+# Loading the Motus R Packages
 
 There are two R packages available to Motus users:
 
@@ -24,7 +24,7 @@ install_github("jbrzusto/motusClient@master")   ## the last stable version
 library(motusClient)
 
 # install motus for data manipulation, visualization and analysis
-install_github("jbrzusto/motus@master")   ## the last stable version
+install_github("jbrzusto/motus@staging")   ## the last stable version
 library(motus)
 ```
 
@@ -39,11 +39,15 @@ install_github("jbrzusto/motus@staging")   ## the development version
 library(motus)
 ```
 
-Throughout the book, we use Tidyverse <https://www.tidyverse.org/>, which is a collection of R packages, including tidyr() and dplyr(). These can be installed with:
+Throughout the book, we use Tidyverse (<https://www.tidyverse.org/>), which is a collection of R packages for data science, including tidyr, dplyr, and ggplot2, and lubridate for managing and manipulating dates. These can be installed with:
 
 ```{r install tidyverse, eval = FALSE}
 install.packages("tidyverse")             ## again, you only need to install once.
 library(tidyverse)
+
+install.packages("lubridate")            
+library(lubridate)
+
 ```
 
 More information on Tidyverse can be found at <https://www.tidyverse.org/>, or by browsing 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>.
