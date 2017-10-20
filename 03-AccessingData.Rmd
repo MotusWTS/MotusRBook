@@ -167,8 +167,8 @@ The below example is how you would save the flat file called "df.flat" within R,
 
 ```{r createFlat, message = FALSE, warning = FALSE}
 
-write.csv(df.flat, "./data/project-38_raw.csv")  ## "df.flat"" is the name of the flat file within R that you want to convert to a .csv
-## "C:/data/" is the the location where you would like your .csv stored
-## "motus_detections.csv", is the name of the .csv file you are creating, this can be anything you like but must end with .csv.
+write.csv(df.flat, "./data/JB_raw.csv")  ## "df.flat"" is the name of the flat file within R that you want to convert to a .csv
+## "./data/" is the the location where you would like your .csv stored
+## "JB_raw.csv", is the name of the .csv file you are creating, this can be anything you like but must end with .csv.
 
 ```

@@ -10,7 +10,7 @@ As you run through the following code to check your metadata, **please fix metad
 
 ## Load relevant R packages
 
-```{r loadPackages, warning = FALSE, message = FALSE}
+```{r loadPackages.4, warning = FALSE, message = FALSE}
 
 require(devtools)
 require(tidyverse)
@@ -27,7 +27,7 @@ We will import both the tag metadata, to check which tags are registered to your
 
 To import and convert your tag metadata in your .motus file to a flat file: 
 
-```{r importTagMeta, message = FALSE, warning = FALSE}
+```{r importTagMeta.4, message = FALSE, warning = FALSE}
 
 t <- dplyr::src_sqlite("./data/project-8.motus")      # import .motus file from your local directory (change directory to match)
 tagMeta <- tbl(t, "tagDeps")                          # extract tagDeps table, with tag deployment metadata
