@@ -1,20 +1,69 @@
-# Checking Metadata and Cleaning False Positives
+# Data Checking: Metadata
 
-Once you have your data in R, it is good practice to run data summaries to check for missing tag or receiver deployment metadata and for false positive detections of your tags.  
-
-## Checking for missing metadata
-
-Ensuring your metadata is up to date and accurate means detection data will be be properly linked to your project, and allow other users to benefit fully from the network.
+Data quality for your projects and the projects of others depends on complete and accurate tag and receiver metadata. Complete metadata will allow detections to be properly linked to your project, and allow other users to benefit fully from data collected by the Motus network of receivers. Once you have imported your data using R, it is therefore good practice to run data summaries to check for missing or incorrect tag and receiver deployment metadata.
 
 **Missing or incorrect tag metadata** can result in a lack of tag detections in your data. For example, if deployment date is missing or wrong, the tag finder, which processes the data from each receiver in the network, might not look for your tag in the data, or might not look at the appropriate time when the tag is actually active. This will result in missing tags in your detections data.
 
-**Missing or incorrect receiver metadata** can result in a loss of information for both your project and the projects of other Motus users. For example, missing deployment latitude and longitude can result in a loss of information on the location of a receiver. Particularly when the same receiver is moved from one location to another, it is important your metadata reflect this, so that other users can properly analyze their data. Receiving antenna properties
+**Missing or incorrect receiver metadata** can result in a loss of information for both your project and the projects of other Motus users. For example, missing deployment latitude and longitude can result in a loss of information on the location of a receiver. Particularly when the same receiver is moved from one location to another, it is important your metadata reflect this, so that you and other users can properly analyze your/their data. Missing antenna deployments, including port number, height and orientation, can also limit what users can do with their data. For example, departure orientation cannot be estimated without the latitude, longitude, orientation, height, antenna type, and port of each antenna. If orientation isn't something you are interested in, please keep in mind that others with tags detected on your receivers might be. We therefore encourage you to enter *all* tower and antenna metadata, even if it may not seem relevant to your own project goals.
 
-### Tag Metadata
+As you run through the following code to check your metadata, **please fix metadata errors or omissions** in your project by signing in to <https://motus.org/>, and under the 'Manage Data' tab, select either 'Manage Tags' to fix tag deployment metadata or 'Manage Receivers' to fix receiver deployment metadata. It is important to fix metadata errors online, so that errors are fixed at the source, are archived on the Motus Server, and to ensure all users have access to the correct tag and receiver metadata.
 
-Only tags registered with Motus (<https://motus.org/tag-registration/>) prior to deployment will appear in detection data.  To view a full list of tags registered to your project:
+## Load relevant R packages
 
-**INSERT CODE**
+```{r loadPackages.4, warning = FALSE, message = FALSE}
+
+require(devtools)
+require(tidyverse)
+
+```
+
+## Tag Metadata
+
+### Import Data
+
+We will import both the tag metadata, to check which tags are registered to your project, and also the tag detections data, to compare which of the registered tags and present in your detections data.
+
+#### Metadata
+
+To import and convert your tag metadata in your .motus file to a flat file: 
+
+```{r importTagMeta.4, message = FALSE, warning = FALSE}
+
+t <- dplyr::src_sqlite("./data/project-8.motus")      # import .motus file from your local directory (change directory to match)
+tagMeta <- tbl(t, "tagDeps")                          # extract tagDeps table, with tag deployment metadata
+tagMeta <- tagMeta %>% collect %>% as.data.frame      # convert tag metadata to a flat file
+
+```
+
+#### Detections Data
+
+Instructions to access and convert your detections data into a flat file are available in Accessing Data chapter.  Here we import the resulting .csv file from a local directory.
+
+```{r importDetections, message = FALSE, warning = FALSE}
+
+df <- read.csv("./data/JB_raw.csv")
+
+```
+
+### Tag Metadata Checks
+
+Only tags registered with Motus (<https://motus.org/tag-registration/>) prior to deployment will appear in detections data.
+
+
+To view a full list of registered tags in your tag metadata:
+
+```{r tagList, echo = FALSE}
+
+select(tagMeta, tagID, deployID) %>% distinct()
+
+```
+
+
+
+***** might want to have a list of registered tags from metadata vs. list of tags in data
+
+
+
 
 If previously registered tags are missing from your data, please contact motus@birdscanada.org
 
