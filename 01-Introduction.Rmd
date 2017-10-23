@@ -27,7 +27,7 @@ Each section of this book will begin with a paragraph or figure describing the b
 
 ## Sample dataset
 
-Throughout this book we use a subset of data from the James Bay Shorebird Project to illustrate how to access, manage, and analyze Motus data in R. The James Bay Shorebird Project conducts monitoring and research on shorebirds staging along the James Bay coast, and is a collaborating effort among the Ontario Ministry of Natural Resources and Forestry, Bird Studies Canada, Trent University, and Environment and Climate Change Canada's Canadian Wildlife Service, in conjunction with a larger conservation initiative involving James Bay first nations and Nature Canada. The Royal Ontario Museum was a contributing partner until 2016. The goals of the project are to 1) improve our ability to estimate indices of abundance and population trends for shorebird species staging along the western James Bay coast, 2) understand movement patterns and their causes, and 3) identify the relative importance of shorebird staging sites and their habitats. Collectively, this information will aid in the development of conservation measures for Red Knot and other shorebird species through habitat protection like Western Hemisphere Shorebird Reserve Network (WHSRN) designation. More information can be viewed on the James Bay Shorebird Project website at <https://www.jamesbayshorebirdproject.com/>, on Facebook <https://www.facebook.com/jamesbayshorebirdproject/>, or by contacting their project lead:
+Throughout this book we use a subset of data from the James Bay Shorebird Project to illustrate how to access, manage, and analyze Motus data in R. The James Bay Shorebird Project conducts monitoring and research on shorebirds staging along the James Bay coast, and is a collaborative effort among the Ontario Ministry of Natural Resources and Forestry, Bird Studies Canada, Trent University, and Environment and Climate Change Canada's Canadian Wildlife Service, in conjunction with a larger conservation initiative involving James Bay first nations and Nature Canada. The Royal Ontario Museum was a contributing partner until 2016. The goals of the project are to 1) improve the ability to estimate indices of abundance and population trends for shorebird species staging along the western James Bay coast, 2) understand movement patterns and their causes, and 3) identify the relative importance of shorebird staging sites and their habitats. Collectively, this information will aid in the development of conservation measures for Red Knot and other shorebird species through habitat protection like Western Hemisphere Shorebird Reserve Network (WHSRN) designation. More information can be viewed on the James Bay Shorebird Project website at <https://www.jamesbayshorebirdproject.com/>, on Facebook <https://www.facebook.com/jamesbayshorebirdproject/>, or by contacting their project lead:
 
 Christian Friis
 Wildlife Biologist
@@ -37,6 +37,15 @@ christian.friis@canada.ca / Tel: 416.739.4908
 biologiste de la faune  
 Service canadien de la faune Environnement et Changement Climatique Canada / Gouvernement du Canada 
 christian.friis@canada.ca / Tél. : 416.739.4908 
+
+The sample dataset can be downloaded as a .zip file at: <https://motus.org/>, and loaded into R using the following:
+
+```{r importSampleDF}
+
+file.name <- "./data/sampledb.motus"    ## replace with the full location of the extracted .motus file on your personal computer
+t <- dplyr::src_sqlite(file.name)
+
+```
 
 ## Acknowledgements
 

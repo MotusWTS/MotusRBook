@@ -36,11 +36,11 @@ require(tidyverse)
 
 ## Importing tag detections
 
-Your project's .motus file is available for download at <https://motus.org/data/downloads> under your project profile. Once downloaded, **make sure that you have the appropriate packages installed and loaded in R as outlined in Chapter 2-LoadingPackage**. Once packages are loaded, you can import your tag detections into R using the following code:
+Your project's .motus file is available for download at <https://motus.org/data/downloads> under your project profile. Once downloaded, **make sure that you have the appropriate packages installed and loaded in R as outlined in Chapter 2 - Loading the Motus R Package**. Once all required packages are loaded, you can import your tag detections, or those of the sample dataset ('sampledb.motus'; see 'the 'Sample Dataset' section of Chapter 1 - Introduction) into R using the following code:
 
 ```{r import, message = FALSE}
 
-file.name <- "./data/project-8.motus"    ## replace with the full location of your project data
+file.name <- "./data/sampledb.motus"    ## replace with the full location of the sample dataset or your own project-XX.motus file
 t <- dplyr::src_sqlite(file.name)
 
 ```

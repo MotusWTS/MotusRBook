@@ -97,7 +97,9 @@ t.ambig <- filter(t.ambig, motusTagID2 %in% tag.list$tagID)
 
 # First create a flat file of the detections data, then do a full merge, so that if there are any instances where your own tags are duplicates, the detections data will be plotted for both.
 
-detect.df <- select(df, hitID, ts, sig, motusTagID, ant, runLen, tagProjID, id, speciesID, depLat, depLon, site, projID, tagProj) %>% collect() %>% as.data.frame()
+detect.df <- select(df, hitID, ts, sig, motusTagID, ant, runLen, tagProjID, id, speciesID, lat, lon, site, projID, tagProj, depLat, depLon) %>% collect() %>% as.data.frame()
+
+detect.df2 <- full_join(detect.df, t.ambig, by = c("motusTagID" = "ambigID")) %>% filter(!is.na(motusTagID2))
 
 ```
 
