@@ -1,8 +1,8 @@
-# Accessing and understanding detections data
+# Accessing and understanding detections data {#accessingData}
 
 It is important to note that the success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators.  Users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.
 
-## Database types
+## Database types {#databaseTypes}
 
 ```{r fig3, echo = FALSE}
 
@@ -25,7 +25,7 @@ These two databases correspond to the basic model of data sharing:
 
 2. you get all detections of *your* tags by *anyone's* receivers (i.e., one project tag database for each of your motus projects)
 
-## Load relevant R packages
+## Load relevant R packages {#loadPackages}
 
 ```{r loadPackages, warning = FALSE, message = FALSE}
 
@@ -34,11 +34,11 @@ require(tidyverse)
 
 ```
 
-## Importing tag detections
+## Importing tag detections {#importDetections}
 
-Your project's .motus file is available for download at <https://motus.org/data/downloads> under your project profile. Once downloaded, **make sure that you have the appropriate packages installed and loaded in R as outlined in Chapter 2 - Loading the Motus R Package**. 
+Your project's .motus file is available for download at <https://motus.org/data/downloads> under your project profile. Once downloaded, **make sure that you have the appropriate packages installed and loaded in R** (see Chapter \@ref(loadingPackages). 
 
-Once all required packages are loaded, you can use the following code to load your project data, or the sample data from the James Bay Shorebird Project ('sampledb.motus'; see 'Sample Dataset' section of Chapter 1 - Introduction):
+Once all required packages are loaded, you can use the following code to load your project data, or the sample data from the James Bay Shorebird Project ('sampledb.motus'; see Section \@ref(sampleData)):
 
 ```{r import, message = FALSE}
 
@@ -47,7 +47,7 @@ t <- dplyr::src_sqlite(file.name)
 
 ```
 
-## Data structure
+## Data structure {#databaseStructure}
 
 Your tag database is stored as an SQLite ('dplyr::src_sqlite') file with the extension '.motus'. The sqlite format was chosen because:
 
@@ -121,7 +121,7 @@ knitr::kable(param.table, caption = "Description of fields in the tag detections
 
 ```
 
-### Convert a virtual table to a flat dataframe
+### Convert a virtual table to a flat dataframe {#convertToFlat}
 
 If you want your entire dataframe in a typical "flat" format, i.e., with every record for each field filled in, you can use the collect() function.  The output can then be used to generate a .rds or .csv file of your data. However, we caution that producing such a table using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets:
 
@@ -175,7 +175,7 @@ hourly <- df %>% mutate (hour = 3600 * round(ts / 3600, 0)) %>% distinct (recv, 
 hh <- hourly %>% collect %>% as.data.frame
 ```
 
-### Export your "flat" dataframe to a .csv file
+### Export your "flat" dataframe to a .csv file {#exportToCSV}
 
 The below example is how you would save the flat file called "df.flat" within R, as a .csv file called "JB_raw.csv" on your computer in the 'data' folder of your working directory. In this case, JB stands for James Bay, and we are simply converting the data without subsetting.
 

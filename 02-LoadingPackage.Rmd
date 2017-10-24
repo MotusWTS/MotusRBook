@@ -1,4 +1,4 @@
-# Loading the Motus R Packages
+# Loading R Packages {#loadingPackages}
 
 There are two R packages available to Motus users:
 
@@ -24,7 +24,7 @@ install_github("jbrzusto/motusClient@master")   ## the last stable version
 library(motusClient)
 
 # install motus for data manipulation, visualization and analysis
-install_github("jbrzusto/motus@staging")   ## the last stable version
+install_github("jbrzusto/motus@testbuild1")   ## the last stable version
 library(motus)
 ```
 
@@ -52,11 +52,11 @@ library(lubridate)
 
 More information on Tidyverse can be found at <https://www.tidyverse.org/>, or by browsing 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>.
 
-## User Authentication
+## User Authentication {#userAuthentication}
 
 The first time you call a function using the Motus R package, you will be asked for your motus.org username and password to authenticate your access to project data. This will only happen once per R session. If you do not have a Motus user name and password, you can sign up at <https://motus.org/data/user/new>. Permission to access project data will then be granted by Motus staff or the project principal investigator.
 
-## Internal data processing
+## Internal data processing {#internalProcessing}
 
 As an animal moves within the detection range of a Motus station, radio transmissions, or 'bursts', are detected by antenna(s) and recorded by a receiver. These raw detection data are either uploaded to the Motus database instantaneously via internet connection, or downloaded from the receiver and uploaded to Motus manually. Behind the scenes, various functions read and process the raw detections data to produce the tag detections file that users access using the R package (see 'Data Import' below). While most users will not need to call on the internal data processing functions, a complete list of functions within the Motus server R package can be found on GitHub: <https://github.com/jbrzusto/motusServer>. The code behind each function can be viewed on GitHub, or by typing the following in the R console after loading the R package, replacing 'function.name' with the name of the R function of interest:
 

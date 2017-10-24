@@ -1,4 +1,4 @@
-# Cleaning data to remove false detections
+# Cleaning data to remove false detections {#dataCleaning}
 
 Background radio noise will sometimes create false positives in your detection data. Some sites will inherently have more background noise than others, and some tag IDs are more prone to false positives than others. Once you download your data, the first step should be cleaning it of false detections. There are a few ways to do this, ultimately it is up to you to determine which detections are true and which should be removed. Below we outline a number of ways to determine if detections are likely false positives.
 
@@ -13,7 +13,8 @@ library(lubridate)
 
 ```
 
-## Removing detections outside of deployment range
+## Removing detections outside of deployment range {#filterDeployRange}
+
 A first step to removing definite false positives, is to remove any detections that fall outside of the tag deployment dates. To do this we will need to import the tagging metadata and merge it with the tag detection files to see tag deployment start/end dates.
 
 1. **Download tag deployment metadata**: from the download page <https://motus.org/data/downloads>, select your project from the dropdown menu and click "Tag Deployments" to get a tag-deployments.csv file. Alternatively, you can download the same deployments file from your project tag page.
@@ -65,7 +66,8 @@ JBraw <- subset(JBraw, ts < tagEnd | is.na(tagEnd))
 JBraw <- subset(JBraw, ts > tagStart)
 ```
 
-## Removing detections based on visual geographic positions
+## Removing detections based on visual geographic positions {#filterGeoPosition}
+
 A few simple plots of latitude/longitude vs. time can highlight detections that occur in areas outside of the expected geographic range of the species for that date, or flights showing impossible speeds over large distances.
 First, lets replace any instances with no GPS coordinates with the given locations from receiver deployment metadata:
 ```{r replaceMissingCoords, message = FALSE, warning = FALSE}
@@ -96,7 +98,8 @@ filter(JBraw, motusTagID == 16038 & lat < 42)
 ```
 We can see that the hitIDs we want to remove are 239875440 - 239875445.  For now we will keep them in the data to continue looking for false positives.  We will remove all of them together at the end of this chapter.
 
-## Removing detections based on estimated flight speed
+## Removing detections based on estimated flight speed {#filterFlightSpeed}
+
 By looking at the rate of movement between sites with consicutive detections, we can quickly view flights that are not physically possible.  Further examination of these detections will be required to determine which detections are true and which are false.
 Rate of movement between sites can be determined using the siteTrans function in the motus R package.  For instructions on installing the package, see chapter "Loading Packages".
 ```{r falseBySpeed1, message = FALSE, warning = FALSE}
@@ -130,13 +133,15 @@ filter(JBraw, motusTagID == 16038 & site == "Illini State Park ")
 ```
 Once again we determine that we should remove hitID's 239875440 - 239875445.
 
-## Removing false positives based on hitID's
+## Removing false positives based on hitID's {#filterHitID}
+
 Now that we have a list of hitID's that we have determined to be false positives, we can easily remove them from our database
 ```{r falseHitIDs, message = FALSE, warning = FALSE}
 JBfiltered <- filter(JBraw, !(hitID %in% c(239875440, 239875441, 239875442, 239875443, 239875444, 239875445)))
 ```
 
-## Removing detections based on automated filtering
+## Removing detections based on automated filtering {#filterAuto}
+
 You can also remove spurious detections through some simple automated filters if you do not wish to examine each tag individually.  But note that by applying a general filter to all your detections, you risk removing true detections as well.  Detections can be filtered by freqsd or by runLen.  
 **freqsd** refers to the standard deviation of frequency offset among pulses in a burst, in kHz.  Values larger than 0.1  kHz suggest a bogus detection, however this is for detections on SensorGnomes only.  
 **runLen** is the number of tag bursts in the current run, a run is defined as a group of consecutive detections of a tag detected on a receiver.

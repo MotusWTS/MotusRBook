@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R for Motus</title>
+  <meta name="description" content="R for Motus">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R for Motus" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="BSC_Motus_Logo.png" />
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R for Motus" />
+  
+  
+  <meta name="twitter:image" content="BSC_Motus_Logo.png" />
+
+<meta name="author" content="Tara L. Crewe and Zoe Crysler">
+
+
+<meta name="date" content="2017-10-24">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="loading-r-packages.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">R for Motus</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>A walk through the use of R for Motus automated radio-telemetry data</a></li>
+<li class="chapter" data-level="1" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>1</b> Introduction {#1}</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction-1.html"><a href="introduction-1.html#what-this-book-does-not-cover-1.1"><i class="fa fa-check"></i><b>1.1</b> What this book does not cover {#1.1}</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction-1.html"><a href="introduction-1.html#prerequisites-1.2"><i class="fa fa-check"></i><b>1.2</b> Prerequisites {#1.2}</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-1.html"><a href="introduction-1.html#how-this-book-is-organized-1.3"><i class="fa fa-check"></i><b>1.3</b> How this book is organized {#1.3}</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction-1.html"><a href="introduction-1.html#sample-dataset-1.4"><i class="fa fa-check"></i><b>1.4</b> Sample dataset {#1.4}</a></li>
+<li class="chapter" data-level="1.5" data-path="introduction-1.html"><a href="introduction-1.html#acknowledgements-1.5"><i class="fa fa-check"></i><b>1.5</b> Acknowledgements {#1.5}</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="loading-r-packages.html"><a href="loading-r-packages.html"><i class="fa fa-check"></i><b>2</b> Loading R Packages</a><ul>
+<li class="chapter" data-level="2.1" data-path="loading-r-packages.html"><a href="loading-r-packages.html#user-authentication"><i class="fa fa-check"></i><b>2.1</b> User Authentication</a></li>
+<li class="chapter" data-level="2.2" data-path="loading-r-packages.html"><a href="loading-r-packages.html#internal-data-processing"><i class="fa fa-check"></i><b>2.2</b> Internal data processing</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
+<li class="chapter" data-level="3.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#database-types"><i class="fa fa-check"></i><b>3.1</b> Database types</a></li>
+<li class="chapter" data-level="3.2" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#load-relevant-r-packages"><i class="fa fa-check"></i><b>3.2</b> Load relevant R packages</a></li>
+<li class="chapter" data-level="3.3" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#importing-tag-detections"><i class="fa fa-check"></i><b>3.3</b> Importing tag detections</a></li>
+<li class="chapter" data-level="3.4" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#data-structure"><i class="fa fa-check"></i><b>3.4</b> Data structure</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#convert-a-virtual-table-to-a-flat-dataframe"><i class="fa fa-check"></i><b>3.4.1</b> Convert a virtual table to a flat dataframe</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#and-collect-these-into-a-data.frame"><i class="fa fa-check"></i><b>3.5</b> and collect these into a data.frame</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#export-your-flat-dataframe-to-a-.csv-file"><i class="fa fa-check"></i><b>3.5.1</b> Export your “flat” dataframe to a .csv file</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#data-is-the-the-location-where-you-would-like-your-.csv-stored"><i class="fa fa-check"></i><b>3.6</b> “./data/” is the the location where you would like your .csv stored</a></li>
+<li class="chapter" data-level="3.7" data-path="accessing-and-understanding-detections-data.html"><a href="accessing-and-understanding-detections-data.html#jb_raw.csv-is-the-name-of-the-.csv-file-you-are-creating-this-can-be-anything-you-like-but-must-end-with-.csv."><i class="fa fa-check"></i><b>3.7</b> “JB_raw.csv”, is the name of the .csv file you are creating, this can be anything you like but must end with .csv.</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="duplicate-tags-and-ambiguous-detections.html"><a href="duplicate-tags-and-ambiguous-detections.html"><i class="fa fa-check"></i><b>4</b> Duplicate tags and ambiguous detections</a><ul>
+<li class="chapter" data-level="4.1" data-path="duplicate-tags-and-ambiguous-detections.html"><a href="duplicate-tags-and-ambiguous-detections.html#load-required-packages"><i class="fa fa-check"></i><b>4.1</b> Load required packages</a></li>
+<li class="chapter" data-level="4.2" data-path="duplicate-tags-and-ambiguous-detections.html"><a href="duplicate-tags-and-ambiguous-detections.html#check-for-ambiguous-tags-in-detections-data"><i class="fa fa-check"></i><b>4.2</b> Check for ambiguous tags in detections data</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html"><i class="fa fa-check"></i><b>5</b> Data Checking: Metadata</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#load-relevant-r-packages-1"><i class="fa fa-check"></i><b>5.1</b> Load relevant R packages</a></li>
+<li class="chapter" data-level="5.2" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#tag-metadata"><i class="fa fa-check"></i><b>5.2</b> Tag Metadata</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#import-data"><i class="fa fa-check"></i><b>5.2.1</b> Import Data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#tag-metadata-checks"><i class="fa fa-check"></i><b>5.2.2</b> Tag Metadata Checks</a></li>
+<li class="chapter" data-level="5.2.3" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#receiver-metadata"><i class="fa fa-check"></i><b>5.2.3</b> Receiver Metadata</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="data-checking-metadata.html"><a href="data-checking-metadata.html#searching-for-false-positives"><i class="fa fa-check"></i><b>5.3</b> Searching for false positives</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html"><i class="fa fa-check"></i><b>6</b> Cleaning data to remove false detections</a><ul>
+<li class="chapter" data-level="6.1" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#load-relevant-r-packages-2"><i class="fa fa-check"></i><b>6.1</b> Load relevant R packages</a></li>
+<li class="chapter" data-level="6.2" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-outside-of-deployment-range"><i class="fa fa-check"></i><b>6.2</b> Removing detections outside of deployment range</a></li>
+<li class="chapter" data-level="6.3" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#rename-columns"><i class="fa fa-check"></i><b>6.3</b> rename columns</a></li>
+<li class="chapter" data-level="6.4" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#first-ensure-that-all-times-are-in-posixct"><i class="fa fa-check"></i><b>6.4</b> first ensure that all times are in POSIXct</a></li>
+<li class="chapter" data-level="6.5" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#subset-to-keep-anything-within-tag-deployment-range-making-sure-to-account-for-nas-in-end-dates"><i class="fa fa-check"></i><b>6.5</b> subset to keep anything within tag deployment range, making sure to account for NAs in end dates</a></li>
+<li class="chapter" data-level="6.6" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-based-on-visual-geographic-positions"><i class="fa fa-check"></i><b>6.6</b> Removing detections based on visual geographic positions</a></li>
+<li class="chapter" data-level="6.7" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#need-to-add-script"><i class="fa fa-check"></i><b>6.7</b> NEED TO ADD SCRIPT</a></li>
+<li class="chapter" data-level="6.8" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#for-now"><i class="fa fa-check"></i><b>6.8</b> for now:</a></li>
+<li class="chapter" data-level="6.9" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#make-lat-vs-time-plots-of-all-tags"><i class="fa fa-check"></i><b>6.9</b> make lat vs time plots of all tags</a></li>
+<li class="chapter" data-level="6.10" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#now-the-data-looks-better-and-only-tag-16038-looks-odd"><i class="fa fa-check"></i><b>6.10</b> now the data looks better and only tag 16038 looks odd</a></li>
+<li class="chapter" data-level="6.11" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#filter-jbraw-to-only-show-motustagid-16038-and-only-before-2015-10-01"><i class="fa fa-check"></i><b>6.11</b> filter JBraw to only show motusTagID 16038, and only before 2015-10-01</a></li>
+<li class="chapter" data-level="6.12" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#this-time-filter-by-motustagid-and-by-latitude-so-we-only-see-the-strange-detections"><i class="fa fa-check"></i><b>6.12</b> this time filter by motusTagID and by latitude so we only see the strange detections</a></li>
+<li class="chapter" data-level="6.13" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#using-a-filter-that-will-provide-us-with-only-the-spurious-detections"><i class="fa fa-check"></i><b>6.13</b> using a filter that will provide us with only the spurious detections:</a></li>
+<li class="chapter" data-level="6.14" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-based-on-estimated-flight-speed"><i class="fa fa-check"></i><b>6.14</b> Removing detections based on estimated flight speed</a></li>
+<li class="chapter" data-level="6.15" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#so-we-see-that-tag-16047-has-lots-of-high-speeds-due-to-close-towers---16038-has-high-speeds-due-to-false-detections"><i class="fa fa-check"></i><b>6.15</b> so we see that tag 16047 has lots of high speeds due to close towers - 16038 has high speeds due to false detections</a></li>
+<li class="chapter" data-level="6.16" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#same-as-what-we-saw-with-the-plots-so-lets-remove-those-hitids"><i class="fa fa-check"></i><b>6.16</b> same as what we saw with the plots, so lets remove those hitIDs</a></li>
+<li class="chapter" data-level="6.17" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-false-positives-based-on-hitids"><i class="fa fa-check"></i><b>6.17</b> Removing false positives based on hitID’s</a></li>
+<li class="chapter" data-level="6.18" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#removing-detections-based-on-automated-filtering"><i class="fa fa-check"></i><b>6.18</b> Removing detections based on automated filtering</a></li>
+<li class="chapter" data-level="6.19" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#first-convert-freqsd-to-na-for-all-lotek-receivers"><i class="fa fa-check"></i><b>6.19</b> first convert freqsd to NA for all Lotek receivers</a></li>
+<li class="chapter" data-level="6.20" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#identify-which-detections-would-be-removed-by-creating-a-new-column-filter"><i class="fa fa-check"></i><b>6.20</b> identify which detections would be removed by creating a new column “filter”</a></li>
+<li class="chapter" data-level="6.21" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#potential-detections-to-filter-by-site"><i class="fa fa-check"></i><b>6.21</b> potential detections to filter by site</a></li>
+<li class="chapter" data-level="6.22" data-path="cleaning-data-to-remove-false-detections.html"><a href="cleaning-data-to-remove-false-detections.html#potential-detections-to-filter-by-motustagid"><i class="fa fa-check"></i><b>6.22</b> potential detections to filter by motusTagID</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html"><i class="fa fa-check"></i><b>7</b> Exploring data with the Motus R package</a><ul>
+<li class="chapter" data-level="7.1" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#summarizing-your-data"><i class="fa fa-check"></i><b>7.1</b> Summarizing your data</a></li>
+<li class="chapter" data-level="7.2" data-path="exploring-data-with-the-motus-r-package.html"><a href="exploring-data-with-the-motus-r-package.html#plotting-your-data"><i class="fa fa-check"></i><b>7.2</b> Plotting your data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="appendix-a-database-structure.html"><a href="appendix-a-database-structure.html"><i class="fa fa-check"></i><b>8</b> Appendix A - Database Structure</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Motus</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-1" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction {#1}</h1>
+<p><img src="images/Motus-System-IG-final.png" width="2250" /> <br> The Motus Wildlife Tracking System (‘Motus’; Taylor et al. 2017; <a href="https://www.motus.org" class="uri">https://www.motus.org</a>) is an international, collaborative automated radio-telemetry network that is used to track the movement and behaviour of primarily small flying organisms affixed with digitally encoded radio-transmitters. Motus has its roots in the SensorGnome network piloted in 2012-2013. In 2014, a major infrastructure expansion was made possible through a Canada Foundation for Innovation grant to Western University, The University of Guelph, and Acadia University. Since then, Motus has continued to grow through the collaboration of independent researchers and organizations <a href="https://motus.org/about/" class="uri">https://motus.org/about/</a>, and is now managed as a program of Bird Studies Canada (<a href="https://www.birdscanada.org" class="uri">https://www.birdscanada.org</a>) in partnership with Acadia University.</p>
+<p>Motus is unique among automated telemetry arrays in that all researchers in a geographic region (e.g., the Americas or Europe) use a shared radio frequency. This allows tagged animals to be detected by any receiving station across the network, greatly broadening the spatial scope of potential research questions. Motus users also use a shared data infrastructure and web portal: all data collected from across the network are centrally stored and archived, which allows users to access detections of their tags by anyone’s receiver in the network, and individuals that maintain receivers have access to all detections of anyone’s tags on those receivers.</p>
+<p>Having a shared data infrastructure also means that users can benefit from R functions written specifically for Motus data by any and all users. A Motus R package is in continual development, and the intent of this online ‘handbook’ is to help users learn how the various functionalities of the package, and additional R packages like ggplot, can be used to retrieve tag detections, explore, visualize, transform, and analyze Motus data. The content of the handbook will continue to evolve and grow along with the analytical needs of the network. Those interested in contributing code to the Motus R package or this handbook can send proposed additions to Tara Crewe (<a href="mailto:tcrewe@birdscanada.org">tcrewe@birdscanada.org</a>) or Zoe Crysler (<a href="mailto:zcrysler@birdscanada.org">zcrysler@birdscanada.org</a>) (??).</p>
+<p>Taylor, P. D., T. L. Crewe, S. A. Mackenzie, D. Lepage, Y. Aubry, Z. Crysler, G. Finney, C. M. Francis, C. G. Guglielmo, D. J. Hamilton, R. L. Holberton, P. H. Loring, G. W. Mitchell, D. R. Noriis, J. Paquet, R. A. Ronconi, J. Smetzer, P. A. Smith, L. J. Welch, and B. K. Woodworth. 2017. The Motus Wildlife Tracking System: a collaborative research network to enhance the understanding of wildlife movement. Avian Conservation and Ecology 12(1):8. <a href="https://doi.org/10.5751/ACE-00953-120108" class="uri">https://doi.org/10.5751/ACE-00953-120108</a>.</p>
+<div id="what-this-book-does-not-cover-1.1" class="section level2">
+<h2><span class="header-section-number">1.1</span> What this book does not cover {#1.1}</h2>
+<p>This book does not currently cover how to register radio tags with Motus, manage tags and station deployments, upload data, and so on. Information to guide you through those tasks can be found under the ‘resources’ tab on the Motus website at <a href="https://motus.org/resources/" class="uri">https://motus.org/resources/</a>. Please remember to register your tags and enter tag and station metadata with Motus prior to deploying your tags. Please also see <a href="https://motus.org/policy/" class="uri">https://motus.org/policy/</a> to review our collaboration policy and tag registration and fee schedule.</p>
+</div>
+<div id="prerequisites-1.2" class="section level2">
+<h2><span class="header-section-number">1.2</span> Prerequisites {#1.2}</h2>
+<p>This book assumes that you have a basic understanding of R. If you are new to R, we highly recommend ‘R for Data Science’ by Garrett Grolemund and Hadley Wickham (<a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>), which covers how to import, visualize, and summarize data in R using the Tidyverse collection of R packages <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>. It also provides useful tips for organizing your workflow to create clean, reproducible code (<a href="http://r4ds.had.co.nz/workflow-projects.html" class="uri">http://r4ds.had.co.nz/workflow-projects.html</a>). We follow their lead by using Tidyverse throughout this book, and where possible within the package functions.</p>
+</div>
+<div id="how-this-book-is-organized-1.3" class="section level2">
+<h2><span class="header-section-number">1.3</span> How this book is organized {#1.3}</h2>
+<p>Each section of this book will begin with a paragraph or figure describing the broader intention or outcome of the section, followed by details on how to get there using R. For example, the section on accessing and downloading tag detection data begins with a screenshot of the structure of a dataframe, followed by the R code required to access the data.</p>
+</div>
+<div id="sample-dataset-1.4" class="section level2">
+<h2><span class="header-section-number">1.4</span> Sample dataset {#1.4}</h2>
+<p>Throughout this book we use a subset of data from the James Bay Shorebird Project to illustrate how to access, manage, and analyze Motus data in R. The James Bay Shorebird Project conducts monitoring and research on shorebirds staging along the James Bay coast, and is a collaborative effort among the Ontario Ministry of Natural Resources and Forestry, Bird Studies Canada, Trent University, and Environment and Climate Change Canada’s Canadian Wildlife Service, in conjunction with a larger conservation initiative involving James Bay first nations and Nature Canada. The Royal Ontario Museum was a contributing partner until 2016. The goals of the project are to 1) improve the ability to estimate indices of abundance and population trends for shorebird species staging along the western James Bay coast, 2) understand movement patterns and their causes, and 3) identify the relative importance of shorebird staging sites and their habitats. Collectively, this information will aid in the development of conservation measures for Red Knot and other shorebird species through habitat protection like Western Hemisphere Shorebird Reserve Network (WHSRN) designation. More information can be viewed on the James Bay Shorebird Project website at <a href="https://www.jamesbayshorebirdproject.com/" class="uri">https://www.jamesbayshorebirdproject.com/</a>, on Facebook <a href="https://www.facebook.com/jamesbayshorebirdproject/" class="uri">https://www.facebook.com/jamesbayshorebirdproject/</a>, or by contacting their project lead:</p>
+<p>Christian Friis Wildlife Biologist Canadian Wildlife Service Environment and Climate Change Canada / Government of Canada <a href="mailto:christian.friis@canada.ca">christian.friis@canada.ca</a> / Tel: 416.739.4908</p>
+<p>biologiste de la faune<br />
+Service canadien de la faune Environnement et Changement Climatique Canada / Gouvernement du Canada <a href="mailto:christian.friis@canada.ca">christian.friis@canada.ca</a> / Tél. : 416.739.4908</p>
+<p>The sample dataset can be downloaded as a .zip file at: <a href="https://motus.org/" class="uri">https://motus.org/</a>, and once the .motus file is extracted, can be loaded into R using the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">file.name &lt;-<span class="st"> &quot;./data/sampledb.motus&quot;</span>    ## replace with the full location of the extracted .motus file on your personal computer
+t &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">src_sqlite</span>(file.name)</code></pre></div>
+</div>
+<div id="acknowledgements-1.5" class="section level2">
+<h2><span class="header-section-number">1.5</span> Acknowledgements {#1.5}</h2>
+<p>Some of the text included in this book was adapted from John Brzustowski’s github repository for the Motus R package at: <a href="https://github.com/jbrzusto/motus" class="uri">https://github.com/jbrzusto/motus</a>.</p>
+<p>Motus was conceived as the SensorGnome network by Philip Taylor and John Brzustowski at Acadia University. Initial expansion of the network was supported by a Canada Foundation for Innovation Grant to Western University (Christopher Guglielmo), The University of Guelph (D. Ryan Norris), and Acadia University (Philip Taylor). The development of the Motus web interface, R package, and accompanying handbook were made possible through a Canarie grant to Bird Studies Canada (<a href="https://www.canarie.ca/" class="uri">https://www.canarie.ca/</a>). Motus continues to grow as a program of Bird Studies Canada, through the collaboration of numerous independent researchers, organizations, and individuals. A non-exhaustive list of Motus partners and collaborators can be found at <a href="https://motus.org/data/partners.jsp" class="uri">https://motus.org/data/partners.jsp</a>. If your organization is not listed, please contact <a href="mailto:motus@birdscanada.org">motus@birdscanada.org</a>.</p>
+<p>Many people have worked together to bring Motus technology, the web interface, and R-package together. The core ‘Motus Team’ includes John Brzustowski, Zoe Crysler, Tara Crewe, Jeremy Hussell, Catherine Jardine, Denis Lepage, Stuart Mackenzie, Paul Morrill, and Philip Taylor.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="loading-r-packages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["MotusRBook.pdf"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

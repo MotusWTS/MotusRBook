@@ -1,14 +1,14 @@
-# Duplicate tags and ambiguous detections
+# Duplicate tags and ambiguous detections {#ambiguities}
 
 Duplicate tags occur when there are two or more tags with the same Lotek ID code, burst interval, and nominal transmit frequency (i.e., tags are indistinguishable). 
 
-The tag finder program only looks for tags in the raw detetions data during their active lifetimes. Tag lifetimes are estimated based on tag metadata, including deployment date, tag model, and burst interval. If duplicate tags do not overlap in their active lifetimes, there is no ambiguity in terms of which project and tag the detections belong to, and each detection is assigned unambiguously to the correct project and tag. This is by far the most common situation for duplicate tags in the Motus system. 
+The tag finder program only looks for tags in the raw detections data during their active lifetimes. Tag lifetimes are estimated based on tag metadata, including deployment date, tag model, and burst interval. If duplicate tags do not overlap in their active lifetimes, there is no ambiguity in terms of which project and tag the detections belong to, and each detection is assigned unambiguously to the correct project and tag. This is by far the most common situation for duplicate tags in the Motus system. 
 
-In the rare situation when duplicate tags are deployed with overlapping lifetimes, this can result in ambiguous tag detections, where more than one tag (up to 6) could be the source of those detections. The ambiguities might be real, if two or more tags are transmitting the same signal and active at the same time, or due to errors in tag registration or deployment metadata. If there are ambiguities in your data, please ensure that your tag metadata are complete and accurate. 
+In the rarer situation when duplicate tags are deployed with overlapping lifetimes, this can result in ambiguous tag detections, where more than one tag (up to 6) could be the source of those detections. The ambiguities might be real if two or more tags are transmitting the same signal and active at the same time, or due to errors in tag registration or deployment metadata. If there are ambiguities in your data, please ensure that your tag metadata are complete, up-to-date, and accurate. 
 
 ## Load required packages
 
-If you have not already installed the following packages, please follow the instructions in the chapter on Loading Packages.
+If you have not already installed the following packages, please follow the instructions in Chapter \@ref(loadingPackages).
 
 ```{r loadpackages}
 
@@ -20,13 +20,13 @@ library(lubridate)
 
 ```
 
-## Check for ambiguous tags in detections data
+## Check for ambiguous tags in detections data {#checkAmbigs}
 
-In your detections data, ambiguous detections are identified by a unique negative value in the 'motusTagID' field. As a first step, We will load our data into R, and check for ambiguities. You can follow along using the example dataset we provide, which is a subset of data from the James Bay Shorebird Monitoring Project, or you can replace the project number with your own, and follow along using your own data.
+In your detections data, ambiguous detections are identified by a unique negative value in the 'motusTagID' field. As a first step, We will load our data into R, and check for negative motusTagIDs. You can follow along using the example dataset we provide, which is a subset of data from the James Bay Shorebird Monitoring Project (see Section \@ref(sampleData)), or you can replace the project number with your own, and follow along using your own data.
 
 ```{r importdata}
 
-file.name <- "F:/Motus/Motus_JamesBay/project-38.motus"    ## replace with the full location of your project data
+file.name <- "./data/sampledb.motus"    ## or replace with the full location of your 'project-XX.motus' data
 t <- dplyr::src_sqlite(file.name)
 df <- tbl(t, "alltags")
 
@@ -39,7 +39,7 @@ filter(tags, motusTagID < 0) %>% as.list()
 
 ```
 
-We see from the list of motusTagIDs that there are `nrow(filter(tags, motusTagID < 0) %>% distinct())` ambiguities in the data. Using the clarify() function from the motusClient R package, we can load a table which reports the ambigID, which corresponds to the negative motusTagID in the detections data, and what true motusTagIds these ambiguous detections could represent:
+We see from the list of motusTagIDs that there are `nrow(filter(tags, motusTagID < 0) %>% distinct())` ambiguities in the data. Using the clarify() function from the motusClient R package, we can load a table which reports the ambigID, which corresponds to the negative motusTagID in the detections data, and will tell as what true motusTagIds these ambiguous detections could represent:
 
 ```{r clarify}
 

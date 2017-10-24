@@ -1,6 +1,6 @@
 
 
-# Introduction
+# Introduction {#introduction}
 ```{r fig1, echo=FALSE}
 knitr::include_graphics("images/Motus-System-IG-final.png")
 ```
@@ -13,19 +13,19 @@ Having a shared data infrastructure also means that users can benefit from R fun
 
 Taylor, P. D., T. L. Crewe, S. A. Mackenzie, D. Lepage, Y. Aubry, Z. Crysler, G. Finney, C. M. Francis, C. G. Guglielmo, D. J. Hamilton, R. L. Holberton, P. H. Loring, G. W. Mitchell, D. R. Noriis, J. Paquet, R. A. Ronconi, J. Smetzer, P. A. Smith, L. J. Welch, and B. K. Woodworth. 2017. The Motus Wildlife Tracking System: a collaborative research network to enhance the understanding of wildlife movement. Avian Conservation and Ecology 12(1):8. https://doi.org/10.5751/ACE-00953-120108.
 
-## What this book does not cover
+## What this book does not cover {#whatBookCovers}
 
 This book does not currently cover how to register radio tags with Motus, manage tags and station deployments, upload data, and so on. Information to guide you through those tasks can be found under the 'resources' tab on the Motus website at <https://motus.org/resources/>.  Please remember to register your tags and enter tag and station metadata with Motus prior to deploying your tags. Please also see <https://motus.org/policy/> to review our collaboration policy and tag registration and fee schedule.
 
-## Prerequisites
+## Prerequisites {#prerequisites}
 
 This book assumes that you have a basic understanding of R. If you are new to R, we highly recommend 'R for Data Science' by Garrett Grolemund and Hadley Wickham (<http://r4ds.had.co.nz/>), which covers how to import, visualize, and summarize data in R using the Tidyverse collection of R packages <https://www.tidyverse.org/>. It also provides useful tips for organizing your workflow to create clean, reproducible code (<http://r4ds.had.co.nz/workflow-projects.html>). We follow their lead by using Tidyverse throughout this book, and where possible within the package functions.
 
-## How this book is organized
+## How this book is organized {#bookOrganization}
 
 Each section of this book will begin with a paragraph or figure describing the broader intention or outcome of the section, followed by details on how to get there using R. For example, the section on accessing and downloading tag detection data begins with a screenshot of the structure of a dataframe, followed by the R code required to access the data.
 
-## Sample dataset
+## Sample dataset {#sampleData}
 
 Throughout this book we use a subset of data from the James Bay Shorebird Project to illustrate how to access, manage, and analyze Motus data in R. The James Bay Shorebird Project conducts monitoring and research on shorebirds staging along the James Bay coast, and is a collaborative effort among the Ontario Ministry of Natural Resources and Forestry, Bird Studies Canada, Trent University, and Environment and Climate Change Canada's Canadian Wildlife Service, in conjunction with a larger conservation initiative involving James Bay first nations and Nature Canada. The Royal Ontario Museum was a contributing partner until 2016. The goals of the project are to 1) improve the ability to estimate indices of abundance and population trends for shorebird species staging along the western James Bay coast, 2) understand movement patterns and their causes, and 3) identify the relative importance of shorebird staging sites and their habitats. Collectively, this information will aid in the development of conservation measures for Red Knot and other shorebird species through habitat protection like Western Hemisphere Shorebird Reserve Network (WHSRN) designation. More information can be viewed on the James Bay Shorebird Project website at <https://www.jamesbayshorebirdproject.com/>, on Facebook <https://www.facebook.com/jamesbayshorebirdproject/>, or by contacting their project lead:
 
@@ -47,7 +47,7 @@ t <- dplyr::src_sqlite(file.name)
 
 ```
 
-## Acknowledgements
+## Acknowledgements {#acknowledgements}
 
 Some of the text included in this book was adapted from John Brzustowski's github repository for the Motus R package at: <https://github.com/jbrzusto/motus>.
 

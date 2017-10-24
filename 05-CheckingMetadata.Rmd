@@ -1,4 +1,4 @@
-# Data Checking: Metadata
+# Data Checking: Metadata {#checkMetadata}
 
 Data quality for your projects and the projects of others depends on complete and accurate tag and receiver metadata. Complete metadata will allow detections to be properly linked to your project, and allow other users to benefit fully from data collected by the Motus network of receivers. Once you have imported your data using R, it is therefore good practice to run data summaries to check for missing or incorrect tag and receiver deployment metadata.
 
@@ -17,9 +17,9 @@ require(tidyverse)
 
 ```
 
-## Tag Metadata
+## Tag Metadata {#tagMetadata}
 
-### Import Data
+### Import Data {#importTagMeta}
 
 We will import both the tag metadata, to check which tags are registered to your project, and also the tag detections data, to compare which of the registered tags and present in your detections data.
 
@@ -45,7 +45,7 @@ df <- read.csv("./data/JB_raw.csv")
 
 ```
 
-### Tag Metadata Checks
+### Tag Metadata Checks {#tagMetadataChecks}
 
 Only tags registered with Motus (<https://motus.org/tag-registration/>) prior to deployment will appear in detections data.
 
@@ -73,7 +73,7 @@ Required tag metadata includes deployment start date/time, end date/time if appl
 
 Please update missing tag metadata online at <www.motus.org> by logging in to your project and selecting the 'Manage your tags' option.
 
-### Receiver Metadata
+### Receiver Metadata {#recvMetadata}
 
 To obtain detection data from a receiver, it must be registered online to your project by it's serial number.  Receiver deployments are then required to link the appropriate metadata to each detection.  To determine a list of receivers registered to your project:
 
@@ -96,9 +96,3 @@ If you have updated any metadata online, you'll need to force an update on the d
 t <- tagme(projRecv = 123, forceMeta = TRUE)
 ```
 
-
-## Searching for false positives
-
-You may need to check it for false positives, particularely at sites with high levels of background noise, below we outline a number of ways to determine if detections are likely false positives.
-
-***NOT DONE***
