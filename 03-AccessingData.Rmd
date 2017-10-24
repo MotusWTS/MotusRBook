@@ -42,7 +42,7 @@ Once all required packages are loaded, you can use the following code to load yo
 
 ```{r import, message = FALSE}
 
-file.name <- "data/sampledb.motus"    ## replace with the full location of the sample dataset or your own project-XX.motus file
+file.name <- "data/project-sample.motus"    ## replace with the full location of the sample dataset or your own project-XX.motus file
 t <- dplyr::src_sqlite(file.name)
 
 ```
@@ -179,7 +179,7 @@ hh <- hourly %>% collect %>% as.data.frame
 
 The below example is how you would save the flat file called "df.flat" within R, as a .csv file called "JB_raw.csv" on your computer in the 'data' folder of your working directory. In this case, JB stands for James Bay, and we are simply converting the data without subsetting.
 
-```{r createFlat, message = FALSE, warning = FALSE}
+```{r createFlat, eval = FALSE, message = FALSE, warning = FALSE}
 
 write.csv(df.flat, "./data/JB_raw.csv")  ## "df.flat"" is the name of the flat file within R that you want to convert to a .csv
 ## "./data/" is the the location where you would like your .csv stored

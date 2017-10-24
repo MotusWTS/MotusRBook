@@ -15,52 +15,39 @@ library(lubridate)
 
 ## Removing detections outside of deployment range {#filterDeployRange}
 
-A first step to removing definite false positives, is to remove any detections that fall outside of the tag deployment dates. To do this we will need to import the tagging metadata and merge it with the tag detection files to see tag deployment start/end dates.
+A first step to removing definite false positives, is to remove any detections that fall outside of the tag deployment dates once you are sure your metadata is up to date (See chapter \@ref(checkMetadata)). To do this we will need to import the tagging metadata and merge it with the tag detection files to see tag deployment start/end dates.
 
-1. **Download tag deployment metadata**: from the download page <https://motus.org/data/downloads>, select your project from the dropdown menu and click "Tag Deployments" to get a tag-deployments.csv file. Alternatively, you can download the same deployments file from your project tag page.
+**Import tag deployment metadata from your .motus file**
+First, we'll import your tag metadata from your .motus file, then we'll convert it to flat format, and rename some columns for clarity (for more information see 'Accessing Data' chapter): 
 
-2. **Import tag deployment metadata into R**
+```{r importTagMeta, message = FALSE, warning = FALSE}
 
-```{r tagMeta, message = FALSE, warning = FALSE}
-
-tagMeta <- read.csv("./data/tag-deployments-jb.csv") ## replace the location with the file path where you saved the .csv file.
-## rename columns
-tagMeta <- rename(tagMeta, motusTagID = tagID, tagStart = tsStart, tagEnd = tsEnd)
-
-```
-
-OR (we should probably go this way, and work from the .motus file) 
-
-1-2. **Import tag deployment metadata from your .motus file**
-To import and convert your tag metadata in your .motus file to a flat file (for more information see 'Accessing Data' chapter): 
-
-```{r importTagMeta.5, eval = FALSE, message = FALSE, warning = FALSE}
-
-#t <- dplyr::src_sqlite("./data/project-38.motus")     # import .motus file from your local directory (change directory to match)
-#tagMeta <- tbl(t, "tagDeps")                          # extract tagDeps table, with tag deployment metadata
-#tagMeta <- tagMeta %>% collect %>% as.data.frame      # convert tag metadata to a flat file
+t <- dplyr::src_sqlite("./data/project-sample.motus")  # import .motus file from your local directory (change directory to match)
+tagMeta <- tbl(t, "tagDeps") ## extract the tagDeps table which contains tag deploymetn metadata
+tagMeta <- tagMeta %>% collect %>% as.data.frame ## convert tag metadata to a flat file
+tagMeta <- rename(tagMeta, tagDeployID = deployID, tagStart = tsStart, tagEnd = tsEnd) ## rename some columns so it's clear when we merge with detection data
 
 ```
 
 3. **Join tag metadata and detection data**: Once you've created a flat .csv file of your data (see 'Accessing Data' Chapter), you can import using the following statement:
-```{r importDetectData, eval = FALSE, message = FALSE, warning = FALSE}
-
-JBraw <- read.csv("./data/JB_sample_data_all.csv")
-
+```{r importDetectData, message = FALSE, warning = FALSE}
+t <- dplyr::src_sqlite("./data/project-sample.motus") # import .motus file from your local directory (change directory to match)
+jb <- tbl(t, "alltagswithambigs")  # extract alltagswithambigs table, with tag deployment metadata
+jb <- jb %>% collect %>% as.data.frame      # convert detection data to a flat file
 ```
 Join the tagMeta database to your detection data, here we only include the start/end date columns from the tagMeta database, however you can choose to keep all columns if necessary.
-```{r mergeDepswithDet, eval = FALSE, message = FALSE, warnings = FALSE}
+```{r mergeDepswithDet, message = FALSE, warnings = FALSE}
 
-JBraw <- dplyr::left_join(JBraw, select(tagMeta, tagDeployID, motusTagID, tagStart, tagEnd))
+JBraw <- dplyr::left_join(jb, select(tagMeta, tagDeployID, tagStart, tagEnd))
 
 ```
 
 4. **Remove detections that fall outside tag deployment dates**
 ```{r detectionsOutsideDep, eval = FALSE, message = FALSE, warning = FALSE}
 ## first ensure that all times are in POSIXct
-JBraw$ts <- as_datetime(JBraw$ts, tz = "UTC")
-JBraw$tagStart <- as_datetime(JBraw$tagStart, tz = "UTC")
-JBraw$tagEnd <- as_datetime(JBraw$tagEnd, tz = "UTC")
+JBraw <- JBraw %>% mutate(ts = as_datetime(ts, tz = "UTC"),
+                          tagStart = as_datetime(tagStart, tz = "UTC"),
+                          tagEnd = as_datetime(tagEnd, tz = "UTC"))
 ## subset to keep anything within tag deployment range, making sure to account for NAs in end dates
 JBraw <- subset(JBraw, ts < tagEnd | is.na(tagEnd))
 JBraw <- subset(JBraw, ts > tagStart)

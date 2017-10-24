@@ -24,7 +24,7 @@ Our goal with this online 'handbook' is to show Motus (<https://motus.org>) user
 
 
 
-# Introduction
+# Introduction {#introduction}
 ```{r fig1, echo=FALSE}
 knitr::include_graphics("images/Motus-System-IG-final.png")
 ```
@@ -37,19 +37,19 @@ Having a shared data infrastructure also means that users can benefit from R fun
 
 Taylor, P. D., T. L. Crewe, S. A. Mackenzie, D. Lepage, Y. Aubry, Z. Crysler, G. Finney, C. M. Francis, C. G. Guglielmo, D. J. Hamilton, R. L. Holberton, P. H. Loring, G. W. Mitchell, D. R. Noriis, J. Paquet, R. A. Ronconi, J. Smetzer, P. A. Smith, L. J. Welch, and B. K. Woodworth. 2017. The Motus Wildlife Tracking System: a collaborative research network to enhance the understanding of wildlife movement. Avian Conservation and Ecology 12(1):8. https://doi.org/10.5751/ACE-00953-120108.
 
-## What this book does not cover
+## What this book does not cover {#whatBookCovers}
 
 This book does not currently cover how to register radio tags with Motus, manage tags and station deployments, upload data, and so on. Information to guide you through those tasks can be found under the 'resources' tab on the Motus website at <https://motus.org/resources/>.  Please remember to register your tags and enter tag and station metadata with Motus prior to deploying your tags. Please also see <https://motus.org/policy/> to review our collaboration policy and tag registration and fee schedule.
 
-## Prerequisites
+## Prerequisites {#prerequisites}
 
 This book assumes that you have a basic understanding of R. If you are new to R, we highly recommend 'R for Data Science' by Garrett Grolemund and Hadley Wickham (<http://r4ds.had.co.nz/>), which covers how to import, visualize, and summarize data in R using the Tidyverse collection of R packages <https://www.tidyverse.org/>. It also provides useful tips for organizing your workflow to create clean, reproducible code (<http://r4ds.had.co.nz/workflow-projects.html>). We follow their lead by using Tidyverse throughout this book, and where possible within the package functions.
 
-## How this book is organized
+## How this book is organized {#bookOrganization}
 
 Each section of this book will begin with a paragraph or figure describing the broader intention or outcome of the section, followed by details on how to get there using R. For example, the section on accessing and downloading tag detection data begins with a screenshot of the structure of a dataframe, followed by the R code required to access the data.
 
-## Sample dataset
+## Sample dataset {#sampleData}
 
 Throughout this book we use a subset of data from the James Bay Shorebird Project to illustrate how to access, manage, and analyze Motus data in R. The James Bay Shorebird Project conducts monitoring and research on shorebirds staging along the James Bay coast, and is a collaborative effort among the Ontario Ministry of Natural Resources and Forestry, Bird Studies Canada, Trent University, and Environment and Climate Change Canada's Canadian Wildlife Service, in conjunction with a larger conservation initiative involving James Bay first nations and Nature Canada. The Royal Ontario Museum was a contributing partner until 2016. The goals of the project are to 1) improve the ability to estimate indices of abundance and population trends for shorebird species staging along the western James Bay coast, 2) understand movement patterns and their causes, and 3) identify the relative importance of shorebird staging sites and their habitats. Collectively, this information will aid in the development of conservation measures for Red Knot and other shorebird species through habitat protection like Western Hemisphere Shorebird Reserve Network (WHSRN) designation. More information can be viewed on the James Bay Shorebird Project website at <https://www.jamesbayshorebirdproject.com/>, on Facebook <https://www.facebook.com/jamesbayshorebirdproject/>, or by contacting their project lead:
 
@@ -71,7 +71,7 @@ t <- dplyr::src_sqlite(file.name)
 
 ```
 
-## Acknowledgements
+## Acknowledgements {#acknowledgements}
 
 Some of the text included in this book was adapted from John Brzustowski's github repository for the Motus R package at: <https://github.com/jbrzusto/motus>.
 
@@ -82,7 +82,7 @@ Many people have worked together to bring Motus technology, the web interface, a
 
 <!--chapter:end:01-Introduction.Rmd-->
 
-# Loading the Motus R Packages
+# Loading R Packages {#loadingPackages}
 
 There are two R packages available to Motus users:
 
@@ -108,7 +108,7 @@ install_github("jbrzusto/motusClient@master")   ## the last stable version
 library(motusClient)
 
 # install motus for data manipulation, visualization and analysis
-install_github("jbrzusto/motus@staging")   ## the last stable version
+install_github("jbrzusto/motus@testbuild1")   ## the last stable version
 library(motus)
 ```
 
@@ -136,11 +136,11 @@ library(lubridate)
 
 More information on Tidyverse can be found at <https://www.tidyverse.org/>, or by browsing 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>.
 
-## User Authentication
+## User Authentication {#userAuthentication}
 
 The first time you call a function using the Motus R package, you will be asked for your motus.org username and password to authenticate your access to project data. This will only happen once per R session. If you do not have a Motus user name and password, you can sign up at <https://motus.org/data/user/new>. Permission to access project data will then be granted by Motus staff or the project principal investigator.
 
-## Internal data processing
+## Internal data processing {#internalProcessing}
 
 As an animal moves within the detection range of a Motus station, radio transmissions, or 'bursts', are detected by antenna(s) and recorded by a receiver. These raw detection data are either uploaded to the Motus database instantaneously via internet connection, or downloaded from the receiver and uploaded to Motus manually. Behind the scenes, various functions read and process the raw detections data to produce the tag detections file that users access using the R package (see 'Data Import' below). While most users will not need to call on the internal data processing functions, a complete list of functions within the Motus server R package can be found on GitHub: <https://github.com/jbrzusto/motusServer>. The code behind each function can be viewed on GitHub, or by typing the following in the R console after loading the R package, replacing 'function.name' with the name of the R function of interest:
 
@@ -151,11 +151,11 @@ function.name()
 
 <!--chapter:end:02-LoadingPackage.Rmd-->
 
-# Accessing and understanding detections data
+# Accessing and understanding detections data {#accessingData}
 
 It is important to note that the success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators.  Users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.
 
-## Database types
+## Database types {#databaseTypes}
 
 ```{r fig3, echo = FALSE}
 
@@ -178,7 +178,7 @@ These two databases correspond to the basic model of data sharing:
 
 2. you get all detections of *your* tags by *anyone's* receivers (i.e., one project tag database for each of your motus projects)
 
-## Load relevant R packages
+## Load relevant R packages {#loadPackages}
 
 ```{r loadPackages, warning = FALSE, message = FALSE}
 
@@ -187,20 +187,20 @@ require(tidyverse)
 
 ```
 
-## Importing tag detections
+## Importing tag detections {#importDetections}
 
-Your project's .motus file is available for download at <https://motus.org/data/downloads> under your project profile. Once downloaded, **make sure that you have the appropriate packages installed and loaded in R as outlined in Chapter 2 - Loading the Motus R Package**. 
+Your project's .motus file is available for download at <https://motus.org/data/downloads> under your project profile. Once downloaded, **make sure that you have the appropriate packages installed and loaded in R** (see Chapter \@ref(loadingPackages). 
 
-Once all required packages are loaded, you can use the following code to load your project data, or the sample data from the James Bay Shorebird Project ('sampledb.motus'; see 'Sample Dataset' section of Chapter 1 - Introduction):
+Once all required packages are loaded, you can use the following code to load your project data, or the sample data from the James Bay Shorebird Project ('sampledb.motus'; see Section \@ref(sampleData)):
 
 ```{r import, message = FALSE}
 
-file.name <- "./data/sampledb.motus"    ## replace with the full location of the sample dataset or your own project-XX.motus file
+file.name <- "./data/project-sample.motus"    ## replace with the full location of the sample dataset or your own project-XX.motus file
 t <- dplyr::src_sqlite(file.name)
 
 ```
 
-## Data structure
+## Data structure {#databaseStructure}
 
 Your tag database is stored as an SQLite ('dplyr::src_sqlite') file with the extension '.motus'. The sqlite format was chosen because:
 
@@ -274,7 +274,7 @@ knitr::kable(param.table, caption = "Description of fields in the tag detections
 
 ```
 
-### Convert a virtual table to a flat dataframe
+### Convert a virtual table to a flat dataframe {#convertToFlat}
 
 If you want your entire dataframe in a typical "flat" format, i.e., with every record for each field filled in, you can use the collect() function.  The output can then be used to generate a .rds or .csv file of your data. However, we caution that producing such a table using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets:
 
@@ -328,11 +328,11 @@ hourly <- df %>% mutate (hour = 3600 * round(ts / 3600, 0)) %>% distinct (recv, 
 hh <- hourly %>% collect %>% as.data.frame
 ```
 
-### Export your "flat" dataframe to a .csv file
+### Export your "flat" dataframe to a .csv file {#exportToCSV}
 
 The below example is how you would save the flat file called "df.flat" within R, as a .csv file called "JB_raw.csv" on your computer in the 'data' folder of your working directory. In this case, JB stands for James Bay, and we are simply converting the data without subsetting.
 
-```{r createFlat, message = FALSE, warning = FALSE}
+```{r createFlat, eval = FALSE, message = FALSE, warning = FALSE}
 
 write.csv(df.flat, "./data/JB_raw.csv")  ## "df.flat"" is the name of the flat file within R that you want to convert to a .csv
 ## "./data/" is the the location where you would like your .csv stored
@@ -342,17 +342,17 @@ write.csv(df.flat, "./data/JB_raw.csv")  ## "df.flat"" is the name of the flat f
 
 <!--chapter:end:03-AccessingData.Rmd-->
 
-# Duplicate tags and ambiguous detections
+# Duplicate tags and ambiguous detections {#ambiguities}
 
 Duplicate tags occur when there are two or more tags with the same Lotek ID code, burst interval, and nominal transmit frequency (i.e., tags are indistinguishable). 
 
-The tag finder program only looks for tags in the raw detetions data during their active lifetimes. Tag lifetimes are estimated based on tag metadata, including deployment date, tag model, and burst interval. If duplicate tags do not overlap in their active lifetimes, there is no ambiguity in terms of which project and tag the detections belong to, and each detection is assigned unambiguously to the correct project and tag. This is by far the most common situation for duplicate tags in the Motus system. 
+The tag finder program only looks for tags in the raw detections data during their active lifetimes. Tag lifetimes are estimated based on tag metadata, including deployment date, tag model, and burst interval. If duplicate tags do not overlap in their active lifetimes, there is no ambiguity in terms of which project and tag the detections belong to, and each detection is assigned unambiguously to the correct project and tag. This is by far the most common situation for duplicate tags in the Motus system. 
 
-In the rare situation when duplicate tags are deployed with overlapping lifetimes, this can result in ambiguous tag detections, where more than one tag (up to 6) could be the source of those detections. The ambiguities might be real, if two or more tags are transmitting the same signal and active at the same time, or due to errors in tag registration or deployment metadata. If there are ambiguities in your data, please ensure that your tag metadata are complete and accurate. 
+In the rarer situation when duplicate tags are deployed with overlapping lifetimes, this can result in ambiguous tag detections, where more than one tag (up to 6) could be the source of those detections. The ambiguities might be real if two or more tags are transmitting the same signal and active at the same time, or due to errors in tag registration or deployment metadata. If there are ambiguities in your data, please ensure that your tag metadata are complete, up-to-date, and accurate. 
 
 ## Load required packages
 
-If you have not already installed the following packages, please follow the instructions in the chapter on Loading Packages.
+If you have not already installed the following packages, please follow the instructions in Chapter \@ref(loadingPackages).
 
 ```{r loadpackages}
 
@@ -364,13 +364,13 @@ library(lubridate)
 
 ```
 
-## Check for ambiguous tags in detections data
+## Check for ambiguous tags in detections data {#checkAmbigs}
 
-In your detections data, ambiguous detections are identified by a unique negative value in the 'motusTagID' field. As a first step, We will load our data into R, and check for ambiguities. You can follow along using the example dataset we provide, which is a subset of data from the James Bay Shorebird Monitoring Project, or you can replace the project number with your own, and follow along using your own data.
+In your detections data, ambiguous detections are identified by a unique negative value in the 'motusTagID' field. As a first step, We will load our data into R, and check for negative motusTagIDs. You can follow along using the example dataset we provide, which is a subset of data from the James Bay Shorebird Monitoring Project (see Section \@ref(sampleData)), or you can replace the project number with your own, and follow along using your own data.
 
 ```{r importdata}
 
-file.name <- "data/sampledb.motus"    ## replace with the full location of your project data
+file.name <- "./data/project-sample.motus"    ## or replace with the full location of your 'project-XX.motus' data
 t <- dplyr::src_sqlite(file.name)
 df <- tbl(t, "alltags")
 
@@ -383,7 +383,7 @@ filter(tags, motusTagID < 0) %>% as.list()
 
 ```
 
-We see from the list of motusTagIDs that there are `nrow(filter(tags, motusTagID < 0) %>% distinct())` ambiguities in the data. Using the clarify() function from the motusClient R package, we can load a table which reports the ambigID, which corresponds to the negative motusTagID in the detections data, and what true motusTagIds these ambiguous detections could represent:
+We see from the list of motusTagIDs that there are `nrow(filter(tags, motusTagID < 0) %>% distinct())` ambiguities in the data. Using the clarify() function from the motusClient R package, we can load a table which reports the ambigID, which corresponds to the negative motusTagID in the detections data, and will tell as what true motusTagIds these ambiguous detections could represent:
 
 ```{r clarify}
 
@@ -392,7 +392,7 @@ head(ambig)
 
 ```
 
-In the ambig table, there are columns for up to 6 true motusTagIDs that the ambigID might correspond to. Using the summary() function, we can see how many of these ID columns are relevant to our situation. In this case, id4 through id6 contain all NAs, and that most ambiguities correspond to two possible tags, and a few correspond to three possible tags:
+In the ambig table, there are columns for up to 6 true motusTagIDs that the ambigID might correspond to. Using the summary() function, we can see how many of these ID columns are relevant to our situation. In this case, id4 through id6 contain all NAs, which means that at most we have ambiguitied with three possible tags:
 
 ```{r summClarify}
 
@@ -400,14 +400,31 @@ summary(ambig) # see that there is only data in id1 and id2 fields (no instances
 
 ```
 
-To see whether the ambuguous detections correspond to detections of your tags or those of others, you need to load the tag metadata from your .motus file. The tag metadata will include the unique 'motusTagID' and associated deployment information for all of your registered tags and any duplicate tags from other projects. Metadata for duplicate tags from other projects can be useful to show when and where those tags were deployed. We will plot this information with the tag detections to help tease apart whether the ambiguous detections are likely to be from your tag(s) or those of others.
+For your convenience, we created two virtual tables, or views, of the ambiguous detections in the .motus files which can be used to summarize and visualize the ambiguous detections, and decide whether they are detections of your tags or the tags of others. The two views are:
+
+1. "allambigs", which lists in long-data format each motusTagID associated with each ambigID.
+2. "alltagswithambigs", which 
+
+```{r loadAmbigViews, message = FALSE, warning = FALSE}
+
+allAmbigs <-  tbl(t, "allambigs")
+
+ambig.df <-  tbl(t, "alltagswithambigs")
+ambig.df <- ambig.df %>% collect %>% as.data.frame  
+
+```
+
+To decide whether the ambiguous detections correspond to detections of your tags or those of others, we will first load the tag metadata from your .motus file. The tag metadata will include the unique 'motusTagID' and associated deployment information for all of your registered tags and any duplicate tags from other projects. Metadata for duplicate tags from other projects can be useful to show when and where those tags were deployed. We will plot this information with the tag detections to help tease apart whether the ambiguous detections are likely to be from your tag(s) or those of others.
 
 After we load the metadata, we will transform it from a sqlite table to a flat file to more easily maniplulate dates, which are stored in the .motus file as seconds since Jan 01 1970.
 
 ```{r importTagMeta}
 
 tagMeta <- tbl(t, "tagDeps")
-tagMeta <- select(tagMeta, projectID, deployID, tagID, tsStart, tsEnd, speciesID, latitude, longitude) %>% distinct() %>% collect() %>% as.data.frame()
+tagMeta <- select(tagMeta, projectID, deployID, tagID, tsStart, tsEnd, speciesID, latitude, longitude) %>% 
+  distinct() %>%
+  collect() %>% 
+  as.data.frame()
 
 # manipulate dates using the lubridate() package
 
@@ -422,7 +439,7 @@ tagMeta <- mutate(tagMeta,
 head(tagMeta)
 ```
 
-First we will make a list of tags from our own project that occur in the metadata. We will then transpose and subset the ambiguous detections table to include only those motusTagIDs that are registered to our project. These will be used to merge with the detections data, to assign a true motusTagID to the negative motusTagIDs of ambiguous detections.  To do this, we transform the detections data to a flat file, but selecting only a few variables of interest to save on memory. Remember to replace the listed project ID (38) with your own when using your own project data:
+We then make a list of tags from the .motus file that also occur in the metadata. We will then transpose and subset the ambiguous detections table to include only those motusTagIDs that are registered to our project. These will be used to merge with the detections data, to assign a true motusTagID to the negative motusTagIDs of ambiguous detections.  To do this, we transform the detections data to a flat file, but selecting only a few variables of interest to save on memory. Remember to replace the listed project ID (38) with your own when using your own project data:
 
 ```{r taglist}
 
@@ -466,7 +483,7 @@ df <- full_join(df, tmp , by = "motusTagID")
 
 <!--chapter:end:04-Ambiguities.Rmd-->
 
-# Data Checking: Metadata
+# Data Checking: Metadata {#checkMetadata}
 
 Data quality for your projects and the projects of others depends on complete and accurate tag and receiver metadata. Complete metadata will allow detections to be properly linked to your project, and allow other users to benefit fully from data collected by the Motus network of receivers. Once you have imported your data using R, it is therefore good practice to run data summaries to check for missing or incorrect tag and receiver deployment metadata.
 
@@ -485,9 +502,9 @@ require(tidyverse)
 
 ```
 
-## Tag Metadata
+## Tag Metadata {#tagMetadata}
 
-### Import Data
+### Import Data {#importTagMeta}
 
 We will import both the tag metadata, to check which tags are registered to your project, and also the tag detections data, to compare which of the registered tags and present in your detections data.
 
@@ -513,7 +530,7 @@ df <- read.csv("./data/JB_raw.csv")
 
 ```
 
-### Tag Metadata Checks
+### Tag Metadata Checks {#tagMetadataChecks}
 
 Only tags registered with Motus (<https://motus.org/tag-registration/>) prior to deployment will appear in detections data.
 
@@ -541,7 +558,7 @@ Required tag metadata includes deployment start date/time, end date/time if appl
 
 Please update missing tag metadata online at <www.motus.org> by logging in to your project and selecting the 'Manage your tags' option.
 
-### Receiver Metadata
+### Receiver Metadata {#recvMetadata}
 
 To obtain detection data from a receiver, it must be registered online to your project by it's serial number.  Receiver deployments are then required to link the appropriate metadata to each detection.  To determine a list of receivers registered to your project:
 
@@ -565,15 +582,9 @@ t <- tagme(projRecv = 123, forceMeta = TRUE)
 ```
 
 
-## Searching for false positives
-
-You may need to check it for false positives, particularely at sites with high levels of background noise, below we outline a number of ways to determine if detections are likely false positives.
-
-***NOT DONE***
-
 <!--chapter:end:05-CheckingMetadata.Rmd-->
 
-# Cleaning data to remove false detections
+# Cleaning data to remove false detections {#dataCleaning}
 
 Background radio noise will sometimes create false positives in your detection data. Some sites will inherently have more background noise than others, and some tag IDs are more prone to false positives than others. Once you download your data, the first step should be cleaning it of false detections. There are a few ways to do this, ultimately it is up to you to determine which detections are true and which should be removed. Below we outline a number of ways to determine if detections are likely false positives.
 
@@ -588,14 +599,15 @@ library(lubridate)
 
 ```
 
-## Removing detections outside of deployment range
+## Removing detections outside of deployment range {#filterDeployRange}
+
 A first step to removing definite false positives, is to remove any detections that fall outside of the tag deployment dates. To do this we will need to import the tagging metadata and merge it with the tag detection files to see tag deployment start/end dates.
 
 1. **Download tag deployment metadata**: from the download page <https://motus.org/data/downloads>, select your project from the dropdown menu and click "Tag Deployments" to get a tag-deployments.csv file. Alternatively, you can download the same deployments file from your project tag page.
 
 2. **Import tag deployment metadata into R**
 
-```{r tagMeta, eval = FALSE, message = FALSE, warning = FALSE}
+```{r tagMeta, message = FALSE, warning = FALSE}
 
 tagMeta <- read.csv("./data/tag-deployments-jb.csv") ## replace the location with the file path where you saved the .csv file.
 ## rename columns
@@ -630,7 +642,7 @@ JBraw <- dplyr::left_join(JBraw, select(tagMeta, tagDeployID, motusTagID, tagSta
 ```
 
 4. **Remove detections that fall outside tag deployment dates**
-```{r detectionsOutsideDep, message = FALSE, warning = FALSE}
+```{r detectionsOutsideDep, eval = FALSE, message = FALSE, warning = FALSE}
 ## first ensure that all times are in POSIXct
 JBraw$ts <- as_datetime(JBraw$ts, tz = "UTC")
 JBraw$tagStart <- as_datetime(JBraw$tagStart, tz = "UTC")
@@ -640,7 +652,8 @@ JBraw <- subset(JBraw, ts < tagEnd | is.na(tagEnd))
 JBraw <- subset(JBraw, ts > tagStart)
 ```
 
-## Removing detections based on visual geographic positions
+## Removing detections based on visual geographic positions {#filterGeoPosition}
+
 A few simple plots of latitude/longitude vs. time can highlight detections that occur in areas outside of the expected geographic range of the species for that date, or flights showing impossible speeds over large distances.
 First, lets replace any instances with no GPS coordinates with the given locations from receiver deployment metadata:
 ```{r replaceMissingCoords, eval = FALSE, message = FALSE, warning = FALSE}
@@ -671,7 +684,8 @@ filter(JBraw, motusTagID == 16038 & lat < 42)
 ```
 We can see that the hitIDs we want to remove are 239875440 - 239875445.  For now we will keep them in the data to continue looking for false positives.  We will remove all of them together at the end of this chapter.
 
-## Removing detections based on estimated flight speed
+## Removing detections based on estimated flight speed {#filterFlightSpeed}
+
 By looking at the rate of movement between sites with consicutive detections, we can quickly view flights that are not physically possible.  Further examination of these detections will be required to determine which detections are true and which are false.
 Rate of movement between sites can be determined using the siteTrans function in the motus R package.  For instructions on installing the package, see chapter "Loading Packages".
 ```{r falseBySpeed1, eval = FALSE, message = FALSE, warning = FALSE}
@@ -705,13 +719,15 @@ filter(JBraw, motusTagID == 16038 & site == "Illini State Park ")
 ```
 Once again we determine that we should remove hitID's 239875440 - 239875445.
 
-## Removing false positives based on hitID's
+## Removing false positives based on hitID's {#filterHitID}
+
 Now that we have a list of hitID's that we have determined to be false positives, we can easily remove them from our database
 ```{r falseHitIDs, eval = FALSE, message = FALSE, warning = FALSE}
 JBfiltered <- filter(JBraw, !(hitID %in% c(239875440, 239875441, 239875442, 239875443, 239875444, 239875445)))
 ```
 
-## Removing detections based on automated filtering
+## Removing detections based on automated filtering {#filterAuto}
+
 You can also remove spurious detections through some simple automated filters if you do not wish to examine each tag individually.  But note that by applying a general filter to all your detections, you risk removing true detections as well.  Detections can be filtered by freqsd or by runLen.  
 **freqsd** refers to the standard deviation of frequency offset among pulses in a burst, in kHz.  Values larger than 0.1  kHz suggest a bogus detection, however this is for detections on SensorGnomes only.  
 **runLen** is the number of tag bursts in the current run, a run is defined as a group of consecutive detections of a tag detected on a receiver.
@@ -744,19 +760,19 @@ Ultimately, how strictly you filter your detection data is up to each individual
 
 <!--chapter:end:06-DataCleaning.Rmd-->
 
-# Exploring data with the Motus R package
+# Exploring data with the Motus R package {#exploreData}
 
 There are a number of functions within the Motus package that will allow you to quickly explore your data.  This section provides examples of how you can use these functions through summaries and visualizations.
 
-## Summarizing your data
+## Summarizing your data {#dataSummaries}
 
-## Plotting your data
+## Plotting your data {#dataPlotting}
 
 <!--chapter:end:07-ExploringData.Rmd-->
 
-# Appendix A - Database Structure
+# Appendix A - Database Structure {#appendixA}
 
-The following tables and associated fields are included in each .motus file:
+The following tables and associated fields are included in each .motus SQLite file:
 
 1. projs
 
