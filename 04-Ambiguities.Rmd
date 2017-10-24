@@ -1,0 +1,121 @@
+# Duplicate tags and ambiguous detections
+
+Duplicate tags occur when there are two or more tags with the same Lotek ID code, burst interval, and nominal transmit frequency (i.e., tags are indistinguishable). 
+
+The tag finder program only looks for tags in the raw detetions data during their active lifetimes. Tag lifetimes are estimated based on tag metadata, including deployment date, tag model, and burst interval. If duplicate tags do not overlap in their active lifetimes, there is no ambiguity in terms of which project and tag the detections belong to, and each detection is assigned unambiguously to the correct project and tag. This is by far the most common situation for duplicate tags in the Motus system. 
+
+In the rare situation when duplicate tags are deployed with overlapping lifetimes, this can result in ambiguous tag detections, where more than one tag (up to 6) could be the source of those detections. The ambiguities might be real, if two or more tags are transmitting the same signal and active at the same time, or due to errors in tag registration or deployment metadata. If there are ambiguities in your data, please ensure that your tag metadata are complete and accurate. 
+
+## Load required packages
+
+If you have not already installed the following packages, please follow the instructions in the chapter on Loading Packages.
+
+```{r loadpackages}
+
+library(devtools)
+library(motusClient) # package to communicate with Motus server and grab project data
+library(motus)   
+library(tidyverse)
+library(lubridate)
+
+```
+
+## Check for ambiguous tags in detections data
+
+In your detections data, ambiguous detections are identified by a unique negative value in the 'motusTagID' field. As a first step, We will load our data into R, and check for ambiguities. You can follow along using the example dataset we provide, which is a subset of data from the James Bay Shorebird Monitoring Project, or you can replace the project number with your own, and follow along using your own data.
+
+```{r importdata}
+
+file.name <- "F:/Motus/Motus_JamesBay/project-38.motus"    ## replace with the full location of your project data
+t <- dplyr::src_sqlite(file.name)
+df <- tbl(t, "alltags")
+
+# list of motusTagIDs in detections data
+
+tags <- select(df, motusTagID) %>% distinct() %>% arrange(motusTagID) %>% collect( )%>% as.data.frame()
+
+filter(tags, motusTagID < 0) %>% summarize(nAmbiguities = n())
+filter(tags, motusTagID < 0) %>% as.list()
+
+```
+
+We see from the list of motusTagIDs that there are `nrow(filter(tags, motusTagID < 0) %>% distinct())` ambiguities in the data. Using the clarify() function from the motusClient R package, we can load a table which reports the ambigID, which corresponds to the negative motusTagID in the detections data, and what true motusTagIds these ambiguous detections could represent:
+
+```{r clarify}
+
+ambig <- clarify(t)
+head(ambig)
+
+```
+
+In the ambig table, there are columns for up to 6 true motusTagIDs that the ambigID might correspond to. Using the summary() function, we can see how many of these ID columns are relevant to our situation. In this case, id4 through id6 contain all NAs, and that most ambiguities correspond to two possible tags, and a few correspond to three possible tags:
+
+```{r summClarify}
+
+summary(ambig) # see that there is only data in id1 and id2 fields (no instances of > 2 identical tags)
+
+```
+
+To see whether the ambuguous detections correspond to detections of your tags or those of others, you need to load the tag metadata from your .motus file. The tag metadata will include the unique 'motusTagID' and associated deployment information for all of your registered tags and any duplicate tags from other projects. Metadata for duplicate tags from other projects can be useful to show when and where those tags were deployed. We will plot this information with the tag detections to help tease apart whether the ambiguous detections are likely to be from your tag(s) or those of others.
+
+After we load the metadata, we will transform it from a sqlite table to a flat file to more easily maniplulate dates, which are stored in the .motus file as seconds since Jan 01 1970.
+
+```{r importTagMeta}
+
+tagMeta <- tbl(t, "tagDeps")
+tagMeta <- select(tagMeta, projectID, deployID, tagID, tsStart, tsEnd, speciesID, latitude, longitude) %>% distinct() %>% collect() %>% as.data.frame()
+
+# manipulate dates using the lubridate() package
+
+tagMeta <- mutate(tagMeta, 
+                  dtStart = as_datetime(tsStart, tz = "UTC"),
+                  yrStart = year(dtStart),
+                  dmyStart = date(dtStart),
+                  dtEnd = as_datetime(tsEnd, tz = "UTC"),
+                  yrEnd = year(dtEnd),
+                  dmyEnd = date(dtEnd))
+
+head(tagMeta)
+```
+
+First we will make a list of tags from our own project that occur in the metadata. We will then transpose and subset the ambiguous detections table to include only those motusTagIDs that are registered to our project. These will be used to merge with the detections data, to assign a true motusTagID to the negative motusTagIDs of ambiguous detections.  To do this, we transform the detections data to a flat file, but selecting only a few variables of interest to save on memory. Remember to replace the listed project ID (38) with your own when using your own project data:
+
+```{r taglist}
+
+# list of tags registered to the James Bay Shorebird Project (projectID 38)
+
+tag.list <- filter(tagMeta, projectID == 38) %>% select(tagID) %>% distinct() 
+
+# transpose the ambiguous detections table
+
+t.ambig <- gather(select(ambig, ambigID, id1, id2, id3, id4, id5, id6), key = id, value = motusTagID2, -ambigID) %>%
+  filter(!is.na(motusTagID2)) %>% select(-id) %>% arrange(ambigID)
+
+# filter the list of ambiguities to include only the ambig IDs corresponding to your own tags.
+
+t.ambig <- filter(t.ambig, motusTagID2 %in% tag.list$tagID)
+
+# First create a flat file of the detections data, then do a full merge, so that if there are any instances where your own tags are duplicates, the detections data will be plotted for both.
+
+detect.df <- select(df, hitID, ts, sig, motusTagID, ant, runLen, tagProjID, id, speciesID, lat, lon, site, projID, tagProj, depLat, depLon) %>% collect() %>% as.data.frame()
+
+detect.df2 <- full_join(detect.df, t.ambig, by = c("motusTagID" = "ambigID")) %>% filter(!is.na(motusTagID2))
+
+```
+
+In project 38, there are `r length(tag.list$tagID)` registered tags.
+
+```{r transpose} 
+# first transpose the ambig table, so that for each negative motusTagID, you have a list of potential true motusTagIDs that this could refer to:
+
+t.ambig <- gather(select(ambig, ambigID, id1, id2, id3, id4, id5, id6), key = id, value = motusTagID2, -ambigID) %>%
+  filter(!is.na(motusTagID2)) %>% select(-id) %>% arrange(ambigID)
+
+# now use this to do a full merge with 
+# merge detections data with ambiguous tag ids. You'll end up with detections duplicated in the dataframe, so that for each tag that motusTagID -169 might refer to, those detections will be repeated for each motusTagID2 that corresponds to this ambiguity.  Can then plot the detections for each tag.
+
+df <- full_join(df, tmp , by = "motusTagID")
+
+```
+
+
