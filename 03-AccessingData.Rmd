@@ -42,7 +42,7 @@ Once all required packages are loaded, you can use the following code to load yo
 
 ```{r import, message = FALSE}
 
-file.name <- "./data/sampledb.motus"    ## replace with the full location of the sample dataset or your own project-XX.motus file
+file.name <- "data/sampledb.motus"    ## replace with the full location of the sample dataset or your own project-XX.motus file
 t <- dplyr::src_sqlite(file.name)
 
 ```
