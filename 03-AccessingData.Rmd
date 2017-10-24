@@ -36,7 +36,9 @@ require(tidyverse)
 
 ## Importing tag detections
 
-Your project's .motus file is available for download at <https://motus.org/data/downloads> under your project profile. Once downloaded, **make sure that you have the appropriate packages installed and loaded in R as outlined in Chapter 2 - Loading the Motus R Package**. Once all required packages are loaded, you can import your tag detections, or those of the sample dataset ('sampledb.motus'; see 'the 'Sample Dataset' section of Chapter 1 - Introduction) into R using the following code:
+Your project's .motus file is available for download at <https://motus.org/data/downloads> under your project profile. Once downloaded, **make sure that you have the appropriate packages installed and loaded in R as outlined in Chapter 2 - Loading the Motus R Package**. 
+
+Once all required packages are loaded, you can use the following code to load your project data, or the sample data from the James Bay Shorebird Project ('sampledb.motus'; see 'Sample Dataset' section of Chapter 1 - Introduction):
 
 ```{r import, message = FALSE}
 
@@ -58,13 +60,25 @@ The .motus file contains a series of interelated tables where data are stored in
 1. hits: detections data at the level of individual hits.
 2. runs: detections data associated with a run (continuous detections of a unique tag on a given receiver).
 3. batches: detections data for a given receiver and boot number.
-4. tags: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).
-5. tagDeps: metadata related to tag deployments, e.g., deployment date, location, and species.
-6. recvDeps: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.
-7. antDeps: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.
-8. species: metadata related to species, e.g., unique identifier, scientific name, common name.
-9. projs: metadata related to projects, e.g., project name, principal investigator.
-10. gps: metadata related to Geographic Positioning System (GPS) position of receiver. 
+4. batchRuns:
+5. projBatch:
+5. meta:
+6. tags: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).
+7. tagAmbig
+8. tagDeps: metadata related to tag deployments, e.g., deployment date, location, and species.
+9. recvs:
+10. recvDeps: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.
+11. antDeps: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.
+12. species: metadata related to species, e.g., unique identifier, scientific name, common name.
+13. projs: metadata related to projects, e.g., project name, principal investigator.
+14. gps: metadata related to Geographic Positioning System (GPS) position of receiver. 
+15. projAmbig: 
+
+In addition to these tables, we have created some 'virtual' tables, which are queries which combine data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in your .motus file:
+
+1. alltags
+2. allambigs
+3. alltagswithambigs
 
 
 Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be used to filter and summarize your .motus database, without needing to first save the data as a *flat* file, i.e., a typical two-dimensional dataframe with every record for each field filled in. 

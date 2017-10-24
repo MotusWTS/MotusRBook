@@ -38,7 +38,7 @@ biologiste de la faune
 Service canadien de la faune Environnement et Changement Climatique Canada / Gouvernement du Canada 
 christian.friis@canada.ca / Tél. : 416.739.4908 
 
-The sample dataset can be downloaded as a .zip file at: <https://motus.org/>, and loaded into R using the following:
+The sample dataset can be downloaded as a .zip file at: <https://motus.org/>, and once the .motus file is extracted, can be loaded into R using the following:
 
 ```{r importSampleDF}
 
