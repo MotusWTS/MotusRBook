@@ -55,7 +55,7 @@ JBraw <- dplyr::left_join(JBraw, select(tagMeta, tagDeployID, motusTagID, tagSta
 ```
 
 4. **Remove detections that fall outside tag deployment dates**
-```{r detectionsOutsideDep, message = FALSE, warning = FALSE}
+```{r detectionsOutsideDep, eval = FALSE, message = FALSE, warning = FALSE}
 ## first ensure that all times are in POSIXct
 JBraw$ts <- as_datetime(JBraw$ts, tz = "UTC")
 JBraw$tagStart <- as_datetime(JBraw$tagStart, tz = "UTC")

@@ -26,7 +26,7 @@ In your detections data, ambiguous detections are identified by a unique negativ
 
 ```{r importdata}
 
-file.name <- "F:/Motus/Motus_JamesBay/project-38.motus"    ## replace with the full location of your project data
+file.name <- "data/sampledb.motus"    ## replace with the full location of your project data
 t <- dplyr::src_sqlite(file.name)
 df <- tbl(t, "alltags")
 
