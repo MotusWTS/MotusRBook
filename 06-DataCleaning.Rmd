@@ -24,7 +24,7 @@ A first step to removing definite false positives, is to remove any detections t
 
 **Import tag deployment metadata from your .motus file**
 First, we'll import your tag metadata from your .motus file, then we'll convert it to flat format, and rename some columns for clarity (for more information see 'Accessing Data' chapter): 
-```{r importTagMeta, message = FALSE, warning = FALSE}
+```{r importTagMeta.6, message = FALSE, warning = FALSE}
 t <- dplyr::src_sqlite("./data/project-sample.motus")  # import .motus file from your local directory (change directory to match)
 tagMeta <- tbl(t, "tagDeps") ## extract the tagDeps table which contains tag deploymetn metadata
 tagMeta <- tagMeta %>% collect %>% as.data.frame ## convert tag metadata to a flat file

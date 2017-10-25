@@ -42,7 +42,7 @@ The sample dataset can be downloaded as a .zip file at: <https://motus.org/>, an
 
 ```{r importSampleDF}
 
-file.name <- "./data/sampledb.motus"    ## replace with the full location of the extracted .motus file on your personal computer
+file.name <- "data/project-sample.motus"    ## replace with the full location of the sample dataset or your own project-XX.motus file
 t <- dplyr::src_sqlite(file.name)
 
 ```
