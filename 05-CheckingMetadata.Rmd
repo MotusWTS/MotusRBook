@@ -8,6 +8,7 @@ Data quality for your projects and the projects of others depends on complete an
 
 As you run through the following code to check your metadata, **please fix metadata errors or omissions** in your project by signing in to <https://motus.org/>, and under the 'Manage Data' tab, select either 'Manage Tags' to fix tag deployment metadata or 'Manage Receivers' to fix receiver deployment metadata. It is important to fix metadata errors online, so that errors are fixed at the source, are archived on the Motus Server, and to ensure all users have access to the correct tag and receiver metadata.
 
+*** LOOK FOR POSITIVE LONGITUDES***
 ## Load relevant R packages
 
 ```{r loadPackages.4, warning = FALSE, message = FALSE}
