@@ -80,7 +80,6 @@ In addition to these tables, we have created some 'virtual' tables, which are qu
 2. allambigs
 3. alltagswithambigs
 
-
 Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be used to filter and summarize your .motus database, without needing to first save the data as a *flat* file, i.e., a typical two-dimensional dataframe with every record for each field filled in. 
 
 You can access each table in the .motus file using the tbl() function, for example:
