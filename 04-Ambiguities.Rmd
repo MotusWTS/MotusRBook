@@ -461,18 +461,23 @@ We create a function that we can use to do this filtering, so that we can apply 
 
 ```{r filterFunction}
 
-# function to filter data
+filterProj38Ambigs <- function(df = "./data/project-sample.motus") {
+  
+  # load .motus file
+  file.name <- df     ## or replace with the full location of your 'project-XX.motus' data
+  t <- dplyr::src_sqlite(file.name)
 
-filterProj38Ambigs <- function(df) {
-  
-  filt.data <- filter(df, ambigID != -134 & ambigID != -114 & motusTagID %in% allAmbigs$motusTagID[allAmbigs$projectID == 38]) %>% 
-    collect() %>% 
-    as.data.frame()
-  
-  
-  filt.data <- mutate(filt.data, 
-                      year = year(as_datetime(filt.data$ts)), 
-                      date = date(as_datetime(filt.data$ts)),
+  # extract alltagswithambigs and alltags views 
+  ambigs <- tbl(t, "alltagswithambigs")
+  ambigs <- ambigs %>% collect() %>% as.data.frame()
+  # I'm having issues with NA ambigIDs being dropped by filter, so I'm replacing those with 0s first
+  ambigs <- mutate(ambigs, ambigID = replace(ambigID, is.na(ambigID), 0)) %>%
+    filter(ambigID != -134, ambigID != -114, tagProjID == 38)
+ 
+  # create time variables, filter out ambiguous detections that don't belong to our tags 
+  filt.data <- mutate(ambigs, 
+                      year = year(as_datetime(ambigs$ts)), 
+                      date = date(as_datetime(ambigs$ts)),
                       recvLat = if_else(is.na(gpsLat), recvDeployLat, gpsLat), 
                       recvLon = if_else(is.na(gpsLon), recvDeployLon, gpsLon),
                       # turn motusTagIDs into NA where the amnig detections aren't associated with the tag:
