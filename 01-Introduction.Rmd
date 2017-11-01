@@ -38,11 +38,11 @@ biologiste de la faune
 Service canadien de la faune Environnement et Changement Climatique Canada / Gouvernement du Canada 
 christian.friis@canada.ca / Tél. : 416.739.4908 
 
-The sample dataset can be downloaded as a .zip file at: <https://motus.org/>, and once the .motus file is extracted, can be loaded into R using the following:
+The sample .motus dataset can be accessed through the motusdata R package, for information on installing and loading the package see chapter \@ref(loadingPackages):
 
 ```{r importSampleDF}
 
-file.name <- "data/project-sample.motus"    ## replace with the full location of the sample dataset or your own project-XX.motus file
+file.name <- system.file("extdata", "project-sample.motus", package = "motusdata") 
 t <- dplyr::src_sqlite(file.name)
 
 ```

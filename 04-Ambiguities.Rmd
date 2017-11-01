@@ -14,7 +14,8 @@ If you have not already installed the following packages, please follow the inst
 
 library(devtools)
 library(motusClient) # package to communicate with Motus server and grab project data
-library(motus)   
+library(motus)
+library(motusdata)
 library(tidyverse)
 library(lubridate)
 
@@ -26,7 +27,7 @@ We will run through how to check for and deal with ambiguities using our sample 
 
 ```{r importdata}
 
-file.name <- "./data/project-sample.motus"    ## or replace with the full location of your 'project-XX.motus' data
+file.name <- system.file("extdata", "project-sample.motus", package = "motusdata")    ## or replace with file.name <-  "C:/data/project-123.motus" using your file directory
 t <- dplyr::src_sqlite(file.name)
 
 ```
@@ -44,7 +45,7 @@ head(ambig)
 
 When you call the clarify() function, if you receive an error stating that there is no 'clarified' table in your .motus file, please update your database using tagme(38) in your R console (see Chapter \@ref(accessingData)). 
 
-If you do not get an error, but your 'ambig' database is empty: Congratulations, you have no ambiguities!!! Please count your lucky starts and skip to Chapter \@ref(checkMetadata). 
+If you do not get an error, but your 'ambig' database is empty: Congratulations, you have no ambiguities!!! Please count your lucky stars and skip to Chapter \@ref(checkMetadata). 
 
 If you do have observations in your 'ambig' file, please continue with the rest of this chapter. 
 
@@ -95,7 +96,7 @@ ambig.df <- mutate(ambig.df,
 
 ## Check overlap of deployment dates 
 
-Sometimes the deployment periods of duplicate tags overlap completely, making it more difficult to tease apart ambiguities without also considering the location of detections. Other times the overlap period between two tags might be at the tail end of the lifetime of one tag, and the begining of the deployment of another, making it more likely that detections belong to the latter tag. As a first step, we therefore compare deployment start and end dates for each of the motusTagIDs that an ambigID might represent. To do so, we first import tag deployment metadata, manipulate the data to rename some fields and create date variables, and subset to the list of motusTagIDs associated with the ambigIDs. We again notice the same positive longitude in the tag metadata, and we fix that here as well:
+Sometimes the deployment periods of duplicate tags overlap completely, making it more difficult to tease apart ambiguities without also considering the location of detections. Other times the overlap period between two tags might be at the tail end of the lifetime of one tag, and the begining of the deployment of another, making it more likely that detections belong to the latter tag. As a first step, we therefore compare deployment start and end dates for each of the motusTagIDs that an ambigID might represent. To do so, we first import tag deployment metadata, manipulate the data to rename some fields and create date variables, and subset to the list of motusTagIDs associated with the ambigIDs. Since we did not fix the positive longitude online, we again notice it appear in the tag metadata and must fix that here as well.  This highlights why it is important to make metadata changes online rather than through R if the problem occurs in your data:
 
 ```{r importTagMeta}
 
@@ -168,7 +169,7 @@ allAmbigs <- filter(allAmbigs, ambigID != -134)
 
 ## Plot lat/lon of ambiguous detections by time
 
-Next, we will visualize the time and location of detections relative to the time and location of tag deployments. Note that if you have a large number of ambiguities (say > 6) in your data, these plots will be messy. Instead, use the loop in 3) below to output ambigID-specific plots to PDF files. 
+Next, we will visualize the time and location of detections relative to the time and location of tag deployments. Note that if you have a large number of ambiguities (say > 6) in your data, these plots will be messy. Instead, use the loop in 3) below to output ambigID-specific plots to PDF files. The coloured points are the tag deployment locations and date, the open black circles are the ambiguous detections associated with those tags.
 
 1. **Plot latitude of ambiguous detections against time.**
 
@@ -277,7 +278,6 @@ The lat/lon by time plots suggest or confirm that:
 If you have a large number of ambiguities remaining, you may want to skip this step and go directly to mapping the detections.
 
 Run length of a hit tells you how many consecutive bursts were detected by a receiver. The longer the run length, the more likely your detection is not a false positive (see Chapter \@ref(dataCleaning)). Any outlying detections should be checked for run length, and in general anything under a run length of 3 has a higher potential of being false positive. 
-
 There are one or two detections at southern latitudes for ambigID -171 that we will check:
 
 ```{r check171ambig}
@@ -293,8 +293,14 @@ All detections associated with ambigID -171 occurred in forested habitats at a M
 Next we will map the detections associated with ambigID -56 and -171. We will then show you how to loop through the ambigIDs to output maps to file. 
 
 1. **Install R mapping package.**
+If you do not have rworldmap installed then you must run:
+```{r installMapPackages, eval = FALSE}
 
-```{r installMapPackages}
+install.packages("rworldmap")
+
+```
+Once packages are installed, load it into R:
+```{r loadMapPackages}
 
 require(rworldmap)
 
@@ -324,7 +330,7 @@ na.map <- mutate(na.map, long = long- 360)
 
 3. **Map the locations of detections for a single ambigID.**
 
-When we subset the data the the ambigID of interest, we will order the detections by timestamp.
+When we subset the data for the ambigID of interest, we will order the detections by timestamp.
 
 ```{r duplicateEx56}
 
@@ -461,7 +467,7 @@ We create a function that we can use to do this filtering, so that we can apply 
 
 ```{r filterFunction}
 
-filterProj38Ambigs <- function(df = "./data/project-sample.motus") {
+filterProj38Ambigs <- function(df) {
   
   # load .motus file
   file.name <- df     ## or replace with the full location of your 'project-XX.motus' data
@@ -476,8 +482,8 @@ filterProj38Ambigs <- function(df = "./data/project-sample.motus") {
  
   # create time variables, filter out ambiguous detections that don't belong to our tags 
   filt.data <- mutate(ambigs, 
-                      year = year(as_datetime(ambigs$ts)), 
-                      date = date(as_datetime(ambigs$ts)),
+                      year = year(as_datetime(ambigs$ts, tz = "GMT")), 
+                      date = as.Date(as_datetime(ambigs$ts, tz = "GMT")),
                       recvLat = if_else(is.na(gpsLat), recvDeployLat, gpsLat), 
                       recvLon = if_else(is.na(gpsLon), recvDeployLon, gpsLon),
                       # turn motusTagIDs into NA where the amnig detections aren't associated with the tag:
@@ -496,8 +502,7 @@ We can then apply the filtering function to the data by calling:
 
 ```{r filterData, eval = FALSE}
 
-df <- tbl(t, "alltagswithambigs")
-filt.data <- filterProj38Ambigs(df)
+ambigFilter <- filterProj38Ambigs(df = system.file("extdata", "project-sample.motus", package = "motusdata"))
                                 
 ```
 

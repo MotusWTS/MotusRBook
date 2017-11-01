@@ -24,7 +24,7 @@ install_github("jbrzusto/motusClient@master")   ## the last stable version
 library(motusClient)
 
 # install motus for data manipulation, visualization and analysis
-install_github("jbrzusto/motus@master")   ## the last stable version
+install_github("jbrzusto/motus@staging")   ## the last stable version
 library(motus)
 
 # install the motusdata package to get access to the sample data we use throughout this book
