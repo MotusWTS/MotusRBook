@@ -15,6 +15,7 @@ As you run through the following code to check your metadata, **please fix metad
 require(devtools)
 require(tidyverse)
 require(motus)
+require(motusdata)
 require(lubridate) # for working with dates
 
 ```
@@ -27,7 +28,7 @@ The filtering function is as follows:
 
 ```{r filterData}
 
-filterProj38Ambigs <- function(df = "./data/project-sample.motus") {
+filterProj38Ambigs <- function(df) {
   
   # load .motus file
   file.name <- df     ## or replace with the full location of your 'project-XX.motus' data
@@ -42,8 +43,8 @@ filterProj38Ambigs <- function(df = "./data/project-sample.motus") {
  
   # create time variables, filter out ambiguous detections that don't belong to our tags 
   filt.data <- mutate(ambigs, 
-                      year = year(as_datetime(ambigs$ts)), 
-                      date = date(as_datetime(ambigs$ts)),
+                      year = year(as_datetime(ambigs$ts, tz = "GMT")), 
+                      date = as.Date(as_datetime(ambigs$ts, tz = "GMT")),
                       recvLat = if_else(is.na(gpsLat), recvDeployLat, gpsLat), 
                       recvLon = if_else(is.na(gpsLon), recvDeployLon, gpsLon),
                       # turn motusTagIDs into NA where the amnig detections aren't associated with the tag:
@@ -58,24 +59,24 @@ filterProj38Ambigs <- function(df = "./data/project-sample.motus") {
 
 ```
 
-We then read run the function, providing the location of the .motus file for the James Bay Shorebird Monitoring Project in our files:
+We then re-run the function, providing the location of the .motus file for the James Bay Shorebird Monitoring Project in our files:
 
 ```{r detectionsData}
 
 # insert location of the sample data
-filt.data <- filterProj38Ambigs("./data/project-sample.motus")
+ambigFilter <- filterProj38Ambigs(df = system.file("extdata", "project-sample.motus", package = "motusdata"))
 
 ```
 
 ## Check Tag Metadata {#tagMetadata}
 
-Required tag metadata includes deployment start date/time, end date/time if applicable, deployment latitude, deployment longitude, and species.  Lack of information on deployment date, time, and location in particular can influence the estimated lifespan of you tag, and therefore whether the tagFinder will 'look' for your tag at the appropriate time(s) and/or increase the potential for ambiguities with duplicate tags in the system. 
+Required tag metadata includes deployment start date/time, end date/time if applicable, deployment latitude, deployment longitude, and species.  Lack of information on deployment date, time, and location in particular can influence the estimated lifespan of your tag, and therefore whether the tagFinder will 'look' for your tag at the appropriate time(s) and/or increase the potential for ambiguities with duplicate tags in the system. 
 
-Most of the relevant fields are included in the 'filt.data' file, with the exception of tag deployment data/time. We will therefore access and summarize the raw tag metadata found within the .motus file:
+Most of the relevant fields are included in the 'ambigFiltered' file we just created, with the exception of tag deployment data/time. We will therefore access and summarize the raw tag metadata found within the .motus file:
 
 ```{r importTagMeta.4, message = FALSE, warning = FALSE}
 
-t <- dplyr::src_sqlite("./data/project-sample.motus")      # import .motus file from your local directory (change directory to match)
+t <- dplyr::src_sqlite(system.file("extdata", "project-sample.motus", package = "motusdata"))  ## or replace with file.name <- "C:/data/project-123.motus" using your file directory
 tagMeta <- tbl(t, "tagDeps")                          # extract tagDeps table, with tag deployment metadata
 tagMeta <- tagMeta %>% filter(projectID == 38) %>% collect %>% as.data.frame      # convert tag metadata to a flat file
 tagMeta <- mutate(tagMeta, dateStart = date(as_datetime(tagMeta$tsStart)), 
@@ -120,7 +121,7 @@ The following code creates a database 'nDetect' which lists the number of detect
 
 ```{r tagsWithDetections}
 
-nDetect <- full_join(select(filt.data, motusTagID, tagDeployID) %>% group_by(motusTagID, tagDeployID) %>% summarize(nDetect = n()), 
+nDetect <- full_join(select(ambigFilter, motusTagID, tagDeployID) %>% group_by(motusTagID, tagDeployID) %>% summarize(nDetect = n()), 
                       select(tagMeta, tagID, deployID) %>% distinct() %>% as.data.frame, by = c("motusTagID" = "tagID", "tagDeployID" = "deployID")) %>%
                       as.data.frame
 ```
