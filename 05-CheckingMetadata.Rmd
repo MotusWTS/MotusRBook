@@ -15,73 +15,134 @@ As you run through the following code to check your metadata, **please fix metad
 require(devtools)
 require(tidyverse)
 require(motus)
-require(motusdata)
+require(motusdata) # repository for sample datasets
 require(lubridate) # for working with dates
 
 ```
 
-## Import Detections Data
+## Access Detections Data
 
-We will continue using our sample dataset from the James Bay Shorebird Monitoring Project (see Section \@ref(sampleData)). In the previous chapter on dealing with ambiguous detections (see Chapter \@ref(ambiguities)), we created a 'filterProj38Ambigs' function at the end of the chapter. We will use that function here to filter out ambiguous detections that we decided did not belong to our tags. The function is specific to the James Bay Shorebird Project sample dataset, i.e., it cannot be used to filter the ambiguities in your own data. If you are using your own .motus file, please go through Chapter \@ref(ambiguities) and deal with any ambiguities in your own data before going further.
+We will continue using our sample dataset from the James Bay Shorebird Monitoring Project (see Section \@ref(sampleData)). In the previous chapter on dealing with ambiguous detections (see Chapter \@ref(ambiguities)), we created a function at the end of the chapter to filter ambiguities that did not belong to our tags out of the .motus file, and output a filtered flat data file.  By loading the motusdata R package above, you now have direct access to the database 'filteredAmbigs'. To look at the summary of this database (not evaluated here):
 
-The load the filtering function is as follows:
+```{r importFilteredAmbigs, eval = FALSE}
 
-```{r filterData}
-
-filterProj38Ambigs <- function(df) {
-  
-  # load .motus file
-  file.name <- df     ## or replace with the full location of your 'project-XX.motus' data
-  t <- dplyr::src_sqlite(file.name)
-
-  # extract alltagswithambigs and alltags views 
-  ambigs <- tbl(t, "alltagswithambigs")
-  ambigs <- ambigs %>% collect() %>% as.data.frame()
-  # I'm having issues with NA ambigIDs being dropped by filter, so I'm replacing those with 0s first
-  ambigs <- mutate(ambigs, ambigID = replace(ambigID, is.na(ambigID), 0)) %>%
-    filter(ambigID != -134, ambigID != -114, tagProjID == 38)
- 
-  # create time variables, filter out ambiguous detections that don't belong to our tags 
-  filt.data <- mutate(ambigs, 
-                      year = year(as_datetime(ambigs$ts, tz = "GMT")), 
-                      date = as.Date(as_datetime(ambigs$ts, tz = "GMT")),
-                      recvLat = if_else(is.na(gpsLat), recvDeployLat, gpsLat), 
-                      recvLon = if_else(is.na(gpsLon), recvDeployLon, gpsLon),
-                      # turn motusTagIDs into NA where the amnig detections aren't associated with the tag:
-                      motusTagID = replace(motusTagID, (ambigID == -171 & site != "Fortescue"), -1),
-                      motusTagID = replace(motusTagID, (ambigID == -56 & year == 2017), -1),
-                      motusTagID = replace(motusTagID, (ambigID == -56 & motusTagID == 22867 & recvLon > -72.5), -1),
-                      motusTagID = replace(motusTagID, (ambigID == -56 & motusTagID == 23316 & recvLon < -72.5), -1)) %>%
-                filter(motusTagID > 0) # drop all remainging ambigID -56 detections from 2017
-                      
-  return(filt.data)
-}
+summary(filteredAmbigs)
 
 ```
 
-We then run the function, providing the location of the .motus file for the James Bay Shorebird Monitoring Project in our files:
+If you would like to use your own data to go through this chapter, please go through Chapter \@ref(ambiguities) and deal with any ambiguities in your own data before going further. If there are no ambiguities in your data, you can import your .motus file and transform to a flat file as follows:
 
-```{r detectionsData}
+```{r importPersonal, eval = FALSE}
 
-# insert location of the sample data
-ambigFilter <- filterProj38Ambigs(df = system.file("extdata", "project-sample.motus", package = "motusdata"))
+file.name <-  "C:/data/project-123.motus"                        # replace with the path to your data
+t <- dplyr::src_sqlite(file.name)
+filteredAmbigs <- tbl(t, "alltagswithambigs")
+filteredAmbigs <- filteredAmbigs %>% collect %>% as.data.frame
+
+# to be consistent with the structure of the sample data, add date variables, and create recvLat/Lon variables that replace NAs in the lat/lon from GPS with lat/lon from the receiver deployment metadata.
+
+filteredAmbigs <- mutate( year = year(as_datetime(ambigs$ts, tz = "GMT")), 
+                          date = as.Date(as_datetime(ambigs$ts, tz = "GMT")), 
+                          recvLat = if_else(is.na(gpsLat), recvDeployLat, gpsLat), 
+                          recvLon = if_else(is.na(gpsLon), recvDeployLon, gpsLon))
 
 ```
 
 ## Check Tag Metadata {#tagMetadata}
 
-Required tag metadata includes deployment start date/time, end date/time if applicable, deployment latitude, deployment longitude, and species.  Lack of information on deployment date, time, and location in particular can influence the estimated lifespan of your tag, and therefore whether the tagFinder will 'look' for your tag at the appropriate time(s) and/or increase the potential for ambiguities with duplicate tags in the system. 
+The main things we want to check with tag metadata are:
 
-Most of the relevant fields are included in the 'ambigFiltered' file we just created, with the exception of tag deployment data/time. We will therefore access and summarize the raw tag metadata found within the .motus file:
+1. how many tags are registered to your project;
+2. how many registered tags were deployed;
+3. how many deployed tags had detections;
+4. whether required metadata are complete and accurate.
+
+We will run through each of these in sequence.
+
+### Number of registered tags
+
+To check the number of registered tags, we need to load the 'tags' table from the .motus file, which includes the characteristics of each registered tag, including a unique tagID, and information on manufacturer, model, nominal and offset, burst interval and pulse length:
+
+```{r importTags, message = FALSE, warning = FALSE}
+
+file.name <- system.file("extdata", "project-sample.motus", package = "motusdata") # or <- "C:/data/project-123.motus" using your file directory
+t <- dplyr::src_sqlite(file.name)                                             
+tags <- tbl(t, "tags")                                                   # extract tagDeps table, with tag deployment metadata
+tags <- tags %>% filter(projectID == 38) %>% collect %>% as.data.frame   # convert tag metadata to a flat file
+
+```
+
+We can see the number of tags registered to our project by simply counting the number of rows, which tells us that 691 tags are registered to the James Bay Shorebird Monitoring Project (recall we are using just a subset of this dataset):
+
+```{r nRegisteredTags}
+
+nrow(tags) # number of registered tags in the database
+
+```
+If this number does not correspond with the number of tags you actually registered, you will need to go through the list, determine which tags are missing, and register them online at <https:motus.org>.
+
+### Number of registered tags that were deployed
+
+To determine which registered tags were deployed, we need to access the tag metadata contained in the 'tagDeps' table of the .motus file, which contains information on each deployment. We access that here, subset to our project (38), and merge the required columns of this table with the tags database to determine which tags were or were not deployed according to the metadata.
+
+Import tag deployment metadata:
 
 ```{r importTagMeta.4, message = FALSE, warning = FALSE}
 
-t <- dplyr::src_sqlite(system.file("extdata", "project-sample.motus", package = "motusdata"))  ## or replace with file.name <- "C:/data/project-123.motus" using your file directory
-tagMeta <- tbl(t, "tagDeps")                          # extract tagDeps table, with tag deployment metadata
-tagMeta <- tagMeta %>% filter(projectID == 38) %>% collect %>% as.data.frame      # convert tag metadata to a flat file
-tagMeta <- mutate(tagMeta, dateStart = date(as_datetime(tagMeta$tsStart)))
+tagMeta <- tbl(t, "tagDeps")                                                   # extract tagDeps table, with tag deployment metadata
+tagMeta <- tagMeta %>% filter(projectID == 38) %>% collect %>% as.data.frame   # convert tag metadata to a flat file
+tagMeta <- mutate(tagMeta, dateStart = date(as_datetime(tagMeta$tsStart)),
+                           dateEnd= date(as_datetime(tagMeta$tsEnd)))     # create a date variable for the start of the deployment
 
 ```
+
+Merge with the tag registration metadata:
+
+```{r whichTagsDeployed, message = FALSE, warning = FALSE}
+
+deplTags <- full_join(tags, select(tagMeta, deployID, tagID), by = "tagID")
+
+```
+
+List registered tags that were not deployed:
+
+```{r tagsRegNotDeployed}
+
+filter(deplTags, is.na(deployID))
+
+```
+Two of the 691 registered tags were not deployed according to the metadata. Please check to ensure that this is correct. If the tags were indeed deployed, deployment metadata for these tags should be entered online at <https://motus.org>, otherwise the tagFinder will not search for these tags, and detections for these tags will be missing from your .motus database.
+
+### Number of deployed tags with detections.
+
+There are several reasons why registered and deployed tags might not be included in the detections data, including 1) the tag was not properly activated on deployment (always check that a tag is active using a hand-held receiver before releasing it); 2) an animal with a properly activated tag might not pass within range of a receiving station; and 3) missing or incorrect tag deployment metadata resulted in the tagFinder not 'looking' for your tag at all, or at the time the tag was actually deployed. 
+
+The following code creates a database 'nDetect' which calculates the number of detections of each deployed tag in the 'filteredAmbigs' database. 
+
+```{r tagsWithDetections}
+
+nDetect <- full_join(select(filteredAmbigs, motusTagID, tagDeployID) %>% group_by(motusTagID, tagDeployID) %>% summarize(nDetect = n()), 
+                      select(tagMeta, tagID, deployID) %>% distinct() %>% as.data.frame, by = c("motusTagID" = "tagID", "tagDeployID" = "deployID")) %>%
+                      as.data.frame
+```
+
+To list all tagIDs which have detections, you can run the following code; recall that we are using a sample of the James Bay Shorebird Monitoring Project data, so only those tags included in the sample dataset have detections:
+
+```{r tagsWithDetections}
+filter(nDetect, nDetect > 0) %>% select(motusTagID) %>% as.list()
+```
+
+And generate a list of tags without detections, of which there are 671 because we are using only a subset of the full dataset:
+
+```{r tagsWithoutDetections}
+filter(nDetect, is.na(nDetect)) %>% select(motusTagID) %>% as.list()
+```
+
+If you notice that you are missing detections for deployed tags that you believe should have been detected, the first step is to check that your metadata are complete and accurate, which we do next.
+
+### Check completeness and accuracy of tag metadata
+
+Required tag metadata includes deployment start date/time, end date/time if applicable, deployment latitude, deployment longitude, and species.  Lack of information on deployment date, time, and location in particular can influence the estimated lifespan of your tag, and therefore whether the tagFinder will 'look' for your tag at the appropriate time(s), and/or increase the potential for ambiguities with duplicate tags in the system. 
 
 1. **Look at range of metadata values**.
 
@@ -118,51 +179,7 @@ filter(tagMeta, speciesID == 5000)
 
 ```
 
-3. **Check list of registered tags**.
-
-Only tags registered with Motus (<https://motus.org/tag-registration/>) prior to deployment will appear in the detections data. We create a full list of registered tags in your tag metadata and look at the first 6 entries using head(). 
-
-```{r tagList, echo = FALSE}
-
-regTags <- select(tagMeta, tagID, deployID) %>% distinct() %>% as.data.frame
-head(regTags)
-
-```
-
-The number of rows in the table should reflect the number of tags you deployed as part of your project. If not, you should check online whether all of your tag deployments were indeed registered. In this case, 689 tag deployments were registered as part of the James Bay Shorebird Monitoring Project (of which we are using data for a small sample):
-
-```{r nrowTags}
-
-nrow(regTags)
-
-```
-
-2. **Check whether registered tags have detections**.
-
-There are several reasons why registered tags might not be included in the detections data, including 1) the tag was not properly activated on deployment (always check that a tag is active using a hand-held receiver before releasing it); 2) an animal with a properly activated tag might not pass within range of a receiving station; and 3) missing or incorrect tag deployment metadata resulted in the tagFinder not 'looking' for your tag at the appropriate time. 
-
-The following code creates a database 'nDetect' which lists the number of detections of each registered tag in the 'filt.data' file. The two chunks of code that follow list the registered tags that do and do not have detections in your .motus file. You'll note that in the current example dataset, there are 671 tags registered with the James Bay Shorebird Project (although because we are working with a sample of this data, we have detections for only a few of these).
-
-```{r tagsWithDetections}
-
-nDetect <- full_join(select(ambigFilter, motusTagID, tagDeployID) %>% group_by(motusTagID, tagDeployID) %>% summarize(nDetect = n()), 
-                      select(tagMeta, tagID, deployID) %>% distinct() %>% as.data.frame, by = c("motusTagID" = "tagID", "tagDeployID" = "deployID")) %>%
-                      as.data.frame
-```
-
-Tags with detections:
-
-```{r tagsWithDetections}
-filter(nDetect, nDetect > 0) %>% select(motusTagID) %>% as.list()
-```
-
-Tags without detections, of which there are many because we are using a subset of the data:
-
-```{r tagsWithoutDetections}
-filter(nDetect, is.na(nDetect)) %>% select(motusTagID) %>% as.list()
-```
-
-3. **Check missing metadata**.
+3. **Check for missing metadata**.
 
 We already know from summary(tagMeta) above that there are no missing deployment dates in the tag metadata. The following code confirms this by listing any deployments from our project with missing deployment start and/or end date (of which there are none). 
 
