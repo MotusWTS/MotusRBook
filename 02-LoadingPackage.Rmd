@@ -1,10 +1,12 @@
 # Loading R Packages {#loadingPackages}
 
-There are two R packages available to Motus users:
+There are three R packages available to Motus users:
 
 1. motusClient: provides functions to download and update detections data and tag and receiver deployment metadata from the Motus server.
 
 2. motus: provides functions to output summary plots, and to transform (add sun rise/sun set times), and analyze Motus data.
+
+3. motusdata: provides sample datasets from the James Bay Shorebird Monitoring Project that we use throughout the book.
 
 Motus **users** can install the latest stable versions of the R packages using the following code. You only need to install the packages once, but once installed, you do need to load each package (using library() or require()) each time you open a new R session. 
 
