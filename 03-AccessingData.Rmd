@@ -40,11 +40,17 @@ Your project's .motus file is available for download at <https://motus.org/data/
 
 Once all required packages are loaded, you can use the following code to load your project data, or the sample data from the James Bay Shorebird Project ('sampledb.motus'; see Section \@ref(sampleData)):
 
-```{r import, message = FALSE}
-
-file.name <- "data/project-sample.motus"    ## replace with the full location of the sample dataset or your own project-XX.motus file
+```{r importSampleData, message = FALSE}
+## to access sample data contained in the motusdata package:
+file.name <- system.file("extdata", "project-sample.motus", package = "motusdata") 
 t <- dplyr::src_sqlite(file.name)
+```
 
+To load your own data you can run:
+```{r importPersonalData, eval = FALSE, message = FALSE}
+## to access your own data:
+file.name <-  "C:/data/project-123.motus" #replace with the path to your data
+t <- dplyr::src_sqlite(file.name)
 ```
 
 ## Data structure {#databaseStructure}
@@ -107,7 +113,7 @@ For your convienience, the *virtual* table 'alltags' contains all fields that mo
 
 ```{r getAllTagsTable}
 
-df <- tbl(t, "alltags")
+df <- tbl(t, "alltagswithambigs")
 
 ```
 
@@ -151,15 +157,15 @@ df.flat.subset <- select(df, recv, ant, motusTagID) %>% distinct %>% collect %>%
 2. To select certain tag IDs:
 ```{r collect2, eval = FALSE}
 
-df.flat.subset <- filter(df, motusTagID %in% c(9939, 25643)) %>% collect %>% as.data.frame    ## filter to only include detections of motus tag IDs 9939 and 25643
+df.flat.subset <- filter(df, motusTagID %in% c(16011, 23316)) %>% collect %>% as.data.frame    ## filter to only include detections of motus tag IDs 9939 and 25643
 
 ```
 
 3. To select a specified species:
 ```{r collect3, eval = FALSE}
 
-df.flat.subset <- filter(df, speciesID == 15580) %>% collect %>% as.data.frame    ## filter to only include detections of Swainson's Thrush by species ID
-df.flat.subset <- filter(df, spEN == "Swainson's Thrush") %>% collect %>% as.data.frame    ## filter to only include detections of Swainson's Thrush by English name
+df.flat.subset <- filter(df, speciesID == 4670) %>% collect %>% as.data.frame    ## filter to only include detections of Swainson's Thrush by species ID
+df.flat.subset <- filter(df, spEN == "Red Knot") %>% collect %>% as.data.frame    ## filter to only include detections of Swainson's Thrush by English name
 
 ```
 
@@ -176,12 +182,14 @@ hh <- hourly %>% collect %>% as.data.frame
 
 ### Export your "flat" dataframe to a .csv file {#exportToCSV}
 
-The below example is how you would save the flat file called "df.flat" within R, as a .csv file called "JB_raw.csv" on your computer in the 'data' folder of your working directory. In this case, JB stands for James Bay, and we are simply converting the data without subsetting.
+The below example is how you would save the flat file called "df.flat" as a .csv file called "sample_raw.csv" on your computer in the 'data' folder of your working directory. In this case we are simply converting the data without subsetting.
 
 ```{r createFlat, eval = FALSE, message = FALSE, warning = FALSE}
-
-write.csv(df.flat, "./data/JB_raw.csv")  ## "df.flat"" is the name of the flat file within R that you want to convert to a .csv
-## "./data/" is the the location where you would like your .csv stored
-## "JB_raw.csv", is the name of the .csv file you are creating, this can be anything you like but must end with .csv.
+## to determine your working directory:
+getwd()
+## save a .csv file
+write.csv(df.flat, "./data/sample_raw.csv")  ## "df.flat"" is the name of the flat file within R that you want to convert to a .csv
+## "./data/" is the the location where you would like your .csv stored, in this case it's in the data folder in the working directory
+## "sample_raw.csv", is the name of the .csv file you are creating, this can be anything you like but must end with .csv.
 
 ```
