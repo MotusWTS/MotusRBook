@@ -1,6 +1,6 @@
 # Data Checking: Metadata {#checkMetadata}
 
-Data quality for your projects and the projects of others depends on complete and accurate tag and receiver metadata. Complete metadata will allow detections to be properly linked to your project, and allow other users to benefit fully from data collected by the Motus network of receivers. Once you have imported your data using R, it is therefore good practice to run data summaries to check for missing or incorrect tag and receiver deployment metadata.
+This chapter provides you with the tools you need to check the completeness and accuracy of your metadata. Data quality for your projects and the projects of others depends on the completeness and accuracy of tag and receiver metadata, because it allows detections to be properly linked to your project, and allows other users to benefit fully from data collected by the Motus network of receivers. 
 
 **Missing or incorrect tag metadata** can result in a lack of tag detections in your data. For example, if deployment date is missing or wrong, the tag finder, which processes the data from each receiver in the network, might not look for your tag in the data, or might not look at the appropriate time when the tag is actually active. This will result in missing tags in your detections data.
 
@@ -22,7 +22,7 @@ require(lubridate) # for working with dates
 
 ## Access Detections Data
 
-We will continue using our sample dataset from the James Bay Shorebird Monitoring Project (see Section \@ref(sampleData)). In the previous chapter on dealing with ambiguous detections (see Chapter \@ref(ambiguities)), we created a function at the end of the chapter to filter ambiguities that did not belong to our tags out of the .motus file, and output a filtered flat data file.  By loading the motusdata R package above, you now have direct access to the database 'filteredAmbigs'. To look at the summary of this database (not evaluated here):
+We will continue using our sample dataset from the James Bay Shorebird Monitoring Project (see Section \@ref(sampleData)). In the previous chapter on dealing with ambiguous detections (Chapter \@ref(ambiguities)), we created a function at the end of the chapter to filter ambiguities out of the .motus file that did not belong to our tags, and this subset of the data was output to a flat data file.  By loading the motusdata R package above, you now have direct access to the filtered data, which is named 'filteredAmbigs'. To look at the summary of this database, you can run the following code (not evaluated here):
 
 ```{r importFilteredAmbigs, eval = FALSE}
 
@@ -30,7 +30,7 @@ summary(filteredAmbigs)
 
 ```
 
-If you would like to use your own data to go through this chapter, please go through Chapter \@ref(ambiguities) and deal with any ambiguities in your own data before going further. If there are no ambiguities in your data, you can import your .motus file and transform to a flat file as follows:
+If you would like to use your own data to go through this chapter, please go through Chapter \@ref(ambiguities) and deal with any ambiguities in your own data before going further. If there are no ambiguous detections in your data, you can import your .motus file and transform to a flat file as follows:
 
 ```{r importPersonal, eval = FALSE}
 
@@ -50,6 +50,8 @@ filteredAmbigs <- mutate( year = year(as_datetime(ambigs$ts, tz = "GMT")),
 
 ## Check Tag Metadata {#tagMetadata}
 
+In your .motus file, you are provided with the tag metadata for tags registered to your own project, and for duplicate tags from other projects associated with ambiguous detections in your data. Because we already dealt with ambiguous detections in Chapter \@ref(ambiguities), we restrict this section to metadata for tags registered to our own project. 
+
 The main things we want to check with tag metadata are:
 
 1. how many tags are registered to your project;
@@ -61,7 +63,7 @@ We will run through each of these in sequence.
 
 ### Number of registered tags
 
-To check the number of registered tags, we need to load the 'tags' table from the .motus file, which includes the characteristics of each registered tag, including a unique tagID, and information on manufacturer, model, nominal and offset, burst interval and pulse length:
+To check the number of registered tags, we need to load the 'tags' table from the .motus file. This file contains the characteristics of each registered tag, including a unique tagID and information on manufacturer, model, nominal and offset frequency, burst interval, and pulse length:
 
 ```{r importTags, message = FALSE, warning = FALSE}
 
@@ -79,11 +81,11 @@ We can see the number of tags registered to our project by simply counting the n
 nrow(tags) # number of registered tags in the database
 
 ```
-If this number does not correspond with the number of tags you actually registered, you will need to go through the list, determine which tags are missing, and register them online at <https:motus.org>.
+If this number does not correspond with the number of tags you actually registered, you will need to go through the list, determine which tags are missing, and register them online at <https:motus.org/tag-registration>. Once tags are registered, you will need to wait until data from network receivers are re-processed before you will see detections for your newly-registered tags.
 
 ### Number of registered tags that were deployed
 
-To determine which registered tags were deployed, we need to access the tag metadata contained in the 'tagDeps' table of the .motus file, which contains information on each deployment. We access that here, subset to our project (38), and merge the required columns of this table with the tags database to determine which tags were or were not deployed according to the metadata.
+To determine which registered tags were deployed, we need to access the tag metadata contained in the 'tagDeps' table of the .motus file, which contains information on each deployment. We access that here, subset to our project (38), and merge the required columns of this table with the tags database to determine which registered tags were or were not deployed according to the metadata.
 
 Import tag deployment metadata:
 
@@ -111,7 +113,7 @@ List registered tags that were not deployed:
 filter(deplTags, is.na(deployID))
 
 ```
-Two of the 691 registered tags were not deployed according to the metadata. Please check to ensure that this is correct. If the tags were indeed deployed, deployment metadata for these tags should be entered online at <https://motus.org>, otherwise the tagFinder will not search for these tags, and detections for these tags will be missing from your .motus database.
+In this case, two of the 691 registered tags were not deployed according to the metadata. Please check your records to ensure that this is correct. If the tags were deployed, please enter deployment metadata for these tags online at <https://motus.org>. Otherwise, the tagFinder will not look for undeployed tages, and detections for these tags will be missing from your .motus database.
 
 ### Number of deployed tags with detections.
 
@@ -126,7 +128,7 @@ nDetect <- full_join(select(filteredAmbigs, motusTagID, tagDeployID) %>% group_b
                       as.data.frame
 ```
 
-To list all tagIDs which have detections, you can run the following code; recall that we are using a sample of the James Bay Shorebird Monitoring Project data, so only those tags included in the sample dataset have detections:
+To list all tagIDs which have detections, you can run the following code; recall that we are using a small sample of the James Bay Shorebird Monitoring Project data, so only those tags included in the sample dataset will have detections here:
 
 ```{r tagsWithDetections}
 filter(nDetect, nDetect > 0) %>% select(motusTagID) %>% as.list()
@@ -142,11 +144,11 @@ If you notice that you are missing detections for deployed tags that you believe
 
 ### Check completeness and accuracy of tag metadata
 
-Required tag metadata includes deployment start date/time, end date/time if applicable, deployment latitude, deployment longitude, and species.  Lack of information on deployment date, time, and location in particular can influence the estimated lifespan of your tag, and therefore whether the tagFinder will 'look' for your tag at the appropriate time(s), and/or increase the potential for ambiguities with duplicate tags in the system. 
+Required tag metadata includes deployment start date/time, end date/time if applicable, deployment latitude, deployment longitude, and species.  Lack of information on deployment date, time, and location in particular can influence the estimated lifespan of your tag, and therefore whether the tagFinder will 'look' for your tag at the appropriate time(s), and/or influence the potential for ambiguities with duplicate tags in the system. 
 
 1. **Look at range of metadata values**.
 
-Using summary(tagMeta), you can get a general idea of which variables in the tag metadata are missing values (look for NA values). Here we summarize just those variables we are most interested in; if you want to look at all variables, simply use summary(tagMeta). There are several things to look at here: are the range of start and end dates reasonable for your deployments, or are there obvious errors in the timing of deployments? Is the range in deployment latitude and longitude reasonable? Are the values for species IDs correct?  
+Using summary(tagMeta), you can get a general idea of which variables in the tag metadata are missing (look for NA values) or odd values. Here we summarize just those variables we are most interested in; if you want to look at all variables, simply use summary(tagMeta). There are several things to look at here: are the range of start and end dates reasonable for your deployments, or are there obvious errors in the timing of deployments? Is the range in deployment latitude and longitude reasonable? Are the values for species IDs correct?  
 
 ```{r summaryTagMeta}
 
@@ -154,11 +156,9 @@ summary(select(tagMeta, deployID, tagID, projectID, dateStart, dateEnd, speciesI
 
 ```
 
-We see that there are no missing start and end dates (tsStart/tsEnd), and that deployment dates range from 2014-2017. However, there are 164 records missing speciesID, latitude, and longitude, and this information should be entered online at <https:/www.motus.org>. There is also at least one odd longitude of -980.69, which is an obvious typo and should be fixed online as well, so that the values are fixed at the source on the Motus server. We will take a closer look at these issues in some of the steps that follow.
+We see that there are no missing start and end dates (tsStart/tsEnd), and that deployment dates range from 2014-2017. However, there are 164 records missing speciesID, latitude, and longitude. There is also at least one odd longitude of -980.69, which is an obvious typo. We also see that the species IDs are numeric, and somewhat meaningless without an ability to assign an actual species name to the ID. We will take a closer look at these issues in some of the steps that follow.
 
-We also see that the species IDs are numeric, and somewhat meaningless without an ability to assign an actual species name to the ID. We do that next:
-
-2. **Check that species IDs are appropriate for your data**.
+1. **Check that species IDs are appropriate for your data**.
 
 There is a table in your .motus file called 'species', which associates each numeric species ID with an english, french, and scientific name. We import that table, and subset to the suite of numeric speciesIDs in your tag metadata:
 
@@ -171,7 +171,7 @@ species
 
 ```
 
-The species listed should correspond to the species you tagged. If there are species that do not make sense, this is likely due to a data entry error when assigning a deployment to a species. You can look for records in your tag metadata that are associated with a particular speciesID using the following code; you would then use the deployID associated with the entry/entries to find and update the record in your project metadata online at <https://motus.org>:
+The species listed should correspond to the species you tagged. If there are species that do not make sense, this is likely due to a data entry error when assigning a deployment to a species. You can look for records in your tag metadata that are associated with a particular speciesID using the following code; you would then use the deployID associated with the entry/entries to find and update the deployment record in your project metadata online at <https://motus.org>:
 
 ```{r listMetaSpecies}
 
@@ -179,7 +179,7 @@ filter(tagMeta, speciesID == 5000)
 
 ```
 
-3. **Check for missing metadata**.
+2. **Check for missing metadata**.
 
 We already know from summary(tagMeta) above that there are no missing deployment dates in the tag metadata. The following code confirms this by listing any deployments from our project with missing deployment start and/or end date (of which there are none). 
 
@@ -189,20 +189,20 @@ filter(tagMeta, is.na(tsStart)|is.na(tsEnd)) %>% select(deployID, tagID, project
 
 ```
 
-We can do the same for speciesID. Because there are 164 rows with missing speciesID, we only show a summary of the missing data here. Should you have missing metadata in your own files, please fix the records online at <https://motus.org> by logging in and modifying your tag metadata for the appropriate deployment ID(s).
+We can do the same for speciesID, latitude, and longitude. Because there are 164 rows with missing speciesID, latitude, and longitude, we only show the first few records with missing data here. Should you have missing metadata in your own files, please take note of the relevant deployIDs and use your field notes to fix the records online at <https://motus.org>.
 
 ```{r missingTagDeployDate, eval = FALSE}
 
 missingMeta <- filter(tagMeta, is.na(speciesID)) %>% select(deployID, tagID, projectID, tsStart, tsEnd, speciesID, latitude, longitude, comments)
 #head(missingMeta)
-summary(missingMeta)
+head(missingMeta)
 # if you want to write the database of missing metadata to .csv file:
 # write.csv(missingMeta, file = "./data/missingTagMetadata.csv", row.names = FALSE)
 ```
 
 3. **Check odd parameter values**.
 
-The following code provides us with the deployment ID and tag ID of the metadata record with the odd longitude value that we saw earlier. We can use this information to find the appropriate deployment record online at <https://motus.org>, and fix the longitude of the deployment at the source, as opposed to here on our local database. If instead you saw an odd value in another parameter, you could simply adjust the filter appropriately.
+The following code provides us with the deployment ID and tag ID of the metadata record with the odd longitude value that we saw earlier. We can use this information to find the appropriate deployment record online at <https://motus.org>, and fix the longitude of the deployment at the source, as opposed to here on our local database. If instead you saw an odd value in another parameter, you could simply adjust the following code appropriately.
 
 ```{r checkLongitude}
 
@@ -210,12 +210,121 @@ filter(tagMeta, longitude < -100)
 
 ```
 
-
 ## Check Receiver Metadata {#recvMetadata}
 
-There are two sources of receiver metadata in your detections data: receivers registered to your own project, and receivers registered to the projects of others. At this point, you can only fix receiver metadata errors or ommissions for receivers registered to your own project. We encourage all users to enter complete and accurate receiver metadata for the benefit of the entire network, but unfortunately we cannot guarantee that all users will record every detail of receiver deployments (including details on antenna orientation (see \@ref(antennaMetadata) below) that you may need. 
+There are two sources of receiver metadata in your detections data: receivers registered to your own project, and receivers registered to the projects of others. You are provided access to the metadata for all receivers in the network, because negative data (my tag was *not* detected at tower x even though it was active) is often as important as positive data. It also allows you to map where your tags were detected relative to the distribution of receivers throughout the Motus network.
+
+You can only fix receiver metadata errors or ommissions for receivers registered to your own project. We encourage all users to enter complete and accurate receiver metadata for the benefit of the entire network, but unfortunately we cannot guarantee that all users will record every detail of receiver deployments (including details on antenna orientation (see \@ref(antennaMetadata) below) that you may need. 
 
 If there are metadata missing for receivers registered to others, and you require the missing metadata for your own analyses, please contact motus@birdscanada.org with an appropriate level of detail about the missing metadata (e.g., projectID, recvDeployID). We also encourage you to use the Motus listserve to request that other registered users record the receiver deployment details you need; please be specific about the exact receiver deployment details you are interested in, and when and where in the network your tags will be deployed and potentially detected. 
+
+The main things we want to check with receiver metadata are:
+
+1. how many receivers are registered in the network;
+2. how many receivers are registered by your project;
+3. how many of your registered receviers were deployed;
+4. how many deployed receivers had detections;
+5. whether required metadata are complete and accurate.
+
+### Number of registered receivers
+
+To check the number of registered Motus receivers, we load the 'recvs' table from the .motus file. This file contains a device ID and a serial number for the unit. This table therefore gives the total number of units, and not the number of deployments (each unit can be deployed more than once, for example, if a receiver is moved to another study area, it is then a new deployment of the same receiver deviceID):
+
+```{r importTags, message = FALSE, warning = FALSE}
+
+recvs <- tbl(t, "recvs")                                                   # extract tagDeps table, with tag deployment metadata
+recvs <- recvs %>% collect %>% as.data.frame   # convert tag metadata to a flat file
+nrow(recvs)
+
+```
+
+We see that there are `r nrow(recvs)` receivers registered in the Motus network.
+
+### Number of receivers registered to our project
+
+```{r nRegisteredTags}
+
+recvDeps <- tbl(t, "recvDeps")                                                   # extract tagDeps table, with tag deployment metadata
+recvDeps <- recvDeps %>% collect %>% as.data.frame    # number of registered tags in the database
+filter(projectID == 38) %>% 
+```
+If this number does not correspond with the number of tags you actually registered, you will need to go through the list, determine which tags are missing, and register them online at <https:motus.org/tag-registration>. Once tags are registered, you will need to wait until data from network receivers are re-processed before you will see detections for your newly-registered tags.
+
+### Number of registered tags that were deployed
+
+To determine which registered tags were deployed, we need to access the tag metadata contained in the 'tagDeps' table of the .motus file, which contains information on each deployment. We access that here, subset to our project (38), and merge the required columns of this table with the tags database to determine which registered tags were or were not deployed according to the metadata.
+
+Import tag deployment metadata:
+
+```{r importTagMeta.4, message = FALSE, warning = FALSE}
+
+tagMeta <- tbl(t, "tagDeps")                                                   # extract tagDeps table, with tag deployment metadata
+tagMeta <- tagMeta %>% filter(projectID == 38) %>% collect %>% as.data.frame   # convert tag metadata to a flat file
+tagMeta <- mutate(tagMeta, dateStart = date(as_datetime(tagMeta$tsStart)),
+                           dateEnd= date(as_datetime(tagMeta$tsEnd)))     # create a date variable for the start of the deployment
+
+```
+
+Merge with the tag registration metadata:
+
+```{r whichTagsDeployed, message = FALSE, warning = FALSE}
+
+deplTags <- full_join(tags, select(tagMeta, deployID, tagID), by = "tagID")
+
+```
+
+List registered tags that were not deployed:
+
+```{r tagsRegNotDeployed}
+
+filter(deplTags, is.na(deployID))
+
+```
+In this case, two of the 691 registered tags were not deployed according to the metadata. Please check your records to ensure that this is correct. If the tags were deployed, please enter deployment metadata for these tags online at <https://motus.org>. Otherwise, the tagFinder will not look for undeployed tages, and detections for these tags will be missing from your .motus database.
+
+### Number of deployed tags with detections.
+
+There are several reasons why registered and deployed tags might not be included in the detections data, including 1) the tag was not properly activated on deployment (always check that a tag is active using a hand-held receiver before releasing it); 2) an animal with a properly activated tag might not pass within range of a receiving station; and 3) missing or incorrect tag deployment metadata resulted in the tagFinder not 'looking' for your tag at all, or at the time the tag was actually deployed. 
+
+The following code creates a database 'nDetect' which calculates the number of detections of each deployed tag in the 'filteredAmbigs' database. 
+
+```{r tagsWithDetections}
+
+nDetect <- full_join(select(filteredAmbigs, motusTagID, tagDeployID) %>% group_by(motusTagID, tagDeployID) %>% summarize(nDetect = n()), 
+                      select(tagMeta, tagID, deployID) %>% distinct() %>% as.data.frame, by = c("motusTagID" = "tagID", "tagDeployID" = "deployID")) %>%
+                      as.data.frame
+```
+
+To list all tagIDs which have detections, you can run the following code; recall that we are using a small sample of the James Bay Shorebird Monitoring Project data, so only those tags included in the sample dataset will have detections here:
+
+```{r tagsWithDetections}
+filter(nDetect, nDetect > 0) %>% select(motusTagID) %>% as.list()
+```
+
+And generate a list of tags without detections, of which there are 671 because we are using only a subset of the full dataset:
+
+```{r tagsWithoutDetections}
+filter(nDetect, is.na(nDetect)) %>% select(motusTagID) %>% as.list()
+```
+
+If you notice that you are missing detections for deployed tags that you believe should have been detected, the first step is to check that your metadata are complete and accurate, which we do next.
+
+### Check completeness and accuracy of tag metadata
+
+Required tag metadata includes deployment start date/time, end date/time if applicable, deployment latitude, deployment longitude, and species.  Lack of information on deployment date, time, and location in particular can influence the estimated lifespan of your tag, and therefore whether the tagFinder will 'look' for your tag at the appropriate time(s), and/or influence the potential for ambiguities with duplicate tags in the system. 
+
+1. **Look at range of metadata values**.
+
+Using summary(tagMeta), you can get a general idea of which variables in the tag metadata are missing (look for NA values) or odd values. Here we summarize just those variables we are most interested in; if you want to look at all variables, simply use summary(tagMeta). There are several things to look at here: are the range of start and end dates reasonable for your deployments, or are there obvious errors in the timing of deployments? Is the range in deployment latitude and longitude reasonable? Are the values for species IDs correct?  
+
+```{r summaryTagMeta}
+
+summary(select(tagMeta, deployID, tagID, projectID, dateStart, dateEnd, speciesID, latitude, longitude))
+
+```
+
+We see that there are no missing start and end dates (tsStart/tsEnd), and that deployment dates range from 2014-2017. However, there are 164 records missing speciesID, latitude, and longitude. There is also at least one odd longitude of -980.69, which is an obvious typo. We also see that the species IDs are numeric, and somewhat meaningless without an ability to assign an actual species name to the ID. We will take a closer look at these issues in some of the steps that follow.
+
 
 First, we import receiver metadata, convert to a flat file, and create new date variables:
 
