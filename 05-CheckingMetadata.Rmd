@@ -220,17 +220,19 @@ If there are metadata missing for receivers registered to others, and you requir
 
 The main things we want to check with receiver metadata are:
 
-1. how many receivers are registered in the network;
-2. how many receivers are registered by your project;
-3. how many of your registered receviers were deployed;
-4. how many deployed receivers had detections;
-5. whether required metadata are complete and accurate.
+1. number of network-wide registered receivers;
+2. number of network-wide receiver deployments;
+3. number of project-specific receiver deployments;
+4. plot location of network-wide and project receiver deployments;
+5. number of receivers with detections of your tags;
+6. number of tags detected at your receivers;
+7. completeness and accuracy of receiver metadata.
 
-### Number of registered receivers
+### Number of network-wide registered receivers
 
 To check the number of registered Motus receivers, we load the 'recvs' table from the .motus file. This file contains a device ID and a serial number for the unit. This table therefore gives the total number of units, and not the number of deployments (each unit can be deployed more than once, for example, if a receiver is moved to another study area, it is then a new deployment of the same receiver deviceID):
 
-```{r importTags, message = FALSE, warning = FALSE}
+```{r importRecvs, message = FALSE, warning = FALSE}
 
 recvs <- tbl(t, "recvs")                                                   # extract tagDeps table, with tag deployment metadata
 recvs <- recvs %>% collect %>% as.data.frame   # convert tag metadata to a flat file
@@ -240,102 +242,168 @@ nrow(recvs)
 
 We see that there are `r nrow(recvs)` receivers registered in the Motus network.
 
-### Number of receivers registered to our project
+### Number of network-wide receiver deployments
 
-```{r nRegisteredTags}
+Each registered receiver might have been deployed numerous times. First we load the data from the .motus file that was imported earlier: 
+
+```{r importRecvDeps}
 
 recvDeps <- tbl(t, "recvDeps")                                                   # extract tagDeps table, with tag deployment metadata
 recvDeps <- recvDeps %>% collect %>% as.data.frame    # number of registered tags in the database
-filter(projectID == 38) %>% 
-```
-If this number does not correspond with the number of tags you actually registered, you will need to go through the list, determine which tags are missing, and register them online at <https:motus.org/tag-registration>. Once tags are registered, you will need to wait until data from network receivers are re-processed before you will see detections for your newly-registered tags.
-
-### Number of registered tags that were deployed
-
-To determine which registered tags were deployed, we need to access the tag metadata contained in the 'tagDeps' table of the .motus file, which contains information on each deployment. We access that here, subset to our project (38), and merge the required columns of this table with the tags database to determine which registered tags were or were not deployed according to the metadata.
-
-Import tag deployment metadata:
-
-```{r importTagMeta.4, message = FALSE, warning = FALSE}
-
-tagMeta <- tbl(t, "tagDeps")                                                   # extract tagDeps table, with tag deployment metadata
-tagMeta <- tagMeta %>% filter(projectID == 38) %>% collect %>% as.data.frame   # convert tag metadata to a flat file
-tagMeta <- mutate(tagMeta, dateStart = date(as_datetime(tagMeta$tsStart)),
-                           dateEnd= date(as_datetime(tagMeta$tsEnd)))     # create a date variable for the start of the deployment
-
+recvDeps <- mutate(recvDeps, yrStart = year(as_datetime(recvDeps$tsStart, tz = "GMT")), 
+                          dateStart = as.Date(as_datetime(recvDeps$tsStart, tz = "GMT")),
+                          yrEnd = year(as_datetime(recvDeps$tsEnd, tz = "GMT")), 
+                          dateEnd = as.Date(as_datetime(recvDeps$tsEnd, tz = "GMT")))
 ```
 
-Merge with the tag registration metadata:
+In total, there have been `r nrow(recvDeps)` deployments since `r min(recvDeps$dateStart, na.rm = TRUE)'. A simple histogram will give us an idea of how many times each receiver was deployed:
 
-```{r whichTagsDeployed, message = FALSE, warning = FALSE}
+```{r histDeps}
 
-deplTags <- full_join(tags, select(tagMeta, deployID, tagID), by = "tagID")
+ggplot(recvDeps, aes(x = deviceID, fill = receiverType)) + 
+  geom_bar() + 
+  theme_bw() + 
+  ggtitle("Number of deployments per receiver") +
+  ylab("# Deployments") +
+  scale_fill_discrete(name = "Receiver Type")
 
 ```
 
-List registered tags that were not deployed:
+# Number of project-specific receiver deployments
 
-```{r tagsRegNotDeployed}
+To see which of the deployments are registered to our project, we can simply subset and summarize the data:
 
-filter(deplTags, is.na(deployID))
+```{r projectDeps}
+
+projRecvs <- filter(recvDeps, projectID == 38)     # replace with your own projectID for your own data. 
+summary(projRecvs)
 
 ```
-In this case, two of the 691 registered tags were not deployed according to the metadata. Please check your records to ensure that this is correct. If the tags were deployed, please enter deployment metadata for these tags online at <https://motus.org>. Otherwise, the tagFinder will not look for undeployed tages, and detections for these tags will be missing from your .motus database.
+Looking at the summary of the data, we see that there are `r nrow(projRecvs)` deployments registered to our project. Four deployments are missing latitude and longitude, and two deployments are missing end dates, which might mean they are still deployed (we will look at this in the next steps). 
 
-### Number of deployed tags with detections.
+If the number of deployments does not correspond with the number of receivers you registered and deployed, you will need to go through the list of receiver deployIDs, determine which receivers are missing, and register them online at <https:motus.org>. If receivers are not registered, detections of tags will not be available to you or other researchers with tags detected by you receiver.
 
-There are several reasons why registered and deployed tags might not be included in the detections data, including 1) the tag was not properly activated on deployment (always check that a tag is active using a hand-held receiver before releasing it); 2) an animal with a properly activated tag might not pass within range of a receiving station; and 3) missing or incorrect tag deployment metadata resulted in the tagFinder not 'looking' for your tag at all, or at the time the tag was actually deployed. 
+### Location of receiver deployments
 
-The following code creates a database 'nDetect' which calculates the number of detections of each deployed tag in the 'filteredAmbigs' database. 
+We plot the location of project-specific and network-wide receivers using a simple plot of latitude against longitude, and then on a map of North America. First we add a variable to the database to distinguish receivers registered to our project vs. other projects.
 
-```{r tagsWithDetections}
+**Simple Plot:**
 
-nDetect <- full_join(select(filteredAmbigs, motusTagID, tagDeployID) %>% group_by(motusTagID, tagDeployID) %>% summarize(nDetect = n()), 
-                      select(tagMeta, tagID, deployID) %>% distinct() %>% as.data.frame, by = c("motusTagID" = "tagID", "tagDeployID" = "deployID")) %>%
-                      as.data.frame
-```
+```{r simpleRecvPlot, message = FALSE, warning = FALSE}
 
-To list all tagIDs which have detections, you can run the following code; recall that we are using a small sample of the James Bay Shorebird Monitoring Project data, so only those tags included in the sample dataset will have detections here:
+recvDeps <- mutate(recvDeps, Project38 = if_else(projectID == 38, "Project 38", "Other Projects"))
 
-```{r tagsWithDetections}
-filter(nDetect, nDetect > 0) %>% select(motusTagID) %>% as.list()
-```
-
-And generate a list of tags without detections, of which there are 671 because we are using only a subset of the full dataset:
-
-```{r tagsWithoutDetections}
-filter(nDetect, is.na(nDetect)) %>% select(motusTagID) %>% as.list()
-```
-
-If you notice that you are missing detections for deployed tags that you believe should have been detected, the first step is to check that your metadata are complete and accurate, which we do next.
-
-### Check completeness and accuracy of tag metadata
-
-Required tag metadata includes deployment start date/time, end date/time if applicable, deployment latitude, deployment longitude, and species.  Lack of information on deployment date, time, and location in particular can influence the estimated lifespan of your tag, and therefore whether the tagFinder will 'look' for your tag at the appropriate time(s), and/or influence the potential for ambiguities with duplicate tags in the system. 
-
-1. **Look at range of metadata values**.
-
-Using summary(tagMeta), you can get a general idea of which variables in the tag metadata are missing (look for NA values) or odd values. Here we summarize just those variables we are most interested in; if you want to look at all variables, simply use summary(tagMeta). There are several things to look at here: are the range of start and end dates reasonable for your deployments, or are there obvious errors in the timing of deployments? Is the range in deployment latitude and longitude reasonable? Are the values for species IDs correct?  
-
-```{r summaryTagMeta}
-
-summary(select(tagMeta, deployID, tagID, projectID, dateStart, dateEnd, speciesID, latitude, longitude))
+# to show only receivers for your project, replace recvDeps with filter(recvDeps, projectID == 38)
+ggplot(recvDeps, aes(y = latitude, x = longitude, colour = Project38)) +
+  geom_point(pch = 1) +
+  theme_bw() +
+  ggtitle("Location of all Motus receiver deployments")+
+  scale_colour_discrete(name = "")  # don't need legend name
 
 ```
 
-We see that there are no missing start and end dates (tsStart/tsEnd), and that deployment dates range from 2014-2017. However, there are 164 records missing speciesID, latitude, and longitude. There is also at least one odd longitude of -980.69, which is an obvious typo. We also see that the species IDs are numeric, and somewhat meaningless without an ability to assign an actual species name to the ID. We will take a closer look at these issues in some of the steps that follow.
+Not all receivers are deployed at the same time, or during your study period. You can restrict the plot to receivers that were active during our study period by placing filters on date. For example, if you want to restrict the plot to receivers that were active in 2016, you can do the following:
 
+```{r mapRecvLocationsbyTime, message = FALSE, warning = FALSE}
 
-First, we import receiver metadata, convert to a flat file, and create new date variables:
-
-```{r importRecvMeta, message = FALSE, warning = FALSE}
-
-recvMeta <- tbl(t, "recvDeps")                                                  # extract recvDeps table from your .motus file
-recvMeta <- recvMeta %>% collect %>% as.data.frame                              # convert recv metadata to a flat file
-recvMeta <- mutate(recvMeta, dateStart = date(as_datetime(recvMeta$tsStart)), 
-                  dateEnd = date(as_datetime(recvMeta$tsEnd))) 
+ggplot(filter(recvDeps, yrStart <= 2016 & yrEnd >= 2016), aes(y = latitude, x = longitude, colour = Project38)) +
+  geom_point(pch = 1) +
+  theme_bw() +
+  ggtitle("Location of all Motus receiver deployments active at some point in 2016")+
+  scale_colour_discrete(name = "")  # don't need legend name
 
 ```
+**Map of receiver locations:**
+
+Because maps are more fun, we also plot the receivers on a map:
+
+1. **Install R mapping package.**
+
+If you do not have rworldmap installed then you must install and load the package into R:
+
+```{r installMapPackagesRecv, message = FALSE, warning = FALSE}
+
+install.packages("rworldmap")
+require(rworldmap)
+
+```
+
+2. **Load base map files.**
+
+```{r loadMapsRecv, message = FALSE, warning = FALSE}
+
+na.lakes <- map_data(map = "lakes")
+na.lakes <- mutate(na.lakes, long = long- 360)
+
+# Include all of the Americas to begin
+
+na.map <- subset(map_data(map="world2"), 
+                region %in% c("Canada", "USA", "Mexico", "lakes",
+                               "Belize", "Costa Rica", "Panama", 
+                               "Guatemala", "Honduras", "Nicaragua", 
+                               "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil",
+                               "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", 
+                               "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", 
+                               "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", 
+                               "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", 
+                               "Uruguay"))
+
+na.map <- mutate(na.map, long = long- 360)
+
+```
+
+3. **Map the locations of receivers in the Americas.**
+
+```{r mapRecvs, message = FALSE, warning = FALSE}
+
+# set limits to map based on locations of detections, ensuring they include the deployment locations
+xmin <- min(recvDeps$longitude, na.rm = TRUE) - 2
+xmax <- -20 # restrict to the Americas
+ymin <- min(recvDeps$latitude, na.rm = TRUE) - 2
+ymax <- max(recvDeps$latitude, na.rm = TRUE) + 2
+                
+# map
+ggplot(na.lakes, aes(long, lat))+ 
+  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+#
+  geom_polygon(aes(group = group), colour = "grey", fill = "white")+
+  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
+  xlab("") + ylab("") + 
+  theme_bw() + 
+  geom_point(data = recvDeps, aes(longitude, latitude, colour = Project38), cex = 0.8, pch = 4)+
+  scale_colour_discrete("")
+
+```
+
+4. **Map the locations of project specific receivers.**
+
+You can restrict the map to your own receivers by using the projRecvs dataframe created above, i.e., by subsetting recvDeps to the project of interest before setting the x-axis and y-axis limits. For the sake of demonstration, we restrict deployments to those that were active at some point in 2016.
+
+```{r mapProjRecvs, message = FALSE, warning = FALSE}
+
+# set limits to map based on locations of detections, ensuring they include the deployment locations
+xmin <- min(projRecvs$longitude, na.rm = TRUE) - 0.5
+xmax <- max(projRecvs$longitude, na.rm = TRUE) + 0.5
+ymin <- min(projRecvs$latitude, na.rm = TRUE) - 0.1
+ymax <- max(projRecvs$latitude, na.rm = TRUE) + 0.1
+                
+# map
+ggplot(na.lakes, aes(long, lat))+ 
+  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+#
+  geom_polygon(aes(group = group), colour = "grey", fill = "white")+
+  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
+  xlab("") + ylab("") + 
+  theme_bw() + 
+  geom_point(data = filter(projRecvs, yrStart >= 2016 & yrEnd <= 2016), aes(longitude, latitude, colour = as.factor(deviceID)), cex = 2, pch = 4)+
+  scale_colour_discrete(name  =  "Receiver ID") 
+
+```
+
+### Number of receivers with detections of your tags
+
+
+
+
+
 
 1. **Look at range of metadata values**. INCLUDES DATA FROM ALL RECEIVERS IN NETWORK.
 
@@ -367,13 +435,8 @@ filter(recvMeta, projectID == 38) %>% select(-serno,-fixtureType, -macAddress, i
 ```
 We can see from these records that four of the deployments are missing latitude and longitude information. However, looking at the 'name' and 'isMobile' columns, we see that these are likely all mobile receivers, which aren't associated with a fixed latitude and longitude. 'isMobile' is 0 for deployIDs 3813 and 3814, despite being named as mobile receivers. The classification of these receivers, if truly mobile, should be changed online at <https://motus.org> under receiver deployments for this project.
 
-2. **Map receivers registered to your project**.
 
 3. **Check metadata for receiver deployments with detections**.
-
-4. **Map location of receivers with detections data for you project**.
-
-***INSERT CODE***
 
 If you are missing any receivers, please register them online through your project management page
 

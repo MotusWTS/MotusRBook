@@ -269,9 +269,7 @@ The lat/lon by time plots suggest or confirm that:
 - ambigID -106: detections belong to 17357 from our own project (38).
 
 - ambigID -171: detections with latitude > 35 likely belong to 24303 from project 146, and can be deleted from the detections data. However, there are two detections with latitude < 10 which should be checked, and near-simultaneous detections at three different longitudes that should also be checked further. 
-
 - ambigID -56: there remains some ambiguity for at least some of the detections, and should be examined further.
-
 
 ## Check run length of outlying detections.
 
@@ -294,7 +292,7 @@ Next we will map the detections associated with ambigID -56 and -171. We will th
 
 1. **Install R mapping package.**
 If you do not have rworldmap installed then you must run:
-```{r installMapPackages, eval = FALSE}
+```{r installMapPackages, eval = FALSE, message = FALSE, warning = FALSE}
 
 install.packages("rworldmap")
 
