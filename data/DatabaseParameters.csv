@@ -7,7 +7,7 @@ sig,"signal strength in ""native units""; for SG: dB (max) (logarithmic, 0 = max
 sigSD,std. dev. in signal strength among pulses in this burst. SG Only; NA for Lotek
 noise,"estimate of background radio noise when tag detected, in dB (max) for SG; NA for Lotek"
 freq,"frequency offset from antenna listening frequency, in kHz for SG only; NA for Lote"
-freqSD,"std. dev. of freq offset among pulses in this burst, in kHz. Values larger than 0.1 kHz suggest a bogus detection. SG only; NA for Lotek. "
+freqsd,"std. dev. of freq offset among pulses in this burst, in kHz. Values larger than 0.1 kHz suggest a bogus detection. SG only; NA for Lotek. "
 slop,total absolute difference (milliseconds) in inter-pulse intervals for this burst between registration and detection. SG only; NA for Lotek
 burstSlop,signed difference (seconds) between detection and registration burst intervals. This is always 0 for the first burst in a run (see posInRun)
 done,logical: is run finished?
