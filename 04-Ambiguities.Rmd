@@ -389,6 +389,7 @@ From this, we can quite confidently assign detections in 2016 that have latitude
 filter(ambig.df, motusTagID == 22867, yr == 2016, recvLat > 45, recvLon < -75) %>% group_by(ts, dmy) %>% summarize(nDetect = n())
 
 ```
+
 If we take an even closer look at the actual timestamps of the detections, the last detection north of 45 degrees latitude was at 00:00:42 GMT, and the first detection at the more southern sites along the flyway were at 14:33:38 on the same day, which supports that the bird was actively migrating.
 
 Unfortunately, because both tags could have been active during the following spring (all 2017 detections), we are unable to distinguish which bird these additional ambiguous detections belong to, and all 2017 detections will be dropped from the data.
