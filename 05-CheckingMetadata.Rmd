@@ -163,7 +163,7 @@ summary(select(tagMeta, deployID, tagID, projectID, dateStart, dateEnd, speciesI
 
 ```
 
-We see that there are no missing start and end dates (tsStart/tsEnd), and that deployment dates range from 2014-2017. However, there are 164 records missing speciesID, latitude, and longitude. There is also at least one odd longitude of -980.69, which is an obvious typo. The species IDs are also numeric, and somewhat meaningless without an ability to assign an actual species name to the numeric ID. 
+There are no missing start and end dates (tsStart/tsEnd), and deployment dates range from 2014-2017. However, there are 164 records missing speciesID, latitude, and longitude. There is also at least one odd longitude of -980.69, which is an obvious typo. The species IDs are numeric, and somewhat meaningless without an ability to assign an actual species name to the numeric ID, which we do next. 
 
 1. **Check that species IDs are appropriate for your data**.
 
@@ -173,7 +173,7 @@ There is a table in your .motus file called 'species', which associates each num
 
 sp.list <- unique(tagMeta$speciesID)                                             # generate list of speciesIDs in the tag metadata
 species <- tbl(t, "species")                                                     # load species table from the .motus file
-species <- species %>% filter(id %in% sp.list) %>% collect %>% as.data.frame  # subset and convert to a flat file
+species <- species %>% filter(id %in% sp.list) %>% collect %>% as.data.frame     # subset and convert to a flat file
 species
 
 ```
@@ -288,6 +288,7 @@ projRecvs <- filter(recvDeps, projectID == 38)     # replace with your own proje
 summary(projRecvs)
 
 ```
+
 From the data summary we see there are `r nrow(projRecvs)` deployments registered to the project. Four deployments are missing latitude and longitude, and two deployments are missing end dates, which might mean they are still deployed (we will look at this in the next steps). 
 
 If the number of receiver deployments does not correspond with the number of receivers you actually registered and deployed, you will need to go through the list of receiver deployIDs, determine which receivers are missing, and register them online at <https:motus.org>. Unless your receivers are registered with Motus, detections of your tags or the tags of others will not be processed and made available.
@@ -303,25 +304,23 @@ recvLong <- mutate(recvLong, ts = as_datetime(ts, tz = "GMT", origin = "1970-01-
 
 ggplot(recvLong, aes(y = as.factor(deviceID), x = ts, colour = as.factor(deployID))) +
   geom_line() + theme_bw() +
-  ylab("deviceID") + xlab("Year")
+  ylab("deviceID") + xlab("Year") + scale_colour_discrete(guide = guide_legend(title ="Receiver deployment ID"))
 
 ```
 ### Location of receiver deployments
 
-We plot the location of project-specific and network-wide receivers using a simple plot of latitude against longitude, and then on a map of North America. First we add a variable to the database to distinguish receivers registered to your project vs. other projects.
+We plot the location of project-specific and network-wide receivers first using a simple plot of latitude against longitude, and then on a map of North America. 
 
 #### Simple Plot of receiver locations
 
 ```{r simpleRecvPlot, message = FALSE, warning = FALSE}
 
-recvDeps <- mutate(recvDeps, Project38 = if_else(projectID == 38, "Project 38", "Other Projects"))
-
-# to show only receivers for your project, replace recvDeps with filter(recvDeps, projectID == 38)
-ggplot(recvDeps, aes(y = latitude, x = longitude, colour = Project38)) +
+# use as.logical to show whether deployments are from your project or not
+ggplot(recvDeps, aes(y = latitude, x = longitude, colour = as.logical(projectID == 38))) +
   geom_point(pch = 1) +
   theme_bw() +
   ggtitle("Location of all Motus receiver deployments")+
-  scale_colour_discrete(name = "")  # don't need legend name
+  scale_colour_discrete(name = "Project 38 Deployment")  # don't need legend name
 
 ```
 
@@ -329,11 +328,11 @@ Not all receivers were deployed at the same time, or during your study period. Y
 
 ```{r mapRecvLocationsbyTime, eval = FALSE, message = FALSE, warning = FALSE}
 
-ggplot(filter(recvDeps, yrStart <= 2016 & yrEnd >= 2016), aes(y = latitude, x = longitude, colour = Project38)) +
+ggplot(filter(recvDeps, yrStart <= 2016 & yrEnd >= 2016), aes(y = latitude, x = longitude, colour = as.logical(projectID == 38))) +
   geom_point(pch = 1) +
   theme_bw() +
   ggtitle("Location of all Motus receiver deployments active at some point in 2016")+
-  scale_colour_discrete(name = "")  # don't need legend name
+  scale_colour_discrete(name = "Project 38 deployment")  # don't need legend name
 
 ```
 #### Map of receiver locations
@@ -394,9 +393,8 @@ ggplot(na.lakes, aes(long, lat))+
   coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
   xlab("") + ylab("") + 
   theme_bw() + 
-  geom_point(data = recvDeps, aes(longitude, latitude, colour = Project38), cex = 0.8, pch = 4)+
-  scale_colour_manual(values = c("grey30", "red"), labels = "") + 
-  theme(legend.position="none") # remove legend
+  geom_point(data = recvDeps, aes(longitude, latitude, colour = as.logical(projectID == 38)), cex = 0.8, pch = 4)+
+  scale_colour_manual(values = c("grey30", "red"), name = "Project 38 Deployment") 
   
 
 ```
@@ -427,9 +425,18 @@ ggplot(na.lakes, aes(long, lat))+
 
 ### Completeness and accuracy of receiver metadata
 
-Users have access to the metadata for all receivers in the network. Here, we will check for the completeness and accuracy of metadata for receivers with detections of your tags. Depending on your project goals, the information you will need about receiver deployments might vary. For example, if you are interested in whether a tag was detected at a particular site, the number of antennas and their properties (type, height, orientation) might not matter. Please keep in mind, however, that as a collaborative network, other users might require more detail about your receiver and antenna deployments than you do; in the interest of benefiting the entire network, we encourage you to include as many details as possible in your receiver metadata. For this reason, we will check the completeness of all receiver and antenna metadata, keeping in mind that we can only modify the metadata for receivers registered to our own project.
+Users have access to the metadata for all receivers in the network. We will do a few summaries to check for the completeness and accuracy of metadata for all receivers with detections of your tags. 
 
-1. **Load receiver and antenna metadata
+1. **Load receiver and antenna metadata**
+
+We can generate a list of all receiver deployments with detections in our database using:
+
+```{r recvList}
+
+deployList <- unique(filteredAmbigs$recvDeployID)
+
+```
+
 
 1. **Look at range of metadata values**. INCLUDES DATA FROM ALL RECEIVERS IN NETWORK.
 
