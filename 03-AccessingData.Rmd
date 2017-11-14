@@ -243,7 +243,7 @@ createFlatFiles <- function(out.dir, in.df, table.list) {
        
         if(table.list[i] == "alltagswithambigs"){
         df <- select(df, hitID, runID, batchID, ts, sig, sigsd, freqsd, motusTagID, ambigID, ant, 
-                              runLen, tagProjID, id, depLat, depLon, depAlt, recvDeployID, recvDeployLat,
+                              runLen, tagProjID, tagDeployID, id, depLat, depLon, depAlt, recvDeployID, recvDeployLat,
                               recvDeployLon, recvDeployElevation, recv, site, projID, antType, antBearing, antHeight, 
                               spEN, spFR, spSci, tagProj, proj, gpsLat, gpsLon, gpsAlt)
         } # end of if statement
@@ -277,7 +277,7 @@ createFlatFiles <- function(out.dir, in.df, table.list) {
 
 Run the function by first setting the parameters 'out.dir', 'in.df', and 'table.list':
 
-```{r runDataRDSFunction}
+```{r runDataRDSFunction, eval = FALSE}
 
 # directory where you want your flat RDS files to be stored 
 out.dir <- paste(getwd(), "/data/", sep = "") # or change to the output directory of your choice
