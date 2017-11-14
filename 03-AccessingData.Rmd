@@ -218,43 +218,78 @@ saveRDS(object = df.flat, file = "./data/df.alltags.rds") # saves to the data fo
 
 ## Function to access and convert .motus files to flat files
 
-For the purpose of this book, the following function creates flat .RDS files of the various tables that we will need from the .motus file. You can create a similar function for your own data, and add or remove data fields as necessary. 
+For the purpose of this book, the following function creates flat .RDS files of the various tables that we will need from the .motus file. You can run this function on your own data as it is, or modify it to include/exclude different fields in the various tables. 
 
 ```{r dataFunction}
 
 # for your own data, replace with location of your 'project-XX.motus' data
 
-createFlatFiles <- function(in.df =  system.file("extdata", "project-sample.motus", package = "motusdata")) {  
+createFlatFiles <- function(out.dir, in.df, table.list) {  
 
   # load .motus file
 
   file.name <-  in.df 
   t <- dplyr::src_sqlite(file.name)
 
-  ## extract and save alltagswithambigs view, selecting only parameters of interest (can be modified to suit needs)
-  df <- tbl(t, "alltagswithambigs")
-  df <- df %>% 
-            select(hitID, runID, batchID, ts, sig, sigsd, freqsd, motusTagID, ambigID, ant, 
+  # Loop through table.list, create flat file, and save to .rds file
+  # An if() statement is included to select only certain parameters from the alltagswithambigs table
+  # This can be modified to include different parameters, or to create a different if() statement for
+  # another table.
+  
+  for(i in 1:length(table.list)) {
+    
+        df <- tbl(t, table.list[i])
+       
+        if(table.list[i] == "alltagswithambigs"){
+        df <- select(df, hitID, runID, batchID, ts, sig, sigsd, freqsd, motusTagID, ambigID, ant, 
                               runLen, tagProjID, id, depLat, depLon, depAlt, recvDeployID, recvDeployLat,
                               recvDeployLon, recvDeployElevation, recv, site, projID, antType, antBearing, antHeight, 
-                              spEN, spFR, spSci, tagProj, proj, gpsLat, gpsLon, gpsAlt) %>% 
-            collect() %>% 
-            as.data.frame()
+                              spEN, spFR, spSci, tagProj, proj, gpsLat, gpsLon, gpsAlt)
+        } # end of if statement
+    
+   
+        df <- df %>% 
+              collect() %>% 
+              as.data.frame()
   
-  # create time variables, filter out ambiguous detections that don't belong to our tags 
-  df <- mutate(df, 
-                  year = year(as_datetime(df$ts, tz = "GMT")), 
-                  date = as.Date(as_datetime(df$ts, tz = "GMT")),
+        # modify times and lat/lon of detections data
+        
+        if(table.list[i] == "alltagswithambigs"){
+            df <- mutate(df, 
+                  ts = as_datetime(ts, tz = "GMT", origin = "1970-01-01"),       
                   recvLat = if_else(is.na(gpsLat), recvDeployLat, gpsLat), 
                   recvLon = if_else(is.na(gpsLon), recvDeployLon, gpsLon))
-  saveRDS(object = df, file = "./data/df.alltags")
-  
-  ## extract and save all metadata to flat files
-  # tags registered
-  
-  tags <- 
-  
-  
-}
+        } # end of if statement
+        
+        # modify times of tag and receiver deployment metadata
+        
+        if(table.list[i] == "tagDeps"|table.list[i] == "recvDeps"){
+            df <- mutate(df, 
+                  tsStart = as_datetime(tsStart, tz = "GMT", origin = "1970-01-01"), 
+                  tsEnd = as_datetime(tsEnd, tz = "GMT", origin = "1970-01-01"))
+        } # end of if statement
+        
+       
+  saveRDS(df, file = paste(out.dir, "df.", table.list[i], ".rds", sep = ""))
+        
+  } # end of for loop
+} # end of function
 ```
 
+And you can run the function and save all output by setting the 'out.dir' and 'in.df' parameters and running the following:
+
+```{r runDataRDSFunction}
+
+# directory where you want your flat .rds files stored 
+out.dir <- paste(getwd(), "/data/", sep = "") # or change to the output directory of your choice
+
+# full location of your .motus file. This will typically look like in.df <- "C:/Motus/data/project-xx.motus"
+in.df <- system.file("extdata", "project-sample.motus", package = "motusdata") 
+
+# list of tables you want to transform to flat files:
+table.list <- c("alltagswithambigs", "tags", "tagDeps", "recvs", "recvDeps", "antDeps", "species")
+
+# and run the function, which will output an .rds file for each table in the specified directory
+createFlatFiles(out.dir = out.dir, in.df = in.df, table.list = table.list)
+
+```
