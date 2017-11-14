@@ -12,41 +12,26 @@ As you run through the following code to check your metadata, **please fix metad
 
 ```{r loadPackages.4, warning = FALSE, message = FALSE}
 
-require(devtools)
-require(tidyverse)
-require(motus)
-require(motusdata) # repository for sample datasets
-require(lubridate) # for working with dates
+library(devtools)
+library(tidyverse)
+library(motusClient)  # to communicate with Motus server and grab project data
+library(motus)        # functions to manipulate, analyze Motys data
+library(motusdata)    # repository for sample datasets for this book
+library(lubridate)    # for working with dates
 
 ```
 
-## Access Detections Data
+## Import .motus file
 
-We will continue using our sample dataset from the James Bay Shorebird Monitoring Project (see Section \@ref(sampleData)). In the previous chapter on dealing with ambiguous detections (Chapter \@ref(ambiguities)), we created a function at the end of the chapter to filter ambiguities out of the .motus file that did not belong to our tags, and this subset of the data was output to a flat data file.  By loading the motusdata R package above, you now have direct access to the filtered data, which is named 'filteredAmbigs'. To look at the summary of this database, you can run the following code (not evaluated here):
+We will run through how to check for and deal with ambiguities using our sample dataset from the James Bay Shorebird Monitoring Project (see Section \@ref(sampleData)). We recommend that you run through the sample code in each chapter with the sample dataset **before** running through with your own data, because you may need to modify the code or the order of the steps we take in order to deal most effectively with your own ambiguities (every situation is different).
 
-```{r importFilteredAmbigs, eval = FALSE}
+```{r importdata}
 
-summary(filteredAmbigs)
-
-```
-
-If you would like to use your own data to go through this chapter, please go through Chapter \@ref(ambiguities) and deal with any ambiguities in your own data before going further. If there are no ambiguous detections in your data, you can import your .motus file and transform to a flat file as follows:
-
-```{r importPersonal, eval = FALSE}
-
-file.name <-  "C:/data/project-123.motus"                        # replace with the path to your data
+file.name <- system.file("extdata", "project-sample.motus", package = "motusdata")    ## or replace with file.name <-  "C:/data/project-123.motus" using your file directory
 t <- dplyr::src_sqlite(file.name)
-filteredAmbigs <- tbl(t, "alltagswithambigs")
-filteredAmbigs <- filteredAmbigs %>% collect %>% as.data.frame
-
-# to be consistent with the structure of the sample data, add date variables, and create recvLat/Lon variables that replace NAs in the lat/lon from GPS with lat/lon from the receiver deployment metadata.
-
-filteredAmbigs <- mutate( year = year(as_datetime(ambigs$ts, tz = "GMT")), 
-                          date = as.Date(as_datetime(ambigs$ts, tz = "GMT")), 
-                          recvLat = if_else(is.na(gpsLat), recvDeployLat, gpsLat), 
-                          recvLon = if_else(is.na(gpsLon), recvDeployLon, gpsLon))
 
 ```
+
 
 ## Check Tag Metadata {#tagMetadata}
 
@@ -265,7 +250,7 @@ recvDeps <- mutate(recvDeps,
 nrow(recvDeps)
 ```
 
-In total, there have been `r nrow(recvDeps)` deployments since `r min(recvDeps$dateStart, na.rm = TRUE)'. A simple histogram will give us an idea of the type of receiver deployed, and how many deployments per receiver:
+There have been `r nrow(recvDeps)` network-wide receiver deployments since `r min(recvDeps$dateStart, na.rm = TRUE)'. A simple histogram will give us an idea of the type of receiver deployed, and how many deployments per receiver:
 
 ```{r histDeps}
 
@@ -275,6 +260,15 @@ ggplot(recvDeps, aes(x = deviceID, fill = receiverType)) +
   ggtitle("Number of deployments per receiver") +
   ylab("# Deployments") +
   scale_fill_discrete(name = "Receiver Type")
+
+```
+### Number of registered receivers without deployment metadata
+
+We can also quickly check whether each registered receiver was deployed at least once; in this case we get 0 rows, i.e., all registered receivers have at least one deployment in the metadata:
+
+```{r recvDeployNum}
+
+left_join(recvs, select(recvDeps, deviceID, deployID, projectID), by = "deviceID") %>% filter(is.na(deployID))
 
 ```
 
@@ -289,11 +283,11 @@ summary(projRecvs)
 
 ```
 
-From the data summary we see there are `r nrow(projRecvs)` deployments registered to the project. Four deployments are missing latitude and longitude, and two deployments are missing end dates, which might mean they are still deployed (we will look at this in the next steps). 
+There are `r nrow(projRecvs)` receiver deployments registered to the project. Four deployments are missing latitude and longitude, and two deployments are missing end dates, which could mean they are still deployed. 
 
-If the number of receiver deployments does not correspond with the number of receivers you actually registered and deployed, you will need to go through the list of receiver deployIDs, determine which receivers are missing, and register them online at <https:motus.org>. Unless your receivers are registered with Motus, detections of your tags or the tags of others will not be processed and made available.
+If the number of receiver deployments in the metadata does not correspond with the number of deployments in the field, you will need to go through the list of receiver deployIDs, determine which receivers or deployments are missing, and register them online at <https:motus.org>. Missing receiver registrations will result in a complete lack of detections data for that receiver, and missing deployments can result in tag detections in your database that aren't associated with a deployment and associated information on the station characteristics (latitude, longitude, antenna type, orientation, etc).  
 
-We can also look at the timing of deployments graphically; horizontal line(s) in the following plot show the deployment time(s) for every receiver (deviceID) registered to your project. Different deployments of the same device should not overlap in time:
+The timing of deployments can also be displayed graphically; horizontal line(s) in the following plot show the time span for each deployment of every receiver (deviceID) registered to the James Bay Shorebird Monitoring project. Different deployments of the same should not overlap in time:
 
 ```{r projectRecvDeploy, warnings = FALSE, messages = FALSE}
 

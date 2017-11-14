@@ -27,7 +27,6 @@ If you have not already installed the following packages, please follow the inst
 ```{r loadpackages}
 
 library(devtools)
-library(motusClient) # package to communicate with Motus server and grab project data
 library(motus)
 library(motusdata)
 library(tidyverse)
@@ -35,17 +34,20 @@ library(lubridate)
 
 ```
 
-## Import .motus file
+## Access Detections Data
 
+<<<<<<< HEAD
 We will run through how to check for and deal with ambiguities using our sample dataset from the James Bay Shorebird Monitoring Project (see Section \@ref(sampleData)). 
 
 PDT: Can we put this somewhere else? Such as in an introductory chapter?
 We recommend that you run through the sample code in each chapter with the sample dataset **before** running through with your own data, because you may need to modify the code or the order of the steps we take in order to deal most effectively with your own ambiguities (every situation is different).
+=======
+We will continue using our sample dataset from the James Bay Shorebird Monitoring Project (see Section \@ref(sampleData)). In the previous chapter, we created a function to load several tables in the .motus file, and this subset of the data was output to a flat data file.  By loading the motusdata R package above, you now have direct access to the filtered data, which is named 'filteredAmbigs'. To look at the summary of this database, you can run the following code (not evaluated here):
+>>>>>>> 5bbd2fb7e072cccd10e298eb4e54c1b0db1653a3
 
-```{r importdata}
+```{r importFilteredAmbigs, eval = FALSE}
 
-file.name <- system.file("extdata", "project-sample.motus", package = "motusdata")    ## or replace with file.name <-  "C:/data/project-123.motus" using your file directory
-t <- dplyr::src_sqlite(file.name)
+summary(filteredAmbigs)
 
 ```
 
