@@ -14,10 +14,8 @@ As you run through the following code to check your metadata, **please fix metad
 
 library(devtools)
 library(tidyverse)
-library(motusClient)  # to communicate with Motus server and grab project data
-library(motus)        # functions to manipulate, analyze Motys data
-library(motusdata)    # repository for sample datasets for this book
 library(lubridate)    # for working with dates
+library(motusdata)    # repository for sample datasets for this book
 
 ```
 

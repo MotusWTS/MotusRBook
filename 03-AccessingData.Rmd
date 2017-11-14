@@ -128,7 +128,7 @@ knitr::kable(param.table, caption = "Description of fields in the tag detections
 
 ```
 
-### Convert a virtual table to a flat dataframe {#convertToFlat}
+## Convert a virtual table to a flat dataframe {#convertToFlat}
 
 If you want your entire dataframe in a typical "flat" format, i.e., with every record for each field filled in, you can use the collect() function.  The output can then be used to generate a .rds or .csv file of your data. However, we caution that if you have a large data set, producing such a table using the full suite of fields can chew up a lot of memory and slow down your R session considerably:
 
@@ -206,7 +206,7 @@ df.hourlySumm <- df %>%
 
 ```
 
-### Export your "flat" dataframe to an RDS file {#exportToRDS}
+## Export your 'flat' dataframe to an RDS file {#exportToRDS}
 
 A good workflow idea is to have a script that deals with all of your data issues, then saves a dataframe (or workspace) for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. A good way to do this is by using an RDS file, which preserves all of the associated R data structures (such as time stamps).
 
@@ -217,7 +217,7 @@ saveRDS(df.flat, "./data/df.flat.RDS")
 
 ```
 
-## Function to convert .motus tables to RDS flat files
+### Create function to output .motus tables to 'flat' RDS dataframes
 
 For the purpose of this book, the following function creates flat RDS files of the various tables that we will need from the .motus file. You can run this function on your own data as it is, or modify it to include/exclude different fields in the various tables. 
 
@@ -232,7 +232,7 @@ createFlatFiles <- function(out.dir, in.df, table.list) {
   file.name <-  in.df 
   t <- dplyr::src_sqlite(file.name)
 
-  # Loop through table.list, create flat file, and save to .rds file
+  # Loop through table.list, create flat file, and save to RDS file
   # An if() statement is included to select only certain parameters from the alltagswithambigs table
   # This can be modified to include different parameters, or to create a different if() statement for
   # another table.
@@ -253,13 +253,11 @@ createFlatFiles <- function(out.dir, in.df, table.list) {
               collect() %>% 
               as.data.frame()
   
-        # modify times and lat/lon of detections data
+        # modify timestamp, stored in the .motus file as seconds since Jan 01, 1970
         
         if(table.list[i] == "alltagswithambigs"){
             df <- mutate(df, 
-                  ts = as_datetime(ts, tz = "GMT", origin = "1970-01-01"),       
-                  recvLat = if_else(is.na(gpsLat), recvDeployLat, gpsLat), 
-                  recvLon = if_else(is.na(gpsLon), recvDeployLon, gpsLon))
+                  ts = as_datetime(ts, tz = "GMT", origin = "1970-01-01"))
         } # end of if statement
         
         # modify times of tag and receiver deployment metadata
@@ -281,16 +279,16 @@ Run the function by first setting the parameters 'out.dir', 'in.df', and 'table.
 
 ```{r runDataRDSFunction}
 
-# directory where you want your flat .rds files stored 
+# directory where you want your flat RDS files to be stored 
 out.dir <- paste(getwd(), "/data/", sep = "") # or change to the output directory of your choice
 
 # full location of your .motus file. This will typically look like in.df <- "C:/Motus/data/project-xx.motus"
 in.df <- system.file("extdata", "project-sample.motus", package = "motusdata") 
 
-# list of tables you want to transform to flat files:
+# list of tables in your .motus file that you want to transform to flat files:
 table.list <- c("alltagswithambigs", "tags", "tagDeps", "recvs", "recvDeps", "antDeps", "species")
 
-# run the function, which will output an .rds file for each table in the specified directory
+# run the function, which will output an RDS file for each table in the specified directory
 createFlatFiles(out.dir = out.dir, in.df = in.df, table.list = table.list)
 
 ```
