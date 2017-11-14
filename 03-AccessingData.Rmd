@@ -129,25 +129,17 @@ knitr::kable(param.table, caption = "Description of fields in the tag detections
 
 ### Convert a virtual table to a flat dataframe {#convertToFlat}
 
-<<<<<<< HEAD
 If you want your entire dataframe in a typical "flat" format, i.e., with every record for each field filled in, you can use the collect() function.  The output can then be used to generate a .rds or .csv file of your data. However, we caution that if you have a large data set, producing such a table using the full suite of fields can chew up a lot of memory and slow down your R session considerably:
 
-```{r collect}
-
-df.flat <- df %>% 
-  collect() %>% 
-  as.data.frame()      ## for all fields in the df
-=======
 To convert the 'alltagswithambigs' view or other table into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() function.  The output can then be used to generate a .rds file of your data. We suggest using .rds instead of .csv, because the .rds format provides many advantages, including saving the environment (e.g., time zone), which means date/times don't need to be manipulated each time a file is loaded.  
 
 We caution that producing a flat file using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets:
 
 ```{r collect}
 
-df.flat <-  df %>% 
-            collect() %>% 
-            as.data.frame()      ## for all fields in the df
->>>>>>> 5bbd2fb7e072cccd10e298eb4e54c1b0db1653a3
+df.flat <- df %>% 
+  collect() %>% 
+  as.data.frame()      ## for all fields in the df
 
 ```
 
@@ -166,19 +158,12 @@ If you want to load only part of your entire data frame (e.g. certain fields, ce
 
 ```{r collect1, eval = FALSE}
 
-<<<<<<< HEAD
 ## to grab a subset of fields, in this case a unique list of motus tag IDs 
 ## at each receiver and antenna.
 df.flat.subset <- select(df, recv, ant, motusTagID) %>%
   distinct() %>% 
   collect() %>% 
-  as.data.frame()  ## I include the brackets to make it clear it is a function/pdt     
-=======
-df.flat.subset <- select(df, recv, ant, motusTagID) %>%  ## grab a subset of fields
-                  distinct() %>% 
-                  collect() %>% 
-                  as.data.frame()     
->>>>>>> 5bbd2fb7e072cccd10e298eb4e54c1b0db1653a3
+  as.data.frame()     
 
 ```
 
@@ -186,15 +171,9 @@ df.flat.subset <- select(df, recv, ant, motusTagID) %>%  ## grab a subset of fie
 
 ```{r collect2, eval = FALSE}
 
-<<<<<<< HEAD
-df.flat.subset <- filter(df, motusTagID %in% c(16011, 23316)) %>% 
-  collect() %>% 
-  as.data.frame()    ## filter to only include detections of motus tag IDs 9939 and 25643
-=======
 df.flat.subset <- filter(df, motusTagID %in% c(16011, 23316)) %>%  ## filter to include only motusTagIDs 9939, 25643
                   collect() %>% 
                   as.data.frame()   
->>>>>>> 5bbd2fb7e072cccd10e298eb4e54c1b0db1653a3
 
 ```
 
@@ -202,113 +181,44 @@ df.flat.subset <- filter(df, motusTagID %in% c(16011, 23316)) %>%  ## filter to 
 
 ```{r collect3, eval = FALSE}
 
-<<<<<<< HEAD
-df.flat.subset <- filter(df, speciesID == 4670) %>% 
+df.flat.subset <- filter(df, speciesID == 4670) %>%  ## filter to only Red Knot (using speciesID)
   collect() %>% 
-  as.data.frame()    ## filter by speciesID to only include detections of Swainson's Thrush
+  as.data.frame()   
 
-df.flat.subset <- filter(df, spEN == "Red Knot") %>% 
+df.flat.subset <- filter(df, spEN == "Red Knot") %>%   ## filter to only Red Knot (using English name)
   collect() %>% 
-  as.data.frame()    ## filter to only include detections of Red Knot (using English name)
+  as.data.frame()  
 
 ```
 
-You can also summarize your data before converting to a flat file. For example, to obtain a record of detections for each hour by receiver and antenna, you could do this:
+Using dplyr(), data can also be summarized before converting to a flat file. For example, to find the maximum signal strength of each tag in each hour by receiver:
 
 ```{r collectSum, eval = FALSE}
 
-## Note: (PDT) ... do you show people how to summarize somewhere? e.g. something like
-#hourly.sum.df <- df %>%
-#  mutate(hour = 3600 * round(ts/3600, 0)) %>% 
-#  group_by(motusTagID, recv, hour) %>%
-#  summarize(
-#    num.detect = length(hour), 
-#    max.sig = max(sig)
-#  )
-=======
-df.flat.subset <- filter(df, speciesID == 4670) %>% ## filter to include only Red Know by species ID
-                  collect() %>% 
-                  as.data.frame()    
-df.flat.subset <- filter(df, spEN == "Red Knot") %>% ## filter to only include Red Knot by English name
-                  collect() %>% 
-                  as.data.frame()    
-
-```
-
-Using dplyr(), data can also be summarized before converting to a flat file. For example, to find the first hourly detection of each tag in each hour by receiver and antenna:
-
-```{r collectSum, eval = FALSE}
-
-hourly <- df %>% 
+df.hourlySumm <- df %>% 
           mutate (hour = 3600 * round(ts / 3600, 0)) %>% 
-          distinct (recv, ant, motusTagID, hour)
->>>>>>> 5bbd2fb7e072cccd10e298eb4e54c1b0db1653a3
-
-df.hourly <- df %>% 
-  distinct(recv, ant, motusTagID, hour) %>%
-  collect() %>%
-  as.data.frame()
+          group_by(motusTagID, recv, hour) %>%
+          summarize(
+            max.sig = max(sig)) %>%
+          collect() %>%
+          as.data.frame()
 
 ```
 
 ### Export your "flat" dataframe to an RDS file {#exportToRDS}
 
-A good workflow idea is to have a script that deals with all of your data issues, then saves a dataframe (or workspace) for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. A good way to do this is by using an RDS file, which preserves all of the associate R data structures (such as time stamps).
+A good workflow idea is to have a script that deals with all of your data issues, then saves a dataframe (or workspace) for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. A good way to do this is by using an RDS file, which preserves all of the associated R data structures (such as time stamps).
 
 ```{r createRDS, eval = FALSE, message = FALSE, warning = FALSE}
-
-# (pdt) use the dplyr functions throughout to be consistent?
 
 ## save an RDS file
 saveRDS(df.flat, "./data/df.flat.RDS")  
 
-## "df.flat"" is the name of the flat file within R that you want to save to an RDS file
-
-## "./data/" is the the location where you would like the file stored. In this case it's in the data folder in the working directory
-
-## "df.flat.RDS", is the name of the RDS file you are creating, this can be anything you like but should end with RDS (so you know what it is).
-
-<<<<<<< HEAD
-=======
-hh <- hourly %>% 
-      collect() %>% 
-      as.data.frame()
->>>>>>> 5bbd2fb7e072cccd10e298eb4e54c1b0db1653a3
 ```
 
-### Export your "flat" dataframe to a .rds file {#exportToRDS}
+## Function to convert .motus tables to RDS flat files
 
-<<<<<<< HEAD
-In some cases you may want to export your data to another program. The example below shows you how to save a flat file as a .csv file. 
-
-```{r createFlat, eval = FALSE, message = FALSE, warning = FALSE}
-
-# (pdt) use the dplyr functions throughout to be consistent?
-
-## save a .csv file
-write_csv(df.flat, "./data/sample_raw.csv")  ## "df.flat"" is the name of the flat file within R that you want to convert to a .csv
-
-## "./data/" is the the location where you would like your .csv stored, in this case it's in the data folder in the working directory
-
-## "sample_raw.csv", is the name of the .csv file you are creating, this can be anything you like but must end with .csv.
-=======
-The below example is how the flat file called 'df.flat' is saved as a .rds file called "sample_raw.rds" on your computer in the 'data' folder of your working directory. In this case the data are converted without subsetting.
-
-```{r createFlat, eval = FALSE, message = FALSE, warning = FALSE}
-## to determine your working directory:
-
-getwd()
->>>>>>> 5bbd2fb7e072cccd10e298eb4e54c1b0db1653a3
-
-## save a .rds file
-
-saveRDS(object = df.flat, file = "./data/df.alltags.rds") # saves to the data folder of working directory
-
-```
-
-## Function to access and convert .motus files to flat files
-
-For the purpose of this book, the following function creates flat .RDS files of the various tables that we will need from the .motus file. You can run this function on your own data as it is, or modify it to include/exclude different fields in the various tables. 
+For the purpose of this book, the following function creates flat RDS files of the various tables that we will need from the .motus file. You can run this function on your own data as it is, or modify it to include/exclude different fields in the various tables. 
 
 ```{r dataFunction}
 
@@ -366,7 +276,7 @@ createFlatFiles <- function(out.dir, in.df, table.list) {
 } # end of function
 ```
 
-And you can run the function and save all output by setting the 'out.dir' and 'in.df' parameters and running the following:
+Run the function by first setting the parameters 'out.dir', 'in.df', and 'table.list':
 
 ```{r runDataRDSFunction}
 
@@ -379,7 +289,7 @@ in.df <- system.file("extdata", "project-sample.motus", package = "motusdata")
 # list of tables you want to transform to flat files:
 table.list <- c("alltagswithambigs", "tags", "tagDeps", "recvs", "recvDeps", "antDeps", "species")
 
-# and run the function, which will output an .rds file for each table in the specified directory
+# run the function, which will output an .rds file for each table in the specified directory
 createFlatFiles(out.dir = out.dir, in.df = in.df, table.list = table.list)
 
 ```
