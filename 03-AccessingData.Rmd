@@ -217,7 +217,7 @@ saveRDS(df.flat, "./data/df.flat.RDS")
 
 ```
 
-### Create function to output .motus tables to 'flat' RDS dataframes
+### Create function to output .motus tables to 'flat' RDS dataframes {#flatRDSfunction}
 
 For the purpose of this book, the following function creates flat RDS files of the various tables that we will need from the .motus file. You can run this function on your own data as it is, or modify it to include/exclude different fields in the various tables. 
 
