@@ -1,0 +1,21 @@
+---
+title: "MyAmbigWorkflow"
+author: "pdt"
+date: "November 14, 2017"
+output: html_document
+---
+
+## just ignore this file for now ... I am seeing how I'd deal with this before I look at yours. 
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Assumes ambig.df exists.
+```{r fig.width=10}
+p <- ggplot(data=filter(ambig.df, runLen > 2), 
+            aes(ts, recvLat, group=factor(ambigID), colour=factor(ambigID)))
+p + geom_point() + facet_wrap(~fullID, scales = "free_x")
+```
+
