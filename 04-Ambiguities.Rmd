@@ -2,9 +2,23 @@
 
 Duplicate tags occur when there are two or more tags with the same Lotek ID code, burst interval, and nominal transmit frequency (i.e., the transmissions of tags are indistinguishable). 
 
-The tag finder program only looks for tags in the raw detections data during their active lifetimes. Tag lifetimes are estimated based on tag metadata, including deployment date, tag model, and burst interval. If duplicate tags do not overlap in their active lifetimes, there is no ambiguity in terms of which project and tag the detections belong to, and each detection is assigned unambiguously to the correct project and tag. This is by far the most common situation for duplicate tags in the Motus system. 
+The tag finder program only looks for tags in the raw detections data during their active lifetimes. Tag lifetimes are estimated based on tag metadata, including deployment date, tag model, and burst interval. If duplicate tags do not overlap in their active lifetimes, each detection is assigned unambiguously to the correct project and tag. This is the most common situation for duplicate tags in the Motus system.
 
-In the rarer situation when duplicate tags are deployed with overlapping lifetimes, this can result in ambiguous tag detections, where more than one tag (up to 6) could be the source of those detections. The ambiguities might be real if two or more tags are transmitting the same signal and active at the same time, or due to errors in tag registration or deployment metadata. If there are ambiguities in your data, please ensure that your tag metadata are complete, up-to-date, and accurate. 
+In some cases, identical tags have been deployed and have overlapping lifetimes. When this happens, the detections are considered ambiguous and more than one than one tag (up to 6) could be the source of any given detection. 
+
+Ambiguities can arise when two or more tags are transmitting the same signal and active at the same time, or they can arise due to errors in tag registration or deployment metadata.
+
+If you find ambiguities in your data, first check that your tag metadata are complete, up-to-date, and accurate. If they are not, fix them, and .... ? 
+
+```{r}
+## I made this a chunk just to keep it separate
+
+## PDT: (Now, wait for Denis to re-run the left_join, but presumably at some point just fix the metadata and re-run tagme)
+
+## here is an example where we should just use require, and re-load these packages at the beginning. 
+
+```
+
 
 ## Load required packages
 
@@ -22,7 +36,14 @@ library(lubridate)
 
 ## Access Detections Data
 
+<<<<<<< HEAD
+We will run through how to check for and deal with ambiguities using our sample dataset from the James Bay Shorebird Monitoring Project (see Section \@ref(sampleData)). 
+
+PDT: Can we put this somewhere else? Such as in an introductory chapter?
+We recommend that you run through the sample code in each chapter with the sample dataset **before** running through with your own data, because you may need to modify the code or the order of the steps we take in order to deal most effectively with your own ambiguities (every situation is different).
+=======
 We will continue using our sample dataset from the James Bay Shorebird Monitoring Project (see Section \@ref(sampleData)). In the previous chapter, we created a function to load several tables in the .motus file, and this subset of the data was output to a flat data file.  By loading the motusdata R package above, you now have direct access to the filtered data, which is named 'filteredAmbigs'. To look at the summary of this database, you can run the following code (not evaluated here):
+>>>>>>> 5bbd2fb7e072cccd10e298eb4e54c1b0db1653a3
 
 ```{r importFilteredAmbigs, eval = FALSE}
 
@@ -32,12 +53,12 @@ summary(filteredAmbigs)
 
 ## Check for ambiguities {#checkAmbigs}
 
-In your detections data, ambiguous detections are identified by a unique negative value in the 'motusTagID' field of the 'allTags' view (see Section \@ref(databaseStructure)). For now we ignore the 'allTags' view and use the clarify() function from the suite of Motus R packages to check if there are ambiguities in our data. This function returns a table with ambigIDs that are equivalent to the negative motusTagIDs in the 'allTags' view, along with up to 6 true motusTagIDs that detections associated with the ambigID might represent, and a fullID that includes the project that each duplicate tag was deployed by:
+Ambiguous detections are identified by using a unique negative value for the 'motusTagID' field of the 'allTags' view (see Section \@ref(databaseStructure)). All ambiguous detections can be viewed by using the clarify() function from the Motus R package. This function returns a table with ambigIDs that are equivalent to the negative motusTagIDs in the 'allTags' view, along with up to 6 true motusTagIDs that detections associated with the ambigID might represent, and a fullID that includes the project that each duplicate tag was deployed by:
 
 ```{r clarify}
 
-ambig <- clarify(t)
-head(ambig)
+ambig <- clarify(t) %>%
+  View()
 
 ```
 
@@ -59,26 +80,37 @@ We load these tables and transform from SQLite to flat files:
 ```{r loadAmbigViews, message = FALSE, warning = FALSE}
 
 allAmbigs <-  tbl(t, "allambigs")
-allAmbigs <- allAmbigs %>% collect %>% as.data.frame
+allAmbigs <- allAmbigs %>% 
+  collect() %>% 
+  as.data.frame()
+
 #summary(allAmbigs)
 
 ambig.df <-  tbl(t, "alltagswithambigs")
-ambig.df <- ambig.df %>% collect %>% as.data.frame  
+ambig.df <- ambig.df %>% 
+  collect() %>% 
+  as.data.frame()  
 #summary(ambig.df)
 
 ```
 
+
+... as discussed == this should go somewhere else.
 It is always wise to take a quick look at the range of values for the variables in your data using the summary() function (not shown here). In this case, we see that in the ambig.df table, there is at least one longitude of tag deployment (depLon) that is positive. Given the geographic extent of Motus, this is likely a data entry error. Subsetting out the positive longitude(s), we see that the error occurs in someone else's tag deployment metadata:
 
 ```{r CheckLongitudes}
 
-filter(ambig.df, depLon > 0) %>% select(tagProj, tagDeployID, speciesID, depLat, depLon) %>% distinct()
+filter(ambig.df, depLon > 0) %>% 
+  select(tagProj, tagDeployID, speciesID, depLat, depLon) %>% 
+  distinct()
 
 ```
 
 We will fix the metadata here, but note that **if errors are associated with your own metadata, they should ALSO be fixed in the underlying metadata at <https://motus.org> (see Chapter \@ref(checkMetadata) for more information)**. We also create new lat and lon variables for the location of towers: we default to the gpsLat/gpsLon values which are automatically derived from the gps in the receiver, but when those are NA, we infill with the latitude and longitude recorded for the receiver deployment in the metadata (recvDeployLat/recvDeployLon). For more information on the various metadata checks and data cleaning you should do, please see Chapters \@ref(checkMetadata) and \@ref(dataCleaning), respectively. Finally, we use the lubridate package to create additional date variables. 
 
 ```{r fixLongitude}
+
+## all of this should go somewhere else I think. For example, we should be creating any time variables right up front (and using the lubridate package). So move this section to the 'accessing data' chapter, or create another chapter ... a preparing data chapter. 
 
 ambig.df <- mutate(ambig.df,
                    recvLat = if_else(is.na(gpsLat), recvDeployLat, gpsLat), 
