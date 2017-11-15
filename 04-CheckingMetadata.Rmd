@@ -481,7 +481,7 @@ Receiver deployments with missing antenna bearing(s) are restricted to deploymen
 
 #### Receiver metadata from other projects
 
-Many Motus users will need receiver and antenna metadata for receivers with detections of their tags registered to other projects. To subset receiver metadata to all Motus receivers with detections of tags belonging to project 38:
+Many Motus users will want complete receiver and antenna metadata for any receiver with detections of their tags, including receivers deployed by other projects. To subset receiver metadata to all Motus receivers with detections of tags belonging to project 38:
 
 ```{r stationMetaWithDetect, eval = FALSE}
 
