@@ -212,11 +212,9 @@ filter(df.tagDeps, speciesID == 5000)
 
 ## Check Receiver Metadata {#recvMetadata}
 
-There are two sources of receiver metadata in your detections data: receivers registered to your own project, and receivers registered to the projects of others. You are provided access to the metadata for all receivers in the network, because negative data (i.e., my tag was *not* detected at tower x even though it was active) is often as important as positive data. It also allows you to map where your tags were detected relative to the distribution of receivers throughout the Motus network.
+There are two sources of receiver metadata in Motus detections data: receivers registered to your own project, and receivers registered to the projects of others. You are provided access to the metadata for all receivers in the network, because negative data (i.e., my tag was *not* detected at tower x even though it was active) is often as important as positive data. It also allows you to map where your tags were detected relative to the distribution of receivers throughout the Motus network.
 
-You can only fix receiver metadata errors or ommissions for receivers registered to your own project. We encourage all users to enter complete and accurate receiver metadata for the benefit of the entire network. Unfortunately, we cannot guarantee that all users will record every detail of receiver deployments, including details on antenna orientation (see \@ref(antennaMetadata) below) that you may need. 
-
-If there are metadata missing for receivers registered to others, and you require the missing metadata for your own analyses, please contact motus@birdscanada.org with an appropriate level of detail about the missing metadata (e.g., projectID, recvDeployID). We also encourage you to use the Motus listserve to request that other registered users record the receiver deployment details you will need; please be specific about the exact receiver deployment details you are interested in, and when and where in the network your tags will be deployed and potentially detected. 
+Receiver metadata errors or ommissions that you find in your .motus file can only be fixed for receivers registered to your own project. All users are encouraged to enter complete and accurate receiver metadata for the benefit of the entire network. If there are metadata missing for receivers registered to others, and the missing metadata is required for your own analyses, please contact motus@birdscanada.org with an appropriate level of detail about the missing metadata (e.g., projectID, recvDeployID). Please also use the Motus listserve to request that other registered users record the receiver deployment details you will need; please be specific about the exact receiver deployment details you are interested in, and when and where in the network your tags will be deployed and potentially detected. 
 
 The main things we want to check with receiver metadata are:
 
@@ -227,58 +225,40 @@ The main things we want to check with receiver metadata are:
 5. timing of project receiver deployments;
 6. completeness and accuracy of receiver metadata.
 
-
 ### Number of network-wide registered receivers
 
-To check the number of registered Motus receivers, we load the 'recvs' table from the .motus file. This file contains a device ID and a serial number for the unit. This table therefore gives the total number of units, and not the number of deployments (each unit can be deployed more than once, for example, if a receiver is moved to another study area, it is then a new deployment of the same receiver deviceID):
+To check the number of registered Motus receivers, load the 'df.recvs' table from the .motus file. This file contains a device ID and a serial number for each receiver. This table does not provide the number of deployments for each receiver, or when and where the receivers were deployed:
 
 ```{r importRecvs, message = FALSE, warning = FALSE}
 
-recvs <- tbl(t, "recvs")                                                   # extract tagDeps table, with tag deployment metadata
-recvs <- recvs %>% collect %>% as.data.frame   # convert tag metadata to a flat file
-nrow(recvs)
+df.recvs <- readRDS("./data/df.recvs.rds")
+nrow(df.recvs)
 
 ```
 
-We see that there are `r nrow(recvs)` receivers registered in the Motus network.
+There are currently `r nrow(df.recvs)` receivers registered in the Motus network.
 
 ### Number of network-wide receiver deployments
 
-Each registered receiver might have been deployed numerous times. We load the receiver deployment metadata table 'recvDeps' from the .motus file and manipulate the deployment date variables: 
+Each registered receiver can be deployed more than once. The receiver deployment metadata table 'df.recvDeps' contains information on each deployment, including the location and time:
 
 ```{r importRecvDeps}
 
-recvDeps <- tbl(t, "recvDeps")                                                   # extract tagDeps table, with tag deployment metadata
-recvDeps <- recvDeps %>% collect %>% as.data.frame    # number of registered tags in the database
-recvDeps <- mutate(recvDeps,
-                          tsStart = as_datetime(tsStart, tz = "GMT", origin = "1970-01-01"),
-                          tsEnd = as_datetime(tsEnd, tz = "GMT", origin = "1970-01-01"),
-                          yrStart = year(tsStart), 
-                          dateStart = date(tsStart),
-                          yrEnd = year(tsEnd), 
-                          dateEnd = date(tsEnd))
+df.recvDeps <- readRDS("./data/df.recvDeps.rds")
 nrow(recvDeps)
+
 ```
 
-There have been `r nrow(recvDeps)` network-wide receiver deployments since `r min(recvDeps$dateStart, na.rm = TRUE)'. A simple histogram will give us an idea of the type of receiver deployed, and how many deployments per receiver:
+There have been `r nrow(df.recvDeps)` network-wide receiver deployments since `r min(date(df.recvDeps$tsStart), na.rm = TRUE)`. A simple histogram shows the type of receiver deployed, and how many deployments per receiver:
 
 ```{r histDeps}
 
-ggplot(recvDeps, aes(x = deviceID, fill = receiverType)) + 
+ggplot(df.recvDeps, aes(x = deviceID, fill = receiverType)) + 
   geom_bar() + 
   theme_bw() + 
   ggtitle("Number of deployments per receiver") +
   ylab("# Deployments") +
   scale_fill_discrete(name = "Receiver Type")
-
-```
-### Number of registered receivers without deployment metadata
-
-We can also quickly check whether each registered receiver was deployed at least once; in this case we get 0 rows, i.e., all registered receivers have at least one deployment in the metadata:
-
-```{r recvDeployNum}
-
-left_join(recvs, select(recvDeps, deviceID, deployID, projectID), by = "deviceID") %>% filter(is.na(deployID))
 
 ```
 
@@ -288,64 +268,63 @@ To see which of the deployments are registered to your project, subset and summa
 
 ```{r projectDeps}
 
-projRecvs <- filter(recvDeps, projectID == 38)     # replace with your own projectID for your own data. 
-summary(projRecvs)
+df.projRecvs <- filter(df.recvDeps, projectID == 38)     # replace with your own projectID for your own data. 
+summary(df.projRecvs)
 
 ```
 
-There are `r nrow(projRecvs)` receiver deployments registered to the project. Four deployments are missing latitude and longitude, and two deployments are missing end dates, which could mean they are still deployed. 
+There are `r nrow(df.projRecvs)` receiver deployments registered to project 38. Four deployments are missing latitude and longitude, and two deployments are missing end dates, which suggests those receivers are still deployed. 
 
-If the number of receiver deployments in the metadata does not correspond with the number of deployments in the field, you will need to go through the list of receiver deployIDs, determine which receivers or deployments are missing, and register them online at <https:motus.org>. Missing receiver registrations will result in a complete lack of detections data for that receiver, and missing deployments can result in tag detections in your database that aren't associated with a deployment and associated information on the station characteristics (latitude, longitude, antenna type, orientation, etc).  
+If the number of receiver deployments in the metadata does not correspond with the number of field deployments, check the list of receiver deployIDs, determine which receivers or deployments are missing, and register them online at <https:motus.org>. Missing receiver registrations will result in a complete lack of detections data for that receiver, and missing deployments can result in tag detections in your database that aren't associated with a receiver deployment, i.e., information on receiver location and station set-up (antenna type, orientation, etc) will not be available.  
 
-The timing of deployments can also be displayed graphically; horizontal line(s) in the following plot show the time span for each deployment of every receiver (deviceID) registered to the James Bay Shorebird Monitoring project. Different deployments of the same should not overlap in time:
+The timing of deployments can be displayed graphically; horizontal line(s) in the following plot show the time span for each deployment for each receiver (deviceID) registered to the James Bay Shorebird Monitoring project. Different deployments of the same should not overlap in time:
 
 ```{r projectRecvDeploy, warnings = FALSE, messages = FALSE}
 
 # put data in long format first
 
-recvLong <- select(projRecvs, deviceID, deployID, tsStart, tsEnd) %>% gather(when, ts,c(tsStart, tsEnd))
-recvLong <- mutate(recvLong, ts = as_datetime(ts, tz = "GMT", origin = "1970-01-01"))
+df.projRecvs.long <- select(df.projRecvs, deviceID, deployID, tsStart, tsEnd) %>% gather(when, ts,c(tsStart, tsEnd))
 
-ggplot(recvLong, aes(y = as.factor(deviceID), x = ts, colour = as.factor(deployID))) +
+ggplot(df.projRecvs.long, aes(y = as.factor(deviceID), x = ts, colour = as.factor(deployID))) +
   geom_line() + theme_bw() +
-  ylab("deviceID") + xlab("Year") + scale_colour_discrete(guide = guide_legend(title ="Receiver deployment ID"))
+  ylab("Receiver ID") + xlab("Year") + scale_colour_discrete(guide = guide_legend(title ="Receiver deployment ID"))
 
 ```
 ### Location of receiver deployments
 
-We plot the location of project-specific and network-wide receivers first using a simple plot of latitude against longitude, and then on a map of North America. 
+Plot the location of project-specific and network-wide receivers using a simple plot of latitude against longitude, and then on a map of North America for better context. 
 
 #### Simple Plot of receiver locations
 
 ```{r simpleRecvPlot, message = FALSE, warning = FALSE}
 
 # use as.logical to show whether deployments are from your project or not
-ggplot(recvDeps, aes(y = latitude, x = longitude, colour = as.logical(projectID == 38))) +
+ggplot(df.recvDeps, aes(y = latitude, x = longitude, colour = as.logical(projectID == 38))) +
   geom_point(pch = 1) +
   theme_bw() +
-  ggtitle("Location of all Motus receiver deployments")+
+  ggtitle("Location of Motus receiver deployments")+
   scale_colour_discrete(name = "Project 38 Deployment")  # don't need legend name
 
 ```
 
-Not all receivers were deployed at the same time, or during your study period. You can restrict the plot to receivers that were active during your study period by placing filters on date. For example, if you want to restrict the plot to receivers that were active in 2016, you can do the following (not evaluated here):
+Not all receivers were deployed at the same time or during your study period. The plot can be restricted to receivers that were active during your study period by placing filters on date. For example, to restrict the plot to receivers that were active in 2016 (not evaluated here):
 
 ```{r mapRecvLocationsbyTime, eval = FALSE, message = FALSE, warning = FALSE}
 
-ggplot(filter(recvDeps, yrStart <= 2016 & yrEnd >= 2016), aes(y = latitude, x = longitude, colour = as.logical(projectID == 38))) +
+ggplot(filter(df.recvDeps, year(tsStart) <= 2016 & year(tsEnd) >= 2016), aes(y = latitude, x = longitude, colour = as.logical(projectID == 38))) +
   geom_point(pch = 1) +
   theme_bw() +
-  ggtitle("Location of all Motus receiver deployments active at some point in 2016")+
+  ggtitle("Location of Motus receiver deployments active at some point in 2016")+
   scale_colour_discrete(name = "Project 38 deployment")  # don't need legend name
 
 ```
 #### Map of receiver locations
 
-Because maps provide better spatial context, we also plot the location of receivers on a map:
+Maps provide better spatial context; plot the location of receivers on a map:
 
 1. **Install R mapping package.**
 
-If you do not have rworldmap installed then you must install and load the package into R first:
+Install and load the 'rworldmap' package into R:
 
 ```{r installMapPackagesRecv, message = FALSE, warning = FALSE}
 
@@ -385,10 +364,10 @@ Map showing the location of network-wide receivers (dark grey 'x') and receivers
 ```{r mapRecvs, message = FALSE, warning = FALSE}
 
 # set limits to map based on locations of detections, ensuring they include the deployment locations
-xmin <- min(recvDeps$longitude, na.rm = TRUE) - 2
+xmin <- min(df.recvDeps$longitude, na.rm = TRUE) - 2
 xmax <- -20 # restrict to the Americas (excluding a few points in Europe)
-ymin <- min(recvDeps$latitude, na.rm = TRUE) - 2
-ymax <- max(recvDeps$latitude, na.rm = TRUE) + 2
+ymin <- min(df.recvDeps$latitude, na.rm = TRUE) - 2
+ymax <- max(df.recvDeps$latitude, na.rm = TRUE) + 2
                 
 # map
 ggplot(na.lakes, aes(long, lat))+ 
@@ -397,7 +376,7 @@ ggplot(na.lakes, aes(long, lat))+
   coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
   xlab("") + ylab("") + 
   theme_bw() + 
-  geom_point(data = recvDeps, aes(longitude, latitude, colour = as.logical(projectID == 38)), cex = 0.8, pch = 4)+
+  geom_point(data = df.recvDeps, aes(longitude, latitude, colour = as.logical(projectID == 38)), cex = 0.8, pch = 4)+
   scale_colour_manual(values = c("grey30", "red"), name = "Project 38 Deployment") 
   
 
@@ -405,15 +384,15 @@ ggplot(na.lakes, aes(long, lat))+
 
 4. **Map the locations of project specific receivers.**
 
-Map of project-specific receivers, created by setting the x-axis (longitude) and y-axis (latitude) map limits using the 'projRecvs' dataframe created above. Deployments are restricted to those that were active at in 2016.
+Map of project-specific receivers, created by setting the x-axis (longitude) and y-axis (latitude) map limits using the 'df.projRecvs' dataframe created above. Deployments are restricted to those that were active at in 2016.
 
 ```{r mapProjRecvs, message = FALSE, warning = FALSE}
 
 # set limits to map based on locations of detections, ensuring they include the deployment locations
-xmin <- min(projRecvs$longitude, na.rm = TRUE) - 2
-xmax <- max(projRecvs$longitude, na.rm = TRUE) + 2
-ymin <- min(projRecvs$latitude, na.rm = TRUE) - 1
-ymax <- max(projRecvs$latitude, na.rm = TRUE) + 1
+xmin <- min(df.projRecvs$longitude, na.rm = TRUE) - 2
+xmax <- max(df.projRecvs$longitude, na.rm = TRUE) + 2
+ymin <- min(df.projRecvs$latitude, na.rm = TRUE) - 1
+ymax <- max(df.projRecvs$latitude, na.rm = TRUE) + 1
                 
 # map
 ggplot(na.lakes, aes(long, lat))+ 
@@ -422,18 +401,18 @@ ggplot(na.lakes, aes(long, lat))+
   coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
   xlab("") + ylab("") + 
   theme_bw() + 
-  geom_point(data = filter(projRecvs, yrStart >= 2016 & yrEnd <= 2016), aes(longitude, latitude, colour = as.factor(deviceID)), cex = 2, pch = 4)+
+  geom_point(data = filter(df.projRecvs, year(tsStart) >= 2016 & year(tsEnd) <= 2016), aes(longitude, latitude, colour = as.factor(deviceID)), cex = 2, pch = 1)+
   scale_colour_discrete(name  =  "Receiver ID") 
 
 ```
 
 ### Completeness and accuracy of receiver metadata
 
-Users have access to the metadata for all receivers in the network. We will do a few summaries to check for the completeness and accuracy of metadata for all receivers with detections of your tags. 
+Users have access to the metadata for all receivers in the network. While most users will be conserned primarily with the metadata for receivers with detections of their own tags, metadata for receivers without detections can be useful to estimate parameters like detection probability. The following summaries will check for the completeness and accuracy of metadata for all receivers in the network, recognizing that any errors or omissions can only be fixed by the project that deployed the receiver. 
 
 1. **Load receiver and antenna metadata**
 
-We can generate a list of all receiver deployments with detections in our database using:
+Generate a list of all receiver deployments with detections in our database using:
 
 ```{r recvList}
 

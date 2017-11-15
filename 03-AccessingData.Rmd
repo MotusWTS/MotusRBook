@@ -253,7 +253,7 @@ createFlatFiles <- function(out.dir, in.df, table.list) {
               collect() %>% 
               as.data.frame()
   
-        # modify timestamp, stored in the .motus file as seconds since Jan 01, 1970
+        # once in a flat file, modify timestamp which is stored in the .motus file as seconds since Jan 01, 1970
         
         if(table.list[i] == "alltagswithambigs"){
             df <- mutate(df, 
@@ -288,7 +288,7 @@ in.df <- system.file("extdata", "project-sample.motus", package = "motusdata")
 # list of tables in your .motus file that you want to transform to flat files:
 table.list <- c("alltagswithambigs", "tags", "tagDeps", "recvs", "recvDeps", "antDeps", "species")
 
-# run the function, which will output an RDS file for each table in the specified directory
+# run the function, which will output an RDS flat file for each table in the specified directory
 createFlatFiles(out.dir = out.dir, in.df = in.df, table.list = table.list)
 
 ```
