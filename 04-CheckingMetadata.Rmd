@@ -1,4 +1,4 @@
-# Data Checking: Metadata {#checkMetadata}
+# Data Checking: Project Metadata {#checkMetadata}
 
 This chapter provides you with the tools you need to check the completeness and accuracy of your metadata. Data quality for your projects and the projects of others depends on the completeness and accuracy of tag and receiver metadata, because it allows detections to be properly linked to your project, and allows other users to benefit fully from data collected by the Motus network of receivers. 
 
@@ -33,7 +33,7 @@ We will run through each of these in sequence.
 
 ### Number of registered tags
 
-To check the number of registered tags, load the 'df.tags' RDS file for the James Bay Shorebird Monitoring Project, which was created using the 'createFlatFiles' function in Section \@ref(flatRDSfunction), and can be accessed here by loading the motusdata R package, which we did above. 
+To check the number of tags registered to your project, load the 'df.tags' RDS file for the James Bay Shorebird Monitoring Project, which was created using the 'createFlatFiles' function in Section \@ref(flatRDSfunction), and can be accessed here by loading the motusdata R package, which we did above. 
 
 The 'df.tags' file contains the characteristics of each registered tag, including a unique tagID and information on manufacturer, model, nominal and offset frequency, burst interval, and pulse length. We select the metadata specific to the James Bay Shorebird Monitoring Project, and ignore tag metadata associated with any duplicate tags belonging to other projects:
 
@@ -56,7 +56,7 @@ If this number does not correspond with the number of tags that were registered 
 
 ### Number of registered tags that were deployed
 
-The tag deployment table ('df.tagDeps') is required to check which registered tags have deployments, as it includes the date, time, species, and location of tag deployment. The database is subset to project '38', and selected columns are merged with the 'df.tags' table to determine which registered tags have (or do not have) corresponding deployment information.
+The tag deployment table ('df.tagDeps') is required to check which registered tags have deployments. This file includes the date, time, species, and location of tag deployment. The database is subset to project '38', and selected columns are merged with the 'df.tags' table to determine which registered tags have (or do not have) corresponding deployment information.
 
 ```{r importTagMeta.4, message = FALSE, warning = FALSE}
 
@@ -69,7 +69,7 @@ df.tagsDeployed <- full_join(df.tags, select(df.tagDeps, deployID, tagID), by = 
 
 ```
 
-List registered tags that do not have associated deployment metadata:
+To list registered tags that do not have associated deployment metadata:
 
 ```{r tagsRegNotDeployed}
 
@@ -77,7 +77,7 @@ filter(df.tagsDeployed, is.na(deployID))
 
 ```
 
-Two of the 691 registered tags do not have deployment metadata, which suggests they were not deployed. Records should be checked to ensure this is the case, and if the tags were deployed, deployment metadata should be entered for these tags online at <https://motus.org>. Without deployment metadata, detections for registered but 'undeployed' tags will be missing from your detections database.
+Two of the 691 registered tags do not have deployment metadata, which suggests that they were not deployed. Records should be checked to ensure this is the case, and if the tags were deployed, deployment metadata should be entered for these tags online at <https://motus.org>. Without deployment metadata, detections for registered but 'undeployed' tags will be missing from your detections database.
 
 ### Location of tag deployments
 
@@ -114,7 +114,7 @@ na.map <- mutate(na.map, long = long- 360)
 
 3. **Map the locations of tag deployments.**
 
-The following maps the location of tag deployments for project 38. Plotting the deployments is a great way to see any odd deployment locations. If any deployment locations stand out as potentially incorrect, those should be subset, and metadata for those deployments checked and fixed (where appropriate) online at <https://motus.org>.
+The following maps the location of tag deployments for project 38. If any deployment locations stand out as potentially incorrect, those should be subset, and metadata for those deployments checked and fixed (where appropriate) online at <https://motus.org>.
 
 ```{r mapRecvs}
 
@@ -134,11 +134,11 @@ ggplot(na.lakes, aes(long, lat))+
   geom_point(data = df.tagDeps, aes(longitude, latitude), cex = 2, pch = 1, colour = "red")
    
 ```
-Note that there is a warning that 164 rows were removed from the map due to missing values. Exploring these using `r summary(df.tagDeps), eval = FALSE`, we see that 164 deployments are missing speciesID, latitude, and longitude. Comparing the tagIDs for these records in the 'df.tagDeps' file with the deployments of those tags online at <https://motus.org>, these tags were registered but either not deployed or used as test tags. Each deployment with missing metadata should be checked carefully, and missing metadata entered online for any tags that were actually deployed.
+Note that there is a warning that 164 rows were removed from the map due to missing values. Exploring these using `r summary(df.tagDeps), eval = FALSE`, we see that 164 deployments are missing speciesID, latitude, and longitude. Comparing the tagIDs for these records in the 'df.tagDeps' file with the deployments of those tags online at <https://motus.org>, these tags were registered but were either not deployed or were used as test tags. Each deployment with missing metadata should be checked carefully, and missing metadata entered online for any tags that were deployed.
 
 ### Timing of tag deployments
 
-Plotting tag deployment times can be a good way to check for odd or overlapping deployment dates for the same tag deployed more than once.
+Plotting tag deployment times can be a good way to check for odd or overlapping deployment dates when the same tag was deployed more than once.
 
 ```{r plotTagDeps}
 
@@ -176,7 +176,7 @@ The species IDs are numeric, and somewhat meaningless without an ability to assi
 
 2. **Check for missing or odd values in metadata**.
 
-We know from summary(df.tagDeps) above that there are no missing deployment dates in the tag metadata. The following code confirms this by listing any deployments from the project with missing deployment start and/or end date (of which there are none). You can modify the filter as required to search for any missing or odd values in any parameter of the database that you notice using summary().
+From summary(df.tagDeps) above, we know that there are no missing deployment dates in the tag metadata. The following code confirms this by listing any deployments from the project with missing deployment start and/or end date (of which there are none). You can modify the filter as required to search for any missing or odd values in any parameter of the database that you notice using summary().
 
 ```{r missingTagDeployDate}
 
@@ -220,9 +220,9 @@ The main things we want to check with receiver metadata are:
 
 1. number of network-wide registered receivers;
 2. number of network-wide receiver deployments;
-3. number of project-specific receiver deployments;
-4. location of network-wide and project receiver deployments;
-5. timing of project receiver deployments;
+3. number of project receiver deployments;
+4. timinig of project receiver deployments;
+5. location of network-wide and project receiver deployments;
 6. completeness and accuracy of receiver metadata.
 
 ### Number of network-wide registered receivers
@@ -262,9 +262,9 @@ ggplot(df.recvDeps, aes(x = deviceID, fill = receiverType)) +
 
 ```
 
-### Number of project-specific receiver deployments
+### Number of project receiver deployments
 
-To see which of the deployments are registered to your project, subset and summarize the data:
+To see which (in any) receiver deployments are registered to your project, first subset and summarize the data:
 
 ```{r projectDeps}
 
@@ -275,7 +275,22 @@ summary(df.projRecvs)
 
 There are `r nrow(df.projRecvs)` receiver deployments registered to project 38. Four deployments are missing latitude and longitude, and two deployments are missing end dates, which suggests those receivers are still deployed. 
 
+The following code keeps only parameters of interest, and arranges the remaining records by receiver ID, latitude, and start date:
+
+```{r checkRegisteredReceivers}
+
+df.projRecvs %>%
+  arrange(deviceID, latitude, tsStart) %>%
+  mutate(dateStart = date(tsStart)) %>%
+  select(-serno,-fixtureType, -macAddress, isMobile, -tsStart, -tsEnd, -elevation, - projectID, -status, -receiverType) 
+
+```
+
+Looking at the 'name' and 'isMobile' columns for the four receiver deployments that are missing latitude and longitude information, it is evident that these are mobile receivers which do not have a fixed position. The parameter'isMobile' = 0 for deployIDs 3813 and 3814, despite being named as mobile receivers; the classification of these receiver deployments should be changed to 'isMobile' = 1 online at <https://motus.org> under receiver deployments for this project.
+
 If the number of receiver deployments in the metadata does not correspond with the number of field deployments, check the list of receiver deployIDs, determine which receivers or deployments are missing, and register them online at <https:motus.org>. Missing receiver registrations will result in a complete lack of detections data for that receiver, and missing deployments can result in tag detections in your database that aren't associated with a receiver deployment, i.e., information on receiver location and station set-up (antenna type, orientation, etc) will not be available.  
+
+### Timing of project receiver deployments
 
 The timing of deployments can be displayed graphically; horizontal line(s) in the following plot show the time span for each deployment for each receiver (deviceID) registered to the James Bay Shorebird Monitoring project. Different deployments of the same should not overlap in time:
 
@@ -290,11 +305,13 @@ ggplot(df.projRecvs.long, aes(y = as.factor(deviceID), x = ts, colour = as.facto
   ylab("Receiver ID") + xlab("Year") + scale_colour_discrete(guide = guide_legend(title ="Receiver deployment ID"))
 
 ```
+
 ### Location of receiver deployments
 
-Plot the location of project-specific and network-wide receivers using a simple plot of latitude against longitude, and then on a map of North America for better context. 
 
 #### Simple Plot of receiver locations
+
+Plot of the location of Motus receivers, where receivers deployed by Project 38 are displayed in blue.
 
 ```{r simpleRecvPlot, message = FALSE, warning = FALSE}
 
@@ -307,7 +324,7 @@ ggplot(df.recvDeps, aes(y = latitude, x = longitude, colour = as.logical(project
 
 ```
 
-Not all receivers were deployed at the same time or during your study period. The plot can be restricted to receivers that were active during your study period by placing filters on date. For example, to restrict the plot to receivers that were active in 2016 (not evaluated here):
+Not all receivers were deployed at the same time or during your study period. The above plot can be restricted to receivers that were active during a particular time by placing filters on date. For example, to restrict the plot to receivers that were active in 2016 (not evaluated here):
 
 ```{r mapRecvLocationsbyTime, eval = FALSE, message = FALSE, warning = FALSE}
 
@@ -320,7 +337,7 @@ ggplot(filter(df.recvDeps, year(tsStart) <= 2016 & year(tsEnd) >= 2016), aes(y =
 ```
 #### Map of receiver locations
 
-Maps provide better spatial context; plot the location of receivers on a map:
+Maps provide better spatial context; the following steps plot the location of Motus receivers on a map of North America, with receivers deployed by project 38 displayed in red.
 
 1. **Install R mapping package.**
 
@@ -408,70 +425,92 @@ ggplot(na.lakes, aes(long, lat))+
 
 ### Completeness and accuracy of receiver metadata
 
-Users have access to the metadata for all receivers in the network. While most users will be conserned primarily with the metadata for receivers with detections of their own tags, metadata for receivers without detections can be useful to estimate parameters like detection probability. The following summaries will check for the completeness and accuracy of metadata for all receivers in the network, recognizing that any errors or omissions can only be fixed by the project that deployed the receiver. 
+Motus users will be concerned primarily with the completeness of metadata for receiver deployments with detection(s) of their tags, because these can directly influence the interpretation of those detections. For example, missing deployment latitude or longitude will result in an unknown location for the tag detection, and missing information on antenna type and/or orientation can impede the estimation of flight or departure orientation. 
+
+In many cases, however, metadata for receiver deployments *without* tag detections can also be useful, for example to estimate probability of detecting an animal that passes within range of a station.
+
+In this section, the focus is on metadata for receivers registered to a project, because only metadata for those receivers can be updated and fixed online by that project. These summaries can then be applied to a larger group of receivers, e.g., all receivers with detections or all receivers within certain geographic limits (with or without detections), depending on the goal of your analysis.
 
 1. **Load receiver and antenna metadata**
 
-Generate a list of all receiver deployments with detections in our database using:
+```{r loadReceiverAntennaMetadata}
 
-```{r recvList}
+# antenna metadata for ALL Motus antenna deployments
+df.antDeps <- readRDS("./data/df.antDeps.rds")
 
-deployList <- unique(filteredAmbigs$recvDeployID)
+# keep only variables that we are currently interested in, to simplify:
+df.antDeps <- df.antDeps %>%
+                mutate(ant = port) %>%
+                select(deployID, ant, antennaType, bearing, heightMeters)
+
+df.recvDeps <- df.recvDeps %>%
+                    select(deployID, receiverType, deviceID, name, latitude, longitude, isMobile, tsStart, tsEnd, projectID, elevation) 
+
+df.stationDeps <- left_join(df.recvDeps, df.antDeps, by = "deployID")
 
 ```
 
+Subset these to receivers registered to a project, in this case project 38:
 
-1. **Look at range of metadata values**. INCLUDES DATA FROM ALL RECEIVERS IN NETWORK.
+```{r stationMetaProj}
 
-As with the tag metadata, we use summary() to get a general idea of the distribution of the variables in the data. We see that there are 25 records with missing lat/lon and 5 records with missing start time, both of which are integral to mapping the location of detections. Many (270) records are missing deployment end time, but this is not unusual, because some deployments might be permanent, or not have a specific planned end date. Finally, 1193 records are missing elevation. Elevation is not necessary to map the location of detections, so is not a required field. However, some analyses might require elevation, and we recommend filling this in when possible. Alternatively, elevation might be estimated directly in R (for example, see <https://stackoverflow.com/questions/8973695/conversion-for-latitude-longitude-to-altitude-in-r>).
+df.stationDeps <- filter(df.stationDeps, projectID == 38)
+
+```
+
+2. **Look at range of metadata values**. 
+
+As with the tag metadata, use summary() to get a general idea of the distribution of the variables in the data. 
 
 ```{r SummaryRecv}
 
-summary(recvMeta)
+summary(df.stationDeps)
 
 ```
 
-If you see any odd values, you can subset them out using filter(), e.g., the following filters out receivers with a longitude > 7, which appears to be odd. It turns out that this device was deployed on Helgoland in the North Sea
+There are the 4 deployments with missing latitude and longitude associated with the four deployments of mobile receivers that we saw earlier. Elevation is missing from 53 of 60 records, but elevation is not a required field, and can be estimated from other sources, or directly in R (for example, see <https://stackoverflow.com/questions/8973695/conversion-for-latitude-longitude-to-altitude-in-r>). Antenna bearing is missing from 13 of 60 records, and height of the antenna(s) is missing for 4 of 60 records.  Subset the records with missing antenna bearing to see if these can be fixed:
 
-```{r recvMetaFilter}
+```{r antennaBearing}
 
-filter(recvMeta, longitude > 7)
-
-```
-
-
-2. **List receivers registered to your project*:**.
-
-If you deployed your own receivers, you can check which receivers are registered to your project using the following code, which drops some variables, and arranges the remaining records by receiver ID, latitude, and startDate:
-
-```{r checkRegisteredReceivers}
-
-filter(recvMeta, projectID == 38) %>% select(-serno,-fixtureType, -macAddress, isMobile, -tsStart, -tsEnd, -elevation, - projectID) %>% arrange(deviceID, latitude, dateStart)
+filter(df.stationDeps, is.na(bearing)) %>%
+  select(-elevation, -deviceID, -tsEnd)
 
 ```
 
-We can see from these records that four of the deployments are missing latitude and longitude information. However, looking at the 'name' and 'isMobile' columns, we see that these are likely all mobile receivers, which aren't associated with a fixed latitude and longitude. 'isMobile' is 0 for deployIDs 3813 and 3814, despite being named as mobile receivers. The classification of these receivers, if truly mobile, should be changed online at <https://motus.org> under receiver deployments for this project.
+Receiver deployments with missing antenna bearing(s) are restricted to deployments of omni-directional antennas or mobile receivers, and so the missing values make sense. These records also show that the four records with missing antenna height are also associated with the four mobile receivers, and so again the missing values make sense and can't be fixed.
 
+#### Receiver metadata from other projects
 
-3. **Check metadata for receiver deployments with detections**.
+Many Motus users will need receiver and antenna metadata for receivers with detections of their tags registered to other projects. To subset receiver metadata to all Motus receivers with detections of tags belonging to project 38:
 
-If you are missing any receivers, please register them online through your project management page
+```{r stationMetaWithDetect, eval = FALSE}
 
-Each receiver requires a deployment which includes a deployment name, site, station type, deployment start/end dates/times, latitude, longitude, and antenna properties including port number, antenna type, and bearing. To view a full list of your current deployments:
+# antenna metadata for ALL Motus antenna deployments
+df.antDeps <- readRDS("./data/df.antDeps.rds")
 
-***INSERT CODE***
+# keep only variables that we are currently interested in, to simplify:
+df.antDeps <- df.antDeps %>%
+                mutate(ant = port) %>%
+                select(deployID, ant, antennaType, bearing, heightMeters)
 
-To view which current deployments are missing required information:
+# receiver metadata for ALL Motus receiver deployments
+df.recvDeps <- readRDS("./data/df.recvDeps.rds")
 
-***INSERT CODE***
+# select deployIDs that are within the detections database 'df.alltags'
+df.stationDeps <- filter(df.recvDeps, deployID %in% unique(df.alltags$recvDeployID))
 
-Any missing receiver metadata needs to be updated online.
+# join receiver and antenna metadata
+df.stationDeps <- left_join(df.recvDeps, df.antDeps, by = "deployID")
 
-If you have updated any metadata online, you'll need to force an update on the data you have downloaded, it's good practice to check for updates prior to any analysis as other users may have updated metadata associated with your detection files:
-
-```{r tagme5, eval = FALSE}
-
-t <- tagme(projRecv = 123, forceMeta = TRUE)
+summary(df.stationDeps)
 
 ```
 
+You can then subset the data to look at particular variables, e.g., missing latitude (showing only first 6 rows):
+
+```{r missingBearingDetectionsData}
+
+head(filter(df.stationDeps, is.na(latitude)))
+
+
+```
