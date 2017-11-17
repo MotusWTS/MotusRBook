@@ -37,22 +37,101 @@ require(lubridate)
 
 ## Importing tag detections {#importDetections}
 
-Your project's .motus file is available for download at <https://motus.org/data/downloads> under your project profile. Once downloaded, **make sure that you have the appropriate packages installed and loaded in R** (see Chapter \@ref(loadingPackages). 
+To import tag detections for your project or receiver, you need a numerical project id or character scalar receiver serial number. 
 
-Once all required packages are loaded, you can use the following code to load your project data, or the sample data from the James Bay Shorebird Project ('sampledb.motus'; see Section \@ref(sampleData)):
+### Download data for a project or receiver for the _first time_
 
-```{r importSampleData, message = FALSE}
-## to access sample data contained in the motusdata package:
-file.name <- system.file("extdata", "project-sample.motus", package = "motusdata") 
-t <- dplyr::src_sqlite(file.name)
+When downloading data from the Motus server for the first time, you must specify update = TRUE and new = TRUE. Unless the directory that you want your data saved in is stated explicitly within the function call, data will be downloaded to the current working directory:
+
+```{r tagme1, eval = FALSE}
+
+getwd() # to see what the current working directory is. 
+
+# use setwd() if you want to change the working directory.
+t <- tagme(projRecv = 38, update = TRUE, new = TRUE)                 # for project tag database OR:
+t <- tagme(projRecv = "SG-1013BB000626", update = TRUE, new = TRUE)  # for receiver tag database
 ```
 
-To load your own data you can run:
+Or specify a directory to create and open a local tag database using "dir = ":
 
-```{r importPersonalData, eval = FALSE, message = FALSE}
-## to access your own data:
-file.name <-  "C:/data/project-123.motus" #replace with the path to your data
+```{r tagme1b, eval = FALSE}
+
+t <- tagme(projRecv = 38, update = TRUE, new = TRUE, dir = "C:/Data/") 
+
+```
+
+This will write a copy of your tag database to the working or specified folder, stored as an SQLite file with the extension '.motus'. 
+
+### Open a local tag database
+
+To open a database that already exists (has been downloaded previously):
+
+```{r tagme2, eval = FALSE}
+
+t <- tagme(projRecv = 38) ## if the file is in the local working directory, OR:
+t <- tagme(projRecv = 38, dir = "C:/Data/") ## use dir = to specify a directory
+
+```
+
+### Update and open a local tag database
+
+To download any new data for a project or receiver that has already been downloaded to a local file in the current directory:
+
+```{r tagme3, eval = FALSE}
+
+t <- tagme(projRecv = 38)
+
+```
+
+
+### Force an update/re-import of metadata
+
+Tag and receiver metadata are automatically merged with tag detections when data are downloaded. However, if you want to force a re-import of the metadata when updating a database, you can run:  
+
+```{r tagme5, eval = FALSE}
+
+t <- tagme(projRecv = 38, forceMeta = TRUE)
+
+```
+
+
+### Check if new data are available
+
+To check if new data are available without downloading the data, you can use the tellme() function, which returns a list with:
+
+- **numBatches**: number of batches of new data. 
+- **numRuns**: number of runs of new tag detections, where a run is a series of continuous detections for a tag on a given antenna.
+- **numHits**: number of new tag detections.
+- **size**: approximate uncompressed size of data transfer required, in megabytes.
+
+The following assumes that a local copy of the database already exists:
+
+```{r tagme4b, eval = FALSE}
+
+tellme(projRecv = 38)                    ## If db is in the working directory
+tellme(projRecv = 38, dir = "C/Data/")   ## To specify a different directory
+
+```
+
+To check how much data is available for a project but you _do not_ have a database for it, use the 'new' parameter:
+
+```{r tagme4c, eval = FALSE}
+
+tellme(projRecv = 38, new = TRUE)
+
+```
+
+### Access the book sample dataset
+
+For the purposes of this book, the sample data from the James Bay Shorebird Project (see Section \@ref(sampleData)) has been downloaded and the .motus file made available through the motusdata R package. You can use the following code to load the sample data:
+
+```{r importSampleData, message = FALSE}
+
+## to access sample data contained in the motusdata package:
+
+file.name <- system.file("extdata", "project-sample.motus", package = "motusdata") 
 t <- dplyr::src_sqlite(file.name)
+
 ```
 
 ## Data structure {#databaseStructure}
@@ -221,6 +300,12 @@ saveRDS(df.flat, "./data/df.flat.RDS")
 
 For the purpose of this book, the following function creates flat RDS files of the various tables that we will need from the .motus file. You can run this function on your own data as it is, or modify it to include/exclude different fields in the various tables. 
 
+In this function, we include some basic data filters, create date and location variables, and select the variables that are likely to be of interest and use for most applications. This includes:
+
+1. creating 'recvLat' and 'recvLon' variables, which default to using the latitude and longitude derived from the GPS in each receiver, and in-fills missing GPS values with the latitude and longitude from the receiver deployment metadata entered online by the project that deployed the station.
+
+2. creating an 'ambig' variable, which assigns a '1' when the detections could belong to two or more (up to 6)
+
 ```{r dataFunction}
 
 # for your own data, replace with location of your 'project-XX.motus' data
@@ -242,12 +327,23 @@ createFlatFiles <- function(out.dir, in.df, table.list) {
         df <- tbl(t, table.list[i])
        
         if(table.list[i] == "alltagswithambigs"){
-        df <- select(df, hitID, runID, batchID, ts, sig, sigsd, freqsd, motusTagID, ambigID, ant, 
-                              runLen, tagProjID, tagDeployID, id, depLat, depLon, depAlt, recvDeployID, recvDeployLat,
-                              recvDeployLon, recvDeployElevation, recv, site, projID, antType, antBearing, antHeight, 
-                              spEN, spFR, spSci, tagProj, proj, gpsLat, gpsLon, gpsAlt)
+        df <- mutate(df,  # create receiver Lat/Lon fields- use lat/lon from GPS, and if NA, use the lat/lon from the receiver deployment metadata
+                     recvLat = if_else(is.na(gpsLat), recvDeployLat, gpsLat), 
+                     recvLon = if_else(is.na(gpsLon), recvDeployLon, gpsLon),
+                     # create an ambiguous column, so detections are labelled as ambiguous or not
+                     ambig = if_else(is.na(ambigID), 0, 1))  %>% 
+              # keep only parameters of interest. Could potentially drop gpsLat/Lon and recvDeployLat/Lon
+              select(hitID, runID, batchID, ts, sig, sigsd, freqsd, motusTagID, ambigID, ant, 
+                     runLen, tagProjID, tagDeployID, id, depLat, depLon, depAlt, recvDeployID, recvDeployLat,
+                     recvDeployLon, recvDeployElevation, recv, site, projID, antType, antBearing, antHeight, 
+                     spEN, spFR, spSci, tagProj, proj, gpsLat, gpsLon, gpsAlt, recvLat, recvLon, ambig) %>%
+              # keep only run lengths greater than 2. This can be modified later, to see if any detections with
+              # a run length of two are real detections.
+              filter(runLen > 2)
+
         } # end of if statement
     
+                           
    
         df <- df %>% 
               collect() %>% 
