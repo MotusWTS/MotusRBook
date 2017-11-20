@@ -14,9 +14,7 @@ library(lubridate)
 
 ## Load detection data and convert to a flat file
 ```{r importDetectData, message = FALSE, warning = FALSE}
-t <- dplyr::src_sqlite("./data/project-sample.motus") # import .motus file from your local directory (change directory to match)
-jb <- tbl(t, "alltagswithambigs")  # extract alltagswithambigs table, with tag deployment metadata
-jb <- jb %>% collect %>% as.data.frame  # convert detection data to a flat file
+df.alltags <-  readRDS("./data/df.alltagswithambigs.rds")
 ```
 
 ## Removing detections outside of deployment range {#filterDeployRange}
