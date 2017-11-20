@@ -1,6 +1,6 @@
 # Accessing and understanding detections data {#accessingData}
 
-The success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators. Users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.
+The success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators. After downloading your data from the Motus server, users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.
 
 ## Database types {#databaseTypes}
 
@@ -48,52 +48,40 @@ When downloading data from the Motus server for the first time, you must specify
 getwd() # to see what the current working directory is. 
 
 # use setwd() if you want to change the working directory.
-t <- tagme(projRecv = 38, update = TRUE, new = TRUE)                 # for project tag database OR:
+t <- tagme(projRecv = 123, update = TRUE, new = TRUE)                 # for project tag database OR:
 t <- tagme(projRecv = "SG-1013BB000626", update = TRUE, new = TRUE)  # for receiver tag database
 ```
 
 Or specify a directory to create and open a local tag database using "dir = ":
 
-```{r tagme1b, eval = FALSE}
+```{r tagme2, eval = FALSE, message = FALSE, warning = FALSE}
 
-t <- tagme(projRecv = 38, update = TRUE, new = TRUE, dir = "./data/") 
+t <- tagme(projRecv = 123, update = TRUE, new = TRUE, dir = "./data/") 
 
 ```
 
 This will write a copy of your tag database to the working or specified folder, stored as an SQLite file with the extension '.motus'. 
 
-### Open a local tag database
+### Update and open a local tag database
 
-To open a database that already exists (has been downloaded previously):
+To open and update a detections database that already exists (has been downloaded previously):
 
 ```{r tagme2, eval = FALSE}
 
-t <- tagme(projRecv = 38) ## if the file is in the local working directory, OR:
-t <- tagme(projRecv = 38, dir = "./data/") ## use dir = to specify a directory
+t <- tagme(projRecv = 123) ## if the file is in the local working directory, OR:
+t <- tagme(projRecv = 123, dir = "./data/") ## use dir = to specify a directory
 
 ```
 
-### Update and open a local tag database
-
-To download any new data for a project or receiver that has already been downloaded to a local file in the current directory:
-
-```{r tagme3, eval = FALSE}
-
-t <- tagme(projRecv = 38)
-
-```
-
-
-### Force an update/re-import of metadata
+### Force an update/re-import of tag and receiver deployment metadata
 
 Tag and receiver metadata are automatically merged with tag detections when data are downloaded. However, if you want to force a re-import of the metadata when updating a database, you can run:  
 
 ```{r tagme5, eval = FALSE}
 
-t <- tagme(projRecv = 38, forceMeta = TRUE)
+t <- tagme(projRecv = 123, forceMeta = TRUE)
 
 ```
-
 
 ### Check if new data are available
 
@@ -108,8 +96,8 @@ The following assumes that a local copy of the database already exists:
 
 ```{r tagme4b, eval = FALSE}
 
-tellme(projRecv = 38)                    ## If db is in the working directory
-tellme(projRecv = 38, dir = "C/Data/")   ## To specify a different directory
+tellme(projRecv = 123)                    ## If db is in the working directory
+tellme(projRecv = 123, dir = "C/Data/")   ## To specify a different directory
 
 ```
 
@@ -117,20 +105,7 @@ To check how much data is available for a project but you _do not_ have a databa
 
 ```{r tagme4c, eval = FALSE}
 
-tellme(projRecv = 38, new = TRUE)
-
-```
-
-### Access the book sample dataset
-
-For the purposes of this book, the sample data from the James Bay Shorebird Project (see Section \@ref(sampleData)) has been downloaded and the .motus file made available through the motusdata R package. You can use the following code to load the sample data:
-
-```{r importSampleData, message = FALSE}
-
-## to access sample data contained in the motusdata package:
-
-file.name <- system.file("extdata", "project-sample.motus", package = "motusdata") 
-t <- dplyr::src_sqlite(file.name)
+tellme(projRecv = 123, new = TRUE)
 
 ```
 
@@ -171,18 +146,18 @@ Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be 
 
 Each table in the .motus file can be accessed using the tbl() function, for example:
 
-```{r getTable, message = FALSE}
+```{r getTable, eval = FALSE}
 
 # tag deployment metadata
 tagMeta <- tbl(t, "tagDeps")
 head(tagMeta)           
-tagMeta$ops$vars        
+tagMeta$ops$vars        # list the variable names in the table
 
 ```
 
 The underlying structure of these tables shows that each is a list of length 2:
 
-```{r dfStructure}
+```{r dfStructure, eval = FALSE}
 
 str(tagMeta)
 
@@ -192,13 +167,13 @@ The first part of the list, 'src', is a list that provides details of the SQLite
 
 The *virtual* table 'alltagswithambigs' contains all fields that most users will need from the various .motus tables, and can also be accessed using the dplyr tbl() function:  
 
-```{r getAllTagsTable}
+```{r getAllTagsTable, eval = FALSE}
 
 df <- tbl(t, "alltagswithambigs")
 
 ```
 
-The following table lists the parameters available in the 'alltagswithambigs' table, along with a description of each parameter.
+The following table lists the parameters available in the 'alltagswithambigs' view, along with a description of each parameter.
 
 ```{r parameterTable, echo = FALSE}
 
@@ -207,15 +182,13 @@ knitr::kable(param.table, caption = "Description of fields in the tag detections
 
 ```
 
-## Convert a virtual table to a flat dataframe {#convertToFlat}
+## Convert a SQLITE table to a flat dataframe {#convertToFlat}
 
-If you want your entire dataframe in a typical "flat" format, i.e., with every record for each field filled in, you can use the collect() function.  The output can then be used to generate a .rds or .csv file of your data. However, we caution that if you have a large data set, producing such a table using the full suite of fields can chew up a lot of memory and slow down your R session considerably:
-
-To convert the 'alltagswithambigs' view or other table into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() function.  The output can then be used to generate a .rds file of your data. We suggest using .rds instead of .csv, because the .rds format provides many advantages, including saving the environment (e.g., time zone), which means date/times don't need to be manipulated each time a file is loaded.  
+To convert the 'alltagswithambigs' view or other table into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() function.  The output can then be used to generate a RDS file of your data. We suggest using RDS instead of CSV, because the RDS format provides many advantages, including saving the environment (e.g., time zone), which means date/times don't need to be manipulated each time a file is loaded. However, if you simply want to download and export your data for use in another program, CSV format might be preferred.
 
 We caution that producing a flat file using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets:
 
-```{r collect}
+```{r collect, eval = FALSE}
 
 df.flat <- df %>% 
   collect() %>% 
@@ -223,7 +196,7 @@ df.flat <- df %>%
 
 ```
 
-```{r quickLook}
+```{r quickLook, eval = FALSE}
 
 names(df.flat)     ## field names
 str(df.flat)       ## Look at the structure of your data fields
@@ -285,32 +258,37 @@ df.hourlySumm <- df %>%
 
 ```
 
-## Export your 'flat' dataframe to an RDS file {#exportToRDS}
+## Export your 'flat' dataframe to CSV or RDS file {#exportDetections}
 
-A good workflow idea is to have a script that deals with all of your data issues, then saves a dataframe (or workspace) for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. A good way to do this is by using an RDS file, which preserves all of the associated R data structures (such as time stamps).
+A good workflow idea is to have a script that deals with all of your data issues, then saves a dataframe (or workspace) for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. When working in R, a good way to do this is by using an RDS file, which preserves all of the associated R data structures (such as time stamps).
 
 ```{r createRDS, eval = FALSE, message = FALSE, warning = FALSE}
 
 ## save an RDS file
 saveRDS(df.flat, "./data/df.flat.RDS")  
 
+## or save as CSV file, which does not preserve time stamps, but is more universally accepted
+
+write.csv(df.flat, "./data/df.flat.CSV", row.names = FALSE)
+
 ```
 
-### Create function to output .motus tables to 'flat' RDS dataframes {#flatRDSfunction}
+### Create function to output .motus tables to 'flat' dataframes {#flatRDSfunction}
 
-For the purpose of this book, the following function creates flat RDS files of the various tables that we will need from the .motus file. You can run this function on your own data as it is, or modify it to include/exclude different fields in the various tables. 
-
+For the purpose of this book, the following function creates flat CSV or RDS files of the various tables that we will need from the .motus file. You can run this function on your own data as it is, or modify it to include/exclude different fields in the various tables. 
 In this function, we include some basic data filters, create date and location variables, and select the variables that are likely to be of interest and use for most applications. This includes:
 
 1. creating 'recvLat' and 'recvLon' variables, which default to using the latitude and longitude derived from the GPS in each receiver, and in-fills missing GPS values with the latitude and longitude from the receiver deployment metadata entered online by the project that deployed the station.
 
-2. creating an 'ambig' variable, which assigns a '1' when the detections could belong to two or more (up to 6)
+2. creating an 'ambig' variable, which assigns a '1' when the detections could belong to two or more (up to 6) duplicate tags.
+
+3. providing filters for run length and standard deviation of frequency offset among pulses in a burst, which can give an indication of the probability that a detection is a false positive. Generally, detections with runLen <= 2 have a high probability of being false positive, as do detections with freqSD > 0.1  kHz. These filters are included, but not used here (see Chapter \@ref(dataCleaning)).
 
 ```{r dataFunction}
 
 # for your own data, replace with location of your 'project-XX.motus' data
 
-createFlatFiles <- function(out.dir, in.df, table.list) {  
+createFlatFiles <- function(out.dir, in.df, table.list, output.format) {  
 
   # load .motus file
 
@@ -339,7 +317,9 @@ createFlatFiles <- function(out.dir, in.df, table.list) {
                      spEN, spFR, spSci, tagProj, proj, gpsLat, gpsLon, gpsAlt, recvLat, recvLon, ambig) %>%
               # keep only run lengths greater than 2. This can be modified later, to see if any detections with
               # a run length of two are real detections.
-              filter(runLen > 2)
+          
+              filter(runLen >=2) # note we are inlcuding 2 here; add: ", freqSD <= 0.1" to filter for freqSD as well.
+          
 
         } # end of if statement
     
@@ -364,9 +344,14 @@ createFlatFiles <- function(out.dir, in.df, table.list) {
                   tsEnd = as_datetime(tsEnd, tz = "GMT", origin = "1970-01-01"))
         } # end of if statement
         
-       
-  saveRDS(df, file = paste(out.dir, "df.", table.list[i], ".rds", sep = ""))
-        
+  if(output.format == "RDS") {     
+  saveRDS(df, file = paste(out.dir, "df.", table.list[i], ".rds", sep = "")) 
+  }
+  
+  if(output.format == "CSV") {     
+  write.csv(df, file = paste(out.dir, "df.", table.list[i], ".csv", sep = ""), row.names = FALSE) 
+  }     
+     
   } # end of for loop
 } # end of function
 ```
@@ -374,6 +359,10 @@ createFlatFiles <- function(out.dir, in.df, table.list) {
 Run the function by first setting the parameters 'out.dir', 'in.df', and 'table.list':
 
 ```{r runDataRDSFunction, eval = FALSE}
+
+# choose output format, choice of RDS or CSV:
+
+output.format <- "RDS"
 
 # directory where you want your flat RDS files to be stored 
 out.dir <- paste(getwd(), "/data/", sep = "") # or change to the output directory of your choice
@@ -385,6 +374,23 @@ in.df <- system.file("extdata", "project-sample.motus", package = "motusdata")
 table.list <- c("alltagswithambigs", "tags", "tagDeps", "recvs", "recvDeps", "antDeps", "species")
 
 # run the function, which will output an RDS flat file for each table in the specified directory
-createFlatFiles(out.dir = out.dir, in.df = in.df, table.list = table.list)
+createFlatFiles(out.dir = out.dir, in.df = in.df, table.list = table.list, output.format = output.format)
+
+```
+
+### Access the book sample dataset
+
+For the purposes of this book, the sample data from the James Bay Shorebird Project (see Section \@ref(sampleData)) has been downloaded and the .motus and RDS files made available through the motusdata R package. You can use the following code to load the sample data:
+
+```{r importSampleData, message = FALSE}
+
+## to access the .motus file for the sample data contained in the motusdata package:
+
+file.name <- system.file("extdata", "project-sample.motus", package = "motusdata") 
+t <- dplyr::src_sqlite(file.name)
+
+## to access the RDS tables:
+
+** FILL THIS IN
 
 ```
