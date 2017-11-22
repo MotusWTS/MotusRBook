@@ -1,6 +1,30 @@
+
+## Load relevant R packages {#loadPackages}
+
+Before we begin working with data, we need to load the required packages. If you have not yet installed these packages (from github and CRAN) then please return to chapter 2 and do so.
+
+```{r loadPackages, warning = FALSE, message = FALSE}
+
+## required 'motus' packages from github
+require(motus)
+require(motusClient)
+require(motusdata)
+
+## required other packages from CRAN.
+require(tidyverse)
+require(lubridate)
+
+## install, but don't load the plyr package; we use it directly for the 
+## handy round_any function, but loading it can cause problems with the 
+## dplyr functions. 
+
+```
+
+
 # Accessing and understanding detections data {#accessingData}
 
 The success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators. After downloading your data from the Motus server, users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.
+
 
 ## Database types {#databaseTypes}
 
@@ -18,22 +42,12 @@ There are two types of tag databases:
 
 2. **project database**: includes all detections of your registered tags from across the motus network. A tag project database has a name like project-123.motus, where the number is the motus project ID.
 
-
 These two databases correspond to the basic model of data sharing:
 
 1. you get all detections of anyone's tags by *your* receivers (i.e., one receiver tag database for each receiver you deploy)
 
 2. you get all detections of *your* tags by *anyone's* receivers (i.e., one project tag database for each of your motus projects)
 
-## Load relevant R packages {#loadPackages}
-
-```{r loadPackages, warning = FALSE, message = FALSE}
-
-require(devtools)
-require(tidyverse)
-require(lubridate)
-
-```
 
 ## Importing tag detections {#importDetections}
 
@@ -41,14 +55,19 @@ To import tag detections for your project or receiver, you need a numerical proj
 
 ### Download data for a project or receiver for the _first time_
 
-When downloading data from the Motus server for the first time, you must specify update = TRUE and new = TRUE. Unless the directory that you want your data saved in is stated explicitly within the function call, data will be downloaded to the current working directory:
+When downloading data from the Motus server for the first time, you must specify update = TRUE and new = TRUE. Unless the directory that you want your data saved in is stated explicitly within the function call, data will be downloaded to the current working directory. 
+
+## User Authentication {#userAuthentication}
+
+Note that the first time you call a function using the Motus R package, you will be asked for your motus.org username and password to authenticate your access to project data. This will only happen once per R session. If you do not have a Motus user name and password, you can sign up at <https://motus.org/data/user/new>. Permission to access project data will then be granted by Motus staff or the project principal investigator.
+
+Let's get started
 
 ```{r tagme1, eval = FALSE}
 
-getwd() # to see what the current working directory is. 
+getwd() # to see the current working directory; use setwd() to change it.
 
-# use setwd() if you want to change the working directory.
-t <- tagme(projRecv = 123, update = TRUE, new = TRUE)                 # for project tag database OR:
+t <- tagme(projRecv = 123, update = TRUE, new = TRUE)                # for project tag database
 t <- tagme(projRecv = "SG-1013BB000626", update = TRUE, new = TRUE)  # for receiver tag database
 ```
 
@@ -85,7 +104,7 @@ t <- tagme(projRecv = 123, forceMeta = TRUE)
 
 ### Check if new data are available
 
-To check if new data are available without downloading the data, you can use the tellme() function, which returns a list with:
+To check if new data are available without downloading all of the previous data, you can use the tellme() function, which returns a list with:
 
 - **numBatches**: number of batches of new data. 
 - **numRuns**: number of runs of new tag detections, where a run is a series of continuous detections for a tag on a given antenna.
@@ -105,7 +124,7 @@ To check how much data is available for a project but you _do not_ have a databa
 
 ```{r tagme4c, eval = FALSE}
 
-tellme(projRecv = 123, new = TRUE)
+tellme(projRecv = 123)
 
 ```
 
@@ -117,7 +136,7 @@ Each tag database is stored as an SQLite ('dplyr::src_sqlite') file with the ext
 2. it is accessible from many software platforms (not just R).
 3. it is **appendable**: the database can be created and updated on disk without having to read in and resave the entire contents. This will save time and computer memory when searching to see if any new detections are available for your project or receiver.
 
-The .motus file contains a series of interelated tables where data are stored in a condensed format to save memory. The following tables are included in the .motus file; a complete list of parameters stored in each table can be found in Appendix Table A1:
+The .motus file contains a series of interelated tables where data are stored in a condensed format to save memory. The following tables are included in the .motus file; a complete list of variables stored in each table can be found in Appendix Table A1:
 
 1. hits: detection data at the level of individual hits.
 2. runs: detection data associated with a run (continuous detections of a unique tag on a given receiver).
@@ -142,20 +161,18 @@ In addition to these tables, there are also 'virtual' tables, which are queries 
 2. allambigs
 3. alltagswithambigs
 
-Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be used to filter and summarize the .motus database, without needing to first save the data as a *flat* file, i.e., a typical two-dimensional dataframe with every record for each field filled in. 
+Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be used to filter and summarize the .motus database, without needing to first save the data as a *flat* file, i.e., a typical two-dimensional dataframe with every record for each field filled in. This is very advantageous when you have a large file -- the queries using SQL will be substantially faster. 
 
-Each table in the .motus file can be accessed using the tbl() function, for example:
+Each table in the .motus file can be accessed using the tbl() function. 
 
 ```{r getTable, eval = FALSE}
 
-# tag deployment metadata
+# get the tag deployment metadata view for the current project
 tagMeta <- tbl(t, "tagDeps")
-head(tagMeta)           
-tagMeta$ops$vars        # list the variable names in the table
-
+     
 ```
 
-The underlying structure of these tables shows that each is a list of length 2:
+The underlying structure of these tables is a list of length 2:
 
 ```{r dfStructure, eval = FALSE}
 
@@ -163,49 +180,65 @@ str(tagMeta)
 
 ```
 
-The first part of the list, 'src', is a list that provides details of the SQLiteConnection, including where the database is stored. The second part is a list that includes the names of the variables ('tagMeta$ops$vars') included in the  table. Thus, the R object 'tagMeta' is a *virtual* table that stores the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and the dplyr package can be used to manipulate and summarize the tables before collecting the results into a typical "flat" format dataframe.
+The first part of the list, 'src', is a list that provides details of the SQLiteConnection, including where the database is stored. The second part is a list that includes the underlying table. Thus, the R object 'tagMeta' is a *virtual* table that stores the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and the dplyr package can be used to manipulate and summarize the tables before collecting the results into a typical "flat" format dataframe.
 
-The *virtual* table 'alltagswithambigs' contains all fields that most users will need from the various .motus tables, and can also be accessed using the dplyr tbl() function:  
+If you want to use familiar functions to get access to components of the underlying data frame, then use the 'collect' function. For example:
 
-```{r getAllTagsTable, eval = FALSE}
+```{r}
 
-df <- tbl(t, "alltagswithambigs")
+## look at the names of the variables
+tagMeta %>% 
+  collect() %>%
+  names() # list the variable names in the table
 
 ```
 
-The following table lists the parameters available in the 'alltagswithambigs' view, along with a description of each parameter.
+The *virtual* table 'alltagswithambigs' contains the detection data, along with all variables that most users will ever need from the various underlying .motus tables. It too is accessed using the dplyr tbl() function:  
+
+```{r getAllTagsTable, eval = FALSE}
+
+vt <- tbl(t, "alltagswithambigs") ## virtual table
+
+```
+
+The following table lists the variables available in the 'alltagswithambigs' view, along with a description of each.
 
 ```{r parameterTable, echo = FALSE}
 
-param.table <- dplyr::select(read.csv("./data/DatabaseParameters.csv"), 1:2)
-knitr::kable(param.table, caption = "Description of fields in the tag detections database") 
+vt %>% 
+  collect() %>%
+  names()
 
 ```
 
 ## Convert a SQLITE table to a flat dataframe {#convertToFlat}
 
-To convert the 'alltagswithambigs' view or other table into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() function.  The output can then be used to generate a RDS file of your data. We suggest using RDS instead of CSV, because the RDS format provides many advantages, including saving the environment (e.g., time zone), which means date/times don't need to be manipulated each time a file is loaded. However, if you simply want to download and export your data for use in another program, CSV format might be preferred.
+To convert the 'alltagswithambigs' view or other table into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() and as.data.frame() functions.  The output can then be further manipulated. , or used to generate a RDS file of your data. 
 
-We caution that producing a flat file using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets:
+We suggest that a good workflow is to prepare a script that downloads/updates your data, filters out the necessary variables, and saves the resulting data as an RDS file. We suggest using RDS instead of CSV, because the RDS format preserves the underlying structure of the data (e.g. POSIX times stay as POSIX times). If you want to export your data to another program, the a CSV format might be preferred.
+
+We caution that producing a flat file using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets. This is the point in your workflow where you should remove any unwanted variables. You can always change your mind and return to this script, creating a new RDS file.
 
 ```{r collect, eval = FALSE}
 
-df.flat <- df %>% 
+df <- vt %>% 
   collect() %>% 
-  as.data.frame()      ## for all fields in the df
+  as.data.frame()      ## for all fields in the df (data frame)
 
 ```
+
+And take a quick look at the resulting file. 
 
 ```{r quickLook, eval = FALSE}
 
-names(df.flat)     ## field names
-str(df.flat)       ## Look at the structure of your data fields
-head(df.flat)      ## Look at first 6 rows of your df
-summary(df.flat)   ## summary of each column in your df
+names(df)     ## field names
+str(df)       ## Look at the structure of your data fields
+head(df)      ## Look at first 6 rows of your df
+summary(df)   ## summary of each column in your df
 
 ```
 
-If you want to load only part of your entire data frame (e.g. certain fields, certain tags, or all tags from a specified project or species), you can use dplyr funtions to filter the data before collecting into a flat dataframe.  Some examples are below:
+If you want to load only part of your entire virtual table (e.g. certain fields, certain tags, or all tags from a specified project or species), you can use dplyr funtions to filter the data before collecting into a dataframe.  Some examples are below:
 
 1. To select certain fields:
 
@@ -213,7 +246,7 @@ If you want to load only part of your entire data frame (e.g. certain fields, ce
 
 ## to grab a subset of fields, in this case a unique list of motus tag IDs 
 ## at each receiver and antenna.
-df.flat.subset <- select(df, recv, ant, motusTagID) %>%
+df.subset <- select(vt, recv, ant, motusTagID) %>%
   distinct() %>% 
   collect() %>% 
   as.data.frame()     
@@ -223,8 +256,8 @@ df.flat.subset <- select(df, recv, ant, motusTagID) %>%
 2. To select certain tag IDs:
 
 ```{r collect2, eval = FALSE}
-
-df.flat.subset <- filter(df, motusTagID %in% c(16011, 23316)) %>%  ## filter to include only motusTagIDs 9939, 25643
+## filter to include only motusTagIDs 9939, 25643
+df.subset <- filter(vt, motusTagID %in% c(16011, 23316)) %>% 
                   collect() %>% 
                   as.data.frame()   
 
@@ -234,33 +267,35 @@ df.flat.subset <- filter(df, motusTagID %in% c(16011, 23316)) %>%  ## filter to 
 
 ```{r collect3, eval = FALSE}
 
-df.flat.subset <- filter(df, speciesID == 4670) %>%  ## filter to only Red Knot (using speciesID)
+## filter to only Red Knot (using speciesID)
+df.subset <- filter(vt, speciesID == 4670) %>%  
   collect() %>% 
-  as.data.frame()   
+  as.data.frame()
 
-df.flat.subset <- filter(df, spEN == "Red Knot") %>%   ## filter to only Red Knot (using English name)
+## filter to only Red Knot (using English name)
+df.subset <- filter(vt, spEN == "Red Knot") %>%   
   collect() %>% 
   as.data.frame()  
 
 ```
 
-Using dplyr(), data can also be summarized before converting to a flat file. For example, to find the maximum signal strength of each tag in each hour by receiver:
+Using dplyr(), your virtual table can also be summarized before converting to a flat file. For example, to find the number of different detections for each tag at each receiver:
 
 ```{r collectSum, eval = FALSE}
 
-df.hourlySumm <- df %>% 
-          mutate (hour = 3600 * round(ts / 3600, 0)) %>% 
-          group_by(motusTagID, recv, hour) %>%
-          summarize(
-            max.sig = max(sig)) %>%
-          collect() %>%
-          as.data.frame()
+df.hsum <- vt %>% 
+  group_by(motusTagID, recv) %>%
+  tally() %>%
+  collect() %>%
+  as.data.frame() 
 
 ```
 
+In the next chapter we will show you additional ways of summarizing and working with your data.
+
 ## Export your 'flat' dataframe to CSV or RDS file {#exportDetections}
 
-A good workflow idea is to have a script that deals with all of your data issues, then saves a dataframe (or workspace) for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. When working in R, a good way to do this is by using an RDS file, which preserves all of the associated R data structures (such as time stamps).
+Good workflow is to create a script that deals with all of your data issues, then saves a dataframe (or workspace) for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. When working in R, we do this is by using an RDS file, which preserves all of the associated R data structures (such as time stamps).
 
 ```{r createRDS, eval = FALSE, message = FALSE, warning = FALSE}
 
@@ -275,7 +310,8 @@ write.csv(df.flat, "./data/df.flat.CSV", row.names = FALSE)
 
 ### Create function to output .motus tables to 'flat' dataframes {#flatRDSfunction}
 
-For the purpose of this book, the following function creates flat CSV or RDS files of the various tables that we will need from the .motus file. You can run this function on your own data as it is, or modify it to include/exclude different fields in the various tables. 
+For the purpose of this book, the following function creates flat CSV or RDS files of the various tables that we will need from the .motus file. You can run this function on your own data as it is, or modify it to include/exclude different fields in the various tables.
+
 In this function, we include some basic data filters, create date and location variables, and select the variables that are likely to be of interest and use for most applications. This includes:
 
 1. creating 'recvLat' and 'recvLon' variables, which default to using the latitude and longitude derived from the GPS in each receiver, and in-fills missing GPS values with the latitude and longitude from the receiver deployment metadata entered online by the project that deployed the station.
