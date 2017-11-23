@@ -22,15 +22,15 @@ install.packages("devtools")              ## if you haven't already done this
 library(devtools)                         ## load devtools
 
 # install motusClient for data download
-install_github("MotusWTS/motusClient@master")   ## the last stable version
+install_github("MotusWTS/motusClient@master")   
 library(motusClient)
 
 # install motus for data manipulation, visualization and analysis
-install_github("MotusWTS/motus@staging")   ## the last stable version
+install_github("MotusWTS/motus@staging")  
 library(motus)
 
 # install the motusdata package to get access to the sample data we use throughout this book
-install_github("MotusWTS/motusdata")   ## the last stable version
+install_github("MotusWTS/motusdata")  
 library(motusdata)
 ```
 
