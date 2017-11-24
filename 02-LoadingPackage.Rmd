@@ -8,18 +8,23 @@ There are three R packages available to Motus users:
 
 3. motusdata: provides sample datasets from the James Bay Shorebird Monitoring Project that we use throughout the book.
 
-Motus **users** can install the latest stable versions of the R packages using the following code. You only need to install the packages once, but once installed, you do need to load each package (using library() or require()) each time you open a new R session. 
+Motus **users** can install the latest stable versions of the R packages using the following code. You only need to install the packages once. After installation, you need to load each package (using library() or require()) each time you open a new R session. 
 
 Please note that some functionalities of the devtools package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of R (<https://www.r-project.org/>) and RStudio (<https://www.rstudio.com/products/RStudio/>), and update your R packages using update.pacakges() in the R console.
 
 
 ```{r update packages, eval = FALSE}
+
 update.packages()                         ## to update your existing R packages
+
 ```
 
+Begin by installing the packages required, if necessary. You only have to do this once.
+
 ```{r install packages, eval = FALSE}
-install.packages("devtools")              ## if you haven't already done this
-library(devtools)                         ## load devtools
+
+install.package("devtools")
+require(devtools)
 
 # install motusClient for data download
 install_github("MotusWTS/motusClient@master")   
@@ -32,25 +37,19 @@ library(motus)
 # install the motusdata package to get access to the sample data we use throughout this book
 install_github("MotusWTS/motusdata")  
 library(motusdata)
+
 ```
 
-
-Throughout the book, we use Tidyverse (<https://www.tidyverse.org/>), which is a collection of R packages for data science, including tidyr, dplyr, and ggplot2, and lubridate for managing and manipulating dates. These can be installed with:
+Throughout the book, we use Tidyverse (<https://www.tidyverse.org/>), which is a collection of R packages for data science, including tidyr, dplyr, and ggplot2, and lubridate for managing and manipulating dates. These can be installed from CRAN, as follows:
 
 ```{r install tidyverse, eval = FALSE}
-install.packages("tidyverse")             ## again, you only need to install once.
-library(tidyverse)
 
-install.packages("lubridate")            
-library(lubridate)
+install.packages("tidyverse")
+install.packages("lubridate")
 
 ```
 
 More information on Tidyverse can be found at <https://www.tidyverse.org/>, or by browsing 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>.
-
-## User Authentication {#userAuthentication}
-
-The first time you call a function using the Motus R package, you will be asked for your motus.org username and password to authenticate your access to project data. This will only happen once per R session. If you do not have a Motus user name and password, you can sign up at <https://motus.org/data/user/new>. Permission to access project data will then be granted by Motus staff or the project principal investigator.
 
 ## Internal data processing {#internalProcessing}
 
@@ -62,3 +61,4 @@ function.name()
 
 ```
 
+In the next chapter we will examine and load some data. 

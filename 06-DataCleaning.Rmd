@@ -47,7 +47,7 @@ JBraw <- JBraw %>% mutate(ts = as_datetime(ts, tz = "UTC"),
 JBraw <- subset(JBraw, ts < tagEnd | is.na(tagEnd))
 JBraw <- subset(JBraw, ts > tagStart)
 ```
-
+18665120904  8990103
 ## Removing detections based on visual geographic positions {#filterGeoPosition}
 A few simple plots of latitude/longitude vs. time can highlight detections that occur in areas outside of the expected geographic range of the species for that date, or flights showing impossible speeds over large distances.
 Occasionally there will be no location provided by the GPS unit, either because there is no working GPS attached or it could not determine a location at time of detection. Therefore, our first step will be to replace any instances with GPS coordinates of zero or NA with the given locations from receiver deployment metadata:
