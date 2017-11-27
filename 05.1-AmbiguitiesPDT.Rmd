@@ -1,0 +1,514 @@
+# Data Cleaning {#dataCleaning}
+
+Before analyzing and cleaning your data, ambiguous detections need to be dealt with.
+
+Ambiguous detections occur when two or more tags with the same Lotek ID code, burst interval, and nominal transmit frequency (i.e., the transmissions of tags are indistinguishable) are transmitting in the network at the same time, resulting in 'ambiguous' detections that could belong to either tag. 
+
+
+## Load required packages
+
+Follow the instructions in Chapter \@ref(loadingPackages) to install the following packages before loading, if you haven't already done so.
+
+```{r loadpackages}
+
+library(devtools)
+library(motus)
+library(motusdata)
+library(tidyverse)
+library(lubridate)
+
+```
+
+## Load Detections Data
+
+
+```{r load detection data}
+## to do this with your own data, replace these lines with 
+## t <- tagme(your.project.number)
+
+in.df <- system.file("extdata", "project-sample.motus", package = "motusdata") 
+t <- src_sqlite(in.df)
+
+```
+
+## Check for ambiguities {#checkAmbigs}
+
+Ambiguous detections are identified by a unique negative value in the 'ambigID' field of the df.alltagswithambigs database. All ambiguous detections associated with a project can also be viewed using the clarify() function from the Motus R package. This function returns a table with ambigIDs that are equivalent to the ambigIDs in df.alltagswithambigs, along with up to 6 true motusTagIDs that detections associated with the ambigID might represent, and a fullID that includes the project that each duplicate tag was deployed by:
+
+```{r clarify}
+## look at the ambiguous tags
+clarify(t)
+
+## obtain the detections from just those tags and ensure that all (or most)
+## detections have gpsLocations. Filter these so that we aren't later trying
+## to deal with both ambiguous detections and false positives.
+df.ambigDetect <- tbl(t, "alltagswithambigs") %>%
+  filter(!is.na(ambigID)) %>%
+  collect() %>% 
+  as.data.frame() %>% 
+  mutate(gpsLat = if_else(is.na(gpsLat), recvDeployLat, gpsLat), 
+         gpsLon = if_else(is.na(gpsLon), recvDeployLon, gpsLon), 
+         ts = as_datetime(ts)) %>%
+  filter(runLen > 2, 
+         freqsd < 0.12)
+
+```
+
+## Ambiguous tag views
+At the end of this section, we want to have a list of ambiguous tag IDs and times that we want to claim for this project. We approach this problem by doing the following steps. 
+
+1) We check to see how much deployment dates overlap. Many ambiguous tag detections arise because tags overlap just a little at the beginning and end. 
+
+2) If there is a lot of overlap ...
+
+3) Some tags we cannot do anything about, so we don't claim them. 
+
+## Check overlap of deployment dates 
+
+If the deployment periods of duplicate tags includes the tail end of the lifetime of one tag, and the begining of the deployment of another, it more likely that detections belong to the latter tag. 
+
+As a first step, we therefore compare deployment start and end dates for each of the motusTagIDs that an ambigID might represent. To do so, we first import tag deployment metadata, manipulate the data to rename some fields and create date variables, and subset to the list of motusTagIDs associated with the ambigIDs. Since we did not fix the positive longitude online, we again notice it appear in the tag metadata and must fix that here as well.  This highlights why it is important to make metadata changes online rather than through R if the problem occurs in your data:
+
+```{r importTagMeta}
+## get a list of the motusIDs for all of the ambiguous tags
+df.ambigTags <-  tbl(t, "allambigs") %>%
+  collect() %>% 
+  as.data.frame() 
+
+df.tagMeta <- tbl(t, "tagDeps") %>%
+  select(projectID, deployID, tagID, tsStart, tsEnd, 
+         speciesID, latitude, longitude) %>% 
+  distinct() %>%
+  collect() %>% 
+  as.data.frame() %>%
+  filter(tagID %in% unique(df.ambigTags$motusTagID))
+
+## and merge the two creating a new variable with both the projectID
+## and the MotusTagID which makes it easier for plotting to see where
+## the various ambiguous come from.
+df.ambigTags <- left_join(df.ambigTags, 
+                          df.tagMeta, 
+                          by = c("motusTagID" = "tagID")) %>%
+  mutate(plot.id = paste(ambigID, motusTagID, projectID, sep = "."))
+```
+
+```{r}
+## derives some summary data for the ambiguous detections to compare with the
+## tag deployments
+
+df.detectRange <- select(df.ambigDetect, ambigID, ts, 
+                         gpsLat, gpsLon, runLen) %>%
+#  mutate(date = date(as_datetime(ts))) %>%
+  group_by(ambigID) %>% 
+  summarize(detectStart = min(ts), 
+            detectEnd = max(ts), 
+            startLat = gpsLat[ts == detectStart][1],
+            startLon = gpsLon[ts == detectStart][1], 
+            endLat = gpsLat[ts == detectEnd][1],
+            endLon = gpsLon[ts == detectEnd][1], 
+            maxLat = max(gpsLat, na.rm=TRUE), 
+            maxLon = max(gpsLon, na.rm=TRUE), 
+            minLat = min(gpsLat, na.rm=TRUE), 
+            minLon = min(gpsLon, na.rm=TRUE), 
+            maxrunLen = max(runLen, na.rm=TRUE))
+
+## maybe do a daily detections here?
+```
+
+From this, we want to examine the deployment start and end dates (depStart/depEnd), start and end locations (tagDepLat/tagDepLon), and the start and end dates of ambiguous detections (detectStart/detectEnd) associated with each ambigID/motusTagID:
+
+```{r examineDeployments}
+
+df.ambigTags <- full_join(df.ambigTags, df.detectRange, 
+                          by = c("ambigID")) %>%
+  mutate(tsStart = as_datetime(tsStart), 
+         tsEnd = as_datetime(tsEnd), 
+         detectStart = as_datetime(detectStart), 
+         detectEnd = as_datetime(detectEnd))
+
+p <- ggplot(data=tmp, aes(tsStart, plot.id, 
+                          group=ambigID, colour=factor(ambigID)))
+p + geom_segment(aes(x=tsStart, xend=tsEnd, y=plot.id, yend=plot.id)) +
+  geom_point(aes(detectStart, plot.id), pch=1, size=3) + 
+  geom_point(aes(detectEnd, plot.id), pch=13, size=3) 
+  
+```
+
+We can see make the following observations from the plot:
+
+Ambiguous tags 337 and 106 are easy. The detections overlap towards the very end of the life of the previous tags, and so probably represent tags from the present project, that are still 'alive' in the previous project. None-the-less, we should still allow for the possibility that they are true overlaps. 
+
+- ambigID -337: detections occur on the last day of the deployment for motusTagID 10811, so detections most likely belong to motusTagID 16011. 
+- ambigID -106: detections occur near the end of the deployment for tag 17021, and one month after the deployment of 17357. Detections most likely belong to the latter tag.
+
+- ambigID -114: deployment periods overlap, so detections could belong to either tag, but detections begin a week after the deployment of 24298 (and several months after the deployment of 22897).
+
+- ambigID -171: detections occur near the end of the deployment period for 22902, and most likely belong to either 22778 or 24303. 
+
+- ambigID -134: deployment periods for both tags overlap almost exactly, but begin on the day following deployment of 23319, which suggests they might belong to that tag. However, because they were both released at the same site, we really can't say which tag the detections belong to. In this case, checking the metadata confirms that indeed, two identical tags were released, and there's unfortunately not much that can be done in this case.  Because we can't assign the detections with certainty to either tag, detections associated with ambigID -134 will be delected for the detections data. Note that metadata and field notes should also be checked, since there may be other ways to assign the detections to a tag (for example if the first tag was on a bird that did not survive, or the tag fell off before the second tag was deployed).
+
+
+- ambigID -56: deployments overlap, and detections could belong to either tag, but begin two days after 23316 was deployed, and one month after 22867 was deployed.
+
+## Plot lat/lon of ambiguous detections by time
+
+Next, we will visualize the time and location of detections relative to the time and location of tag deployments. Note that if you have a large number of ambiguities (say > 6) in your data, these plots will be messy. Instead, use the loop in 3) below to output ambigID-specific plots to PDF files. The coloured points are the tag deployment locations and date, the open black circles are the ambiguous detections associated with those tags.
+
+1. **Plot latitude of ambiguous detections against time.**
+
+```{r plotLatbyTime, fig.width=11, fig.height=6}
+
+p <- ggplot(data = df.ambigDetect, 
+            aes(ts, gpsLat), colour = "black", pch = 1, size = 3) 
+p + geom_point() + 
+  geom_point(data = df.ambigTags, 
+             aes(tsStart, latitude, 
+                 colour = plot.id), pch =  "+", size = 3) +
+  facet_wrap(~ ambigID, ncol= 3, scales = "free") + 
+  theme_bw() +   
+  ylab("Latitude") + xlab("Date") +
+  guides(colour=guide_legend(title="id.motusTagID.projectID"))
+
+```
+
+2. **Plot longitude of ambiguous detections against time.**
+
+```{r plotLonbyTime}
+
+p <- ggplot(data = df.ambigDetect, 
+            aes(ts, gpsLon), colour = "black", pch = 1, size = 3) 
+p + geom_point() + 
+  geom_point(data = df.ambigTags, 
+             aes(tsStart, longitude, 
+                 colour = plot.id), pch =  "+", size = 3) +
+  facet_wrap(~ ambigID, ncol= 3, scales = "free") + 
+  theme_bw() +   
+  ylab("Longitude") + xlab("Date") +
+  guides(colour=guide_legend(title="id.motusTagID.projectID"))
+
+```
+
+3. **Do the above lat/lon by time plots in a loop; output to file.**
+
+If you have many duplicate tags you will find it more convenient to produce a separate plot for each ambiguous ID in your data, saved a pdf file.
+
+```{r pdfAmbigsLatLon}
+
+# specify an output directory
+out.dir <- "./images/"  # change output directory as required for your files
+
+# make a list of ambiguous IDs in your data
+ambig.list <- unique(df.ambigTags$ambigID)
+
+# Loop through and send each plot to PDF
+# Latitude plots
+
+for(i in 1:length(ambig.list)) {
+  tmp.detect <- filter(df.ambigDetect, ambigID == ambig.list[i])
+  tmp.tag <- filter(df.ambigTags, ambigID == ambig.list[i])
+  
+  p <- ggplot(data = tmp.tag, 
+              aes(depStart, tagDepLat, colour=plot.id), 
+              size = 2) +
+  geom_point() +
+  geom_point(data = tmp.detect, 
+             aes(ts, latitude), colour = "red", pch = 1, size = 3) +
+  theme_bw() +   
+  ggtitle(paste("ambigID ", ambig.list[i], sep = "-")) +
+  ylab("Latitude") + xlab("Date") +
+  guides(shape=guide_legend(title="projectID.motusTagID"))
+
+pdf(file = paste(out.dir, "AmbigLat", ambig.list[i], ".pdf", sep = ""), 
+    width = 7, height = 5)
+print(p)
+dev.off()
+
+}
+
+# Longitude plots
+
+for(i in 1:length(ambig.list)) {
+
+plot.df <- subset(ambig.df, ambigID == ambig.list[i] & ambig == 1)
+plot.ambigs <- subset(allAmbigs, ambigID == ambig.list[i])
+  
+out.plot <- ggplot() +
+  geom_point(data = plot.ambigs, aes(y = tagDepLon, x = depStart, shape = as.factor(project.motusTagID)), colour = "black", size = 2)+
+  geom_point(data = plot.df, aes(y = recvLon, x = dmy), colour = "red", pch = 1, size = 3) +
+  theme_bw() +   
+  ggtitle(paste("ambigID ", ambig.list[i], sep = "")) +
+  ylab("Longitude") + xlab("Date") +
+  guides(shape=guide_legend(title="projectID.motusTagID"))
+
+pdf(file = paste(out.dir, "AmbigLon", ambig.list[i], ".pdf", sep = ""), width = 7, height = 5)
+  print(out.plot)
+  dev.off()
+  
+}
+
+```
+
+The lat/lon by time plots suggest or confirm that:
+
+- ambigID -337: detections belong to 16011 from our own project (38).
+
+- ambigID -114: detections belong to 24298 from project 146. Detections associated with this ambigID can be dropped from the data.
+
+- ambigID -106: detections belong to 17357 from our own project (38).
+
+- ambigID -171: detections with latitude > 35 likely belong to 24303 from project 146, and can be deleted from the detections data. However, there are two detections with latitude < 10 which should be checked, and near-simultaneous detections at three different longitudes that should also be checked further. 
+- ambigID -56: there remains some ambiguity for at least some of the detections, and should be examined further.
+
+## Check run length of outlying detections.
+
+If you have a large number of ambiguities remaining, you may want to skip this step and go directly to mapping the detections.
+
+Run length of a hit tells you how many consecutive bursts were detected by a receiver. The longer the run length, the more likely your detection is not a false positive (see Chapter \@ref(dataCleaning)). Any outlying detections should be checked for run length, and in general anything under a run length of 3 has a higher potential of being false positive.
+
+There are one or two detections at southern latitudes for ambigID -171 that we will check:
+
+```{r check171ambig}
+
+filter(ambig.df, ambigID == -171, recvLat < 10) %>% select(ts, sig, ambigID, runLen, site, proj, recvDeployLat, recvDeployLon) %>% distinct()
+
+```
+
+All detections associated with ambigID -171 have run lengths of 2, and so are almost certainly false positives. They occurred in forested habitats at a Motus station in interior Colombia. It is possible that the shorebirds were detected migrating overhead, but we will see in the next section that the timing of the later detections on June 17th don't correspond with the detection of the same tag in Delaware Bay on 3 June. We will therefore assume these detections belong to other tags or are false positives.  
+
+## Map ambiguous detections
+
+Next we will map the detections associated with ambigID -56 and -171. We will then show you how to loop through the ambigIDs to output maps to file. 
+
+1. **Install R mapping package.**
+If you do not have rworldmap installed then you must run:
+```{r installMapPackages, eval = FALSE, message = FALSE, warning = FALSE}
+
+install.packages("rworldmap")
+
+```
+Once packages are installed, load it into R:
+```{r loadMapPackages}
+
+require(rworldmap)
+
+```
+
+2. **Load base map files.**
+
+```{r loadMaps}
+
+na.lakes <- map_data(map = "lakes")
+na.lakes <- mutate(na.lakes, long = long- 360)
+
+# Include all of the Americas to begin
+na.map <- subset(map_data(map="world2"), 
+                 region %in% c("Canada", "USA", "Mexico", "lakes",
+                               "Belize", "Costa Rica", "Panama", 
+                               "Guatemala", "Honduras", "Nicaragua", 
+                               "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil",
+                               "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", 
+                               "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", 
+                               "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", 
+                               "Barbados", "Grenada", "Trinidad and Tobago"))
+
+na.map <- mutate(na.map, long = long- 360)
+
+```
+
+3. **Map the locations of detections for a single ambigID.**
+
+When we subset the data for the ambigID of interest, we will order the detections by timestamp.
+
+```{r duplicateEx56}
+
+aID <- -56  # assign ambigID of interest
+
+dup.df <- filter(df.ambig, motusTagID %in% allAmbigs$motusTagID[allAmbigs$ambigID == aID]) %>%
+              select(hitID, runID, batchID, ts, sig, ambigID, recvDeployID, site, recvLat, recvLon, gpsAlt, yr, dmy) %>%
+              distinct() %>% 
+              arrange(ts)
+
+dup.depl <- filter(allAmbigs, ambigID == aID)
+              
+```
+
+And now map the data. The location of ambiguous detections are shown by black 'x', and the deployment location of all duplicate tags are shown by coloured circles:
+
+```{r mapDetections}
+
+# set limits to map based on locations of detections, ensuring they include the deployment locations
+xmin <- if_else(min(dup.df$recvLon) < min(dup.depl$tagDepLon), min(dup.df$recvLon) - 2, min(dup.depl$tagDepLon) - 2)
+xmax <- if_else(max(dup.df$recvLon) > max(dup.depl$tagDepLon), max(dup.df$recvLon) + 2, max(dup.depl$tagDepLon) + 2)
+ymin <- if_else(min(dup.df$recvLat) < min(dup.depl$tagDepLat), min(dup.df$recvLat) - 2, min(dup.depl$tagDepLat) - 2)
+ymax <- if_else(max(dup.df$recvLat) > max(dup.depl$tagDepLat), max(dup.df$recvLat) + 2, max(dup.depl$tagDepLat) + 2)
+                
+# map
+ggplot(na.lakes, aes(long, lat))+ 
+  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+#
+  geom_polygon(aes(group = group), colour = "grey", fill = "white")+
+  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
+  xlab("") + ylab("") + 
+  theme_bw() + 
+  geom_point(data = dup.df, aes(recvLon,recvLat), cex = 0.8, colour = "black", pch = 4)+
+  geom_point(data = dup.depl, aes(tagDepLon,tagDepLat, colour = as.factor(project.motusTagID)), pch = 1, size = 3)+
+  scale_colour_discrete("Deployment Location (projectID.motusTagID)")
+
+```
+### Map of ambigID -56
+
+There are a few things we can tell from the map for *ambigID -56*:
+
+1. there is an issue with the plotting of the map (a blank band through James Bay) that we will ignore for now!
+2. detections with latitude > 45 and longitude < -75 belong to the tag deployed in the James Bay region (motusTagID = 22867).
+3. detections with latitude > 45 and longitude > -75 belong to the tag deployed in the St. Lawrence region (motusTagID = 23316).
+4. the remaining detections could belong to either tag, but we will filter out the remaining ambiguous detections and take a closer look at the timeline before we come to any determination about whether to drop those detections due to remaining ambiguities.
+
+If you look again at the plot of latitude against time created earlier for ambigID -56, we see that detections in early October correspond to the departure and southward migration of motusTagID 22867. The later detection(s) in November look to correspond with the southern migratory departure of motusTagID 23316 from the St. Lawrence region. We can see the exact dates of the detections that occurred in 2016 below 45 degrees latitude using:
+
+```{r filterDates}
+
+filter(ambig.df, ambigID == -56, yr == 2016, recvLat < 45) %>% group_by(dmy) %>% summarize(nDetect = n())
+
+```
+
+From this, we can quite confidently assign detections in 2016 that have latitude < 45 and dmy < 2016-11-01 to tag 22867, and the remaining 2016 detections to tag 23316. We first double check to make sure the more southern detections occurred AFTER detections at higher latitudes for tag 22867 using the following code, which we don't evaluate here:
+
+```{r filterDates2, eval = FALSE}
+
+filter(ambig.df, motusTagID == 22867, yr == 2016, recvLat > 45, recvLon < -75) %>% group_by(ts, dmy) %>% summarize(nDetect = n())
+
+```
+
+If we take an even closer look at the actual timestamps of the detections, the last detection north of 45 degrees latitude was at 00:00:42 GMT, and the first detection at the more southern sites along the flyway were at 14:33:38 on the same day, which supports that the bird was actively migrating.
+
+Unfortunately, because both tags could have been active during the following spring (all 2017 detections), we are unable to distinguish which bird these additional ambiguous detections belong to, and all 2017 detections will be dropped from the data.
+
+### Map of ambigID -171
+
+If we re-run the mapping code but assign `r aID <- -171`, we can see that the detections by the Fortescue site in Delaware Bay on June 3, 2017, are likely to be from our bird:
+
+```{r map-171, echo = FALSE}
+
+knitr::include_graphics("images/AmbigMap-171.png")
+
+```
+
+You can see details of the Delaware Bay detection by running the following (not evaluated here):
+
+```{r delawareDetections, eval = FALSE}
+
+filter(ambig.df, ambigID == -171, recvLat > 10 & recvLat < 40) %>% select(hitID, ts, sig, ambigID, runLen, site, proj, recvDeployLat, recvDeployLon)
+
+```
+
+3. **Write map of ambiguous detections to file.**
+
+If you have a large number of ambiguous detections that you want to map, you can use this loop instead, which will output a PDF map for each ambigID in your data. If you are using your own data, replace the tagProjID in the first line with the ID number for your own project.
+
+```{r mapAllAmbigs, eval = FALSE}
+
+projID <- 38
+
+for(i in 1:length(ambig.list)) {
+
+dup.df <- filter(ambig.df, ambigID == ambig.list[i] & tagProjID == projID) %>%
+              select(hitID, runID, batchID, ts, sig, ambigID, recvDeployID, site, recvLat, recvLon, yr, dmy) %>%
+              distinct() %>% 
+              arrange(ts)
+
+dup.depl <- filter(allAmbigs, ambigID == ambig.list[i])
+              
+# set limits to map based on locations of detections, ensuring they include the deployment locations
+xmin <- if_else(min(dup.df$recvLon, na.rm = TRUE) < min(dup.depl$tagDepLon, na.rm = TRUE), min(dup.df$recvLon, na.rm = TRUE) - 2, min(dup.depl$tagDepLon, na.rm = TRUE) - 2)
+xmax <- if_else(max(dup.df$recvLon, na.rm = TRUE) > max(dup.depl$tagDepLon, na.rm = TRUE), max(dup.df$recvLon, na.rm = TRUE) + 2, max(dup.depl$tagDepLon, na.rm = TRUE) + 2)
+ymin <- if_else(min(dup.df$recvLat, na.rm = TRUE) < min(dup.depl$tagDepLat, na.rm = TRUE), min(dup.df$recvLat, na.rm = TRUE) - 2, min(dup.depl$tagDepLat, na.rm = TRUE) - 2)
+ymax <- if_else(max(dup.df$recvLat, na.rm = TRUE) > max(dup.depl$tagDepLat, na.rm = TRUE), max(dup.df$recvLat, na.rm = TRUE) + 2, max(dup.depl$tagDepLat, na.rm = TRUE) + 2)
+                
+out.map <- ggplot(na.lakes, aes(long, lat))+ 
+  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+#
+  geom_polygon(aes(group = group), colour = "grey", fill = "white")+
+  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
+  xlab("") + ylab("") + ggtitle(paste("ambigID: ", ambig.list[i], sep = ""))+
+  theme_bw() + 
+  geom_point(data = dup.df, aes(recvLon,recvLat), cex = 0.8, colour = "black", pch = 4)+
+  geom_point(data = dup.depl, aes(tagDepLon,tagDepLat, colour = as.factor(project.motusTagID)), pch = 1, size = 3)+
+  scale_colour_discrete("Deployment Location (projectID.motusTagID)")
+
+pdf(file = paste(out.dir, "AmbigMap", ambig.list[i], ".pdf", sep = ""), width = 7, height = 7)
+  print(out.map)
+  dev.off()
+  
+}
+```
+
+## Assigning or dropping ambiguities from your data
+
+To summarize, we want to:
+
+- drop all detections associated with ambigIDs -114, -134.
+- keep all detections associated with ambigID -337, and assign to motusTagID 16011.
+- keep all detections associated with ambigID -106, and assign to motusTagID 17357.
+- keep detections associated with ambigID -177 at site "Fortescue".
+- drop all detections that occurred in 2017 for ambigID -56. For 2016 detections, assign detections with lat > 45 and lon < -75 to motusTagID 22867; all detections with lat < 45 and dmy < 2016-11-01 to motusTagID 22867; assign all other detections to motusTagID 23316.
+
+We create a function that we can use to do this filtering, so that we can apply the function each time we load the data. Eventually, we hope to have a method to automatically report the assignment of ambiguities back to the main Motus server; for now we do it manually. Recall that the SQLite .motus file is currently assigned to the R object 't', and that the negative ambigIDs are included in the motusTagID column of this database:
+
+```{r filterFunction}
+
+filterProj38Ambigs <- function(df) {
+  
+  # load .motus file
+  file.name <- df     ## or replace with the full location of your 'project-XX.motus' data
+  t <- dplyr::src_sqlite(file.name)
+
+  # extract alltagswithambigs and alltags views 
+  ambigs <- tbl(t, "alltagswithambigs")
+  ambigs <- ambigs %>% collect() %>% as.data.frame()
+  # I'm having issues with NA ambigIDs being dropped by filter, so I'm replacing those with 0s first
+  ambigs <- mutate(ambigs, ambigID = replace(ambigID, is.na(ambigID), 0)) %>%
+    filter(ambigID != -134, ambigID != -114, tagProjID == 38)
+ 
+  # create time variables, filter out ambiguous detections that don't belong to our tags 
+  filt.data <- mutate(ambigs, 
+                      year = year(as_datetime(ambigs$ts, tz = "GMT")), 
+                      date = as.Date(as_datetime(ambigs$ts, tz = "GMT")),
+                      recvLat = if_else(is.na(gpsLat), recvDeployLat, gpsLat), 
+                      recvLon = if_else(is.na(gpsLon), recvDeployLon, gpsLon),
+                      # turn motusTagIDs into NA where the amnig detections aren't associated with the tag:
+                      motusTagID = replace(motusTagID, (ambigID == -171 & site != "Fortescue"), -1),
+                      motusTagID = replace(motusTagID, (ambigID == -56 & year == 2017), -1),
+                      motusTagID = replace(motusTagID, (ambigID == -56 & motusTagID == 22867 & recvLon > -72.5), -1),
+                      motusTagID = replace(motusTagID, (ambigID == -56 & motusTagID == 23316 & recvLon < -72.5), -1)) %>%
+                filter(motusTagID > 0) # drop all remainging ambigID -56 detections from 2017
+                      
+  return(filt.data)
+}
+
+```
+
+We can then apply the filtering function to the data by calling:
+
+```{r filterData, eval = FALSE}
+
+ambigFilter <- filterProj38Ambigs(df = system.file("extdata", "project-sample.motus", package = "motusdata"))
+                                
+```
+
+put this somewhere else?
+```{r}
+#summary(tagMeta)
+
+# manipulate dates using the lubridate() package and subset to motusTagIDs associated with duplicates
+
+tagMeta <- mutate(tagMeta, 
+                  tsStart = as_datetime(tsStart, tz = "UTC"),
+                  yrStart = year(tsStart),
+                  depStart = date(tsStart),
+                  tsEnd = as_datetime(tsEnd, tz = "UTC"),
+                  yrEnd = year(tsEnd),
+                  depEnd = date(tsEnd),
+                  tagDepLat = latitude, 
+                  tagDepLon = longitude,
+                  tagDepLon = if_else(tagDepLon > 0, -1*tagDepLon, tagDepLon)) %>% # fixing the positive longitudes
+          select(-tsStart, -tsEnd, -latitude, -longitude) %>%  #we don't need these for now, just interested in broad dates
+```

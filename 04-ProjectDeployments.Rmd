@@ -15,6 +15,10 @@ library(tidyverse)
 library(lubridate)    ## for working with dates
 library(motusdata)    ## repository for sample datasets for this book
 
+## Set the system environment time zone to GMT (to ensure that you are 
+## always working in GMT)
+Sys.setenv(TZ="GMT")
+
 ```
 
 ## Tag Deployments {#tagDeployments}
@@ -38,12 +42,12 @@ The 'df.tags' file contains the characteristics of each registered tag, includin
 
 ```{r importTags, message = FALSE, warning = FALSE}
 
-df.tags <- readRDS("./data/df.tags.RDS")
-df.tags <- df.tags %>% filter(projectID == 38)
+df.tags <- readRDS("./df.tags.RDS") %>%
+  filter(projectID == 38) 
 
 ```
 
-The number of rows in the 'df.tags' database is equivalent to the number of tags registered on Motus to the James Bay Shorebird Project. There are 691 tags registered to the project (recall we are using just a subset of this dataset):
+The number of rows in the 'df.tags' database is equivalent to the number of tags registered on Motus to the James Bay Shorebird Project. There are xx tags registered to the project (recall we are using just a subset of this dataset):
 
 ```{r nRegisteredTags}
 
@@ -53,24 +57,14 @@ nrow(df.tags) ## number of registered tags in the database
 
 ### Number of registered tags that were deployed
 
-The tag deployment table ('df.tagDeps') is required to check which registered tags have deployments. This file includes the date, time, species, and location of tag deployment. The database is subset to project '38', and selected columns are merged with the 'df.tags' table to determine which registered tags have (or do not have) corresponding deployment information.
+The tag deployment table ('df.tagDeps') is required to check which registered tags have deployments. This file includes the date, time, species, and location of tag deployment. The database is subset to project '38', and we use the anti_join function to determine which registered tags have (or do not have) corresponding deployment information.
 
 ```{r importTagMeta.4, message = FALSE, warning = FALSE}
 
-df.tagDeps <- readRDS("./data/df.tagDeps.RDS")                                        
-df.tagDeps <- filter(df.tagDeps, projectID == 38) 
+df.tagDeps <- readRDS("./df.tagDeps.RDS") %>%
+  filter(projectID == 38) 
 
-## merge with tag registration metadata:
-
-df.tagsDeployed <- full_join(df.tags, select(df.tagDeps, deployID, tagID), by = "tagID")
-
-```
-
-To list registered tags that do not have associated deployment metadata:
-
-```{r tagsRegNotDeployed}
-
-filter(df.tagsDeployed, is.na(deployID))
+anti_join(df.tags, df.tagDeps, by = "tagID") 
 
 ```
 
@@ -87,7 +81,9 @@ If you do not have rworldmap installed then you must install and load the packag
 ```{r installMapPackagesRecv, message = FALSE, warning = FALSE}
 
 install.packages("rworldmap")
+install.packages("maproj")
 require(rworldmap)
+require(mapproj)
 
 ```
 
@@ -95,19 +91,25 @@ require(rworldmap)
 
 ```{r loadMapsRecv, message = FALSE, warning = FALSE}
 
-na.lakes <- map_data(map = "lakes")
-na.lakes <- mutate(na.lakes, long = long- 360)
+## get the lake data, adjust longitude
+na.lakes <- map_data(map = "lakes") %>%
+  mutate(long = long- 360)
 
-## Include the countries that make sense
-
-na.map <- subset(map_data(map="world2"), 
-                region %in% c("Canada", "USA")) 
+## get the country data
+na.map <- filter(map_data(map="world2"),
+                 region %in% c("Canada", "USA")) %>%
+  mutate(long = long- 360)
                 
-## Others (Americas): "Mexico", "lakes","Belize", "Costa Rica", "Panama", "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay"
-
-na.map <- mutate(na.map, long = long- 360)
+## Others countriess in the Americas: "Mexico", "lakes","Belize", "Costa Rica", "Panama", "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay"
 
 ```
+
+Look at a simple summary of the data
+
+```{r}
+summary(df.tagDeps)
+```
+
 
 3. **Map the locations of tag deployments.**
 
@@ -122,13 +124,19 @@ ymin <- min(df.tagDeps$latitude, na.rm = TRUE) - 5
 ymax <- max(df.tagDeps$latitude, na.rm = TRUE) + 5
                 
 ## map
-ggplot(na.lakes, aes(long, lat))+ 
-  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+#
-  geom_polygon(aes(group = group), colour = "grey", fill = "white")+
-  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
+ggplot(na.lakes, aes(long, lat)) + 
+  geom_polygon(
+    data = na.map, 
+    aes(long, lat, group=group), colour = "grey", fill="grey98") + 
+  geom_polygon(
+    aes(group = group), colour = "grey", fill = "white") +
+  coord_map(projection="mercator", 
+            xlim = c(xmin, xmax), 
+            ylim = c(ymin, ymax)) +
   xlab("") + ylab("") + 
   theme_bw() + 
-  geom_point(data = df.tagDeps, aes(longitude, latitude), cex = 2, pch = 1, colour = "red")
+  geom_point(data = df.tagDeps, 
+             aes(longitude, latitude), cex = 2, pch = 1, colour = "red")
    
 ```
 There is a warning that 164 rows were removed from the map due to missing [latitude and/or longitude] values. Summarizing the data with `r summary(df.tagDeps), eval = FALSE` suggests that 164 deployments are missing speciesID, latitude, and longitude. Comparing the tagIDs for these records in the 'df.tagDeps' file with the deployments of those tags online at <https://motus.org>, these tags were registered but were either not deployed or were used as test tags. 
@@ -143,7 +151,9 @@ As a first step, use summary(df.tagDeps) to get an idea of the range of each var
 
 ```{r summaryTagMeta}
 
-summary(select(df.tagDeps, deployID, tagID, projectID, tsStart, tsEnd, speciesID, latitude, longitude))
+select(df.tagDeps, 
+       tagID, projectID, tsStart, tsEnd, speciesID, latitude, longitude) %>%
+  summary()
 
 ```
 

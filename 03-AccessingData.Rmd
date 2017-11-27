@@ -4,6 +4,11 @@
 Before we begin working with data, we need to load the required packages. If you have not yet installed these packages (from github and CRAN) then please return to chapter 2 and do so.
 
 ```{r loadPackages, warning = FALSE, message = FALSE}
+## these function calls will only install updated packages
+require(devtools)
+install_github("MotusWTS/motusClient@master")   ## the last stable version
+install_github("MotusWTS/motus@staging")   ## the last stable version
+install_github("MotusWTS/motusdata")   ## the last stable version
 
 ## required 'motus' packages from github
 require(motus)
@@ -18,6 +23,9 @@ require(lubridate)
 ## handy round_any function, but loading it can cause problems with the 
 ## dplyr functions. 
 
+## Set the system environment time zone to GMT (to ensure that you are 
+## always working in GMT)
+Sys.setenv(TZ="GMT")
 ```
 
 
@@ -66,8 +74,9 @@ Let's get started
 ```{r tagme1, eval = FALSE}
 
 getwd() # to see the current working directory; use setwd() to change it.
+proj.num <- 123 ## use the number associated with your project here
 
-t <- tagme(projRecv = 123, update = TRUE, new = TRUE)                # for project tag database
+t <- tagme(projRecv = proj.num, update = TRUE, new = TRUE)                # for project tag database
 t <- tagme(projRecv = "SG-1013BB000626", update = TRUE, new = TRUE)  # for receiver tag database
 ```
 
@@ -75,7 +84,7 @@ Or specify a directory to create and open a local tag database using "dir = ":
 
 ```{r tagme2, eval = FALSE, message = FALSE, warning = FALSE}
 
-t <- tagme(projRecv = 123, update = TRUE, new = TRUE, dir = "./data/") 
+t <- tagme(projRecv = proj.num, update = TRUE, new = TRUE, dir = "./data/") 
 
 ```
 
@@ -87,8 +96,8 @@ To open and update a detections database that already exists (has been downloade
 
 ```{r tagme2, eval = FALSE}
 
-t <- tagme(projRecv = 123) ## if the file is in the local working directory, OR:
-t <- tagme(projRecv = 123, dir = "./data/") ## use dir = to specify a directory
+t <- tagme(projRecv = proj.num) ## if the file is in the local working directory, OR:
+t <- tagme(projRecv = proj.num, dir = "./data/") ## use dir = to specify a directory
 
 ```
 
@@ -98,7 +107,7 @@ Tag and receiver metadata are automatically merged with tag detections when data
 
 ```{r tagme5, eval = FALSE}
 
-t <- tagme(projRecv = 123, forceMeta = TRUE)
+t <- tagme(projRecv = proj.num, forceMeta = TRUE)
 
 ```
 
@@ -115,8 +124,8 @@ The following assumes that a local copy of the database already exists:
 
 ```{r tagme4b, eval = FALSE}
 
-tellme(projRecv = 123)                    ## If db is in the working directory
-tellme(projRecv = 123, dir = "C/Data/")   ## To specify a different directory
+tellme(projRecv = proj.num)                    ## If db is in the working directory
+tellme(projRecv = proj.num, dir = "./Data/")   ## To specify a different directory
 
 ```
 
@@ -124,7 +133,7 @@ To check how much data is available for a project but you _do not_ have a databa
 
 ```{r tagme4c, eval = FALSE}
 
-tellme(projRecv = 123)
+tellme(projRecv = proj.num)
 
 ```
 
@@ -197,15 +206,18 @@ The *virtual* table 'alltagswithambigs' contains the detection data, along with 
 
 ```{r getAllTagsTable, eval = FALSE}
 
-vt <- tbl(t, "alltagswithambigs") ## virtual table
-
+vt.1 <- tbl(t, "alltagswithambigs") ## virtual table
+vt.2 <- tbl(t, "alltags")
 ```
 
 The following table lists the variables available in the 'alltagswithambigs' view, along with a description of each.
 
 ```{r parameterTable, echo = FALSE}
 
-vt %>% 
+n.1 <- vt.1 %>% 
+  collect() %>%
+  names()
+n.2 <- vt.2 %>% 
   collect() %>%
   names()
 
@@ -308,125 +320,94 @@ write.csv(df.flat, "./data/df.flat.CSV", row.names = FALSE)
 
 ```
 
-### Create function to output .motus tables to 'flat' dataframes {#flatRDSfunction}
-
-For the purpose of this book, the following function creates flat CSV or RDS files of the various tables that we will need from the .motus file. You can run this function on your own data as it is, or modify it to include/exclude different fields in the various tables.
-
-In this function, we include some basic data filters, create date and location variables, and select the variables that are likely to be of interest and use for most applications. This includes:
-
-1. creating 'recvLat' and 'recvLon' variables, which default to using the latitude and longitude derived from the GPS in each receiver, and in-fills missing GPS values with the latitude and longitude from the receiver deployment metadata entered online by the project that deployed the station.
-
-2. creating an 'ambig' variable, which assigns a '1' when the detections could belong to two or more (up to 6) duplicate tags.
-
-3. providing filters for run length and standard deviation of frequency offset among pulses in a burst, which can give an indication of the probability that a detection is a false positive. Generally, detections with runLen <= 2 have a high probability of being false positive, as do detections with freqSD > 0.1  kHz. These filters are included, but not used here (see Chapter \@ref(dataCleaning)).
-
-```{r dataFunction}
-
-# for your own data, replace with location of your 'project-XX.motus' data
-
-createFlatFiles <- function(out.dir, in.df, table.list, output.format) {  
-
-  # load .motus file
-
-  file.name <-  in.df 
-  t <- dplyr::src_sqlite(file.name)
-
-  # Loop through table.list, create flat file, and save to RDS file
-  # An if() statement is included to select only certain parameters from the alltagswithambigs table
-  # This can be modified to include different parameters, or to create a different if() statement for
-  # another table.
-  
-  for(i in 1:length(table.list)) {
-    
-        df <- tbl(t, table.list[i])
-       
-        if(table.list[i] == "alltagswithambigs"){
-        df <- mutate(df,  # create receiver Lat/Lon fields- use lat/lon from GPS, and if NA, use the lat/lon from the receiver deployment metadata
-                     recvLat = if_else(is.na(gpsLat), recvDeployLat, gpsLat), 
-                     recvLon = if_else(is.na(gpsLon), recvDeployLon, gpsLon),
-                     # create an ambiguous column, so detections are labelled as ambiguous or not
-                     ambig = if_else(is.na(ambigID), 0, 1))  %>% 
-              # keep only parameters of interest. Could potentially drop gpsLat/Lon and recvDeployLat/Lon
-              select(hitID, runID, batchID, ts, sig, sigsd, freqsd, motusTagID, ambigID, ant, 
-                     runLen, tagProjID, tagDeployID, id, depLat, depLon, depAlt, recvDeployID, recvDeployLat,
-                     recvDeployLon, recvDeployElevation, recv, site, projID, antType, antBearing, antHeight, 
-                     spEN, spFR, spSci, tagProj, proj, gpsLat, gpsLon, gpsAlt, recvLat, recvLon, ambig) %>%
-              # keep only run lengths greater than 2. This can be modified later, to see if any detections with
-              # a run length of two are real detections.
-          
-              filter(runLen >=2) # note we are inlcuding 2 here; add: ", freqSD <= 0.1" to filter for freqSD as well.
-          
-
-        } # end of if statement
-    
-                           
-   
-        df <- df %>% 
-              collect() %>% 
-              as.data.frame()
-  
-        # once in a flat file, modify timestamp which is stored in the .motus file as seconds since Jan 01, 1970
-        
-        if(table.list[i] == "alltagswithambigs"){
-            df <- mutate(df, 
-                  ts = as_datetime(ts, tz = "GMT", origin = "1970-01-01"))
-        } # end of if statement
-        
-        # modify times of tag and receiver deployment metadata
-        
-        if(table.list[i] == "tagDeps"|table.list[i] == "recvDeps"){
-            df <- mutate(df, 
-                  tsStart = as_datetime(tsStart, tz = "GMT", origin = "1970-01-01"), 
-                  tsEnd = as_datetime(tsEnd, tz = "GMT", origin = "1970-01-01"))
-        } # end of if statement
-        
-  if(output.format == "RDS") {     
-  saveRDS(df, file = paste(out.dir, "df.", table.list[i], ".rds", sep = "")) 
-  }
-  
-  if(output.format == "CSV") {     
-  write.csv(df, file = paste(out.dir, "df.", table.list[i], ".csv", sep = ""), row.names = FALSE) 
-  }     
-     
-  } # end of for loop
-} # end of function
-```
-
-Run the function by first setting the parameters 'out.dir', 'in.df', and 'table.list':
-
-```{r runDataRDSFunction, eval = FALSE}
-
-# choose output format, choice of RDS or CSV:
-
-output.format <- "RDS"
-
-# directory where you want your flat RDS files to be stored 
-out.dir <- paste(getwd(), "/data/", sep = "") # or change to the output directory of your choice
-
-# full location of your .motus file. This will typically look like in.df <- "C:/Motus/data/project-xx.motus"
-in.df <- system.file("extdata", "project-sample.motus", package = "motusdata") 
-
-# list of tables in your .motus file that you want to transform to flat files:
-table.list <- c("alltagswithambigs", "tags", "tagDeps", "recvs", "recvDeps", "antDeps", "species")
-
-# run the function, which will output an RDS flat file for each table in the specified directory
-createFlatFiles(out.dir = out.dir, in.df = in.df, table.list = table.list, output.format = output.format)
-
-```
-
 ### Access the book sample dataset
 
-For the purposes of this book, the sample data from the James Bay Shorebird Project (see Section \@ref(sampleData)) has been downloaded and the .motus and RDS files made available through the motusdata R package. You can use the following code to load the sample data:
+For the purposes of this book, the sample data from the James Bay Shorebird Project (see Section \@ref(sampleData)) has been downloaded and the .motus files made available through the motusdata R package. You can use the following code to load the sample data:
 
 ```{r importSampleData, message = FALSE}
 
 ## to access the .motus file for the sample data contained in the motusdata package:
+## put this up top
 
 file.name <- system.file("extdata", "project-sample.motus", package = "motusdata") 
-t <- dplyr::src_sqlite(file.name)
-
-## to access the RDS tables:
-
-** FILL THIS IN
+t <- src_sqlite(file.name)
 
 ```
+
+### Convert .motus tables to 'flat' dataframes for use in the book {#flatRDSfunction}
+
+For the purpose of this book, we  created a series of RDS files of the various tables that we will need from the .motus file. You can modify this script for your own data.
+
+We include some basic data filters, create date and location variables, and select the variables that are likely to be of interest and use for most applications. These include:
+
+1. creating 'lat' and 'lon' variables, which default to using the latitude and longitude derived from the GPS in each receiver, and in-fills missing GPS values with the latitude and longitude from the receiver deployment metadata entered online by the project that deployed the station.
+
+2. creating an 'ambig' variable, which assigns a '1' when the detections could belong to two or more (up to 6) duplicate tags (see Chapter \@ref())
+
+3. filtering the data by run length and standard deviation of frequency offset among pulses in a burst, which provides a simple way of excluding false positives. (We are working on more sophisticated methods that may help in the future). Generally, detections with runLen <= 2 have a high probability of being false positive, as do detections with freqSD > 0.1  kHz (see Chapter \@ref(dataCleaning)).
+
+```{r dataFunction}
+## full location of your .motus file. You would typically replace this code
+## with t <- tagme(your project number)
+
+in.df <- system.file("extdata", "project-sample.motus", package = "motusdata") 
+t <- src_sqlite(in.df)
+
+## create "alltagswithambigs"
+
+vt <- tbl(t, "alltagswithambigs")
+
+## we select here a minimal set of variables. There are many more, that may
+## be useful for some purpose
+df <- select(vt, 
+             ts, sig, freqsd, motusTagID, 
+             ambigID, ant, runLen, tagProjID, id, depLat, 
+             depLon, recvDeployLat,recvDeployLon,
+             recv, site, projID, proj, antType, antBearing, 
+             antHeight, spEN, tagProj,  gpsLat, gpsLon) %>%
+  collect() %>%
+  as.data.frame() %>%
+  mutate(
+    ## fill in some missing lat/lons
+    lat = if_else(is.na(gpsLat), recvDeployLat, gpsLat), 
+    lon = if_else(is.na(gpsLon), recvDeployLon, gpsLon),
+    
+    ## create an ambiguous column, so detections are labelled as ambiguous or not
+    ambig = if_else(is.na(ambigID), 0, 1),
+    
+    ## create a POSIX time stamp
+    ts = as.POSIXct(ts, origin = "1970-01-01")) %>%
+  select(-gpsLat, -gpsLon) %>%
+  filter(runLen > 2, 
+         freqsd < 0.12)
+
+## Now save the flat file as an RDS file
+saveRDS(df, "my.df.RDS")
+
+## create an RDS file for the other table views we'll 
+## use in the rest of the book
+tbl(t, "tags") %>%
+  collect() %>%
+  select(tagID, projectID, mfgID, model) %>%
+  as.data.frame() %>%
+  saveRDS("df.tags.RDS")
+
+tbl(t, "tagDeps") %>%
+  collect() %>%
+  select(tagID, status, tsStart, tsEnd, 
+         projectID, speciesID, markerNumber, markerType, 
+         latitude, longitude, fullID) %>%
+  as.data.frame() %>%
+  mutate(tsStart = as_datetime(tsStart), 
+         tsEnd = as_datetime(tsEnd)) %>%
+  saveRDS("df.tagDeps.RDS")
+ 
+tbl(t, "recvDeps") %>%
+  collect() %>%
+  select(-macAddress, -elevation) %>%
+  as.data.frame() %>%
+  mutate(tsStart = as_datetime(tsStart), 
+         tsEnd = as_datetime(tsEnd)) %>%
+  saveRDS("df.recv.RDS")
+```
+
