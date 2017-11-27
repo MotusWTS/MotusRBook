@@ -164,11 +164,10 @@ The .motus file contains a series of interelated tables where data are stored in
 14. gps: metadata related to Geographic Positioning System (GPS) position of receiver. 
 15. projAmbig: 
 
-In addition to these tables, there are also 'virtual' tables, which are queries that merge data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in each .motus file:
+In addition to these tables, there are also 'virtual' tables or 'views', which are queries that merge data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in each .motus file:
 
-1. alltags
-2. allambigs
-3. alltagswithambigs
+1. allambigs: lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.
+2. alltagswithambigs: provides the full detections data for all duplicate tags associated with your data. Ambiguous detections are repeated for each motusTagID represented by each ambigID. Note that unlike the raw detections data in the 'allTags' view of the .motus file (see \@ref(accessingData)), the alltagswithambigs view does not have negative values in the motusTagID field. Instead, there is an additional column, ambigID, which associates each positive motusTagID with its ambigID.
 
 Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be used to filter and summarize the .motus database, without needing to first save the data as a *flat* file, i.e., a typical two-dimensional dataframe with every record for each field filled in. This is very advantageous when you have a large file -- the queries using SQL will be substantially faster. 
 
@@ -344,7 +343,12 @@ We include some basic data filters, create date and location variables, and sele
 
 2. creating an 'ambig' variable, which assigns a '1' when the detections could belong to two or more (up to 6) duplicate tags (see Chapter \@ref())
 
+<<<<<<< HEAD
 3. filtering the data by run length and standard deviation of frequency offset among pulses in a burst, which provides a simple way of excluding false positives. (We are working on more sophisticated methods that may help in the future). Generally, detections with runLen <= 2 have a high probability of being false positive, as do detections with freqSD > 0.1  kHz (see Chapter \@ref(dataCleaning)).
+=======
+# list of tables in your .motus file that you want to transform to flat files:
+table.list <- c("alltagswithambigs", "tags", "tagDeps", "recvs", "recvDeps", "antDeps", "species", "allambigs")
+>>>>>>> b3f3d640acbb929c31005d2ff20750cbc45dc76e
 
 ```{r dataFunction}
 ## full location of your .motus file. You would typically replace this code

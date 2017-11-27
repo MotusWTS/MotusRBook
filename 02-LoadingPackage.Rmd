@@ -20,21 +20,25 @@ update.packages()                         ## to update your existing R packages
 ```
 
 Begin by installing the packages required, if necessary. You only have to do this once.
+
 ```{r install packages, eval = FALSE}
+
 install.package("devtools")
 require(devtools)
 
 # install motusClient for data download
-install_github("MotusWTS/motusClient@master")   ## the last stable version
+install_github("MotusWTS/motusClient@master")   
+library(motusClient)
 
 # install motus for data manipulation, visualization and analysis
-install_github("MotusWTS/motus@staging")   ## the last stable version
+install_github("MotusWTS/motus@staging")  
+library(motus)
 
 # install the motusdata package to get access to the sample data we use throughout this book
-install_github("MotusWTS/motusdata")   ## the last stable version
+install_github("MotusWTS/motusdata")  
+library(motusdata)
 
 ```
-
 
 Throughout the book, we use Tidyverse (<https://www.tidyverse.org/>), which is a collection of R packages for data science, including tidyr, dplyr, and ggplot2, and lubridate for managing and manipulating dates. These can be installed from CRAN, as follows:
 
