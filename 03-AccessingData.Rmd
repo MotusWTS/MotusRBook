@@ -1,38 +1,4 @@
-
-## Load relevant R packages {#loadPackages}
-
-Before we begin working with data, we need to load the required packages. If you have not yet installed these packages (from github and CRAN) then please return to chapter 2 and do so.
-
-```{r loadPackages, warning = FALSE, message = FALSE}
-## these function calls will only install updated packages
-require(devtools)
-install_github("MotusWTS/motusClient@master")   ## the last stable version
-install_github("MotusWTS/motus@staging")   ## the last stable version
-install_github("MotusWTS/motusdata")   ## the last stable version
-
-## required 'motus' packages from github
-require(motus)
-require(motusClient)
-require(motusdata)
-
-## required other packages from CRAN.
-require(tidyverse)
-require(lubridate)
-
-## install, but don't load the plyr package; we use it directly for the 
-## handy round_any function, but loading it can cause problems with the 
-## dplyr functions. 
-
-## Set the system environment time zone to GMT (to ensure that you are 
-## always working in GMT)
-Sys.setenv(TZ="GMT")
-```
-
-
 # Accessing and understanding detections data {#accessingData}
-
-The success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators. After downloading your data from the Motus server, users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.
-
 
 ## Database types {#databaseTypes}
 
@@ -57,9 +23,45 @@ These two databases correspond to the basic model of data sharing:
 2. you get all detections of *your* tags by *anyone's* receivers (i.e., one project tag database for each of your motus projects)
 
 
+
+## Load relevant R packages {#loadPackages}
+
+Before we begin working with data, we need to load the required packages. If you have not yet installed these packages (from github and CRAN) then please return to Chapter \@ref(loadingPackages) and do so.
+
+```{r loadPackages, warning = FALSE, message = FALSE}
+
+## these function calls will only install updated packages
+require(devtools)
+
+## required 'motus' packages from github
+require(motus)
+require(motusClient)
+require(motusdata)
+
+## required other packages from CRAN.
+require(tidyverse)
+require(lubridate)
+
+```
+
+## Set system environment
+
+Set the system environment time zone to Greenwich Mean Time (GMT), to ensure that you are always working in GMT.
+
+```{r setTimeZone }
+
+Sys.setenv(TZ="GMT")
+
+```
+
+
+
+
 ## Importing tag detections {#importDetections}
 
 To import tag detections for your project or receiver, you need a numerical project id or character scalar receiver serial number. 
+
+The success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators. After downloading your data from the Motus server, users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.
 
 ### Download data for a project or receiver for the _first time_
 

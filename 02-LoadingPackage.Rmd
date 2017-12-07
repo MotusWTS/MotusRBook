@@ -4,22 +4,23 @@ There are three R packages available to Motus users:
 
 1. motusClient: provides functions to download and update detections data and tag and receiver deployment metadata from the Motus server.
 
-2. motus: provides functions to output summary plots, and to transform (add sun rise/sun set times), and analyze Motus data.
+2. motus: provides functions to output summary plots, and to transform (add sun rise/sun set times) and analyze Motus data.
 
 3. motusdata: provides sample datasets from the James Bay Shorebird Monitoring Project that we use throughout the book.
 
-Motus **users** can install the latest stable versions of the R packages using the following code. You only need to install the packages once. After installation, you need to load each package (using library() or require()) each time you open a new R session. 
+Motus **users** can install the latest stable versions of the R packages using the following code. As with all R packages, you only need to install the packages once, and after installation, you need to load each package (using library() or require()) each time you open a new R session. 
 
 Please note that some functionalities of the devtools package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of R (<https://www.r-project.org/>) and RStudio (<https://www.rstudio.com/products/RStudio/>), and update your R packages using update.pacakges() in the R console.
 
+To update your existing packages:
 
 ```{r update packages, eval = FALSE}
 
-update.packages()                         ## to update your existing R packages
+update.packages()                         
 
 ```
 
-Begin by installing the packages required, if necessary. You only have to do this once.
+Begin by installing the required packages, if not already installed. 
 
 ```{r install packages, eval = FALSE}
 
@@ -27,7 +28,7 @@ install.package("devtools")
 require(devtools)
 
 # install motusClient for data download
-install_github("MotusWTS/motusClient@master")   
+install_github("MotusWTS/motusClient@motusserver")   
 library(motusClient)
 
 # install motus for data manipulation, visualization and analysis
@@ -45,11 +46,22 @@ Throughout the book, we use Tidyverse (<https://www.tidyverse.org/>), which is a
 ```{r install tidyverse, eval = FALSE}
 
 install.packages("tidyverse")
+require(tidyverse)
+
 install.packages("lubridate")
+require(lubridate)
 
 ```
 
 More information on Tidyverse can be found at <https://www.tidyverse.org/>, or by browsing 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>.
+
+We also install but do not load the plyr package; we use it directly for the handy round_any function, but loading it can cause problems with the dplyr functions:
+
+```{r install plyr}
+
+install.packages("plyr")
+
+}
 
 ## Internal data processing {#internalProcessing}
 
