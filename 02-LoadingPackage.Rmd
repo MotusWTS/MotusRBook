@@ -1,12 +1,10 @@
 # Loading R Packages {#loadingPackages}
 
-There are three R packages available to Motus users:
+There are two R packages available to Motus users:
 
 1. motusClient: provides functions to download and update detections data and tag and receiver deployment metadata from the Motus server.
 
 2. motus: provides functions to output summary plots, and to transform (add sun rise/sun set times), and analyze Motus data.
-
-3. motusdata: provides sample datasets from the James Bay Shorebird Monitoring Project that we use throughout the book.
 
 Motus **users** can install the latest stable versions of the R packages using the following code. You only need to install the packages once. After installation, you need to load each package (using library() or require()) each time you open a new R session. 
 
@@ -24,19 +22,11 @@ Begin by installing the packages required, if necessary. You only have to do thi
 ```{r install packages, eval = FALSE}
 
 install.package("devtools")
-require(devtools)
+library(devtools)
 
-# install motusClient for data download
-install_github("MotusWTS/motusClient@master")   
-library(motusClient)
-
-# install motus for data manipulation, visualization and analysis
+# install motus for data download, data manipulation, visualization and analysis
 install_github("MotusWTS/motus@staging")  
 library(motus)
-
-# install the motusdata package to get access to the sample data we use throughout this book
-install_github("MotusWTS/motusdata")  
-library(motusdata)
 
 ```
 
@@ -45,7 +35,9 @@ Throughout the book, we use Tidyverse (<https://www.tidyverse.org/>), which is a
 ```{r install tidyverse, eval = FALSE}
 
 install.packages("tidyverse")
+library(tidyverse)
 install.packages("lubridate")
+library(lubridate)
 
 ```
 

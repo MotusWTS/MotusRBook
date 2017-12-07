@@ -6,14 +6,10 @@ Before we begin working with data, we need to load the required packages. If you
 ```{r loadPackages, warning = FALSE, message = FALSE}
 ## these function calls will only install updated packages
 require(devtools)
-install_github("MotusWTS/motusClient@master")   ## the last stable version
 install_github("MotusWTS/motus@staging")   ## the last stable version
-install_github("MotusWTS/motusdata")   ## the last stable version
 
-## required 'motus' packages from github
+## required 'motus' package from github
 require(motus)
-require(motusClient)
-require(motusdata)
 
 ## required other packages from CRAN.
 require(tidyverse)
@@ -69,15 +65,25 @@ When downloading data from the Motus server for the first time, you must specify
 
 Note that the first time you call a function using the Motus R package, you will be asked for your motus.org username and password to authenticate your access to project data. This will only happen once per R session. If you do not have a Motus user name and password, you can sign up at <https://motus.org/data/user/new>. Permission to access project data will then be granted by Motus staff or the project principal investigator.
 
+Throughout this book we will use sample data which has been assigned to project 176.  When accessing this data you will need to login as follows:
+user name: motus.sample
+password: motus.sample
+
+### logging out {#logout}
+Once you are logged in under one account, you will not be able to access data from another account.  If you need to logout of your current account to access other data you can run the code below, for example if you need to logout of the sample project to run the tagme() function on your own project, or if you are already logged in to your project and wish to access the sample project.
+```{r logout, eval = FALSE}
+motusLogout()
+```
+
 Let's get started
 
 ```{r tagme1, eval = FALSE}
 
 getwd() # to see the current working directory; use setwd() to change it.
-proj.num <- 123 ## use the number associated with your project here
+proj.num <- 176 ## use the number associated with your project here
 
 t <- tagme(projRecv = proj.num, update = TRUE, new = TRUE)                # for project tag database
-t <- tagme(projRecv = "SG-1013BB000626", update = TRUE, new = TRUE)  # for receiver tag database
+t <- tagme(projRecv = "SG-123BBBK1234", update = TRUE, new = TRUE)  # for receiver tag database, note that there are no receivers registered to sample project 176, so this call will not find any data, you can however replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample, see \@ref(logout))
 ```
 
 Or specify a directory to create and open a local tag database using "dir = ":
@@ -96,8 +102,8 @@ To open and update a detections database that already exists (has been downloade
 
 ```{r tagme2, eval = FALSE}
 
-t <- tagme(projRecv = proj.num) ## if the file is in the local working directory, OR:
-t <- tagme(projRecv = proj.num, dir = "./data/") ## use dir = to specify a directory
+t <- tagme(projRecv = proj.num, new = FALSE, update = TRUE) ## if the file is in the local working directory, OR:
+t <- tagme(projRecv = proj.num, new = FALSE, update = TRUE, dir = "./data/") ## use dir = to specify a directory
 
 ```
 
@@ -133,7 +139,7 @@ To check how much data is available for a project but you _do not_ have a databa
 
 ```{r tagme4c, eval = FALSE}
 
-tellme(projRecv = proj.num)
+tellme(projRecv = proj.num, new = TRUE)
 
 ```
 
@@ -167,7 +173,7 @@ The .motus file contains a series of interelated tables where data are stored in
 In addition to these tables, there are also 'virtual' tables or 'views', which are queries that merge data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in each .motus file:
 
 1. allambigs: lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.
-2. alltagswithambigs: provides the full detections data for all duplicate tags associated with your data. Ambiguous detections are repeated for each motusTagID represented by each ambigID. Note that unlike the raw detections data in the 'allTags' view of the .motus file (see \@ref(accessingData)), the alltagswithambigs view does not have negative values in the motusTagID field. Instead, there is an additional column, ambigID, which associates each positive motusTagID with its ambigID.
+2. alltags: provides the full detections data for all duplicate tags associated with your data. Ambiguous detections are repeated for each motusTagID represented by each ambigID. Note that unlike the raw detections data in the 'allTags' view of the .motus file (see \@ref(accessingData)), the alltagswithambigs view does not have negative values in the motusTagID field. Instead, there is an additional column, ambigID, which associates each positive motusTagID with its ambigID.
 
 Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be used to filter and summarize the .motus database, without needing to first save the data as a *flat* file, i.e., a typical two-dimensional dataframe with every record for each field filled in. This is very advantageous when you have a large file -- the queries using SQL will be substantially faster. 
 
@@ -205,18 +211,14 @@ The *virtual* table 'alltagswithambigs' contains the detection data, along with 
 
 ```{r getAllTagsTable, eval = FALSE}
 
-vt.1 <- tbl(t, "alltagswithambigs") ## virtual table
-vt.2 <- tbl(t, "alltags")
+vt <- tbl(t, "alltags") ## virtual table
 ```
 
-The following table lists the variables available in the 'alltagswithambigs' view, along with a description of each.
+The following table lists the variables available in the 'alltags' view, along with a description of each.
 
 ```{r parameterTable, echo = FALSE}
 
-n.1 <- vt.1 %>% 
-  collect() %>%
-  names()
-n.2 <- vt.2 %>% 
+n.1 <- vt %>% 
   collect() %>%
   names()
 
@@ -224,7 +226,7 @@ n.2 <- vt.2 %>%
 
 ## Convert a SQLITE table to a flat dataframe {#convertToFlat}
 
-To convert the 'alltagswithambigs' view or other table into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() and as.data.frame() functions.  The output can then be further manipulated. , or used to generate a RDS file of your data. 
+To convert the 'alltags' view or other table into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() and as.data.frame() functions.  The output can then be further manipulated, or used to generate a RDS file of your data. 
 
 We suggest that a good workflow is to prepare a script that downloads/updates your data, filters out the necessary variables, and saves the resulting data as an RDS file. We suggest using RDS instead of CSV, because the RDS format preserves the underlying structure of the data (e.g. POSIX times stay as POSIX times). If you want to export your data to another program, the a CSV format might be preferred.
 
@@ -311,11 +313,11 @@ Good workflow is to create a script that deals with all of your data issues, the
 ```{r createRDS, eval = FALSE, message = FALSE, warning = FALSE}
 
 ## save an RDS file
-saveRDS(df.flat, "./data/df.flat.RDS")  
+saveRDS(df, "./data/df.RDS")  
 
 ## or save as CSV file, which does not preserve time stamps, but is more universally accepted
 
-write.csv(df.flat, "./data/df.flat.CSV", row.names = FALSE)
+write.csv(df, "./data/df.flat.CSV", row.names = FALSE)
 
 ```
 
