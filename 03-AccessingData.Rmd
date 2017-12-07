@@ -318,101 +318,11 @@ Good workflow is to create a script that deals with all of your data issues, the
 ```{r createRDS, eval = FALSE, message = FALSE, warning = FALSE}
 
 ## save an RDS file
+
 saveRDS(df, "./data/df.RDS")  
 
 ## or save as CSV file, which does not preserve time stamps, but is more universally accepted
 
-write.csv(df, "./data/df.flat.CSV", row.names = FALSE)
+write.csv(df, "./data/df.CSV", row.names = FALSE)
 
 ```
-
-### Access the book sample dataset
-
-For the purposes of this book, the sample data from the James Bay Shorebird Project (see Section \@ref(sampleData)) has been downloaded and the .motus files made available through the motusdata R package. You can use the following code to load the sample data:
-
-```{r importSampleData, message = FALSE}
-
-## to access the .motus file for the sample data contained in the motusdata package:
-## put this up top
-
-file.name <- system.file("extdata", "project-sample.motus", package = "motusdata") 
-t <- src_sqlite(file.name)
-
-```
-
-### Convert .motus tables to 'flat' dataframes for use in the book {#flatRDSfunction}
-
-For the purpose of this book, we  created a series of RDS files of the various tables that we will need from the .motus file. You can modify this script for your own data.
-
-We include some basic data filters, create date and location variables, and select the variables that are likely to be of interest and use for most applications. These include:
-
-1. creating 'lat' and 'lon' variables, which default to using the latitude and longitude derived from the GPS in each receiver, and in-fills missing GPS values with the latitude and longitude from the receiver deployment metadata entered online by the project that deployed the station.
-
-2. creating an 'ambig' variable, which assigns a '1' when the detections could belong to two or more (up to 6) duplicate tags (see Chapter \@ref())
-
-
-```{r dataFunction}
-## full location of your .motus file. You would typically replace this code
-## with t <- tagme(your project number)
-
-in.df <- system.file("extdata", "project-sample.motus", package = "motusdata") 
-t <- src_sqlite(in.df)
-
-## create "alltagswithambigs"
-
-vt <- tbl(t, "alltagswithambigs")
-
-## we select here a minimal set of variables. There are many more, that may
-## be useful for some purpose
-df <- select(vt, 
-             ts, sig, freqsd, motusTagID, 
-             ambigID, ant, runLen, tagProjID, id, depLat, 
-             depLon, recvDeployLat,recvDeployLon,
-             recv, site, projID, proj, antType, antBearing, 
-             antHeight, spEN, tagProj,  gpsLat, gpsLon) %>%
-  collect() %>%
-  as.data.frame() %>%
-  mutate(
-    ## fill in some missing lat/lons
-    lat = if_else(is.na(gpsLat), recvDeployLat, gpsLat), 
-    lon = if_else(is.na(gpsLon), recvDeployLon, gpsLon),
-    
-    ## create an ambiguous column, so detections are labelled as ambiguous or not
-    ambig = if_else(is.na(ambigID), 0, 1),
-    
-    ## create a POSIX time stamp
-    ts = as.POSIXct(ts, origin = "1970-01-01")) %>%
-  select(-gpsLat, -gpsLon) %>%
-  filter(runLen > 2, 
-         freqsd < 0.12)
-
-## Now save the flat file as an RDS file
-saveRDS(df, "my.df.RDS")
-
-## create an RDS file for the other table views we'll 
-## use in the rest of the book
-tbl(t, "tags") %>%
-  collect() %>%
-  select(tagID, projectID, mfgID, model) %>%
-  as.data.frame() %>%
-  saveRDS("df.tags.RDS")
-
-tbl(t, "tagDeps") %>%
-  collect() %>%
-  select(tagID, status, tsStart, tsEnd, 
-         projectID, speciesID, markerNumber, markerType, 
-         latitude, longitude, fullID) %>%
-  as.data.frame() %>%
-  mutate(tsStart = as_datetime(tsStart), 
-         tsEnd = as_datetime(tsEnd)) %>%
-  saveRDS("df.tagDeps.RDS")
- 
-tbl(t, "recvDeps") %>%
-  collect() %>%
-  select(-macAddress, -elevation) %>%
-  as.data.frame() %>%
-  mutate(tsStart = as_datetime(tsStart), 
-         tsEnd = as_datetime(tsEnd)) %>%
-  saveRDS("df.recv.RDS")
-```
-
