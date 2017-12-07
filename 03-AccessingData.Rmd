@@ -80,7 +80,7 @@ motusLogout()
 
 ```
 
-Let's get started. Note that there are no receivers registered to sample project 176, so the second call (by receiver) will not find any data. You can, however, replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample account, see \@ref(logout)):
+Let's get started. Note that there are no receivers registered to sample project 176, so the second call (by receiver) will not find any data. You can, however, replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample account, see \@ref(logout)). Be warned that large datasets can take some time to download from the Motus server; likewise, the sample dataset can take upwards of 30 minutes to download when new = TRUE.  After the initial download, loading the .motus file into R using new = FALSE will be instantaneous:
 
 ```{r tagme1, eval = FALSE}
 
