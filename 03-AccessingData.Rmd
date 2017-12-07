@@ -1,7 +1,5 @@
 # Accessing and understanding detections data {#accessingData}
 
-## Database types {#databaseTypes}
-
 ```{r fig3, echo = FALSE}
 
 knitr::include_graphics("images/DataStructure.png")
@@ -9,6 +7,8 @@ knitr::include_graphics("images/DataStructure.png")
 ```
 
 <br>
+
+## Database types {#databaseTypes}
 
 There are two types of tag databases:
 
@@ -23,7 +23,6 @@ These two databases correspond to the basic model of data sharing:
 2. you get all detections of *your* tags by *anyone's* receivers (i.e., one project tag database for each of your motus projects)
 
 
-
 ## Load relevant R packages {#loadPackages}
 
 Before we begin working with data, we need to load the required packages. If you have not yet installed these packages (from github and CRAN) then please return to Chapter \@ref(loadingPackages) and do so.
@@ -32,10 +31,6 @@ Before we begin working with data, we need to load the required packages. If you
 
 ## these function calls will only install updated packages
 require(devtools)
-<<<<<<< HEAD
-=======
-install_github("MotusWTS/motus@staging")   ## the last stable version
->>>>>>> b0dcd02786b2bc358ca3d762caf54703a549bc3e
 
 ## required 'motus' package from github
 require(motus)
@@ -56,9 +51,6 @@ Sys.setenv(TZ="GMT")
 
 ```
 
-
-
-
 ## Importing tag detections {#importDetections}
 
 To import tag detections for your project or receiver, you need a numerical project id or character scalar receiver serial number. 
@@ -69,32 +61,37 @@ The success of the Motus network is dependent on the timely upload of detection 
 
 When downloading data from the Motus server for the first time, you must specify update = TRUE and new = TRUE. Unless the directory that you want your data saved in is stated explicitly within the function call, data will be downloaded to the current working directory. 
 
-## User Authentication {#userAuthentication}
+### User Authentication {#userAuthentication}
 
 Note that the first time you call a function using the Motus R package, you will be asked for your motus.org username and password to authenticate your access to project data. This will only happen once per R session. If you do not have a Motus user name and password, you can sign up at <https://motus.org/data/user/new>. Permission to access project data will then be granted by Motus staff or the project principal investigator.
 
 Throughout this book we will use sample data which has been assigned to project 176.  When accessing this data you will need to login as follows:
+
 user name: motus.sample
 password: motus.sample
 
-### logging out {#logout}
-Once you are logged in under one account, you will not be able to access data from another account.  If you need to logout of your current account to access other data you can run the code below, for example if you need to logout of the sample project to run the tagme() function on your own project, or if you are already logged in to your project and wish to access the sample project.
+### Logging out {#logout}
+
+Once you are logged in under one user account, you will not be able to access data from another account.  If you need to logout of the current account to access other data, you can run the code below.
+
 ```{r logout, eval = FALSE}
+
 motusLogout()
+
 ```
 
-Let's get started
+Let's get started. Note that there are no receivers registered to sample project 176, so the second call (by receiver) will not find any data. You can, however, replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample account, see \@ref(logout)):
 
 ```{r tagme1, eval = FALSE}
 
 getwd() # to see the current working directory; use setwd() to change it.
-proj.num <- 176 ## use the number associated with your project here
+proj.num <- 176 ## 176 for the sample data, or use the number associated with your project here
 
 t <- tagme(projRecv = proj.num, update = TRUE, new = TRUE)                # for project tag database
-t <- tagme(projRecv = "SG-123BBBK1234", update = TRUE, new = TRUE)  # for receiver tag database, note that there are no receivers registered to sample project 176, so this call will not find any data, you can however replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample, see \@ref(logout))
+t <- tagme(projRecv = "SG-123BBBK1234", update = TRUE, new = TRUE)        # for receiver tag database
 ```
 
-Or specify a directory to create and open a local tag database using "dir = ":
+If you don't want to use the working directory, specify a directory to create and open a local tag database using "dir = ":
 
 ```{r tagme2, eval = FALSE, message = FALSE, warning = FALSE}
 
@@ -102,7 +99,7 @@ t <- tagme(projRecv = proj.num, update = TRUE, new = TRUE, dir = "./data/")
 
 ```
 
-This will write a copy of your tag database to the working or specified folder, stored as an SQLite file with the extension '.motus'. 
+The tagme() function will write a copy of your tag database to the working or specified folder, stored as an SQLite file with the extension '.motus'. 
 
 ### Update and open a local tag database
 
@@ -127,7 +124,7 @@ t <- tagme(projRecv = proj.num, forceMeta = TRUE)
 
 ### Check if new data are available
 
-To check if new data are available without downloading all of the previous data, you can use the tellme() function, which returns a list with:
+To check if new data are available without downloading the data, you can use the tellme() function, which returns a list with:
 
 - **numBatches**: number of batches of new data. 
 - **numRuns**: number of runs of new tag detections, where a run is a series of continuous detections for a tag on a given antenna.
@@ -139,7 +136,7 @@ The following assumes that a local copy of the database already exists:
 ```{r tagme4b, eval = FALSE}
 
 tellme(projRecv = proj.num)                    ## If db is in the working directory
-tellme(projRecv = proj.num, dir = "./Data/")   ## To specify a different directory
+tellme(projRecv = proj.num, dir = "./data/")   ## To specify a different directory
 
 ```
 
@@ -181,7 +178,7 @@ The .motus file contains a series of interelated tables where data are stored in
 In addition to these tables, there are also 'virtual' tables or 'views', which are queries that merge data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in each .motus file:
 
 1. allambigs: lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.
-2. alltags: provides the full detections data for all duplicate tags associated with your data. Ambiguous detections are repeated for each motusTagID represented by each ambigID. Note that unlike the raw detections data in the 'allTags' view of the .motus file (see \@ref(accessingData)), the alltagswithambigs view does not have negative values in the motusTagID field. Instead, there is an additional column, ambigID, which associates each positive motusTagID with its ambigID.
+2. alltags: provides the full detections data for all duplicate tags associated with your data. Ambiguous detections are repeated for each motusTagID represented by each ambigID. 
 
 Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be used to filter and summarize the .motus database, without needing to first save the data as a *flat* file, i.e., a typical two-dimensional dataframe with every record for each field filled in. This is very advantageous when you have a large file -- the queries using SQL will be substantially faster. 
 
@@ -204,25 +201,25 @@ str(tagMeta)
 
 The first part of the list, 'src', is a list that provides details of the SQLiteConnection, including where the database is stored. The second part is a list that includes the underlying table. Thus, the R object 'tagMeta' is a *virtual* table that stores the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and the dplyr package can be used to manipulate and summarize the tables before collecting the results into a typical "flat" format dataframe.
 
-If you want to use familiar functions to get access to components of the underlying data frame, then use the 'collect' function. For example:
+If you want to use familiar functions to get access to components of the underlying data frame, then use the 'collect' function. For example, to look at the names of the variables in tagMeta:
 
 ```{r}
 
-## look at the names of the variables
 tagMeta %>% 
   collect() %>%
   names() # list the variable names in the table
 
 ```
 
-The *virtual* table 'alltagswithambigs' contains the detection data, along with all variables that most users will ever need from the various underlying .motus tables. It too is accessed using the dplyr tbl() function:  
+The *virtual* table 'alltags' contains the detection data, along with all metadata variables that most users will ever need from the various underlying .motus tables. It too is accessed using the dplyr tbl() function:  
 
 ```{r getAllTagsTable, eval = FALSE}
 
 vt <- tbl(t, "alltags") ## virtual table
+
 ```
 
-The following table lists the variables available in the 'alltags' view, along with a description of each.
+The following table lists the variables available in the 'alltags' view [insert table with variable descriptions?]:
 
 ```{r parameterTable, echo = FALSE}
 
@@ -234,11 +231,11 @@ n.1 <- vt %>%
 
 ## Convert a SQLITE table to a flat dataframe {#convertToFlat}
 
-To convert the 'alltags' view or other table into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() and as.data.frame() functions.  The output can then be further manipulated, or used to generate a RDS file of your data. 
+To convert the 'alltags' view or other table in the .motus file into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() and as.data.frame() functions.  The output can then be further manipulated, or used to generate a RDS file of your data. 
 
 We suggest that a good workflow is to prepare a script that downloads/updates your data, filters out the necessary variables, and saves the resulting data as an RDS file. We suggest using RDS instead of CSV, because the RDS format preserves the underlying structure of the data (e.g. POSIX times stay as POSIX times). If you want to export your data to another program, the a CSV format might be preferred.
 
-We caution that producing a flat file using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets. This is the point in your workflow where you should remove any unwanted variables. You can always change your mind and return to this script, creating a new RDS file.
+We caution that producing a flat file using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets. This is the point in your workflow where you should remove any unwanted variables. You can always change your mind and return to this script, creating a new RDS file with additional or different variables.
 
 ```{r collect, eval = FALSE}
 
@@ -294,7 +291,7 @@ df.subset <- filter(vt, speciesID == 4670) %>%
   as.data.frame()
 
 ## filter to only Red Knot (using English name)
-df.subset <- filter(vt, spEN == "Red Knot") %>%   
+df.subset <- filter(vt, speciesEN == "Red Knot") %>%   
   collect() %>% 
   as.data.frame()  
 

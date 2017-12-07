@@ -30,7 +30,7 @@ library(devtools)
 #library(motusClient)
 
 # install motus for data download, data manipulation, visualization and analysis
-install_github("MotusWTS/motus@master")  
+install_github("MotusWTS/motus@staging")  
 library(motus)
 
 ```
