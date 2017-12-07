@@ -22,15 +22,15 @@ Begin by installing the required packages, if not already installed.
 
 ```{r install packages, eval = FALSE}
 
-install.package("devtools")
+install.packages("devtools")
 library(devtools)
 
 # install motusClient for data download
-install_github("MotusWTS/motusClient@motusserver")   
-library(motusClient)
+#install_github("MotusWTS/motusClient@motusserver")   
+#library(motusClient)
 
 # install motus for data download, data manipulation, visualization and analysis
-install_github("MotusWTS/motus@staging")  
+install_github("MotusWTS/motus@master")  
 library(motus)
 
 ```
