@@ -6,48 +6,58 @@ This chapter is a compliment to the online "message center", which provides each
 
 We use the James Bay Shorebird Project sample dataset throughout this chapter (see Section \@ref(sampleData); as you run through the code to look at your own deployments, **please fix any errors or ommissions in your metadata by signing in to <https://motus.org/>**, and under the 'Manage Data' tab, select either 'Manage Tags' to fix tag deployment metadata or 'Manage Receivers' to fix receiver deployment metadata. It is important to fix metadata errors online, so that errors are fixed at the source and archived on the Motus Server, ensuring all users have access to the correct tag and receiver metadata.  
 
-## Load relevant R packages
+## Load relevant R packages and set working environment
 
 ```{r loadPackages.4, warning = FALSE, message = FALSE}
 
 library(devtools)
 library(tidyverse)
 library(lubridate)    ## for working with dates
-library(motusdata)    ## repository for sample datasets for this book
+library(motusClient)
+library(motus)    
 
-## Set the system environment time zone to GMT (to ensure that you are 
-## always working in GMT)
+## Set the system environment time zone to GMT (to ensure that you are always working in GMT)
 Sys.setenv(TZ="GMT")
+
+```
+
+## Load .motus file
+
+The .motus file has already been downloaded. To update and load into R, use tagme():
+
+```{r loadDetections}
+
+t <- tagme(176)
 
 ```
 
 ## Tag Deployments {#tagDeployments}
 
-In your .motus file, you are provided with the metadata for tags registered to your own project, and for duplicate tags from other projects associated with ambiguous detections in your data. We will check:
+In your .motus file, you are provided with the metadata for tags registered to your own project, and metadata for duplicate tags from other projects which are associated with ambiguous detections in your data. We will check:
 
 1. how many tags are registered to your project;
 2. how many of those registered tags were deployed;
 3. location of tag deployments;
-4. timing of tag deployments;
-3. completeness and accuracy of tag deployment metadata.
+4. completeness and accuracy of tag deployment metadata.
 
 We will run through each of these in sequence.
 
-### Number of registered tags
+### 1. Number of registered tags
 
-To check the number of tags registered to your project, load the 'df.tags' RDS file for the James Bay Shorebird Monitoring Project, which was created using the 'createFlatFiles' function in Section \@ref(flatRDSfunction). The file is included for your use in the motusdata package. 
-
-The 'df.tags' file contains the characteristics of each registered tag, including a unique tagID and information on manufacturer, model, nominal and offset frequency, burst interval, and pulse length. We select the metadata specific to the James Bay Shorebird Monitoring Project, and ignore tag metadata associated with any duplicate tags belonging to other projects:
+To check the number of tags registered to your project, load the 'tags' table in the .motus file. The 'tags' table contains the metadata of each registered tag, including a unique tagID and information on manufacturer, model, nominal and offset frequency, burst interval, and pulse length. We select the metadata specific to the James Bay Shorebird Project, and ignore tag metadata associated with any duplicate tags belonging to other projects:
 
 
 ```{r importTags, message = FALSE, warning = FALSE}
 
-df.tags <- readRDS("./df.tags.RDS") %>%
-  filter(projectID == 38) 
+df.tags <- tbl(t, "tags") 
+df.tags <- df.tags %>%
+                filter(projectID == 38) %>%
+                collect() %>%
+                as.data.frame()
 
 ```
 
-The number of rows in the 'df.tags' database is equivalent to the number of tags registered on Motus to the James Bay Shorebird Project. There are xx tags registered to the project (recall we are using just a subset of this dataset):
+The number of rows in the 'df.tags' database is equivalent to the number of tags registered to the James Bay Shorebird Project. There are `r nrow(df.tags)` tags registered to the project (recall we are using just a subset of this large dataset):
 
 ```{r nRegisteredTags}
 
@@ -55,9 +65,9 @@ nrow(df.tags) ## number of registered tags in the database
 
 ```
 
-### Number of registered tags that were deployed
+### 2. Number of registered tags that were deployed
 
-The tag deployment table ('df.tagDeps') is required to check which registered tags have deployments. This file includes the date, time, species, and location of tag deployment. The database is subset to project '38', and we use the anti_join function to determine which registered tags have (or do not have) corresponding deployment information.
+The tag deployment metadata table in the .motus file is required to check which registered tags have deployments. This file includes the date, time, species, and location of tag deployment. The database is subset to project '38', and we use the anti_join function to determine which registered tags have (or do not have) corresponding deployment information.
 
 ```{r importTagMeta.4, message = FALSE, warning = FALSE}
 
@@ -70,7 +80,7 @@ anti_join(df.tags, df.tagDeps, by = "tagID")
 
 Two of the 691 registered tags do not have deployment metadata, which suggests that they were not deployed. Records should be checked to ensure this is the case; without deployment metadata, detections for registered but 'undeployed' tags will be missing from your detections database.
 
-### Location of tag deployments
+### 3. Location of tag deployments
 
 Creating a map of your tag deployments can point out any obvious errors in the tag deployment latitude or longitude that aren't captured by the online metadata message center queries.
 
