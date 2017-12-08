@@ -263,6 +263,17 @@ summary(df.alltags)   ## summary of each column in your df
 
 ```
 
+Note that the format of the time stamp (ts) field is numeric and represents seconds since January 1 1970. We recommend that when you transform your tables into flat dataframes, that you format the time stamp using the lubridate package at that time, e.g.:
+
+```{r collect_TimeStamp, eval = FALSE}
+
+df.alltags <- tbl.alltags %>% 
+                collect() %>% 
+                as.data.frame() %>%     ## for all fields in the df (data frame)
+                mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))
+```
+
+
 If you want to load only part of your entire virtual table (e.g. certain fields, certain tags, or all tags from a specified project or species), you can use dplyr funtions to filter the data before collecting into a dataframe.  Some examples are below:
 
 1. To select certain fields:
@@ -274,7 +285,8 @@ If you want to load only part of your entire virtual table (e.g. certain fields,
 df.alltagsSub <- select(tbl.alltags, recv, port, motusTagID) %>%
   distinct() %>% 
   collect() %>% 
-  as.data.frame()     
+  as.data.frame() %>%    
+  mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))    
 
 ```
 
@@ -284,7 +296,8 @@ df.alltagsSub <- select(tbl.alltags, recv, port, motusTagID) %>%
 ## filter to include only motusTagIDs 9939, 25643
 df.alltagsSub <- filter(tbl.alltags, motusTagID %in% c(16011, 23316)) %>% 
                   collect() %>% 
-                  as.data.frame()   
+                  as.data.frame() %>%    
+                  mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))    
 
 ```
 
@@ -295,12 +308,14 @@ df.alltagsSub <- filter(tbl.alltags, motusTagID %in% c(16011, 23316)) %>%
 ## filter to only Red Knot (using speciesID)
 df.4670 <- filter(tbl.alltags, speciesID == 4670) %>%  
   collect() %>% 
-  as.data.frame()
+  as.data.frame() %>%    
+  mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))  
 
 ## filter to only Red Knot (using English name)
 df.redKnot <- filter(tbl.alltags, speciesEN == "Red Knot") %>%   
   collect() %>% 
-  as.data.frame()  
+  as.data.frame() %>%    
+  mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))    
 
 ```
 
@@ -312,7 +327,8 @@ df.detectSum <- tbl.alltags %>%
   group_by(motusTagID, recv) %>%
   tally() %>%
   collect() %>%
-  as.data.frame() 
+  as.data.frame() %>%    
+  mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))  
 
 ```
 
@@ -344,6 +360,7 @@ sql.sample <- tagme(176)                   # SQLite R object, which links to the
 tbl.alltags <- tbl(sql.sample, "alltags")  # virtual table object of the alltags table in the sample.motus file
 df.alltags <- tbl.alltags %>%
                 collect() %>%
-                as.data.frame()            # dataframe ("flat") object of the alltags table
+                as.data.frame() %>%        # dataframe ("flat") object of the alltags table
+                mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))              
 
 ```
