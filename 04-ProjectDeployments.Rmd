@@ -29,7 +29,7 @@ The .motus file has already been downloaded. To update and load into R, use tagm
 
 proj.num <- 176
 
-sql.sample <- tagme(proj.num)
+sql.motus <- tagme(proj.num)
 
 ```
 
@@ -51,7 +51,7 @@ To check the number of tags registered to your project, load the 'tags' table in
 
 ```{r importTags, message = FALSE, warning = FALSE}
 
-tbl.tags <- tbl(t, "tags") 
+tbl.tags <- tbl(sql.motus, "tags") 
 df.tags <- tbl.tags %>%
                 filter(projectID == proj.num) %>%
                 collect() %>%
@@ -59,7 +59,7 @@ df.tags <- tbl.tags %>%
 
 ```
 
-The number of rows in the 'df.tags' database is equivalent to the number of tags registered to the James Bay Shorebird Project:
+The number of rows in the 'df.tags' database is equivalent to the number of tags registered to the James Bay Shorebird Project in the sample dataset:
 
 ```{r nRegisteredTags}
 
@@ -67,15 +67,13 @@ nrow(df.tags) ## number of registered tags in the database
 
 ```
 
-Recall we have access to just a small sample of these tags in the sample dataset.
-
 ### 2. Number of registered tags that were deployed
 
 The tag deployment metadata table in the .motus file is required to check which registered tags have deployments. This file includes the date, time, species, and location of tag deployment. The database is subset to project '38', and we use the anti_join function to determine which registered tags have (or do not have) corresponding deployment information.
 
 ```{r importTagMeta.4, message = FALSE, warning = FALSE}
 
-tbl.tagDeps <- tbl(t, "tagDeps") 
+tbl.tagDeps <- tbl(sql.motus, "tagDeps") 
 df.tagDeps <- tbl.tagDeps %>%
                 filter(projectID == proj.num) %>%
                 collect() %>%
@@ -87,7 +85,7 @@ anti_join(df.tags, df.tagDeps, by = "tagID")
 
 ```
 
-In our case, there are no registered tags without deployment metadata, which suggests that all tags were deployed. If you have undeployed tags in your own files, please check your records to ensure this is the case; without deployment metadata, detections for registered but 'undeployed' tags will be missing from your detections database.
+In the sample data, there are no registered tags without deployment metadata, which suggests that all tags were deployed. If you have undeployed tags in your own files, please check your records to ensure this is the case; without deployment metadata, detections for registered but 'undeployed' tags will be missing from your detections database.
 
 ### 3. Location of tag deployments
 
@@ -169,7 +167,7 @@ df.tagDeps %>%
 
 ```
 
-There are no missing start and end dates (tsStart/tsEnd), and deployment start dates range from `r min(year(df.tagDeps$tsStart)` to `r max(year(df.tagDeps$tsStart)`, which is reasonable for this project. However, as we saw above, there are `r length(df.tagDeps$speciesID[is.na(df.tagDeps$speciesID)])` records missing speciesID, latitude, and longitude. 
+There are no missing start and end dates (tsStart/tsEnd), and deployment start dates range from `r min(year(df.tagDeps$tsStart))` to `r max(year(df.tagDeps$tsStart))`, which is reasonable for this project.  
 
 The species IDs are numeric, and somewhat meaningless without an ability to assign an actual species name to the numeric ID, which we do next. 
 
@@ -183,7 +181,7 @@ The 'species' table in the .motus file associates each numeric species ID with a
 sp.list <- unique(df.tagDeps$speciesID)     ## generate list of speciesIDs in the tag metadata
 
 ## Species metadata
-tbl.species <- tbl(t, "species") 
+tbl.species <- tbl(sql.motus, "species") 
 df.species <- tbl.species %>%
                 filter(id %in% sp.list) %>%
                 collect() %>%

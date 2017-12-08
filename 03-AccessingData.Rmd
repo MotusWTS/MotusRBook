@@ -93,8 +93,8 @@ After the initial download, loading a .motus file into R using `r tagme(proj.num
 getwd() # to see the current working directory; use setwd() to change it.
 proj.num <- 176 ## 176 for the sample data, or use the number associated with your project here
 
-sql.sample <- system.time(tagme(projRecv = proj.num, update = TRUE, new = TRUE))      # for project tag database
-sql.sample <- tagme(projRecv = "SG-123BBBK1234", update = TRUE, new = TRUE)           # for receiver tag database
+sql.motus <- system.time(tagme(projRecv = proj.num, update = TRUE, new = TRUE))      # for project tag database
+sql.motus <- tagme(projRecv = "SG-123BBBK1234", update = TRUE, new = TRUE)           # for receiver tag database
 
 ```
 
@@ -102,7 +102,7 @@ If you don't want to use the working directory, specify a directory to create an
 
 ```{r tagme2, eval = FALSE, message = FALSE, warning = FALSE}
 
-sql.sample <- tagme(projRecv = proj.num, update = TRUE, new = TRUE, dir = "./data/") 
+sql.motus <- tagme(projRecv = proj.num, update = TRUE, new = TRUE, dir = "./data/") 
 
 ```
 
@@ -114,8 +114,8 @@ To open and update a detections database that already exists (has been downloade
 
 ```{r tagme2, eval = FALSE}
 
-sql.sample <- tagme(projRecv = proj.num, new = FALSE, update = TRUE) ## if the file is in the local working directory, OR:
-sql.sample <- tagme(projRecv = proj.num, new = FALSE, update = TRUE, dir = "./data/") ## use dir = to specify a directory
+sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = TRUE) ## if the file is in the local working directory, OR:
+sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = TRUE, dir = "./data/") ## use dir = to specify a directory
 
 ```
 
@@ -125,7 +125,7 @@ Tag and receiver metadata are automatically merged with tag detections when data
 
 ```{r tagme5, eval = FALSE}
 
-sql.sample <- tagme(projRecv = proj.num, forceMeta = TRUE)
+sql.motus <- tagme(projRecv = proj.num, forceMeta = TRUE)
 
 ```
 
@@ -194,7 +194,7 @@ Each table in the .motus file can be accessed using the tbl() function.
 ```{r getTable, eval = FALSE}
 
 # get the tag deployment metadata view for the current project
-tbl.tagDeps <- tbl(sql.sample, "tagDeps")
+tbl.tagDeps <- tbl(sql.motus, "tagDeps")
      
 ```
 
@@ -222,7 +222,7 @@ The *virtual* table 'alltags' contains the detection data, along with all metada
 
 ```{r getAllTagsTable, eval = FALSE}
 
-tbl.alltags <- tbl(sql.sample, "alltags") ## virtual table
+tbl.alltags <- tbl(sql.motus, "alltags") ## virtual table
 
 ```
 
@@ -356,8 +356,8 @@ Throughout this chapter and the rest of the book, we name R objects according to
 
 ```{r namingConvention, eval = FALSE}
 
-sql.sample <- tagme(176)                   # SQLite R object, which links to the .motus file
-tbl.alltags <- tbl(sql.sample, "alltags")  # virtual table object of the alltags table in the sample.motus file
+sql.motus <- tagme(176)                   # SQLite R object, which links to the .motus file
+tbl.alltags <- tbl(sql.motus, "alltags")  # virtual table object of the alltags table in the sample.motus file
 df.alltags <- tbl.alltags %>%
                 collect() %>%
                 as.data.frame() %>%        # dataframe ("flat") object of the alltags table
