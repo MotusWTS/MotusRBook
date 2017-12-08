@@ -194,7 +194,7 @@ Each table in the .motus file can be accessed using the tbl() function.
 ```{r getTable, eval = FALSE}
 
 # get the tag deployment metadata view for the current project
-tbl.tagMeta <- tbl(sql.sample, "tagDeps")
+tbl.tagDeps <- tbl(sql.sample, "tagDeps")
      
 ```
 
@@ -202,7 +202,7 @@ The underlying structure of these tables is a list of length 2:
 
 ```{r dfStructure, eval = FALSE}
 
-str(tbl.tagMeta)
+str(tbl.tagDeps)
 
 ```
 
@@ -212,7 +212,7 @@ If you want to use familiar functions to get access to components of the underly
 
 ```{r}
 
-tbl.tagMeta %>% 
+tbl.tagDeps %>% 
   collect() %>%
   names() # list the variable names in the table
 
@@ -230,9 +230,9 @@ The following table lists the variables available in the 'alltags' view [insert 
 
 ```{r parameterTable, echo = FALSE}
 
-var.alltags <- tbl.alltags %>% 
-                  collect() %>%
-                  names()
+tbl.alltags %>% 
+      collect() %>%
+      names()
 
 ```
 
@@ -271,7 +271,7 @@ If you want to load only part of your entire virtual table (e.g. certain fields,
 
 ## to grab a subset of fields, in this case a unique list of motus tag IDs 
 ## at each receiver and antenna.
-df.alltagsSub <- select(tbl.alltags, recv, ant, motusTagID) %>%
+df.alltagsSub <- select(tbl.alltags, recv, port, motusTagID) %>%
   distinct() %>% 
   collect() %>% 
   as.data.frame()     
@@ -316,7 +316,7 @@ df.detectSum <- tbl.alltags %>%
 
 ```
 
-In the next chapter we will show you additional ways of summarizing and working with your data.
+In later chapter(s) we will show you additional ways of summarizing and working with your data.
 
 ## Export your 'flat' dataframe to CSV or RDS file {#exportDetections}
 
@@ -336,11 +336,11 @@ write.csv(df.alltags, "./data/df.alltags.CSV", row.names = FALSE)
 
 ## R object naming convention
 
-Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with ".sql", virtual table objects will be prefixed with "tbl.", and dataframe objects will be prefixed with "df."; the rest of the name will be the name of the .motus table that the data originates from. For example, for the alltags table in the sample.motus file:
+Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with ".sql", virtual table objects will be prefixed with "tbl.", and dataframe objects will be prefixed with "df."; the rest of the name will include the name of the .motus table that the data originates from. For example, for the alltags table in the sample.motus file:
 
 ```{r namingConvention, eval = FALSE}
 
-sql.sample <- tagme(176)                   # SQLite R object, which contains the .motus file
+sql.sample <- tagme(176)                   # SQLite R object, which links to the .motus file
 tbl.alltags <- tbl(sql.sample, "alltags")  # virtual table object of the alltags table in the sample.motus file
 df.alltags <- tbl.alltags %>%
                 collect() %>%
