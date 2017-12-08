@@ -80,15 +80,21 @@ motusLogout()
 
 ```
 
-Let's get started. Note that there are no receivers registered to sample project 176, so the second call (by receiver) will not find any data. You can, however, replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample account, see \@ref(logout)). Be warned that large datasets can take some time to download from the Motus server; likewise, the sample dataset can take upwards of 30 minutes to download when new = TRUE.  After the initial download, loading the .motus file into R using new = FALSE will be instantaneous:
+Let's get started. Note that there are no receivers registered to sample project 176, so the second call (by receiver) will not find any data. You can, however, replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample account, see \@ref(logout)). 
+
+Be warned that large datasets can take some time to download from the Motus server when downloading for the first time ('new = TRUE' in the tagme function call). The sample dataset, for example, can take upwards of 3 hours to download completely. 
+
+In the event that your connection to the Motus server fails prior to the download completing (e.g., due to poor internet connection), use `r tagme(proj.num. update = TRUE), eval = FALSE` to continue the download from where it left off. 
+
+After the initial download, loading a .motus file into R using `r tagme(proj.num, new = FALSE), eval = FALSE` will be near instantaneous.
 
 ```{r tagme1, eval = FALSE}
 
 getwd() # to see the current working directory; use setwd() to change it.
 proj.num <- 176 ## 176 for the sample data, or use the number associated with your project here
 
-t <- tagme(projRecv = proj.num, update = TRUE, new = TRUE)                # for project tag database
-t <- tagme(projRecv = "SG-123BBBK1234", update = TRUE, new = TRUE)        # for receiver tag database
+t <- system.time(tagme(projRecv = proj.num, update = TRUE, new = TRUE))      # for project tag database
+t <- tagme(projRecv = "SG-123BBBK1234", update = TRUE, new = TRUE)           # for receiver tag database
 ```
 
 If you don't want to use the working directory, specify a directory to create and open a local tag database using "dir = ":
