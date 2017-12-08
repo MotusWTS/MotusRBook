@@ -1,0 +1,70 @@
+# The motus package {#appendixB}
+The motus R package offers functions that work with .motus data to do common computations, summaries and plots.  This appendix outlines these functions and provides examples on funciton use.  Many of these functions work directly with the sql data format, however some require the data to be in tbl or data.frame format as specified below.  Detailed instructions on accessing and formatting data are available in Chapter \@ref(accessingData). The examples throughout this chapter work with the sample data which can be accessed and converted to various formats through the following code:
+
+```{r appendixBSample, eval = FALSE}
+
+t <- tagme(176, update = TRUE, new = TRUE) # to download and access sample data in sql format
+alltags.tbl <- tbl(t, "alltags") # to convert sql file "t" to a tbl called "alltags.tbl"
+alltags.df <- alltags.tbl %>% collect %>% as.data.frame() ## convert the tbl "alltags.tbl" to a data.frame called "alltags.df"
+
+```
+
+You can also access the function help pages like so:
+
+```{r functionHelp, eval = TRUE}
+??SunRiseSet
+```
+
+Or view the underlying function code like this:
+```{r functionCode, eval = TRUE}
+SunRiseSet
+```
+
+## SunRiseSet {#sunRiseSet}
+
+### Description 
+Creates and adds a sunrise and sunset column to a data.frame containing latitude, longitude, and a POSIXct date/time
+
+### Dependencies
+**data** a selected table from .motus data, eg. "alltags", or a data.frame of detection data including at a minimum variables for date/time, latitude, and longitude
+**lat** variable with latitude values, defaults to recvDeployLat
+**lon** variable with longitude values, defaults to recvDeployLon
+**ts** variable with time in UTC as numeric or POSIXct, defaults to ts
+
+### Example
+Add sunrise/sunset variables to the alltags data.frame
+```{r sunRiseSet, eval = TRUE}
+
+alltags.df.sun <- SunRiseSet(alltags.df)
+head(alltags.df.sun)
+
+```
+## consec.fun
+
+## latLonDist
+
+## plotALlTagsCoord
+
+## plotAllTagsSite
+
+## plotDailySiteSum
+
+## plotRouteMap
+
+## plotSiteSig
+
+## plotTagSig
+
+## simSiteDet
+
+## siteSum
+
+## siteSumDaily
+
+## siteTrans
+
+##tagSum
+
+## tagSumSite
+
+## timeToSunriset
