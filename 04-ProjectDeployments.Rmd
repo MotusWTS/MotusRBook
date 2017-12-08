@@ -29,7 +29,7 @@ The .motus file has already been downloaded. To update and load into R, use tagm
 
 proj.num <- 176
 
-t <- tagme(proj.num)
+sql.sample <- tagme(proj.num)
 
 ```
 
@@ -51,8 +51,8 @@ To check the number of tags registered to your project, load the 'tags' table in
 
 ```{r importTags, message = FALSE, warning = FALSE}
 
-df.tags <- tbl(t, "tags") 
-df.tags <- df.tags %>%
+tbl.tags <- tbl(t, "tags") 
+df.tags <- tbl.tags %>%
                 filter(projectID == proj.num) %>%
                 collect() %>%
                 as.data.frame()
@@ -75,17 +75,19 @@ The tag deployment metadata table in the .motus file is required to check which 
 
 ```{r importTagMeta.4, message = FALSE, warning = FALSE}
 
-df.tagDeps <- tbl(t, "tagDeps") 
-df.tagDeps <- df.tagDeps %>%
+tbl.tagDeps <- tbl(t, "tagDeps") 
+df.tagDeps <- tbl.tagDeps %>%
                 filter(projectID == proj.num) %>%
                 collect() %>%
-                as.data.frame()
+                as.data.frame() %>% # once in dataframe format, can format dates using lubridate
+                mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
+                       tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01")) 
 
 anti_join(df.tags, df.tagDeps, by = "tagID") 
 
 ```
 
-Two of the 691 registered tags do not have deployment metadata, which suggests that they were not deployed. Records should be checked to ensure this is the case; without deployment metadata, detections for registered but 'undeployed' tags will be missing from your detections database.
+In our case, there are no registered tags without deployment metadata, which suggests that all tags were deployed. If you have undeployed tags in your own files, please check your records to ensure this is the case; without deployment metadata, detections for registered but 'undeployed' tags will be missing from your detections database.
 
 ### 3. Location of tag deployments
 
@@ -124,7 +126,7 @@ na.map <- filter(map_data(map="world2"),
 
 c. **Map the locations of tag deployments.**
 
-Map the location of tag deployments for project 38: 
+Map the location of tag deployments for the sample data: 
 
 ```{r mapRecvs}
 
@@ -151,8 +153,6 @@ ggplot(na.lakes, aes(long, lat)) +
    
 ```
 
-There is a warning that 164 rows were removed from the map due to missing [latitude and/or longitude] values. Summarizing the data with `r summary(df.tagDeps), eval = FALSE` suggests that 164 deployments are missing speciesID, latitude, and longitude. Comparing the tagIDs for these records in the 'df.tagDeps' file with the deployments of those tags online at <https://motus.org>, these tags were registered but were either not deployed or were used as test tags. 
-
 ### 4. Check completeness and accuracy of tag deployment metadata
 
 Required tag metadata includes deployment start date/time, end date/time (if applicable), deployment latitude, deployment longitude, and species. Lack of information on deployment date, time, and location in particular can influence the estimated lifespan of your tag, and therefore whether the tagFinder will 'look' for your tag at the appropriate time(s). It can also increase the potential for ambiguities with duplicate tags in the system. 
@@ -163,9 +163,9 @@ As a first step, use summary(df.tagDeps) to get an idea of the range of each var
 
 ```{r summaryTagMeta}
 
-select(df.tagDeps, 
-       tagID, projectID, tsStart, tsEnd, speciesID, latitude, longitude) %>%
-  summary()
+df.tagDeps %>%
+      select(tagID, projectID, tsStart, tsEnd, speciesID, latitude, longitude) %>%
+      summary()
 
 ```
 
@@ -183,8 +183,8 @@ The 'species' table in the .motus file associates each numeric species ID with a
 sp.list <- unique(df.tagDeps$speciesID)     ## generate list of speciesIDs in the tag metadata
 
 ## Species metadata
-df.species <- tbl(t, "species") 
-df.species <- df.species %>%
+tbl.species <- tbl(t, "species") 
+df.species <- tbl.species %>%
                 filter(id %in% sp.list) %>%
                 collect() %>%
                 as.data.frame()
@@ -219,11 +219,13 @@ To see which (in any) receiver deployments are registered to your project, impor
 
 ```{r projectDeps}
 
-df.projRecvs <- tbl(t, "recvDeps") 
-df.projRecvs <- df.projRecvs %>%
+tbl.projRecvs <- tbl(t, "recvDeps") 
+df.projRecvs <- tbl.projRecvs %>%
                 filter(projectID == proj.num) %>%
                 collect() %>%
-                as.data.frame()
+                as.data.frame() %>%
+                mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
+                       tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01"))
 
 summary(df.projRecvs)
 
@@ -365,10 +367,9 @@ a. **Load receiver and antenna metadata**
 ```{r loadReceiverAntennaMetadata}
 
 # antenna metadata for ALL Motus antenna deployments; keep only variables we are interested in to simplify
-df.antDeps <- tbl(t, "antDeps") 
-df.antDeps <- df.antDeps %>%
-                mutate(ant = port) %>%
-                select(deployID, ant, antennaType, bearing, heightMeters) %>%
+tbl.antDeps <- tbl(t, "antDeps") 
+df.antDeps <- tbl.antDeps %>%
+                select(deployID, port, antennaType, bearing, heightMeters) %>%
                 collect() %>%
                 as.data.frame()
 
