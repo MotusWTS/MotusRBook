@@ -25,10 +25,10 @@ SunRiseSet
 Creates and adds a sunrise and sunset variable to a data.frame containing latitude, longitude, and a date/time as POSIXct or numeric.
 
 ### Dependencies
-**data** can be either a selected table from .motus detection data eg. "alltags", or a data.frame of detection data including at a minimum variables for date/time, latitude, and longitude
-**lat** variable with latitude values, defaults to recvDeployLat
-**lon** variable with longitude values, defaults to recvDeployLon
-**ts** variable with time in UTC as numeric or POSIXct, defaults to ts
+**data** can be either a selected table from .motus detection data eg. "alltags", or a data.frame of detection data including at a minimum variables for date/time, latitude, and longitude  
+**lat** variable with latitude values, defaults to recvDeployLat  
+**lon** variable with longitude values, defaults to recvDeployLon  
+**ts** variable with time in UTC as numeric or POSIXct, defaults to ts  
 
 ### Example
 Add sunrise/sunset variables to the alltags data.frame
