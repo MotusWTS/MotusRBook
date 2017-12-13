@@ -22,7 +22,7 @@ SunRiseSet
 
 ## SunRiseSet {#sunRiseSet}
 ### Description 
-Creates and adds a sunrise and sunset column to a data.frame containing latitude, longitude, and a date/time as POSIXct or numeric.
+Creates and adds a sunrise and sunset variable to a data.frame containing latitude, longitude, and a date/time as POSIXct or numeric.
 
 ### Dependencies
 **data** can be either a selected table from .motus detection data eg. "alltags", or a data.frame of detection data including at a minimum variables for date/time, latitude, and longitude
@@ -39,18 +39,18 @@ head(alltags.df.sun)
 
 ```
 
-## plotALlTagsCoord
+## plotAllTagsCoord {#plotAllTagsCoor}
 ### Description
 Plot latitude/longitude vs time (UTC rounded to the hour) for each tag using .motus detection data.  Coordinate is by default taken from a receivers GPS latitude recordings.
 
 ### Dependencies
 **data** a selected table from .motus detection data, eg. "alltags", or a data.frame of detection data including at a minimum variables for date/time, and either latitude or longitude
 **tagsPerPanel** number of tags in each panel of the plot, by default this is 5
-**coordinate** column name from which to obtain location values, by default it is set to recvDeployLat
-**ts** column for a date/time object as numeric or POSIXct, defaults to ts
-**recvDepName**
-**fullID**
-**mfgID**
+**coordinate** variable name from which to obtain location values, by default it is set to recvDeployLat
+**ts** variable for a date/time object as numeric or POSIXct, defaults to ts
+**recvDepName** variable consisting of receiver deployment name
+**fullID** variable consisting of a tag fullID
+**mfgID** variable consisting of a tags manufacturer ID
 
 ### Example
 Plot tags select tags from tbl.alltags with 3 tags per panel
@@ -58,18 +58,18 @@ Plot tags select tags from tbl.alltags with 3 tags per panel
 plotAllTagsCoord(filter(tbl.alltags, motusTagID %in% c(19129, 16011, 17357, 16035, 22897, 23316)), tagsPerPanel = 3)
 ```
 
-## plotAllTagsSite
+## plotAllTagsSite {#plotAllTagsSite}
 ### Description
 Plot latitude/longitude vs time (UTC rounded to the hour) for each tag using .motus detection data. Coordinate is by default taken from a receivers GPS latitude recordings.
 
 ### Dependencies
 **data** a selected table from .motus detection data, eg. "alltags", or a data.frame of detection data including at a minimum variables for date/time, and either latitude or longitude
 **tagsPerPanel** number of tags in each panel of the plot, by default this is 5
-**coordinate** column name from which to obtain location values, by default it is set to recvDeployLat
-**ts** column for a date/time object as numeric or POSIXct, defaults to ts
-**recvDepName**
-**fullID**
-**mfgID**
+**coordinate** variable name from which to obtain location values, by default it is set to recvDeployLat
+**ts** variable for a date/time object as numeric or POSIXct, defaults to ts
+**recvDepName** variable consisting of receiver deployment name
+**fullID** variable consisting of a tag fullID
+**mfgID** variable consisting of a tags manufacturer ID
 
 ### Example
 Plot tbl file tbl.alltags using gpsLat and 3 tags per panel for select species Red Knot
@@ -77,24 +77,24 @@ Plot tbl file tbl.alltags using gpsLat and 3 tags per panel for select species R
 plotAllTagsSite(filter(tbl.alltags, speciesEN == "Red Knot"), coordinate = "gpsLat", tagsPerPanel = 3)
 ```
 
-## plotDailySiteSum
+## plotDailySiteSum {#plotDailySiteSum}
 ### Description
 Plots total number of detections across all tags, and total number of tags detected per day for a specified site.  Depends on siteSumDaily function.
 
 ### Dependencies
 **data** a selected table from .motus data, eg. "alltags", or a data.frame of detection data including at a minimum variables for motusTagID, sig, recvDepName, ts
-**motusTagID**
-**sig**
-**recvDepName**
-**ts**
+**motusTagID** variable consisting of a motus tag ID
+**sig** variable consisting a signal strength variable
+**recvDepName** variable consisting of receiver deployment name
+**ts** variable for a date/time object as numeric or POSIXct, defaults to ts
 
 ### Example
-Plot of all tag detections at site Longridge using dataframe df.alltags
+Plot of all tag detections at site Longridge using data.frame df.alltags
 ```{r, plotDailySiteSum, eval = TRUE}
 plotDailySiteSum(df.alltags, recvDepName = "Longridge")
 ```
 
-## plotRouteMap
+## plotRouteMap {#plotRouteMap}
 ### Description
 Google map of routes of Motus tag detections coloured by motusTagID.  User defines a date range to show points for receivers that were operational at some point during specified date range.
 ### Dependencies
@@ -113,15 +113,15 @@ plotRouteMap(sql.motus, maptype = "terrain", latCentre = 44, lonCentre = -70, zo
 ```
 
 
-## plotSite
+## plotSite {#plotSite}
 ### Description
 
 ### Dependencies
 **data** a selected table from .motus data, eg. "alltags", or a data.frame of detection data including at a minimum variables for ts, antBearing, fullID, recvDepName
-**ts**
-**antBearing**
-**fullID**
-**recvDepName**
+**ts** variable for a date/time object as numeric or POSIXct, defaults to ts
+**antBearing** variable consisting antenna bearing variable
+**fullID** variable consisting of a tag fullID
+**recvDepName** variable consisting of receiver deployment name
 
 ### Example
 Plot only detections at a specific site; Piskwamish for data.frame df.alltags
@@ -129,19 +129,18 @@ Plot only detections at a specific site; Piskwamish for data.frame df.alltags
 plotSite(filter(df.alltags, recvDepName == "Piskwamish"))
 ```
 
-## plotSiteSig
-
+## plotSiteSig {#plotSiteSig}
 ### Description
 Plot signal strength vs time for all tags detected at a specified site, coloured by antenna
 
 ### Dependencies
 **data** a selected table from .motus data, eg. "alltags", or a data.frame of detection data including at a minimum variables for antBearing, ts, lat, sig, fullID, recvDepName
-**antBearing**
-**ts**
-**lat**
-**sig**
-**fullID**
-**recvDepName**
+**antBearing** variable consisting antenna bearing variable
+**ts** variable for a date/time object as numeric or POSIXct, defaults to ts
+**recvDeployLat** variable consisting of receiver deployment latitude
+**sig** variable consisting a signal strength variable
+**fullID** variable consisting of a tag fullID
+**recvDepName** variable consisting of receiver deployment name
 
 ### Example
 Plot select tags for site Piskwamish 
@@ -149,19 +148,19 @@ Plot select tags for site Piskwamish
 plotSiteSig(filter(df.alltags, motusTagID %in% c(16037, 16039, 16035)), recvDepName = "Netitishi")
 ```
 
-## plotTagSig
+## plotTagSig {#plotTagSig}
 ### Description
 Plot signal strength vs time for specified tag, faceted by site (ordered by latitude) and coloured by antenna
 
 ### Dependencies
 **data** a selected table from .motus data, eg. "alltags", or a data.frame of detection data including at a minimum variables for motusTagID, sig, ts, antBearing, recvDeployLat, fullID, recvDepName
-**motusTagID**
-**antBearing**
-**ts**
-**lat**
-**sig**
-**fullID**
-**recvDepName**
+**motusTagID** variable consisting of a motus tag ID
+**antBearing** variable consisting antenna bearing variable
+**ts** variable for a date/time object as numeric or POSIXct, defaults to ts
+**recvDeployLat** variable consisting of receiver deployment latitude
+**sig** variable consisting a signal strength variable
+**fullID** variable consisting of a tag fullID
+**recvDepName** variable consisting of receiver deployment name
 
 ### Example
 Plot signal strength of a specified tag using tbl file tbl.alltags
@@ -169,33 +168,33 @@ Plot signal strength of a specified tag using tbl file tbl.alltags
 plotTagSig(tbl.alltags, motusTagID = 16035)
 ```
 
-## simSiteDet
+## simSiteDet {#simSiteDet}
 ### Description
-Creates a dataframe consisting of only detections of tags that are detected at two or more receivers at the same time.
+Creates a data.frame consisting of only detections of tags that are detected at two or more receivers at the same time.
 ### Dependencies
-**data**
-**ts**
-**motusTagID**
-**recvDepName**
+**data** a selected table from .motus data, eg. "alltags", or a data.frame of detection data including at a minimum variables for ts, motusTagID, recvDepName
+**ts** variable for a date/time object as numeric or POSIXct, defaults to ts
+**motusTagID** variable consisting of a motus tag ID
+**recvDepName** variable consisting of receiver deployment name
 
 ### Example
-To get a data.frame called "simSites" of just simultaneous detections from a dataframe df.alltags
+To get a data.frame called "simSites" of just simultaneous detections from a data.frame df.alltags
 ```{r, simSiteDet, eval = TRUE}
 simSites <- simSiteDet(df.alltags)
 head(simSites)
 ```
 
-## siteSum
+## siteSum {#siteSum}
 ### Description
 Creates a summary of the first and last detection at a site, the length of time between first and last detection, the number of tags, and the total number of detections at a site.  Plots total number of detections across all tags, and total number of tags detected at each site.
 
 ### Dependencies
 **data** a selected table from .motus data, eg. "alltags", or a data.frame of detection data including at a minimum variables for motusTagID, sig, recvDeployLat, recvDepName, and ts
-**motusTagID**
-**sig**
-**recvDeployLat**
-**recvDepName**
-**ts**
+**motusTagID** variable consisting of a motus tag ID
+**sig** variable consisting a signal strength variable
+**recvDeployLat** variable consisting of receiver deployment latitude
+**recvDepName** variable consisting of receiver deployment name
+**ts** variable for a date/time object as numeric or POSIXct, defaults to ts
 **units** units to display time difference, defaults to "hours", options include "secs", "mins", "hours", "days", "weeks"
 
 ### Example
@@ -205,16 +204,16 @@ site_summary <- siteSum(filter(df.alltags, recvDepName %in% c("Niapiskau", "Neti
 head(site_summary)
 ```
 
-## siteSumDaily
+## siteSumDaily {#siteSumDaily}
 ### Description
 Creates a summary of the first and last daily detection at a site, the length of time between first and last detection, the number of tags, and the total number of detections at a site for each day. Same as siteSum, but daily by site.
 
 ### Dependencies
 **data** a selected table from .motus data, eg. "alltags", or a data.frame of detection data including at a minimum variables for motusTagID, sig, recvDepName, ts
-**motusTagID**
-**sig**
-**recvDepName**
-**ts**
+**motusTagID** variable consisting of a motus tag ID
+**sig** variable consisting a signal strength variable
+**recvDepName** variable consisting of receiver deployment name
+**ts** variable for a date/time object as numeric or POSIXct, defaults to ts
 **units** units to display time difference, defaults to "hours", options include "secs", "mins", "hours", "days", "weeks"
 
 ### Example
@@ -224,18 +223,18 @@ daily_site_summary <- siteSumDaily(tbl.alltags, units = "mins")
 head(daily_site_summary)
 ```
 
-## siteTrans
+## siteTrans {#siteTrans}
 ### Description
-Creates a dataframe of transitions between sites; detections are ordered by detection time, then "transitions" are identified as the period between the final detection at site x (possible "departure"), and the first detection (possible "arrival") at site y (ordered chronologically). Each row contains the last detection time and lat/lon of site x, first detection time and lat/lon of site y, distance between the site pair, time between detections, rate of movement between detections, and bearing between site pairs.
+Creates a data.frame of transitions between sites; detections are ordered by detection time, then "transitions" are identified as the period between the final detection at site x (possible "departure"), and the first detection (possible "arrival") at site y (ordered chronologically). Each row contains the last detection time and lat/lon of site x, first detection time and lat/lon of site y, distance between the site pair, time between detections, rate of movement between detections, and bearing between site pairs.
 
 ### Dependencies
 **data** a selected table from .motus data, eg. "alltags", or a data.frame of detection data including at a minimum variables for ts, motusTagID, tagDeployID, recvDeployLat, recvDeployLon, recvDepName
-**ts**
-**motusTagID**
-**tagDeployID**
-**recvDeployLat**
-**recvDeployLon**
-**recvDepName**
+**ts** variable for a date/time object as numeric or POSIXct, defaults to ts
+**motusTagID** variable consisting of a motus tag ID
+**tagDeployID** variable consisting of Motus tag deployment ID
+**recvDeployLat** variable consisting of receiver deployment latitude
+**recvDeployLon** variable consisting of receiver deployment longitude
+**recvDepName** variable consisting of receiver deployment name
 
 ### Example
 View site transitions for only tag 16037 from data.frame df.alltags
@@ -244,18 +243,18 @@ transitions <- siteTrans(filter(df.alltags, motusTagID == 16037))
 head(transitions)
 ```
 
-## tagSum
+## tagSum {#tagSum}
 ### Description
 Creates a summary for each tag of it's first and last detection time, first and last detection site, length of time between first and last detection,  straight line distance between first and last detection site, rate of movement, and bearing
 
 ### Dependencies
 **data** a selected table from .motus data, eg. "alltags", or a data.frame of detection dataincluding at a minimum variables for motusTagID, fullID, recvDeployLat, recvDeployLon, recvDepName, ts
-**motusTagID**
-**fullID**
-**recvDeployLat**
-**recvDeployLon**
-**recvDepName**
-**ts**
+**motusTagID** variable consisting of a motus tag ID
+**fullID** variable consisting of a tag fullID
+**recvDeployLat** variable consisting of receiver deployment latitude
+**recvDeployLon** variable consisting of receiver deployment longitude
+**recvDepName** variable consisting of receiver deployment name
+**ts** variable for a date/time object as numeric or POSIXct, defaults to ts
 
 ### Example
 Create tag summary for all tags within detection data using tbl file tbl.alltags
@@ -264,16 +263,16 @@ tag_summary <- tagSum(tbl.alltags)
 head(tag_summary)
 ```
 
-## tagSumSite
+## tagSumSite {#tagSumSite}
 ### Description
 Creates a summary for each tag of it's first and last detection time at each site, length of time between first and last detection of each site, and total number of detections at each site.
 
 ### Dependencies
 **data** a selected table from .motus data, eg. "alltags", or a data.frame of detection data including at a minimum variables for motusTagID, fullID, recvDepName, ts
-**motusTagID**
-**fullID**
-**recvDepName**
-**ts**
+**motusTagID** variable consisting of a motus tag ID
+**fullID** variable consisting of a tag fullID
+**recvDepName** variable consisting of receiver deployment name
+**ts** variable for a date/time object as numeric or POSIXct, defaults to ts
 
 ### Example
 Create tag summaries for only select tags with time in default hours with data.frame df.alltags
@@ -282,16 +281,16 @@ tag_site_summary <- tagSumSite(filter(df.alltags, motusTagID %in% c(16047, 16037
 head(tag_site_summary)
 ```
 
-## timeToSunriset
+## timeToSunriset {#timeToSunriset}
 ### Description
-Creates and adds columns for time to, and time from sunrise/sunset based on a column of POSIXct dates/times dataframe must contain latitude, longitude, and a date/time variable
+Creates and adds variables for time to, and time from sunrise/sunset based on a variable of POSIXct dates/times data.frame must contain latitude, longitude, and a date/time variable
 
 ### Dependencies
 **data** a selected table from .motus data, eg. "alltags", or a data.frame of detection data 
 #' including at a minimum variables for date/time, latitude, and longitude
 **lat** variable with latitude values, defaults to recvDeployLat
 **lon** variable with latitude values, defaults to recvDeployLat
-**ts**
+**ts** variable for a date/time object as numeric or POSIXct, defaults to ts
 **units** units to display time difference, defaults to "hours", options include "secs", "mins", "hours", "days", "weeks"
 
 ### Example
