@@ -1,0 +1,261 @@
+---
+title: "R for Motus"
+author: "Tara L. Crewe and Zoe Crysler"
+date: "`r Sys.Date()`"
+output: bookdown::gitbook
+documentclass: book
+site: bookdown::bookdown_site
+cover-image: BSC_Motus_Logo.png
+
+---
+
+# A walk through the use of R for Motus automated radio-telemetry data  {-}
+
+<!--chapter:end:index.Rmd-->
+
+
+# Introduction {#introduction}
+## What this book does not cover {#whatBookCovers}
+## Prerequisites {#prerequisites}
+## How this book is organized {#bookOrganization}
+## Sample dataset {#sampleData}
+## Acknowledgements {#acknowledgements}
+
+<!--chapter:end:01-Introduction.Rmd-->
+
+
+# Loading R Packages {#loadingPackages}
+## Internal data processing {#internalProcessing}
+
+<!--chapter:end:02-LoadingPackage.Rmd-->
+
+
+# Accessing and understanding detections data {#accessingData}
+## Database types {#databaseTypes}
+## Load relevant R packages {#loadPackages}
+## these function calls will only install updated packages
+## required 'motus' package from github
+## required other packages from CRAN.
+## Set system environment
+## Importing tag detections {#importDetections}
+### Download data for a project or receiver for the _first time_
+### User Authentication {#userAuthentication}
+### Logging out {#logout}
+### Update and open a local tag database
+### Force an update/re-import of tag and receiver deployment metadata
+### Check if new data are available
+## Data structure {#databaseStructure}
+## Convert a SQLITE table to a flat dataframe {#convertToFlat}
+## to grab a subset of fields, in this case a unique list of motus tag IDs 
+## at each receiver and antenna.
+## filter to include only motusTagIDs 9939, 25643
+## filter to only Red Knot (using speciesID)
+## filter to only Red Knot (using English name)
+## Export your 'flat' dataframe to CSV or RDS file {#exportDetections}
+## save an RDS file
+## or save as CSV file, which does not preserve time stamps, but is more universally accepted
+## R object naming convention
+
+<!--chapter:end:03-AccessingData.Rmd-->
+
+
+# Tag and Receiver Deployments {#deployments}
+## Load relevant R packages and set working environment
+## Set the system environment time zone to GMT (to ensure that you are always working in GMT)
+## Load .motus file
+## Tag Deployments {#tagDeployments}
+### 1. Number of registered tags
+### 2. Number of registered tags that were deployed
+### 3. Location of tag deployments
+## get the lake data; adjust longitude
+## get the country data; adjust longitude
+## Others countries in the Americas that you may want to plot, depending on your location: "Mexico", "lakes","Belize", "Costa Rica", "Panama", "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay"
+## set limits to map based on locations of detections, ensuring they include the deployment locations
+## map using ggplot
+### 4. Check completeness and accuracy of tag deployment metadata
+## list of species IDs in project 38 metadata
+## Species metadata
+## Check Receiver Metadata {#recvMetadata}
+### 1. Number of project receiver deployments
+### 2. Timing of project receiver deployments
+### 3. Location of receiver deployments
+### 4. Completeness and accuracy of receiver metadata
+
+<!--chapter:end:04-ProjectDeployments.Rmd-->
+
+
+# Data Cleaning {#dataCleaning}
+## Load required packages
+## Load required dataframes
+## Number of tags with detections
+## Check for ambiguous detections
+## Filter data to project and tag
+## Map deployments and detections
+### Check geographic position (latitude/longitude) against time
+## Removing detections based on estimated flight speed {#filterFlightSpeed}
+### Check run length
+### Check standard deviation of frequency offset
+## Everything that follows is old.
+## Plot detections with deployment dates 
+## Check run length of outlying detections.
+## Map ambiguous detections
+### Map of ambigID -56
+### Map of ambigID -171
+## Assigning or dropping ambiguities from your data
+
+<!--chapter:end:05-DataCleaning.Rmd-->
+
+
+# Data Cleaning {#dataCleaning}
+## Load required packages
+## Load Detections Data
+## to do this with your own data, replace these lines with 
+## t <- tagme(your.project.number)
+## Check for ambiguities {#checkAmbigs}
+## look at the ambiguous tags
+## obtain the detections from just those tags and ensure that all (or most)
+## detections have gpsLocations. Filter these so that we aren't later trying
+## to deal with both ambiguous detections and false positives.
+## Ambiguous tag views
+## Check overlap of deployment dates 
+## get a list of the motusIDs for all of the ambiguous tags
+## and merge the two creating a new variable with both the projectID
+## and the MotusTagID which makes it easier for plotting to see where
+## the various ambiguous come from.
+## derives some summary data for the ambiguous detections to compare with the
+## tag deployments
+## maybe do a daily detections here?
+## Plot lat/lon of ambiguous detections by time
+## Check run length of outlying detections.
+## Map ambiguous detections
+### Map of ambigID -56
+### Map of ambigID -171
+## Assigning or dropping ambiguities from your data
+
+<!--chapter:end:05.1-AmbiguitiesPDT.Rmd-->
+
+
+# Cleaning data to remove false detections {#dataCleaning}
+## Load relevant R packages
+## Load detection data and convert to a flat file
+## Removing detections outside of deployment range {#filterDeployRange}
+## first ensure that all times are in POSIXct
+## subset to keep anything within tag deployment range, making sure to account for NAs in end dates
+## Removing detections based on visual geographic positions {#filterGeoPosition}
+## make lat vs time plots of all tags
+## now the data looks better and only tag 16038 looks odd
+## filter JBraw to only show motusTagID 16038, and only before 2015-10-01
+## this time filter by motusTagID and by latitude so we only see the strange detections
+## using a filter that will provide us with only the spurious detections:
+## Removing detections based on estimated flight speed {#filterFlightSpeed}
+## so we see that tag 16047 has lots of high speeds due to close towers - 16038 has high speeds due to false detections
+## same as what we saw with the plots, so lets remove those hitIDs
+## Removing false positives based on hitID's {#filterHitID}
+## Removing detections based on automated filtering {#filterAuto}
+## first convert freqsd to NA for all Lotek receivers
+## identify which detections would be removed by creating a new column "filter"
+## potential detections to filter by site
+## potential detections to filter by motusTagID
+
+<!--chapter:end:06-DataCleaning.Rmd-->
+
+
+# Exploring data with the Motus R package {#exploreData}
+## Summarizing your data {#dataSummaries}
+## Plotting your data {#dataPlotting}
+
+<!--chapter:end:07-ExploringData.Rmd-->
+
+
+# Appendix A - Database Structure {#appendixA}
+
+<!--chapter:end:08-AppendixA.Rmd-->
+
+
+# The motus package {#appendixB}
+## SunRiseSet {#sunRiseSet}
+### Description 
+### Dependencies
+### Example
+## plotAllTagsCoord {#plotAllTagsCoor}
+### Description
+### Dependencies
+### Example
+## plotAllTagsSite {#plotAllTagsSite}
+### Description
+### Dependencies
+### Example
+## plotDailySiteSum {#plotDailySiteSum}
+### Description
+### Dependencies
+### Example
+## plotRouteMap {#plotRouteMap}
+### Description
+### Dependencies
+### Example
+## plotSite {#plotSite}
+### Description
+### Dependencies
+### Example
+## plotSiteSig {#plotSiteSig}
+### Description
+### Dependencies
+### Example
+## plotTagSig {#plotTagSig}
+### Description
+### Dependencies
+### Example
+## simSiteDet {#simSiteDet}
+### Description
+### Dependencies
+### Example
+## siteSum {#siteSum}
+### Description
+### Dependencies
+### Example
+## siteSumDaily {#siteSumDaily}
+### Description
+### Dependencies
+### Example
+## siteTrans {#siteTrans}
+### Description
+### Dependencies
+### Example
+## tagSum {#tagSum}
+### Description
+### Dependencies
+### Example
+## tagSumSite {#tagSumSite}
+### Description
+### Dependencies
+### Example
+## timeToSunriset {#timeToSunriset}
+### Description
+### Dependencies
+### Example
+
+<!--chapter:end:09-AppendixB.Rmd-->
+
+# Appendix C - alltags structure {#appendixC}
+
+The following variables are included in each "alltags" view in the SQLite file:
+
+```{r parameterTable, echo = FALSE}
+param.table <- dplyr::select(read.csv("./data/DatabaseParameters.csv", stringsAsFactors=FALSE), 1:2)
+knitr::kable(param.table, caption = "Description of fields in the tag detections database") 
+```
+
+<!--chapter:end:10-AppendixC.Rmd-->
+
+
+# Placeholder
+## just ignore this file for now ... I am seeing how I'd deal with this before I look at yours. 
+
+<!--chapter:end:MyAmbigWorkflow.RMD-->
+
+
+# Potential chapter on importing and looking at data by receiver instead of project...
+### Number of detections at each project receiver
+
+<!--chapter:end:temp_ImportByReceiver.RMD-->
+

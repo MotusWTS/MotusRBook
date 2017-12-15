@@ -84,7 +84,7 @@ Let's get started. Note that there are no receivers registered to sample project
 
 Be warned that large datasets can take some time to download from the Motus server when downloading for the first time ('new = TRUE' in the tagme function call). The sample dataset, for example, can take upwards of 3 hours to download completely. 
 
-In the event that your connection to the Motus server fails prior to the download completing (e.g., due to poor internet connection), use `r tagme(proj.num. update = TRUE), eval = FALSE` to continue the download from where it left off. 
+In the event that your connection to the Motus server fails prior to the download completing (e.g., due to poor internet connection), use `r tagme(proj.num. update = TRUE), eval = FALSE` to continue the download from where it left off, ensuring to specify a directory if it's saved outside the working directory.  
 
 After the initial download, loading a .motus file into R using `r tagme(proj.num, new = FALSE), eval = FALSE` will be near instantaneous.
 
@@ -165,22 +165,25 @@ Each tag database is stored as an SQLite ('dplyr::src_sqlite') file with the ext
 
 The .motus file contains a series of interelated tables where data are stored in a condensed format to save memory. The following tables are included in the .motus file; a complete list of variables stored in each table can be found in Appendix Table A1:
 
-1. hits: detection data at the level of individual hits.
-2. runs: detection data associated with a run (continuous detections of a unique tag on a given receiver).
-3. batches: detection data for a given receiver and boot number.
-4. batchRuns:
-5. projBatch:
-5. meta:
-6. tags: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).
-7. tagAmbig
-8. tagDeps: metadata related to tag deployments, e.g., deployment date, location, and species.
-9. recvs:
-10. recvDeps: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.
-11. antDeps: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.
-12. species: metadata related to species, e.g., unique identifier, scientific name, common name.
-13. projs: metadata related to projects, e.g., project name, principal investigator.
-14. gps: metadata related to Geographic Positioning System (GPS) position of receiver. 
-15. projAmbig: 
+1. antDeps: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.
+2. batches: detection data for a given receiver and boot number.
+3. batchRuns: metadata for runIDs and associated batchIDs
+4. clarified: 
+5. filters:
+6. gps: metadata related to Geographic Positioning System (GPS) position of receiver. 
+7. hits: detection data at the level of individual hits.
+8. meta: metadata related to the project and datatype (tags vs. receiveres) that are included in the .motus file
+9. projAmbig: metadata related to what projects have ambiguous tag detections
+10. projBatch: metadata for the number of detections contained in each batch
+11. projs: metadata related to projects, e.g., project name, principal investigator.
+12. recvDeps: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.
+13. recvs: metadata related to receiver serial number and associated Motus deviceID
+14. runs: detection data associated with a run (continuous detections of a unique tag on a given receiver).
+15. runsFilters: 
+16. species: metadata related to species, e.g., unique identifier, scientific name, common name.
+17. tagAmbig: metadata related to ambiguous tags, e.g., ambigID and associated motusTagID
+18. tagDeps: metadata related to tag deployments, e.g., deployment date, location, and species.
+19. tags: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).
 
 In addition to these tables, there are also 'virtual' tables or 'views', which are queries that merge data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in each .motus file:
 
@@ -226,7 +229,7 @@ tbl.alltags <- tbl(sql.motus, "alltags") ## virtual table
 
 ```
 
-The following table lists the variables available in the 'alltags' view [insert table with variable descriptions?]:
+The following table lists the variables available in the 'alltags' view, a full description of each field is available in \@ref(appendixC)
 
 ```{r parameterTable, echo = FALSE}
 
@@ -240,7 +243,7 @@ tbl.alltags %>%
 
 To convert the 'alltags' view or other table in the .motus file into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() and as.data.frame() functions.  The output can then be further manipulated, or used to generate a RDS file of your data. 
 
-We suggest that a good workflow is to prepare a script that downloads/updates your data, filters out the necessary variables, and saves the resulting data as an RDS file. We suggest using RDS instead of CSV, because the RDS format preserves the underlying structure of the data (e.g. POSIX times stay as POSIX times). If you want to export your data to another program, the a CSV format might be preferred.
+We suggest that a good workflow is to prepare a script that downloads/updates your data, filters out the necessary variables, and saves the resulting data as an RDS file. We suggest using RDS instead of CSV, because the RDS format preserves the underlying structure of the data (e.g. POSIX times stay as POSIX times). If you want to export your data to another program, then a CSV format might be preferred.
 
 We caution that producing a flat file using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets. This is the point in your workflow where you should remove any unwanted variables. You can always change your mind and return to this script, creating a new RDS file with additional or different variables.
 
@@ -336,7 +339,7 @@ In later chapter(s) we will show you additional ways of summarizing and working 
 
 ## Export your 'flat' dataframe to CSV or RDS file {#exportDetections}
 
-Good workflow is to create a script that deals with all of your data issues, then saves a dataframe (or workspace) for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. When working in R, we do this is by using an RDS file, which preserves all of the associated R data structures (such as time stamps).
+A good workflow is to create a script that deals with all of your data issues, then saves a dataframe (or workspace) for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. When working in R, we do this is by using an RDS file, which preserves all of the associated R data structures (such as time stamps).
 
 ```{r createRDS, eval = FALSE, message = FALSE, warning = FALSE}
 
@@ -352,7 +355,7 @@ write.csv(df.alltags, "./data/df.alltags.CSV", row.names = FALSE)
 
 ## R object naming convention
 
-Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with ".sql", virtual table objects will be prefixed with "tbl.", and dataframe objects will be prefixed with "df."; the rest of the name will include the name of the .motus table that the data originates from. For example, for the alltags table in the sample.motus file:
+Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with "sql.", virtual table objects will be prefixed with "tbl.", and dataframe objects will be prefixed with "df."; the rest of the name will include the name of the .motus table that the data originates from. For example, for the alltags table in the sample.motus file:
 
 ```{r namingConvention, eval = FALSE}
 

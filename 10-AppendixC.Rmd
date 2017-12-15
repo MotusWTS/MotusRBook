@@ -1,0 +1,8 @@
+# Appendix C - alltags structure {#appendixC}
+
+The following variables are included in each "alltags" view in the SQLite file:
+
+```{r parameterTable, echo = FALSE}
+param.table <- dplyr::select(read.csv("./data/DatabaseParameters.csv", stringsAsFactors=FALSE), 1:2)
+knitr::kable(param.table) 
+```

@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R for Motus</title>
+  <meta name="description" content="R for Motus">
+  <meta name="generator" content="bookdown <!--bookdown:version--> and GitBook 2.6.7">
+
+  <meta property="og:title" content="R for Motus" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="BSC_Motus_Logo.png" />
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R for Motus" />
+  
+  
+  <meta name="twitter:image" content="BSC_Motus_Logo.png" />
+
+<meta name="author" content="Tara L. Crewe and Zoe Crysler">
+
+
+<meta name="date" content="2017-12-15">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<!--bookdown:link_prev-->
+<!--bookdown:link_next-->
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+
+
+
+</head>
+
+<body>
+
+
+
+<!--bookdown:title:start-->
+<div id="header">
+<h1 class="title">R for Motus</h1>
+<h4 class="author"><em>Tara L. Crewe and Zoe Crysler</em></h4>
+<h4 class="date"><em>2017-12-15</em></h4>
+</div>
+<!--bookdown:title:end-->
+
+<!--bookdown:toc:start-->
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+<!--bookdown:toc2:start-->
+<ul>
+<li><a href="#a-walk-through-the-use-of-r-for-motus-automated-radio-telemetry-data">A walk through the use of R for Motus automated radio-telemetry data</a></li>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a><ul>
+<li><a href="#whatBookCovers"><span class="toc-section-number">1.1</span> What this book does not cover</a></li>
+<li><a href="#prerequisites"><span class="toc-section-number">1.2</span> Prerequisites</a></li>
+<li><a href="#bookOrganization"><span class="toc-section-number">1.3</span> How this book is organized</a></li>
+<li><a href="#sampleData"><span class="toc-section-number">1.4</span> Sample dataset</a></li>
+<li><a href="#acknowledgements"><span class="toc-section-number">1.5</span> Acknowledgements</a></li>
+</ul></li>
+<li><a href="#loadingPackages"><span class="toc-section-number">2</span> Loading R Packages</a><ul>
+<li><a href="#internalProcessing"><span class="toc-section-number">2.1</span> Internal data processing</a></li>
+</ul></li>
+<li><a href="#accessingData"><span class="toc-section-number">3</span> Accessing and understanding detections data</a><ul>
+<li><a href="#databaseTypes"><span class="toc-section-number">3.1</span> Database types</a></li>
+<li><a href="#loadPackages"><span class="toc-section-number">3.2</span> Load relevant R packages</a></li>
+<li><a href="#these-function-calls-will-only-install-updated-packages"><span class="toc-section-number">3.3</span> these function calls will only install updated packages</a></li>
+<li><a href="#required-motus-package-from-github"><span class="toc-section-number">3.4</span> required ‘motus’ package from github</a></li>
+<li><a href="#required-other-packages-from-cran."><span class="toc-section-number">3.5</span> required other packages from CRAN.</a></li>
+<li><a href="#set-system-environment"><span class="toc-section-number">3.6</span> Set system environment</a></li>
+<li><a href="#importDetections"><span class="toc-section-number">3.7</span> Importing tag detections</a><ul>
+<li><a href="#download-data-for-a-project-or-receiver-for-the-first-time"><span class="toc-section-number">3.7.1</span> Download data for a project or receiver for the <em>first time</em></a></li>
+<li><a href="#userAuthentication"><span class="toc-section-number">3.7.2</span> User Authentication</a></li>
+<li><a href="#logout"><span class="toc-section-number">3.7.3</span> Logging out</a></li>
+<li><a href="#update-and-open-a-local-tag-database"><span class="toc-section-number">3.7.4</span> Update and open a local tag database</a></li>
+<li><a href="#force-an-updatere-import-of-tag-and-receiver-deployment-metadata"><span class="toc-section-number">3.7.5</span> Force an update/re-import of tag and receiver deployment metadata</a></li>
+<li><a href="#check-if-new-data-are-available"><span class="toc-section-number">3.7.6</span> Check if new data are available</a></li>
+</ul></li>
+<li><a href="#databaseStructure"><span class="toc-section-number">3.8</span> Data structure</a></li>
+<li><a href="#convertToFlat"><span class="toc-section-number">3.9</span> Convert a SQLITE table to a flat dataframe</a></li>
+<li><a href="#to-grab-a-subset-of-fields-in-this-case-a-unique-list-of-motus-tag-ids"><span class="toc-section-number">3.10</span> to grab a subset of fields, in this case a unique list of motus tag IDs</a></li>
+<li><a href="#at-each-receiver-and-antenna."><span class="toc-section-number">3.11</span> at each receiver and antenna.</a></li>
+<li><a href="#filter-to-include-only-motustagids-9939-25643"><span class="toc-section-number">3.12</span> filter to include only motusTagIDs 9939, 25643</a></li>
+<li><a href="#filter-to-only-red-knot-using-speciesid"><span class="toc-section-number">3.13</span> filter to only Red Knot (using speciesID)</a></li>
+<li><a href="#filter-to-only-red-knot-using-english-name"><span class="toc-section-number">3.14</span> filter to only Red Knot (using English name)</a></li>
+<li><a href="#exportDetections"><span class="toc-section-number">3.15</span> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
+<li><a href="#save-an-rds-file"><span class="toc-section-number">3.16</span> save an RDS file</a></li>
+<li><a href="#or-save-as-csv-file-which-does-not-preserve-time-stamps-but-is-more-universally-accepted"><span class="toc-section-number">3.17</span> or save as CSV file, which does not preserve time stamps, but is more universally accepted</a></li>
+<li><a href="#r-object-naming-convention"><span class="toc-section-number">3.18</span> R object naming convention</a></li>
+</ul></li>
+<li><a href="#deployments"><span class="toc-section-number">4</span> Tag and Receiver Deployments</a><ul>
+<li><a href="#load-relevant-r-packages-and-set-working-environment"><span class="toc-section-number">4.1</span> Load relevant R packages and set working environment</a></li>
+<li><a href="#set-the-system-environment-time-zone-to-gmt-to-ensure-that-you-are-always-working-in-gmt"><span class="toc-section-number">4.2</span> Set the system environment time zone to GMT (to ensure that you are always working in GMT)</a></li>
+<li><a href="#load-.motus-file"><span class="toc-section-number">4.3</span> Load .motus file</a></li>
+<li><a href="#tagDeployments"><span class="toc-section-number">4.4</span> Tag Deployments</a><ul>
+<li><a href="#number-of-registered-tags"><span class="toc-section-number">4.4.1</span> 1. Number of registered tags</a></li>
+<li><a href="#number-of-registered-tags-that-were-deployed"><span class="toc-section-number">4.4.2</span> 2. Number of registered tags that were deployed</a></li>
+<li><a href="#location-of-tag-deployments"><span class="toc-section-number">4.4.3</span> 3. Location of tag deployments</a></li>
+</ul></li>
+<li><a href="#get-the-lake-data-adjust-longitude"><span class="toc-section-number">4.5</span> get the lake data; adjust longitude</a></li>
+<li><a href="#get-the-country-data-adjust-longitude"><span class="toc-section-number">4.6</span> get the country data; adjust longitude</a></li>
+<li><a href="#others-countries-in-the-americas-that-you-may-want-to-plot-depending-on-your-location-mexico-lakesbelize-costa-rica-panama-guatemala-honduras-nicaragua-el-salvador-colombia-venezuela-ecuador-peru-brazil-guyanasuriname-bolivia-french-guiana-jamaica-cuba-haiti-dominican-republic-the-bahamas-turks-and-caicos-islands-puerto-rico-british-virgin-islands-montserrat-dominica-saint-lucia-barbados-grenada-trinidad-and-tobago-chile-argentina-uruguay"><span class="toc-section-number">4.7</span> Others countries in the Americas that you may want to plot, depending on your location: “Mexico”, “lakes”,“Belize”, “Costa Rica”, “Panama”, “Guatemala”, “Honduras”, “Nicaragua”, “El Salvador”, “Colombia”, “Venezuela”, “Ecuador”, “Peru”, “Brazil”, “Guyana”,“Suriname”, “Bolivia”, “French Guiana”, “Jamaica”, “Cuba”, “Haiti”, “Dominican Republic”, “The Bahamas”, “Turks and Caicos Islands”, “Puerto Rico”, “British Virgin Islands”, “Montserrat”, “Dominica”, “Saint Lucia”, “Barbados”, “Grenada”, “Trinidad and Tobago”, “Chile”, “Argentina”, “Uruguay”</a></li>
+<li><a href="#set-limits-to-map-based-on-locations-of-detections-ensuring-they-include-the-deployment-locations"><span class="toc-section-number">4.8</span> set limits to map based on locations of detections, ensuring they include the deployment locations</a></li>
+<li><a href="#map-using-ggplot"><span class="toc-section-number">4.9</span> map using ggplot</a><ul>
+<li><a href="#check-completeness-and-accuracy-of-tag-deployment-metadata"><span class="toc-section-number">4.9.1</span> 4. Check completeness and accuracy of tag deployment metadata</a></li>
+</ul></li>
+<li><a href="#list-of-species-ids-in-project-38-metadata"><span class="toc-section-number">4.10</span> list of species IDs in project 38 metadata</a></li>
+<li><a href="#species-metadata"><span class="toc-section-number">4.11</span> Species metadata</a></li>
+<li><a href="#recvMetadata"><span class="toc-section-number">4.12</span> Check Receiver Metadata</a><ul>
+<li><a href="#number-of-project-receiver-deployments"><span class="toc-section-number">4.12.1</span> 1. Number of project receiver deployments</a></li>
+<li><a href="#timing-of-project-receiver-deployments"><span class="toc-section-number">4.12.2</span> 2. Timing of project receiver deployments</a></li>
+<li><a href="#location-of-receiver-deployments"><span class="toc-section-number">4.12.3</span> 3. Location of receiver deployments</a></li>
+<li><a href="#completeness-and-accuracy-of-receiver-metadata"><span class="toc-section-number">4.12.4</span> 4. Completeness and accuracy of receiver metadata</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#dataCleaning"><span class="toc-section-number">5</span> Data Cleaning</a><ul>
+<li><a href="#load-required-packages"><span class="toc-section-number">5.1</span> Load required packages</a></li>
+<li><a href="#load-required-dataframes"><span class="toc-section-number">5.2</span> Load required dataframes</a></li>
+<li><a href="#number-of-tags-with-detections"><span class="toc-section-number">5.3</span> Number of tags with detections</a></li>
+<li><a href="#check-for-ambiguous-detections"><span class="toc-section-number">5.4</span> Check for ambiguous detections</a></li>
+<li><a href="#filter-data-to-project-and-tag"><span class="toc-section-number">5.5</span> Filter data to project and tag</a></li>
+<li><a href="#map-deployments-and-detections"><span class="toc-section-number">5.6</span> Map deployments and detections</a><ul>
+<li><a href="#check-geographic-position-latitudelongitude-against-time"><span class="toc-section-number">5.6.1</span> Check geographic position (latitude/longitude) against time</a></li>
+</ul></li>
+<li><a href="#filterFlightSpeed"><span class="toc-section-number">5.7</span> Removing detections based on estimated flight speed</a><ul>
+<li><a href="#check-run-length"><span class="toc-section-number">5.7.1</span> Check run length</a></li>
+<li><a href="#check-standard-deviation-of-frequency-offset"><span class="toc-section-number">5.7.2</span> Check standard deviation of frequency offset</a></li>
+</ul></li>
+<li><a href="#everything-that-follows-is-old."><span class="toc-section-number">5.8</span> Everything that follows is old.</a></li>
+<li><a href="#plot-detections-with-deployment-dates"><span class="toc-section-number">5.9</span> Plot detections with deployment dates</a></li>
+<li><a href="#check-run-length-of-outlying-detections."><span class="toc-section-number">5.10</span> Check run length of outlying detections.</a></li>
+<li><a href="#map-ambiguous-detections"><span class="toc-section-number">5.11</span> Map ambiguous detections</a><ul>
+<li><a href="#map-of-ambigid--56"><span class="toc-section-number">5.11.1</span> Map of ambigID -56</a></li>
+<li><a href="#map-of-ambigid--171"><span class="toc-section-number">5.11.2</span> Map of ambigID -171</a></li>
+</ul></li>
+<li><a href="#assigning-or-dropping-ambiguities-from-your-data"><span class="toc-section-number">5.12</span> Assigning or dropping ambiguities from your data</a></li>
+</ul></li>
+<li><a href="#dataCleaning"><span class="toc-section-number">6</span> Data Cleaning</a><ul>
+<li><a href="#load-required-packages-1"><span class="toc-section-number">6.1</span> Load required packages</a></li>
+<li><a href="#load-detections-data"><span class="toc-section-number">6.2</span> Load Detections Data</a></li>
+<li><a href="#to-do-this-with-your-own-data-replace-these-lines-with"><span class="toc-section-number">6.3</span> to do this with your own data, replace these lines with</a></li>
+<li><a href="#t---tagmeyour.project.number"><span class="toc-section-number">6.4</span> t &lt;- tagme(your.project.number)</a></li>
+<li><a href="#checkAmbigs"><span class="toc-section-number">6.5</span> Check for ambiguities</a></li>
+<li><a href="#look-at-the-ambiguous-tags"><span class="toc-section-number">6.6</span> look at the ambiguous tags</a></li>
+<li><a href="#obtain-the-detections-from-just-those-tags-and-ensure-that-all-or-most"><span class="toc-section-number">6.7</span> obtain the detections from just those tags and ensure that all (or most)</a></li>
+<li><a href="#detections-have-gpslocations.-filter-these-so-that-we-arent-later-trying"><span class="toc-section-number">6.8</span> detections have gpsLocations. Filter these so that we aren’t later trying</a></li>
+<li><a href="#to-deal-with-both-ambiguous-detections-and-false-positives."><span class="toc-section-number">6.9</span> to deal with both ambiguous detections and false positives.</a></li>
+<li><a href="#ambiguous-tag-views"><span class="toc-section-number">6.10</span> Ambiguous tag views</a></li>
+<li><a href="#check-overlap-of-deployment-dates"><span class="toc-section-number">6.11</span> Check overlap of deployment dates</a></li>
+<li><a href="#get-a-list-of-the-motusids-for-all-of-the-ambiguous-tags"><span class="toc-section-number">6.12</span> get a list of the motusIDs for all of the ambiguous tags</a></li>
+<li><a href="#and-merge-the-two-creating-a-new-variable-with-both-the-projectid"><span class="toc-section-number">6.13</span> and merge the two creating a new variable with both the projectID</a></li>
+<li><a href="#and-the-motustagid-which-makes-it-easier-for-plotting-to-see-where"><span class="toc-section-number">6.14</span> and the MotusTagID which makes it easier for plotting to see where</a></li>
+<li><a href="#the-various-ambiguous-come-from."><span class="toc-section-number">6.15</span> the various ambiguous come from.</a></li>
+<li><a href="#derives-some-summary-data-for-the-ambiguous-detections-to-compare-with-the"><span class="toc-section-number">6.16</span> derives some summary data for the ambiguous detections to compare with the</a></li>
+<li><a href="#tag-deployments"><span class="toc-section-number">6.17</span> tag deployments</a></li>
+<li><a href="#maybe-do-a-daily-detections-here"><span class="toc-section-number">6.18</span> maybe do a daily detections here?</a></li>
+<li><a href="#plot-latlon-of-ambiguous-detections-by-time"><span class="toc-section-number">6.19</span> Plot lat/lon of ambiguous detections by time</a></li>
+<li><a href="#check-run-length-of-outlying-detections.-1"><span class="toc-section-number">6.20</span> Check run length of outlying detections.</a></li>
+<li><a href="#map-ambiguous-detections-1"><span class="toc-section-number">6.21</span> Map ambiguous detections</a><ul>
+<li><a href="#map-of-ambigid--56-1"><span class="toc-section-number">6.21.1</span> Map of ambigID -56</a></li>
+<li><a href="#map-of-ambigid--171-1"><span class="toc-section-number">6.21.2</span> Map of ambigID -171</a></li>
+</ul></li>
+<li><a href="#assigning-or-dropping-ambiguities-from-your-data-1"><span class="toc-section-number">6.22</span> Assigning or dropping ambiguities from your data</a></li>
+</ul></li>
+<li><a href="#dataCleaning"><span class="toc-section-number">7</span> Cleaning data to remove false detections</a><ul>
+<li><a href="#load-relevant-r-packages"><span class="toc-section-number">7.1</span> Load relevant R packages</a></li>
+<li><a href="#load-detection-data-and-convert-to-a-flat-file"><span class="toc-section-number">7.2</span> Load detection data and convert to a flat file</a></li>
+<li><a href="#filterDeployRange"><span class="toc-section-number">7.3</span> Removing detections outside of deployment range</a></li>
+<li><a href="#first-ensure-that-all-times-are-in-posixct"><span class="toc-section-number">7.4</span> first ensure that all times are in POSIXct</a></li>
+<li><a href="#subset-to-keep-anything-within-tag-deployment-range-making-sure-to-account-for-nas-in-end-dates"><span class="toc-section-number">7.5</span> subset to keep anything within tag deployment range, making sure to account for NAs in end dates</a></li>
+<li><a href="#filterGeoPosition"><span class="toc-section-number">7.6</span> Removing detections based on visual geographic positions</a></li>
+<li><a href="#make-lat-vs-time-plots-of-all-tags"><span class="toc-section-number">7.7</span> make lat vs time plots of all tags</a></li>
+<li><a href="#now-the-data-looks-better-and-only-tag-16038-looks-odd"><span class="toc-section-number">7.8</span> now the data looks better and only tag 16038 looks odd</a></li>
+<li><a href="#filter-jbraw-to-only-show-motustagid-16038-and-only-before-2015-10-01"><span class="toc-section-number">7.9</span> filter JBraw to only show motusTagID 16038, and only before 2015-10-01</a></li>
+<li><a href="#this-time-filter-by-motustagid-and-by-latitude-so-we-only-see-the-strange-detections"><span class="toc-section-number">7.10</span> this time filter by motusTagID and by latitude so we only see the strange detections</a></li>
+<li><a href="#using-a-filter-that-will-provide-us-with-only-the-spurious-detections"><span class="toc-section-number">7.11</span> using a filter that will provide us with only the spurious detections:</a></li>
+<li><a href="#filterFlightSpeed"><span class="toc-section-number">7.12</span> Removing detections based on estimated flight speed</a></li>
+<li><a href="#so-we-see-that-tag-16047-has-lots-of-high-speeds-due-to-close-towers---16038-has-high-speeds-due-to-false-detections"><span class="toc-section-number">7.13</span> so we see that tag 16047 has lots of high speeds due to close towers - 16038 has high speeds due to false detections</a></li>
+<li><a href="#same-as-what-we-saw-with-the-plots-so-lets-remove-those-hitids"><span class="toc-section-number">7.14</span> same as what we saw with the plots, so lets remove those hitIDs</a></li>
+<li><a href="#filterHitID"><span class="toc-section-number">7.15</span> Removing false positives based on hitID’s</a></li>
+<li><a href="#filterAuto"><span class="toc-section-number">7.16</span> Removing detections based on automated filtering</a></li>
+<li><a href="#first-convert-freqsd-to-na-for-all-lotek-receivers"><span class="toc-section-number">7.17</span> first convert freqsd to NA for all Lotek receivers</a></li>
+<li><a href="#identify-which-detections-would-be-removed-by-creating-a-new-column-filter"><span class="toc-section-number">7.18</span> identify which detections would be removed by creating a new column “filter”</a></li>
+<li><a href="#potential-detections-to-filter-by-site"><span class="toc-section-number">7.19</span> potential detections to filter by site</a></li>
+<li><a href="#potential-detections-to-filter-by-motustagid"><span class="toc-section-number">7.20</span> potential detections to filter by motusTagID</a></li>
+</ul></li>
+<li><a href="#exploreData"><span class="toc-section-number">8</span> Exploring data with the Motus R package</a><ul>
+<li><a href="#dataSummaries"><span class="toc-section-number">8.1</span> Summarizing your data</a></li>
+<li><a href="#dataPlotting"><span class="toc-section-number">8.2</span> Plotting your data</a></li>
+</ul></li>
+<li><a href="#appendixA"><span class="toc-section-number">9</span> Appendix A - Database Structure</a></li>
+<li><a href="#appendixB"><span class="toc-section-number">10</span> The motus package</a><ul>
+<li><a href="#sunRiseSet"><span class="toc-section-number">10.1</span> SunRiseSet</a><ul>
+<li><a href="#description"><span class="toc-section-number">10.1.1</span> Description</a></li>
+<li><a href="#dependencies"><span class="toc-section-number">10.1.2</span> Dependencies</a></li>
+<li><a href="#example"><span class="toc-section-number">10.1.3</span> Example</a></li>
+</ul></li>
+<li><a href="#plotAllTagsCoor"><span class="toc-section-number">10.2</span> plotAllTagsCoord</a><ul>
+<li><a href="#description-1"><span class="toc-section-number">10.2.1</span> Description</a></li>
+<li><a href="#dependencies-1"><span class="toc-section-number">10.2.2</span> Dependencies</a></li>
+<li><a href="#example-1"><span class="toc-section-number">10.2.3</span> Example</a></li>
+</ul></li>
+<li><a href="#plotAllTagsSite"><span class="toc-section-number">10.3</span> plotAllTagsSite</a><ul>
+<li><a href="#description-2"><span class="toc-section-number">10.3.1</span> Description</a></li>
+<li><a href="#dependencies-2"><span class="toc-section-number">10.3.2</span> Dependencies</a></li>
+<li><a href="#example-2"><span class="toc-section-number">10.3.3</span> Example</a></li>
+</ul></li>
+<li><a href="#plotDailySiteSum"><span class="toc-section-number">10.4</span> plotDailySiteSum</a><ul>
+<li><a href="#description-3"><span class="toc-section-number">10.4.1</span> Description</a></li>
+<li><a href="#dependencies-3"><span class="toc-section-number">10.4.2</span> Dependencies</a></li>
+<li><a href="#example-3"><span class="toc-section-number">10.4.3</span> Example</a></li>
+</ul></li>
+<li><a href="#plotRouteMap"><span class="toc-section-number">10.5</span> plotRouteMap</a><ul>
+<li><a href="#description-4"><span class="toc-section-number">10.5.1</span> Description</a></li>
+<li><a href="#dependencies-4"><span class="toc-section-number">10.5.2</span> Dependencies</a></li>
+<li><a href="#example-4"><span class="toc-section-number">10.5.3</span> Example</a></li>
+</ul></li>
+<li><a href="#plotSite"><span class="toc-section-number">10.6</span> plotSite</a><ul>
+<li><a href="#description-5"><span class="toc-section-number">10.6.1</span> Description</a></li>
+<li><a href="#dependencies-5"><span class="toc-section-number">10.6.2</span> Dependencies</a></li>
+<li><a href="#example-5"><span class="toc-section-number">10.6.3</span> Example</a></li>
+</ul></li>
+<li><a href="#plotSiteSig"><span class="toc-section-number">10.7</span> plotSiteSig</a><ul>
+<li><a href="#description-6"><span class="toc-section-number">10.7.1</span> Description</a></li>
+<li><a href="#dependencies-6"><span class="toc-section-number">10.7.2</span> Dependencies</a></li>
+<li><a href="#example-6"><span class="toc-section-number">10.7.3</span> Example</a></li>
+</ul></li>
+<li><a href="#plotTagSig"><span class="toc-section-number">10.8</span> plotTagSig</a><ul>
+<li><a href="#description-7"><span class="toc-section-number">10.8.1</span> Description</a></li>
+<li><a href="#dependencies-7"><span class="toc-section-number">10.8.2</span> Dependencies</a></li>
+<li><a href="#example-7"><span class="toc-section-number">10.8.3</span> Example</a></li>
+</ul></li>
+<li><a href="#simSiteDet"><span class="toc-section-number">10.9</span> simSiteDet</a><ul>
+<li><a href="#description-8"><span class="toc-section-number">10.9.1</span> Description</a></li>
+<li><a href="#dependencies-8"><span class="toc-section-number">10.9.2</span> Dependencies</a></li>
+<li><a href="#example-8"><span class="toc-section-number">10.9.3</span> Example</a></li>
+</ul></li>
+<li><a href="#siteSum"><span class="toc-section-number">10.10</span> siteSum</a><ul>
+<li><a href="#description-9"><span class="toc-section-number">10.10.1</span> Description</a></li>
+<li><a href="#dependencies-9"><span class="toc-section-number">10.10.2</span> Dependencies</a></li>
+<li><a href="#example-9"><span class="toc-section-number">10.10.3</span> Example</a></li>
+</ul></li>
+<li><a href="#siteSumDaily"><span class="toc-section-number">10.11</span> siteSumDaily</a><ul>
+<li><a href="#description-10"><span class="toc-section-number">10.11.1</span> Description</a></li>
+<li><a href="#dependencies-10"><span class="toc-section-number">10.11.2</span> Dependencies</a></li>
+<li><a href="#example-10"><span class="toc-section-number">10.11.3</span> Example</a></li>
+</ul></li>
+<li><a href="#siteTrans"><span class="toc-section-number">10.12</span> siteTrans</a><ul>
+<li><a href="#description-11"><span class="toc-section-number">10.12.1</span> Description</a></li>
+<li><a href="#dependencies-11"><span class="toc-section-number">10.12.2</span> Dependencies</a></li>
+<li><a href="#example-11"><span class="toc-section-number">10.12.3</span> Example</a></li>
+</ul></li>
+<li><a href="#tagSum"><span class="toc-section-number">10.13</span> tagSum</a><ul>
+<li><a href="#description-12"><span class="toc-section-number">10.13.1</span> Description</a></li>
+<li><a href="#dependencies-12"><span class="toc-section-number">10.13.2</span> Dependencies</a></li>
+<li><a href="#example-12"><span class="toc-section-number">10.13.3</span> Example</a></li>
+</ul></li>
+<li><a href="#tagSumSite"><span class="toc-section-number">10.14</span> tagSumSite</a><ul>
+<li><a href="#description-13"><span class="toc-section-number">10.14.1</span> Description</a></li>
+<li><a href="#dependencies-13"><span class="toc-section-number">10.14.2</span> Dependencies</a></li>
+<li><a href="#example-13"><span class="toc-section-number">10.14.3</span> Example</a></li>
+</ul></li>
+<li><a href="#timeToSunriset"><span class="toc-section-number">10.15</span> timeToSunriset</a><ul>
+<li><a href="#description-14"><span class="toc-section-number">10.15.1</span> Description</a></li>
+<li><a href="#dependencies-14"><span class="toc-section-number">10.15.2</span> Dependencies</a></li>
+<li><a href="#example-14"><span class="toc-section-number">10.15.3</span> Example</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#appendixC"><span class="toc-section-number">11</span> Appendix C - alltags structure</a></li>
+<li><a href="#placeholder"><span class="toc-section-number">12</span> Placeholder</a><ul>
+<li><a href="#just-ignore-this-file-for-now-i-am-seeing-how-id-deal-with-this-before-i-look-at-yours."><span class="toc-section-number">12.1</span> just ignore this file for now … I am seeing how I’d deal with this before I look at yours.</a></li>
+</ul></li>
+<li><a href="#potential-chapter-on-importing-and-looking-at-data-by-receiver-instead-of-project"><span class="toc-section-number">13</span> Potential chapter on importing and looking at data by receiver instead of project…</a><ul>
+<li><a href="#number-of-detections-at-each-project-receiver"><span class="toc-section-number">13.0.1</span> Number of detections at each project receiver</a></li>
+</ul></li>
+</ul>
+<!--bookdown:toc2:end-->
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Motus</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<!--bookdown:toc:end-->
+<!--bookdown:body:start-->
+<div id="a-walk-through-the-use-of-r-for-motus-automated-radio-telemetry-data" class="section level1 unnumbered">
+<h1>A walk through the use of R for Motus automated radio-telemetry data</h1>
+<!--chapter:end:index.Rmd-->
+</div>
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<div id="whatBookCovers" class="section level2">
+<h2><span class="header-section-number">1.1</span> What this book does not cover</h2>
+</div>
+<div id="prerequisites" class="section level2">
+<h2><span class="header-section-number">1.2</span> Prerequisites</h2>
+</div>
+<div id="bookOrganization" class="section level2">
+<h2><span class="header-section-number">1.3</span> How this book is organized</h2>
+</div>
+<div id="sampleData" class="section level2">
+<h2><span class="header-section-number">1.4</span> Sample dataset</h2>
+</div>
+<div id="acknowledgements" class="section level2">
+<h2><span class="header-section-number">1.5</span> Acknowledgements</h2>
+<!--chapter:end:01-Introduction.Rmd-->
+</div>
+</div>
+<div id="loadingPackages" class="section level1">
+<h1><span class="header-section-number">2</span> Loading R Packages</h1>
+<div id="internalProcessing" class="section level2">
+<h2><span class="header-section-number">2.1</span> Internal data processing</h2>
+<!--chapter:end:02-LoadingPackage.Rmd-->
+</div>
+</div>
+<div id="accessingData" class="section level1">
+<h1><span class="header-section-number">3</span> Accessing and understanding detections data</h1>
+<div id="databaseTypes" class="section level2">
+<h2><span class="header-section-number">3.1</span> Database types</h2>
+</div>
+<div id="loadPackages" class="section level2">
+<h2><span class="header-section-number">3.2</span> Load relevant R packages</h2>
+</div>
+<div id="these-function-calls-will-only-install-updated-packages" class="section level2">
+<h2><span class="header-section-number">3.3</span> these function calls will only install updated packages</h2>
+</div>
+<div id="required-motus-package-from-github" class="section level2">
+<h2><span class="header-section-number">3.4</span> required ‘motus’ package from github</h2>
+</div>
+<div id="required-other-packages-from-cran." class="section level2">
+<h2><span class="header-section-number">3.5</span> required other packages from CRAN.</h2>
+</div>
+<div id="set-system-environment" class="section level2">
+<h2><span class="header-section-number">3.6</span> Set system environment</h2>
+</div>
+<div id="importDetections" class="section level2">
+<h2><span class="header-section-number">3.7</span> Importing tag detections</h2>
+<div id="download-data-for-a-project-or-receiver-for-the-first-time" class="section level3">
+<h3><span class="header-section-number">3.7.1</span> Download data for a project or receiver for the <em>first time</em></h3>
+</div>
+<div id="userAuthentication" class="section level3">
+<h3><span class="header-section-number">3.7.2</span> User Authentication</h3>
+</div>
+<div id="logout" class="section level3">
+<h3><span class="header-section-number">3.7.3</span> Logging out</h3>
+</div>
+<div id="update-and-open-a-local-tag-database" class="section level3">
+<h3><span class="header-section-number">3.7.4</span> Update and open a local tag database</h3>
+</div>
+<div id="force-an-updatere-import-of-tag-and-receiver-deployment-metadata" class="section level3">
+<h3><span class="header-section-number">3.7.5</span> Force an update/re-import of tag and receiver deployment metadata</h3>
+</div>
+<div id="check-if-new-data-are-available" class="section level3">
+<h3><span class="header-section-number">3.7.6</span> Check if new data are available</h3>
+</div>
+</div>
+<div id="databaseStructure" class="section level2">
+<h2><span class="header-section-number">3.8</span> Data structure</h2>
+</div>
+<div id="convertToFlat" class="section level2">
+<h2><span class="header-section-number">3.9</span> Convert a SQLITE table to a flat dataframe</h2>
+</div>
+<div id="to-grab-a-subset-of-fields-in-this-case-a-unique-list-of-motus-tag-ids" class="section level2">
+<h2><span class="header-section-number">3.10</span> to grab a subset of fields, in this case a unique list of motus tag IDs</h2>
+</div>
+<div id="at-each-receiver-and-antenna." class="section level2">
+<h2><span class="header-section-number">3.11</span> at each receiver and antenna.</h2>
+</div>
+<div id="filter-to-include-only-motustagids-9939-25643" class="section level2">
+<h2><span class="header-section-number">3.12</span> filter to include only motusTagIDs 9939, 25643</h2>
+</div>
+<div id="filter-to-only-red-knot-using-speciesid" class="section level2">
+<h2><span class="header-section-number">3.13</span> filter to only Red Knot (using speciesID)</h2>
+</div>
+<div id="filter-to-only-red-knot-using-english-name" class="section level2">
+<h2><span class="header-section-number">3.14</span> filter to only Red Knot (using English name)</h2>
+</div>
+<div id="exportDetections" class="section level2">
+<h2><span class="header-section-number">3.15</span> Export your ‘flat’ dataframe to CSV or RDS file</h2>
+</div>
+<div id="save-an-rds-file" class="section level2">
+<h2><span class="header-section-number">3.16</span> save an RDS file</h2>
+</div>
+<div id="or-save-as-csv-file-which-does-not-preserve-time-stamps-but-is-more-universally-accepted" class="section level2">
+<h2><span class="header-section-number">3.17</span> or save as CSV file, which does not preserve time stamps, but is more universally accepted</h2>
+</div>
+<div id="r-object-naming-convention" class="section level2">
+<h2><span class="header-section-number">3.18</span> R object naming convention</h2>
+<!--chapter:end:03-AccessingData.Rmd-->
+</div>
+</div>
+<div id="deployments" class="section level1">
+<h1><span class="header-section-number">4</span> Tag and Receiver Deployments</h1>
+<div id="load-relevant-r-packages-and-set-working-environment" class="section level2">
+<h2><span class="header-section-number">4.1</span> Load relevant R packages and set working environment</h2>
+</div>
+<div id="set-the-system-environment-time-zone-to-gmt-to-ensure-that-you-are-always-working-in-gmt" class="section level2">
+<h2><span class="header-section-number">4.2</span> Set the system environment time zone to GMT (to ensure that you are always working in GMT)</h2>
+</div>
+<div id="load-.motus-file" class="section level2">
+<h2><span class="header-section-number">4.3</span> Load .motus file</h2>
+</div>
+<div id="tagDeployments" class="section level2">
+<h2><span class="header-section-number">4.4</span> Tag Deployments</h2>
+<div id="number-of-registered-tags" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> 1. Number of registered tags</h3>
+</div>
+<div id="number-of-registered-tags-that-were-deployed" class="section level3">
+<h3><span class="header-section-number">4.4.2</span> 2. Number of registered tags that were deployed</h3>
+</div>
+<div id="location-of-tag-deployments" class="section level3">
+<h3><span class="header-section-number">4.4.3</span> 3. Location of tag deployments</h3>
+</div>
+</div>
+<div id="get-the-lake-data-adjust-longitude" class="section level2">
+<h2><span class="header-section-number">4.5</span> get the lake data; adjust longitude</h2>
+</div>
+<div id="get-the-country-data-adjust-longitude" class="section level2">
+<h2><span class="header-section-number">4.6</span> get the country data; adjust longitude</h2>
+</div>
+<div id="others-countries-in-the-americas-that-you-may-want-to-plot-depending-on-your-location-mexico-lakesbelize-costa-rica-panama-guatemala-honduras-nicaragua-el-salvador-colombia-venezuela-ecuador-peru-brazil-guyanasuriname-bolivia-french-guiana-jamaica-cuba-haiti-dominican-republic-the-bahamas-turks-and-caicos-islands-puerto-rico-british-virgin-islands-montserrat-dominica-saint-lucia-barbados-grenada-trinidad-and-tobago-chile-argentina-uruguay" class="section level2">
+<h2><span class="header-section-number">4.7</span> Others countries in the Americas that you may want to plot, depending on your location: “Mexico”, “lakes”,“Belize”, “Costa Rica”, “Panama”, “Guatemala”, “Honduras”, “Nicaragua”, “El Salvador”, “Colombia”, “Venezuela”, “Ecuador”, “Peru”, “Brazil”, “Guyana”,“Suriname”, “Bolivia”, “French Guiana”, “Jamaica”, “Cuba”, “Haiti”, “Dominican Republic”, “The Bahamas”, “Turks and Caicos Islands”, “Puerto Rico”, “British Virgin Islands”, “Montserrat”, “Dominica”, “Saint Lucia”, “Barbados”, “Grenada”, “Trinidad and Tobago”, “Chile”, “Argentina”, “Uruguay”</h2>
+</div>
+<div id="set-limits-to-map-based-on-locations-of-detections-ensuring-they-include-the-deployment-locations" class="section level2">
+<h2><span class="header-section-number">4.8</span> set limits to map based on locations of detections, ensuring they include the deployment locations</h2>
+</div>
+<div id="map-using-ggplot" class="section level2">
+<h2><span class="header-section-number">4.9</span> map using ggplot</h2>
+<div id="check-completeness-and-accuracy-of-tag-deployment-metadata" class="section level3">
+<h3><span class="header-section-number">4.9.1</span> 4. Check completeness and accuracy of tag deployment metadata</h3>
+</div>
+</div>
+<div id="list-of-species-ids-in-project-38-metadata" class="section level2">
+<h2><span class="header-section-number">4.10</span> list of species IDs in project 38 metadata</h2>
+</div>
+<div id="species-metadata" class="section level2">
+<h2><span class="header-section-number">4.11</span> Species metadata</h2>
+</div>
+<div id="recvMetadata" class="section level2">
+<h2><span class="header-section-number">4.12</span> Check Receiver Metadata</h2>
+<div id="number-of-project-receiver-deployments" class="section level3">
+<h3><span class="header-section-number">4.12.1</span> 1. Number of project receiver deployments</h3>
+</div>
+<div id="timing-of-project-receiver-deployments" class="section level3">
+<h3><span class="header-section-number">4.12.2</span> 2. Timing of project receiver deployments</h3>
+</div>
+<div id="location-of-receiver-deployments" class="section level3">
+<h3><span class="header-section-number">4.12.3</span> 3. Location of receiver deployments</h3>
+</div>
+<div id="completeness-and-accuracy-of-receiver-metadata" class="section level3">
+<h3><span class="header-section-number">4.12.4</span> 4. Completeness and accuracy of receiver metadata</h3>
+<!--chapter:end:04-ProjectDeployments.Rmd-->
+</div>
+</div>
+</div>
+<div id="dataCleaning" class="section level1">
+<h1><span class="header-section-number">5</span> Data Cleaning</h1>
+<div id="load-required-packages" class="section level2">
+<h2><span class="header-section-number">5.1</span> Load required packages</h2>
+</div>
+<div id="load-required-dataframes" class="section level2">
+<h2><span class="header-section-number">5.2</span> Load required dataframes</h2>
+</div>
+<div id="number-of-tags-with-detections" class="section level2">
+<h2><span class="header-section-number">5.3</span> Number of tags with detections</h2>
+</div>
+<div id="check-for-ambiguous-detections" class="section level2">
+<h2><span class="header-section-number">5.4</span> Check for ambiguous detections</h2>
+</div>
+<div id="filter-data-to-project-and-tag" class="section level2">
+<h2><span class="header-section-number">5.5</span> Filter data to project and tag</h2>
+</div>
+<div id="map-deployments-and-detections" class="section level2">
+<h2><span class="header-section-number">5.6</span> Map deployments and detections</h2>
+<div id="check-geographic-position-latitudelongitude-against-time" class="section level3">
+<h3><span class="header-section-number">5.6.1</span> Check geographic position (latitude/longitude) against time</h3>
+</div>
+</div>
+<div id="filterFlightSpeed" class="section level2">
+<h2><span class="header-section-number">5.7</span> Removing detections based on estimated flight speed</h2>
+<div id="check-run-length" class="section level3">
+<h3><span class="header-section-number">5.7.1</span> Check run length</h3>
+</div>
+<div id="check-standard-deviation-of-frequency-offset" class="section level3">
+<h3><span class="header-section-number">5.7.2</span> Check standard deviation of frequency offset</h3>
+</div>
+</div>
+<div id="everything-that-follows-is-old." class="section level2">
+<h2><span class="header-section-number">5.8</span> Everything that follows is old.</h2>
+</div>
+<div id="plot-detections-with-deployment-dates" class="section level2">
+<h2><span class="header-section-number">5.9</span> Plot detections with deployment dates</h2>
+</div>
+<div id="check-run-length-of-outlying-detections." class="section level2">
+<h2><span class="header-section-number">5.10</span> Check run length of outlying detections.</h2>
+</div>
+<div id="map-ambiguous-detections" class="section level2">
+<h2><span class="header-section-number">5.11</span> Map ambiguous detections</h2>
+<div id="map-of-ambigid--56" class="section level3">
+<h3><span class="header-section-number">5.11.1</span> Map of ambigID -56</h3>
+</div>
+<div id="map-of-ambigid--171" class="section level3">
+<h3><span class="header-section-number">5.11.2</span> Map of ambigID -171</h3>
+</div>
+</div>
+<div id="assigning-or-dropping-ambiguities-from-your-data" class="section level2">
+<h2><span class="header-section-number">5.12</span> Assigning or dropping ambiguities from your data</h2>
+<!--chapter:end:05-DataCleaning.Rmd-->
+</div>
+</div>
+<div id="dataCleaning" class="section level1">
+<h1><span class="header-section-number">6</span> Data Cleaning</h1>
+<div id="load-required-packages-1" class="section level2">
+<h2><span class="header-section-number">6.1</span> Load required packages</h2>
+</div>
+<div id="load-detections-data" class="section level2">
+<h2><span class="header-section-number">6.2</span> Load Detections Data</h2>
+</div>
+<div id="to-do-this-with-your-own-data-replace-these-lines-with" class="section level2">
+<h2><span class="header-section-number">6.3</span> to do this with your own data, replace these lines with</h2>
+</div>
+<div id="t---tagmeyour.project.number" class="section level2">
+<h2><span class="header-section-number">6.4</span> t &lt;- tagme(your.project.number)</h2>
+</div>
+<div id="checkAmbigs" class="section level2">
+<h2><span class="header-section-number">6.5</span> Check for ambiguities</h2>
+</div>
+<div id="look-at-the-ambiguous-tags" class="section level2">
+<h2><span class="header-section-number">6.6</span> look at the ambiguous tags</h2>
+</div>
+<div id="obtain-the-detections-from-just-those-tags-and-ensure-that-all-or-most" class="section level2">
+<h2><span class="header-section-number">6.7</span> obtain the detections from just those tags and ensure that all (or most)</h2>
+</div>
+<div id="detections-have-gpslocations.-filter-these-so-that-we-arent-later-trying" class="section level2">
+<h2><span class="header-section-number">6.8</span> detections have gpsLocations. Filter these so that we aren’t later trying</h2>
+</div>
+<div id="to-deal-with-both-ambiguous-detections-and-false-positives." class="section level2">
+<h2><span class="header-section-number">6.9</span> to deal with both ambiguous detections and false positives.</h2>
+</div>
+<div id="ambiguous-tag-views" class="section level2">
+<h2><span class="header-section-number">6.10</span> Ambiguous tag views</h2>
+</div>
+<div id="check-overlap-of-deployment-dates" class="section level2">
+<h2><span class="header-section-number">6.11</span> Check overlap of deployment dates</h2>
+</div>
+<div id="get-a-list-of-the-motusids-for-all-of-the-ambiguous-tags" class="section level2">
+<h2><span class="header-section-number">6.12</span> get a list of the motusIDs for all of the ambiguous tags</h2>
+</div>
+<div id="and-merge-the-two-creating-a-new-variable-with-both-the-projectid" class="section level2">
+<h2><span class="header-section-number">6.13</span> and merge the two creating a new variable with both the projectID</h2>
+</div>
+<div id="and-the-motustagid-which-makes-it-easier-for-plotting-to-see-where" class="section level2">
+<h2><span class="header-section-number">6.14</span> and the MotusTagID which makes it easier for plotting to see where</h2>
+</div>
+<div id="the-various-ambiguous-come-from." class="section level2">
+<h2><span class="header-section-number">6.15</span> the various ambiguous come from.</h2>
+</div>
+<div id="derives-some-summary-data-for-the-ambiguous-detections-to-compare-with-the" class="section level2">
+<h2><span class="header-section-number">6.16</span> derives some summary data for the ambiguous detections to compare with the</h2>
+</div>
+<div id="tag-deployments" class="section level2">
+<h2><span class="header-section-number">6.17</span> tag deployments</h2>
+</div>
+<div id="maybe-do-a-daily-detections-here" class="section level2">
+<h2><span class="header-section-number">6.18</span> maybe do a daily detections here?</h2>
+</div>
+<div id="plot-latlon-of-ambiguous-detections-by-time" class="section level2">
+<h2><span class="header-section-number">6.19</span> Plot lat/lon of ambiguous detections by time</h2>
+</div>
+<div id="check-run-length-of-outlying-detections.-1" class="section level2">
+<h2><span class="header-section-number">6.20</span> Check run length of outlying detections.</h2>
+</div>
+<div id="map-ambiguous-detections-1" class="section level2">
+<h2><span class="header-section-number">6.21</span> Map ambiguous detections</h2>
+<div id="map-of-ambigid--56-1" class="section level3">
+<h3><span class="header-section-number">6.21.1</span> Map of ambigID -56</h3>
+</div>
+<div id="map-of-ambigid--171-1" class="section level3">
+<h3><span class="header-section-number">6.21.2</span> Map of ambigID -171</h3>
+</div>
+</div>
+<div id="assigning-or-dropping-ambiguities-from-your-data-1" class="section level2">
+<h2><span class="header-section-number">6.22</span> Assigning or dropping ambiguities from your data</h2>
+<!--chapter:end:05.1-AmbiguitiesPDT.Rmd-->
+</div>
+</div>
+<div id="dataCleaning" class="section level1">
+<h1><span class="header-section-number">7</span> Cleaning data to remove false detections</h1>
+<div id="load-relevant-r-packages" class="section level2">
+<h2><span class="header-section-number">7.1</span> Load relevant R packages</h2>
+</div>
+<div id="load-detection-data-and-convert-to-a-flat-file" class="section level2">
+<h2><span class="header-section-number">7.2</span> Load detection data and convert to a flat file</h2>
+</div>
+<div id="filterDeployRange" class="section level2">
+<h2><span class="header-section-number">7.3</span> Removing detections outside of deployment range</h2>
+</div>
+<div id="first-ensure-that-all-times-are-in-posixct" class="section level2">
+<h2><span class="header-section-number">7.4</span> first ensure that all times are in POSIXct</h2>
+</div>
+<div id="subset-to-keep-anything-within-tag-deployment-range-making-sure-to-account-for-nas-in-end-dates" class="section level2">
+<h2><span class="header-section-number">7.5</span> subset to keep anything within tag deployment range, making sure to account for NAs in end dates</h2>
+</div>
+<div id="filterGeoPosition" class="section level2">
+<h2><span class="header-section-number">7.6</span> Removing detections based on visual geographic positions</h2>
+</div>
+<div id="make-lat-vs-time-plots-of-all-tags" class="section level2">
+<h2><span class="header-section-number">7.7</span> make lat vs time plots of all tags</h2>
+</div>
+<div id="now-the-data-looks-better-and-only-tag-16038-looks-odd" class="section level2">
+<h2><span class="header-section-number">7.8</span> now the data looks better and only tag 16038 looks odd</h2>
+</div>
+<div id="filter-jbraw-to-only-show-motustagid-16038-and-only-before-2015-10-01" class="section level2">
+<h2><span class="header-section-number">7.9</span> filter JBraw to only show motusTagID 16038, and only before 2015-10-01</h2>
+</div>
+<div id="this-time-filter-by-motustagid-and-by-latitude-so-we-only-see-the-strange-detections" class="section level2">
+<h2><span class="header-section-number">7.10</span> this time filter by motusTagID and by latitude so we only see the strange detections</h2>
+</div>
+<div id="using-a-filter-that-will-provide-us-with-only-the-spurious-detections" class="section level2">
+<h2><span class="header-section-number">7.11</span> using a filter that will provide us with only the spurious detections:</h2>
+</div>
+<div id="filterFlightSpeed" class="section level2">
+<h2><span class="header-section-number">7.12</span> Removing detections based on estimated flight speed</h2>
+</div>
+<div id="so-we-see-that-tag-16047-has-lots-of-high-speeds-due-to-close-towers---16038-has-high-speeds-due-to-false-detections" class="section level2">
+<h2><span class="header-section-number">7.13</span> so we see that tag 16047 has lots of high speeds due to close towers - 16038 has high speeds due to false detections</h2>
+</div>
+<div id="same-as-what-we-saw-with-the-plots-so-lets-remove-those-hitids" class="section level2">
+<h2><span class="header-section-number">7.14</span> same as what we saw with the plots, so lets remove those hitIDs</h2>
+</div>
+<div id="filterHitID" class="section level2">
+<h2><span class="header-section-number">7.15</span> Removing false positives based on hitID’s</h2>
+</div>
+<div id="filterAuto" class="section level2">
+<h2><span class="header-section-number">7.16</span> Removing detections based on automated filtering</h2>
+</div>
+<div id="first-convert-freqsd-to-na-for-all-lotek-receivers" class="section level2">
+<h2><span class="header-section-number">7.17</span> first convert freqsd to NA for all Lotek receivers</h2>
+</div>
+<div id="identify-which-detections-would-be-removed-by-creating-a-new-column-filter" class="section level2">
+<h2><span class="header-section-number">7.18</span> identify which detections would be removed by creating a new column “filter”</h2>
+</div>
+<div id="potential-detections-to-filter-by-site" class="section level2">
+<h2><span class="header-section-number">7.19</span> potential detections to filter by site</h2>
+</div>
+<div id="potential-detections-to-filter-by-motustagid" class="section level2">
+<h2><span class="header-section-number">7.20</span> potential detections to filter by motusTagID</h2>
+<!--chapter:end:06-DataCleaning.Rmd-->
+</div>
+</div>
+<div id="exploreData" class="section level1">
+<h1><span class="header-section-number">8</span> Exploring data with the Motus R package</h1>
+<div id="dataSummaries" class="section level2">
+<h2><span class="header-section-number">8.1</span> Summarizing your data</h2>
+</div>
+<div id="dataPlotting" class="section level2">
+<h2><span class="header-section-number">8.2</span> Plotting your data</h2>
+<!--chapter:end:07-ExploringData.Rmd-->
+</div>
+</div>
+<div id="appendixA" class="section level1">
+<h1><span class="header-section-number">9</span> Appendix A - Database Structure</h1>
+<!--chapter:end:08-AppendixA.Rmd-->
+</div>
+<div id="appendixB" class="section level1">
+<h1><span class="header-section-number">10</span> The motus package</h1>
+<div id="sunRiseSet" class="section level2">
+<h2><span class="header-section-number">10.1</span> SunRiseSet</h2>
+<div id="description" class="section level3">
+<h3><span class="header-section-number">10.1.1</span> Description</h3>
+</div>
+<div id="dependencies" class="section level3">
+<h3><span class="header-section-number">10.1.2</span> Dependencies</h3>
+</div>
+<div id="example" class="section level3">
+<h3><span class="header-section-number">10.1.3</span> Example</h3>
+</div>
+</div>
+<div id="plotAllTagsCoor" class="section level2">
+<h2><span class="header-section-number">10.2</span> plotAllTagsCoord</h2>
+<div id="description-1" class="section level3">
+<h3><span class="header-section-number">10.2.1</span> Description</h3>
+</div>
+<div id="dependencies-1" class="section level3">
+<h3><span class="header-section-number">10.2.2</span> Dependencies</h3>
+</div>
+<div id="example-1" class="section level3">
+<h3><span class="header-section-number">10.2.3</span> Example</h3>
+</div>
+</div>
+<div id="plotAllTagsSite" class="section level2">
+<h2><span class="header-section-number">10.3</span> plotAllTagsSite</h2>
+<div id="description-2" class="section level3">
+<h3><span class="header-section-number">10.3.1</span> Description</h3>
+</div>
+<div id="dependencies-2" class="section level3">
+<h3><span class="header-section-number">10.3.2</span> Dependencies</h3>
+</div>
+<div id="example-2" class="section level3">
+<h3><span class="header-section-number">10.3.3</span> Example</h3>
+</div>
+</div>
+<div id="plotDailySiteSum" class="section level2">
+<h2><span class="header-section-number">10.4</span> plotDailySiteSum</h2>
+<div id="description-3" class="section level3">
+<h3><span class="header-section-number">10.4.1</span> Description</h3>
+</div>
+<div id="dependencies-3" class="section level3">
+<h3><span class="header-section-number">10.4.2</span> Dependencies</h3>
+</div>
+<div id="example-3" class="section level3">
+<h3><span class="header-section-number">10.4.3</span> Example</h3>
+</div>
+</div>
+<div id="plotRouteMap" class="section level2">
+<h2><span class="header-section-number">10.5</span> plotRouteMap</h2>
+<div id="description-4" class="section level3">
+<h3><span class="header-section-number">10.5.1</span> Description</h3>
+</div>
+<div id="dependencies-4" class="section level3">
+<h3><span class="header-section-number">10.5.2</span> Dependencies</h3>
+</div>
+<div id="example-4" class="section level3">
+<h3><span class="header-section-number">10.5.3</span> Example</h3>
+</div>
+</div>
+<div id="plotSite" class="section level2">
+<h2><span class="header-section-number">10.6</span> plotSite</h2>
+<div id="description-5" class="section level3">
+<h3><span class="header-section-number">10.6.1</span> Description</h3>
+</div>
+<div id="dependencies-5" class="section level3">
+<h3><span class="header-section-number">10.6.2</span> Dependencies</h3>
+</div>
+<div id="example-5" class="section level3">
+<h3><span class="header-section-number">10.6.3</span> Example</h3>
+</div>
+</div>
+<div id="plotSiteSig" class="section level2">
+<h2><span class="header-section-number">10.7</span> plotSiteSig</h2>
+<div id="description-6" class="section level3">
+<h3><span class="header-section-number">10.7.1</span> Description</h3>
+</div>
+<div id="dependencies-6" class="section level3">
+<h3><span class="header-section-number">10.7.2</span> Dependencies</h3>
+</div>
+<div id="example-6" class="section level3">
+<h3><span class="header-section-number">10.7.3</span> Example</h3>
+</div>
+</div>
+<div id="plotTagSig" class="section level2">
+<h2><span class="header-section-number">10.8</span> plotTagSig</h2>
+<div id="description-7" class="section level3">
+<h3><span class="header-section-number">10.8.1</span> Description</h3>
+</div>
+<div id="dependencies-7" class="section level3">
+<h3><span class="header-section-number">10.8.2</span> Dependencies</h3>
+</div>
+<div id="example-7" class="section level3">
+<h3><span class="header-section-number">10.8.3</span> Example</h3>
+</div>
+</div>
+<div id="simSiteDet" class="section level2">
+<h2><span class="header-section-number">10.9</span> simSiteDet</h2>
+<div id="description-8" class="section level3">
+<h3><span class="header-section-number">10.9.1</span> Description</h3>
+</div>
+<div id="dependencies-8" class="section level3">
+<h3><span class="header-section-number">10.9.2</span> Dependencies</h3>
+</div>
+<div id="example-8" class="section level3">
+<h3><span class="header-section-number">10.9.3</span> Example</h3>
+</div>
+</div>
+<div id="siteSum" class="section level2">
+<h2><span class="header-section-number">10.10</span> siteSum</h2>
+<div id="description-9" class="section level3">
+<h3><span class="header-section-number">10.10.1</span> Description</h3>
+</div>
+<div id="dependencies-9" class="section level3">
+<h3><span class="header-section-number">10.10.2</span> Dependencies</h3>
+</div>
+<div id="example-9" class="section level3">
+<h3><span class="header-section-number">10.10.3</span> Example</h3>
+</div>
+</div>
+<div id="siteSumDaily" class="section level2">
+<h2><span class="header-section-number">10.11</span> siteSumDaily</h2>
+<div id="description-10" class="section level3">
+<h3><span class="header-section-number">10.11.1</span> Description</h3>
+</div>
+<div id="dependencies-10" class="section level3">
+<h3><span class="header-section-number">10.11.2</span> Dependencies</h3>
+</div>
+<div id="example-10" class="section level3">
+<h3><span class="header-section-number">10.11.3</span> Example</h3>
+</div>
+</div>
+<div id="siteTrans" class="section level2">
+<h2><span class="header-section-number">10.12</span> siteTrans</h2>
+<div id="description-11" class="section level3">
+<h3><span class="header-section-number">10.12.1</span> Description</h3>
+</div>
+<div id="dependencies-11" class="section level3">
+<h3><span class="header-section-number">10.12.2</span> Dependencies</h3>
+</div>
+<div id="example-11" class="section level3">
+<h3><span class="header-section-number">10.12.3</span> Example</h3>
+</div>
+</div>
+<div id="tagSum" class="section level2">
+<h2><span class="header-section-number">10.13</span> tagSum</h2>
+<div id="description-12" class="section level3">
+<h3><span class="header-section-number">10.13.1</span> Description</h3>
+</div>
+<div id="dependencies-12" class="section level3">
+<h3><span class="header-section-number">10.13.2</span> Dependencies</h3>
+</div>
+<div id="example-12" class="section level3">
+<h3><span class="header-section-number">10.13.3</span> Example</h3>
+</div>
+</div>
+<div id="tagSumSite" class="section level2">
+<h2><span class="header-section-number">10.14</span> tagSumSite</h2>
+<div id="description-13" class="section level3">
+<h3><span class="header-section-number">10.14.1</span> Description</h3>
+</div>
+<div id="dependencies-13" class="section level3">
+<h3><span class="header-section-number">10.14.2</span> Dependencies</h3>
+</div>
+<div id="example-13" class="section level3">
+<h3><span class="header-section-number">10.14.3</span> Example</h3>
+</div>
+</div>
+<div id="timeToSunriset" class="section level2">
+<h2><span class="header-section-number">10.15</span> timeToSunriset</h2>
+<div id="description-14" class="section level3">
+<h3><span class="header-section-number">10.15.1</span> Description</h3>
+</div>
+<div id="dependencies-14" class="section level3">
+<h3><span class="header-section-number">10.15.2</span> Dependencies</h3>
+</div>
+<div id="example-14" class="section level3">
+<h3><span class="header-section-number">10.15.3</span> Example</h3>
+<!--chapter:end:09-AppendixB.Rmd-->
+</div>
+</div>
+</div>
+<div id="appendixC" class="section level1">
+<h1><span class="header-section-number">11</span> Appendix C - alltags structure</h1>
+<p>The following variables are included in each “alltags” view in the SQLite file:</p>
+<table>
+<caption>(#tab:parameterTable)Description of fields in the tag detections database</caption>
+<thead>
+<tr class="header">
+<th align="left">Field</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">hitID</td>
+<td align="left">unique Motus ID for this tag detection</td>
+</tr>
+<tr class="even">
+<td align="left">runID</td>
+<td align="left">unique Motus ID for the run this detection belongs to</td>
+</tr>
+<tr class="odd">
+<td align="left">batchID</td>
+<td align="left">unique Motus ID for the processing batch this detection came from</td>
+</tr>
+<tr class="even">
+<td align="left">ts</td>
+<td align="left">timestamp, in seconds since 1 Jan, 1970 GMT; precision: 0.1 ms (SG); 2.5 ms (Lotek).</td>
+</tr>
+<tr class="odd">
+<td align="left">sig</td>
+<td align="left">signal strength in “native units”; for SG: dB (max) (logarithmic, 0 = max possible, -10 = 0.1 * max, etc.); for Lotek: raw value (0…255)</td>
+</tr>
+<tr class="even">
+<td align="left">sigSD</td>
+<td align="left">std. dev. in signal strength among pulses in this burst. SG Only; NA for Lotek</td>
+</tr>
+<tr class="odd">
+<td align="left">noise</td>
+<td align="left">estimate of background radio noise when tag detected, in dB (max) for SG; NA for Lotek</td>
+</tr>
+<tr class="even">
+<td align="left">freq</td>
+<td align="left">frequency offset from antenna listening frequency, in kHz for SG only; NA for Lote</td>
+</tr>
+<tr class="odd">
+<td align="left">freqsd</td>
+<td align="left">std. dev. of freq offset among pulses in this burst, in kHz. Values larger than 0.1 kHz suggest a bogus detection. SG only; NA for Lotek.</td>
+</tr>
+<tr class="even">
+<td align="left">slop</td>
+<td align="left">total absolute difference (milliseconds) in inter-pulse intervals for this burst between registration and detection. SG only; NA for Lotek</td>
+</tr>
+<tr class="odd">
+<td align="left">burstSlop</td>
+<td align="left">signed difference (seconds) between detection and registration burst intervals. This is always 0 for the first burst in a run (see posInRun)</td>
+</tr>
+<tr class="even">
+<td align="left">done</td>
+<td align="left">logical: is run finished?</td>
+</tr>
+<tr class="odd">
+<td align="left">motusTagID</td>
+<td align="left">Motus tag ID - unique to each individual tag registered</td>
+</tr>
+<tr class="even">
+<td align="left">ant</td>
+<td align="left">antenna code (for sensorgnomes, USB port number; for Lotek, whatever they use, usually numeric, but can be e.g. AH0)</td>
+</tr>
+<tr class="odd">
+<td align="left">runLen</td>
+<td align="left">number of tag bursts in the current run; constant for all records having the same runID</td>
+</tr>
+<tr class="even">
+<td align="left">bootnum</td>
+<td align="left">boot session of receiver for SG; NA for Lotek</td>
+</tr>
+<tr class="odd">
+<td align="left">tagProjectID</td>
+<td align="left">ID of the project that manages this tag.</td>
+</tr>
+<tr class="even">
+<td align="left">id</td>
+<td align="left">manufacturer ID</td>
+</tr>
+<tr class="odd">
+<td align="left">tagType</td>
+<td align="left">all rows are “ID”??</td>
+</tr>
+<tr class="even">
+<td align="left">codeSet</td>
+<td align="left">for coded tags, the name of the codeset (e.g. ‘Lotek-3’)</td>
+</tr>
+<tr class="odd">
+<td align="left">mfg</td>
+<td align="left">tag manufacturer</td>
+</tr>
+<tr class="even">
+<td align="left">tagModel</td>
+<td align="left">manufacturer’s model name for a tag (e.g. ‘NTQB-3-2’)</td>
+</tr>
+<tr class="odd">
+<td align="left">tagLifespan</td>
+<td align="left">estimated lifespan of tag (days)</td>
+</tr>
+<tr class="even">
+<td align="left">nomFreq</td>
+<td align="left">nominal tag frequency (MOTUS: Nominal frequency receiver was tuned to, in Mhz. This really only applies to SG, where we usually tune 4 kHz below the nominal tag frequency. So in that case, antFreq = 166.376 while nomFreq = 166.380</td>
+</tr>
+<tr class="odd">
+<td align="left">tagBI</td>
+<td align="left">burst interval of tag, in seconds (e.g., 5.8984)</td>
+</tr>
+<tr class="even">
+<td align="left">pulseLen</td>
+<td align="left">tag pulse length (milliseconds), if applicable. This value is only assigned based on the sample recording of the tag.</td>
+</tr>
+<tr class="odd">
+<td align="left">speciesID</td>
+<td align="left">unique numeric Motus ID (integer) for the species on which the tag was deployed</td>
+</tr>
+<tr class="even">
+<td align="left">markerNumber</td>
+<td align="left">number for any additional marker placed on organism (e.g., bird band #)</td>
+</tr>
+<tr class="odd">
+<td align="left">markerType</td>
+<td align="left">type of additional marker (e.g. metal band)</td>
+</tr>
+<tr class="even">
+<td align="left">depLat</td>
+<td align="left">latitude of tag deployment, in decimal degrees N - negative values for Southern hemisphere</td>
+</tr>
+<tr class="odd">
+<td align="left">depLon</td>
+<td align="left">longitude of tag deployment, in decimal degrees E - negative values for Western hemisphere</td>
+</tr>
+<tr class="even">
+<td align="left">depAlt</td>
+<td align="left">altitude of tag deployment, in meters ASL</td>
+</tr>
+<tr class="odd">
+<td align="left">comments</td>
+<td align="left">additional comments or unclassified metadata for tag (often in JSON format)</td>
+</tr>
+<tr class="even">
+<td align="left">startCode</td>
+<td align="left">integer code giving method for determining tag deployment start timestamp</td>
+</tr>
+<tr class="odd">
+<td align="left">endCode</td>
+<td align="left">integer code giving method for determining tag deployment end timestamp</td>
+</tr>
+<tr class="even">
+<td align="left">fullID</td>
+<td align="left">full tag ID as PROJECT#MFGID:<a href="mailto:BI@NOMFREQ">BI@NOMFREQ</a>. Not necessarily unique over time. See motusTagID for a unique tag</td>
+</tr>
+<tr class="odd">
+<td align="left">recv</td>
+<td align="left">serial number of the receiver; e.g., SG-1234BBBK5678 or Lotek-12345</td>
+</tr>
+<tr class="even">
+<td align="left">site</td>
+<td align="left">name assigned to a site by the project manager (e.g. location name). This field is optional, and the same label can be used for multiple deployments.</td>
+</tr>
+<tr class="odd">
+<td align="left">isMobile</td>
+<td align="left">logical; whether the sensor is deployed on a mobile platform (eg. a ship)</td>
+</tr>
+<tr class="even">
+<td align="left">projID</td>
+<td align="left">unique (numeric) ID of the project that deployed this receiver (e.g., 8)</td>
+</tr>
+<tr class="odd">
+<td align="left">antType</td>
+<td align="left">character; antenna type, e.g. “9-element Yagi”, “Omni”</td>
+</tr>
+<tr class="even">
+<td align="left">antBearing</td>
+<td align="left">numeric; compass direction antenna main axis is pointing at (degrees clockwise from local magnetic North 0-360)</td>
+</tr>
+<tr class="odd">
+<td align="left">antHeight</td>
+<td align="left">numeric; height (meters) of antenna main axis above ground</td>
+</tr>
+<tr class="even">
+<td align="left">cableLen</td>
+<td align="left">numeric; length of coax cable (meters) connecting antenna to funcubedongle radio (optional)</td>
+</tr>
+<tr class="odd">
+<td align="left">cableType</td>
+<td align="left">type of coax cable connecting antenna to funcubedongle radio (optional)</td>
+</tr>
+<tr class="even">
+<td align="left">mountDistance</td>
+<td align="left">numeric; distance (meters) between antenna mounting (axis centre) and receiver GPS; SG only</td>
+</tr>
+<tr class="odd">
+<td align="left">mountBearing</td>
+<td align="left">numeric; bearing of base of antenna mounting from receiver GPS (degrees clockwise from magnetic north: 0-360); SG only</td>
+</tr>
+<tr class="even">
+<td align="left">polarization1</td>
+<td align="left">numeric; antenna polarization angle: azimuth component (degrees clockwise from local magnetic north)</td>
+</tr>
+<tr class="odd">
+<td align="left">polarization2</td>
+<td align="left">numeric; antenna polarization angle: elevation component (degrees above horizon)</td>
+</tr>
+<tr class="even">
+<td align="left">spEN</td>
+<td align="left">species English (common) name</td>
+</tr>
+<tr class="odd">
+<td align="left">spFR</td>
+<td align="left">species French (common) name</td>
+</tr>
+<tr class="even">
+<td align="left">spSci</td>
+<td align="left">species scientific name</td>
+</tr>
+<tr class="odd">
+<td align="left">spGroup</td>
+<td align="left">species group, e.g., BIRDS, BATS</td>
+</tr>
+<tr class="even">
+<td align="left">tagProj</td>
+<td align="left">short label of project that deployed the tag, e.g., “HolbSESA”</td>
+</tr>
+<tr class="odd">
+<td align="left">projID</td>
+<td align="left">short label of project that deployed the receiver</td>
+</tr>
+<tr class="even">
+<td align="left">lat</td>
+<td align="left">latitude of receiver GPS location at time of writing the hourly detections file (degrees North)</td>
+</tr>
+<tr class="odd">
+<td align="left">lon</td>
+<td align="left">longitude of receiver GPS location at time of writing the hourly detections file (degrees East)</td>
+</tr>
+<tr class="even">
+<td align="left">alt</td>
+<td align="left">altitude of receiver GPS at time of writing the hourly detections file (meters)</td>
+</tr>
+</tbody>
+</table>
+<!--chapter:end:10-AppendixC.Rmd-->
+</div>
+<div id="placeholder" class="section level1">
+<h1><span class="header-section-number">12</span> Placeholder</h1>
+<div id="just-ignore-this-file-for-now-i-am-seeing-how-id-deal-with-this-before-i-look-at-yours." class="section level2">
+<h2><span class="header-section-number">12.1</span> just ignore this file for now … I am seeing how I’d deal with this before I look at yours.</h2>
+<!--chapter:end:MyAmbigWorkflow.RMD-->
+</div>
+</div>
+<div id="potential-chapter-on-importing-and-looking-at-data-by-receiver-instead-of-project" class="section level1">
+<h1><span class="header-section-number">13</span> Potential chapter on importing and looking at data by receiver instead of project…</h1>
+<div id="number-of-detections-at-each-project-receiver" class="section level3">
+<h3><span class="header-section-number">13.0.1</span> Number of detections at each project receiver</h3>
+<!--chapter:end:temp_ImportByReceiver.RMD-->
+</div>
+</div>
+<!--bookdown:body:end-->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<!--bookdown:link_prev-->
+<!--bookdown:link_next-->
+    </div>
+  </div>
+<!--bookdown:config-->
+
+</body>
+
+</html>
