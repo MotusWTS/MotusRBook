@@ -2,9 +2,9 @@
 
 There are two R packages available to Motus users:
 
-1. motusClient: provides functions to download and update detections data and tag and receiver deployment metadata from the Motus server.
+1. motus: provides functions to output summary plots, and to transform (add sun rise/sun set times) and analyze Motus data.
 
-2. motus: provides functions to output summary plots, and to transform (add sun rise/sun set times) and analyze Motus data.
+2. motusClient: provides functions to download and update detections data and tag and receiver deployment metadata from the Motus server.
 
 Motus **users** can install the latest stable versions of the R packages using the following code. You only need to install the packages once. After installation, you need to load each package (using library() or require()) each time you open a new R session. 
 
@@ -35,7 +35,7 @@ library(motus)
 
 ```
 
-Throughout the book, we use Tidyverse (<https://www.tidyverse.org/>), which is a collection of R packages for data science, including tidyr, dplyr, and ggplot2, and lubridate for managing and manipulating dates. These can be installed from CRAN, as follows:
+Throughout the book, we use tidyverse (<https://www.tidyverse.org/>), which is a collection of R packages for data science, including tidyr, dplyr, and ggplot2, and lubridate for managing and manipulating dates. These can be installed from CRAN, as follows:
 
 ```{r install tidyverse, eval = FALSE}
 
@@ -47,7 +47,7 @@ library(lubridate)
 
 ```
 
-More information on Tidyverse can be found at <https://www.tidyverse.org/>, or by browsing 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>.
+More information on tidyverse can be found at <https://www.tidyverse.org/>, or by browsing 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>.
 
 We also install but do not load the plyr package; we use it directly for the handy round_any function, but loading it can cause problems with the dplyr functions:
 
