@@ -20,7 +20,7 @@ library(lubridate)
 
 ```
 
-## Load detection data and tag metadata
+## Load data
 
 Recall from \@ref(accessingData) that when accessing the sample database, you will need to input "sample.motus" as both username and password when prompted by the tagme() user authentication process. 
 
@@ -71,6 +71,13 @@ df.recvDeps <- tbl.recvDeps %>%
                    recvDeployLon = longitude) %>%
                 select(-latitude, -longitude, -tsStart, -tsEnd)
 
+# Load allambigs table, which assigns an ambiguous ID (ambigID) to motus tag IDs associated with ambiguous detections
+
+tbl.allambigs <- tbl(sql.motus, "allambigs")
+df.allambigs <- tbl.allambigs %>%
+                collect() %>%
+                as.data.frame() 
+
 ```
 
 ## Preliminary data checks
@@ -110,12 +117,12 @@ clarify(sql.motus)
 
 Note that detections associated with five of the six ambigIDs could belong to one of two tags, and detections associated with one ambigID (-171) could belong to one of three tags. 
 
-For the purpose of this chapter, we simplify the sample and tag deployments dataframes by subsetting the data to six motusTagIDs:  four tags (motusTagID = 22897, 22905, 23319, 22902) are associated with ambiguous detections (ambigID = -114, -134, -171), and two tags (16038, 16047) do not have ambiguous detections.
+For the purpose of this chapter, we simplify the sample dataframes by subsetting to six motusTagIDs:  four tags (motusTagID = 22897, 22905, 23319, 22902) are associated with ambiguous detections (ambigID = -114, -134, -171 respectively), and two tags (16038, 16047) do not have ambiguous detections.
 
 ```{r subsetTags}
 
 tag.list <- c(22897, 22905, 23319, 22902, 16038, 16047)
-ambig.list <- df.allambigs$motusTagID[df.allambigs$ambigID %in% c(-114, -134, -171)]
+ambigTag.list <- df.allambigs$motusTagID[df.allambigs$ambigID %in% c(-114, -134, -171)] # includes duplicate tags from other projects
 
 # subset detections data to the tags of interest from our project
 df.alltags.sub <- df.alltags %>%
@@ -123,7 +130,7 @@ df.alltags.sub <- df.alltags %>%
 
 # subset deployment records to tags of interest and any duplicate tags.
 df.tagDeps.sub <- df.tagDeps %>%
-                    filter(tagID %in% tag.list|tagID %in% ambig.list)
+                    filter(tagID %in% tag.list|tagID %in% ambigTag.list)
 
 ```
 
@@ -138,28 +145,29 @@ To do so:
 ```{r plotTagPaths}
 
 df.alltags.path <- df.alltags.sub %>%
-                    mutate(date = as_date(ts)) %>%
-                    arrange(motusTagID, ts) %>%
-                    filter(tagProjID == proj.num) %>%
-                    select(motusTagID, date, ambigID, tagDepLon, tagDepLat, recvDepName, port, antBearing, recvLat, recvLon) %>%
-                    distinct()
-
+                    filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
+                    arrange(motusTagID, ts) %>%       # order data by time stamp for each motus tag ID
+                    mutate(date = as_date(ts)) %>%    # create date variable
+                    group_by(motusTagID, date, recvDepName, ambigID, tagDepLon, tagDepLat, recvLat, recvLon)%>%
+                    summarize(max.sig = max(sig, na.rm = TRUE), max.runLen = max(runLen)) 
+                    
+                    
 ```
 
 2. **Install R mapping package.**
 
 If you do not have rworldmap installed then you must install and then load the package:
 
-```{r installMapPackages, eval = FALSE, message = FALSE, warning = FALSE}
+```{r installMapPackages, message = FALSE, warning = FALSE}
 
-install.packages("rworldmap")
+## install.packages("rworldmap")  # only install if not already installed, or if you want to update your package
 require(rworldmap)
 
 ```
 
 3. **Load base map files.**
 
-```{r loadMaps}
+```{r loadMaps, message = FALSE, warning = FALSE}
 
 na.lakes <- map_data(map = "lakes")
 na.lakes <- mutate(na.lakes, long = long- 360)
@@ -199,7 +207,7 @@ ggplot(na.lakes, aes(long, lat))+
   xlab("") + ylab("") + 
   theme_bw() + 
   geom_path(data = df.alltags.path, aes(recvLon, recvLat, group = motusTagID), colour = "grey20") + 
-  geom_point(data = df.alltags.path, aes(recvLon, recvLat, colour = !is.na(ambigID), shape = !is.na(ambigID)), size =1.5)+
+  geom_point(data = df.alltags.path, aes(recvLon, recvLat, colour = !is.na(ambigID), shape = (max.runLen > 2)), size =1.5)+
   geom_point(data = df.alltags.path, aes(tagDepLon, tagDepLat), colour = "black", shape = 4) +
   scale_colour_discrete("motusTagID") +
   scale_shape_manual(values = c(1, 2)) +
@@ -208,8 +216,6 @@ ggplot(na.lakes, aes(long, lat))+
 
 ```
 **Figure 1.** Plot of the paths of several tags, showing ambiguous detections (orange triangles), non-ambiguous detections (blue circles), and the deployment location of the tag (black 'x'). Some of the ambiguous detections likely belong to the tags, and some non-ambiguous detections could be false positives. By the end of this chapter, we will show how to filter ambiguous and false positive detections that do not belong to these tags.
-
-We see from the plots that 22905 and 23319 are duplicate tags, and share ambiguous detections, shown by the orange triangles in the above plot.
 
 ## Filter Data
 
@@ -226,6 +232,55 @@ This list will be used to filter the detection data to exclude detections that a
 2) If there is a lot of overlap ...
 
 3) Some tags we cannot do anything about, so we don't claim them. 
+
+
+
+We see from the plots that 22905 and 23319 are duplicate tags, and share ambiguous detections, shown by the orange triangles in the above plot. A few other things pop out:
+
+**1. motusTagID 16038:** 
+
+- The detection near Lake Michigan is an unlikely location to detect a shorebird, and the run length of the detection is only 2. As we will see later, run lengths of 2 have a high probability of being false positive. We can therefore safely drop this observation from our data. To do so, we can drop all detections for this tag with longitude < -85 (see \@ref(FilterRunID) below).
+
+**2. motusTagID 16047:** 
+
+- detections in the great lakes region and in Nova Scotia have a run length of only two, and are outliers in relation to the other detections with a run length of greater than 2. These detections can safely be considered false positives and dropped from the data. In this case, we will drop detections with longitude > -70, and with longitude < -75 where latitude is < 50.
+
+**3. motusTagID 22897:**
+
+- this tag was released in Quebec, and the most likely migratory path of this shorebird was along the east coast of North America. 
+
+- using 'clarify(sql.motus)', the ambiguous detections in the Great Lakes region could also belong to tag 24298 released by the Neonics project. Filtering the tag deployment metadata using 'filter(df.tagDeps, tagID == 24298)', we see that the duplicate tag was released on the north shore of Lake Erie. Those ambiguities, and non-ambiguous detections with a run length of 2 in that region can therefore safely be dropped from our data. In this case we will drop ambiguous detections and detections with a run length <= 2 that have longitude < -75 and latitude > 25. 
+
+- The detections on the east coast and in South America are reasonable locations to detect shorebirds, so we keep those for now, despite those detections having a run length of 2, and thus a high probability of being false positive.
+
+**4. motusTagID 22902:** 
+
+- the ambiguous detections for this tag occur in four distinct regions. Using 'clarify(sql.motus)', the ambiguous detections could also belong to motusTagID 22778 from the RBrownAMWO project or motusTagID 24303 from the Neonics project. 
+
+- we saw above that the Neonics project deployed tags on the north shore of Lake Erie in Ontario, so detections in that region can be safely removed from the sample data, i.e., drop detections with longitude < -75 and latitude > 41. 
+
+- using 'filter(df.tagDeps, tagID == 22778)', we see that the other duplicate tag was deployed on an American Woodcock in the Bay of Fundy region, at a latitude of 45.135 and longitude 67.293 (which is an error: the longitude should be negative). Because this is a region where shorebirds stage, we will take a closer look at these observations before deciding how to treat them. 
+
+- an ambiguous detection in the Delaware Bay region is a likely detection of our tag, so we retain it for now.
+
+- a lone ambiguous detection in a forested region of interior Colombia has a run length of 2, and is likely a false positive detection of our shorebird. We can therefore drop detections with latitude < 25.
+
+**5. motusTagID 22905:**
+
+- this and tag 23318 were deployed at near simultaneous times, from the same site, and by the same project. As a result, most detections are ambiguous and can't be assigned with confidence to either tag. All ambiguous detections will therefore unfortunately be dropped for this tag. 
+
+- non-ambiguous detections in the Great Lakes region have a run length of 2, and are in an unlikely location for our study species. These are likely false positives, and dropped from the data (drop all non-ambiguous detections with longitude < -70).
+
+**6. motusTagID 23319:**
+
+- as stated above for tag 22905, all ambiguous detections will be dropped for this tag, because they can't be assigned with confidence to either tag.
+
+- detections in Saskatchewan, Canada are obvious outliers for this species and project, and can be assumed to be false positive and dropped from our data (drop all detections with longitude < -100).
+
+- non-ambiguous detections in the Great Lakes region have a run length of 2, and are in an unlikely location for our study species. These are likely false positives, and dropped from the data (drop all non-ambiguous detections with longitude < -70).
+
+
+
 
 ### Check geographic position (latitude/longitude) against time
 
