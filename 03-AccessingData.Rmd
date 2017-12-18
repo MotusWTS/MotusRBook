@@ -163,7 +163,7 @@ Each tag database is stored as an SQLite ('dplyr::src_sqlite') file with the ext
 2. it is accessible from many software platforms (not just R).
 3. it is **appendable**: the database can be created and updated on disk without having to read in and resave the entire contents. This will save time and computer memory when searching to see if any new detections are available for your project or receiver.
 
-The .motus file contains a series of interelated tables where data are stored in a condensed format to save memory. The following tables are included in the .motus file; a complete list of variables stored in each table can be found in Appendix Table A1:
+The .motus file contains a series of interelated tables where data are stored in a condensed format to save memory. The following tables are included in the .motus file; a complete list of variables stored in each table can be found in \@ref(appendixA):
 
 1. antDeps: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.
 2. batches: detection data for a given receiver and boot number.
@@ -229,7 +229,7 @@ tbl.alltags <- tbl(sql.motus, "alltags") ## virtual table
 
 ```
 
-The following table lists the variables available in the 'alltags' view, a full description of each field is available in \@ref(appendixC)
+The following table lists the variables available in the 'alltags' view, a full description of each field is available in \@ref(appendixB)
 
 ```{r parameterTable, echo = FALSE}
 
