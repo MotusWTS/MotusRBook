@@ -2,12 +2,39 @@
 
 Once you have clarified any possible ambiguous tags, and removed false positives, you are ready to start analyzing your clean data set.  This chapter will walk you through some simple procedures to start working with and visualizing the clean sample data set, you can modify these scripts to work with your data.
 
+## Load required packages
+
+Follow the instructions in Chapter \@ref(loadingPackages) to install the following packages before loading, if you haven't already done so.
+
+```{r loadpackages, message = FALSE, warning = FALSE}
+
+library(motus)
+
+```
+
+## Load data
+
+Recall from \@ref(accessingData) that when accessing the sample database, you will need to input "motus.sample" as both username and password when prompted by the tagme() user authentication process. 
+
+```{r importData}
+
+proj.num <- 176
+
+# load detection data
+sql.motus <- tagme(proj.num)
+tbl.alltags <- tbl(sql.motus, "alltags")
+df.alltags <- tbl.alltags %>% collect() %>%
+                as.data.frame() %>%
+                mutate(ts = as_datetime(ts)) # work with dates AFTER transforming to flat file
+```
+
+## Remove false positives and ambiguous detections
+
 ## Summarizing your data {#dataSummaries}
 You can see a quick summary of all variables in a data frame with the summary() function, here we'll just examine a few select variables:
 ```{r summaryAllTags}
 
 df.alltags %>% select(ts, motusTagID, runLen, speciesEN, tagDepLat, tagDepLon, recvDeployLat, recvDeployLon) %>% summary()
-
 ```
 
 The dplyr package allows you to easily summarize data by group, manipulate variables, or create new variables based on your data.  
