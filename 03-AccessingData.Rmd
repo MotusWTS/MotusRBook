@@ -43,7 +43,7 @@ require(lubridate)
 
 ## Set system environment
 
-Set the system environment time zone to Greenwich Mean Time (GMT), to ensure that you are always working in GMT.
+Set the system environment time zone to Greenwich Mean Time (GMT), to ensure that you are always working in GMT. This is a very important step, and should be part of every working session. If you fail to do this, then two problems can arise. Times are stored in the motus database in GMT, and if you do not keep your environment in GMT, then they can be inadvertently changed during import. Second if tags have been detected across multiple time zones, then they can also inadvertently be changed.
 
 ```{r setTimeZone }
 
@@ -188,9 +188,9 @@ The .motus file contains a series of interelated tables where data are stored in
 In addition to these tables, there are also 'virtual' tables or 'views', which are queries that merge data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in each .motus file:
 
 1. allambigs: lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.
-2. alltags: provides the full detections data for all duplicate tags associated with your data. Ambiguous detections are repeated for each motusTagID represented by each ambigID. 
+2. alltags: provides the full detection data for all tags, and all ambiguous (duplicate) tags  associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID. 
 
-Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be used to filter and summarize the .motus database, without needing to first save the data as a *flat* file, i.e., a typical two-dimensional dataframe with every record for each field filled in. This is very advantageous when you have a large file -- the queries using SQL will be substantially faster. 
+Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be used to filter and summarize the .motus database, without needing to first save the data as a *flat* file (a typical two-dimensional dataframe). The SQL format is very advantageous when you have a large file -- the queries using SQL will be substantially faster than those done on a dataframe. 
 
 Each table in the .motus file can be accessed using the tbl() function. 
 
@@ -274,8 +274,9 @@ df.alltags <- tbl.alltags %>%
                 collect() %>% 
                 as.data.frame() %>%     ## for all fields in the df (data frame)
                 mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))
-```
 
+## the tz = "UTC" is not necessary here, provided you have set your system time to UTC/GMT 
+```
 
 If you want to load only part of your entire virtual table (e.g. certain fields, certain tags, or all tags from a specified project or species), you can use dplyr funtions to filter the data before collecting into a dataframe.  Some examples are below:
 
@@ -285,11 +286,10 @@ If you want to load only part of your entire virtual table (e.g. certain fields,
 
 ## to grab a subset of fields, in this case a unique list of motus tag IDs 
 ## at each receiver and antenna.
-df.alltagsSub <- select(tbl.alltags, recv, port, motusTagID) %>%
+df.alltagsSub <- select(tbl.alltags, recv, ant, motusTagID) %>%
   distinct() %>% 
   collect() %>% 
-  as.data.frame() %>%    
-  mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))    
+  as.data.frame() 
 
 ```
 
@@ -315,7 +315,7 @@ df.4670 <- filter(tbl.alltags, speciesID == 4670) %>%
   mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))  
 
 ## filter to only Red Knot (using English name)
-df.redKnot <- filter(tbl.alltags, speciesEN == "Red Knot") %>%   
+df.redKnot <- filter(tbl.alltags, spEN == "Red Knot") %>%   
   collect() %>% 
   as.data.frame() %>%    
   mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))    
@@ -330,8 +330,7 @@ df.detectSum <- tbl.alltags %>%
   group_by(motusTagID, recv) %>%
   tally() %>%
   collect() %>%
-  as.data.frame() %>%    
-  mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))  
+  as.data.frame() 
 
 ```
 
@@ -349,7 +348,7 @@ saveRDS(df.alltags, "./data/df.alltags.RDS")
 
 ## or save as CSV file, which does not preserve time stamps, but is more universally accepted
 
-write.csv(df.alltags, "./data/df.alltags.CSV", row.names = FALSE)
+write_csv(df.alltags, "./data/df.alltags.CSV")
 
 ```
 
@@ -360,7 +359,8 @@ Throughout this chapter and the rest of the book, we name R objects according to
 ```{r namingConvention, eval = FALSE}
 
 sql.motus <- tagme(176)                   # SQLite R object, which links to the .motus file
-tbl.alltags <- tbl(sql.motus, "alltags")  # virtual table object of the alltags table in the sample.motus file
+tbl.alltags <- tbl(sql.motus, "alltags")  # virtual table object of the alltags table in the
+                                          # sample.motus file
 df.alltags <- tbl.alltags %>%
                 collect() %>%
                 as.data.frame() %>%        # dataframe ("flat") object of the alltags table
