@@ -1,0 +1,5 @@
+# The motusClient package - Data filtering functions {#appendixD}
+
+The motusClient R package offers functions that can be used to assign probabilities to tag detections, and to filter detections based on those probabilities. For example, as you work through your data to clean false positive and ambiguous detections (see \@ref(dataCleaning)), you may determine that some detections do not belong to your tag(s). Instead of simply using an R script to filter out those detections, you can use these filter functions to create and save a custom filter in your .motus file, and, eventually, push to the server so that other Motus users that have permissions for your project can apply the same filters during their treatment of the data.
+
+The data filtering functions in the R package work at the level of a run. A run is a group of consecutive detections of a tag detected on a receiver. In general, a detection with a run length of 2 has a high probability of being a false positive detection. 
