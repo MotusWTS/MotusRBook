@@ -1,7 +1,81 @@
 # Exploring data with the Motus R package {#exploreData}
 
-There are a number of functions within the Motus package that will allow you to quickly explore your data.  This section provides examples of how you can use these functions through summaries and visualizations.
+Once you have clarified any possible ambiguous tags, and removed false positives, you are ready to start analyzing your clean data set.  This chapter will walk you through some simple procedures to start working with and visualizing the clean sample data set, you can modify these scripts to work with your data.
 
 ## Summarizing your data {#dataSummaries}
+You can see a quick summary of all variables in a data frame with the summary() function, here we'll just examine a few select variables:
+```{r summaryAllTags}
+
+df.alltags %>% select(ts, motusTagID, runLen, speciesEN, tagDepLat, tagDepLon, recvDeployLat, recvDeployLon) %>% summary()
+
+```
+
+The dplyr package allows you to easily summarize data by group, manipulate variables, or create new variables based on your data.  
+
+We can manipulate existing variables or create new ones with dplyr's mutate function, here we'll convert ts to a POSIXct format, then make a new variable for year and day of year (doy):
+```{r tagMutate}
+
+df.alltags <- df.alltags %>%
+  mutate(ts = as_datetime(ts, tz = "UTC"), ## convert ts to POSIXct format
+             year = year(ts), ## extract year from ts
+             doy = yday(ts)) ## extract numeric day of year from ts
+head(df.alltags)
+
+```
+
+We can also summarize information by tag by first grouping the data by motusTagID. Then we can apply various functions to these groups such as getting the total number of detections (n) for each tag, the number of receivers each tag was detected on, the first and last detection date, and the total number of days there was at least one detection:
+```{r tagSummary}
+
+tagSummary <- df.alltags %>%
+  group_by(motusTagID) %>% 
+  summarize(nDet = n(),
+            nRecv = length(unique(recvDepName)),
+            tsMin = min(ts),
+            tsMax = max(ts),
+            totDay = length(unique(doy)))
+head(tagSummary)
+
+```
+
+We can also group by multiple variables, applying the same function as above but now grouping by motusTagID and recvDepName, we will get information for each tag detected on each receiver. Since we've specified to group by recvDepName, there will be by default only one recvDepName in each group, thus the variable nRecv will be 1 for each row which is not very information, however we've kept this variable in to help illustrate how grouping works:
+```{r tagRecvSum}
+
+tagRecvSummary <- df.alltags %>%
+  group_by(motusTagID, recvDepName) %>% 
+  summarize(nDet = n(),
+            nRecv = length(unique(recvDepName)),
+            tsMin = min(ts),
+            tsMax = max(ts),
+            totDay = length(unique(doy)))
+head(tagRecvSummary)
+
+```
 
 ## Plotting your data {#dataPlotting}
+Plotting your data is a powerful way to visualize broad and fine-scale detection patterns, this section will give you a brief intro into plotting using ggplot2.  For more in depth information on the uses of ggplot2 we recommend the Cookbook for R <http://www.cookbook-r.com/Graphs/>, and the rstudio ggplot2 cheatsheet <https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf>.  
+
+To make coarse-scale plots with large files we suggest first rounding the detection time to the nearest hour or day so that processing time is faster.  Here we'll round detection times to the nearest hour and work with that rounded dataframe, then we'll make a basic plot of hourly detection by motusTagID:
+
+```{r}
+df.alltags$hour <- as.POSIXct(round(df.alltags$ts, "hour"))
+round.df.alltags <- df.alltags %>% select(motusTagID, port, mfgID, tagDepLat, tagDepLon, recvDeployLat, recvDeployLon, recvDepName, antBearing, speciesEN, year, doy, hour) %>% unique()
+
+ggplot(data = round.df.alltags, aes(hour, as.factor(motusTagID))) + geom_point()
+```
+Let's focus only on detections occurring after summer 2016 and before 2017, we can also clean up the plot by removing the grey background, and we can colour the tags by species:
+```{r}
+ggplot(data = filter(round.df.alltags, hour > as.POSIXct("2016-07-07") & hour < as.POSIXct("2017-01-01")), aes(hour, as.factor(motusTagID), col = recvDepName)) +
+  geom_point() +
+  theme_bw()
+```
+
+Now lets look at more detailed plots of signal variation
+
+```{r}
+df.alltags <- sunRiseSet(df.alltags)
+ggplot(filter(df.alltags, motusTagID == 22897 & ts > as.POSIXct("2016-10-01") &ts < as.POSIXct("2016-10-29") & recvDepName == "Niapiskau"), aes(ts, sig)) + theme_bw() + geom_point() + geom_vline(xintercept = df.alltags$sunrise, col = "orange") + geom_vline(xintercept = df.alltags$sunset, col = "blue")
+
+```
+
+
+
