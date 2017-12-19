@@ -112,7 +112,7 @@ The tagme() function will write a copy of your tag database to the working or sp
 
 To open and update a detections database that already exists (has been downloaded previously):
 
-```{r tagme2, eval = FALSE}
+```{r tagme3, eval = FALSE}
 
 sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = TRUE) ## if the file is in the local working directory, OR:
 sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = TRUE, dir = "./data/") ## use dir = to specify a directory
@@ -123,7 +123,7 @@ sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = TRUE, dir = "./dat
 
 Tag and receiver metadata are automatically merged with tag detections when data are downloaded. However, if you want to force a re-import of the metadata when updating a database, you can run:  
 
-```{r tagme5, eval = FALSE}
+```{r tagme4, eval = FALSE}
 
 sql.motus <- tagme(projRecv = proj.num, forceMeta = TRUE)
 
@@ -140,7 +140,7 @@ To check if new data are available without downloading the data, you can use the
 
 The following assumes that a local copy of the database already exists:
 
-```{r tagme4b, eval = FALSE}
+```{r tagme5, eval = FALSE}
 
 tellme(projRecv = proj.num)                    ## If db is in the working directory
 tellme(projRecv = proj.num, dir = "./data/")   ## To specify a different directory
@@ -149,7 +149,7 @@ tellme(projRecv = proj.num, dir = "./data/")   ## To specify a different directo
 
 To check how much data is available for a project but you _do not_ have a database for it, use the 'new' parameter:
 
-```{r tagme4c, eval = FALSE}
+```{r tagme6, eval = FALSE}
 
 tellme(projRecv = proj.num, new = TRUE)
 

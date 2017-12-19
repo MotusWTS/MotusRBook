@@ -95,7 +95,7 @@ a. **Install R mapping package.**
 
 If you do not have rworldmap installed then you must install and load the package into R:
 
-```{r installMapPackagesRecv, message = FALSE, warning = FALSE}
+```{r installMapPackagesRecv1, message = FALSE, warning = FALSE}
 
 install.packages("rworldmap")
 install.packages("maproj")
@@ -106,7 +106,7 @@ require(mapproj)
 
 b. **Load base map files.**
 
-```{r loadMapsRecv, message = FALSE, warning = FALSE}
+```{r loadMapsRecv1, message = FALSE, warning = FALSE}
 
 ## get the lake data; adjust longitude
 na.lakes <- map_data(map = "lakes") %>%
@@ -126,7 +126,7 @@ c. **Map the locations of tag deployments.**
 
 Map the location of tag deployments for the sample data: 
 
-```{r mapRecvs}
+```{r mapRecvs1}
 
 ## set limits to map based on locations of detections, ensuring they include the deployment locations
 xmin <- -100 #min(df.tagDeps$longitude, na.rm = TRUE) - 5
@@ -271,7 +271,7 @@ a. **Install R mapping package.**
 
 Install and load the 'rworldmap' package into R:
 
-```{r installMapPackagesRecv, message = FALSE, warning = FALSE}
+```{r installMapPackagesRecv2, message = FALSE, warning = FALSE}
 
 install.packages("rworldmap")
 require(rworldmap)
@@ -280,7 +280,7 @@ require(rworldmap)
 
 b. **Load base map files.**
 
-```{r loadMapsRecv, message = FALSE, warning = FALSE}
+```{r loadMapsRecv2, message = FALSE, warning = FALSE}
 
 na.lakes <- map_data(map = "lakes")
 na.lakes <- mutate(na.lakes, long = long- 360)
@@ -306,7 +306,7 @@ c. **Map the location of receivers in the Americas.**
 
 Map showing the location of network-wide receivers (dark grey 'x') and receivers deployed by the James Bay Shorebird Project (project 38; red 'x').
 
-```{r mapRecvs, message = FALSE, warning = FALSE}
+```{r mapRecvs2, message = FALSE, warning = FALSE}
 
 # set limits to map based on locations of detections, ensuring they include the deployment locations
 xmin <- min(df.recvDeps$longitude, na.rm = TRUE) - 2
