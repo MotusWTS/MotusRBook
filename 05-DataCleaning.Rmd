@@ -528,11 +528,13 @@ df.runs2Tag6 <- filter(df.alltags.filt1, motusTagID == 23319) %>%
 
 #### Filter data based on plots of lat/lon by time
 
-Again, we create a dataframe which contains the motusTagID, ambigID, and runID for all detections we deem to not belong to our tags, and append to the dataframe we created in the previous step (\@ref(filterPaths)). 
+Again, we create a dataframe which contains the motusTagID, ambigID, and runID for all detections we deem to not belong to our tags, and append to the dataframe we created in the previous step (\@ref(filterPaths)).
+
+Note that we are appending this new list of runIDs we want to delete to the previous list of runIDs:
 
 ```{r filterRuns1}
 
-df.runs <- rbind(df.runs2Tag1, df.runs2Tag3, df.runs2Tag4, df.runs2Tag6)
+df.runs <- rbind(df.runs, df.runs2Tag1, df.runs2Tag3, df.runs2Tag4, df.runs2Tag6)
 
 ```
 
@@ -685,7 +687,62 @@ p + geom_segment(aes(x=tsStart, xend=tsEnd, y=plot.id, yend=plot.id)) +
 
 
 
+## Create a custom filter for your .motus file
 
+Throughout this chapter, we used R code to filter out ambiguities and false positive detections that we determined did not belong to our tags. Instead of having to run through this code to filter the data each time you work with your .motus file, you can create custom filters (see \@ref(#appendixD)) that are attached to your user profile (motus login credentials), and which can be used to 1) assign probabilities to your detections, and 2) filter your detections based on those probabilities. For example, in this chapter we created the dataframe 'df.runs', which contains all of the motusTagIDs and associated runIDs for detections we would like to drop, i.e., we could use a filter to assign a probability of 0 to these detections. Those probabilities can then be used to filter your data each time your .motus file is loaded. We show you how to do this in three simple steps:
 
+### 1. Create runID filter
 
+Before we populate a filter with runIDs, we need to create a filter by assigning a name. The `createRunsFilter` will be used to do this. In the process, the function will check whether the name already exists. The function returns an integer filterID that will match the name of the new filter in the local database:
+
+```{r createFilter}
+
+createRunsFilter(sql.motus, filterName = "filtAmbigFalsePos", motusProjID = 176, descr = "filter to assign probability = 0 to false positive detections and ambiguities that belong to other tags (Chapter 5 in R Book)")
+
+```
+### 2. Create dataframe of runIDs, and add a probability of 0 to all detections 
+
+We already have our df.runs dataframe, so all we need to do is add a probability of 0 to those detections:
+
+```{r addProb0}
+
+df.runs <- mutate(df.runs, probability = 0)
+
+```
+
+### 3. Write the runIDs to the filter
+
+We then populate the filter with our list of runIDs using the `writeRunsFilter` function:
+
+```{r writeFilter}
+
+writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.runs)
+
+```
+
+If you want to overwrite a previous version of this filter entirely, use the `delete = TRUE` statement:
+
+```{r overwriteFilter}
+
+writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.runs, delete = TRUE)
+
+```
+
+Alternatively, if you want to append new records to the filter and leave previous records intact, use the `overwrite = FALSE` statement:
+
+```{r overwriteFilter}
+
+writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.runs, overwrite = FALSE)
+
+```
+
+### 4. Filter detections with probability == 0
+
+Finally, we can apply the filter to our data. Note that applying the filter simply assigns each detection with the probability you've assigned in the steps above. To also filter the data by those probabilities, you need to use the `p.min` statement. Here we drop anything with probability less than 0.5, although because we've assigned all runIDs that we want to drop a 0, there are only 0 and 1 probabilities in our data:
+
+```{r overwriteFilter}
+
+sql.filtered <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.5)
+
+```
 
