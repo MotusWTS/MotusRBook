@@ -57,6 +57,16 @@ install.packages("plyr")
 
 ```
 
+For mapping, we use the rworldmap package:
+
+```{r installMapPackages, message = FALSE, warning = FALSE}
+
+install.packages("rworldmap")  
+#install.packages("maproj") # not sure we acutally need this.
+
+
+```
+
 ## Internal data processing {#internalProcessing}
 
 As an animal moves within the detection range of a Motus station, radio transmissions, or 'bursts', are detected by antenna(s) and recorded by a receiver. These raw detection data are either uploaded to the Motus database instantaneously via internet connection, or downloaded from the receiver and uploaded to Motus manually. Behind the scenes, various functions read and process the raw detections data to produce the tag detections file that users access using the R package (see 'Data Import' below). While most users will not need to call on the internal data processing functions, a complete list of functions within the Motus server R package can be found on GitHub: <https://github.com/jbrzusto/motusServer>. The code behind each function can be viewed on GitHub, or by typing the following in the R console after loading the R package, replacing 'function.name' with the name of the R function of interest:

@@ -45,6 +45,7 @@ library(motus)
 library(motusdata)
 library(tidyverse)
 library(lubridate)
+require(rworldmap) # for mapping
 
 ```
 
@@ -154,11 +155,11 @@ For the purpose of this chapter, we simplify the sample dataframes by subsetting
 tag.list <- c(22897, 22905, 23319, 22902, 16038, 16047)
 ambigTag.list <- df.allambigs$motusTagID[df.allambigs$ambigID %in% c(-114, -134, -171)] # includes duplicate tags from other projects
 
-# subset detections data to the tags of interest from our project
+## subset detections data to the tags of interest from our project
 df.alltags.sub <- df.alltags %>%
                     filter(motusTagID %in% tag.list)
 
-# subset deployment records to tags of interest and any duplicate tags.
+## subset deployment records to tags of interest and any duplicate tags.
 df.tagDeps.sub <- df.tagDeps %>%
                     filter(tagID %in% tag.list|tagID %in% ambigTag.list)
 
@@ -184,25 +185,15 @@ df.alltags.path <- df.alltags.sub %>%
                     
 ```
 
-2. **Install R mapping package.**
 
-If you do not have the 'rworldmap' package installed, then you must install before loading the package:
-
-```{r installMapPackages, message = FALSE, warning = FALSE}
-
-## install.packages("rworldmap")  # only install if not already installed, or if you want to update your package
-require(rworldmap)
-
-```
-
-3. **Load base map files.**
+2. **Load base map files.**
 
 ```{r loadMaps, message = FALSE, warning = FALSE}
 
 na.lakes <- map_data(map = "lakes")
 na.lakes <- mutate(na.lakes, long = long- 360)
 
-# Include all of the Americas to begin
+## Include all of the Americas to begin
 na.map <- subset(map_data(map="world2"), 
                  region %in% c("Canada", "USA", "Mexico", "lakes",
                                "Belize", "Costa Rica", "Panama", 
@@ -217,19 +208,19 @@ na.map <- mutate(na.map, long = long- 360)
 
 ```
 
-4. **Map the paths of tag detections.**
+3. **Map the paths of tag detections.**
 
 To map the paths, we set the x-axis and y-axis limits based on the location of receivers with detections. Depending on your data, these might need to be modified to encompass the deployment location of the tags, if tags were not deployed near towers with detections. We then use ggplot to plot the map and tag paths.
 
 ```{r mapDetections}
 
-# set limits to map based on locations of detections, ensuring they include the deployment locations
+## set limits to map based on locations of detections, ensuring they include the deployment locations
 xmin <- min(df.alltags.path$recvLon, na.rm = TRUE) - 2
 xmax <- max(df.alltags.path$recvLon, na.rm = TRUE) + 2
 ymin <- min(df.alltags.path$recvLat, na.rm = TRUE) - 2
 ymax <- max(df.alltags.path$recvLat, na.rm = TRUE) + 2
                 
-# map
+## map
 ggplot(na.lakes, aes(long, lat))+ 
   geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+#
   geom_polygon(aes(group = group), colour = "grey", fill = "white")+
@@ -373,9 +364,8 @@ df.alltags.path <- df.alltags.filt1 %>%
                     mutate(date = as_date(ts)) %>%    # create date variable
                     group_by(motusTagID, date, recvDepName, ambigID, tagDepLon, tagDepLat, recvLat, recvLon)%>%
                     summarize(max.runLen = max(runLen)) 
-# map
-
-# set limits to map based on locations of detections, ensuring they include the deployment locations
+## map
+## set limits to map based on locations of detections, ensuring they include the deployment locations
 xmin <- min(df.alltags.path$recvLon, na.rm = TRUE) - 2
 xmax <- max(df.alltags.path$recvLon, na.rm = TRUE) + 2
 ymin <- min(df.alltags.path$recvLat, na.rm = TRUE) - 2
@@ -414,7 +404,7 @@ df.allambigs <-  tbl(sql.motus, "allambigs") %>%
 df.myAmbigs <- df.allambigs %>%
   filter(motusTagID %in% tag.list)
 
-# deployments in this table are the deployments of the duplicate tags (motusTagDup)
+## deployments in this table are the deployments of the duplicate tags (motusTagDup)
 df.myDeps <- left_join(df.tagDeps.sub,
                           df.allambigs,
                           by = c("tagID" = "motusTagID"))
@@ -558,9 +548,8 @@ df.alltags.path <- df.alltags.filt2 %>%
                     mutate(date = as_date(ts)) %>%    # create date variable
                     group_by(motusTagID, date, recvDepName, ambigID, tagDepLon, tagDepLat, recvLat, recvLon)%>%
                     summarize(max.runLen = max(runLen)) 
-# map
-
-# set limits to map based on locations of detections, ensuring they include the deployment locations
+## map
+## set limits to map based on locations of detections, ensuring they include the deployment locations
 xmin <- min(df.alltags.path$recvLon, na.rm = TRUE) - 2
 xmax <- max(df.alltags.path$recvLon, na.rm = TRUE) + 2
 ymin <- min(df.alltags.path$recvLat, na.rm = TRUE) - 2

@@ -13,8 +13,10 @@ We use the James Bay Shorebird Project sample dataset throughout this chapter (s
 library(devtools)
 library(tidyverse)
 library(lubridate)    ## for working with dates
-# library(motusClient)  ## no longer necessary?
+## library(motusClient)  ## no longer necessary?
 library(motus)    
+require(rworldmap) ## for mapping
+##require(mapproj)
 
 ## Set the system environment time zone to GMT (to ensure that you are always working in GMT)
 Sys.setenv(TZ="GMT")
@@ -91,20 +93,9 @@ In the sample data, there are no registered tags without deployment metadata, wh
 
 Creating a map of your tag deployments can point out any obvious errors in the tag deployment latitude or longitude that weren't captured by the online metadata message center queries.
 
-a. **Install R mapping package.**
+a. **Load base map files.**
 
-If you do not have rworldmap installed then you must install and load the package into R:
-
-```{r installMapPackagesRecv1, message = FALSE, warning = FALSE}
-
-install.packages("rworldmap")
-install.packages("maproj")
-require(rworldmap)
-require(mapproj)
-
-```
-
-b. **Load base map files.**
+Load base map files from the rworldmap package:
 
 ```{r loadMapsRecv1, message = FALSE, warning = FALSE}
 
@@ -121,8 +112,7 @@ na.map <- filter(map_data(map="world2"),
 
 ```
 
-
-c. **Map the locations of tag deployments.**
+b. **Map the locations of tag deployments.**
 
 Map the location of tag deployments for the sample data: 
 
@@ -256,7 +246,7 @@ The timing of deployments can be displayed graphically; horizontal line(s) in th
 
 ```{r projectRecvDeploy, warnings = FALSE, messages = FALSE}
 
-# put data in long format to simplify plotting (or use geom_segment)
+## put data in long format to simplify plotting (or use geom_segment)
 
 df.projRecvs.long <- select(df.projRecvs, deviceID, deployID, tsStart, tsEnd) %>% 
   gather(when, ts, c(tsStart, tsEnd)) %>%
@@ -297,25 +287,14 @@ ggplot(df.projRecvs.long,
 
 Maps provide better spatial context than simple plots; the following steps plot the location of Motus receivers on a map of North America, with receivers deployed by the sample project displayed in red.
 
-a. **Install R mapping package.**
-
-Install and load the 'rworldmap' package into R:
-
-```{r installMapPackagesRecv2, message = FALSE, warning = FALSE}
-
-install.packages("rworldmap")
-require(rworldmap)
-
-```
-
-b. **Load base map files.**
+a. **Load base map files.**
 
 ```{r loadMapsRecv2, message = FALSE, warning = FALSE}
 
 na.lakes <- map_data(map = "lakes")
 na.lakes <- mutate(na.lakes, long = long- 360)
 
-# Include all of the Americas to begin
+## Include all of the Americas to begin
 
 na.map <- subset(map_data(map="world2"), 
                 region %in% c("Canada", "USA", "Mexico", "lakes",
@@ -332,19 +311,19 @@ na.map <- mutate(na.map, long = long- 360)
 
 ```
 
-c. **Map the location of receivers in the Americas.**
+b. **Map the location of receivers in the Americas.**
 
 Map showing the location of network-wide receivers (dark grey 'x') and receivers deployed by the James Bay Shorebird Project (project 38; red 'x').
 
 ```{r mapRecvs2, message = FALSE, warning = FALSE}
 
-# set limits to map based on locations of detections, ensuring they include the deployment locations
+## set limits to map based on locations of detections, ensuring they include the deployment locations
 xmin <- min(df.recvDeps$longitude, na.rm = TRUE) - 2
 xmax <- -20 # restrict to the Americas (excluding a few points in Europe)
 ymin <- min(df.recvDeps$latitude, na.rm = TRUE) - 2
 ymax <- max(df.recvDeps$latitude, na.rm = TRUE) + 2
                 
-# map
+## map
 ggplot(na.lakes, aes(long, lat))+ 
   geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+#
   geom_polygon(aes(group = group), colour = "grey", fill = "white")+
@@ -358,19 +337,19 @@ ggplot(na.lakes, aes(long, lat))+
 
 ```
 
-d. **Map the location of project specific receivers only.**
+c. **Map the location of project specific receivers only.**
 
 Map of project-specific receivers, created by setting the x-axis (longitude) and y-axis (latitude) map limits using the 'df.projRecvs' dataframe created above. Deployments are restricted to those that were active at in 2016.
 
 ```{r mapProjRecvs, message = FALSE, warning = FALSE}
 
-# set limits to map based on locations of detections, ensuring they include the deployment locations
+## set limits to map based on locations of detections, ensuring they include the deployment locations
 xmin <- min(df.projRecvs$longitude, na.rm = TRUE) - 2
 xmax <- max(df.projRecvs$longitude, na.rm = TRUE) + 2
 ymin <- min(df.projRecvs$latitude, na.rm = TRUE) - 1
 ymax <- max(df.projRecvs$latitude, na.rm = TRUE) + 1
                 
-# map
+## map
 ggplot(na.lakes, aes(long, lat))+ 
   geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98") +
   geom_polygon(aes(group = group), colour = "grey", fill = "white") +
@@ -405,7 +384,7 @@ df.antDeps <- tbl.antDeps %>%
                 collect() %>%
                 as.data.frame()
 
-# receiver deployments; select parameters of interest
+## receiver deployments; select parameters of interest
 df.recvDeps <- df.recvDeps %>%
                     select(deployID, receiverType, deviceID, name, latitude, longitude, isRecvMobile, tsStart, tsEnd, projectID, elevation) 
 
