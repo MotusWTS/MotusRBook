@@ -90,7 +90,7 @@ After the initial download, loading a .motus file into R using `r tagme(proj.num
 
 ```{r tagme1, eval = FALSE}
 
-getwd() # to see the current working directory; use setwd() to change it.
+getwd()         ## to see the current working directory; use setwd() to change it.
 proj.num <- 176 ## 176 for the sample data, or use the number associated with your project here
 
 sql.motus <- system.time(tagme(projRecv = proj.num, update = TRUE, new = TRUE))      # for project tag database
@@ -196,7 +196,7 @@ Each table in the .motus file can be accessed using the tbl() function.
 
 ```{r getTable, eval = FALSE}
 
-# get the tag deployment metadata view for the current project
+## get the tag deployment metadata view for the current project
 tbl.tagDeps <- tbl(sql.motus, "tagDeps")
      
 ```

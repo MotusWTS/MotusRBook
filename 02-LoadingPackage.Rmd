@@ -25,13 +25,13 @@ Begin by installing the required packages, if not already installed. Note that t
 install.packages("devtools")
 library(devtools)
 
-# install motus for data download, data manipulation, visualization and analysis
+## install motus for data download, data manipulation, visualization and analysis
 install_github("MotusWTS/motus")  
 library(motus)
 
-# install motusClient for data download
-#install_github("MotusWTS/motusClient")   
-#library(motusClient)
+## install motusClient for data download
+install_github("MotusWTS/motusClient")   
+library(motusClient)
 
 ```
 
