@@ -15,10 +15,10 @@ Below are some common error messages and solutions:
 
 ## I get the message "Auto-disconnecting SQLiteConnection" one or multiple times after using tagme()
 
-If this occurs after data download has finished, this message can be ignored. If it occurs during an active download, the connection will usually be maintained and the download will continue, however if downloads stop, simply run tagme() again, if that does not work we suggest logging out or restarting R (see sections \@ref(motusLogout) and \@ref(resumeDownload)).
+If this occurs after data download has finished, this message can be ignored. If it occurs during an active download, the connection will usually be maintained and the download will continue, however if downloads stop, simply run tagme() again, if that does not work we suggest logging out of the motus package or restarting R (see sections \@ref(motusLogout) and \@ref(resumeDownload)).
 
 ## I get an "Internal Server Error" message when using tagme(..., update = TRUE)
 If you get this message while updating your .motus file, use tagme() again to continue the download.
 
 ## I get an "Error: Forbidden" message when using tagme()
-This error may occur if you are attempting to download multiple projects simultaneously from the same user account. If you get this error, please logout of Motus, and try tagme() again (see sections \@ref(motusLogout) and \@ref(resumeDownload)).
+This error may occur if you are attempting to download multiple projects simultaneously from the same user account. If you get this error, please logout of the motus package, and try tagme() again (see sections \@ref(motusLogout) and \@ref(resumeDownload)).

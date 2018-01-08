@@ -186,7 +186,7 @@ na.map <- mutate(na.map, long = long- 360)
 
 ```
 
-Finally, to map the paths, we set the x-axis and y-axis limits based on the location of receivers with detections. Depending on your data, these might need to be modified to encompass the deployment location of the tags, if tags were not deployed near towers with detections. We then use ggplot to plot the map and tag paths.  Here we use the mercator projection and are colouring the paths by motusTagID, including a point for where the tag was deployed
+Finally, to map the paths, we set the x-axis and y-axis limits based on the location of receivers with detections. Depending on your data, these might need to be modified to encompass the deployment location of the tags, if tags were not deployed near towers with detections. We then use ggplot to plot the map and tag paths.  Here we use the Mercator projection and are colouring the paths by motusTagID, including a point for where the tag was deployed
 
 ```{r mapDetections}
 
