@@ -13,8 +13,7 @@ burstSlop,signed difference (seconds) between detection and registration burst i
 done,logical: is run finished?
 motusTagID,Motus tag ID - unique to each individual tag registered
 ambigID,ambiguous ID assigned to ambiguous tags
-ant,"antenna code (for sensorgnomes, USB port number; for Lotek, whatever they use, usually numeric, but can be e.g. AH0)"
-port,the port number that the detection occurred on
+ant,the port number that the detection occurred on
 runLen,number of tag bursts in the current run; constant for all records having the same runID
 bootnum,boot session of receiver for SG; NA for Lotek
 tagProjectID,ID of the project that manages this tag. 
@@ -37,9 +36,9 @@ tagDeployAlt,"altitude of tag deployment, in meters ASL"
 tagDeployComments,additional comments or unclassified metadata for tag (often in JSON format)
 fullID,full tag ID as PROJECT#MFGID:BI@NOMFREQ. Not necessarily unique over time. See motusTagID for a unique tag
 deviceID,Motus device ID associated with the receiver serial number
-recvDeployID,"latitude of receiver deployment,  in decimal degrees N - negative values for Southern hemisphere"
-recvDeployLat,"longitude of receiver deployment, in decimal degrees E - negative values for Western hemisphere"
-recvDeployAlt,"altitude of receiver deployment, in meters ASL"
+recvDeployLat,"latitude of receiver deployment,  in decimal degrees N - negative values for Southern hemisphere"
+recvDeployLon,"longitude of receiver deployment, in decimal degrees E - negative values for Western hemisphere"
+recvDeployElevation,"elevation of receiver deployment, in meters ASL"
 recv,"serial number of the receiver; e.g., SG-1234BBBK5678 or Lotek-12345"
 recvDeployName,name assigned to the receiver deployment by the project manager
 recvSiteName,name assigned to a site by the project manager (e.g. location name). The same label can be used for multiple deployments.
