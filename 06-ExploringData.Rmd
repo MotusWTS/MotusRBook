@@ -14,7 +14,7 @@ library(motus)
 
 ## Load data
 
-Recall from \@ref(accessingData) that when accessing the sample database, you will need to input "motus.sample" as both username and password when prompted by the tagme() user authentication process. 
+If you followed along with the the previous \@ref(dataCleaning) chapter and are working with cleaned sql.filtered file, you can skip ahead to \@ref(dataSummaries).  Otherwise we will load the sample data and clean it now.  Recall from \@ref(accessingData) that when accessing the sample database, you will need to input "motus.sample" as both username and password when prompted by the tagme() user authentication process. 
 
 ```{r importData}
 
@@ -29,13 +29,17 @@ tmp <- tbl.alltags %>% collect() %>%
 ```
 
 ## Remove false positives and ambiguous detections
-ADD ONCE CHAPTER 5 IS COMPLETE
+```{r overwriteFilter}
+
+sql.filtered <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
+
+```
 
 ## Summarizing your data {#dataSummaries}
 You can see a quick summary of all variables in a data frame with the summary() function, here we'll just examine a few select variables:
 ```{r summaryAllTags}
 
-tmp %>% select(ts, motusTagID, runLen, speciesEN, tagDepLat, tagDepLon, recvDeployLat, recvDeployLon) %>% summary()
+sql.motus %>% tbl("alltags") %>% select(ts, motusTagID, runLen, speciesEN, tagDepLat, tagDepLon, recvDeployLat, recvDeployLon) %>% summary()
 ```
 
 The dplyr package allows you to easily summarize data by group, manipulate variables, or create new variables based on your data.  
