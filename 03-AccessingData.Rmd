@@ -106,7 +106,6 @@ To open and update a detections database that already exists (has been downloade
 
 ```{r tagme3, eval = FALSE}
 
-sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = TRUE) ## if the file is in the local working directory, OR:
 sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = TRUE, dir = "./data/") ## use dir = to specify a directory
 
 ```
