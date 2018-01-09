@@ -2,19 +2,19 @@
 
 Before analyzing your data, false positive detections due to radio noise or duplicate tags should be filtered from the detection data. 
 
-Ambiguous detections occur when two or more duplicate tags with the same Lotek ID code, burst interval, and nominal transmit frequency (i.e., the transmissions of tags are indistinguishable) are transmitting in the network at the same time, resulting in 'ambiguous' detections that could belong to either tag. In your .motus file, ambiguous detections are identified by a unique negative value in the 'ambigID' field of the alltags view. 
+Ambiguous detections can also occur when two or more duplicate tags with the same Lotek ID code, burst interval, and nominal transmit frequency (i.e., the transmissions of tags are indistinguishable) are transmitting in the network at the same time, resulting in 'ambiguous' detections that could belong to either tag. In your .motus file, ambiguous detections are identified by a unique negative value in the 'ambigID' field of the alltags view. 
 
 False positive detections occur as a result of background radio noise. Some sites will inherently have more background noise than others, and some tag IDs are more prone to false positives than others. Key things to look for to determine if detections are false positive are:
 
 1) Run length: run length ('runLen') is the number of tag bursts in a run, and a run is a group of consecutive detections of a tag detected on a receiver. In general, a detection with a run length of 2 has a high probability of being a false positive detection. If you want to be conservative with your data filtering, you could simply filter out all detections with a run length of 2. We caution, however, that this has the potential to filter out true detections, and we therefore recommend that you examine which detections this filter would remove. In this chapter we don't automatically filter detections by run length, but we do use run length to help us decide which detections are likely to be true or not.
 
-2) Standard deviation of frequency offset: Standard deviation of frequency offset among pulses in a burst ('freqsd'; in KHz) can also be used as a coarse and automatic data filter, by removing any values larger that 0.1, which suggests a false detection. This filter applies to data collected by Sensorgnome receivers only. As with run length, it is recommended that you identify the detections you would be removing and examine them to ensure you aren't removing an unwanted amount of true detections.  As with run length, we don't automatically filter by freqsd in this chapter, and instead use it to help us decide whether detections are false positive or not.
+2) Standard deviation of frequency offset: Standard deviation of frequency offset among pulses in a burst ('freqsd'; in KHz) can also be used as a coarse and automatic data filter, by removing any values larger that 0.1, which suggests a false detection. This filter applies to data collected by SensorGnome receivers only. As with run length, it is recommended that you identify the detections you would be removing and examine them to ensure you aren't removing an unwanted amount of true detections.  As with run length, we don't automatically filter by freqsd in this chapter, and instead use it to help us decide whether detections are false positive or not.
 
 3) detections in regions or at times of year that don't make biological sense for the study species.
 
 4) consecutive detections at distant sites that would require biologically unreasonable flight speeds to be true.
 
-The goal of this chapter is to provide you with some tools to use to clean your data, and by the end of the chapter we will have a dataframe that contains the motusTagID, ambigID (where appropriate), and runID for detections associated with:
+The goal of this chapter is to provide you with some tools to clean your data, and by the end of the chapter we will have a dataframe that contains the motusTagID, ambigID (where appropriate), and runID for detections associated with:
 
 - ambiguous detections that *do not* belong to our tag(s), and
 
@@ -42,7 +42,6 @@ Follow the instructions in Chapter \@ref(loadingPackages) to install the followi
 
 library(devtools)
 library(motus)
-library(motusdata)
 library(tidyverse)
 library(lubridate)
 library(rworldmap) # for mapping
@@ -152,7 +151,7 @@ For the purpose of this chapter, we simplify the sample dataframes by subsetting
 
 ```{r subsetTags}
 
-tag.list <- c(22897, 22905, 23319, 22902, 16038, 16047)
+tag.list <- c(22897, 22905, 23319, 22902, 16038, 16047) # list of tags we are keeping
 ambigTag.list <- df.allambigs$motusTagID[df.allambigs$ambigID %in% c(-114, -134, -171)] # includes duplicate tags from other projects
 
 ## subset detections data to the tags of interest from our project
@@ -245,10 +244,9 @@ ggplot(na.lakes, aes(long, lat))+
 From the plots we created above, we can safely drop some ambiguous detections that belong to duplicate tags from other projects, as well as detections with a run length of 2 when they occur in odd locations for our study species, which together suggests a high probability of being a false positive detection. We summarize those here:
 
 **1. motusTagID 16038:** 
+- The detections around Lake Michigan have a runLen < 2, we can more closely examine what these look like using `r filter(df.alltags.sub, motusTagID == 16038, recvLon < -85), eval = FALSE`, and we see that the detections near Lake Michigan occurred on August 21 and have a run length of only 2. Because we don't have a strong reason to trust these to be true detections, we can safely drop these observations from our data. 
 
-- Using 'filter(df.alltags.sub, motusTagID == 16038, recvLon < -85)', we see that the detections near Lake Michigan occurred on August 21 and have a run length of only 2. Because we don't have a strong reason to trust these to be true detections, we can safely drop these observations from our data. 
-
-To so so, we create a dataframe which contains the projectID, motusTagID, ambigID and runID of detections we would like to remove. We do not remove them from the data yet:
+To do so, we create a dataframe which contains the projectID, motusTagID, ambigID and runID of detections we would like to remove. We do not remove them from the data yet:
 
 ```{r filter1Tag1}
 
@@ -260,7 +258,7 @@ df.runsTag1 <- filter(df.alltags.sub, motusTagID == 16038, recvLon < -85) %>%
 
 **2. motusTagID 16047:** 
 
-- using 'detections in the Great Lakes region and in Nova Scotia have a run length of 2, and using filter(df.alltags.sub, motusTagID == 16047, (recvLon > -70|(recvLon < -75 & recvLat < 50))), we see that detections at the Great Lakes sites (recvDeployName 'Flamborough_Quarry' and 'Koffler') have freqsd > 0.2 in 3/4 cases. These detections also occur in winter, when Red Knots are on their South American wintering grounds. They are also outliers in relation to the other detections which have a run length of greater than 2, which show the Red Knot moving from the James Bay region to the east coast, i.e., along an expected migratory path for this species. Detections in the Great Lakes region and Nova Scotia can safely be considered false positives and dropped from the data. In this case, we will drop detections with longitude > -70, and with longitude < -75 where latitude is < 50:
+- Using `r filter(df.alltags.sub, motusTagID == 16047, (recvLon > -70|(recvLon < -75 & recvLat < 50))), eval = FALSE`, we see that detections at the Great Lakes and Nova Scotia sites (recvDeployName 'Blandford', 'Flamborough_Quarry' and 'Koffler') have freqsd > 0.2 in 3/3 cases. These detections also occur in winter, when Red Knots are on their South American wintering grounds. They are also outliers in relation to the other detections which have a run length of greater than 2, which show the Red Knot moving from the James Bay region to the east coast, i.e., along an expected migratory path for this species. Detections in the Great Lakes region and Nova Scotia can safely be considered false positives and dropped from the data. In this case, we will drop detections with longitude > -70, and with longitude < -75 where latitude is < 50:
 
 ```{r filter1Tag2}
 
@@ -272,7 +270,7 @@ df.runsTag2 <- filter(df.alltags.sub, motusTagID == 16047, (recvLon > -70|(recvL
 
 **3. motusTagID 22897:**
 
-- using 'clarify(sql.motus)', the ambiguous detections in the Great Lakes region could also belong to tag 24298 released by the Neonics project. Filtering the tag deployment metadata using 'filter(df.tagDeps, tagID == 24298)', we see that that duplicate tag was released on the north shore of Lake Erie. Those ambiguities belong to that tag, and can be dropeed from our data. Non-ambiguous detections with a run length of 2 in that region can also be dropped from the data, as many of these also have a freqsd > 0.1. 
+- using `r clarify(sql.motus), eval = FALSE`, the ambiguous detections in the Great Lakes region could also belong to tag 24298 released by the Neonics project. Filtering the tag deployment metadata using 'filter(df.tagDeps, tagID == 24298)', we see that that duplicate tag was released on the north shore of Lake Erie. Those ambiguities belong to that tag, and can be dropped from our data. Non-ambiguous detections with a run length of 2 in that region can also be dropped from the data, as many of these also have a freqsd > 0.1. 
 
 - The detections on the east coast and in South America are reasonable locations to detect shorebirds, so we keep those for now, despite a run length of 2, and thus a high probability of being false positive.
 
@@ -286,11 +284,11 @@ df.runsTag3 <- filter(df.alltags.sub, motusTagID == 22897, (!is.na(ambigID) & re
 
 **4. motusTagID 22902:** 
 
-- the ambiguous detections for this tag occur in four distinct regions. Using 'clarify(sql.motus)', the ambiguous detections could also belong to motusTagID 22778 from the RBrownAMWO project or motusTagID 24303 from the Neonics project. 
+- the ambiguous detections for this tag occur in four distinct regions. Using `r clarify(sql.motus), eval = FALSE`, the ambiguous detections could also belong to motusTagID 22778 from the RBrownAMWO project or motusTagID 24303 from the Neonics project. 
 
 - we saw above that the Neonics project deployed tags on the north shore of Lake Erie in Ontario, Canada, so ambiguous detections in that region can be safely removed from the sample data, i.e., drop ambiguous detections with longitude < -75 and latitude > 41. We also drop non-ambiguous detections with a run length of 2 in this region.
 
-- using 'filter(df.tagDeps, tagID == 22778)', we see that the other duplicate tag was deployed on an American Woodcock on the east coast, at a latitude of 45.135 and longitude 67.293 (which is an error in the tag deployment metadata: the longitude should be negative!). Because shorebirds stage in the region where those ambiguities occurred, we will take a closer look (in a later section) at these observations before deciding how to treat them. 
+- using `r filter(df.tagDeps, tagID == 22778), eval = FALSE`, we see that the other duplicate tag was deployed on an American Woodcock on the east coast, at a latitude of 45.135 and longitude 67.293 (which is an error in the tag deployment metadata: the longitude should be negative!). Because shorebirds stage in the region where those ambiguities occurred, we will take a closer look (in a later section) at these observations before deciding how to treat them. 
 
 - an ambiguous detection in the Delaware Bay region is a likely detection of our tag, so we retain it for now.
 
@@ -306,7 +304,7 @@ df.runsTag4 <- filter(df.alltags.sub, motusTagID == 22902, ((!is.na(ambigID) & r
 
 **5. motusTagID 22905:**
 
-- using 'filter(df.tagDeps.sub, tagID == 22905|tagID == 23319)', we see that this tag and tag 23318 were deployed by the James Bay Shorebird Project within two weeks of each other and from the same deployment location. As a result, most detections are ambiguous and cannot be assigned with confidence to either tag. All ambiguous detections will therefore unfortunately be dropped for this tag and tag 23319. Only non-ambiguous detections of tag 22905 between October 10 2016 when it was deployed, and October 15 2016 when tag 23319 were deployed, will be useful for looking at movement behaviour. 
+- using `r filter(df.tagDeps.sub, tagID == 22905|tagID == 23319), eval = FALSE`, we see that this tag and tag 23318 were deployed by the James Bay Shorebird Project within two weeks of each other and from the same deployment location. As a result, most detections are ambiguous and cannot be assigned with confidence to either tag. All ambiguous detections will therefore unfortunately be dropped for this tag and tag 23319. Only non-ambiguous detections of tag 22905 between October 10 2016 when it was deployed, and October 15 2016 when tag 23319 were deployed, will be useful for looking at movement behaviour. 
 
 - using 'filter(df.alltags.sub, motusTagID == 22905, (is.na(ambigID) & recvLon < -70))`, we see that non-ambiguous detections in the Great Lakes region have a run length of 2 and freqsd > 0.1, and will be dropped from the data (drop all non-ambiguous detections with longitude < -70).
 
@@ -322,9 +320,9 @@ df.runsTag5 <- filter(df.alltags.sub, motusTagID == 22905, (!is.na(ambigID))|(is
 
 - as stated above for tag 22905, all ambiguous detections will be dropped for this tag, because they can't be assigned with confidence to either tag.
 
-- detections in Saskatchewan, Canada are obvious outliers for this species and project, and using 'filter(df.alltags.sub, motusTagID == 23319, recvLon < -100)', we see that all detections have a run length of 2 and 3/4 have a freqsd > 0.1. They will therefore be dropped from our data (drop all detections with longitude < -100).
+- detections in Saskatchewan, Canada are obvious outliers for this species and project, and using `r filter(df.alltags.sub, motusTagID == 23319, recvLon < -100), eval = FALSE`, we see that all detections have a run length of 2 and 3/4 have a freqsd > 0.1. They will therefore be dropped from our data (drop all detections with longitude < -100).
 
-- using 'filter(df.alltags.sub, motusTagID == 23319, (recvLon > -100 & recvLon < -70 & is.na(ambigID)))', non-ambiguous detections in the Great Lakes region have a run length of 2 and 5/6 have freqsd > 0.1. These are likely false positives, and will be dropped from the data (drop all non-ambiguous detections with longitude < -70).
+- using `r filter(df.alltags.sub, motusTagID == 23319, (recvLon > -100 & recvLon < -70 & is.na(ambigID))), eval = FALSE`, non-ambiguous detections in the Great Lakes region have a run length of 2 and 5/6 have freqsd > 0.1. These are likely false positives, and will be dropped from the data (drop all non-ambiguous detections with longitude < -70).
 
 ```{r filter1Tag6}
 
@@ -453,7 +451,7 @@ ggplot(data = filter(df.alltags.filt1, is.na(ambigID)), # plot ambiguous detecti
 
 **1. motusTagID 16038**
 
-- Using 'filter(df.alltags.filt1, motusTagID == 16038 & year(ts)==2016)', we see that there are detections for this tag on January 1 2016 at the lighthouse station on Sable Island, off the east coast of Nova Scotia, Canada. These detections have a run length of 2 or 3, and because this is an unlikely time of year to observe a Semiplamated Sandpiper in this region, we will drop these detections from the data [is this reasonable? Looking at e-bird there are only occasional sightings in the winter on the east coast?].
+- Using `r filter(df.alltags.filt1, motusTagID == 16038 & year(ts)==2016), eval = FALSE`, we see that there are detections for this tag on January 1 2016 at the lighthouse station on Sable Island, off the east coast of Nova Scotia, Canada. These detections have a run length of 2 or 3, and because this is an unlikely time of year to observe a Semiplamated Sandpiper in this region, we will drop these detections from the data [is this reasonable? Looking at e-bird there are only occasional sightings in the winter on the east coast?].
 
 ```{r filter2Tag1}
 
@@ -465,15 +463,15 @@ df.runs2Tag1 <- filter(df.alltags.filt1, motusTagID == 16038, recvLat < 45) %>%
 
 **2. motusTagID 16047**
 
-- there is nothing that stands out about these detections that requires filtering in this step; you can see that after this RedKnot departed the James Bay region, it was detected moving south along the east coast at an appropriate time of year.
+- there is nothing that stands out about these detections that requires filtering in this step; you can see that after this Red Knot departed the James Bay region, it was detected moving south along the east coast at an appropriate time of year.
 
 **3. motusTagID 22897**
 
-- using 'filter(df.alltags.filt1, motusTagID == 22897, recvLat < 25)', we see that there were two detections at the LLICALDAD (March 21 2017) and Quempillen (April 1 2017) stations in Chile, each detection on the same antenna, and each detection with a run length of 2 and freqsd > 0.1. Despite occuring in a reasonable location for Red Knots at that time of year, we don't have a lot of confidence in these detections. Further, the focus of the James Bay Shorebird Project is on overwintering behaviour and not migratory movements, and so we drop the South American detections from the data.
+- using `filter(df.alltags.filt1, motusTagID == 22897, recvLat < 25), eval = FALSE`, we see that there were two detections at the LLICALDAD (March 21 2017) and Quempillen (April 1 2017) stations in Chile, each detection on the same antenna, and each detection with a run length of 2 and freqsd > 0.1. Despite occuring in a reasonable location for Red Knots at that time of year, we don't have a lot of confidence in these detections. Further, the focus of the James Bay Shorebird Project is on overwintering behaviour and not migratory movements, and so we drop the South American detections from the data.
 
-- using 'filter(df.alltags.filt1, motusTagID == 22897, (recvLat > -25 & recvLat < 49))', we see that the detections in the Great Lakes region (recvDeployName "Old Cut") occurred on March 20, 2017 at 22:33 (HH:MM). The detections have a run length of 3 or 4, freqsd is < 0.1, and the tag was detected by three of four antennas at the Old Cut station, which gives us a sense that these have a good probability of being true detections. However, the end of March is an unlikely time of year to observe Red Knots passing through southern Ontario - normally Red Knots migrate through that region in May. These are therefore likely to be false positives and will be dropped from the data.
+- using `filter(df.alltags.filt1, motusTagID == 22897, (recvLat > -25 & recvLat < 49)), eval = FALSE`, we see that the detections in the Great Lakes region (recvDeployName "Old Cut") occurred on March 20, 2017 at 22:33 (HH:MM). The detections have a run length of 3 or 4, freqsd is < 0.1, and the tag was detected by three of four antennas at the Old Cut station, which gives us a sense that these have a good probability of being true detections. However, the end of March is an unlikely time of year to observe Red Knots passing through southern Ontario - normally Red Knots migrate through that region in May. These are therefore likely to be false positives and will be dropped from the data.
 
-- using 'filter(df.alltags.filt1, motusTagID == 22897, (recvLat > -25 & recvLat < 49))', we also see that the detections at the PKR_Nelson site along the east coast of North America occurred on March 29th, which is early to detect Red Knots in this region. The detections also have a run length of 2 and freqsd > 0.1. These detections will therefore be dropped from the data. 
+- using `filter(df.alltags.filt1, motusTagID == 22897, (recvLat > -25 & recvLat < 49)), eval = FALSE`, we also see that the detections at the PKR_Nelson site along the east coast of North America occurred on March 29th, which is early to detect Red Knots in this region. The detections also have a run length of 2 and freqsd > 0.1. These detections will therefore be dropped from the data. 
 
 Filtering to detections with latitude < 45 includes all of runIDs we wish to drop:
 
@@ -489,7 +487,7 @@ df.runs2Tag3 <- filter(df.alltags.filt1, (motusTagID == 22897 & recvLat < 45)) %
 
 - the ambiguous detections occur just after tag 24303 was released by project 146. Because this would be near the end of the deployment period for our tag, it is most likely that these ambiguous detections belong to tag 24303, and can be dropped from our data.
 
-- the remaining non-ambiguous detections don't line up time-wise. Detections continue in the James Bay region, but during that time there are also detections at two sites to the south, which suggest that this bird might have departed on migration. Using 'filter(df.alltags.filt1, motusTagID == 22902, (recvLat < 45 & month(ts) == 10 ))', we see that all of the more southern detections in October have a run length of 2 and a majority have a freqsd > 0.1. We will therefore drop those detections from the data.
+- the remaining non-ambiguous detections don't line up time-wise. Detections continue in the James Bay region, but during that time there are also detections at two sites to the south, which suggest that this bird might have departed on migration. Using `filter(df.alltags.filt1, motusTagID == 22902, (recvLat < 45 & month(ts) == 10 )), eval = FALSE`, we see that all of the more southern detections in October have a run length of 2 and a majority have a freqsd > 0.1. We will therefore drop those detections from the data.
 
 ```{r filter2Tag4}
 
@@ -501,11 +499,11 @@ df.runs2Tag4 <- filter(df.alltags.filt1, motusTagID == 22902, (!is.na(ambigID)|(
 
 **5. motusTagID 22905**
 
-- using 'filter(df.alltags.filt1, motusTagID == 22905, recvLat < 48)', the two most southern-most detections were recorded at the Mal Bay South station at 16:10 and 16:11 on October 11 2016. They have a run length of 2, but a freqsd < 0.1. We should probably drop these detections, but for the purposes of this chapter, we will retain them to look at flight speed between sites in the following step: perhaps the bird made a landscape-scale movement, given the proximity of the two stations.
+- using `filter(df.alltags.filt1, motusTagID == 22905, recvLat < 48), eval = FALSE`, the two most southern-most detections were recorded at the Mal Bay South station at 16:10 and 16:11 on October 11 2016. They have a run length of 2, but a freqsd < 0.1. We should probably drop these detections, but for the purposes of this chapter, we will retain them to look at flight speed between sites in the following step: perhaps the bird made a landscape-scale movement, given the proximity of the two stations.
 
 **6. motusTagID 23319**
 
-- using 'filter(df.alltags.filt1, motusTagID == 23319)', there are just two detections of this tag on June 14 2017, both with a run length of 2, and one with a fresd > 0.1. Because these are the only detections, they are likely false positive, and they do provide useful biological information on movement or behaviour of this bird, we drop this tag from the data.
+- using `filter(df.alltags.filt1, motusTagID == 23319), eval = FALSE`, there are just two detections of this tag on June 14 2017, both with a run length of 2, and one with a fresd > 0.1. Because these are the only detections, they are likely false positive, and they do provide useful biological information on movement or behaviour of this bird, we drop this tag from the data.
 
 ```{r filter2Tag6}
 
@@ -538,7 +536,7 @@ df.alltags.filt2 <- filter(df.alltags.filt1, !(runID %in% runs.list))  # the ! m
 
 ```
 
-Now re-run the above plot, and we now how just two individuals with movements between towers. Recall that the primary purpose of this data was to look at movement behaviour at the wintering site, so broad-scale movements are primarily bonus information:
+Now re-run the above plot, and we now have just two individuals with movements between towers. Recall that the primary purpose of this data was to look at movement behaviour at the wintering site, so broad-scale movements are primarily bonus information:
 
 ```{r plotPaths2, message = FALSE, warning = FALSE}
 
@@ -576,7 +574,7 @@ ggplot(na.lakes, aes(long, lat))+
 
 By looking at the rate of movement between sites with consecutive detections, we can often quickly view flights that are not physically possible. 
 
-Rate of movement between sites can be determined using the siteTrans function in the motus R package.  
+Rate of movement between sites can be determined using the siteTrans function in the motus R package (see \@ref(#appendixC).  
 
 ```{r falseBySpeed1, message = FALSE, warning = FALSE}
 
@@ -595,7 +593,7 @@ Results are in meters (distance) or meters/second (rate),
 ### THIS SECTION CAN"T CURRENTLY BE DONE UNLESS WE HAVE ESTIMATED LIFESPAN - LEAVING CODE IN IN CASE WE GET IT"
 ### Check overlap of deployment dates 
 
-If the deployment periods of duplicate tags includes the tail end of the lifespan of one tag and the begining of the deployment of another, it is more likely that detections belong to the latter tag. 
+If the deployment periods of duplicate tags includes the tail end of the lifespan of one tag and the beginning of the deployment of another, it is more likely that detections belong to the latter tag. 
 
 As a first step, we therefore compare deployment start and end dates for each of the motusTagIDs that an ambigID might represent. To do so, we first subset the tag deployment metadata to the list of motusTagIDs associated with the ambigIDs. Since we did not fix the positive longitude online, we again notice it appear in the tag metadata and must fix that here as well.  This highlights why it is important to make metadata changes online rather than through R if the problem occurs in your data:
 
@@ -678,7 +676,7 @@ p + geom_segment(aes(x=tsStart, xend=tsEnd, y=plot.id, yend=plot.id)) +
 
 ## Create a custom filter for your .motus file
 
-Throughout this chapter, we used R code to filter out ambiguities and false positive detections that we determined did not belong to our tags. Instead of having to run through this code to filter the data each time you work with your .motus file, you can create custom filters (see \@ref(#appendixD)) that are attached to your user profile (motus login credentials), and which can be used to 1) assign probabilities to your detections, and 2) filter your detections based on those probabilities. For example, in this chapter we created the dataframe 'df.runs', which contains all of the motusTagIDs and associated runIDs for detections we would like to drop. In this case, we can assign those runs of detections with a probability of 0. Those probabilities can then be used to filter your data each time your .motus file is loaded. We show you how to do this in three simple steps:
+Throughout this chapter, we used R code to filter out ambiguities and false positive detections that we determined did not belong to our tags. Instead of having to run through this code to filter the data each time you work with your .motus file, you can create custom filters (see \@ref(#appendixD)) that are attached to your user profile (motus login credentials), and which can be used to 1) assign probabilities to your detections, and 2) filter your detections based on those probabilities. For example, in this chapter we created the dataframe 'df.runs', which contains all of the motusTagIDs and associated runIDs for detections we would like to drop. In this case, we can assign those runs of detections a probability of 0. Those probabilities can then be used to filter your data each time your .motus file is loaded. We show you how to do this in three simple steps:
 
 ### 1. Create runID filter
 

@@ -15,7 +15,7 @@ library(tidyverse)
 library(lubridate)    ## for working with dates
 ## library(motusClient)  ## no longer necessary?
 library(motus)    
-require(rworldmap) ## for mapping
+library(rworldmap) ## for mapping
 ##require(mapproj)
 
 ## Set the system environment time zone to GMT (to ensure that you are always working in GMT)

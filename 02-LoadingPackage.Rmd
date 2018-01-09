@@ -35,7 +35,7 @@ library(motusClient)
 
 ```
 
-Throughout the book, we use tidyverse (<https://www.tidyverse.org/>), which is a collection of R packages for data science, including tidyr, dplyr, and ggplot2, and lubridate for managing and manipulating dates. These can be installed from CRAN, as follows:
+Throughout the book, we use tidyverse (<https://www.tidyverse.org/>), which is a collection of R packages for data science, including tidyr, dplyr, and ggplot2, and lubridate for managing and manipulating dates. You will also need lubridate, and rworldmap throughout the book.  These can be installed from CRAN, as follows:
 
 ```{r install tidyverse, eval = FALSE}
 
@@ -44,6 +44,9 @@ library(tidyverse)
 
 install.packages("lubridate")
 library(lubridate)
+
+install.packages("rworldmap")
+library(rworldmap)
 
 ```
 
