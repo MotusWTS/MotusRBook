@@ -1,21 +1,22 @@
 # Tag and Receiver Deployments {#deployments}
 
-Before working with your detection data, a first step is to summarize and visualize the tag and receiver deployments registered to your project. Summarizing and plotting your deployments can be an effective way to find any errors in tag or receiver deployment metadata, which can in turn influence the completeness of the detections data for your project and the projects of others with detections of their own tags on your receivers. 
+Before working with your detection data, a first step is to summarize and visualize the metadata for tag and receiver deployments registered to your project. Summarizing and plotting your deployments can be an effective way to find any errors in tag or receiver deployment metadata, which can in turn influence the completeness of the detections data for your project and the projects of others with detections of their own tags on your receivers. 
 
 This chapter is a complement to the online "notification center", which provides each project with a list of metadata issues (missing or outlying values) to be accepted or ignored. As such, please address any and all errors associated with your project in the notification center before importing your data through R. This chapter does not provide a full check of your deployment metadata, but will help uncover any errors that might be missed by the automatic queries in the notification center.
 
 We use the James Bay Shorebird Project sample dataset throughout this chapter (see Section \@ref(sampleData); as you run through the code to look at your own deployments, **please fix any errors or omissions in your metadata by signing in to <https://motus.org/>**, and under the 'Manage Data' tab, select either 'Manage Tags' to fix tag deployment metadata or 'Manage Receivers' to fix receiver deployment metadata. It is important to fix metadata errors online, so that errors are fixed at the source and archived on the Motus Server, ensuring all users have access to the correct tag and receiver metadata.  
 
 ## Load relevant R packages and set working environment
+Before we begin working with data, we need to load the required packages for this chapter. If you have not yet installed these packages (from github and CRAN) then please return to Chapter \@ref(loadingPackages) and do so.
 
 ```{r loadPackages.4, warning = FALSE, message = FALSE}
 
-library(devtools)
+#library(devtools)
 library(tidyverse)
-library(lubridate)    ## for working with dates
+#library(lubridate)    ## for working with dates
 ## library(motusClient)  ## no longer necessary?
 library(motus)    
-library(rworldmap) ## for mapping
+##library(rworldmap) ## for mapping
 ##require(mapproj)
 
 ## Set the system environment time zone to GMT (to ensure that you are always working in GMT)
@@ -25,13 +26,13 @@ Sys.setenv(TZ="GMT")
 
 ## Load .motus file
 
-The .motus file has already been downloaded. To update and load into R, use tagme():
+This chapter assumes that the .motus file has already been downloaded, if you have not done so please return to Chapter \@ref(accessingData) for instructions on how to do so. To update and load the existing file into R, use tagme(), you may have to login as described in the previous chapter with username **and** password "motus.sample"
 
 ```{r loadDetections}
 
 proj.num <- 176
 
-sql.motus <- tagme(proj.num)
+sql.motus <- tagme(proj.num, dir = "./data")
 
 ```
 
@@ -49,7 +50,6 @@ We will run through each of these in sequence.
 ### 1. Number of registered tags
 
 To check the number of tags registered to your project, load the 'tags' table in the .motus file. The 'tags' table contains the metadata of each registered tag, including a unique tagID and information on manufacturer, model, nominal and offset frequency, burst interval, and pulse length. We select the metadata specific to the James Bay Shorebird Project, and ignore tag metadata associated with any duplicate tags belonging to other projects:
-
 
 ```{r importTags, message = FALSE, warning = FALSE}
 
@@ -136,7 +136,7 @@ ggplot(na.lakes, aes(long, lat)) +
             ylim = c(ymin, ymax)) +
   xlab("") + ylab("") + 
   theme_bw() + 
-  geom_point(data = df.tagDeps, 
+  geom_point(data = filter(df.tagDeps, projectID == 176), 
              aes(longitude, latitude), cex = 2, pch = 1, colour = "red")
    
 ```
@@ -157,7 +157,7 @@ df.tagDeps %>%
 
 ```
 
-There are no missing start and end dates (tsStart/tsEnd), and deployment start dates range from `r min(year(df.tagDeps$tsStart))` to `r max(year(df.tagDeps$tsStart))`, which is reasonable for this project.  
+There are no missing start dates (tsStart), and deployment start dates range from `r min(year(df.tagDeps$tsStart))` to `r max(year(df.tagDeps$tsStart))`, which is reasonable for this project.  
 
 The species IDs are numeric, and somewhat meaningless without an ability to assign an actual species name to the numeric ID, which we do next. 
 
@@ -214,9 +214,7 @@ df.projRecvs <- tbl.recvDeps %>%
                 collect() %>%
                 as.data.frame() %>%
                 mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
-                       tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01"), 
-                       deviceID = as.factor(deviceID), 
-                       deployID = as.factor(deployID)) ## why not make these factors to begin with?
+                       tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01"))
 
 summary(df.projRecvs)
 
@@ -238,7 +236,7 @@ df.projRecvs %>%
 
 The number of receiver deployments in the metadata should correspond with the number of field deployments. 
 
-Looking at the 'isMobile' column for the three receiver deployments that are missing latitude and longitude information, it is evident that these are mobile receivers that do not have a fixed position, and so it is not possible to assign a latitude and longitude (these fields will remain NA). 
+Looking at the 'isMobile' column for the three receiver deployments that are missing latitude and longitude information, it is evident that these are mobile receivers that do not have a fixed position (ie. they have a value of 1), and so it is not possible to assign a latitude and longitude (these fields will remain NA). 
 
 ### 2. Timing of project receiver deployments
 
@@ -253,7 +251,7 @@ df.projRecvs.long <- select(df.projRecvs, deviceID, deployID, tsStart, tsEnd) %>
   mutate(ts = if_else(is.na(ts), max(ts, na.rm = TRUE) + duration(1, "month"), ts)) ## fake end date 
 
 ggplot(df.projRecvs.long, 
-       aes(y = deviceID, x = ts, colour = deployID)) +
+       aes(y = as.factor(deviceID), x = ts, colour = as.factor(deployID))) +
   geom_line(lwd=3) + 
   
   ## insted, center to the right
@@ -269,7 +267,7 @@ If you want more detail for a given year (or all years) you can either subset an
 
 ```{r}
 ggplot(df.projRecvs.long, 
-       aes(y = deviceID, x = yday(ts), colour = deployID)) +
+       aes(y = as.factor(deviceID), x = yday(ts), colour = as.factor(deployID))) +
   geom_line(lwd=3) + 
   
   ## center labels to the left
@@ -287,7 +285,18 @@ ggplot(df.projRecvs.long,
 
 Maps provide better spatial context than simple plots; the following steps plot the location of Motus receivers on a map of North America, with receivers deployed by the sample project displayed in red.
 
-a. **Load base map files.**
+a. **Load all receiver metadata.**
+```{r loadRecvDeps}
+
+df.recvDeps <- tbl.recvDeps %>%
+                collect() %>%
+                as.data.frame() %>%
+                mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
+                       tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01"))
+
+```
+
+b. **Load base map files.**
 
 ```{r loadMapsRecv2, message = FALSE, warning = FALSE}
 
@@ -311,7 +320,7 @@ na.map <- mutate(na.map, long = long- 360)
 
 ```
 
-b. **Map the location of receivers in the Americas.**
+c. **Map the location of receivers in the Americas.**
 
 Map showing the location of network-wide receivers (dark grey 'x') and receivers deployed by the James Bay Shorebird Project (project 38; red 'x').
 
@@ -320,7 +329,7 @@ Map showing the location of network-wide receivers (dark grey 'x') and receivers
 ## set limits to map based on locations of detections, ensuring they include the deployment locations
 xmin <- min(df.recvDeps$longitude, na.rm = TRUE) - 2
 xmax <- -20 # restrict to the Americas (excluding a few points in Europe)
-ymin <- min(df.recvDeps$latitude, na.rm = TRUE) - 2
+ymin <- min(df.recvDeps$longitude, na.rm = TRUE) - 2
 ymax <- max(df.recvDeps$latitude, na.rm = TRUE) + 2
                 
 ## map
@@ -330,7 +339,7 @@ ggplot(na.lakes, aes(long, lat))+
   coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
   xlab("") + ylab("") + 
   theme_bw() + 
-  geom_point(data = df.recvDeps, aes(longitude, latitude, colour = as.logical(projectID == 38)), 
+  geom_point(data = df.recvDeps, aes(longitude, latitude, colour = as.logical(projectID == 176)), 
              cex = 0.8, pch = 4)+
   scale_colour_manual(values = c("grey30", "red"), name = "Project 38 Deployment") 
   
@@ -359,7 +368,7 @@ ggplot(na.lakes, aes(long, lat))+
   geom_point(data = filter(df.projRecvs, 
                             year(tsStart) == 2016, 
                             !is.na(latitude)),  ## remove mobile receivers
-             aes(longitude, latitude, colour = deviceID), cex = 2, pch = 1)+
+             aes(longitude, latitude, colour = as.factor(deviceID)), cex = 2, pch = 1)+
   scale_colour_discrete(name  =  "Receiver ID") 
 
 ```
@@ -386,7 +395,7 @@ df.antDeps <- tbl.antDeps %>%
 
 ## receiver deployments; select parameters of interest
 df.recvDeps <- df.recvDeps %>%
-                    select(deployID, receiverType, deviceID, name, latitude, longitude, isRecvMobile, tsStart, tsEnd, projectID, elevation) 
+                    select(deployID, receiverType, deviceID, name, latitude, longitude, isMobile, tsStart, tsEnd, projectID, elevation) 
 
 df.stationDeps <- left_join(df.recvDeps, df.antDeps, by = "deployID")
 
@@ -410,11 +419,11 @@ summary(df.stationDeps)
 
 ```
 
-There are the 4 deployments with missing latitude and longitude associated with the four deployments of mobile receivers that we saw earlier. 
+There are the 3 deployments with missing latitude and longitude associated with the three deployments of mobile receivers that we saw earlier. 
 
-Elevation is missing from 53 of 60 records, but elevation is not a required field, and can be estimated from other sources, or directly in R (for example, see <https://stackoverflow.com/questions/8973695/conversion-for-latitude-longitude-to-altitude-in-r>). 
+Elevation is missing from 48 of 55 records, but elevation is not a required field, and can be estimated from other sources, or directly in R (for example, see <https://stackoverflow.com/questions/8973695/conversion-for-latitude-longitude-to-altitude-in-r>). 
 
-Antenna bearing is missing from 13 of 60 records, and height of the antenna(s) is missing for 4 of 60 records.  Subset the records with missing antenna bearing to see if these can be fixed:
+Antenna bearing is missing from 11 of 55 records, and height of the antenna(s) is missing for 3 of 55 records.  Subset the records with missing antenna bearing to see if these can be fixed:
 
 ```{r antennaBearing}
 
@@ -425,3 +434,4 @@ filter(df.stationDeps, is.na(bearing)) %>%
 
 Receiver deployments with missing antenna bearing(s) are restricted to deployments of omni-directional antennas or mobile receivers, and so the missing values make sense. These records also show that the four records with missing antenna height are also associated with the four mobile receivers, and so again the missing values make sense and cannot be fixed.
 
+In the next chapter we will examine our data for false positives, and remove ambiguous tags that are not ours.
