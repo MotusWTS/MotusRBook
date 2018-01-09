@@ -93,7 +93,7 @@ After the initial download, loading a .motus file into R using `r tagme(proj.num
 getwd()         ## to see the current working directory; use setwd() to change it.
 proj.num <- 176 ## 176 for the sample data, or use the number associated with your project here
 
-sql.motus <- tagme(projRecv = proj.num, update = TRUE, new = TRUE)     # for project tag database
+sql.motus <- tagme(projRecv = proj.num, new = TRUE, update = TRUE)     # for project tag database
 sql.motus <- tagme(projRecv = "SG-123BBBK1234", update = TRUE, new = TRUE)           # for receiver tag database
 
 ```
