@@ -25,32 +25,26 @@ Begin by installing the required packages, if not already installed. Note that t
 install.packages("devtools")
 library(devtools)
 
+## install motusClient for data download
+install_github("MotusWTS/motusClient")
+
 ## install motus for data download, data manipulation, visualization and analysis
 install_github("MotusWTS/motus")  
 library(motus)
 
-## install motusClient for data download
-install_github("MotusWTS/motusClient")   
-library(motusClient)
-
 ```
 
-Throughout the book, we use tidyverse (<https://www.tidyverse.org/>), which is a collection of R packages for data science, including tidyr, dplyr, and ggplot2, and lubridate for managing and manipulating dates. You will also need lubridate, and rworldmap throughout the book.  These can be installed from CRAN, as follows:
+Throughout the book, we use tidyverse (<https://www.tidyverse.org/>), which is a collection of R packages for data science, including tidyr, dplyr, ggplot2, and lubridate for managing and manipulating dates. More information on tidyverse can be found at <https://www.tidyverse.org/>, or by browsing (or better still, thoroughly reading) 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>. For mapping we also use the rworldmap package.  These can be installed from CRAN, as follows:
 
 ```{r install tidyverse, eval = FALSE}
 
 install.packages("tidyverse")
 library(tidyverse)
 
-install.packages("lubridate")
-library(lubridate)
-
 install.packages("rworldmap")
 library(rworldmap)
 
 ```
-
-More information on tidyverse can be found at <https://www.tidyverse.org/>, or by browsing (or better still, thoroughly reading) 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>.
 
 We also install but do not load the plyr package; we use it directly for the handy round_any function, but loading it can cause problems with the dplyr functions:
 
@@ -60,19 +54,9 @@ install.packages("plyr")
 
 ```
 
-For mapping, we use the rworldmap package:
-
-```{r installMapPackages, message = FALSE, warning = FALSE}
-
-install.packages("rworldmap")  
-#install.packages("maproj") # not sure we acutally need this.
-
-
-```
-
 ## Internal data processing {#internalProcessing}
 
-As an animal moves within the detection range of a Motus station, radio transmissions, or 'bursts', are detected by antenna(s) and recorded by a receiver. These raw detection data are either uploaded to the Motus database instantaneously via internet connection, or downloaded from the receiver and uploaded to Motus manually. Behind the scenes, various functions read and process the raw detections data to produce the tag detections file that users access using the R package (see 'Data Import' below). While most users will not need to call on the internal data processing functions, a complete list of functions within the Motus server R package can be found on GitHub: <https://github.com/jbrzusto/motusServer>. The code behind each function can be viewed on GitHub, or by typing the following in the R console after loading the R package, replacing 'function.name' with the name of the R function of interest:
+As an animal moves within the detection range of a Motus station, radio transmissions, or 'bursts', are detected by antenna(s) and recorded by a receiver. These raw detection data are either uploaded to the Motus database instantaneously via internet connection, or downloaded from the receiver and uploaded to Motus manually. Behind the scenes, various functions read and process the raw detections data to produce the tag detections file that users access using the R package (see Chapter \@ref(accessingData)). While most users will not need to call on the internal data processing functions, a complete list of functions within the Motus server R package can be found on GitHub: <https://github.com/jbrzusto/motusServer>. The code behind each function can be viewed on GitHub, or by typing the following in the R console after loading the R package, replacing 'function.name' with the name of the R function of interest:
 
 ```{r function.name, eval = FALSE}
 
