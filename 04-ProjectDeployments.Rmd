@@ -13,11 +13,7 @@ Before we begin working with data, we need to load the required packages for thi
 
 #library(devtools)
 library(tidyverse)
-#library(lubridate)    ## for working with dates
-## library(motusClient)  ## no longer necessary?
-library(motus)    
-##library(rworldmap) ## for mapping
-##require(mapproj)
+library(motus)
 
 ## Set the system environment time zone to GMT (to ensure that you are always working in GMT)
 Sys.setenv(TZ="GMT")
