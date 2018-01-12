@@ -48,6 +48,31 @@ library(rworldmap) # for mapping
 
 ```
 
+
+## Create a custom data filter for your .motus file
+
+Throughout this chapter, we will generate a dataframe 'df.tagRuns' that includes the motusTagID and runID of detections we decide do not belong to our tags. Instead of filtering data to remove these false positive or ambiguous detections each time you work with your .motus file, you can create a custom data filter (see \@ref(#appendixC)) which is attached to your user profile (motus login credentials), and which can be used to 1) assign probabilities to your detections, and 2) filter your detections based on those probabilities. 
+
+To create (but not populate) a filter that is attached to your .motus file, use the `createRunsFilter` function. In this case, we create a filter named 'filtAmbigFalsePos':
+
+```{r createFilter, eval = FALSE}
+
+createRunsFilter(sql.motus, 
+                 filterName = "filtAmbigFalsePos", 
+                 motusProjID = 176, 
+                 descr = "filter to assign probability = 0 to false positive detections and ambiguities that belong to other tags (Chapter 5 in R Book)")
+
+```
+We can check that the filter was created using the 'listRunsFilters' function:
+
+```{r listRunsFilters}
+
+listRunsFilters(sql.motus)
+
+```
+Note that the filter has been assigned a unique filterID of 1.
+
+
 ## Load detections data
 
 Recall from \@ref(accessingData) that when accessing the sample database, you will need to input "motus.sample" as both username and password when prompted by the tagme() user authentication process. 
@@ -665,7 +690,7 @@ ggplot(na.lakes, aes(long, lat))+
 
 By looking at the rate of movement between sites with consecutive detections, we can often quickly view flights that are not physically possible. 
 
-Rate of movement between sites can be determined using the siteTrans function in the motus R package (see \@ref(#appendixC).  
+Rate of movement between sites can be determined using the siteTrans function in the motus R package (see \@ref(#appendixB).  
 
 ```{r falseBySpeed1, message = FALSE, warning = FALSE}
 

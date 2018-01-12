@@ -228,7 +228,7 @@ tbl.alltags <- tbl(sql.motus, "alltags") ## virtual table
 
 ```
 
-The following table lists the variables available in the 'alltags' view, a full description of each field is available in \@ref(appendixB)
+The following table lists the variables available in the 'alltags' view, a full description of each field is available in \@ref(appendixA)
 
 ```{r parameterTable, echo = FALSE, eval = FALSE}
 
@@ -366,3 +366,5 @@ df.alltags <- tbl.alltags %>%
                 mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))              
 
 ```
+
+In the next chapter we will check for missing metadata
