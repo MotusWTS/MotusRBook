@@ -48,29 +48,6 @@ library(rworldmap) # for mapping
 
 ```
 
-## Create a custom data filter for your .motus file
-
-Throughout this chapter, we will generate a dataframe 'df.tagRuns' that includes the motusTagID and runID of detections we decide do not belong to our tags. Instead of filtering data to remove these false positive or ambiguous detections each time you work with your .motus file, you can create a custom data filter (see \@ref(#appendixD)) which is attached to your user profile (motus login credentials), and which can be used to 1) assign probabilities to your detections, and 2) filter your detections based on those probabilities. 
-
-To create (but not populate) a filter that is attached to your .motus file, use the `createRunsFilter` function. In this case, we create a filter named 'filtAmbigFalsePos':
-
-```{r createFilter, eval = FALSE}
-
-createRunsFilter(sql.motus, 
-                 filterName = "filtAmbigFalsePos", 
-                 motusProjID = 176, 
-                 descr = "filter to assign probability = 0 to false positive detections and ambiguities that belong to other tags (Chapter 5 in R Book)")
-
-```
-We can check that the filter was created using the 'listRunsFilters' function:
-
-```{r listRunsFilters}
-
-listRunsFilters(sql.motus)
-
-```
-Note that the filter has been assigned a unique filterID of 1.
-
 ## Load detections data
 
 Recall from \@ref(accessingData) that when accessing the sample database, you will need to input "motus.sample" as both username and password when prompted by the tagme() user authentication process. 
@@ -97,24 +74,51 @@ df.alltags <- tbl.alltags %>%
 
 ```
 
-## Populate the data filter
+## Set up a custom data filter for your .motus file
 
-In the following sections, we will populate the filter by first generating a 'df.tagRuns' dataframe which contains the motusTagID and runID of detections we want to filter from the data. We do so in the following steps:
+Throughout this chapter, we will generate a dataframe 'df.tagRuns' that includes the motusTagID and runID of detections we decide do not belong to our tags. Instead of filtering data to remove these false positive or ambiguous detections each time you work with your .motus file, you can create a custom data filter (see \@ref(#appendixD)) which is attached to your user profile (motus login credentials), and which can be used to:
 
-**1. Preliminary data checks** to determine the number of tags with detections, the number of ambiguities, and the location of tag deployments and detections.
+1) assign probabilities to your detections, and 
+2) filter your detections based on those probabilities. 
 
-**2. Filter data based on plots of tag paths**
+To create (but not populate) a filter that is attached to your .motus file, use the `createRunsFilter` function. In this case, we create a filter named 'filtAmbigFalsePos' asssociated with the sample project:
 
-**3. Filter data based on **
+```{r createFilter, eval = FALSE}
 
-**4. Filter data based on flight speed**
+createRunsFilter(sql.motus, 
+                 filterName = "filtAmbigFalsePos", 
+                 motusProjID = proj.num, 
+                 descr = "filter to assign probability = 0 to false positive detections and ambiguities that belong to other tags (Chapter 5 in R Book)")
+
+```
+We can check that the filter was created using the 'listRunsFilters' function:
+
+```{r listRunsFilters}
+
+listRunsFilters(sql.motus)
+
+```
+
+Note that the filter has been assigned a unique filterID of 1.
+
+## Populating the filter
+
+Prior to filtering the data, we do some **preliminary data checks** to determine the number of tags with detections, the number of ambiguities, and the location of tag deployments and detections for a sub-sample of the tags in the .motus file. 
+
+We then go through a series of steps to determine which detections are likely to be false positive. During each step, we populate a 'df.tagRuns' dataframe which includes the motusTagID and runID of false detections. This dataframe is then used to populate the 'filtAmbigsFalsePos' filter, and remove those detections from the data. The steps we follow are:
+
+**1. Examine plots of tag paths**
+
+**2. Examine plots of latitude/longitude vs. time **
+
+**3. Examine flight speed between detections**
 
 
-### 1. Preliminary data checks
+### Preliminary data checks
 
 #### Check number of tags with detections
 
-First, check how many project tags have detection data. There are several reasons why deployed tags might not have detections, including:
+First, check how many project tags have detections. There are several reasons why deployed tags might not have detections, including:
 
 1) the tag was not properly activated on deployment. To avoid this, always check that a tag is active using a hand-held receiver before attaching the tag to your study animal and releasing it. 
 
@@ -122,47 +126,66 @@ First, check how many project tags have detection data. There are several reason
 
 3) missing or incorrect tag deployment metadata can result in the tagFinder not 'looking' for your tag at the time the tag was deployed, or at all. 
 
-For this check, subset the detection data to include only those tags registered to the sample project; i.e., we exclude ambiguous detections associated with duplicate tags from other projects:
+Using the following code, we see there are detections for 18 tags deployed by the sample project:
 
 ```{r ntagsDetections}
 
 df.alltags %>%
-  filter(tagProjID == proj.num) %>%
+  filter(tagProjID == proj.num) %>% # subset to include only tags registered to project
   select(motusTagID) %>%
   distinct() %>%
   summarize(nTags = n()) # if you want to see the list of motusTagIDs, replace summarize(nTags =n()) with as.list()
 
 ```
-In the sample dataframe, there are detections for 18 tags deployed by the sample project.
 
 #### Check number of tags with ambiguous detections
 
-The clarify() function in the motusClient R package provides a summary of ambiguities in the detection data. Each ambigID refers to a selection of detections that could belong to one or more (up to 6) motusTagIDs, which are listed in the clarify table:
+The clarify() function in the motusClient R package provides a summary of ambiguities in the detections data. Each ambigID refers to a selection of detections that could belong to one or more (up to 6) motusTagIDs, which are listed in the id1 to id6 fields:
 
 ```{r checkForAmbigs}
 
-clarify(sql.motus) 
+df.clarify <- clarify(sql.motus)
+df.clarify
 
 ```
 
-Note that detections associated with five of the six ambigIDs could belong to one of two tags, and detections associated with one ambigID (-171) could belong to one of three tags. 
+Note that detections associated with five of the six ambigIDs could belong to one of two tags, and detections associated with one ambigID (-171) could belong to one of three tags. The fullID fields list the project names associated with the duplicate tags (e.g., "SampleData", "Selva", "Niles", etc.), along with features of the tags (manufacturer tag ID, burst, and transmitting frequency). 
 
-#### Subset data to a sample of tags
+#### Subset to a sample of tags
 
 For the purpose of this chapter, we simplify the sample dataframes by subsetting to six motusTagIDs:  four tags (motusTagID = 22897, 22905, 23319, 22902) were attached to Red Knots and are associated with ambiguous detections (ambigID = -114, -134, -171 respectively), and two tags (16038, 16047) were attached to a Semipalmated Sandpiper and Red Knot, respectively, and are not associated with ambiguous detections.
 
+# ZOE, if you have a suggestion to replace one or two of these with a more interesting movement, please do so, or let me know!
+
 ```{r subsetTags}
 
-tag.list <- c(22897, 22905, 23319, 22902, 16038, 16047) # list of tags we are keeping
-ambigTag.list <- df.allambigs$motusTagID[df.allambigs$ambigID %in% c(-114, -134, -171)] # includes duplicate tags from other projects
+tag.list <- as.data.frame(c(22897, 22905, 23319, 22902, 16038, 16047)) # list of tags we are keeping
+names(tag.list) <- "motusTagID"
+
+# generate list of motusTagIDs that includes tags from other projects associated with the ambigIDs in our subsample of tags
+ambigTag.list <- gather(select(df.clarify, ambigID, id1, id2, id3, id4, id5, id6), id, motusTagID, c(id1, id2, id3, id4, id5, id6), factor_key=TRUE) %>%
+  filter(!is.na(motusTagID), ambigID %in% c(-114, -134, -171)) %>%
+  select(motusTagID) %>%
+  bind_rows(tag.list) %>%
+  distinct()
 
 ## subset detections data to the tags of interest from our project
 df.alltags.sub <- df.alltags %>%
-                    filter(motusTagID %in% tag.list)
+                    filter(motusTagID %in% tag.list$motusTagID)
 
-## subset deployment records to tags of interest and any duplicate tags.
-df.tagDeps.sub <- df.tagDeps %>%
-                    filter(tagID %in% tag.list|tagID %in% ambigTag.list)
+## subset deployment records to tags of interest AND any duplicate tags.
+
+tbl.tagDeps <- tbl(sql.motus, "tagDeps")
+df.tagDeps.sub <- tbl.tagDeps %>%
+                    filter(tagID %in% ambigTag.list$motusTagID) %>%
+                    select(deployID, tagID, projectID, fullID, tsStart, tsEnd, speciesID, latitude, longitude) %>%
+                    collect() %>%
+                    as.data.frame() %>%
+                    mutate(
+                      tsStart = as_datetime(tsStart),
+                      tsEnd = as_datetime(tsEnd))
+                    
+                    
 
 ```
 
@@ -240,14 +263,14 @@ ggplot(na.lakes, aes(long, lat))+
 
 **Figure 1.** Plot of the paths of several tags, showing whether detections were ambiguous (orange) or not (blue), and whether a detection had a run length of 2 (circle; implies a high probability of being false positive) or greater than 2 (triangle; higher probability of being a true detection). Tag deployment location is shown by a black 'x'. Some of the ambiguous detections likely belong to the tags, and some non-ambiguous detections could be false positives. By the end of this chapter, we will show how to clean your data by filtering ambiguous and false positive detections that do not belong to your tags.
 
-### 2. Filter data using plots of tag paths
+### 1. Examine plots of tag paths
 
-From the plots we created above, we can safely drop some ambiguous detections that belong to duplicate tags from other projects, as well as detections with a run length of 2 when they occur in odd locations for our study species, which together suggests a high probability of being a false positive detection. We summarize those here:
+From the plots we created above, we can safely drop some ambiguous detections that belong to duplicate tags from other projects. We can also drop non-ambiguous detections with a run length of 2 when they occur in odd locations for our study species, which together suggests a high probability of being false positive. We summarize those false detections here:
 
 **1. motusTagID 16038:** 
 - The detections around Lake Michigan have a runLen < 2. Pasting `filter(df.alltags.sub, motusTagID == 16038, recvLon < -85)` in your R console, you will see that those detections occurred on August 21 and have a run length of only 2. The location and runLength does not provide strong evidence in support of these being true detections, so they will be dropped from the data. 
 
-To filter the data, we create a dataframe which contains the motusTagID and runID for all detections we deem to not belong to our tags. As we go through this chapter, we will append any additional detections we decide are false positive:
+we subset out the runIDs associated with those detections, and begin to populate the 'df.tagRuns' dataframe:
 
 ```{r filter1Tag1}
 
@@ -259,9 +282,9 @@ df.tagRuns <- filter(df.alltags.sub, motusTagID == 16038, recvLon < -85) %>%
 
 **2. motusTagID 16047:** 
 
-- pasting `filter(df.alltags.sub, motusTagID == 16047, (recvLon > -70|(recvLon < -75 & recvLat < 50)))` into the R console, detections at the Great Lakes and Nova Scotia sites (recvDeployName 'Blandford', 'Flamborough_Quarry', and 'Koffler') have freqsd > 0.2 in 3/3 cases. These detections also occur in winter, when Red Knots are on their South American wintering grounds. In addition, they are spatial outliers in relation to the other detections which have a run length of greater than 2, which show the Red Knot moving from the James Bay region to the east coast, i.e., along an expected migratory path for this species. 
+- pasting `filter(df.alltags.sub, motusTagID == 16047, (recvLon > -70|(recvLon < -75 & recvLat < 50)))` into the R console, detections at the Great Lakes and Nova Scotia sites (recvDeployName 'Blandford', 'Flamborough_Quarry', and 'Koffler') have freqsd > 0.2 in 3/6 cases. These detections also occur in winter, when Red Knots are on their South American wintering grounds. In addition, they are spatial outliers in relation to the other detections which have a run length of greater than 2, which show the Red Knot moving from the James Bay region to the Gulf of Maine, i.e., along an expected migratory path for this species. 
 
-Detections in the Great Lakes region and in Nova Scotia can safely be considered false positives and dropped from the data. We append the runIDs of detections with longitude > -70, and with longitude < -75 where latitude is < 50 to our df.runsTag dataframe:
+Detections in the Great Lakes region and in Nova Scotia can safely be considered false positives and dropped from the data. We append the runIDs of detections with longitude > -70, and with longitude < -75 where latitude is < 50 to our 'df.tagRuns' dataframe:
 
 ```{r filter1Tag2}
 
@@ -276,9 +299,9 @@ df.tagRuns <- filter(df.alltags.sub,
 
 **3. motusTagID 22897:**
 
-- using `r clarify(sql.motus), eval = FALSE`, the ambiguous detections in the Great Lakes region could also belong to tag 24298 released by the Neonics project. Filtering the tag deployment metadata using 'filter(df.tagDeps, tagID == 24298)', we see that that duplicate tag was released on the north shore of Lake Erie. Those ambiguities belong to that tag, and can be dropped from our data. Non-ambiguous detections with a run length of 2 in that region can also be dropped from the data, as many of these also have a freqsd > 0.1. 
+- using 'clarify(sql.motus)', the ambiguous detections in the Great Lakes region could also belong to tag 24298 released by the Neonics project. Filtering the tag deployment metadata using 'filter(df.tagDeps.sub, tagID == 24298)', we see that that duplicate tag was released on the north shore of Lake Erie. Those ambiguities belong to that tag, and can be dropped from our data. Non-ambiguous detections with a run length of 2 in that region can also be dropped from the data, as many of these also have a freqsd > 0.1. 
 
-- The detections on the east coast and in South America are reasonable locations to detect shorebirds, so we keep those for now, despite a run length of 2, and thus a high probability of being false positive.
+- The detections on the east coast and in South America are reasonable locations to detect shorebirds, so we keep those for now, despite a run length of only 2, and thus a high probability of being false positive.
 
 ```{r filter1Tag3}
 
@@ -293,15 +316,15 @@ df.tagRuns <- filter(df.alltags.sub,
 
 **4. motusTagID 22902:** 
 
-- the ambiguous detections for this tag occur in four distinct regions. Using `r clarify(sql.motus), eval = FALSE`, the ambiguous detections could also belong to motusTagID 22778 from the RBrownAMWO project or motusTagID 24303 from the Neonics project. 
+- the ambiguous detections for this tag occur in four distinct regions. Using 'clarify(sql.motus)', the ambiguous detections could also belong to motusTagID 22778 from the RBrownAMWO project or motusTagID 24303 from the Neonics project. 
 
 - we saw above that the Neonics project deployed tags on the north shore of Lake Erie in Ontario, Canada, so ambiguous detections in that region can be safely removed from the sample data, i.e., drop ambiguous detections with longitude < -75 and latitude > 41. We also drop non-ambiguous detections with a run length of 2 in this region.
 
-- using `r filter(df.tagDeps, tagID == 22778), eval = FALSE`, we see that the other duplicate tag was deployed on an American Woodcock on the east coast, at a latitude of 45.135 and longitude 67.293 (which is an error in the tag deployment metadata: the longitude should be negative!). Because shorebirds stage in the region where those ambiguities occurred, we will take a closer look (in a later section) at these observations before deciding how to treat them. 
+- using 'filter(df.tagDeps.sub, tagID == 22778)', we see that the other duplicate tag was deployed by the RBrownAMWO project on the east coast, at a latitude of 45.135 and longitude 67.293 (which is an error in the tag deployment metadata: the longitude should be negative!). Because shorebirds stage in the general region where those ambiguities occurred, we will take a closer look (in a later section) at these observations before deciding how to treat them. 
 
 - an ambiguous detection in the Delaware Bay region is a likely detection of our tag, so we retain it for now.
 
-- a lone ambiguous detection in a forested region of interior Colombia has a run length of 2, and is likely a false positive detection of our shorebird. We can therefore drop detections with latitude < 25 for this tag.
+- a lone ambiguous detection in a forested region of interior Colombia has a run length of 2, and is likely a false positive detection of our shorebird. We drop detections with latitude < 25 for this tag.
 
 ```{r filter1Tag4}
 
@@ -316,7 +339,7 @@ df.tagRuns <- filter(df.alltags.sub,
 
 **5. motusTagID 22905:**
 
-- using `r filter(df.tagDeps.sub, tagID == 22905|tagID == 23319), eval = FALSE`, we see that this tag and tag 23318 were deployed by the James Bay Shorebird Project within two weeks of each other and from the same deployment location. As a result, most detections are ambiguous and cannot be assigned with confidence to either tag. All ambiguous detections will therefore unfortunately be dropped for this tag and tag 23319. Only non-ambiguous detections of tag 22905 between October 10 2016 when it was deployed, and October 15 2016 when tag 23319 were deployed, will be useful for looking at movement behaviour. 
+- using 'filter(df.tagDeps.sub, tagID == 22905|tagID == 23319)', we see that this tag and tag 23319 were deployed by the James Bay Shorebird Project (Sample Project) within two weeks of each other, and from the same deployment location. As a result, most detections are ambiguous and cannot be assigned with confidence to either tag. All ambiguous detections will unfortunately be dropped for this tag and for tag 23319. Only non-ambiguous detections of tag 22905 between October 10 2016 when it was deployed, and October 15 2016 when tag 23319 were deployed, will be useful for looking at movement behaviour. 
 
 - using 'filter(df.alltags.sub, motusTagID == 22905, (is.na(ambigID) & recvLon < -70))`, we see that non-ambiguous detections in the Great Lakes region have a run length of 2 and freqsd > 0.1, and will be dropped from the data (drop all non-ambiguous detections with longitude < -70).
 
@@ -335,9 +358,9 @@ df.tagRuns <- filter(df.alltags.sub,
 
 - as stated above for tag 22905, all ambiguous detections will be dropped for this tag, because they can't be assigned with confidence to either tag.
 
-- detections in Saskatchewan, Canada are obvious outliers for this species and project, and using `r filter(df.alltags.sub, motusTagID == 23319, recvLon < -100), eval = FALSE`, we see that all detections have a run length of 2 and 3/4 have a freqsd > 0.1. They will therefore be dropped from our data (drop all detections with longitude < -100).
+- detections in Saskatchewan, Canada are obvious outliers for this species and project, and using 'filter(df.alltags.sub, motusTagID == 23319, recvLon < -100)', we see that all detections have a run length of 2 and 3/4 have a freqsd > 0.1. They will be dropped from the data (drop all detections with longitude < -100).
 
-- using `r filter(df.alltags.sub, motusTagID == 23319, (recvLon > -100 & recvLon < -70 & is.na(ambigID))), eval = FALSE`, non-ambiguous detections in the Great Lakes region have a run length of 2 and 5/6 have freqsd > 0.1. These are likely false positives, and will be dropped from the data (drop all non-ambiguous detections with longitude < -70).
+- using 'filter(df.alltags.sub, motusTagID == 23319, (recvLon > -100 & recvLon < -70 & is.na(ambigID)))', non-ambiguous detections in the Great Lakes region have a run length of 2 and 5/6 have freqsd > 0.1. These are likely false positives, and will be dropped from the data (drop all non-ambiguous detections with longitude < -70).
 
 ```{r filter1Tag6}
 
@@ -352,13 +375,12 @@ df.tagRuns <- filter(df.alltags.sub,
 
 #### Populate and apply the custom filter
 
-In order to add the runIDs included in the 'df.tagRuns' dataframe to the custom filter, first assign a probability to each runID. In this case, we assign a probability of 0:
+To add the runIDs in the 'df.tagRuns' dataframe to the custom filter, first assign a probability to each runID. In this case, we assign a probability of 0 because we have no confidence that they are true detections:
 
 ```{r addProb0}
 
 df.tagRuns <- mutate(df.tagRuns, probability = 0) 
   
-
 ```
 
 We then populate the 'filtAmbigFalsePos' filter with our list of runIDs using the `writeRunsFilter` function:
@@ -377,15 +399,37 @@ head(df.check)
 
 ```
 
-Finally, apply the filter to the detections data. Note that unless the 'p.min' statement is used, applying the filter simply assigns each run of detections in the database with the probability you've assigned in the steps above. We filter the data by those probabilities by assigning a p.min = 0.1, which drops all detections associated with a probability < 0.1:
+Finally, apply the filter to the .motus file. 
+
+Note that because the filter is applied to the .motus file, we need to re-format dates and select the fields of interest. Going forward, once the filter is populated, you will only need to do this when you first import the data; we start from tagme() to show you how the filter would be applied when you first import your data.
+
+Note also that unless the 'p.min' statement is used, applying the filter simply assigns each run of detections in the database with the probability you've assigned in the steps above. We filter the data by those probabilities by assigning a p.min = 0.1, which drops all detections associated with a probability < 0.1:
 
 ```{r overwriteFilter}
 
-sql.filtered <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
+# load the .motus file
+sql.motus <- tagme(176, update = TRUE, dir = "./data/")
+
+# apply the filter; a dataframe is output
+df.alltags.filt <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
+
+# manage the dataframe
+df.alltags.filt <- df.alltags.filt %>%
+                      filter(motusTagID %in% tag.list$motusTagID) %>%
+                      mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
+                             recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
+                             recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt),
+                             ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
+                             tagDeployStart = as_datetime(tagDeployStart),
+                             tagDeployEnd = as_datetime(tagDeployEnd)) %>%
+                      select(-noise, -slop, -burstSlop, -done, -bootnum, -mfgID, -codeSet, -mfg, -nomFreq, -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID, -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat, -gpsLon, - recvAlt, - recvSiteName) %>%
+                      collect() %>%
+                      as.data.frame() %>%
+                      mutate() 
 
 ```
 
-Now re-run the above plot, and the paths are already much cleaner:
+And then re-run the plot of tag paths; already the paths are much cleaner:
 
 ```{r plotPaths2, message = FALSE, warning = FALSE}
 
@@ -393,7 +437,7 @@ df.alltags.path <- df.alltags.filt %>%
                     filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
                     arrange(motusTagID, ts) %>%       # order data by time stamp for each motus tag ID
                     mutate(date = as_date(ts)) %>%    # create date variable
-                    group_by(motusTagID, date, recvDepName, ambigID, tagDepLon, tagDepLat, recvLat, recvLon)%>%
+                    group_by(motusTagID, date, recvDeployName, ambigID, tagDeployLon, tagDeployLat, recvLat, recvLon)%>%
                     summarize(max.runLen = max(runLen)) 
 ## map
 ## set limits to map based on locations of detections, ensuring they include the deployment locations
@@ -410,7 +454,7 @@ ggplot(na.lakes, aes(long, lat))+
   theme_bw() + 
   geom_path(data = df.alltags.path, aes(recvLon, recvLat, group = motusTagID), colour = "grey20") + 
   geom_point(data = df.alltags.path, aes(recvLon, recvLat, colour = !is.na(ambigID), shape = (max.runLen > 2)), size =1.5)+
-  geom_point(data = df.alltags.path, aes(tagDepLon, tagDepLat), colour = "black", shape = 4) +
+  geom_point(data = df.alltags.path, aes(tagDeployLon, tagDeployLat), colour = "black", shape = 4) +
   scale_colour_discrete("motusTagID") +
   scale_shape_manual(values = c(1, 2)) +
   scale_colour_manual(values = c("deepskyblue3", "darkorange1"))+
