@@ -1,25 +1,34 @@
 # Data Cleaning {#dataCleaning}
 
-Due to the nature of radio transmissions, automated radio-telemetry data can often result in false positive detections of your tags due to radio noise or duplicate tags. Some sites will inherently have more background noise than others, and some tag IDs are more prone to false positives than others. Further, when two or more duplicate tags with the same Lotek ID code, burst interval, and nominal transmit frequency (i.e., the transmissions of tags are indistinguishable) are transmitting in the network at the same time, detections can be 'ambiguous', i.e., may belong to either tag. 
+Due to the nature of radio transmissions, false positive detections of your tags will occur. False positive detections result from radio noise or from duplicate tags transmitting in the network at the same time, where duplicate tags have the same Lotek ID code, burst interval, and nominal transmit frequency, resulting in 'ambiguous' detections that may belong to either tag. 
 
-The goal of this chapter is to provide you with the tools you need to clean false positive detections from your data. We do so using the following steps: 
+Key things to look for to determine if detections are false positive include:
+
+1) Run length: run length ('runLen') is the number of tag bursts in a run, and a run is a group of consecutive detections of a tag detected on a receiver. In general, a detection with a run length of 2 has a high probability of being a false positive detection. With the exception of a few 'quiet' stations with little noise, we generally recommend that you filter all detections with a run length of 2. However, because lose some true detections in the process, we also recommend examining which detections this would remove. 
+
+2) Standard deviation of frequency offset: Standard deviation of frequency offset among pulses in a burst ('freqsd'; in KHz) can also be used as a coarse and automatic data filter, by removing any values larger that 0.1, which suggests a false detection. This filter applies to data collected by SensorGnome receivers only. As with run length, it is recommended that you identify the detections you would be removing and examine them to ensure you aren't removing an unwanted amount of true detections.  
+
+3) detections in regions or at times of year that don't make biological sense for the study species.
+
+4) consecutive detections at distant sites that would require biologically unreasonable flight speeds to be true.
+
+
+
+The *goal of this chapter* is to provide you with the tools you need to check your data for false positive detections, and create a filter to remove them from your data. We do so using the following steps: 
 
 1) Run preliminary data checks to see how many deployed tags have detections, the spatial distribution of tag deployments and detections, and to determine whether ambiguous detections are present in your data.
 
-2) Create a custom data filter using the functions provided in the motusClient package.
+2) Create a custom data filter that is associated with your Motus login credentials.
 
-3) Examine plots of tag paths, and append detections determined to be false positive to the filter; filter those detections from the data.
+3) Examine plots of tag paths, and populate the filter with detections determined to be false positive; filters those detections from the data.
 
-4) Examine plots of latitude and longitude of detections against time, and append detections determined to be false positive to the filter; filters those detections from the data.
+4) Examine plots of latitude and longitude of detections against time, and populate the filter with detections determined to be false positive; filters those detections from the data.
 
-5) Examine flight speed and bearing between detections, and append detections determined to be false positive (based on unrealistic flight speeds) to the filter; filter those detections from the data.
-
-6) Using filter 
-
+5) Examine flight speed and bearing between detections, and populate the filter with detections determined to be false positive (based on unrealistic flight speeds); filter those detections from the data.
 
 ## Load required packages
 
-Follow the instructions in Chapter \@ref(loadingPackages) to install the following packages before loading, if you haven't already done so.
+Follow the instructions in Chapter \@ref(loadingPackages) to install the following packages before loading, if they are not already installed.
 
 ```{r loadpackages, message = FALSE, warning = FALSE}
 
@@ -33,9 +42,9 @@ library(rworldmap) # for mapping
 
 ## Load detections data
 
-Recall from \@ref(accessingData) that when accessing the sample database, you will need to input "motus.sample" as both username and password when prompted by the tagme() user authentication process. 
+Recall from \@ref(accessingData) that when accessing the sample database, you will need to input "motus.sample" in the R console as both username and password when prompted by the tagme() user authentication process. 
 
-When accessing the alltags table, we remove some variables that we do not currently need, and create receiver latitude and longitude variables that are based on the coordinates recorded by the receiver GPS, and where those are not available, infilled with coordinates from the receiver deployment metadata. Once in a flat file format (after the collect() and as.data.frame() statements), we transform any time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format.
+When accessing the alltags table, we remove some variables that we do not currently need. We also create receiver latitude and longitude variables that are based on the coordinates recorded by the receiver GPS, and where those are not available, infilled with coordinates from the receiver deployment metadata. We use the collect() and as.data.frame() statements to transform the dataframe into a 'flat' file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format.
 
 ```{r importData5}
 
@@ -59,17 +68,17 @@ df.alltags <- tbl.alltags %>%
 
 ## Preliminary data checks
 
-Prior to filtering the data, we want to examine what the data look like.
+Prior to filtering the data, we do a few summaries and plots of the data.
 
 **1.  Check number of tags with detections**
 
-First, check how many project tags have detections. There are several reasons why deployed tags might not have detections, including:
+First, how many project tags have detections. There are several reasons why deployed tags might not be detected, including:
 
 1) the tag was not properly activated on deployment. To avoid this, always check that a tag is active using a hand-held receiver before attaching the tag to your study animal and releasing it. 
 
 2) an animal with a properly activated tag might not pass within range of a receiving station. Study designs that incorporate strategic placement of receivers to meet project goals can improve your odds of getting detections of your tags.
 
-3) missing or incorrect tag deployment metadata can result in the tagFinder not 'looking' for your tag at the time the tag was deployed, or at all. 
+3) missing or incorrect tag deployment metadata can result in the tagFinder not 'looking' for your tag at the time the tag was deployed, or at all. Please ensure your tag metadata are entered correctly.
 
 Using the following code, we see there are detections for 18 tags deployed by the sample project:
 
@@ -94,32 +103,32 @@ df.clarify
 
 ```
 
-Note that detections associated with five of the six ambigIDs could belong to one of two tags, and detections associated with one ambigID (-171) could belong to one of three tags. The fullID fields list the project names associated with the duplicate tags (e.g., "SampleData", "Selva", "Niles", etc.), along with features of the tags (manufacturer tag ID, burst, and transmitting frequency). 
+Note that detections associated with five of the six ambigIDs could belong to one of two tags, and detections associated with one ambigID (-171) could belong to one of three tags. The fullID fields list the project names associated with the duplicate tags (e.g., "SampleData", "Selva", "Niles", etc.), along with features of the tags (manufacturer tag ID, burst, and transmit frequency). 
 
 **3. Subset to a sample of tags**
 
-For the purpose of this chapter, we simplify the sample dataframes by subsetting to six motusTagIDs:  four tags (motusTagID = 22897, 22905, 23319, 22902) were attached to Red Knots and are associated with ambiguous detections (ambigID = -114, -134, -171 respectively), and two tags (16038, 16047) were attached to a Semipalmated Sandpiper and Red Knot, respectively, and are not associated with ambiguous detections.
+For the purpose of this chapter, we simplify the sample data by subsetting to six motusTagIDs:  four tags (motusTagID = 22897, 22905, 23319, 22902) were attached to Red Knots and are associated with ambiguous detections (ambigID = -114, -134, -171 respectively), and two tags (16038, 16047) were attached to a Semipalmated Sandpiper and Red Knot, respectively, and are not associated with ambiguous detections.
 
 # ZOE, if you have a suggestion to replace one or two of these with a more interesting movement, please do so, or let me know!
 
 ```{r subsetTags}
 
-tag.list <- as.data.frame(c(22897, 22905, 23319, 22902, 16038, 16047)) # list of tags we are keeping
+# generate list of tags to keep
+tag.list <- as.data.frame(c(22897, 22905, 23319, 22902, 16038, 16047)) 
 names(tag.list) <- "motusTagID"
 
-# generate list of motusTagIDs that includes tags from other projects associated with the ambigIDs in our subsample of tags
+# generate list of motusTagIDs that includes the motusTagIDs of duplicate tags from other projects, i.e., associated with ambigIDs -114, -134, -171
 ambigTag.list <- gather(select(df.clarify, ambigID, id1, id2, id3, id4, id5, id6), id, motusTagID, c(id1, id2, id3, id4, id5, id6), factor_key=TRUE) %>%
   filter(!is.na(motusTagID), ambigID %in% c(-114, -134, -171)) %>%
   select(motusTagID) %>%
   bind_rows(tag.list) %>%
   distinct()
 
-## subset detections data to the tags of interest from our project
+## subset detections data to the tags of interest from our project (excluding detections of duplicate tags)
 df.alltags.sub <- df.alltags %>%
                     filter(motusTagID %in% tag.list$motusTagID)
 
-## subset deployment records to tags of interest AND any duplicate tags.
-
+## subset deployment records to tags of interest AND duplicate tags.
 tbl.tagDeps <- tbl(sql.motus, "tagDeps")
 df.tagDeps.sub <- tbl.tagDeps %>%
                     filter(tagID %in% ambigTag.list$motusTagID) %>%
@@ -129,16 +138,14 @@ df.tagDeps.sub <- tbl.tagDeps %>%
                     mutate(
                       tsStart = as_datetime(tsStart),
                       tsEnd = as_datetime(tsEnd))
-                    
-                    
 
 ```
 
 **4. Plot tag paths, including ambiguous/false detections**
 
-Plotting the paths of each tag will give us an idea of where detections occurred, and which of those detections are ambiguous.
+Plotting the paths of each tag will show us where project tags were deployed, where detections occurred, which detections are ambiguous, and which detections have a run length == 2.
 
-To do so, first summarize and order the data by tag and time stamp, and calculate max run length by date (ignoring time of day for this purpose): 
+First summarize and order the data by tag and time stamp, then calculate maximum run length by date and receiver (ignore time of day for the purpose or this plot): 
 
 ```{r plotTagPaths}
 
@@ -153,7 +160,7 @@ df.alltags.path <- df.alltags.sub %>%
 ```
 
 
-We then load the base map files:
+Then load the base map files:
 
 ```{r loadMaps, message = FALSE, warning = FALSE}
 
@@ -175,7 +182,7 @@ na.map <- mutate(na.map, long = long- 360)
 
 ```
 
-Finally, to map the paths, we set the x-axis and y-axis limits based on the location of receivers with detections. Note that if the tags were not deployed near towers with detections, the axis limits might need to be modified to encompass the deployment location of the tags. We use ggplot to plot the map and tag paths.
+Finally, to map the paths using ggplot, set the x-axis and y-axis limits based on the location of receivers with detections. Note that if the tags were not deployed near towers with detections, the axis limits might need to be modified to encompass the deployment location of the tags. 
 
 ```{r mapDetections}
 
@@ -204,11 +211,17 @@ ggplot(na.lakes, aes(long, lat))+
 
 **Figure 5.1.** Plot of the paths of several tags, showing whether detections were ambiguous (orange) or not (blue), and whether a detection had a run length of 2 (circle; implies a high probability of being false positive) or greater than 2 (triangle; higher probability of being a true detection). Tag deployment location is shown by a black 'x'. From the plot of tag paths, we can see that some of the ambiguous detections likely belong to other tags (e.g. tag 22897), and some non-ambiguous detections could be false positives. 
 
-## Create a custom data filter for your .motus file
+## Filter the data
 
-Throughout this chapter, we will generate a dataframe 'df.tagRuns' that includes the motusTagID and runID of detections we decide do not belong to our tags. Instead of filtering data to remove these false positive or ambiguous detections each time you work with your .motus file, you can create a custom data filter (see \@ref(#appendixC)) which is attached to your user profile (motus login credentials), and which can be used to 1) assign probabilities to your detections, and 2) filter your detections based on those probabilities. 
+To filter the data, you can use the Motus R package functionalities to create a custom data filter (see \@ref(#appendixC)) that is attached to your user profile (motus login credentials), and can be used to 1) assign probabilities to detections, and 2) filter detections based on those probabilities each time you load your .motus file. The filter is created, populated, and applied in the following steps:
 
-To create (but not populate) a filter that is attached to your .motus file, use the `createRunsFilter` function. In this case, we create a filter named 'filtAmbigFalsePos':
+1. use the 'createRunsFilter' function to create (but not populate) a filter named 'filtAmbigFalsePos'. 
+2. Generate a dataframe which includes the motusTagID and runID of detections you want to filter
+3. Assign a probability to those detections. In this chapter we assign a probability of 0 to detections we deem are false positive.
+4. use the 'writeRunsFilter' function to populate the filter. Using the delete = TRUE option will remove all records previously written to the filter; using the overwrite = FALSE option will allow new records to be appended to the filter.
+5. use the 'applyRunsFilter' function to assign the probabilities to the records in your .motus file. Note that this function simply assigns each run of detections in the database with the probability, unless the 'p.min =' statement is used, which drops all detections with a probability <= p.min.
+
+### Create a custom data filter for your .motus file
 
 ```{r createFilter, eval = FALSE}
 
@@ -219,7 +232,7 @@ createRunsFilter(sql.motus,
 
 ```
 
-We can check that the filter was created using the 'listRunsFilters' function; note that the filter has been assigned a unique filterID of 1:
+Check that the filter was created using the 'listRunsFilters' function; note that the filter has been assigned a unique filterID of 1:
 
 ```{r listRunsFilters}
 
@@ -227,22 +240,9 @@ listRunsFilters(sql.motus)
 
 ```
 
-## Filter detections data
+### Filter detections with run length = 2 and standard deviation of frequency offset >= 0.1
 
-Key things to look for to determine if detections are false positive include:
-
-1) Run length: run length ('runLen') is the number of tag bursts in a run, and a run is a group of consecutive detections of a tag detected on a receiver. In general, a detection with a run length of 2 has a high probability of being a false positive detection. If you want to be conservative with your data filtering, you could simply filter out all detections with a run length of 2. We caution, however, that this has the potential to filter out true detections, and we therefore recommend that you examine which detections this filter would remove. In this chapter we don't automatically filter detections by run length, but we do use run length to help us decide which detections are likely to be true or not.
-
-2) Standard deviation of frequency offset: Standard deviation of frequency offset among pulses in a burst ('freqsd'; in KHz) can also be used as a coarse and automatic data filter, by removing any values larger that 0.1, which suggests a false detection. This filter applies to data collected by SensorGnome receivers only. As with run length, it is recommended that you identify the detections you would be removing and examine them to ensure you aren't removing an unwanted amount of true detections.  As with run length, we don't automatically filter by freqsd in this chapter, and instead use it to help us decide whether detections are false positive or not.
-
-3) detections in regions or at times of year that don't make biological sense for the study species.
-
-4) consecutive detections at distant sites that would require biologically unreasonable flight speeds to be true.
-
-
-### Filter detections with run length = 2 and standard deviation of frequency offset > 0.1
-
-For demonstration, we re-plot the data, including only detections with runLen > 2 and freqsd < 0.1:
+For demonstration, re-plot the data including only detections with runLen > 2 and freqsd < 0.1:
 
 ```{r mapDetections2}
 
@@ -275,55 +275,29 @@ ggplot(na.lakes, aes(long, lat))+
   facet_wrap(~motusTagID, nrow = 2)
 
 ```
-**Figure 5.2**. Plot of the paths of several tags, showing whether detections were ambiguous (orange) or not (blue), for detections with a run length greater than two and standard deviation of frequency offset > 0.1. and whether a detection had a run length of 2. Tag deployment location is shown by a black 'x'. We note that the paths are much cleaner than in Figure 5.1.
 
-As stated above, removing all detections with a run length of 2 *might* remove true detections, particularly at sites with very little noise. Sometimes if a tag generates a few runs with runLen = 2 on different antennas at the same time, this could provide some support that the detection was a true detection. We can do the following to summarize situations in this dataset where there are more than two runs with run length of 2 for the same tag on more than one antenna (excluding detections with freqSD > 0.1):
+**Figure 5.2**. Plot of the paths of several tags, showing whether detections were ambiguous (orange) or not (blue), for detections with a run length greater than two and standard deviation of frequency offset > 0.1. Tag deployment location is shown by a black 'x'. We note that the paths are much cleaner than in Figure 5.1.
 
-```{r }
-
-df.alltags.sub %>%
-  filter(runLen == 2, freqsd < 0.1) %>%
-  select(hitID, runID, batchID, ts, motusTagID, recvDeployName, port, freqsd) %>%
-  mutate(date = date(ts)) %>%
-  group_by(motusTagID, date, recvDeployName, batchID) %>%
-  summarize(n.hits = length(unique(hitID)),
-            n.runs = length(unique(runID)),
-            n.ports = length(unique(port)),
-            max.freqsd = max(freqsd, na.rm = TRUE)) %>%
-  as.data.frame() %>%
-  filter(n.runs > 1 & n.ports > 2)
-
-```
-
-We see in particular that the Niapiskau station has many instances where detections have runLen == 2, but many hits and runs on more than one antenna. This *might* suggest this site has little noise, and detections *might* therefore be more likely to be true. In this case, we will filter out all detections with runLen = 2, except from the Niapiskau station. To do so, we create a dataframe 'df.tagRuns' which contains the runID and motusTagID for detections that we want to remove from the data. This dataframe will then be used to populate the 'filtAmbigFalsePos' filter we created previously:
+Next, generate a dataframe 'df.tagRuns' that includes the motusTagID and runID of detections we decide do not belong to our tags. In this case, we select all detections with runLen = 2 and/or a standard deviation of frequency offset >= 0.1. We also assign a probability of 0 to the records:
 
 ```{r filterRunLen}
 
 df.tagRuns <- df.alltags.sub %>%
-  filter(freqsd > 0.1|(runLen == 2 & recvDeployName != "Niapiskau")) %>%
+  filter(freqsd > 0.1|runLen == 2) %>%
   select(motusTagID, runID) %>%
+  mutate(probability = 0) %>%
   distinct()
 
 ```
 
-#### Populate and apply filter
-
-To add the runIDs in the 'df.tagRuns' dataframe to the custom filter, first assign a probability to each runID. In this case, we assign a probability of 0 because we have no confidence that they are true detections:
-
-```{r addProb0}
-
-df.tagRuns <- mutate(df.tagRuns, probability = 0) 
-  
-```
-
-We then populate the 'filtAmbigFalsePos' filter with our list of runIDs using the `writeRunsFilter` function. If you wanted to remove any runIDs that were previously written to the filter, you can use the delete = TRUE option (we do not do that here):
+Then populate the 'filtAmbigFalsePos' filter using the `writeRunsFilter` function. To remove previously written detections from the filter, use the delete = TRUE option (not done here):
 
 ```{r writeFilter}
 
 writeRunsFilter(sql.motus, "filtAmbigFalsePos", motusProjID = 176, df = df.tagRuns)
 
 ```
-We can check that the records were applied to the filter using the 'getRunsFilters' function:
+Check that the records were applied to the filter using the 'getRunsFilters' function:
 
 ```{r getRunsFilter}
 
@@ -332,9 +306,9 @@ head(df.check)
 
 ```
 
-Finally, apply the filter to the .motus file. Note also that unless the 'p.min' statement is used, applying the filter simply assigns each run of detections in the database with the probability you've assigned in the steps above. We filter the data by those probabilities by assigning a p.min = 0.1, which drops all detections associated with a probability < 0.1.
+Finally, apply the filter to the .motus file. We filter the data by those probabilities by assigning a p.min = 0.1, which drops all detections associated with a probability < 0.1.
 
-Note also that because the filter is applied to the .motus file and not our flat file, we need to re-create the flat file. Going forward, once the filter is completely populated, you will only need to do this when you first import the data. Here, we start from tagme() to show you how the filter would be applied when you first import your data:
+Note also that because the filter is applied to the .motus file and not our flat file, we need to re-create the flat file. Going forward, once the filter is completely populated, you will only need to do this when you first import your .motus file. Here, we start from tagme() to show you how the filter would be applied when you first import your data:
 
 ```{r overwriteFilter}
 
@@ -361,9 +335,9 @@ df.alltags.filt <- df.alltags.filt %>%
 ```
 
 
-### 1. Examine plots of tag paths
+### Examine plots of tag paths
 
-We re-plot the tag paths using the filtered data:
+Re-plot the tag paths using the filtered data:
 
 ```{r mapDetections3}
 
@@ -469,7 +443,7 @@ df.tagRuns <- filter(df.alltags.filt,
 
 ```
 
-#### Populate and apply the custom filter
+### Populate and apply the custom filter
 
 To add the runIDs in the 'df.tagRuns' dataframe to the custom filter, first assign a probability to each runID. In this case, we assign a probability of 0 because we have no confidence that they are true detections:
 
@@ -563,7 +537,7 @@ ggplot(na.lakes, aes(long, lat))+
 
 ```
 
-### Filter data based on geographic position (latitude/longitude) against time
+## Filter data based on geographic position (latitude/longitude) against time
 
 Next, we visualize the time and location of detections relative to the time and location of tag deployments. When we plot the data, we want to include the deployment date and location of any duplicate tag, so we can visualize where detections fall relative to the tag deployments. Because we are plotting with a facet based on motusTagID, and not ambigID, we need to first manipulate the data, so that we end up with a deployment metadata table that has a 'tagID' variable which tells us which 'motusTagID' the deployment information belongs to, and a 'motusTagID' field which tells us which of our tags this deployment information should be plotted with (i.e., which tag it is a duplicate of). [THERE MUST BE A BETTER WAY?!!]
 
@@ -647,7 +621,7 @@ ggplot(data = filter(df.alltags.filt, is.na(ambigID)), # plot ambiguous detectio
 
 **motusTagID 23319**
 
-### Filter data based on flight speed between detections {#filterFlightSpeed}
+## Filter data based on flight speed between detections {#filterFlightSpeed}
 
 By looking at the rate of movement between sites with consecutive detections, we can often quickly view flights that are not physically possible. At this point, our data is looking pretty clean, but we want to be thorough.
 
