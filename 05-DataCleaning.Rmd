@@ -439,29 +439,19 @@ df.tagRuns <- filter(df.alltags.filt,
                      (!is.na(ambigID))) %>%
                   select(motusTagID, runID) %>%
                   distinct() %>%
+                  mutate(probability = 0) %>%
                   bind_rows(df.tagRuns)
 
 ```
 
-### Populate and apply the custom filter
-
-To add the runIDs in the 'df.tagRuns' dataframe to the custom filter, first assign a probability to each runID. In this case, we assign a probability of 0 because we have no confidence that they are true detections:
-
-```{r addProb0}
-
-df.tagRuns <- mutate(df.tagRuns, probability = 0) %>%
-  distinct() # this shouldn't be necessary, more a precaution to avoid duplicate records
-  
-```
-
-We then populate the 'filtAmbigFalsePos' filter with our list of runIDs using the `writeRunsFilter` function. In this case, because we have continued to append new runIDs to the 'df.tagRuns' we created in the previous section, we can delete the existing records in the filter and re-populate it:
+Re-populate the 'filtAmbigFalsePos' filter with the 'df.tagRuns' list using the `writeRunsFilter` function. In this case, because we appended new runIDs to 'df.tagRuns' created previously, delete the existing records in the filter:
 
 ```{r writeFilter}
 
 writeRunsFilter(sql.motus, "filtAmbigFalsePos", motusProjID = 176, df = df.tagRuns, delete = TRUE)
 
 ```
-If you instead wanted to append new records to the filter, leaving previous records intact, you could use the overwrite = FALSE statement (not evaluated here):
+To append new records to the filter, leaving previous records intact, use the overwrite = FALSE statement (not evaluated here):
 
 ```{r overwriteFilter, eval = FALSE}
 
@@ -469,7 +459,7 @@ writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.tagRuns, overwrite = FAL
 
 ```
 
-We can check that records were applied to the filter using the 'getRunsFilters' function:
+Again, check that records were applied to the filter using the 'getRunsFilters' function:
 
 ```{r getRunsFilter}
 
@@ -478,7 +468,7 @@ head(df.check)
 
 ```
 
-Again, we apply the filter to the .motus file, and re-format the data into a flat file before we continue to the next step. Note that this code is *exactly* the same as in the previous section, the only difference is that the 'filtAmbigFalsePos' filter now contains more runIDs to filter out of the data:
+Again, apply the filter to the .motus file, and re-format the data into a flat file before continuing to the next step. Note that this code is *exactly* the same as in the previous section, the only difference is that the 'filtAmbigFalsePos' filter now contains more runIDs to filter out of the data:
 
 ```{r overwriteFilter}
 
@@ -504,7 +494,7 @@ df.alltags.filt <- df.alltags.filt %>%
 
 ```
 
-Again, re-run the plot of tag paths to see that the paths are again much cleaner:
+Re-run the plot of tag paths to see that the paths are again much cleaner:
 
 ```{r plotPaths2, message = FALSE, warning = FALSE}
 
@@ -539,7 +529,7 @@ ggplot(na.lakes, aes(long, lat))+
 
 ## Filter data based on geographic position (latitude/longitude) against time
 
-Next, we visualize the time and location of detections relative to the time and location of tag deployments. When we plot the data, we want to include the deployment date and location of any duplicate tag, so we can visualize where detections fall relative to the tag deployments. Because we are plotting with a facet based on motusTagID, and not ambigID, we need to first manipulate the data, so that we end up with a deployment metadata table that has a 'tagID' variable which tells us which 'motusTagID' the deployment information belongs to, and a 'motusTagID' field which tells us which of our tags this deployment information should be plotted with (i.e., which tag it is a duplicate of). [THERE MUST BE A BETTER WAY?!!]
+Next, visualize the time and location of detections relative to the time and location of tag deployments. When we plot the data, we want to include the deployment date and location of any duplicate tag, so we can visualize where detections fall relative to the tag deployments. Because we are plotting with a facet based on motusTagID, and not ambigID, we need to first manipulate the data, so that we end up with a deployment metadata table that has a 'tagID' variable which tells us which 'motusTagID' the deployment information belongs to, and a 'motusTagID' field which tells us which of our tags this deployment information should be plotted with (i.e., which tag it is a duplicate of). [THERE MUST BE A BETTER WAY?!!]
 
 Note that if you have a large number of tags (say > 6) in your data, these plots will be messy, and you will want to plot each tag individually or in subsets of tags. 
 
