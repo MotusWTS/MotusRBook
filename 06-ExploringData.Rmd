@@ -223,5 +223,5 @@ ggplot(na.lakes, aes(long, lat))+
   facet_wrap(~speciesEN, nrow = 2)
 
 ```
-
+THe above functions provide examples for you how can begin exploring your data and are by no means exhaustive.  The next chapter will cover some common errors and troubleshooting you may encounter while trying to download and use the .motus sql files.
 
