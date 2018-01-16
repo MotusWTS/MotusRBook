@@ -239,7 +239,7 @@ Creates a data.frame of transitions between sites; detections are ordered by det
 ### Example
 View site transitions for only tag 16037 from data.frame df.alltags
 ```{r, siteTrans, eval = TRUE}
-transitions <- siteTrans(filter(df.alltags, motusTagID == 16037))
+transitions <- siteTrans(filter(df.alltags, motusTagID == 16037), latCoord = "recvDeployLat", lonCoord = "recvDeployLon")
 head(transitions)
 ```
 

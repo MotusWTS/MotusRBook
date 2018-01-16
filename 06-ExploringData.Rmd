@@ -1,6 +1,6 @@
 # Exploring data with the Motus R package {#exploreData}
 
-Once you have clarified any possible ambiguous tags, and removed false positives, you are ready to start analyzing your clean data set.  This chapter will walk you through some simple procedures to start working with and visualizing the clean sample data set, you can modify these scripts to work with your data.
+Once you have clarified any possible ambiguous tags, and removed false positives, you are ready to start analyzing your clean data set.  This chapter will walk you through some simple procedures to start working with and visualizing the clean sample data set, you can modify these scripts to work with your data. For a more indepth totorial we strongly recommend working through R for Data Science by Garrett Grolemund and Hadley Wickham <http://r4ds.had.co.nz/>.
 
 ## Load required packages
 
@@ -21,9 +21,9 @@ If you followed along with the the previous \@ref(dataCleaning) chapter and are 
 proj.num <- 176
 
 # load detection data
-sql.motus <- tagme(proj.num)
+sql.motus <- tagme(proj.num, update = FALSE, dir = "./data")
 tbl.alltags <- tbl(sql.motus, "alltags")
-tmp <- tbl.alltags %>% collect() %>%
+df.alltags <- tbl.alltags %>% collect() %>%
                 as.data.frame() %>%
                 mutate(ts = as_datetime(ts)) # work with dates AFTER transforming to flat file
 ```
@@ -36,10 +36,11 @@ sql.filtered <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
 ```
 
 ## Summarizing your data {#dataSummaries}
-You can see a quick summary of all variables in a data frame with the summary() function, here we'll just examine a few select variables:
+Here we will run through some basic commands, starting with the summary() function to view all variables in a data frame, here we'll just examine a few select variables:
 ```{r summaryAllTags}
 
-sql.motus %>% tbl("alltags") %>% select(ts, motusTagID, runLen, speciesEN, tagDepLat, tagDepLon, recvDeployLat, recvDeployLon) %>% summary()
+sql.motus %>% tbl("alltags") %>% select(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, recvDeployLat, recvDeployLon) %>% collect %>% summary()
+
 ```
 
 The dplyr package allows you to easily summarize data by group, manipulate variables, or create new variables based on your data.  
@@ -47,21 +48,20 @@ The dplyr package allows you to easily summarize data by group, manipulate varia
 We can manipulate existing variables or create new ones with dplyr's mutate function, here we'll convert ts to a POSIXct format, then make a new variable for year and day of year (doy):
 ```{r tagMutate}
 
-tmp <- tmp %>%
+df.alltags <- df.alltags %>%
   mutate(ts = as_datetime(ts, tz = "UTC"), ## convert ts to POSIXct format
-             year = year(ts), ## extract year from ts
-             doy = yday(ts)) ## extract numeric day of year from ts
-head(tmp)
-
+         year = year(ts), ## extract year from ts
+         doy = yday(ts)) ## extract numeric day of year from ts
+head(df.alltags)
 ```
 
-We can also summarize information by tag by first grouping the data by motusTagID. Then we can apply various functions to these groups such as getting the total number of detections (n) for each tag, the number of receivers each tag was detected on, the first and last detection date, and the total number of days there was at least one detection:
+We can also summarize information by group, in this case motusTagID, and apply various functions to these groups such as getting the total number of detections (n) for each tag, the number of receivers each tag was detected on, the first and last detection date, and the total number of days there was at least one detection:
 ```{r tagSummary}
 
-tagSummary <- tmp %>%
+tagSummary <- df.alltags %>%
   group_by(motusTagID) %>% 
   summarize(nDet = n(),
-            nRecv = length(unique(recvDepName)),
+            nRecv = length(unique(recvDeployName)),
             tsMin = min(ts),
             tsMax = max(ts),
             totDay = length(unique(doy)))
@@ -69,13 +69,13 @@ head(tagSummary)
 
 ```
 
-We can also group by multiple variables, applying the same function as above but now grouping by motusTagID and recvDepName, we will get information for each tag detected on each receiver. Since we've specified to group by recvDepName, there will be by default only one recvDepName in each group, thus the variable nRecv will be 1 for each row which is not very information, however we've kept this variable in to help illustrate how grouping works:
+We can also group by multiple variables, applying the same function as above but now grouping by motusTagID and recvDepName, we will get information for each tag detected on each receiver. Since we've specified to group by recvDeployName, there will be by default only one recvDeployName in each group, thus the variable nRecv will be 1 for each row which is not very information, however we've kept this variable in to help illustrate how grouping works:
 ```{r tagRecvSum}
 
-tagRecvSummary <- tmp %>%
-  group_by(motusTagID, recvDepName) %>% 
+tagRecvSummary <- df.alltags %>%
+  group_by(motusTagID, recvDeployName) %>% 
   summarize(nDet = n(),
-            nRecv = length(unique(recvDepName)),
+            nRecv = length(unique(recvDeployName)),
             tsMin = min(ts),
             tsMax = max(ts),
             totDay = length(unique(doy)))

@@ -435,7 +435,7 @@ Apply the filter to the .motus file, and re-format the data into a flat file bef
 ```{r overwriteFilter4}
 
 # load the .motus file
-sql.motus <- tagme(176, update = TRUE, dir = "./data/")
+sql.motus <- tagme(176, update = FALSE, dir = "./data/")
 
 # apply the filter; a dataframe is output
 df.alltags.filt <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
@@ -573,6 +573,8 @@ ggplot(data = filter(df.alltags.filt, is.na(ambigID)), # plot ambiguous detectio
 
 **motusTagID 23319**
 
+- 
+
 ## Filter data based on flight speed between detections {#filterFlightSpeed}
 
 By looking at the rate of movement between sites with consecutive detections, we can often quickly view flights that are not physically possible. At this point, our data is looking pretty clean, but we want to be thorough.
@@ -584,7 +586,7 @@ Rate of movement between sites can be determined using the siteTrans function in
 # REMOVE THE FOLLOWING LINE WHEN FILTER WORKING PROPERLY
 df.alltags.filt <- filter(df.alltags.filt, is.na(ambigID))
 
-df.detectTrans <- as.data.frame(siteTrans(df.alltags.filt, latCoord = "recvLat", lonCoord = "recvLon")) ## create new data.base consisting of transitions between consecutive sites for each tag
+df.detectTrans <- as.data.frame(siteTrans1(df.alltags.filt, latCoord = "recvLat", lonCoord = "recvLon")) ## create new data.base consisting of transitions between consecutive sites for each tag
 head(df.detectTrans)
 summary(df.detectTrans)
 
