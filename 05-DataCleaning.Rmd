@@ -208,7 +208,7 @@ ggplot(na.lakes, aes(long, lat))+
 
 ## Filter the data
 
-The Motus R package offers functionalities to create custom filters for your data (see \@ref(#appendixC)). The filters, once creater, are attached to your user profile (motus login credentials), and can be used to 1) assign probabilities to detections, and 2) filter detections based on those probabilities each time you load your .motus file. A filter is created, populated, and applied in the following steps:
+The Motus R package offers functionalities to create custom filters for your data (see \@ref(#appendixC)). The filters, once created, are attached to your user profile (motus login credentials), and can be used to 1) assign probabilities to detections, and 2) filter detections based on those probabilities each time you load your .motus file. A filter is created, populated, and applied in the following steps:
 
 1. use the 'createRunsFilter' function to create (but not populate) a filter, here named 'filtAmbigFalsePos'. 
 
@@ -587,10 +587,7 @@ Rate of movement between sites can be determined using the siteTrans function in
 
 ```{r falseBySpeed1, message = FALSE, warning = FALSE}
 
-# REMOVE THE FOLLOWING LINE WHEN FILTER WORKING PROPERLY
-df.alltags.filt <- filter(df.alltags.filt, is.na(ambigID))
-
-df.detectTrans <- as.data.frame(siteTrans1(df.alltags.filt, latCoord = "recvLat", lonCoord = "recvLon")) ## create new data.base consisting of transitions between consecutive sites for each tag
+df.detectTrans <- as.data.frame(siteTrans(df.alltags.filt, latCoord = "recvLat", lonCoord = "recvLon")) ## create new data.base consisting of transitions between consecutive sites for each tag
 head(df.detectTrans)
 summary(df.detectTrans)
 
@@ -603,7 +600,7 @@ There are a few transitions with unusually high speeds. We subset those out to t
 filter(df.detectTrans, rate > 60)
 ```
 
-All of the high rates are for one tag, 16047, attached to a Red Knot, and appear to be the result of simultaneous detections by the BennetMeadow and Shelbourne sites, which are within 20km of each other north of Amherst Massachusetts, and 7 hours later by the the BISE and TRUS stations, which are within 30 km of each other on the east coast near Rhode Island. These are not false positive detections, rather, this method of estimating distance and speed is inappropriate in this circumstance, because the bird is most likely migrating somewhere between the two stations.
+All of the high rates are for one tag, 16047, attached to a Red Knot, and appear to be the result of simultaneous detections by the BennetMeadow and Shelbourne sites, which are within 20km of each other north of Amherst Massachusetts, and 7 hours later by the BISE and TRUS stations, which are within 30 km of each other on the east coast near Rhode Island. These are not false positive detections, rather, this method of estimating distance and speed is inappropriate in this circumstance, because the bird is most likely migrating somewhere between the two stations.
 
 No additional detections jumped out as false positive in this last step, so we move on to exploring the data in Chapter \@ref(#exploreData).
 

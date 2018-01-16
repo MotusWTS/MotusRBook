@@ -14,25 +14,27 @@ library(motus)
 
 ## Load data
 
-If you followed along with the the previous \@ref(dataCleaning) chapter and are working with cleaned sql.filtered file, you can skip ahead to \@ref(dataSummaries).  Otherwise we will load the sample data and clean it now.  Recall from \@ref(accessingData) that when accessing the sample database, you will need to input "motus.sample" as both username and password when prompted by the tagme() user authentication process. 
+If you followed along with the the previous \@ref(dataCleaning) chapter and are working with cleaned 'df.alltags.filt.filt' file, you can skip this step and move to \@ref(dataSummaries).  Otherwise we will load the previously downloaded sample data (see chapter \@ref(accessingData) and clean it now.
 
 ```{r importData}
 
-proj.num <- 176
+# load the .motus file
+sql.motus <- tagme(176, update = FALSE, dir = "./data/")
 
-# load detection data
-sql.motus <- tagme(proj.num, update = FALSE, dir = "./data")
-tbl.alltags <- tbl(sql.motus, "alltags")
-df.alltags <- tbl.alltags %>% collect() %>%
-                as.data.frame() %>%
-                mutate(ts = as_datetime(ts)) # work with dates AFTER transforming to flat file
-```
+# apply the filter; a dataframe is output
+df.alltags.filt.filt <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
 
-## Remove false positives and ambiguous detections
-```{r overwriteFilter}
-
-sql.filtered <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
-
+# manage the dataframe
+df.alltags.filt.filt <- df.alltags.filt.filt %>%
+                      mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
+                             recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
+                             recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt),
+                             ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
+                             tagDeployStart = as_datetime(tagDeployStart),
+                             tagDeployEnd = as_datetime(tagDeployEnd)) %>%
+                      select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, -mfg, -nomFreq, -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID, -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat, -gpsLon, - recvAlt, - recvSiteName) %>%
+                      collect() %>%
+                      as.data.frame()
 ```
 
 ## Summarizing your data {#dataSummaries}
@@ -48,17 +50,17 @@ The dplyr package allows you to easily summarize data by group, manipulate varia
 We can manipulate existing variables or create new ones with dplyr's mutate function, here we'll convert ts to a POSIXct format, then make a new variable for year and day of year (doy):
 ```{r tagMutate}
 
-df.alltags <- df.alltags %>%
+df.alltags.filt.filt <- df.alltags.filt.filt %>%
   mutate(ts = as_datetime(ts, tz = "UTC"), ## convert ts to POSIXct format
          year = year(ts), ## extract year from ts
          doy = yday(ts)) ## extract numeric day of year from ts
-head(df.alltags)
+head(df.alltags.filt.filt)
 ```
 
 We can also summarize information by group, in this case motusTagID, and apply various functions to these groups such as getting the total number of detections (n) for each tag, the number of receivers each tag was detected on, the first and last detection date, and the total number of days there was at least one detection:
 ```{r tagSummary}
 
-tagSummary <- df.alltags %>%
+tagSummary <- df.alltags.filt %>%
   group_by(motusTagID) %>% 
   summarize(nDet = n(),
             nRecv = length(unique(recvDeployName)),
@@ -72,7 +74,7 @@ head(tagSummary)
 We can also group by multiple variables, applying the same function as above but now grouping by motusTagID and recvDepName, we will get information for each tag detected on each receiver. Since we've specified to group by recvDeployName, there will be by default only one recvDeployName in each group, thus the variable nRecv will be 1 for each row which is not very information, however we've kept this variable in to help illustrate how grouping works:
 ```{r tagRecvSum}
 
-tagRecvSummary <- df.alltags %>%
+tagRecvSummary <- df.alltags.filt %>%
   group_by(motusTagID, recvDeployName) %>% 
   summarize(nDet = n(),
             nRecv = length(unique(recvDeployName)),
@@ -86,77 +88,89 @@ head(tagRecvSummary)
 ## Plotting your data {#dataPlotting}
 Plotting your data is a powerful way to visualize broad and fine-scale detection patterns, this section will give you a brief intro into plotting using ggplot2.  For more in depth information on the uses of ggplot2 we recommend the Cookbook for R <http://www.cookbook-r.com/Graphs/>, and the rstudio ggplot2 cheatsheet <https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf>.  
 
-To make coarse-scale plots with large files we suggest first rounding the detection time to the nearest hour or day so that processing time is faster.  Here we'll round detection times to the nearest hour and work with that rounded dataframe, then we'll make a basic plot of hourly detection by motusTagID:
+To make coarse-scale plots with large files we suggest first rounding the detection time to the nearest hour or day so that processing time is faster.  Here we'll round detection times to the nearest hour and work with that rounded dataframe, then we'll make a basic plot of hourly detections by motusTagID:
 
-```{r}
-tmp$hour <- as.POSIXct(round(tmp$ts, "hour"))
-round.tmp <- tmp %>% select(motusTagID, port, mfgID, tagDepLat, tagDepLon, recvDeployLat, recvDeployLon, recvDepName, antBearing, speciesEN, year, doy, hour) %>% unique()
+```{r hourlyPlot}
+df.alltags.filt$hour <- as.POSIXct(round(df.alltags.filt$ts, "hour"))
+round.df.alltags.filt <- df.alltags.filt %>% filter(tagProjID == 176) %>% select(motusTagID, port, mfgID, tagDeployStart, tagDeployLat, tagDeployLon, recvLat, recvLon, recvDeployName, antBearing, speciesEN, year, doy, hour) %>% unique()
 
-ggplot(data = round.tmp, aes(hour, as.factor(motusTagID))) + geom_point()
+ggplot(data = round.df.alltags.filt, aes(hour, as.factor(motusTagID))) + geom_point()
 ```
 Let's focus only on tags deployed in 2016, we can also clean up the plot by removing the grey background, and we can colour the tags by species:
-```{r}
-ggplot(data = filter(round.tmp, round(tagDeployStart, "year") == 2016), aes(hour, as.factor(motusTagID), col = recvDepName)) +
+```{r hourlyPlotSpecies}
+ggplot(data = filter(round.df.alltags.filt, year(tagDeployStart) == 2016), aes(hour, as.factor(motusTagID), col = speciesEN)) +
   geom_point() +
   theme_bw()
 ```
 
-We can see how tags moved latitudinally:
-```{r}
-ggplot(data = filter(round.tmp, round(tagDeployStart, "year") == 2016), aes(hour, recvDeployLat, col = as.factor(motusTagID), group = as.factor(motusTagID))) +
+We can see how tags moved latitudinally by first ordering by hour:
+```{r hourlyPlotLat, warnings = FALSE}
+
+round.df.alltags.filt <- arrange(round.df.alltags.filt, hour)
+
+ggplot(data = filter(round.df.alltags.filt, year(tagDeployStart) == 2016), aes(hour, recvLat, col = as.factor(motusTagID), group = as.factor(motusTagID))) +
   geom_point() +
-  geom_path()
+  geom_path() +
   theme_bw()
 ```
 
-Now lets look at more detailed plots of signal variation, here we'll use the full tmp dataframe so we can get signal strength for each detection of a specific tag.  Let's examine fall 2015 detections of tag 16039, we can facet the plot by deployment name, ordered by decreasing latitude.
+Now lets look at more detailed plots of signal variation, here we'll use the full df.alltags.filt dataframe so we can get signal strength for each detection of a specific tag.  Let's examine fall 2016 detections of tag 22897 at Niapiskau, we can facet the plot by deployment name, ordered by decreasing latitude.
 
-```{r}
-tmp <- within(tmp, recvDepName <- reorder(recvDepName, (-recvDeployLat))) ## order sitelat by latitude
-ggplot(filter(tmp, motusTagID == 16039 & ts < as.POSIXct("2015-10-15")), aes(ts, sig)) + theme_bw() + geom_point() + facet_grid(recvDepName~.)
-```
-We can zoom in on certain time periods, for example the last detection and departure from the tagging location
-```{r}
-#NEED CODE
-```
+16047 22867 23316 16037 16038 16039 16044 16011 19129 17021 17357 24298 16035 16052 22778 24303 16036 16048 22897 22902
+[21] 22905 10811
 
-We can zoom in on a section of this plot and look at antenna bearings to see directional movement past stations:
-```{r}
-ggplot(filter(tmp, motusTagID == 16039 & ts > as.POSIXct("2015-09-14") &ts < as.POSIXct("2015-10-01")), aes(ts, sig, col = as.factor(antBearing))) + theme_bw() + geom_point() + facet_grid(recvDepName~.)
+```{r plot22897}
+df.alltags.filt <- within(df.alltags.filt, recvDepName <- reorder(recvDeployName, (-recvLat))) ## order sitelat by decreasing latitude
+
+ggplot(filter(df.alltags.filt, motusTagID == 22897 & recvDeployName == "Niapiskau"), aes(ts, sig)) + theme_bw() + geom_point() + facet_grid(recvDeployName~.)
 ```
 
 We can use the sunRiseSet function available in the motus R package (see \@ref(sunRiseSet)) to get sunrise and sunset times for all detections, we can then add that information to the above plot with geom_vline()
-```{r}
-tmp <- sunRiseSet(tmp)
-ggplot(filter(tmp, motusTagID == 22897 & ts > as.POSIXct("2016-10-01") &ts < as.POSIXct("2016-10-29") & recvDepName == "Niapiskau"), aes(ts, sig)) + theme_bw() + geom_point() + geom_vline(xintercept = tmp$sunrise, col = "orange") + geom_vline(xintercept = tmp$sunset, col = "blue")
+```{r plotSunriset22897}
+df.alltags.filt <- sunRiseSet(df.alltags.filt, lat = "recvLat", lon = "recvLon") ## add sunrise and sunset times to the dataframe
+
+ggplot(filter(df.alltags.filt, motusTagID == 22897 & ts > as.POSIXct("2016-10-11") & ts < as.POSIXct("2016-10-17") & recvDepName == "Niapiskau"), aes(ts, sig)) + theme_bw() + geom_point() + geom_vline(xintercept = df.alltags.filt$sunrise, col = "orange") + geom_vline(xintercept = df.alltags.filt$sunset, col = "blue")
 ```
+We can see that during this period, the tag was most often detected during the day, suggesting it may be actively foraging in this area during this time.  
+
+The same plots can provide valuable movement information, here well look at motusTagID 16039:
+```{r}
+ggplot(filter(df.alltags.filt, motusTagID == 16039 & ts < as.POSIXct("2015-10-01")), aes(ts, sig)) + theme_bw() + geom_point() + facet_grid(recvDepName~.)
+```
+We can zoom in on a section of this plot and look at antenna bearings to see directional movement past stations:
+```{r}
+ggplot(filter(df.alltags.filt, motusTagID == 16039 & ts > as.POSIXct("2015-09-14") &ts < as.POSIXct("2015-10-01")), aes(ts, sig, col = as.factor(antBearing))) + theme_bw() + geom_point() + facet_grid(recvDepName~.)
+```
+This plot shows the typical flyby pattern of a migrating bird, signal strength increases and then decreases as the tag approaches and moves past the station.
 
 ## Mapping your data {#mappingData}
 To generate maps of tag paths, we will once again use summarized data so we can work with a much smaller database for faster processing, here we'll summarize detections by day:
 ```{r plotTagPaths.6}
-tmp.path <- tmp.sub %>%
+proj.num = 176
+
+df.alltags.filt.path <- df.alltags.filt %>%
                     filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
                     arrange(motusTagID, ts) %>%       # order data by time stamp for each motus tag ID
                     mutate(date = as_date(ts)) %>%    # create date variable
-                    group_by(motusTagID, date, recvDepName, ambigID, tagDepLon, tagDepLat, recvLat, recvLon)
+                    group_by(motusTagID, date, recvDepName, ambigID, tagDeployLon, tagDeployLat, recvLat, recvLon)
 ```
 ### Mapping with Google Maps {#googleMaps}
 Mapping with Google Maps can be a fast way to view flight paths that allows you to select from multiple base layers.  
 For Google Maps, we'll need to load ggmap and ggplot2 packages, see \@ref(loadingPackages) for instructions on installing the package if you have no already done so.
 ```{r installGoogleMapPackages, message = FALSE, warning = FALSE, eval = FALSE}
 require(ggmap)
-require(ggplot2)
 ```
+
 The first step is creating a map with a specified map centre, maptype ("terrain", "roadmap", "satellite", or "hybrid"), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale).  We then add points for receivers and lines connecting consecutive detections by motusTagID.
-```{r}
-gmap <-  get_map(location = c(lon = lonCentre, lat = latCentre), ## lon/lat to centre map over
+```{r googleMap, warning = FALSE}
+gmap <-  get_map(location = c(lon = -75, lat = 40), ## lon/lat to centre map over
                  maptype = "satellite", ## select maptype
                  source = "google",
-                 zoom = 3) ## zoom, must be a whole number
+                 zoom = 4) ## zoom, must be a whole number
   p <- ggmap(gmap)
-  p + geom_point(data = tmp.path, aes(recvDeployLon, recvDeployLat), pch=21, colour = "black", fill = "yellow") +
-    geom_path(data=data, aes(recvDeployLon, recvDeployLat, group=fullID, col = fullID)) +
+  p + geom_point(data = df.alltags.filt.path, aes(recvLon, recvLat), pch=21, colour = "black", fill = "yellow") + geom_path(data=df.alltags.filt.path, aes(recvLon, recvLat, group=motusTagID, col = as.factor(motusTagID))) +
     theme_bw()
+
 ```
 
 ### Creating simple outline maps {#outlineMaps}
@@ -191,10 +205,10 @@ Finally, to map the paths, we set the x-axis and y-axis limits based on the loca
 ```{r mapDetections}
 
 # set limits to map based on locations of detections, ensuring they include the deployment locations
-xmin <- min(tmp.path$recvLon, na.rm = TRUE) - 2
-xmax <- max(tmp.path$recvLon, na.rm = TRUE) + 2
-ymin <- min(tmp.path$recvLat, na.rm = TRUE) - 2
-ymax <- max(tmp.path$recvLat, na.rm = TRUE) + 2
+xmin <- min(df.alltags.filt.path$recvLon, na.rm = TRUE) - 2
+xmax <- max(df.alltags.filt.path$recvLon, na.rm = TRUE) + 2
+ymin <- min(df.alltags.filt.path$recvLat, na.rm = TRUE) - 2
+ymax <- max(df.alltags.filt.path$recvLat, na.rm = TRUE) + 2
                 
 # map
 ggplot(na.lakes, aes(long, lat))+ 
@@ -203,12 +217,11 @@ ggplot(na.lakes, aes(long, lat))+
   coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
   xlab("") + ylab("") + 
   theme_bw() + 
-  geom_path(data = tmp.path, aes(recvLon, recvLat, group = motusTagID), colour = as.factor(motusTagID)) + 
-  geom_point(data = tmp.path, aes(tagDepLon, tagDepLat), colour = "black", shape = 4) +
+  geom_path(data = df.alltags.filt.path, aes(recvLon, recvLat, group = "motusTagID", colour = as.factor(motusTagID))) +
+  geom_point(data = df.alltags.filt.path, aes(tagDeployLon, tagDeployLat), colour = "black", shape = 4) +
   scale_colour_discrete("motusTagID") +
-  facet_wrap(~motusTagID, nrow = 2)
+  facet_wrap(~speciesEN, nrow = 2)
 
 ```
-
 
 

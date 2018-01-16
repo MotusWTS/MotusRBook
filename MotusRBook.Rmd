@@ -1143,7 +1143,7 @@ na.map <- mutate(na.map, long = long- 360)
 
 Finally, to map the paths using ggplot, set the x-axis and y-axis limits based on the location of receivers with detections. Note that if the tags were not deployed near towers with detections, the axis limits might need to be modified to encompass the deployment location of the tags. 
 
-```{r mapDetections1}
+```{r mapDetections1, warning = FALSE, message = FALSE}
 
 ## set limits to map based on locations of detections, ensuring they include the deployment locations
 xmin <- min(df.alltags.path$recvLon, na.rm = TRUE) - 2
@@ -1172,13 +1172,15 @@ ggplot(na.lakes, aes(long, lat))+
 
 ## Filter the data
 
-To filter the data, you can use the Motus R package functionalities to create a custom data filter (see \@ref(#appendixC)) that is attached to your user profile (motus login credentials), and can be used to 1) assign probabilities to detections, and 2) filter detections based on those probabilities each time you load your .motus file. The filter is created, populated, and applied in the following steps:
+The Motus R package offers functionalities to create custom filters for your data (see \@ref(#appendixC)). The filters, once creater, are attached to your user profile (motus login credentials), and can be used to 1) assign probabilities to detections, and 2) filter detections based on those probabilities each time you load your .motus file. A filter is created, populated, and applied in the following steps:
 
-1. use the 'createRunsFilter' function to create (but not populate) a filter named 'filtAmbigFalsePos'.  
-2. Generate a dataframe which includes the motusTagID and runID of detections you want to filter.  
-3. Assign a probability to those detections. In this chapter we assign a probability of 0 to detections we deem are false positive.  
-4. Use the 'writeRunsFilter' function to populate the filter. Using the delete = TRUE option will remove all records previously written to the filter; using the overwrite = FALSE option will allow new records to be appended to the filter.  
-5. Use the 'applyRunsFilter' function to assign the probabilities to the records in your .motus file. Note that this function simply assigns each run of detections in the database with the probability, unless the 'p.min =' statement is used, which drops all detections with a probability <= p.min.  
+1. use the 'createRunsFilter' function to create (but not populate) a filter, here named 'filtAmbigFalsePos'. 
+
+2. Generate a dataframe which includes the motusTagID and runID of detections you want to filter; assign a probability to those detections. In this case, because we want to exclude the data we are filtering, we assign a probability of 0 to all detections we deem are false positive.  
+
+3. Use the 'writeRunsFilter' function to write the dataframe to the filter. Using the delete = TRUE option will remove all records previously written to the filter; using the overwrite = FALSE option will allow new records to be appended to the filter.  
+
+4. Use the 'applyRunsFilter' function to output a flat file of the alltags dataframe with probabilities assigned to each detection. Detections that are not included in the filter will be automatically assigned a probability of 1. Note that to also filter the data by a given probability, you must use the 'p.min =' statement. In this case, we use p.min = 0.1, which drops all detections with a probability less than that value.  
 
 ### Create a custom data filter for your .motus file
 
@@ -1201,59 +1203,24 @@ listRunsFilters(sql.motus)
 
 ### Filter detections with run length = 2 and standard deviation of frequency offset >= 0.1
 
-For demonstration, re-plot the data including only detections with runLen > 2 and freqsd < 0.1:
 
-```{r mapDetections2}
-
-df.alltags.path <- df.alltags.sub %>%
-                    filter(tagProjID == proj.num, runLen > 2, freqsd < 0.1) %>% # keep to tags registered to the sample project
-                    arrange(motusTagID, ts) %>%       # order data by time stamp for each motus tag ID
-                    mutate(date = as_date(ts)) %>%    # create date variable
-                    group_by(motusTagID, date, recvDeployName, ambigID, tagDeployLon, tagDeployLat, recvLat, recvLon)%>%
-                    summarize(max.runLen = max(runLen)) 
-
-## set limits to map based on locations of detections, ensuring they include the deployment locations
-xmin <- min(df.alltags.path$recvLon, na.rm = TRUE) - 2
-xmax <- max(df.alltags.path$recvLon, na.rm = TRUE) + 2
-ymin <- min(df.alltags.path$recvLat, na.rm = TRUE) - 2
-ymax <- max(df.alltags.path$recvLat, na.rm = TRUE) + 2
-                
-## map
-ggplot(na.lakes, aes(long, lat))+ 
-  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+#
-  geom_polygon(aes(group = group), colour = "grey", fill = "white")+
-  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
-  xlab("") + ylab("") + 
-  theme_bw() + 
-  geom_path(data = df.alltags.path, aes(recvLon, recvLat, group = motusTagID), colour = "grey20") + 
-  geom_point(data = df.alltags.path, aes(recvLon, recvLat, colour = !is.na(ambigID)), size =1.5)+
-  geom_point(data = df.alltags.path, aes(tagDeployLon, tagDeployLat), colour = "black", shape = 4) +
-  scale_colour_discrete("motusTagID") +
-  #scale_shape_manual(values = c(1, 2)) +
-  scale_colour_manual(values = c("deepskyblue3", "darkorange1"))+
-  facet_wrap(~motusTagID, nrow = 2)
-
-```
-
-**Figure 5.2**. Plot of the paths of several tags, showing whether detections were ambiguous (orange) or not (blue), for detections with a run length greater than two and standard deviation of frequency offset > 0.1. Tag deployment location is shown by a black 'x'. We note that the paths are much cleaner than in Figure 5.1.
-
-Next, generate a dataframe 'df.tagRuns' that includes the motusTagID and runID of detections we decide do not belong to our tags. In this case, we select all detections with runLen = 2 and/or a standard deviation of frequency offset >= 0.1 (remember that frequency offset only applies to SensorGnome receivers). We also assign a probability of 0 to the records:
+To filter all detections with a runLen = 2 and/or a standard deviation of frequency offset >= 0.1 (remember that frequency offset only applies to SensorGnome receivers), generate a dataframe, here named 'df.tagRuns', that includes the motusTagID and runID of detections with a runLen = 2 and freqsd >= 0.1. A probability of 0 is assigned to those records:
 
 ```{r filterRunLen}
 
 df.tagRuns <- df.alltags.sub %>%
-  filter(freqsd > 0.1|runLen == 2) %>%
+  filter(freqsd >= 0.1|runLen == 2) %>%
   select(motusTagID, runID) %>%
   mutate(probability = 0) %>%
   distinct()
 
 ```
 
-Then populate the 'filtAmbigFalsePos' filter using the `writeRunsFilter` function. To remove previously written detections from the filter, use the delete = TRUE option (not done here):
+Then, populate the 'filtAmbigFalsePos' filter using the `writeRunsFilter` function. To remove previously written detections from the filter, use the delete = TRUE option:
 
 ```{r writeFilter1}
 
-writeRunsFilter(sql.motus, "filtAmbigFalsePos", motusProjID = 176, df = df.tagRuns)
+writeRunsFilter(sql.motus, "filtAmbigFalsePos", motusProjID = 176, df = df.tagRuns, delete = TRUE)
 
 ```
 Check that the records were applied to the filter using the 'getRunsFilters' function:
@@ -1273,8 +1240,11 @@ Note also that because the filter is applied to the .motus file and not our flat
 
 # load the .motus file
 sql.motus <- tagme(176, update = FALSE, dir = "./data/")
+
 ```
+
 ```{r overwriteFilter2}
+
 # apply the filter; a dataframe is output
 df.alltags.filt <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
 
@@ -1298,7 +1268,7 @@ df.alltags.filt <- df.alltags.filt %>%
 
 Re-plot the tag paths using the filtered data:
 
-```{r mapDetections3}
+```{r mapDetections3, message = FALSE, warning = FALSE}
 
 df.alltags.path <- df.alltags.filt %>%
                     filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
@@ -1330,7 +1300,9 @@ ggplot(na.lakes, aes(long, lat))+
 
 ```
 
-From these plots, we can safely drop some ambiguous detections that belong to duplicate tags from other projects:
+**Figure 5.2**. Plot of the paths of several tags, showing whether detections were ambiguous (orange) or not (blue), for detections with a run length greater than two and standard deviation of frequency offset > 0.1. Tag deployment location is shown by a black 'x'. We note that the paths are much cleaner than in Figure 5.1.
+
+From these plots, we can make the following decisions:
 
 **motusTagID 16038:** 
 
@@ -1338,11 +1310,11 @@ From this plot, there are no obvious false positive detections for this tag.
 
 **motusTagID 16047:** 
 
-Again for this tag, there are no obvious false positive detections. The path follows an expected trajectory for a Red Knot departing on fall migration from the James Bay area.
+There are no obvious false positive detections. The path follows an expected trajectory for a Red Knot departing on fall migration from the James Bay area.
 
 **motusTagID 22897:**
 
-- using 'clarify(sql.motus)', the ambiguous detections in the Great Lakes region could also belong to tag 24298 released by the Neonics project. Filtering the tag deployment metadata using 'filter(df.tagDeps.sub, tagID == 24298)', we see that that duplicate tag was released on the north shore of Lake Erie. Those ambiguities most likely belong to that tag, and can be dropped from our data.
+Using 'clarify(sql.motus)', the ambiguous detections in the Great Lakes region could also belong to tag 24298 released by the Neonics project. Filtering the tag deployment metadata using 'filter(df.tagDeps.sub, tagID == 24298)', we see that that duplicate tag was released on the north shore of Lake Erie. Those ambiguities most likely belong to that tag, and can be dropped from our data.
 
 
 ```{r filter1Tag3}
@@ -1352,13 +1324,14 @@ df.tagRuns <- filter(df.alltags.filt,
                      (!is.na(ambigID))) %>%
                   select(motusTagID, runID) %>%
                   distinct() %>%
+                  mutate(probability = 0) %>%
                   bind_rows(df.tagRuns)
 
 ```
 
 **motusTagID 22902:** 
 
-- using 'clarify(sql.motus)', the ambiguous detections for this tag, which occur in the great lakes region, could also belong to motusTagID 22778 from the RBrownAMWO project or motusTagID 24303 from the Neonics project. The Neonics project deployed tags on the north shore of Lake Erie in Ontario, Canada, so ambiguous detections in that region can be safely removed from the sample data.
+Using 'clarify(sql.motus)', the ambiguous detections for this tag, which occur in the great lakes region, could also belong to motusTagID 22778 from the RBrownAMWO project or motusTagID 24303 from the Neonics project. The Neonics project deployed tags on the north shore of Lake Erie in Ontario, Canada, so ambiguous detections in that region can be safely removed from the sample data.
 
 ```{r filter1Tag4}
 
@@ -1367,13 +1340,14 @@ df.tagRuns <- filter(df.alltags.filt,
                      (!is.na(ambigID))) %>%
                   select(motusTagID, runID) %>%
                   distinct() %>%
+                  mutate(probability = 0) %>%
                   bind_rows(df.tagRuns)
 
 ```
 
 **motusTagID 22905:**
 
-- using 'filter(df.tagDeps.sub, tagID == 22905|tagID == 23319)', we see that this tag and tag 23319 were deployed by the James Bay Shorebird Project (Sample Project) within two weeks of each other, and from the same deployment location. As a result, most detections are ambiguous and cannot be assigned with confidence to either tag. All ambiguous detections will unfortunately be dropped for this tag and for tag 23319. Only non-ambiguous detections of tag 22905 between October 10 2016 when it was deployed, and October 15 2016 when tag 23319 were deployed, will be useful for looking at movement behaviour. 
+It turns out that most of the ambiguous detections for this tag and tag 23319 were dropped as a result of runLen or freqsd. Using 'filter(df.tagDeps.sub, tagID == 22905|tagID == 23319)', we see that both tags were deployed by the James Bay Shorebird Project (Sample Project) within two weeks of each other, and from the same deployment location. As a result, all remaining ambiguities cannot be assigned with confidence to either tag. All ambiguous detections will be dropped for this tag and for tag 23319. Only non-ambiguous detections of tag 22905 between October 10 2016 when it was deployed, and October 15 2016 when the duplicate tag was deployed, will be useful for looking at local movement behaviour. 
 
 
 ```{r filter1Tag5}
@@ -1383,13 +1357,14 @@ df.tagRuns <- filter(df.alltags.filt,
                      (!is.na(ambigID))) %>%
                   select(motusTagID, runID) %>%
                   distinct() %>%
+                  mutate(probability = 0) %>%
                   bind_rows(df.tagRuns)
 
 ```
 
 **motusTagID 23319:**
 
-- as stated above for tag 22905, all ambiguous detections will be dropped for this tag, because they can't be assigned with confidence to either tag.
+As stated above for tag 22905, all ambiguous detections will be dropped for this tag, because they can't be assigned with confidence to either tag.
 
 ```{r filter1Tag6}
 
@@ -1419,21 +1394,12 @@ writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.tagRuns, overwrite = FAL
 
 ```
 
-Again, check that records were applied to the filter using the 'getRunsFilters' function:
-
-```{r getRunsFilter2}
-
-df.check <- getRunsFilters(sql.motus, "filtAmbigFalsePos")
-head(df.check)
-
-```
-
-Again, apply the filter to the .motus file, and re-format the data into a flat file before continuing to the next step. Note that this code is *exactly* the same as in the previous section, the only difference is that the 'filtAmbigFalsePos' filter now contains more runIDs to filter out of the data:
+Apply the filter to the .motus file, and re-format the data into a flat file before continuing to the next step. Note that this code is *exactly* the same as in the previous section; the only difference is that the 'filtAmbigFalsePos' filter now contains more runIDs to filter out of the data:
 
 ```{r overwriteFilter4}
 
 # load the .motus file
-sql.motus <- tagme(176, update = TRUE, dir = "./data/")
+sql.motus <- tagme(176, update = FALSE, dir = "./data/")
 
 # apply the filter; a dataframe is output
 df.alltags.filt <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
@@ -1551,25 +1517,31 @@ ggplot(data = filter(df.alltags.filt, is.na(ambigID)), # plot ambiguous detectio
 
 **motusTagID 16038**
 
-- there are detections at two towers, not far apart. From these plots, there don't appear to be additional false positives for this tag.
+There are detections at two towers, not far apart. From these plots, there don't appear to be additional false positives for this tag.
 
 **motusTagID 16047**
 
-- there is nothing that stands out about these detections that requires filtering in this step; you can see that after this Red Knot departed the James Bay region, it was detected moving south along the east coast at an appropriate time of year and in an appropriate location.
+There is nothing that stands out about these detections that requires filtering in this step; you can see that after this Red Knot departed the James Bay region, it was detected moving south along the east coast at an appropriate time of year and in an appropriate location.
 
 **motusTagID 22897**
 
-- using 'filter(df.alltags.filt, motusTagID == 22897, recvLon < -80)', we see that the detections in the Great Lakes region (recvDeployName "Old Cut") occurred on April 20, 2017 at 22:33 (HH:MM). The detections have a run length of 3 or 4, freqsd is < 0.1, and detections were recorded by three of four antennas at the Old Cut station. Normally Red Knots migrate through that region in May, so this is potentially a little bit early to detect Red Knots at this tower, but not impossible. 
+Using 'filter(df.alltags.filt, motusTagID == 22897, recvLon < -80)', we see that the detections in the Great Lakes region (recvDeployName "Old Cut") occurred on April 20, 2017 at 22:33 (HH:MM). The detections have a run length of 3 or 4, freqsd is < 0.1, and detections were recorded by three of four antennas at the Old Cut station. Normally Red Knots migrate through that region in May, so this is potentially a little bit early to detect Red Knots at this tower, but not impossible. 
 
 **motusTagID 22902**
 
-- the only detections for this tag occur at the deployment location, near the deployment time, so these are true detections of the tag.
+The only detections for this tag occur at the deployment location, near the deployment time, so these are true detections of the tag.
 
-**5. motusTagID 22905**
+**motusTagID 22905**
 
-- I can't finish this and the next tag until the filter is working properly
+There doesn't appear to be any issue with the remaining detections for this tag.
 
 **motusTagID 23319**
+
+<<<<<<< HEAD
+- 
+=======
+There are no unambiguous detections for this tag, so it can be dropped completely.
+>>>>>>> 6a20ed29c14f0bdabe4d4292892ab641ed7f1e11
 
 ## Filter data based on flight speed between detections {#filterFlightSpeed}
 
@@ -1578,9 +1550,6 @@ By looking at the rate of movement between sites with consecutive detections, we
 Rate of movement between sites can be determined using the siteTrans function in the motus R package (see \@ref(#appendixB). The output is in m for distance, and m/s for rate. 
 
 ```{r falseBySpeed1, message = FALSE, warning = FALSE}
-
-# REMOVE THE FOLLOWING LINE WHEN FILTER WORKING PROPERLY
-df.alltags.filt <- filter(df.alltags.filt, is.na(ambigID))
 
 df.detectTrans <- as.data.frame(siteTrans(df.alltags.filt, latCoord = "recvLat", lonCoord = "recvLon")) ## create new data.base consisting of transitions between consecutive sites for each tag
 head(df.detectTrans)
@@ -1593,20 +1562,25 @@ There are a few transitions with unusually high speeds. We subset those out to t
 ```{r falseBySpeed2}
 
 filter(df.detectTrans, rate > 60)
+```
 
+All of the high rates are for one tag, 16047, attached to a Red Knot, and appear to be the result of simultaneous detections by the BennetMeadow and Shelbourne sites, which are within 20km of each other north of Amherst Massachusetts, and 7 hours later by the the BISE and TRUS stations, which are within 30 km of each other on the east coast near Rhode Island. These are not false positive detections, rather, this method of estimating distance and speed is inappropriate in this circumstance, because the bird is most likely migrating somewhere between the two stations.
+
+No additional detections jumped out as false positive in this last step, so we move on to exploring the data in Chapter \@ref(#exploreData).
+
+#NOT SURE WHERE THIS WAS GOING:
+```{r notsurewhatthisisfor}
 df.detectTrans %>%
   group_by(motusTagID) %>%
   summarize()
 ```
-
-All of the high rates are for one tag, 16047, attached to a Red Knot, and appear to be the result of simultaneous detections by the BennetMeadow and Shelbourne sites, which are within 20km of each other north of Amherst Massachusetts, and 7 hours later by the the BISE and TRUS stations, which are within 30 km of each other on the east coast near Rhode Island. These are not false positive detections, rather, this method of estimating distance and speed is inappropriate in this circumstance, because the bird is most likely migrating somewhere between the two stations.
 
 
 <!--chapter:end:05-DataCleaning.Rmd-->
 
 # Exploring data with the Motus R package {#exploreData}
 
-Once you have clarified any possible ambiguous tags, and removed false positives, you are ready to start analyzing your clean data set.  This chapter will walk you through some simple procedures to start working with and visualizing the clean sample data set, you can modify these scripts to work with your data.
+Once you have clarified any possible ambiguous tags, and removed false positives, you are ready to start analyzing your clean data set.  This chapter will walk you through some simple procedures to start working with and visualizing the clean sample data set, you can modify these scripts to work with your data. For a more indepth totorial we strongly recommend working through R for Data Science by Garrett Grolemund and Hadley Wickham <http://r4ds.had.co.nz/>.
 
 ## Load required packages
 
@@ -1627,9 +1601,9 @@ If you followed along with the the previous \@ref(dataCleaning) chapter and are 
 proj.num <- 176
 
 # load detection data
-sql.motus <- tagme(proj.num)
+sql.motus <- tagme(proj.num, update = FALSE, dir = "./data")
 tbl.alltags <- tbl(sql.motus, "alltags")
-tmp <- tbl.alltags %>% collect() %>%
+df.alltags <- tbl.alltags %>% collect() %>%
                 as.data.frame() %>%
                 mutate(ts = as_datetime(ts)) # work with dates AFTER transforming to flat file
 ```
@@ -1642,10 +1616,11 @@ sql.filtered <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
 ```
 
 ## Summarizing your data {#dataSummaries}
-You can see a quick summary of all variables in a data frame with the summary() function, here we'll just examine a few select variables:
+Here we will run through some basic commands, starting with the summary() function to view all variables in a data frame, here we'll just examine a few select variables:
 ```{r summaryAllTags}
 
-sql.motus %>% tbl("alltags") %>% select(ts, motusTagID, runLen, speciesEN, tagDepLat, tagDepLon, recvDeployLat, recvDeployLon) %>% summary()
+sql.motus %>% tbl("alltags") %>% select(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, recvDeployLat, recvDeployLon) %>% collect %>% summary()
+
 ```
 
 The dplyr package allows you to easily summarize data by group, manipulate variables, or create new variables based on your data.  
@@ -1653,21 +1628,20 @@ The dplyr package allows you to easily summarize data by group, manipulate varia
 We can manipulate existing variables or create new ones with dplyr's mutate function, here we'll convert ts to a POSIXct format, then make a new variable for year and day of year (doy):
 ```{r tagMutate}
 
-tmp <- tmp %>%
+df.alltags <- df.alltags %>%
   mutate(ts = as_datetime(ts, tz = "UTC"), ## convert ts to POSIXct format
-             year = year(ts), ## extract year from ts
-             doy = yday(ts)) ## extract numeric day of year from ts
-head(tmp)
-
+         year = year(ts), ## extract year from ts
+         doy = yday(ts)) ## extract numeric day of year from ts
+head(df.alltags)
 ```
 
-We can also summarize information by tag by first grouping the data by motusTagID. Then we can apply various functions to these groups such as getting the total number of detections (n) for each tag, the number of receivers each tag was detected on, the first and last detection date, and the total number of days there was at least one detection:
+We can also summarize information by group, in this case motusTagID, and apply various functions to these groups such as getting the total number of detections (n) for each tag, the number of receivers each tag was detected on, the first and last detection date, and the total number of days there was at least one detection:
 ```{r tagSummary}
 
-tagSummary <- tmp %>%
+tagSummary <- df.alltags %>%
   group_by(motusTagID) %>% 
   summarize(nDet = n(),
-            nRecv = length(unique(recvDepName)),
+            nRecv = length(unique(recvDeployName)),
             tsMin = min(ts),
             tsMax = max(ts),
             totDay = length(unique(doy)))
@@ -1675,13 +1649,13 @@ head(tagSummary)
 
 ```
 
-We can also group by multiple variables, applying the same function as above but now grouping by motusTagID and recvDepName, we will get information for each tag detected on each receiver. Since we've specified to group by recvDepName, there will be by default only one recvDepName in each group, thus the variable nRecv will be 1 for each row which is not very information, however we've kept this variable in to help illustrate how grouping works:
+We can also group by multiple variables, applying the same function as above but now grouping by motusTagID and recvDepName, we will get information for each tag detected on each receiver. Since we've specified to group by recvDeployName, there will be by default only one recvDeployName in each group, thus the variable nRecv will be 1 for each row which is not very information, however we've kept this variable in to help illustrate how grouping works:
 ```{r tagRecvSum}
 
-tagRecvSummary <- tmp %>%
-  group_by(motusTagID, recvDepName) %>% 
+tagRecvSummary <- df.alltags %>%
+  group_by(motusTagID, recvDeployName) %>% 
   summarize(nDet = n(),
-            nRecv = length(unique(recvDepName)),
+            nRecv = length(unique(recvDeployName)),
             tsMin = min(ts),
             tsMax = max(ts),
             totDay = length(unique(doy)))
@@ -2100,7 +2074,7 @@ Creates a data.frame of transitions between sites; detections are ordered by det
 ### Example
 View site transitions for only tag 16037 from data.frame df.alltags
 ```{r, siteTrans, eval = TRUE}
-transitions <- siteTrans(filter(df.alltags, motusTagID == 16037))
+transitions <- siteTrans(filter(df.alltags, motusTagID == 16037), latCoord = "recvDeployLat", lonCoord = "recvDeployLon")
 head(transitions)
 ```
 
