@@ -304,7 +304,7 @@ df.alltags.filt <- df.alltags.filt %>%
 
 Re-plot the tag paths using the filtered data:
 
-```{r mapDetections3}
+```{r mapDetections3, message = FALSE, warning = FALSE}
 
 df.alltags.path <- df.alltags.filt %>%
                     filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
@@ -553,25 +553,27 @@ ggplot(data = filter(df.alltags.filt, is.na(ambigID)), # plot ambiguous detectio
 
 **motusTagID 16038**
 
-- there are detections at two towers, not far apart. From these plots, there don't appear to be additional false positives for this tag.
+There are detections at two towers, not far apart. From these plots, there don't appear to be additional false positives for this tag.
 
 **motusTagID 16047**
 
-- there is nothing that stands out about these detections that requires filtering in this step; you can see that after this Red Knot departed the James Bay region, it was detected moving south along the east coast at an appropriate time of year and in an appropriate location.
+There is nothing that stands out about these detections that requires filtering in this step; you can see that after this Red Knot departed the James Bay region, it was detected moving south along the east coast at an appropriate time of year and in an appropriate location.
 
 **motusTagID 22897**
 
-- using 'filter(df.alltags.filt, motusTagID == 22897, recvLon < -80)', we see that the detections in the Great Lakes region (recvDeployName "Old Cut") occurred on April 20, 2017 at 22:33 (HH:MM). The detections have a run length of 3 or 4, freqsd is < 0.1, and detections were recorded by three of four antennas at the Old Cut station. Normally Red Knots migrate through that region in May, so this is potentially a little bit early to detect Red Knots at this tower, but not impossible. 
+Using 'filter(df.alltags.filt, motusTagID == 22897, recvLon < -80)', we see that the detections in the Great Lakes region (recvDeployName "Old Cut") occurred on April 20, 2017 at 22:33 (HH:MM). The detections have a run length of 3 or 4, freqsd is < 0.1, and detections were recorded by three of four antennas at the Old Cut station. Normally Red Knots migrate through that region in May, so this is potentially a little bit early to detect Red Knots at this tower, but not impossible. 
 
 **motusTagID 22902**
 
-- the only detections for this tag occur at the deployment location, near the deployment time, so these are true detections of the tag.
+The only detections for this tag occur at the deployment location, near the deployment time, so these are true detections of the tag.
 
-**5. motusTagID 22905**
+**motusTagID 22905**
 
-- I can't finish this and the next tag until the filter is working properly
+There doesn't appear to be any issue with the remaining detections for this tag.
 
 **motusTagID 23319**
+
+There are no unambiguous detections for this tag, so it can be dropped completely.
 
 ## Filter data based on flight speed between detections {#filterFlightSpeed}
 
@@ -595,11 +597,14 @@ There are a few transitions with unusually high speeds. We subset those out to t
 ```{r falseBySpeed2}
 
 filter(df.detectTrans, rate > 60)
+```
 
+All of the high rates are for one tag, 16047, attached to a Red Knot, and appear to be the result of simultaneous detections by the BennetMeadow and Shelbourne sites, which are within 20km of each other north of Amherst Massachusetts, and 7 hours later by the the BISE and TRUS stations, which are within 30 km of each other on the east coast near Rhode Island. These are not false positive detections, rather, this method of estimating distance and speed is inappropriate in this circumstance, because the bird is most likely migrating somewhere between the two stations.
+
+#NOT SURE WHERE THIS WAS GOING:
+```{r notsurewhatthisisfor}
 df.detectTrans %>%
   group_by(motusTagID) %>%
   summarize()
 ```
-
-All of the high rates are for one tag, 16047, attached to a Red Knot, and appear to be the result of simultaneous detections by the BennetMeadow and Shelbourne sites, which are within 20km of each other north of Amherst Massachusetts, and 7 hours later by the the BISE and TRUS stations, which are within 30 km of each other on the east coast near Rhode Island. These are not false positive detections, rather, this method of estimating distance and speed is inappropriate in this circumstance, because the bird is most likely migrating somewhere between the two stations.
 
