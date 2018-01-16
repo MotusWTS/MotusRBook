@@ -6,7 +6,7 @@ Once you have clarified any possible ambiguous tags, and removed false positives
 
 Follow the instructions in Chapter \@ref(loadingPackages) to install the following packages before loading, if you haven't already done so.
 
-```{r loadpackages, message = FALSE, warning = FALSE}
+```{r loadpackages.6, message = FALSE, warning = FALSE}
 
 library(motus)
 
@@ -133,7 +133,7 @@ ggplot(filter(tmp, motusTagID == 22897 & ts > as.POSIXct("2016-10-01") &ts < as.
 
 ## Mapping your data {#mappingData}
 To generate maps of tag paths, we will once again use summarized data so we can work with a much smaller database for faster processing, here we'll summarize detections by day:
-```{r plotTagPaths}
+```{r plotTagPaths.6}
 tmp.path <- tmp.sub %>%
                     filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
                     arrange(motusTagID, ts) %>%       # order data by time stamp for each motus tag ID
@@ -167,7 +167,7 @@ require(rworldmap)
 
 Now we need to load the base maps
 
-```{r loadMaps, message = FALSE, warning = FALSE}
+```{r loadMaps.6, message = FALSE, warning = FALSE}
 
 na.lakes <- map_data(map = "lakes")
 na.lakes <- mutate(na.lakes, long = long- 360)

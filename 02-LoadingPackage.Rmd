@@ -48,7 +48,7 @@ library(rworldmap)
 
 We also install but do not load the plyr package; we use it directly for the handy round_any function, but loading it can cause problems with the dplyr functions:
 
-```{r install plyr}
+```{r install plyr, eval = FALSE}
 
 install.packages("plyr")
 

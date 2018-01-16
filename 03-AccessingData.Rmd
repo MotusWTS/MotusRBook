@@ -72,13 +72,15 @@ motusLogout()
 
 ```
 
+
+### Downloading detection data {#downloadData}
 Let's get started. Note that there are no receivers registered to sample project 176, so the second call (by receiver) will not find any data. You can, however, replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample account, see \@ref(logout)). 
 
 Be warned that large datasets can take some time to download from the Motus server when downloading for the first time ('new = TRUE' in the tagme function call). The sample dataset, for example, can take upwards of 3 hours to download completely. 
 
-In the event that your connection to the Motus server fails prior to the download completing (e.g., due to poor internet connection), use `r tagme(proj.num. update = TRUE), eval = FALSE` to continue the download from where it left off, ensuring to specify a directory if it's saved outside the working directory.  
+In the event that your connection to the Motus server fails prior to the download completing (e.g., due to poor internet connection), use 'tagme(proj.num, update = TRUE) eval = FALSE' to continue the download from where it left off, ensuring to specify a directory if it's saved outside the working directory.  
 
-After the initial download, loading a .motus file into R using `r tagme(proj.num, update = TRUE), eval = FALSE` will be near instantaneous.
+After the initial download, loading a .motus file into R using 'tagme(proj.num, update = TRUE) eval = FALSE' will be near instantaneous.
 
 ```{r tagme1, eval = FALSE}
 
@@ -97,7 +99,10 @@ If you don't want to use the working directory, specify a directory to create an
 sql.motus <- tagme(projRecv = proj.num, new = TRUE, update = TRUE, dir = "./data/") 
 
 ```
-
+```{r sql.motus, echo = FALSE}
+## hidden function to load sql.motus file into working directory for rest of book to work
+sql.motus <- tagme(176, update = FALSE, dir = "./data")
+```
 The tagme() function will write a copy of your tag database to the working or specified folder, stored as an SQLite file with the extension '.motus'. 
 
 ### Update and open a local tag database
@@ -160,7 +165,7 @@ The .motus file contains a series of interelated tables where data are stored in
 1. antDeps: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.
 2. batchRuns: metadata for runIDs and associated batchIDs
 3. batches: detection data for a given receiver and boot number.
-4. filters:
+4. filters: metadata related to user created filters associated with the specified receiver.  
 5. gps: metadata related to Geographic Positioning System (GPS) position of receiver. 
 6. hits: detection data at the level of individual hits.
 7. meta: metadata related to the project and datatype (tags vs. receiveres) that are included in the .motus file
@@ -170,21 +175,21 @@ The .motus file contains a series of interelated tables where data are stored in
 11. recvDeps: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.
 12. recvs: metadata related to receiver serial number and associated Motus deviceID
 13. runs: detection data associated with a run (continuous detections of a unique tag on a given receiver).
-14. runsFilters: 
+14. runsFilters: a list of runIDs associated with user created filters and assigned probabilities.  
 15. species: metadata related to species, e.g., unique identifier, scientific name, common name.
 16. tagAmbig: metadata related to ambiguous tags, e.g., ambigID and associated motusTagID
 17. tagDeps: metadata related to tag deployments, e.g., deployment date, location, and species.
 18. tags: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).
 
-You can view the list of tables, and variables contained within those tables using the below code 
+You can view the list of tables, and variables contained within those tables using the below code:
 ```{r sqlTables, eval = FALSE}
 
-file.name <- dbConnect(SQLite(), "./data/project-176.motus") ## specify the location and project file name.
+file.name <- dbConnect(SQLite(), "./project-176.motus") ## specify the location and project file name.
 dbListTables(file.name) ## get a list of tables in the .motus file specified above.
 dbListFields(file.name, "species") ## get a list a variables contained within the "species" table in the .motus file specified above.
 ```
 
-In addition to these tables, there are also 'virtual' tables or 'views', which are queries that merge data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in each .motus file:
+In addition to these tables, there are also 'virtual' tables or 'views', which have been created through queries that merge data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in each .motus file:
 
 1. allambigs: lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.
 2. alltags: provides the full detection data for all tags, and all ambiguous (duplicate) tags  associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID. 
@@ -193,7 +198,7 @@ Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be 
 
 Each table in the .motus file can be accessed using the tbl() function. 
 
-```{r getTable, eval = FALSE}
+```{r getTable}
 
 ## get the tag deployment metadata view for the current project
 tbl.tagDeps <- tbl(sql.motus, "tagDeps")
@@ -230,7 +235,7 @@ tbl.alltags <- tbl(sql.motus, "alltags") ## virtual table
 
 The following table lists the variables available in the 'alltags' view, a full description of each field is available in \@ref(appendixA)
 
-```{r parameterTable, echo = FALSE, eval = FALSE}
+```{r parameterTable.3, echo = FALSE, eval = FALSE}
 
 tbl.alltags %>% 
       collect() %>%
@@ -353,11 +358,11 @@ write_csv(df.alltags, "./data/df.alltags.CSV")
 
 ## R object naming convention
 
-Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with "sql.", virtual table objects will be prefixed with "tbl.", and dataframe objects will be prefixed with "df."; the rest of the name will include the name of the .motus table that the data originates from. For example, for the alltags table in the sample.motus file:
+Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with "sql.", virtual table objects will be prefixed with "tbl.", and dataframe objects will be prefixed with "df."; the rest of the name will include the name of the .motus table that the data originates from. Throughout the rest of the book we will be relying on and referencing the formats below, please ensure that you have these before continuing to the next chapter.  These functions assume you have already downloaded the sample data and do not need to update it, if you have not, see section \@ref(dataDownload) for instructions on initial download:
 
-```{r namingConvention, eval = FALSE}
+```{r namingConvention, eval = TRUE}
 
-sql.motus <- tagme(176)                   # SQLite R object, which links to the .motus file
+sql.motus <- tagme(176, update = FALSE, dir = "./data")   # SQLite R object, which links to the .motus file
 tbl.alltags <- tbl(sql.motus, "alltags")  # virtual table object of the alltags table in the
                                           # sample.motus file
 df.alltags <- tbl.alltags %>%

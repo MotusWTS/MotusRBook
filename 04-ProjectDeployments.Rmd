@@ -28,7 +28,7 @@ This chapter assumes that the .motus file has already been downloaded, if you ha
 
 proj.num <- 176
 
-sql.motus <- tagme(proj.num, dir = "./data")
+sql.motus <- tagme(proj.num, update = FALSE, dir = "./data")
 
 ```
 

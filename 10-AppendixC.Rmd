@@ -16,7 +16,7 @@ Returns a dataframe containing the filterIDs, logins, names, projectIDs and desc
 
 ## Example
 
-```{r listRunsFilters, eval = FALSE}
+```{r listRunsFilters.C, eval = FALSE}
 
 filt.df <- listRunsFilters(src = sql.motus)
 
