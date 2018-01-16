@@ -601,6 +601,8 @@ filter(df.detectTrans, rate > 60)
 
 All of the high rates are for one tag, 16047, attached to a Red Knot, and appear to be the result of simultaneous detections by the BennetMeadow and Shelbourne sites, which are within 20km of each other north of Amherst Massachusetts, and 7 hours later by the the BISE and TRUS stations, which are within 30 km of each other on the east coast near Rhode Island. These are not false positive detections, rather, this method of estimating distance and speed is inappropriate in this circumstance, because the bird is most likely migrating somewhere between the two stations.
 
+No additional detections jumped out as false positive in this last step, so we move on to exploring the data in Chapter \@ref(#exploreData).
+
 #NOT SURE WHERE THIS WAS GOING:
 ```{r notsurewhatthisisfor}
 df.detectTrans %>%
