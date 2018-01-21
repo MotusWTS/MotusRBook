@@ -1,16 +1,16 @@
 # Data Cleaning {#dataCleaning}
 
-Due to the nature of radio transmissions, false positive detections of your tags will occur. False positive detections result from radio noise or from duplicate tags transmitting in the network at the same time, where duplicate tags have the same Lotek ID code, burst interval, and nominal transmit frequency, resulting in 'ambiguous' detections that may belong to either tag. 
+There are three sources of 'error' that can result in false positive detections (tag detections appearing in your database that are incorrect). First, random radio noise ('static') can be detected and interpreted to be the transmission of a tag.  Second, despite our best efforts to avoid it, duplicate tags are sometimes transmitting in the network at the same time. When two tags are deployed at the same time that have the same Lotek ID code, burst interval, and nominal transmit frequency, it results in a situations where the detections may belong to either tag, but there is no information (other than contextual information) to separate them. Finally, 'aliased' tags can occur when two tags are transmitting at the same time and produce a signal that looks like a third tag that is not in fact present. Such aliased tags are most common at roosting sites or breeding colonies, where many tags are transmitting simultaneously. 
 
-Key things to look for to determine if detections are false positive include:
+The key things to look for to determine if detections are false positives are:
 
-1) Run length: run length ('runLen') is the number of tag bursts in a run, and a run is a group of consecutive detections of a tag detected on a receiver. In general, a detection with a run length of 2 has a high probability of being a false positive detection. With the exception of a few 'quiet' stations with little noise, we generally recommend that you filter out all detections with a run length of 2. However, because you may lose some true detections in the process, we also recommend examining which detections this would remove. 
+1) Run length: run length ('runLen') is the number of tag bursts in a run, and a run is a group of consecutive detections of a tag detected on a receiver. In general, a detection with a run length of 2 has a high probability of being a false positive detection, arising from radio noise. With the exception of a few 'quiet' stations with little noise, we generally recommend that you filter out all detections with a run length of 2. However, because you will likely lose some true detections in the process, we also recommend that after a full analysis of your data, you return to these detections and examine them individuals, to determine (usually contextually) they can be considered real. 
 
-2) Standard deviation of frequency offset: Standard deviation of frequency offset among pulses in a burst ('freqsd'; in KHz) can also be used as a coarse and automatic data filter, by removing any values larger that 0.1, which suggests a false detection. This filter applies to data collected by SensorGnome receivers only. As with run length, it is recommended that you identify the detections you would be removing and examine them to ensure you aren't removing an unwanted amounts of true detections.  
+2) Standard deviation of frequency offset: Standard deviation of frequency offset among pulses in a burst ('freqsd'; in KHz) may be used as a coarse and automatic data filter. , by removing any values larger that 0.1, which suggests a false detection. This filter applies to data collected by SensorGnome receivers only. As with run length, it is recommended that you identify the detections you would be removing and examine them to ensure you aren't removing an unwanted amounts of true detections.  
 
-3) detections in regions or at times of year that don't make biological sense for the study species.
+3) Detections in regions or at times of year that don't make biological sense for the study species.
 
-4) consecutive detections at distant sites that would require biologically unreasonable flight speeds to be true.  
+4) Consecutive detections at distant sites that would require biologically unreasonable flight speeds to be true.  
 
 The *goal of this chapter* is to provide you with the tools you need to check your data for false positive detections, and create a filter to remove them from your data. We do so using the following steps: 
 
@@ -55,7 +55,10 @@ df.alltags <- tbl.alltags %>%
                 mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
                        recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
                        recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
-                select(-noise, -slop, -burstSlop, -done, -bootnum, -mfgID, -codeSet, -mfg, -nomFreq, -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID, -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat, -gpsLon, - recvAlt, - recvSiteName) %>%
+                select(-noise, -slop, -burstSlop, -done, -bootnum, -mfgID, -codeSet, -mfg, -nomFreq,
+                       -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID,
+                       -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat, 
+                       -gpsLon, - recvAlt, - recvSiteName) %>%
                 collect() %>%
                 as.data.frame() %>%
                 mutate(ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
@@ -72,11 +75,11 @@ Prior to filtering the data, we do a few summaries and plots of the data.
 
 First, how many project tags have detections. Apart from the tag not being within range of a receiver station, there are several reasons why deployed tags might not be detected, including:
 
-1) the tag was not properly activated on deployment. To avoid this, always check that a tag is active using a hand-held receiver before attaching the tag to your study animal and releasing it. 
+1) The tag was not properly activated on deployment. To avoid this, always check that a tag is active using a hand-held receiver before attaching the tag to your study animal and releasing it. 
 
-2) an animal with a properly activated tag might not pass within range of a receiving station. Study designs that incorporate strategic placement of receivers to meet project goals can improve your odds of getting detections of your tags.
+2) An animal with a properly activated tag may have never passed within range of a receiving station. Study designs that incorporate strategic placement of receivers to meet project goals can improve your odds of getting detections of your tags.
 
-3) missing or incorrect tag deployment metadata can result in the tagFinder not 'looking' for your tag at the time the tag was deployed, or at all. Please ensure your tag metadata are entered correctly.
+3) Missing or incorrect tag deployment metadata in the Motus database can result in the tagFinder not 'looking' for your tag at the time the tag was deployed, or at all. Please ensure your tag metadata are entered correctly.
 
 Using the following code, we see there are detections for 18 tags deployed by the sample project:
 
@@ -86,7 +89,7 @@ df.alltags %>%
   filter(tagProjID == proj.num) %>% # subset to include only tags registered to project
   select(motusTagID) %>%
   distinct() %>%
-  summarize(nTags = n()) # if you want to see the list of motusTagIDs, replace summarize(nTags =n()) with as.list()
+  tally() # if you want to see the list of motusTagIDs, remove 'tally()'
 
 ```
 
@@ -101,34 +104,35 @@ df.clarify
 
 ```
 
-Note that detections associated with five of the six ambigIDs could belong to one of two tags, and detections associated with one ambigID (-171) could belong to one of three tags. The fullID fields list the project names associated with the duplicate tags (e.g., "SampleData", "Selva", "Niles", etc.), along with features of the tags (manufacturer tag ID, burst, and transmit frequency). 
+Note that detections associated with five of the six ambigIDs could belong to one of two tags, and detections associated with one ambigID (-171) could belong to one of three tags. The fullID fields list the project names associated with the duplicate tags (e.g., "SampleData", "Selva", "Niles"), along with features of the tags (manufacturer tag ID, burst, and transmit frequency). 
 
 **3. Subset to a sample of tags**
 
-For the purpose of this chapter, we simplify the sample data by subsetting to six motusTagIDs:  four tags (motusTagID = 22897, 22905, 23319, 22902) were attached to Red Knots and are associated with ambiguous detections (ambigID = -114, -134, -171 respectively), and two tags (16038, 16047) were attached to a Semipalmated Sandpiper and Red Knot, respectively, and are not associated with ambiguous detections.
+For the purpose of this chapter, we simplify the sample data by subsetting to six motusTagIDs:  four tags (motusTagID = 22897, 22905, 23319, 22902) that were attached to Red Knots and are associated with ambiguous detections (ambigID = -114, -134, -171 respectively), and two tags (16038, 16047) that were attached to a Semipalmated Sandpiper and Red Knot, respectively, but not associated with ambiguous detections.
 
 ```{r subsetTags}
 
-# generate list of tags to keep
-tag.list <- as.data.frame(c(22897, 22905, 23319, 22902, 16038, 16047)) 
-names(tag.list) <- "motusTagID"
+## generate a list of motusTagIDs that includes the motusTagIDs of duplicate tags 
+## from other projects, i.e., associated with ambigIDs -114, -134, -171
+ambigTags <- filter(df.clarify, ambigID %in% c(-114, -134, -171)) %>%
+  select(ambigID, id1, id2, id3, id4, id5, id6) %>%
+  gather(id, motusTagID, c(id1:id6), factor_key=TRUE) %>%
+  filter(!is.na(motusTagID)) %>%
+  pull(motusTagID) ## pull the variable motusTagID into a vector
 
-# generate list of motusTagIDs that includes the motusTagIDs of duplicate tags from other projects, i.e., associated with ambigIDs -114, -134, -171
-ambigTag.list <- gather(select(df.clarify, ambigID, id1, id2, id3, id4, id5, id6), id, motusTagID, c(id1, id2, id3, id4, id5, id6), factor_key=TRUE) %>%
-  filter(!is.na(motusTagID), ambigID %in% c(-114, -134, -171)) %>%
-  select(motusTagID) %>%
-  bind_rows(tag.list) %>%
-  distinct()
+## add in two additional tags -- 16038, 16047
+tag.subset <- c(ambigTags, 16038, 16047)
 
-## subset detections data to the tags of interest from our project (excluding detections of duplicate tags)
-df.alltags.sub <- df.alltags %>%
-                    filter(motusTagID %in% tag.list$motusTagID)
+## subset detections data to the tags of interest from our project 
+## (this does not include detections of duplicate tags)
+df.alltags.sub <- filter(df.alltags, motusTagID %in% tag.subset)
 
-## subset deployment records to tags of interest AND duplicate tags.
+## get deployment records to tags of interest AND duplicate tags.
 tbl.tagDeps <- tbl(sql.motus, "tagDeps")
 df.tagDeps.sub <- tbl.tagDeps %>%
-                    filter(tagID %in% ambigTag.list$motusTagID) %>%
-                    select(deployID, tagID, projectID, fullID, tsStart, tsEnd, speciesID, latitude, longitude) %>%
+                    filter(tagID %in% tag.subset) %>%
+                    select(deployID, tagID, projectID, fullID, tsStart, tsEnd, speciesID, 
+                           latitude, longitude) %>%
                     collect() %>%
                     as.data.frame() %>%
                     mutate(
@@ -149,9 +153,9 @@ df.alltags.path <- df.alltags.sub %>%
                     filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
                     arrange(motusTagID, ts) %>%       # order data by time stamp for each motus tag ID
                     mutate(date = as_date(ts)) %>%    # create date variable
-                    group_by(motusTagID, date, recvDeployName, ambigID, tagDeployLon, tagDeployLat, recvLat, recvLon)%>%
-                    summarize(max.runLen = max(runLen)) 
-                    
+                    group_by(motusTagID, date, recvDeployName, ambigID, 
+                             tagDeployLon, tagDeployLat, recvLat, recvLon) %>%
+                    summarize(max.runLen = max(runLen))
                     
 ```
 
@@ -160,7 +164,7 @@ Then load the base map files:
 ```{r loadMaps.5, message = FALSE, warning = FALSE}
 
 na.lakes <- map_data(map = "lakes")
-na.lakes <- mutate(na.lakes, long = long- 360)
+na.lakes <- mutate(na.lakes, long = long - 360)
 
 ## Include all of the Americas to begin
 na.map <- subset(map_data(map="world2"), 
@@ -169,11 +173,14 @@ na.map <- subset(map_data(map="world2"),
                                "Guatemala", "Honduras", "Nicaragua", 
                                "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil",
                                "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", 
-                               "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", 
-                               "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", 
-                               "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay", "Paraguay"))
+                               "Haiti", "Dominican Republic", "The Bahamas", 
+                               "Turks and Caicos Islands", 
+                               "Puerto Rico", "British Virgin Islands", "Montserrat", 
+                               "Dominica", "Saint Lucia", 
+                               "Barbados", "Grenada", "Trinidad and Tobago", "Chile", 
+                               "Argentina", "Uruguay", "Paraguay"))
 
-na.map <- mutate(na.map, long = long- 360)
+na.map <- mutate(na.map, long = long - 360)
 
 ```
 
@@ -189,22 +196,23 @@ ymax <- max(df.alltags.path$recvLat, na.rm = TRUE) + 2
                 
 ## map
 ggplot(na.lakes, aes(long, lat))+ 
-  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+#
-  geom_polygon(aes(group = group), colour = "grey", fill = "white")+
-  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
+  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98") +
+  geom_polygon(aes(group = group), colour = "grey", fill = "white") +
+  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
   xlab("") + ylab("") + 
   theme_bw() + 
   geom_path(data = df.alltags.path, aes(recvLon, recvLat, group = motusTagID), colour = "grey20") + 
-  geom_point(data = df.alltags.path, aes(recvLon, recvLat, colour = !is.na(ambigID), shape = (max.runLen > 2)), size =1.5)+
+  geom_point(data = df.alltags.path, aes(recvLon, recvLat, colour = !is.na(ambigID), 
+                                         shape = (max.runLen > 2)), size =1.5) +
   geom_point(data = df.alltags.path, aes(tagDeployLon, tagDeployLat), colour = "black", shape = 4) +
   scale_colour_discrete("motusTagID") +
   scale_shape_manual(values = c(1, 2)) +
-  scale_colour_manual(values = c("deepskyblue3", "darkorange1"))+
+  scale_colour_manual(name = "Ambiguous?", values = c("deepskyblue3", "darkorange1")) +
   facet_wrap(~motusTagID, nrow = 2)
 
 ```
 
-**Figure 5.1.** Plot of the paths of several tags, showing whether detections were ambiguous (orange) or not (blue), and whether a detection had a run length of 2 (circle; implies a high probability of being false positive) or greater than 2 (triangle; higher probability of being a true detection). Tag deployment location is shown by a black 'x'. From the plot of tag paths, we can see that some of the ambiguous detections likely belong to other tags (e.g. tag 22897), and some non-ambiguous detections could be false positives. 
+**Figure 5.1.** Plot of the paths of the six tags, showing whether detections were ambiguous (orange) or not (blue), and whether a detection had a run length of 2 (circle; implies a high probability of being false positive) or greater than 2 (triangle; higher probability of being a true detection). Tag deployment location is shown by a black 'x'. From the plot of tag paths, we can see that some of the ambiguous detections likely belong to other tags (e.g. tag 22897), and some non-ambiguous detections could be false positives. 
 
 ## Filter the data
 
@@ -212,7 +220,7 @@ The Motus R package offers functionalities to create custom filters for your dat
 
 1. use the 'createRunsFilter' function to create (but not populate) a filter, here named 'filtAmbigFalsePos'. 
 
-2. Generate a dataframe which includes the motusTagID and runID of detections you want to filter; assign a probability to those detections. In this case, because we want to exclude the data we are filtering, we assign a probability of 0 to all detections we deem are false positive.  
+2. Generate a dataframe which includes the motusTagID and runID of detections you want to filter; assign a probability to those detections. In this case, because we want to exclude the data we are filtering, we assign a probability of 0 to all detections we consider to be false positives.  
 
 3. Use the 'writeRunsFilter' function to write the dataframe to the filter. Using the delete = TRUE option will remove all records previously written to the filter; using the overwrite = FALSE option will allow new records to be appended to the filter.  
 
@@ -245,7 +253,8 @@ To filter all detections with a runLen = 2 and/or a standard deviation of freque
 ```{r filterRunLen}
 
 df.tagRuns <- df.alltags.sub %>%
-  filter(freqsd >= 0.1|runLen == 2) %>%
+#  filter(freqsd >= 0.1|runLen == 2) %>%
+  filter(runLen == 2) %>%
   select(motusTagID, runID) %>%
   mutate(probability = 0) %>%
   distinct()
@@ -286,7 +295,7 @@ df.alltags.filt <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
 
 # manage the dataframe
 df.alltags.filt <- df.alltags.filt %>%
-                      filter(motusTagID %in% tag.list$motusTagID) %>%
+                      filter(motusTagID %in% tag.subset) %>%
                       mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
                              recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
                              recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt),
@@ -310,7 +319,8 @@ df.alltags.path <- df.alltags.filt %>%
                     filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
                     arrange(motusTagID, ts) %>%       # order data by time stamp for each motus tag ID
                     mutate(date = as_date(ts)) %>%    # create date variable
-                    group_by(motusTagID, date, recvDeployName, ambigID, tagDeployLon, tagDeployLat, recvLat, recvLon)%>%
+                    group_by(motusTagID, date, recvDeployName, ambigID, tagDeployLon, 
+                             tagDeployLat, recvLat, recvLon) %>%
                     summarize(max.runLen = max(runLen)) 
 
 ## set limits to map based on locations of detections, ensuring they include the deployment locations
@@ -442,17 +452,19 @@ df.alltags.filt <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
 
 # manage the dataframe
 df.alltags.filt <- df.alltags.filt %>%
-                      filter(motusTagID %in% tag.list$motusTagID) %>%
+                      filter(motusTagID %in% tag.subset) %>%
                       mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
                              recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
                              recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt),
                              ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
                              tagDeployStart = as_datetime(tagDeployStart),
                              tagDeployEnd = as_datetime(tagDeployEnd)) %>%
-                      select(-noise, -slop, -burstSlop, -done, -bootnum, -mfgID, -codeSet, -mfg, -nomFreq, -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID, -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat, -gpsLon, - recvAlt, - recvSiteName) %>%
+                      select(-noise, -slop, -burstSlop, -done, -bootnum, -mfgID, -codeSet, -mfg,
+                             -nomFreq, -markerNumber, -markerType, -tagDeployComments, -fullID,
+                             -deviceID, -recvDeployLat, -recvDeployLon, -recvDeployAlt, 
+                             -speciesGroup, -gpsLat, -gpsLon, - recvAlt, - recvSiteName) %>%
                       collect() %>%
-                      as.data.frame() %>%
-                      mutate() 
+                      as.data.frame()
 
 ```
 
@@ -464,7 +476,8 @@ df.alltags.path <- df.alltags.filt %>%
                     filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
                     arrange(motusTagID, ts) %>%       # order data by time stamp for each motus tag ID
                     mutate(date = as_date(ts)) %>%    # create date variable
-                    group_by(motusTagID, date, recvDeployName, ambigID, tagDeployLon, tagDeployLat, recvLat, recvLon)%>%
+                    group_by(motusTagID, date, recvDeployName, ambigID, 
+                             tagDeployLon, tagDeployLat, recvLat, recvLon) %>%
                     summarize(max.runLen = max(runLen)) 
 ## map
 ## set limits to map based on locations of detections, ensuring they include the deployment locations
@@ -474,17 +487,19 @@ ymin <- min(df.alltags.path$recvLat, na.rm = TRUE) - 2
 ymax <- max(df.alltags.path$recvLat, na.rm = TRUE) + 2
 
 ggplot(na.lakes, aes(long, lat))+ 
-  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+#
-  geom_polygon(aes(group = group), colour = "grey", fill = "white")+
-  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
+  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98") +
+  geom_polygon(aes(group = group), colour = "grey", fill = "white") +
+  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
   xlab("") + ylab("") + 
   theme_bw() + 
   geom_path(data = df.alltags.path, aes(recvLon, recvLat, group = motusTagID), colour = "grey20") + 
-  geom_point(data = df.alltags.path, aes(recvLon, recvLat, colour = !is.na(ambigID), shape = (max.runLen > 2)), size =1.5)+
-  geom_point(data = df.alltags.path, aes(tagDeployLon, tagDeployLat), colour = "black", shape = 4) +
+  geom_point(data = df.alltags.path, 
+             aes(recvLon, recvLat, colour = !is.na(ambigID), shape = (max.runLen > 2)), size =1.5) +
+  geom_point(data = df.alltags.path, 
+             aes(tagDeployLon, tagDeployLat), colour = "black", shape = 4) +
   scale_colour_discrete("motusTagID") +
   scale_shape_manual(values = c(1, 2)) +
-  scale_colour_manual(values = c("deepskyblue3", "darkorange1"))+
+  scale_colour_manual(values = c("deepskyblue3", "darkorange1")) +
   facet_wrap(~motusTagID, nrow = 2)
 
 ```
@@ -503,7 +518,7 @@ df.allambigs <-  tbl(sql.motus, "allambigs") %>%
   as.data.frame() 
 
 df.myAmbigs <- df.allambigs %>%
-  filter(motusTagID %in% tag.list$motusTagID)
+  filter(motusTagID %in% tag.subset)
 
 ## deployments in this table are the deployments of the duplicate tags (motusTagDup)
 df.myDeps <- left_join(df.tagDeps.sub,
@@ -512,7 +527,7 @@ df.myDeps <- left_join(df.tagDeps.sub,
 
 ## merge again, creating a new variable with both the projectID
 ## and the MotusTagID which makes it easier for plotting to see where
-## the various ambiguous come from.
+## the various ambiguous tags come from.
 
 df.myDeps <- left_join(df.myDeps, df.myAmbigs, by = "ambigID") %>%
   mutate(plot.id = paste(ambigID, tagID, projectID, sep = "."),
@@ -577,7 +592,6 @@ There doesn't appear to be any issue with the remaining detections for this tag.
 - 
 =======
 There are no unambiguous detections for this tag, so it can be dropped completely.
->>>>>>> 6a20ed29c14f0bdabe4d4292892ab641ed7f1e11
 
 ## Filter data based on flight speed between detections {#filterFlightSpeed}
 
@@ -587,7 +601,8 @@ Rate of movement between sites can be determined using the siteTrans function in
 
 ```{r falseBySpeed1, message = FALSE, warning = FALSE}
 
-df.detectTrans <- as.data.frame(siteTrans(df.alltags.filt, latCoord = "recvLat", lonCoord = "recvLon")) ## create new data.base consisting of transitions between consecutive sites for each tag
+df.detectTrans <- as.data.frame(siteTrans(df.alltags.filt, latCoord = "recvLat", lonCoord = "recvLon")) 
+## create new data.base consisting of transitions between consecutive sites for each tag
 head(df.detectTrans)
 summary(df.detectTrans)
 
