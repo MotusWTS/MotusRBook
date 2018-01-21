@@ -22,17 +22,20 @@ If you followed along with the the previous \@ref(dataCleaning) chapter and are 
 sql.motus <- tagme(176, update = FALSE, dir = "./data/")
 
 # apply the filter; a dataframe is output
-df.alltags.filt.filt <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
+df.alltags.filt <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
 
 # manage the dataframe
-df.alltags.filt.filt <- df.alltags.filt.filt %>%
+df.alltags.filt <- df.alltags.filt %>%
                       mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
                              recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
                              recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt),
                              ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
                              tagDeployStart = as_datetime(tagDeployStart),
                              tagDeployEnd = as_datetime(tagDeployEnd)) %>%
-                      select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, -mfg, -nomFreq, -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID, -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat, -gpsLon, - recvAlt, - recvSiteName) %>%
+                      select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, -mfg, -nomFreq,
+                             -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID,
+                             -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat,
+                             -gpsLon, - recvAlt, - recvSiteName) %>%
                       collect() %>%
                       as.data.frame()
 ```
@@ -41,7 +44,12 @@ df.alltags.filt.filt <- df.alltags.filt.filt %>%
 Here we will run through some basic commands, starting with the summary() function to view all variables in a data frame, here we'll just examine a few select variables:
 ```{r summaryAllTags}
 
-sql.motus %>% tbl("alltags") %>% select(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, recvDeployLat, recvDeployLon) %>% collect %>% summary()
+sql.motus %>% 
+  tbl("alltags") %>% 
+  select(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, 
+         recvDeployLat, recvDeployLon) %>% 
+  collect() %>%
+  summary()
 
 ```
 
