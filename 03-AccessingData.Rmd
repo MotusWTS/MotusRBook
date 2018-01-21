@@ -183,12 +183,12 @@ The .motus file contains a series of interelated tables where data are stored in
 17. tagDeps: metadata related to tag deployments, e.g., deployment date, location, and species.
 18. tags: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).
 
-You can view the list of tables, and variables contained within those tables using the below code:
+You can view the list of tables, and variables contained within those tables using the code below:
 ```{r sqlTables, eval = FALSE}
 
 file.name <- dbConnect(SQLite(), "./project-176.motus") ## specify the location and project file name.
 dbListTables(file.name) ## get a list of tables in the .motus file specified above.
-dbListFields(file.name, "species") ## get a list a variables contained within the "species" table in the .motus file specified above.
+dbListFields(file.name, "species") ## get a list of variables contained within the "species" table in the .motus file specified above.
 ```
 
 In addition to these tables, there are also 'virtual' tables or 'views', which have been created through queries that merge data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in each .motus file:
@@ -215,7 +215,7 @@ str(tbl.tagDeps)
 
 ```
 
-The first part of the list, 'src', is a list that provides details of the SQLiteConnection, including where the database is stored. The second part is a list that includes the underlying table. Thus, the R object 'tagMeta' is a *virtual* table that stores the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and the dplyr package can be used to manipulate and summarize the tables before collecting the results into a typical "flat" format dataframe.
+The first part of the list, 'src', is a list that provides details of the SQLiteConnection, including where the database is stored. The second part is a list that includes the underlying table. Thus, the R object 'tagMeta' is a *virtual* table that stores the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and functions within the dplyr package can be used to manipulate and summarize the tables before collecting the results into a typical "flat" format dataframe.
 
 If you want to use familiar functions to get access to components of the underlying data frame, then use the 'collect' function. For example, to look at the names of the variables in tagMeta:
 
@@ -247,11 +247,15 @@ tbl.alltags %>%
 
 ## Convert a SQLITE table to a flat dataframe {#convertToFlat}
 
-To convert the 'alltags' view or other table in the .motus file into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() and as.data.frame() functions.  The output can then be further manipulated, or used to generate a RDS file of your data. 
+To convert the 'alltags' view or other table in the .motus file into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() and as.data.frame() functions.  The output can then be further manipulated, or used to generate a RDS file of your data for archiving or export. 
 
-We suggest that a good workflow is to prepare a script that downloads/updates your data, filters out the necessary variables, and saves the resulting data as an RDS file. We suggest using RDS instead of CSV, because the RDS format preserves the underlying structure of the data (e.g. POSIX times stay as POSIX times). If you want to export your data to another program, then a CSV format might be preferred.
+We suggest the following workflow. Prepare a script that downloads/updates your data, filters out the necessary variables and that does any initial cleaning and then save the resulting data as an RDS file. We suggest using RDS instead of CSV, because the RDS format preserves the underlying structure of the data (e.g. POSIX times stay as POSIX times). If you want to export your data to another program, then a CSV format might be preferred.
 
-We caution that producing a flat file using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets. This is the point in your workflow where you should remove any unwanted variables. You can always change your mind and return to this script, creating a new RDS file with additional or different variables.
+We caution that producing a flat file using the full suite of fields can use a lot of memory, and can slow R down considerably when dealing with large datasets. For some combinations of data sets and computers, it may be impossible to directly use data frames in R. If that is the case, then this is the point in your workflow where you should carefully consider the information you need from within your data set (for example, how it is aggregated) and simplify it. You can always return to this script, creating a new RDS file with different variables, or aggregated at a different scale.
+
+We elaborate on this idea in the following sections.
+
+Make a data frame ...
 
 ```{r collect, eval = FALSE}
 
@@ -261,7 +265,7 @@ df.alltags <- tbl.alltags %>%
 
 ```
 
-And take a quick look at the resulting file. 
+... and take a quick look at the resulting file. 
 
 ```{r quickLook, eval = FALSE}
 
@@ -282,6 +286,7 @@ df.alltags <- tbl.alltags %>%
                 mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))
 
 ## the tz = "UTC" is not necessary here, provided you have set your system time to UTC/GMT 
+## ... but it serves as a useful reminder!
 ```
 
 If you want to load only part of your entire virtual table (e.g. certain fields, certain tags, or all tags from a specified project or species), you can use dplyr funtions to filter the data before collecting into a dataframe.  Some examples are below:
@@ -344,7 +349,7 @@ In later chapter(s) we will show you additional ways of summarizing and working 
 
 ## Export your 'flat' dataframe to CSV or RDS file {#exportDetections}
 
-A good workflow is to create a script that deals with all of your data issues, then saves a dataframe (or workspace) for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. When working in R, we do this is by using an RDS file, which preserves all of the associated R data structures (such as time stamps).
+We re-iterated that a good workflow is to create a script that deals with all of your data issues, then saves a dataframe (or workspace) for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. We use an RDS file, which preserves all of the associated R data structures (such as time stamps).
 
 ```{r createRDS, eval = FALSE, message = FALSE, warning = FALSE}
 
@@ -352,7 +357,8 @@ A good workflow is to create a script that deals with all of your data issues, t
 
 saveRDS(df.alltags, "./data/df.alltags.RDS")  
 
-## or save as CSV file, which does not preserve time stamps, but is more universally accepted
+## or save as CSV file, which does not preserve time stamps, 
+## but can be read more easily by other programs.
 
 write_csv(df.alltags, "./data/df.alltags.CSV")
 
@@ -360,7 +366,7 @@ write_csv(df.alltags, "./data/df.alltags.CSV")
 
 ## R object naming convention
 
-Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with "sql.", virtual table objects will be prefixed with "tbl.", and dataframe objects will be prefixed with "df."; the rest of the name will include the name of the .motus table that the data originates from. Throughout the rest of the book we will be relying on and referencing the formats below, please ensure that you have these before continuing to the next chapter.  These functions assume you have already downloaded the sample data and do not need to update it, if you have not, see section \@ref(dataDownload) for instructions on initial download:
+Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with "sql.", virtual table objects will be prefixed with "tbl.", and dataframe objects will be prefixed with "df."; the rest of the name will include the name of the .motus table that the data originates from. Throughout the rest of the book we will be relying on and referencing the formats below, please ensure that you have these before continuing to the next chapter.  These functions assume you have already downloaded the sample data and do not need to update it; if you have not, see section \@ref(dataDownload) for instructions on initial download:
 
 ```{r namingConvention, eval = TRUE}
 
