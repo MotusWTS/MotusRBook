@@ -2,7 +2,7 @@
 
 Before working with your detection data, a first step is to summarize and visualize the metadata for tag and receiver deployments registered to your project. Summarizing and plotting your deployments can be an effective way to find any errors in tag or receiver deployment metadata, which can in turn influence the completeness of the detections data for your project and the projects of others with detections of their own tags on your receivers. 
 
-This chapter is a complement to the online [notification center](https://motus.org/data/issues), which provides each project with a list of metadata issues (missing or outlying values) to be accepted or ignored. As such, please address any and all errors associated with your project in the notification center **before** importing your data through R. This chapter does not provide a full check of your deployment metadata, but will help uncover any errors that might be missed by the automatic queries in the notification center.
+This chapter is a complement to the online [notification center](https://motus.org/data/issues), which provides each project with a list of metadata issues (missing or outlying values) to be accepted or ignored. As such, please address any and all errors associated with your project in the notification center **before** importing your data through R. This chapter does not provide a full check of your deployment metadata, but will help uncover errors that have been missed by the automatic queries in the notification center.
 
 We use the James Bay Shorebird Project sample dataset throughout this chapter (see Section \@ref(sampleData); as you run through the code to look at your own deployments, **please fix any errors or omissions in your metadata by signing in to <https://motus.org/>**, and under the 'Manage Data' tab, select either 'Manage Tags' to fix tag deployment metadata or 'Manage Receivers' to fix receiver deployment metadata. It is important to fix metadata errors online, so that errors are fixed at the source and archived on the Motus Server, ensuring all users have access to the correct tag and receiver metadata.  
 
@@ -216,17 +216,17 @@ summary(df.projRecvs)
 
 ```
 
-There are `r nrow(df.projRecvs)` receiver deployments registered to the sample project. Three deployments are missing latitude and longitude, and two deployments are missing end dates, which suggests that those receivers are still deployed. 
+There are `r nrow(df.projRecvs)` receiver deployments registered to the sample project. Three deployments are missing latitude and longitude, which should be added to the metatdata on the motus site, and two deployments are missing end dates, which suggests that those two receivers are still deployed. 
 
-The following code keeps only parameters of interest, and arranges the remaining records by receiver ID, latitude, and start date:
+The following code keeps only variables of interest (by removing those we do not need), and arranges the remaining records by receiver ID, latitude, and start date:
 
 ```{r checkRegisteredReceivers}
 
 df.projRecvs %>%
-  arrange(deviceID, latitude, tsStart) %>%
   mutate(dateStart = date(tsStart)) %>% 
   select(-serno,-fixtureType, -macAddress, -tsStart, -tsEnd, -elevation, 
-         -projectID, -status, -receiverType, -siteName) 
+         -projectID, -status, -receiverType, -siteName) %>%
+  arrange(deviceID, latitude, date)
 
 ```
 
@@ -389,7 +389,7 @@ df.antDeps <- tbl.antDeps %>%
                 collect() %>%
                 as.data.frame()
 
-## receiver deployments; select parameters of interest
+## receiver deployments; select variables of interest
 df.recvDeps <- df.recvDeps %>%
                     select(deployID, receiverType, deviceID, name, latitude, longitude, isMobile, tsStart, tsEnd, projectID, elevation) 
 
@@ -430,4 +430,4 @@ filter(df.stationDeps, is.na(bearing)) %>%
 
 Receiver deployments with missing antenna bearing(s) are restricted to deployments of omni-directional antennas or mobile receivers, and so the missing values make sense. These records also show that the four records with missing antenna height are also associated with the four mobile receivers, and so again the missing values make sense and cannot be fixed.
 
-In the next chapter we will examine our data for false positives, and remove ambiguous tags that are not ours.
+In the next chapter we will examine our data for false positives, and remove detections of ambiguous tags.
