@@ -4,20 +4,27 @@ The motus R package offers functions that work with .motus data to do common com
 ```{r appendixBSample, eval = FALSE}
 
 sql.motus <- tagme(176, new = TRUE, update = TRUE) # download and access sample data in sql format, username: motus.sample, password: motus.sample
-tbl.alltags <- tbl(sql.motus, "alltags") # convert sql file "sql.motus" to a tbl called "tbl.alltags"
-df.alltags <- tbl.alltags %>% collect %>% as.data.frame() ## convert the tbl "tbl.alltags" to a data.frame called "df.alltags"
+
+tbl.alltags <- tbl(sql.motus, "alltags") # extract "alltags"" table from sql file "sql.motus"
+df.alltags <- tbl.alltags %>% 
+  collect() %>% 
+  as.data.frame() ## convert the tbl "tbl.alltags" to a data.frame called "df.alltags"
 
 ```
 
-You can also access the function help pages like so:
+You can access the function help pages:
 
 ```{r functionHelp, eval = TRUE}
+
 ??SunRiseSet
+
 ```
 
 Or view the underlying function code like this:
 ```{r functionCode, eval = TRUE}
+
 SunRiseSet
+
 ```
 
 ## SunRiseSet {#sunRiseSet}
@@ -55,7 +62,11 @@ Plot latitude/longitude vs time (UTC rounded to the hour) for each tag using .mo
 ### Example
 Plot tags select tags from tbl.alltags with 3 tags per panel
 ```{r plotAllTagsCoord, eval = TRUE}
-plotAllTagsCoord(filter(tbl.alltags, motusTagID %in% c(19129, 16011, 17357, 16035, 22897, 23316)), tagsPerPanel = 3)
+
+plotAllTagsCoord(
+  filter(tbl.alltags, motusTagID %in% c(19129, 16011, 17357, 16035, 22897, 23316)), 
+  tagsPerPanel = 3)
+
 ```
 
 ## plotAllTagsSite {#plotAllTagsSite}
@@ -74,7 +85,11 @@ Plot latitude/longitude vs time (UTC rounded to the hour) for each tag using .mo
 ### Example
 Plot tbl file tbl.alltags using gpsLat and 3 tags per panel for select species Red Knot
 ```{r, plotAllTagsSite, eval = TRUE}
-plotAllTagsSite(filter(tbl.alltags, speciesEN == "Red Knot"), coordinate = "gpsLat", tagsPerPanel = 3)
+
+plotAllTagsSite(filter(tbl.alltags, speciesEN == "Red Knot"), 
+                coordinate = "gpsLat", 
+                tagsPerPanel = 3)
+
 ```
 
 ## plotDailySiteSum {#plotDailySiteSum}
@@ -91,7 +106,9 @@ Plots total number of detections across all tags, and total number of tags detec
 ### Example
 Plot of all tag detections at site Longridge using data.frame df.alltags
 ```{r, plotDailySiteSum, eval = TRUE}
+
 plotDailySiteSum(df.alltags, recvDepName = "Longridge")
+
 ```
 
 ## plotRouteMap {#plotRouteMap}
@@ -109,7 +126,12 @@ Google map of routes of Motus tag detections coloured by motusTagID.  User defin
 ### Example
 Plot routemap of all detection data, with "terrain" maptype, and receivers active between 2016-01-01 and 2017-01-01
 ```{r, plotRouteMap, eval = TRUE}
-plotRouteMap(sql.motus, maptype = "terrain", latCentre = 44, lonCentre = -70, zoom = 5, recvStart = "2016-01-01", recvEnd = "2016-12-31")
+
+plotRouteMap(sql.motus, 
+             maptype = "terrain", 
+             latCentre = 44, lonCentre = -70, zoom = 5, 
+             recvStart = "2016-01-01", recvEnd = "2016-12-31")
+
 ```
 
 
@@ -126,7 +148,9 @@ plotRouteMap(sql.motus, maptype = "terrain", latCentre = 44, lonCentre = -70, zo
 ### Example
 Plot only detections at a specific site; Piskwamish for data.frame df.alltags
 ```{r, plotSite, eval = TRUE}
+
 plotSite(filter(df.alltags, recvDepName == "Piskwamish"))
+
 ```
 
 ## plotSiteSig {#plotSiteSig}
@@ -145,7 +169,9 @@ Plot signal strength vs time for all tags detected at a specified site, coloured
 ### Example
 Plot select tags for site Piskwamish 
 ```{r, plotSiteSig, eval = TRUE}
+
 plotSiteSig(filter(df.alltags, motusTagID %in% c(16037, 16039, 16035)), recvDepName = "Netitishi")
+
 ```
 
 ## plotTagSig {#plotTagSig}
@@ -165,7 +191,9 @@ Plot signal strength vs time for specified tag, faceted by site (ordered by lati
 ### Example
 Plot signal strength of a specified tag using tbl file tbl.alltags
 ```{r, plotTagSig, eval = TRUE}
+
 plotTagSig(tbl.alltags, motusTagID = 16035)
+
 ```
 
 ## simSiteDet {#simSiteDet}
@@ -180,8 +208,10 @@ Creates a data.frame consisting of only detections of tags that are detected at 
 ### Example
 To get a data.frame called "simSites" of just simultaneous detections from a data.frame df.alltags
 ```{r, simSiteDet, eval = TRUE}
+
 simSites <- simSiteDet(df.alltags)
 head(simSites)
+
 ```
 
 ## siteSum {#siteSum}
@@ -198,10 +228,14 @@ Creates a summary of the first and last detection at a site, the length of time 
 **units** units to display time difference, defaults to "hours", options include "secs", "mins", "hours", "days", "weeks"  
 
 ### Example
-Create site summaries for only select sites with time in minutes
+Create site summaries for select sites with time in minutes
 ```{r, siteSum, eval = TRUE}
-site_summary <- siteSum(filter(df.alltags, recvDepName %in% c("Niapiskau", "Netitishi", "Old Cur", "Washkaugou")), units = "mins")
+
+site_summary <- siteSum(filter(df.alltags, 
+                               recvDepName %in% c("Niapiskau", "Netitishi", "Old Cur", "Washkaugou")),
+                        units = "mins")
 head(site_summary)
+
 ```
 
 ## siteSumDaily {#siteSumDaily}
@@ -219,8 +253,10 @@ Creates a summary of the first and last daily detection at a site, the length of
 ### Example
 Create site summaries for all sites within detection data with time in minutes using tbl file tbl.alltags
 ```{r, siteSumDaily, eval = TRUE}
+
 daily_site_summary <- siteSumDaily(tbl.alltags, units = "mins")
 head(daily_site_summary)
+
 ```
 
 ## siteTrans {#siteTrans}
@@ -239,8 +275,11 @@ Creates a data.frame of transitions between sites; detections are ordered by det
 ### Example
 View site transitions for only tag 16037 from data.frame df.alltags
 ```{r, siteTrans, eval = TRUE}
-transitions <- siteTrans(filter(df.alltags, motusTagID == 16037), latCoord = "recvDeployLat", lonCoord = "recvDeployLon")
+
+transitions <- siteTrans(filter(df.alltags, motusTagID == 16037), 
+                         latCoord = "recvDeployLat", lonCoord = "recvDeployLon")
 head(transitions)
+
 ```
 
 ## tagSum {#tagSum}
@@ -259,8 +298,10 @@ Creates a summary for each tag of it's first and last detection time, first and 
 ### Example
 Create tag summary for all tags within detection data using tbl file tbl.alltags
 ```{r, tagSum, eval = TRUE}
+
 tag_summary <- tagSum(tbl.alltags)
 head(tag_summary)
+
 ```
 
 ## tagSumSite {#tagSumSite}
@@ -277,8 +318,10 @@ Creates a summary for each tag of it's first and last detection time at each sit
 ### Example
 Create tag summaries for only select tags with time in default hours with data.frame df.alltags
 ```{r, tagSumSite, eval = TRUE}
+
 tag_site_summary <- tagSumSite(filter(df.alltags, motusTagID %in% c(16047, 16037, 16039)))
 head(tag_site_summary)
+
 ```
 
 ## timeToSunriset {#timeToSunriset}
@@ -295,6 +338,8 @@ Creates and adds variables for time to, and time from sunrise/sunset based on a 
 ### Example
 Get sunrise and sunset information with units in minutes using tbl file tbl.alltags
 ```{r, timeToSunriset, eval = TRUE}
+
 sunrise <- timeToSunriset(tbl.alltags, units = "mins")
 head(sunrise)
+
 ```
