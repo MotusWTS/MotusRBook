@@ -123,6 +123,7 @@ Build a dataframe and filter out all detections with probability < 0.5 as per "m
 
 ```{r applyRunsFilter, eval = FALSE}
 
-hits.df = applyRunsFilter(src = sql.motus, filterName = "myfilter", p.min = 0.5, where.stmt = “ts > 123333333 and motusTagID in (12,13,14)”)
+hits.df = applyRunsFilter(src = sql.motus, filterName = "myfilter", p.min = 0.5, 
+                          where.stmt = “ts > 123333333 and motusTagID in (12,13,14)”)
 
 ```
