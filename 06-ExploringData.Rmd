@@ -12,9 +12,17 @@ library(motus)
 
 ```
 
+
+```{r setTimeZone }
+
+Sys.setenv(TZ="GMT")
+
+```
+
+
 ## Load data
 
-If you followed along with the the previous \@ref(dataCleaning) chapter and are working with cleaned 'df.alltags.filt.filt' file, you can skip this step and move to \@ref(dataSummaries).  Otherwise we will load the previously downloaded sample data (see chapter \@ref(accessingData) and clean it now.
+If you followed along with the the previous \@ref(dataCleaning) chapter and are working with cleaned 'df.alltags.filt' file, you can skip this step and move to \@ref(dataSummaries).  Otherwise we will load the previously downloaded sample data (see chapter \@ref(accessingData) and clean it now.
 
 ```{r importData}
 
@@ -42,6 +50,7 @@ df.alltags.filt <- df.alltags.filt %>%
 
 ## Summarizing your data {#dataSummaries}
 Here we will run through some basic commands, starting with the summary() function to view all variables in a data frame, here we'll just examine a few select variables:
+
 ```{r summaryAllTags}
 
 sql.motus %>% 
@@ -58,11 +67,12 @@ The dplyr package allows you to easily summarize data by group, manipulate varia
 We can manipulate existing variables or create new ones with dplyr's mutate function, here we'll convert ts to a POSIXct format, then make a new variable for year and day of year (doy):
 ```{r tagMutate}
 
-df.alltags.filt.filt <- df.alltags.filt.filt %>%
+df.alltags.filt <- df.alltags.filt %>%
   mutate(ts = as_datetime(ts, tz = "UTC"), ## convert ts to POSIXct format
          year = year(ts), ## extract year from ts
          doy = yday(ts)) ## extract numeric day of year from ts
-head(df.alltags.filt.filt)
+head(df.alltags.filt)
+
 ```
 
 We can also summarize information by group, in this case motusTagID, and apply various functions to these groups such as getting the total number of detections (n) for each tag, the number of receivers each tag was detected on, the first and last detection date, and the total number of days there was at least one detection:
@@ -75,6 +85,7 @@ tagSummary <- df.alltags.filt %>%
             tsMin = min(ts),
             tsMax = max(ts),
             totDay = length(unique(doy)))
+
 head(tagSummary)
 
 ```
@@ -89,6 +100,7 @@ tagRecvSummary <- df.alltags.filt %>%
             tsMin = min(ts),
             tsMax = max(ts),
             totDay = length(unique(doy)))
+
 head(tagRecvSummary)
 
 ```
