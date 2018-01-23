@@ -26,11 +26,13 @@ install.packages("devtools")
 library(devtools)
 
 ## install motusClient for data download
+#install_github("MotusWTS/motusClient@staging")
 install_github("MotusWTS/motusClient")
 
 ## install motus for data download, data manipulation, visualization and analysis
 install_github("MotusWTS/motus")  
 library(motus)
+library(devtools)
 
 ```
 
