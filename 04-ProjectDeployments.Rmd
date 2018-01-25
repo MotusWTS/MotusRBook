@@ -36,11 +36,11 @@ sql.motus <- tagme(176, update = TRUE, dir = "./data")
 
 In your .motus file, you are only provided with the metadata for any tags from your project with detections along with metadata for associated ambiguous tags from other projects, and receiver metadata for stations where your tags were detected.  Here we will:
 
-1. downlaod full tag metadata for our project only;  
+1. download full tag metadata for our project only;  
 2. determine how many tags are registered to your project;  
-3. determin how many of those registered tags were deployed;  
+3. determine how many of those registered tags were deployed;  
 4. determine location of tag deployments;  
-5. determin completeness and accuracy of tag deployment metadata.  
+5. determine completeness and accuracy of tag deployment metadata.  
 
 We will run through each of these in sequence.
 
@@ -210,11 +210,11 @@ All users are encouraged to enter complete and accurate receiver metadata for th
 
 In the following steps we will check:
 
-1. downlaod full receiver metadata across the network;  
-2. determin number of project receiver deployments;
-3. determin timing of project receiver deployments;
-4. determin location of network-wide and project receiver deployments;
-5. determin completeness and accuracy of receiver metadata.
+1. download full receiver metadata across the network;  
+2. determine number of project receiver deployments;
+3. determine timing of project receiver deployments;
+4. determine location of network-wide and project receiver deployments;
+5. determine completeness and accuracy of receiver metadata.
 
 ### 1. Download full  receiver metadata 
 Later on in this chapter we'll want to map all receivers in the network, so we will now load metadata from all projects, as opposed to simply project176 as we did above, the metadata() function is described in more detail here: \@ref(metadata).
@@ -241,7 +241,7 @@ summary(df.projRecvs)
 
 ```
 
-There are `r nrow(df.projRecvs)` receiver deployments registered to the sample project. Four deployments are missing latitude and longitude, which should be added to the metatdata on the motus site, and six deployments are missing end dates, which suggests that those receivers are still deployed. 
+There are `r nrow(df.projRecvs)` receiver deployments registered to the sample project. Four deployments are missing latitude and longitude, which should be added to the metatdata on the Motus site, and six deployments are missing end dates, which suggests that those receivers are still deployed. 
 
 The following code keeps only variables of interest (by removing those we do not need), and arranges the remaining records by receiver ID, latitude, and start date:
 
@@ -275,7 +275,7 @@ ggplot(df.projRecvs.long,
        aes(y = as.factor(deviceID), x = ts, colour = as.factor(deployID))) +
   geom_line(lwd=3) + 
   
-  ## insted, center to the right
+  ## instead, center to the right
   geom_text(data=filter(df.projRecvs.long, when == "tsStart"), 
             aes(label=deployID), hjust="left", nudge_y = 0.2, size=3, angle = 45) +
   theme_bw() +
