@@ -16,13 +16,13 @@ There are two types of tag databases:
 
 1. **receiver database**: includes all detections of any registered tags from a single receiver. A receiver database has a name like SG-1234BBBK5678.motus; where the name is the serial number of the receiver.
 
-2. **project database**: includes all detections of your registered tags from across the motus network. A tag project database has a name like project-123.motus, where the number is the motus project ID.
+2. **project database**: includes all detections of your registered tags from across the Motus network. A tag project database has a name like project-123.motus, where the number is the Motus project ID.
 
 These two databases correspond to the basic model of data sharing:
 
 1. you get all detections of anyone's tags by *your* receivers (i.e., one receiver tag database for each receiver you deploy)
 
-2. you get all detections of *your* tags by *anyone's* receivers (i.e., one project tag database for each of your motus projects)
+2. you get all detections of *your* tags by *anyone's* receivers (i.e., one project tag database for each of your Motus projects)
 
 ## Load relevant R packages {#loadPackages}
 
@@ -37,7 +37,7 @@ require(motus)
 
 ## Set system environment
 
-Set the system environment time zone to Greenwich Mean Time (GMT), to ensure that you are always working in GMT. This is a very important step, and should be part of every working session. If you fail to do this, then two problems can arise. Times are stored in the motus database in GMT, and if you do not keep your environment in GMT, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.
+Set the system environment time zone to Greenwich Mean Time (GMT), to ensure that you are always working in GMT. This is a very important step, and should be part of every working session. If you fail to do this, then two problems can arise. Times are stored in the Motus database in GMT, and if you do not keep your environment in GMT, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.
 
 ```{r setTimeZone }
 
@@ -187,7 +187,7 @@ Each tag database is stored as an SQLite ('dplyr::src_sqlite') file with the ext
 2. it is accessible from many software platforms (not just R).
 3. it is **appendable**: the database can be created and updated on disk without having to read in and resave the entire contents. This will save time and computer memory when searching to see if any new detections are available for your project or receiver.
 
-The .motus file contains a series of interelated tables where data are stored in a condensed format to save memory. The following tables are included in the .motus file;
+The .motus file contains a series of interrelated tables where data are stored in a condensed format to save memory. The following tables are included in the .motus file;
 
 1. antDeps: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.
 2. batchRuns: metadata for runIDs and associated batchIDs
@@ -195,7 +195,7 @@ The .motus file contains a series of interelated tables where data are stored in
 4. filters: metadata related to user created filters associated with the specified receiver.  
 5. gps: metadata related to Geographic Positioning System (GPS) position of receiver. 
 6. hits: detection data at the level of individual hits.
-7. meta: metadata related to the project and datatype (tags vs. receiveres) that are included in the .motus file
+7. meta: metadata related to the project and datatype (tags vs. receivers) that are included in the .motus file
 8. projAmbig: metadata related to what projects have ambiguous tag detections
 9. projBatch: metadata for the number of detections contained in each batch
 10. projs: metadata related to projects, e.g., project name, principal investigator.
@@ -320,7 +320,7 @@ If you want to load only part of your entire virtual table (e.g. certain fields,
 
 ```{r collect1, eval = FALSE}
 
-## to grab a subset of variables, in this case a unique list of motus tag IDs 
+## to grab a subset of variables, in this case a unique list of Motus tag IDs 
 ## at each receiver and antenna.
 df.alltagsSub <- select(tbl.alltags, recv, ant, motusTagID) %>%
   distinct() %>% 
