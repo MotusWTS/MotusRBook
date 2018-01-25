@@ -1,12 +1,11 @@
 # Data Cleaning {#dataCleaning}
 
-There are three sources of 'error' that can result in tag detections appearing in your database that are incorrect. 
-
+There are three sources of 'error' that can result in tag detections appearing in your database that are incorrect.  
 First, random radio noise ('static') can be detected and interpreted to be the transmission of a tag. These are called 'false positives'.   
 
 Second, despite our best efforts to avoid it, duplicate tags are sometimes transmitting in the network at the same time. When two tags are deployed at the same time that have the same Lotek ID code, burst interval, and nominal transmit frequency, it results in situations where the detections may belong to either tag, but there is no information (other than contextual information) to separate them. We term these 'Ambiguous tags'. 
 
-Third, a tag can appear to be present when two tags are transmitting at the same time that by chance produce a signal that looks like a third tag that is not in fact present. Such tags are most common at roosting sites or breeding colonies, where many tags are transmitting simultaneously. We term these 'Aliased tags' 
+Third, a tag can appear to be present when two tags are transmitting at the same time that by chance produce a signal that looks like a third tag that is not in fact present. Such tags are most common at roosting sites or breeding colonies, where many tags are transmitting simultaneously. We term these 'Aliased tags'.   
 
 Here we provide example workflows to deal with each of these possible problems. We start by working with false positives, before exploring the other types of error.
 
@@ -79,7 +78,7 @@ df.alltags <- tbl.alltags %>%
                        recvLat = plyr::round_any(recvLat, 0.05), 
                        recvLon = plyr::round_any(recvLon, 0.05),
                        recvDeployName = if_else(is.na(recvDeployName), 
-                                                paste(recvLat, recvLon, sep=":"), recvDeployName)) 
+                                                paste(recvLat, recvLon, sep=":"), recvDeployName))
 
 ## or just select the variables you need
 #select(runID, ts, sig, freqsd, motusTagID, ambigID, runLen, tagProjID, 
@@ -97,9 +96,9 @@ First, determine which project tags have detections, and determine how many are 
 
 1) The tag was not properly activated on deployment. To avoid this, always check that a tag is active using a hand-held receiver before attaching the tag to your study animal and releasing it. 
 
-2) An animal with a properly activated tag might not have passed within range of a receiving station. Study designs that incorporate strategic placement of receivers to meet project goals can improve your odds of getting detections of your tags.
+2) An animal with a properly activated tag might not have passed within range of a receiving station. Study designs that incorporate strategic placement of receivers to meet project goals can improve your odds of getting detections of your tags.  
 
-3) Missing or incorrect tag deployment metadata in the Motus database can result in the tagFinder not 'looking' for your tag at the time the tag was deployed, or at all. Please ensure your tag metadata are entered correctly.
+3) Missing or incorrect tag deployment metadata in the Motus database can result in the tagFinder not 'looking' for your tag at the time the tag was deployed, or at all. Please ensure your tag metadata are entered correctly.  
 
 Using the following code, we see there are detections for 18 tags deployed by the sample project, and that many have run lengths of 2:
 
