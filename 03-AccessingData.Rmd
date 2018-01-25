@@ -74,7 +74,6 @@ motusLogout()
 
 ```
 
-
 ### Downloading detection data {#downloadData}
 Let's get started. Note that there are no receivers registered to sample project 176, so the second call (by receiver) will not find any data. You can, however, replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample account, see \@ref(logout)). 
 
@@ -107,7 +106,7 @@ sql.motus <- tagme(176, update = FALSE, dir = "./data")
 ```
 The tagme() function will write a copy of your tag database to the working or specified folder, stored as an SQLite file with the extension '.motus'. 
 
-### Update and open a local tag database
+### Update and open a local tag database {#tagmeUpdate}
 
 To open and update a detections database that already exists (has been downloaded previously):
 
@@ -117,17 +116,7 @@ sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = TRUE, dir = "./dat
 
 ```
 
-### Force an update/re-import of tag and receiver deployment metadata
-
-Tag and receiver metadata are automatically merged with tag detections when data are downloaded. However, if you want to force a re-import of the metadata when updating a database, you can run:  
-
-```{r tagme4, eval = FALSE}
-
-sql.motus <- tagme(projRecv = proj.num, forceMeta = TRUE)
-
-```
-
-### Check if new data are available
+### Check if new data are available {#tellme}
 
 To check if new data are available without downloading the data, you can use the tellme() function, which returns a list with:
 
@@ -153,6 +142,42 @@ To check how much data is available for a project but you _do not_ have a databa
 tellme(projRecv = proj.num, new = TRUE)
 
 ```
+
+### Force an update/re-import of tag and receiver deployment metadata {#forceMeta}
+
+Tag and receiver metadata are automatically merged with tag detections when data are downloaded. However, if you want to force a re-import of the metadata when updating a database, you can run:  
+
+```{r tagme4, eval = FALSE}
+
+sql.motus <- tagme(projRecv = proj.num, forceMeta = TRUE)
+
+```
+
+### Import additional metadata (#metadata)
+In your .motus file, you are provided with the metadata for:
+1. any tags registered to your project which have detections;  
+2. tags from other projects which are associated with ambiguous detections (see Chapter \@ref(dataCleaning)) in your data;  
+3. receivers that your tags, plus ambiguous tags, were detected on.  
+
+We can use the metadata() function to access full tag and receiver metadata across the network:
+
+```{r metadata1, eval = FALSE}
+
+metadata(sql.motus) ## access all available tag and receiver metadata for all projects in the network.
+
+```
+
+You can also specify which project(s) you would like tag and receiver metadata for:
+
+```{r metadata2, eval = FALSE}
+
+metadata(sql.motus, projectIDs = 176) ## access tag and receiver metadata associated with project 176
+metadata(sql.motus, projectIDs = c(176, 1)) ## access tag and receiver metadata associated with projects 176 and 1
+
+```
+
+This metadata will be added to your saved .motus file and so you will only need to import additional metadata once.
+
 
 ## Data structure {#databaseStructure}
 
