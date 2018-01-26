@@ -56,7 +56,7 @@ proj.num <- 176
 ## Load detection data, select variables, create latitude variables, and transform to flat file.
 ## We also fix up some sites that are missing receiver deployment data, or do not have names
 ## As more users explore (and fix!) their metadata, these missing values should begin to disappear.
-sql.motus <- tagme(proj.num, update = FALSE, dir = "./data/")
+sql.motus <- tagme(proj.num, update = TRUE, dir = "./data/")
 tbl.alltags <- tbl(sql.motus, "alltags")
 
 
@@ -685,7 +685,7 @@ Going forward, once the filter is completely populated, you will only need to do
 
 ```{r overwriteFilter1, eval = FALSE}
 
-sql.motus <- tagme(proj.num, update = FALSE, dir = "./data/")
+sql.motus <- tagme(proj.num, update = TRUE, dir = "./data/")
 
 tbl.alltags.sub <- applyRunsFilter(sql.motus, "filtAmbigFalsePos") 
 
