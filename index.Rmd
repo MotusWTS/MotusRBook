@@ -1,6 +1,6 @@
 ---
 title: "R for Motus"
-author: "Tara L. Crewe and Zoe Crysler"
+author: "Tara L. Crewe, Zoe Crysler, and Philip Taylor"
 date: "`r Sys.Date()`"
 output: bookdown::gitbook
 documentclass: book
@@ -15,7 +15,7 @@ cover-image: BSC_Motus_Logo.png
 knitr::include_graphics("images/MotusBSCLogo.png")
 ```
 
-Our goal with this online 'handbook' is to show Motus (<https://motus.org>) users how to use the Motus R package (<https://github.com/jbrzusto/motus>), along with other stand-alone R packages (e.g., ggplot2), to import tag detection data for their project or receiver; explore their data through visualizations and summaries; transform their data, e.g., by determining time since sunrise/sunset or magnetic declination; and to run various analytical procedures. This book therefore goes beyond simply highlighting the functionalities of the Motus R package - it also shows users, who may not be experts in R, to use additional R packages to do basic summaries and plots. We hope the contents will be of use, and if you have suggestions for additional examples, please let us know by emailing motus@birdscanada.org. 
+Our goal with this online 'handbook' is to show Motus (<https://motus.org>) users how to use the Motus R package (<https://github.com/jbrzusto/motus>), along with other stand-alone R packages (e.g., ggplot2), to import tag detection data for their project or receiver; clean data and filter false positives; explore their data through visualizations and summaries; transform their data, e.g., by determining time since sunrise/sunset or magnetic declination; and to run various analytical procedures. This book therefore goes beyond simply highlighting the functionalities of the Motus R package - it also shows users, who may not be experts in R, to use additional R packages to do basic summaries and plots. We hope the contents will be of use, and if you have suggestions for additional examples, please let us know by emailing motus@birdscanada.org. 
 
 
 
