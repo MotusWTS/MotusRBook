@@ -407,12 +407,13 @@ df.alltags <- tbl.alltags %>%
 
 ```{r dataImport, echo = FALSE, eval = TRUE}
 ## hidden data import so uodate can be set to FALSE
+proj.num= 176
 sql.motus <- tagme(176, update = FALSE, dir = "./data")   # SQLite R object, which links to the .motus file
 tbl.alltags <- tbl(sql.motus, "alltags")  # virtual table object of the alltags table in the
                                           # sample.motus file
 df.alltags <- tbl.alltags %>%
                 collect() %>%
-                as.data.frame() #%>%        # dataframe ("flat") object of the alltags table
+                as.data.frame() %>%        # dataframe ("flat") object of the alltags table
                 mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))              
 
 ```
