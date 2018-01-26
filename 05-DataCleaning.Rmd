@@ -59,9 +59,6 @@ proj.num <- 176
 sql.motus <- tagme(proj.num, update = TRUE, dir = "./data/")
 tbl.alltags <- tbl(sql.motus, "alltags")
 
-
-## FIXME! this should be a user-created function, since it gets used multiple times.
-
 df.alltags <- tbl.alltags %>% 
                 mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
                        recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
@@ -113,12 +110,17 @@ df.alltags %>%
 
 ```
 
-Although some of these may be valid detections, we have found it simpler to just remove them from our analysis, and possibly revisit them at a later stage. Therefore we filter on runLen (> 2) for most  subsequent operations.
+Although some of these may be valid detections, we have found it simpler to just remove them from our analysis, and possibly revisit them at a later stage. Therefore we filter on runLen (> 2) for most  subsequent operations. We save these in a block to add to our other filters later. 
 
 ```{r filterRunLen2}
 
 df.alltags.sub <- filter(df.alltags, 
                          runLen > 2)
+
+df.block.0 <- filter(df.alltags, 
+                     runLen == 2) %>% 
+  select(motusTagID, runID) %>%
+  distinct()
 
 ```
 
@@ -611,104 +613,21 @@ df.block.8 <- filter(df.alltags.sub,
 
 ** filtering **
 
-## Filter the data
-
-The Motus R package offers functionalities to create custom filters for your data (see \@ref(#appendixC)). The filters, once created, are attached to your user profile (motus login credentials), and can be used to 1) assign probabilities to detections, and 2) filter detections based on those probabilities each time you load your .motus file. A filter is created, populated, and applied in the following steps:
-
-1. use the 'createRunsFilter' function to create (but not populate) a filter, here named 'filtAmbigFalsePos'. 
-
-2. Generate a dataframe which includes the motusTagID and runID of detections you want to filter; assign a probability to those detections. In this case, because we want to exclude the data we are filtering, we assign a probability of 0 to all detections we consider to be false positives.  
-
-3. Use the 'writeRunsFilter' function to write the dataframe to the filter. Using the delete = TRUE option will remove all records previously written to the filter; using the overwrite = FALSE option will allow new records to be appended to the filter.  
-
-4. Use the 'applyRunsFilter' function to output a flat file of the alltags dataframe with probabilities assigned to each detection. Detections that are not included in the filter will be automatically assigned a probability of 1. Note that to also filter the data by a given probability, you must use the 'p.min =' statement. In this case, we use p.min = 0.1, which drops all detections with a probability less than that value.  
-
-### Create a custom data filter for your .motus file
-
-```{r createFilter, eval = FALSE}
-
-createRunsFilter(sql.motus, 
-                 filterName = "filtAmbigFalsePos", 
-                 motusProjID = 176, 
-                 descr = "filter to assign probability = 0 to false positive detections 
-                 and ambiguities that belong to other tags (Chapter 5 in R Book)")
-
-```
-
-Check that the filter was created using the 'listRunsFilters' function; note that the filter has been assigned a unique filterID of 1:
-
-```{r listRunsFilters.5}
-
-listRunsFilters(sql.motus)
-
-```
-
-### Filter all detections 
-
-Here we can use the various 'blocks' that we created throughout the script above, to make a single filter. We'll also need to create a filter for run lengths of 2.
+Now to filter the data, we can simply join the df.block data frames back to the original data file, and filter. 
 
 ```{r}
 
-df.block.0 <- filter(df.alltags, 
-                     runLen == 2) %>% 
-  select(motusTagID, runID) %>%
-  distinct()
-
-df.block.all <- bind_rows(df.block.0, df.block.1, df.block.2, 
-                          df.block.3, df.block.4, df.block.5, 
-                          df.block.6, df.block.7, df.block.8) %>%
+df.block.all <- bind_rows(df.block.0, df.block.1, df.block.2, df.block.3, 
+                          df.block.4, df.block.5, df.block.6, df.block.7, df.block.8) %>%
   mutate(probability = 0)
 
+df.alltags.sub <- left_join(df.alltags, df.block.all, by = c("runID", "motusTagID")) %>% 
+  mutate(probability = ifelse(is.na(probability), 1, 0)) %>%
+  filter(probability > 0)
 ```
 
-Then, populate the 'filtAmbigFalsePos' filter using the `writeRunsFilter` function. To remove previously written detections from the filter, use the delete = TRUE option:
-
-```{r writeFilter1}
-
-writeRunsFilter(sql.motus, "filtAmbigFalsePos", motusProjID = 176, df = df.block.all, delete = TRUE)
-
-```
-Check that the records were applied to the filter using the 'getRunsFilters' function:
-
-```{r getRunsFilter1}
-
-getRunsFilters(sql.motus, "filtAmbigFalsePos") %>%
-  head()
+Now save the local data frame as an RDS file, for use in the next chapter. 
+```{r}
 
 ```
 
-Finally, apply the filter to the .motus file. We filter the data by those probabilities by assigning a p.min = 0.1, which drops all detections associated with a probability < 0.1.
-
-Note also that because the filter is applied to the .motus file and not our data frame, we need to re-create the dataframe. 
-
-Going forward, once the filter is completely populated, you will only need to do this when you first import your .motus file. Here, we start from tagme() to show you how the filter would be applied when you first import your data:
-
-```{r overwriteFilter1, eval = FALSE}
-
-sql.motus <- tagme(proj.num, update = TRUE, dir = "./data/")
-
-tbl.alltags.sub <- applyRunsFilter(sql.motus, "filtAmbigFalsePos") 
-
-## FIXME! this should be a user-created function, since it gets used multiple times.
-
-df.alltags.sub <- tbl.alltags.sub %>% 
-                mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
-                       recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
-                       recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
-                select(-noise, -slop, -burstSlop, -done, -bootnum, -mfgID, -codeSet, -mfg, -nomFreq,
-                       -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID,
-                       -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat, 
-                       -gpsLon, - recvAlt, - recvSiteName) %>%
-                collect() %>%
-                as.data.frame() %>%
-                filter(probability > 0) %>%
-                mutate(ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
-                       tagDeployStart = as_datetime(tagDeployStart),
-                       tagDeployEnd = as_datetime(tagDeployEnd), 
-                       recvLat = plyr::round_any(recvLat, 0.05), 
-                       recvLon = plyr::round_any(recvLon, 0.05),
-                       recvDeployName = if_else(is.na(recvDeployName), 
-                                                paste(recvLat, recvLon, sep=":"), recvDeployName))
-
-
-```
