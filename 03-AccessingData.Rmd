@@ -39,7 +39,7 @@ require(motus)
 
 Set the system environment time zone to Greenwich Mean Time (GMT), to ensure that you are always working in GMT. This is a very important step, and should be part of every working session. If you fail to do this, then two problems can arise. Times are stored in the Motus database in GMT, and if you do not keep your environment in GMT, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.
 
-```{r setTimeZone }
+```{r setTimeZone1 }
 
 Sys.setenv(TZ="GMT")
 
@@ -393,14 +393,26 @@ write_csv(df.alltags, "./data/df.alltags.CSV")
 
 Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with "sql.", virtual table objects will be prefixed with "tbl.", and dataframe objects will be prefixed with "df."; the rest of the name will include the name of the .motus table that the data originates from. Throughout the rest of the book we will be relying on and referencing the formats below, please ensure that you have these before continuing to the next chapter.  These functions assume you have already downloaded the sample data and do not need to update it; if you have not, see section \@ref(dataDownload) for instructions on initial download:
 
-```{r namingConvention, eval = TRUE}
+```{r namingConvention, eval = FALSE}
 
+sql.motus <- tagme(176, update = TRUE, dir = "./data")   # SQLite R object, which links to the .motus file
+tbl.alltags <- tbl(sql.motus, "alltags")  # virtual table object of the alltags table in the
+                                          # sample.motus file
+df.alltags <- tbl.alltags %>%
+                collect() %>%
+                as.data.frame() #%>%        # dataframe ("flat") object of the alltags table
+                mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))              
+
+```
+
+```{r dataImport, echo = FALSE, eval = TRUE}
+## hidden data import so uodate can be set to FALSE
 sql.motus <- tagme(176, update = FALSE, dir = "./data")   # SQLite R object, which links to the .motus file
 tbl.alltags <- tbl(sql.motus, "alltags")  # virtual table object of the alltags table in the
                                           # sample.motus file
 df.alltags <- tbl.alltags %>%
                 collect() %>%
-                as.data.frame() %>%        # dataframe ("flat") object of the alltags table
+                as.data.frame() #%>%        # dataframe ("flat") object of the alltags table
                 mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))              
 
 ```

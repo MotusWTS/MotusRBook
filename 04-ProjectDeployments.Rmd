@@ -46,7 +46,7 @@ We will run through each of these in sequence.
 
 ### 1. Download full project tag metadata 
 Incomplete metadata, or missing tag registrations can result in missing detection data.  We therefore want to assess the completeness of all tags registered to our projects - not just tags for which we have detections.  In order to to this we will use the metadata() function for project 176, described in more detail here: \@ref(metadata).
-```{r metadata176, eval = FALSE}
+```{r metadata176}
 
 metadata(sql.motus, projectIDs = 176)
 

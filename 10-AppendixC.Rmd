@@ -39,7 +39,7 @@ Create a new filter. Prior to creating a filter, it checks to ensure a filter wi
 
 Create a new filter called “myfilter” for the sql.motus database which is not attached to a specific project:
 
-```{r createRunsFilter, eval = FALSE}
+```{r createRunsFilter2, eval = FALSE}
 
 createRunsFilter(sql.motus, "myfilter")
 

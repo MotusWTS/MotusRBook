@@ -1,6 +1,6 @@
 ---
 title: "R for Motus"
-author: "Tara L. Crewe and Zoe Crysler"
+author: "Tara L. Crewe, Zoe Crysler, and Philip Taylor"
 date: "`r Sys.Date()`"
 output: bookdown::gitbook
 documentclass: book
@@ -15,7 +15,7 @@ cover-image: BSC_Motus_Logo.png
 knitr::include_graphics("images/MotusBSCLogo.png")
 ```
 
-Our goal with this online 'handbook' is to show Motus (<https://motus.org>) users how to use the Motus R package (<https://github.com/jbrzusto/motus>), along with other stand-alone R packages (e.g., ggplot2), to import tag detection data for their project or receiver; explore their data through visualizations and summaries; transform their data, e.g., by determining time since sunrise/sunset or magnetic declination; and to run various analytical procedures. This book therefore goes beyond simply highlighting the functionalities of the Motus R package - it also shows users, who may not be experts in R, to use additional R packages to do basic summaries and plots. We hope the contents will be of use, and if you have suggestions for additional examples, please let us know by emailing motus@birdscanada.org. 
+Our goal with this online 'handbook' is to show Motus (<https://motus.org>) users how to use the Motus R package (<https://github.com/jbrzusto/motus>), along with other stand-alone R packages (e.g., ggplot2), to import tag detection data for their project or receiver; clean data and filter false positives; explore their data through visualizations and summaries; transform their data, e.g., by determining time since sunrise/sunset or magnetic declination; and to run various analytical procedures. This book therefore goes beyond simply highlighting the functionalities of the Motus R package - it also shows users, who may not be experts in R, to use additional R packages to do basic summaries and plots. We hope the contents will be of use, and if you have suggestions for additional examples, please let us know by emailing motus@birdscanada.org. 
 
 
 
@@ -105,21 +105,25 @@ Begin by installing the required packages, if not already installed. Note that t
 install.packages("devtools")
 library(devtools)
 
-## install motusClient for data download
-install_github("MotusWTS/motusClient")
-
 ## install motus for data download, data manipulation, visualization and analysis
-install_github("MotusWTS/motus")  
+install_github("MotusWTS/motus")
+
+## install motusClient for data download
+install_github("MotusWTS/motusClient@staging")
+
 library(motus)
 
 ```
 
-Throughout the book, we use tidyverse (<https://www.tidyverse.org/>), which is a collection of R packages for data science, including tidyr, dplyr, ggplot2, and lubridate for managing and manipulating dates. More information on tidyverse can be found at <https://www.tidyverse.org/>, or by browsing (or better still, thoroughly reading) 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>. For mapping we also use the rworldmap package.  These can be installed from CRAN, as follows:
+Throughout the book, we use tidyverse (<https://www.tidyverse.org/>), which is a collection of R packages for data science, including tidyr, dplyr, ggplot2, and lubridate for managing and manipulating dates. More information on tidyverse can be found at <https://www.tidyverse.org/>, or by browsing (or better still, thoroughly reading) 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>. For mapping we also use the rworldmap, and ggmap packages.  These can be installed from CRAN, as follows:
 
 ```{r install tidyverse, eval = FALSE}
 
 install.packages("tidyverse")
 library(tidyverse)
+
+install.packages("tidyr")
+library(tidyr)
 
 install.packages("rworldmap")
 library(rworldmap)
@@ -158,19 +162,21 @@ knitr::include_graphics("images/DataStructure.png")
 
 <br>
 
+** Before downloading your detection data, please ensure that you have no pending metadata issues through the online [notification centre](https://motus.org/data/issues) **
+
 ## Database types {#databaseTypes}
 
 There are two types of tag databases:
 
 1. **receiver database**: includes all detections of any registered tags from a single receiver. A receiver database has a name like SG-1234BBBK5678.motus; where the name is the serial number of the receiver.
 
-2. **project database**: includes all detections of your registered tags from across the motus network. A tag project database has a name like project-123.motus, where the number is the motus project ID.
+2. **project database**: includes all detections of your registered tags from across the Motus network. A tag project database has a name like project-123.motus, where the number is the Motus project ID.
 
 These two databases correspond to the basic model of data sharing:
 
 1. you get all detections of anyone's tags by *your* receivers (i.e., one receiver tag database for each receiver you deploy)
 
-2. you get all detections of *your* tags by *anyone's* receivers (i.e., one project tag database for each of your motus projects)
+2. you get all detections of *your* tags by *anyone's* receivers (i.e., one project tag database for each of your Motus projects)
 
 ## Load relevant R packages {#loadPackages}
 
@@ -185,9 +191,9 @@ require(motus)
 
 ## Set system environment
 
-Set the system environment time zone to Greenwich Mean Time (GMT), to ensure that you are always working in GMT. This is a very important step, and should be part of every working session. If you fail to do this, then two problems can arise. Times are stored in the motus database in GMT, and if you do not keep your environment in GMT, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.
+Set the system environment time zone to Greenwich Mean Time (GMT), to ensure that you are always working in GMT. This is a very important step, and should be part of every working session. If you fail to do this, then two problems can arise. Times are stored in the Motus database in GMT, and if you do not keep your environment in GMT, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.
 
-```{r setTimeZone }
+```{r setTimeZone1 }
 
 Sys.setenv(TZ="GMT")
 
@@ -222,7 +228,6 @@ motusLogout()
 
 ```
 
-
 ### Downloading detection data {#downloadData}
 Let's get started. Note that there are no receivers registered to sample project 176, so the second call (by receiver) will not find any data. You can, however, replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample account, see \@ref(logout)). 
 
@@ -255,7 +260,7 @@ sql.motus <- tagme(176, update = FALSE, dir = "./data")
 ```
 The tagme() function will write a copy of your tag database to the working or specified folder, stored as an SQLite file with the extension '.motus'. 
 
-### Update and open a local tag database
+### Update and open a local tag database {#tagmeUpdate}
 
 To open and update a detections database that already exists (has been downloaded previously):
 
@@ -265,17 +270,7 @@ sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = TRUE, dir = "./dat
 
 ```
 
-### Force an update/re-import of tag and receiver deployment metadata
-
-Tag and receiver metadata are automatically merged with tag detections when data are downloaded. However, if you want to force a re-import of the metadata when updating a database, you can run:  
-
-```{r tagme4, eval = FALSE}
-
-sql.motus <- tagme(projRecv = proj.num, forceMeta = TRUE)
-
-```
-
-### Check if new data are available
+### Check if new data are available {#tellme}
 
 To check if new data are available without downloading the data, you can use the tellme() function, which returns a list with:
 
@@ -302,6 +297,42 @@ tellme(projRecv = proj.num, new = TRUE)
 
 ```
 
+### Force an update/re-import of tag and receiver deployment metadata {#forceMeta}
+
+Tag and receiver metadata are automatically merged with tag detections when data are downloaded. However, if you want to force a re-import of the metadata when updating a database, you can run:  
+
+```{r tagme4, eval = FALSE}
+
+sql.motus <- tagme(projRecv = proj.num, forceMeta = TRUE)
+
+```
+
+### Import additional metadata (#metadata)
+In your .motus file, you are provided with the metadata for:
+1. any tags registered to your project which have detections;  
+2. tags from other projects which are associated with ambiguous detections (see Chapter \@ref(dataCleaning)) in your data;  
+3. receivers that your tags, plus ambiguous tags, were detected on.  
+
+We can use the metadata() function to access full tag and receiver metadata across the network:
+
+```{r metadata1, eval = FALSE}
+
+metadata(sql.motus) ## access all available tag and receiver metadata for all projects in the network.
+
+```
+
+You can also specify which project(s) you would like tag and receiver metadata for:
+
+```{r metadata2, eval = FALSE}
+
+metadata(sql.motus, projectIDs = 176) ## access tag and receiver metadata associated with project 176
+metadata(sql.motus, projectIDs = c(176, 1)) ## access tag and receiver metadata associated with projects 176 and 1
+
+```
+
+This metadata will be added to your saved .motus file and so you will only need to import additional metadata once.
+
+
 ## Data structure {#databaseStructure}
 
 Each tag database is stored as an SQLite ('dplyr::src_sqlite') file with the extension '.motus'. The sqlite format was chosen because:
@@ -310,7 +341,7 @@ Each tag database is stored as an SQLite ('dplyr::src_sqlite') file with the ext
 2. it is accessible from many software platforms (not just R).
 3. it is **appendable**: the database can be created and updated on disk without having to read in and resave the entire contents. This will save time and computer memory when searching to see if any new detections are available for your project or receiver.
 
-The .motus file contains a series of interelated tables where data are stored in a condensed format to save memory. The following tables are included in the .motus file;
+The .motus file contains a series of interrelated tables where data are stored in a condensed format to save memory. The following tables are included in the .motus file;
 
 1. antDeps: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.
 2. batchRuns: metadata for runIDs and associated batchIDs
@@ -318,7 +349,7 @@ The .motus file contains a series of interelated tables where data are stored in
 4. filters: metadata related to user created filters associated with the specified receiver.  
 5. gps: metadata related to Geographic Positioning System (GPS) position of receiver. 
 6. hits: detection data at the level of individual hits.
-7. meta: metadata related to the project and datatype (tags vs. receiveres) that are included in the .motus file
+7. meta: metadata related to the project and datatype (tags vs. receivers) that are included in the .motus file
 8. projAmbig: metadata related to what projects have ambiguous tag detections
 9. projBatch: metadata for the number of detections contained in each batch
 10. projs: metadata related to projects, e.g., project name, principal investigator.
@@ -331,12 +362,12 @@ The .motus file contains a series of interelated tables where data are stored in
 17. tagDeps: metadata related to tag deployments, e.g., deployment date, location, and species.
 18. tags: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).
 
-You can view the list of tables, and variables contained within those tables using the below code:
+You can view the list of tables, and variables contained within those tables using the code below:
 ```{r sqlTables, eval = FALSE}
 
 file.name <- dbConnect(SQLite(), "./project-176.motus") ## specify the location and project file name.
 dbListTables(file.name) ## get a list of tables in the .motus file specified above.
-dbListFields(file.name, "species") ## get a list a variables contained within the "species" table in the .motus file specified above.
+dbListFields(file.name, "species") ## get a list of variables contained within the "species" table in the .motus file specified above.
 ```
 
 In addition to these tables, there are also 'virtual' tables or 'views', which have been created through queries that merge data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in each .motus file:
@@ -363,7 +394,7 @@ str(tbl.tagDeps)
 
 ```
 
-The first part of the list, 'src', is a list that provides details of the SQLiteConnection, including where the database is stored. The second part is a list that includes the underlying table. Thus, the R object 'tagMeta' is a *virtual* table that stores the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and the dplyr package can be used to manipulate and summarize the tables before collecting the results into a typical "flat" format dataframe.
+The first part of the list, 'src', is a list that provides details of the SQLiteConnection, including where the database is stored. The second part is a list that includes the underlying table. Thus, the R object 'tagMeta' is a *virtual* table that stores the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and functions within the dplyr package can be used to manipulate and summarize the tables before collecting the results into a typical "flat" format dataframe.
 
 If you want to use familiar functions to get access to components of the underlying data frame, then use the 'collect' function. For example, to look at the names of the variables in tagMeta:
 
@@ -395,11 +426,15 @@ tbl.alltags %>%
 
 ## Convert a SQLITE table to a flat dataframe {#convertToFlat}
 
-To convert the 'alltags' view or other table in the .motus file into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() and as.data.frame() functions.  The output can then be further manipulated, or used to generate a RDS file of your data. 
+To convert the 'alltags' view or other table in the .motus file into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() and as.data.frame() functions.  The output can then be further manipulated, or used to generate a RDS file of your data for archiving or export. 
 
-We suggest that a good workflow is to prepare a script that downloads/updates your data, filters out the necessary variables, and saves the resulting data as an RDS file. We suggest using RDS instead of CSV, because the RDS format preserves the underlying structure of the data (e.g. POSIX times stay as POSIX times). If you want to export your data to another program, then a CSV format might be preferred.
+We suggest the following workflow. Prepare a script that downloads/updates your data, filters out the necessary variables and that does any initial cleaning and then save the resulting data as an RDS file. We suggest using RDS instead of CSV, because the RDS format preserves the underlying structure of the data (e.g. POSIX times stay as POSIX times). If you want to export your data to another program, then a CSV format might be preferred.
 
-We caution that producing a flat file using the full suite of fields can chew up a lot of memory, and can slow R down considerably when dealing with large datasets. This is the point in your workflow where you should remove any unwanted variables. You can always change your mind and return to this script, creating a new RDS file with additional or different variables.
+We caution that producing a flat file using the full suite of fields can use a lot of memory, and can slow R down considerably when dealing with large datasets. For some combinations of data sets and computers, it may be impossible to directly use data frames in R. If that is the case, then this is the point in your workflow where you should carefully consider the information you need from within your data set (for example, how it is aggregated) and simplify it. You can always return to this script, creating a new RDS file with different variables, or aggregated at a different scale.
+
+We elaborate on this idea in the following sections.
+
+Make a data frame ...
 
 ```{r collect, eval = FALSE}
 
@@ -409,7 +444,7 @@ df.alltags <- tbl.alltags %>%
 
 ```
 
-And take a quick look at the resulting file. 
+... and take a quick look at the resulting file. 
 
 ```{r quickLook, eval = FALSE}
 
@@ -430,6 +465,7 @@ df.alltags <- tbl.alltags %>%
                 mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))
 
 ## the tz = "UTC" is not necessary here, provided you have set your system time to UTC/GMT 
+## ... but it serves as a useful reminder!
 ```
 
 If you want to load only part of your entire virtual table (e.g. certain fields, certain tags, or all tags from a specified project or species), you can use dplyr funtions to filter the data before collecting into a dataframe.  Some examples are below:
@@ -438,7 +474,7 @@ If you want to load only part of your entire virtual table (e.g. certain fields,
 
 ```{r collect1, eval = FALSE}
 
-## to grab a subset of variables, in this case a unique list of motus tag IDs 
+## to grab a subset of variables, in this case a unique list of Motus tag IDs 
 ## at each receiver and antenna.
 df.alltagsSub <- select(tbl.alltags, recv, ant, motusTagID) %>%
   distinct() %>% 
@@ -492,7 +528,7 @@ In later chapter(s) we will show you additional ways of summarizing and working 
 
 ## Export your 'flat' dataframe to CSV or RDS file {#exportDetections}
 
-A good workflow is to create a script that deals with all of your data issues, then saves a dataframe (or workspace) for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. When working in R, we do this is by using an RDS file, which preserves all of the associated R data structures (such as time stamps).
+We re-iterated that a good workflow is to create a script that deals with all of your data issues, then saves a dataframe (or workspace) for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. We use an RDS file, which preserves all of the associated R data structures (such as time stamps).
 
 ```{r createRDS, eval = FALSE, message = FALSE, warning = FALSE}
 
@@ -500,7 +536,8 @@ A good workflow is to create a script that deals with all of your data issues, t
 
 saveRDS(df.alltags, "./data/df.alltags.RDS")  
 
-## or save as CSV file, which does not preserve time stamps, but is more universally accepted
+## or save as CSV file, which does not preserve time stamps, 
+## but can be read more easily by other programs.
 
 write_csv(df.alltags, "./data/df.alltags.CSV")
 
@@ -508,16 +545,28 @@ write_csv(df.alltags, "./data/df.alltags.CSV")
 
 ## R object naming convention
 
-Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with "sql.", virtual table objects will be prefixed with "tbl.", and dataframe objects will be prefixed with "df."; the rest of the name will include the name of the .motus table that the data originates from. Throughout the rest of the book we will be relying on and referencing the formats below, please ensure that you have these before continuing to the next chapter.  These functions assume you have already downloaded the sample data and do not need to update it, if you have not, see section \@ref(dataDownload) for instructions on initial download:
+Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with "sql.", virtual table objects will be prefixed with "tbl.", and dataframe objects will be prefixed with "df."; the rest of the name will include the name of the .motus table that the data originates from. Throughout the rest of the book we will be relying on and referencing the formats below, please ensure that you have these before continuing to the next chapter.  These functions assume you have already downloaded the sample data and do not need to update it; if you have not, see section \@ref(dataDownload) for instructions on initial download:
 
-```{r namingConvention, eval = TRUE}
+```{r namingConvention, eval = FALSE}
 
+sql.motus <- tagme(176, update = TRUE, dir = "./data")   # SQLite R object, which links to the .motus file
+tbl.alltags <- tbl(sql.motus, "alltags")  # virtual table object of the alltags table in the
+                                          # sample.motus file
+df.alltags <- tbl.alltags %>%
+                collect() %>%
+                as.data.frame() #%>%        # dataframe ("flat") object of the alltags table
+                mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))              
+
+```
+
+```{r dataImport, echo = FALSE, eval = TRUE}
+## hidden data import so uodate can be set to FALSE
 sql.motus <- tagme(176, update = FALSE, dir = "./data")   # SQLite R object, which links to the .motus file
 tbl.alltags <- tbl(sql.motus, "alltags")  # virtual table object of the alltags table in the
                                           # sample.motus file
 df.alltags <- tbl.alltags %>%
                 collect() %>%
-                as.data.frame() %>%        # dataframe ("flat") object of the alltags table
+                as.data.frame() #%>%        # dataframe ("flat") object of the alltags table
                 mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))              
 
 ```
@@ -530,17 +579,17 @@ In the next chapter we will check for missing metadata
 
 Before working with your detection data, a first step is to summarize and visualize the metadata for tag and receiver deployments registered to your project. Summarizing and plotting your deployments can be an effective way to find any errors in tag or receiver deployment metadata, which can in turn influence the completeness of the detections data for your project and the projects of others with detections of their own tags on your receivers. 
 
-This chapter is a complement to the online "notification center", which provides each project with a list of metadata issues (missing or outlying values) to be accepted or ignored. As such, please address any and all errors associated with your project in the notification center before importing your data through R. This chapter does not provide a full check of your deployment metadata, but will help uncover any errors that might be missed by the automatic queries in the notification center.
+This chapter is a complement to the online [Data Issues page](https://motus.org/data/issues), which provides each project with a list of metadata issues (missing or outlying values) to be accepted or ignored. As such, please address any and all errors associated with your project in the notification center **before** importing your data through R. This chapter does not provide a full check of your deployment metadata, but will help uncover errors that have been missed by the automatic queries in the notification center.
 
-We use the James Bay Shorebird Project sample dataset throughout this chapter (see Section \@ref(sampleData); as you run through the code to look at your own deployments, **please fix any errors or omissions in your metadata by signing in to <https://motus.org/>**, and under the 'Manage Data' tab, select either 'Manage Tags' to fix tag deployment metadata or 'Manage Receivers' to fix receiver deployment metadata. It is important to fix metadata errors online, so that errors are fixed at the source and archived on the Motus Server, ensuring all users have access to the correct tag and receiver metadata.  
+We use the James Bay Shorebird Project sample dataset throughout this chapter (see Section \@ref(sampleData); as you run through the code to look at your own deployments, **please fix any errors or omissions in your metadata by signing in to <https://motus.org/>**, and under the 'Manage Data' tab, select either 'Manage Tags' to fix tag deployment metadata or 'Manage Receivers' to fix receiver deployment metadata. It is important to fix metadata errors online, so that errors are fixed at the source and archived on the Motus Server, ensuring all users have access to the correct tag and receiver metadata. Metadata corrected online will automatically be corrected in your detection files. If you have already downloaded your detection data, you can update the existing file to include new metadata and detections (see \@ref(forceMeta), \@ref(tagmeUpdate)).
 
 ## Load relevant R packages and set working environment
 Before we begin working with data, we need to load the required packages for this chapter. If you have not yet installed these packages (from github and CRAN) then please return to Chapter \@ref(loadingPackages) and do so.
 
 ```{r loadPackages.4, warning = FALSE, message = FALSE}
 
-#library(devtools)
 library(tidyverse)
+library(tidyr)
 library(motus)
 
 ## Set the system environment time zone to GMT (to ensure that you are always working in GMT)
@@ -552,28 +601,37 @@ Sys.setenv(TZ="GMT")
 
 This chapter assumes that the .motus file has already been downloaded, if you have not done so please return to Chapter \@ref(accessingData) for instructions on how to do so. To update and load the existing file into R, use tagme(), you may have to login as described in the previous chapter with username **and** password "motus.sample"
 
-```{r loadDetections}
+```{r loadDetections, eval = FALSE}
 
 proj.num <- 176
 
-sql.motus <- tagme(proj.num, update = FALSE, dir = "./data")
+sql.motus <- tagme(176, update = TRUE, dir = "./data")
 
 ```
 
 ## Tag Deployments {#tagDeployments}
 
-In your .motus file, you are provided with the metadata for tags registered to your own project, and metadata for duplicate tags from other projects which are associated with ambiguous detections in your data. We will check:
+In your .motus file, you are only provided with the metadata for any tags from your project with detections along with metadata for associated ambiguous tags from other projects, and receiver metadata for stations where your tags were detected.  Here we will:
 
-1. how many tags are registered to your project;
-2. how many of those registered tags were deployed;
-3. location of tag deployments;
-4. completeness and accuracy of tag deployment metadata.
+1. download full tag metadata for our project only;  
+2. determine how many tags are registered to your project;  
+3. determine how many of those registered tags were deployed;  
+4. determine location of tag deployments;  
+5. determine completeness and accuracy of tag deployment metadata.  
 
 We will run through each of these in sequence.
 
-### 1. Number of registered tags
+### 1. Download full project tag metadata 
+Incomplete metadata, or missing tag registrations can result in missing detection data.  We therefore want to assess the completeness of all tags registered to our projects - not just tags for which we have detections.  In order to to this we will use the metadata() function for project 176, described in more detail here: \@ref(metadata).
+```{r metadata176}
 
-To check the number of tags registered to your project, load the 'tags' table in the .motus file. The 'tags' table contains the metadata of each registered tag, including a unique tagID and information on manufacturer, model, nominal and offset frequency, burst interval, and pulse length. We select the metadata specific to the James Bay Shorebird Project, and ignore tag metadata associated with any duplicate tags belonging to other projects:
+metadata(sql.motus, projectIDs = 176)
+
+```
+
+### 2. Number of registered tags
+
+Now that we have complete tag metadata for our project, we can check the number of tags registered by loading the 'tags' table in the .motus file. The 'tags' table contains the metadata of each registered tag, including a unique tagID and information on manufacturer, model, nominal and offset frequency, burst interval, and pulse length, it does not include deployment information. We select the metadata specific to the James Bay Shorebird Project, and ignore tag metadata associated with any duplicate tags belonging to other projects:
 
 ```{r importTags, message = FALSE, warning = FALSE}
 
@@ -592,10 +650,15 @@ The number of rows in the 'df.tags' database is equivalent to the number of tags
 nrow(df.tags) ## number of registered tags in the database
 
 ```
+You can view the motusTagIDs:
+```{r, mtousTagIDs}
+unique(df.tags$tagID)
+```
+If you are missing registered tags, please follow the instructions here: <https://motus.org/tag-registration/>
 
-### 2. Number of registered tags that were deployed
+### 3. Number of registered tags that were deployed
 
-The tag deployment metadata table in the .motus file is required to check which registered tags have deployments. This file includes the date, time, species, and location of tag deployment. The database is subset to project '38', and we use the anti_join function to determine which registered tags have (or do not have) corresponding deployment information.
+The tag deployment metadata table in the .motus file is required to check which registered tags have deployments. This file includes the date, time, species, and location of tag deployment. The database is subset to project '176', and we use the anti_join function to determine which registered tags have (or do not have) corresponding deployment information.
 
 ```{r importTagMeta.4, message = FALSE, warning = FALSE}
 
@@ -613,7 +676,7 @@ anti_join(df.tags, df.tagDeps, by = "tagID")
 
 In the sample data, there are no registered tags without deployment metadata, which suggests that all tags were deployed. If you have undeployed tags in your own files, please check your records to ensure this is the case; without deployment metadata, detections for registered but 'undeployed' tags will be missing from your detections database.
 
-### 3. Location of tag deployments
+### 4. Location of tag deployments
 
 Creating a map of your tag deployments can point out any obvious errors in the tag deployment latitude or longitude that weren't captured by the online metadata message center queries.
 
@@ -664,8 +727,9 @@ ggplot(na.lakes, aes(long, lat)) +
              aes(longitude, latitude), cex = 2, pch = 1, colour = "red")
    
 ```
+If there are any errors in tag deployment location, please correct these online: <https://motus.org/data/>
 
-### 4. Check completeness and accuracy of tag deployment metadata
+### 5. Check completeness and accuracy of tag deployment metadata
 
 Required tag metadata includes deployment start date/time, end date/time (if applicable), deployment latitude, deployment longitude, and species. Lack of information on deployment date, time, and location in particular can influence the estimated lifespan of your tag, and therefore whether the tagFinder will 'look' for your tag at the appropriate time(s). It can also increase the potential for ambiguities with duplicate tags in the system. 
 
@@ -683,7 +747,7 @@ df.tagDeps %>%
 
 There are no missing start dates (tsStart), and deployment start dates range from `r min(year(df.tagDeps$tsStart))` to `r max(year(df.tagDeps$tsStart))`, which is reasonable for this project.  
 
-The species IDs are numeric, and somewhat meaningless without an ability to assign an actual species name to the numeric ID, which we do next. 
+The species IDs are numeric, and somewhat meaningless without an ability to assign an actual species name to the numeric ID, which we do next, however there are no missing values. 
 
 b. **Check that species IDs are appropriate for your data**.
 
@@ -711,22 +775,32 @@ filter(df.tagDeps, speciesID == 4780)
 
 ```
 
+** Don't forget, any metadata corrections need to be made online **
+
 ## Check Receiver Metadata {#recvMetadata}
 
-There are two sources of receiver metadata in Motus detection data: receivers registered to your own project, and receivers registered to the projects of others. You are provided access to the metadata for all receivers in the network, because negative data (i.e., my tag was *not* detected at tower x even though tower x was active) is often as important as positive data. It also allows you to map where your tags were detected relative to the distribution of receivers throughout the Motus network.
+There are two sources of receiver metadata in Motus detection data: receivers registered to your own project, and receivers registered to the projects of others. You can access to the metadata for all receivers in the network, because negative data (i.e., my tag was *not* detected at station x even though station x was active) is often as important as positive data. It also allows you to map where your tags were detected relative to the distribution of receivers throughout the Motus network.
 
 Receiver metadata errors or omissions that you find in your .motus file can only be fixed for receivers registered to your own project. 
 
-All users are encouraged to enter complete and accurate receiver metadata for the benefit of the entire network. If you anticipate needing specific information on receiver or antenna deployments for towers deployed by others, please consider using the Motus discussion group (<https://motus.org/discussion/>) to request that other registered users record the receiver deployment details you will need; be specific about the exact receiver deployment details you are interested in, and when and where in the network your tags will be deployed and potentially detected. 
+All users are encouraged to enter complete and accurate receiver metadata for the benefit of the entire network. If you anticipate needing specific information on receiver or antenna deployments for stations deployed by others, please consider using the Motus discussion group (<https://motus.org/discussion/>) to request that other registered users record the receiver deployment details you will need; be specific about the exact receiver deployment details you are interested in, and when and where in the network your tags will be deployed and potentially detected. 
 
 In the following steps we will check:
 
-1. number of project receiver deployments;
-2. timing of project receiver deployments;
-3. location of network-wide and project receiver deployments;
-4. completeness and accuracy of receiver metadata.
+1. download full receiver metadata across the network;  
+2. determine number of project receiver deployments;
+3. determine timing of project receiver deployments;
+4. determine location of network-wide and project receiver deployments;
+5. determine completeness and accuracy of receiver metadata.
 
-### 1. Number of project receiver deployments
+### 1. Download full  receiver metadata 
+Later on in this chapter we'll want to map all receivers in the network, so we will now load metadata from all projects, as opposed to simply project176 as we did above, the metadata() function is described in more detail here: \@ref(metadata).
+
+```{r metadataall, eval = FALSE}
+metadata(sql.motus)
+```
+
+### 2. Number of project receiver deployments
 
 To see which (if any) receiver deployments are registered to your project, import, subset and summarize the receiver deployment data:
 
@@ -744,25 +818,25 @@ summary(df.projRecvs)
 
 ```
 
-There are `r nrow(df.projRecvs)` receiver deployments registered to the sample project. Three deployments are missing latitude and longitude, and two deployments are missing end dates, which suggests that those receivers are still deployed. 
+There are `r nrow(df.projRecvs)` receiver deployments registered to the sample project. Four deployments are missing latitude and longitude, which should be added to the metatdata on the Motus site, and six deployments are missing end dates, which suggests that those receivers are still deployed. 
 
-The following code keeps only parameters of interest, and arranges the remaining records by receiver ID, latitude, and start date:
+The following code keeps only variables of interest (by removing those we do not need), and arranges the remaining records by receiver ID, latitude, and start date:
 
 ```{r checkRegisteredReceivers}
 
 df.projRecvs %>%
-  arrange(deviceID, latitude, tsStart) %>%
   mutate(dateStart = date(tsStart)) %>% 
   select(-serno,-fixtureType, -macAddress, -tsStart, -tsEnd, -elevation, 
-         -projectID, -status, -receiverType, -siteName) 
+         -projectID, -status, -receiverType, -siteName) %>%
+  arrange(deviceID, latitude, dateStart)
 
 ```
 
 The number of receiver deployments in the metadata should correspond with the number of field deployments. 
 
-Looking at the 'isMobile' column for the three receiver deployments that are missing latitude and longitude information, it is evident that these are mobile receivers that do not have a fixed position (ie. they have a value of 1), and so it is not possible to assign a latitude and longitude (these fields will remain NA). 
+Looking at the 'isMobile' column for the four receiver deployments that are missing latitude and longitude information, it is evident that these are mobile receivers that do not have a fixed position (ie. they have a value of 1), and so it is not possible to assign a latitude and longitude (these fields will remain NA). 
 
-### 2. Timing of project receiver deployments
+### 3. Timing of project receiver deployments
 
 The timing of deployments can be displayed graphically; horizontal line(s) in the following plot show the time span for each receiver (deviceID) deployment registered to the James Bay Shorebird Project. Note that for the two receivers without deployment end dates, the code assigns an arbitrary end date based on the maximum end date of the other receivers plus one month - without this fix, deployments without end dates do not get displayed. Different deployments of the same receiver should not overlap in time:
 
@@ -778,7 +852,7 @@ ggplot(df.projRecvs.long,
        aes(y = as.factor(deviceID), x = ts, colour = as.factor(deployID))) +
   geom_line(lwd=3) + 
   
-  ## insted, center to the right
+  ## instead, center to the right
   geom_text(data=filter(df.projRecvs.long, when == "tsStart"), 
             aes(label=deployID), hjust="left", nudge_y = 0.2, size=3, angle = 45) +
   theme_bw() +
@@ -805,7 +879,7 @@ ggplot(df.projRecvs.long,
   
 ```
 
-### 3. Location of receiver deployments
+### 4. Location of receiver deployments
 
 Maps provide better spatial context than simple plots; the following steps plot the location of Motus receivers on a map of North America, with receivers deployed by the sample project displayed in red.
 
@@ -865,7 +939,7 @@ ggplot(na.lakes, aes(long, lat))+
   theme_bw() + 
   geom_point(data = df.recvDeps, aes(longitude, latitude, colour = as.logical(projectID == 176)), 
              cex = 0.8, pch = 4)+
-  scale_colour_manual(values = c("grey30", "red"), name = "Project 38 Deployment") 
+  scale_colour_manual(values = c("grey30", "red"), name = "Project 176 Deployment") 
   
 
 ```
@@ -887,6 +961,7 @@ ggplot(na.lakes, aes(long, lat))+
   geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98") +
   geom_polygon(aes(group = group), colour = "grey", fill = "white") +
   coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
+#  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(50.154, 52.875)) +
   xlab("") + ylab("") + 
   theme_bw() + 
   geom_point(data = filter(df.projRecvs, 
@@ -897,7 +972,7 @@ ggplot(na.lakes, aes(long, lat))+
 
 ```
 
-### 4. Completeness and accuracy of receiver metadata
+### 5. Completeness and accuracy of receiver metadata
 
 Motus users will be concerned primarily with the completeness of metadata for receiver deployments with detection(s) of their tags, because these can directly influence the interpretation of those detections. For example, missing deployment latitude or longitude will result in an unknown location for the tag detection, and missing information on antenna type and/or orientation can impede the estimation of flight or departure orientation. 
 
@@ -917,7 +992,7 @@ df.antDeps <- tbl.antDeps %>%
                 collect() %>%
                 as.data.frame()
 
-## receiver deployments; select parameters of interest
+## receiver deployments; select variables of interest
 df.recvDeps <- df.recvDeps %>%
                     select(deployID, receiverType, deviceID, name, latitude, longitude, isMobile, tsStart, tsEnd, projectID, elevation) 
 
@@ -943,11 +1018,11 @@ summary(df.stationDeps)
 
 ```
 
-There are the 3 deployments with missing latitude and longitude associated with the three deployments of mobile receivers that we saw earlier. 
+There are the 4 deployments with missing latitude and longitude associated with the four deployments of mobile receivers that we saw earlier. 
 
-Elevation is missing from 48 of 55 records, but elevation is not a required field, and can be estimated from other sources, or directly in R (for example, see <https://stackoverflow.com/questions/8973695/conversion-for-latitude-longitude-to-altitude-in-r>). 
+Elevation is missing from 74 of 91 records, but elevation is not a required field, and can be estimated from other sources, or directly in R (for example, see <https://stackoverflow.com/questions/8973695/conversion-for-latitude-longitude-to-altitude-in-r>). 
 
-Antenna bearing is missing from 11 of 55 records, and height of the antenna(s) is missing for 3 of 55 records.  Subset the records with missing antenna bearing to see if these can be fixed:
+Antenna bearing is missing from 18 of 91 records, and height of the antenna(s) is missing for 4 of 91 records.  Subset the records with missing antenna bearing to see if these can be fixed:
 
 ```{r antennaBearing}
 
@@ -958,41 +1033,46 @@ filter(df.stationDeps, is.na(bearing)) %>%
 
 Receiver deployments with missing antenna bearing(s) are restricted to deployments of omni-directional antennas or mobile receivers, and so the missing values make sense. These records also show that the four records with missing antenna height are also associated with the four mobile receivers, and so again the missing values make sense and cannot be fixed.
 
-In the next chapter we will examine our data for false positives, and remove ambiguous tags that are not ours.
+In the next chapter we will examine our data for false positives, and remove detections of ambiguous tags.
 
 <!--chapter:end:04-ProjectDeployments.Rmd-->
 
 # Data Cleaning {#dataCleaning}
 
-Due to the nature of radio transmissions, false positive detections of your tags will occur. False positive detections result from radio noise or from duplicate tags transmitting in the network at the same time, where duplicate tags have the same Lotek ID code, burst interval, and nominal transmit frequency, resulting in 'ambiguous' detections that may belong to either tag. 
+There are three sources of 'error' that can result in tag detections appearing in your database that are incorrect.  
+First, random radio noise ('static') can be detected and interpreted to be the transmission of a tag. These are called 'false positives'.   
 
-Key things to look for to determine if detections are false positive include:
+Second, despite our best efforts to avoid it, duplicate tags are sometimes transmitting in the network at the same time. When two tags are deployed at the same time that have the same Lotek ID code, burst interval, and nominal transmit frequency, it results in situations where the detections may belong to either tag, but there is no information (other than contextual information) to separate them. We term these 'Ambiguous tags'. 
 
-1) Run length: run length ('runLen') is the number of tag bursts in a run, and a run is a group of consecutive detections of a tag detected on a receiver. In general, a detection with a run length of 2 has a high probability of being a false positive detection. With the exception of a few 'quiet' stations with little noise, we generally recommend that you filter out all detections with a run length of 2. However, because you may lose some true detections in the process, we also recommend examining which detections this would remove. 
+Third, a tag can appear to be present when two tags are transmitting at the same time that by chance produce a signal that looks like a third tag that is not in fact present. Such tags are most common at roosting sites or breeding colonies, where many tags are transmitting simultaneously. We term these 'Aliased tags'.   
 
-2) Standard deviation of frequency offset: Standard deviation of frequency offset among pulses in a burst ('freqsd'; in KHz) can also be used as a coarse and automatic data filter, by removing any values larger that 0.1, which suggests a false detection. This filter applies to data collected by SensorGnome receivers only. As with run length, it is recommended that you identify the detections you would be removing and examine them to ensure you aren't removing an unwanted amounts of true detections.  
+Here we provide example workflows to deal with each of these possible problems. We start by working with false positives, before exploring the other types of error.
 
-3) detections in regions or at times of year that don't make biological sense for the study species.
+## False Positives {#falsePositives} 
 
-4) consecutive detections at distant sites that would require biologically unreasonable flight speeds to be true.  
+1) Run length (runLen): A run is a group of consecutive detections of a tag detected on a single antenna at a single receiver. In general, a detection with a run length of 2 has a high probability of being a false positive detection. With the exception of a few 'quiet' stations with little noise, we generally recommend that you filter out all detections with a run length of 2. However, because you will likely lose some true detections in the process, we also recommend that after a full analysis of your data, you return to these detections and examine them individually, to determine (usually contextually) if they can be considered real.
 
-The *goal of this chapter* is to provide you with the tools you need to check your data for false positive detections, and create a filter to remove them from your data. We do so using the following steps: 
+2) Standard deviation of frequency offset (freqsd): Standard deviation of frequency offset among pulses in a burst may provide some information about false positive detections. These data are collected by SensorGnome receivers only. We do not have specific recommendations here regarding the use of this statistic at the present time, but are exploring its potential use. If you choose to use freqsd to filter data, we suggest that you carefully examine the detections you are removing.
 
-1) Run preliminary data checks to see how many deployed tags have detections, the spatial distribution of tag deployments and detections, and to determine whether ambiguous detections are present in your data.
+The *goal of this chapter* is to provide you with the tools you need to check your data for false detections, and create a filter to remove them from your data. 
 
-2) Create a custom data filter that is associated with your Motus login credentials.
+We do so using the following steps: 
 
-3) Examine plots of tag paths, and populate the filter with detections determined to be false positive; filters those detections from the data.
+1) Run a preliminary filter to remove all detections with runLen = 2. 
 
-4) Examine plots of latitude and longitude of detections against time, and populate the filter with detections determined to be false positive; filters those detections from the data.
+2) Determine how many of your tags may be ambiguous detections. 
 
-5) Examine flight speed and bearing between detections, and populate the filter with detections determined to be false positive (based on unrealistic flight speeds); filter those detections from the data.
+3) Provide a workflow for examining individual tags, and determining if runs in those tags are errors. 
+
+4) Create a custom data filter that is associated with your Motus login credentials.
 
 ## Load required packages
 
 Follow the instructions in Chapter \@ref(loadingPackages) to install the following packages before loading, if they are not already installed.
 
 ```{r loadpackages.5, message = FALSE, warning = FALSE}
+
+Sys.setenv(tz="GMT")
 
 library(devtools)
 library(motus)
@@ -1004,27 +1084,44 @@ library(rworldmap) # for mapping
 
 ## Load detections data
 
-Recall from \@ref(accessingData) that when accessing the sample database, you will need to input "motus.sample" in the R console as both username and password when prompted by the tagme() user authentication process, this section assumes you have already completed the initial sample data download. 
+Recall from \@ref(accessingData) that when accessing the sample database, you will need to input "motus.sample" in the R console as both username and password when prompted by the tagme() user authentication process. This section assumes you have already completed the initial sample data download. 
 
-When accessing the alltags table, we remove some variables that we do not currently need. We also create receiver latitude and longitude variables that are based on the coordinates recorded by the receiver GPS, and where those are not available, infilled with coordinates from the receiver deployment metadata. We use the collect() and as.data.frame() statements to transform the dataframe into a 'flat' file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format.
+When accessing the alltags table, we remove some unecessary variables. We also create receiver latitude and longitude variables that are based on the coordinates recorded by the receiver GPS, and where those are not available, infilled with coordinates from the receiver deployment metadata. We use the collect() and as.data.frame() statements to transform the dataframe into a 'flat' file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format.
 
 ```{r importData5}
 
 proj.num <- 176
 
-# load detection data, select variables, create latitude variables, and transform to flat file
+## load detection data, select variables, create latitude variables, and transform to flat file
+## in here, we also fix up some sites that are missing receiver deployment data, or do not have names
+## As more users explore (and fix!) their metadata, these missing values should begin to disappear.
 sql.motus <- tagme(proj.num, update = FALSE, dir = "./data/")
 tbl.alltags <- tbl(sql.motus, "alltags")
-df.alltags <- tbl.alltags %>%
+
+
+## FIXME! this should be a user-created function, since it gets used multiple times.
+
+df.alltags <- tbl.alltags %>% 
                 mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
                        recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
                        recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
-                select(-noise, -slop, -burstSlop, -done, -bootnum, -mfgID, -codeSet, -mfg, -nomFreq, -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID, -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat, -gpsLon, - recvAlt, - recvSiteName) %>%
+                select(-noise, -slop, -burstSlop, -done, -bootnum, -mfgID, -codeSet, -mfg, -nomFreq,
+                       -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID,
+                       -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat, 
+                       -gpsLon, - recvAlt, - recvSiteName) %>%
                 collect() %>%
                 as.data.frame() %>%
                 mutate(ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
                        tagDeployStart = as_datetime(tagDeployStart),
-                       tagDeployEnd = as_datetime(tagDeployEnd)) 
+                       tagDeployEnd = as_datetime(tagDeployEnd), 
+                       recvLat = plyr::round_any(recvLat, 0.05), 
+                       recvLon = plyr::round_any(recvLon, 0.05),
+                       recvDeployName = if_else(is.na(recvDeployName), 
+                                                paste(recvLat, recvLon, sep=":"), recvDeployName))
+
+## or just select the variables you need
+#select(runID, ts, sig, freqsd, motusTagID, ambigID, runLen, tagProjID, 
+#       tagDeployStart, tagDeployEnd, etc.)
 
 ```
 
@@ -1032,151 +1129,475 @@ df.alltags <- tbl.alltags %>%
 
 Prior to filtering the data, we do a few summaries and plots of the data.
 
-**1.  Check number of tags with detections**
+**1.  Summarize the detections of your tags**
 
-First, how many project tags have detections. Apart from the tag not being within range of a receiver station, there are several reasons why deployed tags might not be detected, including:
+First, determine which project tags have detections, and determine how many are of run length = 2. Apart from the tag not being within range of a receiver station, there are several reasons why deployed tags might not be detected, including:
 
-1) the tag was not properly activated on deployment. To avoid this, always check that a tag is active using a hand-held receiver before attaching the tag to your study animal and releasing it. 
+1) The tag was not properly activated on deployment. To avoid this, always check that a tag is active using a hand-held receiver before attaching the tag to your study animal and releasing it. 
 
-2) an animal with a properly activated tag might not pass within range of a receiving station. Study designs that incorporate strategic placement of receivers to meet project goals can improve your odds of getting detections of your tags.
+2) An animal with a properly activated tag might not have passed within range of a receiving station. Study designs that incorporate strategic placement of receivers to meet project goals can improve your odds of getting detections of your tags.  
 
-3) missing or incorrect tag deployment metadata can result in the tagFinder not 'looking' for your tag at the time the tag was deployed, or at all. Please ensure your tag metadata are entered correctly.
+3) Missing or incorrect tag deployment metadata in the Motus database can result in the tagFinder not 'looking' for your tag at the time the tag was deployed, or at all. Please ensure your tag metadata are entered correctly.  
 
-Using the following code, we see there are detections for 18 tags deployed by the sample project:
+Using the following code, we see there are detections for 18 tags deployed by the sample project, and that many have run lengths of 2:
 
 ```{r ntagsDetections}
 
 df.alltags %>%
   filter(tagProjID == proj.num) %>% # subset to include only tags registered to project
-  select(motusTagID) %>%
-  distinct() %>%
-  summarize(nTags = n()) # if you want to see the list of motusTagIDs, replace summarize(nTags =n()) with as.list()
+  mutate(rl.gt.2 = runLen == 2) %>%
+  group_by(motusTagID, rl.gt.2) %>%
+  tally() %>%
+  spread(key = rl.gt.2, value=n)
 
 ```
 
-**2. Check number of tags with ambiguous detections**
+Although some of these may be valid detections, we have found it simpler to just remove them from our analysis, and possibly revisit them at a later stage. So we now filter on runLen (> 2) for our subsequent operations.
+
+```{r filterRunLen2}
+
+df.alltags.sub <- filter(df.alltags, 
+                         runLen > 2)
+
+```
+
+An initial view of the data is best achieved by plotting. We will show you later how to plot detections on a map, but we prefer a simpler approach first; Plotting detections through time by both latitude and longitude. First however, we should simplify the data. We'll actually create a little function here, since we'll use this code over again. 
+
+**3. Simplify the data for plotting**
+
+```{r fun.getpath}
+
+## simplify the data by summarizing by the runID. 
+## if you want to summarize at a finer (or coarser) scale, you can also create 
+## a rounded timestamp variable using 
+## mutate(ts.h = plyr::round_any(ts, 3600) function call. 
+## Other options are to just use date (e.g date = as_date(ts))
+
+## initially filter by tagProj and runLen,  to get rid of most false positives
+## FIXME! ... remove the filter by recvLat when that is fixed in the sample database
+
+## 
+fun.getpath <- function(df) 
+  {
+  df %>%
+    filter(tagProjID == proj.num, # keep only tags registered to the sample project
+                           !is.na(recvLat) | !(recvLat == 0)) %>% 
+    group_by(motusTagID, runID, recvDeployName, ambigID, 
+             tagDeployLon, tagDeployLat, recvLat, recvLon) %>%
+    summarize(max.runLen = max(runLen), ts.h = mean(ts)) %>%
+    arrange(motusTagID, ts.h)
+  } ## end of function call
+
+df.alltags.path <- fun.getpath(df.alltags.sub)
+                    
+```
+
+We would initially plot a subset of tags by either latitude or longitude, to get an overview of where there might be issues. Here, to simplify the example, we plot only six tags. We avoid the ambiguous tags for now. 
+
+```{r plot1.5}
+
+p <- ggplot(data = filter(df.alltags.path, 
+                          motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039)), 
+            aes(ts.h, recvLat)) 
+p + geom_point() + 
+  geom_path() + 
+  facet_wrap(~motusTagID, scales = "free", ncol=2) + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+
+```
+It is immediately apparent that there may be an issue with some tags showing up around 44 degrees during in the winter, which is possible but unlikely. Let's examine these tags in more detail by going back to the original data frame, and examining the runs.
+
+```{r examineRuns}
+
+filter(df.alltags.sub, month(ts) %in% c(12, 1),
+       motusTagID %in% c(16036, 16038, 16039)) %>% 
+  group_by(recvDeployName, month(ts), runLen) %>%
+  summarize(n = length(ts), 
+            n.tags = length(unique(motusTagID)))
+
+```
+
+These detections were at sites around the Canadian Maritimes (Sable Island, Grand Manan) and were run lengths of 3. These are all indicators of likely false positives. We'll now start a tally of the particular runs involved, so that we can collate them in to a filter later. 
+
+If you are interested, you can re-run the code above, but on the full data frame (df.alltags) containing run lengths of 2. You will see that there are additional false positive detections at these sites, that are already eliminated by filtering on runLen > 2. These additional detections provide further evidence that these sites experienced some radio noise during these particular months, resulting in some false positive detections.
+
+You may also be interested more generally in exploring which data have only short run lengths. For example, the following code shows the maximum run length at all sites by month (for those runs with runLen > 2).
+
+```{r noisySites}
+
+df.alltags.sub %>%
+  mutate(month = month(ts)) %>%
+  group_by(recvDeployName, month) %>%
+  summarize(max.rl = max(runLen)) %>%
+  spread(key=month, value=max.rl)
+
+```
+
+Or, get a list of sites where the maximum run length of detections was never greater than (say) 4, which may sometimes (but not always!) indicate they are simply false detections.
+
+```{r}
+
+df.alltags.sub %>%
+  mutate(month = month(ts)) %>%
+  group_by(recvDeployName, month) %>%
+  summarize(max.rl = max(runLen)) %>%
+  filter(max.rl < 5) %>%
+  spread(key=month, value=max.rl)
+
+```
+
+It is impossible here to go through every possible issue; users are encouraged to explore their data fully, and make reasoned decisions on which detections are unlikely or indeterminate. We will show you how to collect all of these into a filter, which can then be routinely applied to your data prior to analysis. 
+
+For now, we'll save a vector of the runIDs for the offending false positives (we'll use this vector later to create a permanent filter) and then re-run the plot with these values removed.
+
+```{r createRunsFilter1}
+
+## create the filter
+
+runID.block.1 <- filter(df.alltags.sub, month(ts) %in% c(12, 1),
+       motusTagID %in% c(16036, 16038, 16039)) %>%
+  pull(runID) %>%
+  unique()
+
+## use the function we created earlier to make a new 'path' data frame for plotting
+df.alltags.path <- fun.getpath(filter(df.alltags.sub, 
+                                      motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039), 
+                                      !(runID %in% runID.block.1)))
+
+p <- ggplot(data = df.alltags.path, aes(ts.h, recvLat)) 
+p + geom_point() + 
+  geom_path() + 
+  facet_wrap(~motusTagID, scales = "free", ncol=2) + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+
+```
+
+We can see that most of these now make more sense, with tags 16035, 16037 and 16039 having been detected during migration, in what appears to be a reasonable latitudinal progression with time, and the other three tags which were not detected very far away from their deployment location. 
+
+The reader is encouraged to explore the rest of the tags within this group, to determine if there are additional false positives. 
+
+## Examining ambiguous detections (#ambigs)
+
+Before we go further, we should check to see if any tags have ambiguous detections -- we may want to use this information to help with further filtering. 
+
+**2. Are any of your tags associated with ambiguous detections?**
 
 The clarify() function in the motusClient R package provides a summary of ambiguities in the detections data. Each ambigID refers to a selection of detections that could belong to one or more (up to 6) motusTagIDs, which are listed in the id1 to id6 fields:
 
 ```{r checkForAmbigs}
 
-df.clarify <- clarify(sql.motus)
-df.clarify
+clarify(sql.motus)
 
 ```
 
-Note that detections associated with five of the six ambigIDs could belong to one of two tags, and detections associated with one ambigID (-171) could belong to one of three tags. The fullID fields list the project names associated with the duplicate tags (e.g., "SampleData", "Selva", "Niles", etc.), along with features of the tags (manufacturer tag ID, burst, and transmit frequency). 
+We can see that there are six tags with ambiguous detections within this data set. Detections associated with five of the six ambigIDs could belong to one of two tags, and detections associated with one ambigID (-171) could belong to one of three tags. The fullID fields list the project names associated with the duplicate tags (e.g., "SampleData", "Selva", "Niles"), along with features of the tags (manufacturer tag ID, burst, and transmit frequency).
 
-**3. Subset to a sample of tags**
+Let's get a vector of these, and do some plots to see where there may be issues. 
 
-For the purpose of this chapter, we simplify the sample data by subsetting to six motusTagIDs:  four tags (motusTagID = 22897, 22905, 23319, 22902) were attached to Red Knots and are associated with ambiguous detections (ambigID = -114, -134, -171 respectively), and two tags (16038, 16047) were attached to a Semipalmated Sandpiper and Red Knot, respectively, and are not associated with ambiguous detections.
+```{r examineAmbigs}
 
-```{r subsetTags}
+df.ambigTags <- select(df.alltags.sub, ambigID, motusTagID) %>%
+  filter(!is.na(ambigID)) %>%
+  distinct() 
 
-# generate list of tags to keep
-tag.list <- as.data.frame(c(22897, 22905, 23319, 22902, 16038, 16047)) 
-names(tag.list) <- "motusTagID"
+```
 
-# generate list of motusTagIDs that includes the motusTagIDs of duplicate tags from other projects, i.e., associated with ambigIDs -114, -134, -171
-ambigTag.list <- gather(select(df.clarify, ambigID, id1, id2, id3, id4, id5, id6), id, motusTagID, c(id1, id2, id3, id4, id5, id6), factor_key=TRUE) %>%
-  filter(!is.na(motusTagID), ambigID %in% c(-114, -134, -171)) %>%
-  select(motusTagID) %>%
-  bind_rows(tag.list) %>%
+Using our getpath function, we'll create paths and another plot of these detections. We'll add some information to the plot, showing where (in time) the tags are actually ambiguous. FIXME! (Explain this better).
+
+```{r plotAmbigs}
+
+df.alltags.path <- fun.getpath(filter(df.alltags.sub, 
+                                      motusTagID %in% df.ambigTags$motusTagID, 
+                                      tagProjID == proj.num)) %>%
+  mutate(Ambiguous = !(is.na(ambigID))) ## create a boolean variable for ambiguous detections
+
+## to put all ambiguous tags from the same project on the same plot together, we need to create
+## a new 'ambig tag' variable we call 'newID. 
+
+ambigTags.2 <- filter(df.alltags.sub) %>%
+  select(ambigID, motusTagID) %>%
+  filter(!is.na(ambigID)) %>%
+  distinct() %>%
+  group_by(ambigID) %>%
+  summarize(newID = paste(unique(ambigID), toString(motusTagID), sep = ": ")) %>%
+  left_join(df.ambigTags, by="ambigID")
+
+## and merge that with df.alltags.path
+df.alltags.path <- left_join(df.alltags.path, ambigTags.2, by="motusTagID") %>%
+  arrange(ts.h)
+
+p <- ggplot(data = df.alltags.path, aes(ts.h, recvLat, group = Ambiguous, colour=Ambiguous)) 
+p + geom_point() + 
+  geom_path() + 
+  facet_wrap(~newID, scales = "free", ncol=2) + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+
+```
+
+Let's deal with the easy ones first. 
+
+**ambiguous tag -337**
+**motusTagID 10811 and 16011:**
+
+Ambiguous tag -337 is ambiguous only at the beginning of the deployment, but was detected at the exact latitude of deployment, and just before the non-ambiguous detections. So the issue is simply that the tail end of the previous deployment (by another project) overlaps with our deployment. We can claim these tags as our own, and remove the other ambiguous detections.
+
+**ambiguous tag -134**
+**motusTagID 22905 and 23319:**
+
+Similarly, there are ambiguous detections of tag -134 at the same latitude and the same time frame as the unambiguous deployment of that tag. We can reasonably consider these to belong to our tag. However, the non-ambiguous part of tag -134 that occur in mid-April -- are early for a Red Knot to be flying through southern Ontario so let's inspect them. 
+
+```{r checkAmbigs}
+
+filter(df.alltags.sub, motusTagID == 22905, month(ts) == 4) %>%
+  select(runID, batchID, ts, freqsd, runLen)
+
+```
+
+We see two separate runs of length 3 each, separated by 3 days. If we inspect the rest of this batch (that is, if we also look at run lengths of 2) ... 
+
+```{r}
+
+filter(df.alltags, batchID == 79646) %>% select(runLen, recvDeployName) %>%
+  group_by(runLen, recvDeployName) %>%
+  tally()
+
+```
+
+... we can see that there are many false positives at this tower around the same time (within the same batch) and so the run lengths of 3 are likely false positives.
+
+
+**ambiguous tag -171**
+**motusTagID 22778, 22902 and 22403:**
+
+The ambiguous detections for this tag, which occur in the Great Lakes region, could also belong to motusTagID 22778 from the RBrownAMWO project or motusTagID 24303 from the Neonics project. Let's take a closer look at these detections.
+
+First, find the deployment dates and locations for each tag. 
+
+```{r}
+
+filter(df.alltags, ambigID == -171) %>% 
+  filter(!is.na(tagDeployStart)) %>%
+  select(motusTagID, tagProjID, start=tagDeployStart, end=tagDeployEnd, 
+         lat=tagDeployLat, lon=tagDeployLon, species=speciesEN) %>%
+  distinct() %>%
+  arrange(start)
+
+```
+
+And plot the detections. 
+
+```{r}
+
+df.ambig.171 <- filter(df.alltags.sub, ambigID == -171)
+
+p <- ggplot(data=df.ambig.171, aes(ts, sig, colour=as.factor(port)))
+p + geom_point() + geom_smooth(method="loess", se=FALSE) + 
+  facet_wrap(as_date(ts) ~ recvDeployName, scales = "free_x") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+
+
+```
+
+We see that there are a large number of detections of this tag on 10 May 2017 at Old Cut (Long Point, Lake Erie, Canada), consistent with a bird 'hanging around'. Subsequent detections on the 18th of May are also at Old Cut, and then a location to the North of Old Cut (unregistered receivers) that are consistent with a bird departing on migration. Note the pattern in these latter two panels of increasing then decreasing signal strength which indicates a bird is flying through the beam of an antenna.
+
+
+**ambiguous tag -114**
+**motusTagID 22897 and 24298:**
+
+Next we look at the similar ambiguities for ambiguous tag -114.
+
+```{r ambig141}
+
+filter(df.alltags, ambigID == -114) %>% 
+  filter(!is.na(tagDeployStart)) %>%
+  select(motusTagID, tagProjID, start=tagDeployStart, end=tagDeployEnd, 
+         lat=tagDeployLat, lon=tagDeployLon, species=speciesEN) %>%
+  distinct() %>%
+  arrange(start)
+
+```
+
+We again subset these and plot them. An initial plot suggested that all of the detections are of a migratory flight, so we construct a somewhat different plot, to emphasize this. 
+
+```{r ambig141b}
+
+df.ambig.114 <- filter(df.alltags.sub, ambigID == -114)
+
+p <- ggplot(data=df.ambig.114, aes(ts, sig, colour=as.factor(port)))
+p + geom_point() +  
+  facet_wrap(as_date(ts) ~ paste(recvLat, recvDeployName, sep=": "), scales = "free_x") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+
+p <- ggplot(data=df.ambig.114, aes(ts, sig, colour=paste(recvLat, recvLon, recvDeployName, sep=": ")))
+p + geom_point() + scale_colour_discrete(name="Lat/Lon and\nStation Name") + 
+  facet_wrap(~as_date(ts), scales = "free_x")
+```
+
+Notice that the detections are consistent with a migratory departure from the Long Point area (Old Cut Field Station, Lake Erie, Ontario). 
+
+**ambig -106**
+**motusTagID 17021 and 17357:**
+
+The complete run overlaps. 
+
+```{r ambig106}
+
+filter(df.alltags, ambigID == -106) %>% 
+  filter(!is.na(tagDeployStart)) %>%
+  select(motusTagID, tagProjID, start=tagDeployStart, end=tagDeployEnd, 
+         lat=tagDeployLat, lon=tagDeployLon, species=speciesEN) %>%
+  distinct() %>%
+  arrange(start)
+
+```
+```{r ambig106b}
+
+df.ambig.106 <- filter(df.alltags.sub, ambigID == -106)
+
+p <- ggplot(data=df.ambig.106, aes(ts, sig, colour=paste(recvLat, recvLon, recvDeployName, sep=": ")))
+p + geom_point() + scale_colour_discrete(name="Lat/Lon and\nStation Name") + 
+  facet_wrap(~as_date(ts), scales = "free_x")
+
+```
+
+Both sets of detections are long run lengths, and look valid (increasing then decreasing signal strength). These detections are >1000 km distant from one another, and so must represent two individuals. The gray-cheeked thrush tag is near the end of its presumed life. One would have to make an informed biological decision as to which individual was most likely at either particular location at that time, in order to determine which tag belonged to which individual. 
+
+Keep in mind that it remains possible that someone deployed yet 
+
+We can look at which species were detected in the batches around each of the detections, which might give some clarity. 
+
+```{r ambig106c}
+
+filter(df.alltags, batchID %in% unique(df.ambig.106$batchID)) %>%
+  group_by(speciesEN, batchID) %>%
+  summarize(n.tags = length(unique(motusTagID))) %>%
+  spread(key=batchID, value=n.tags)
+
+```
+
+```{r}
+filter(df.alltags, batchID %in% unique(df.ambig.106$batchID)) %>%
+  select(recvDeployName, batchID) %>%
   distinct()
+```
 
-## subset detections data to the tags of interest from our project (excluding detections of duplicate tags)
-df.alltags.sub <- df.alltags %>%
-                    filter(motusTagID %in% tag.list$motusTagID)
 
-## subset deployment records to tags of interest AND duplicate tags.
-tbl.tagDeps <- tbl(sql.motus, "tagDeps")
-df.tagDeps.sub <- tbl.tagDeps %>%
-                    filter(tagID %in% ambigTag.list$motusTagID) %>%
-                    select(deployID, tagID, projectID, fullID, tsStart, tsEnd, speciesID, latitude, longitude) %>%
-                    collect() %>%
-                    as.data.frame() %>%
-                    mutate(
-                      tsStart = as_datetime(tsStart),
-                      tsEnd = as_datetime(tsEnd))
+So we see that there were other Semipalmated and White-rumped sandpipers with the batch on the shore of Hudson Bay (recvDeployName: 51.3:-80.1) but not with the other batches. It seems therefore that the MDR detection is most likely that of the Gray-cheeked Thrush.
+
+**ambig -56**
+**motusTagID 22905 and 23319:**
+
+```{r ambig56}
+
+filter(df.alltags, ambigID == -56) %>% 
+  filter(!is.na(tagDeployStart)) %>%
+  select(motusTagID, tagProjID, start=tagDeployStart, end=tagDeployEnd, 
+         lat=tagDeployLat, lon=tagDeployLon, species=speciesEN) %>%
+  distinct() %>%
+  arrange(start)
 
 ```
 
-**4. Plot tag paths, including ambiguous/false detections**
+Tag 23316 was deployed by the James Bay Shorebird Project (Sample Project) about three weeks after tag 22867, from a slightly different location. 
 
-Plotting the paths of each tag will show us where project tags were deployed, where detections occurred, which detections are ambiguous, and which detections have a run length == 2.
+```{r ambig56b}
 
-First summarize and order the data by tag and time stamp, then calculate maximum run length by date and receiver (ignore time of day for the purpose or this plot): 
+df.ambig.56 <- filter(df.alltags.sub, ambigID == -56) %>%
+  mutate(sig = ifelse(sig > 0, sig * -1, sig))
 
-```{r plotTagPaths.5}
-
-df.alltags.path <- df.alltags.sub %>%
-                    filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
-                    arrange(motusTagID, ts) %>%       # order data by time stamp for each motus tag ID
-                    mutate(date = as_date(ts)) %>%    # create date variable
-                    group_by(motusTagID, date, recvDeployName, ambigID, tagDeployLon, tagDeployLat, recvLat, recvLon)%>%
-                    summarize(max.runLen = max(runLen)) 
-                    
-                    
-```
-
-Then load the base map files:
-
-```{r loadMaps.5, message = FALSE, warning = FALSE}
-
-na.lakes <- map_data(map = "lakes")
-na.lakes <- mutate(na.lakes, long = long- 360)
-
-## Include all of the Americas to begin
-na.map <- subset(map_data(map="world2"), 
-                 region %in% c("Canada", "USA", "Mexico", "lakes",
-                               "Belize", "Costa Rica", "Panama", 
-                               "Guatemala", "Honduras", "Nicaragua", 
-                               "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil",
-                               "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", 
-                               "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", 
-                               "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", 
-                               "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay", "Paraguay"))
-
-na.map <- mutate(na.map, long = long- 360)
+p <- ggplot(data=df.ambig.56, 
+            aes(ts, recvLat, colour=paste(recvLat, recvLon, recvDeployName, sep=": ")))
+p + geom_point() + scale_colour_discrete(name="Lat/Lon and\nStation Name") 
 
 ```
+It seems that anything informative occurs between about 9-11 October, so let's zoom in on that part of the data set. 
 
-Finally, to map the paths using ggplot, set the x-axis and y-axis limits based on the location of receivers with detections. Note that if the tags were not deployed near towers with detections, the axis limits might need to be modified to encompass the deployment location of the tags. 
+```{r ambig56c}
 
-```{r mapDetections1, warning = FALSE, message = FALSE}
+ts.begin <- ymd_hms("2016-10-06 00:00:00")
+ts.end <- ymd_hms("2016-10-12 23:00:00")
+p <- ggplot(data=filter(df.ambig.56, 
+                        ts > ts.begin, 
+                        ts < ts.end),
+            aes(ts, recvLat, colour=paste(recvLat, recvLon, recvDeployName, sep=": ")))
+p + geom_point() + scale_colour_discrete(name="Lat/Lon and\nStation Name") 
 
-## set limits to map based on locations of detections, ensuring they include the deployment locations
-xmin <- min(df.alltags.path$recvLon, na.rm = TRUE) - 2
-xmax <- max(df.alltags.path$recvLon, na.rm = TRUE) + 2
-ymin <- min(df.alltags.path$recvLat, na.rm = TRUE) - 2
-ymax <- max(df.alltags.path$recvLat, na.rm = TRUE) + 2
-                
-## map
-ggplot(na.lakes, aes(long, lat))+ 
-  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+#
-  geom_polygon(aes(group = group), colour = "grey", fill = "white")+
-  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
-  xlab("") + ylab("") + 
-  theme_bw() + 
-  geom_path(data = df.alltags.path, aes(recvLon, recvLat, group = motusTagID), colour = "grey20") + 
-  geom_point(data = df.alltags.path, aes(recvLon, recvLat, colour = !is.na(ambigID), shape = (max.runLen > 2)), size =1.5)+
-  geom_point(data = df.alltags.path, aes(tagDeployLon, tagDeployLat), colour = "black", shape = 4) +
-  scale_colour_discrete("motusTagID") +
-  scale_shape_manual(values = c(1, 2)) +
-  scale_colour_manual(values = c("deepskyblue3", "darkorange1"))+
-  facet_wrap(~motusTagID, nrow = 2)
+```
+We can see that the tag was detected consistently at Niapiskau before and after the period when it was also detected to the north (at Washkaugou and Piskwamish) and to the south by filtering out the portion of the data not near Niapiskau, and using the siteTrans function from the motus package. 
+
+```{r ambig56d}
+
+df.56.tmp <- filter(df.ambig.56, !(recvLat == 50.2), motusTagID == 22867) ## the other is a duplicate
+
+siteTrans(df.56.tmp, latCoord = "recvLat", lonCoord = "recvLon") %>%
+  ungroup() %>%
+  filter(rate < 60) %>% ## get rid of simultaneous detections
+  mutate(total.time = round(seconds_to_period(tot_ts))) %>%
+  select(start=recvDeployName.x, end=recvDeployName.y, date=ts.x, "rate(m/s)" = rate, 
+         dist, total.time = total.time, bearing)
 
 ```
 
-**Figure 5.1.** Plot of the paths of several tags, showing whether detections were ambiguous (orange) or not (blue), and whether a detection had a run length of 2 (circle; implies a high probability of being false positive) or greater than 2 (triangle; higher probability of being a true detection). Tag deployment location is shown by a black 'x'. From the plot of tag paths, we can see that some of the ambiguous detections likely belong to other tags (e.g. tag 22897), and some non-ambiguous detections could be false positives. 
+The bird made a 14.5 hour flight at a rate of 24 m/s, which is plausible. The researchers involved may have other data to support the inference (e.g. an actual sighting of the Red Knot still in Niapiskau after this flight was recorded) but it seems likely that the ambiguous detections can be reasonably divided between the two individuals. 
+
+** filtering **
+In here, need to re-do all of the filtering, in a single place. 
+
+Now, we need to combine our inference from above into a single place, and create a filter for future user. 
+
+runlen > 2. 
+each tag. 
+
+
+```{r writeFilter2}
+
+writeRunsFilter(sql.motus, "filtAmbigFalsePos", motusProjID = 176, df = df.tagRuns, delete = TRUE)
+
+```
+
+To append new records to the filter, leaving previous records intact, use the overwrite = FALSE statement (not evaluated here):
+
+```{r overwriteFilter3, eval = FALSE}
+
+writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.tagRuns, overwrite = FALSE)
+
+```
+
+Apply the filter to the .motus file, and re-format the data into a flat file before continuing to the next step. Note that this code is *exactly* the same as in the previous section; the only difference is that the 'filtAmbigFalsePos' filter now contains more runIDs to filter out of the data:
+
+```{r overwriteFilter4}
+
+# load the .motus file
+sql.motus <- tagme(176, update = FALSE, dir = "./data/")
+
+# apply the filter; a dataframe is output
+df.alltags.sub <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
+
+# manage the dataframe
+df.alltags.sub <- df.alltags.filt %>%
+                      filter(motusTagID %in% tag.subset) %>%
+                      mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
+                             recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
+                             recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt),
+                             ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
+                             tagDeployStart = as_datetime(tagDeployStart),
+                             tagDeployEnd = as_datetime(tagDeployEnd)) %>%
+                      select(-noise, -slop, -burstSlop, -done, -bootnum, -mfgID, -codeSet, -mfg,
+                             -nomFreq, -markerNumber, -markerType, -tagDeployComments, -fullID,
+                             -deviceID, -recvDeployLat, -recvDeployLon, -recvDeployAlt, 
+                             -speciesGroup, -gpsLat, -gpsLon, - recvAlt, - recvSiteName) %>%
+                      collect() %>%
+                      as.data.frame()
+
+```
 
 ## Filter the data
 
-The Motus R package offers functionalities to create custom filters for your data (see \@ref(#appendixC)). The filters, once creater, are attached to your user profile (motus login credentials), and can be used to 1) assign probabilities to detections, and 2) filter detections based on those probabilities each time you load your .motus file. A filter is created, populated, and applied in the following steps:
+The Motus R package offers functionalities to create custom filters for your data (see \@ref(#appendixC)). The filters, once created, are attached to your user profile (motus login credentials), and can be used to 1) assign probabilities to detections, and 2) filter detections based on those probabilities each time you load your .motus file. A filter is created, populated, and applied in the following steps:
 
 1. use the 'createRunsFilter' function to create (but not populate) a filter, here named 'filtAmbigFalsePos'. 
 
-2. Generate a dataframe which includes the motusTagID and runID of detections you want to filter; assign a probability to those detections. In this case, because we want to exclude the data we are filtering, we assign a probability of 0 to all detections we deem are false positive.  
+2. Generate a dataframe which includes the motusTagID and runID of detections you want to filter; assign a probability to those detections. In this case, because we want to exclude the data we are filtering, we assign a probability of 0 to all detections we consider to be false positives.  
 
 3. Use the 'writeRunsFilter' function to write the dataframe to the filter. Using the delete = TRUE option will remove all records previously written to the filter; using the overwrite = FALSE option will allow new records to be appended to the filter.  
 
@@ -1209,7 +1630,8 @@ To filter all detections with a runLen = 2 and/or a standard deviation of freque
 ```{r filterRunLen}
 
 df.tagRuns <- df.alltags.sub %>%
-  filter(freqsd >= 0.1|runLen == 2) %>%
+#  filter(freqsd >= 0.1|runLen == 2) %>%
+  filter(runLen == 2) %>%
   select(motusTagID, runID) %>%
   mutate(probability = 0) %>%
   distinct()
@@ -1245,12 +1667,9 @@ sql.motus <- tagme(176, update = FALSE, dir = "./data/")
 
 ```{r overwriteFilter2}
 
-# apply the filter; a dataframe is output
-df.alltags.filt <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
-
 # manage the dataframe
 df.alltags.filt <- df.alltags.filt %>%
-                      filter(motusTagID %in% tag.list$motusTagID) %>%
+                      filter(motusTagID %in% tag.subset) %>%
                       mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
                              recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
                              recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt),
@@ -1264,316 +1683,6 @@ df.alltags.filt <- df.alltags.filt %>%
 
 ```
 
-### Examine plots of tag paths
-
-Re-plot the tag paths using the filtered data:
-
-```{r mapDetections3, message = FALSE, warning = FALSE}
-
-df.alltags.path <- df.alltags.filt %>%
-                    filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
-                    arrange(motusTagID, ts) %>%       # order data by time stamp for each motus tag ID
-                    mutate(date = as_date(ts)) %>%    # create date variable
-                    group_by(motusTagID, date, recvDeployName, ambigID, tagDeployLon, tagDeployLat, recvLat, recvLon)%>%
-                    summarize(max.runLen = max(runLen)) 
-
-## set limits to map based on locations of detections, ensuring they include the deployment locations
-xmin <- min(df.alltags.path$recvLon, na.rm = TRUE) - 2
-xmax <- max(df.alltags.path$recvLon, na.rm = TRUE) + 2
-ymin <- min(df.alltags.path$recvLat, na.rm = TRUE) - 2
-ymax <- max(df.alltags.path$recvLat, na.rm = TRUE) + 2
-                
-## map
-ggplot(na.lakes, aes(long, lat))+ 
-  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+#
-  geom_polygon(aes(group = group), colour = "grey", fill = "white")+
-  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
-  xlab("") + ylab("") + 
-  theme_bw() + 
-  geom_path(data = df.alltags.path, aes(recvLon, recvLat, group = motusTagID), colour = "grey20") + 
-  geom_point(data = df.alltags.path, aes(recvLon, recvLat, colour = !is.na(ambigID)), size =1.5)+
-  geom_point(data = df.alltags.path, aes(tagDeployLon, tagDeployLat), colour = "black", shape = 4) +
-  scale_colour_discrete("motusTagID") +
-  #scale_shape_manual(values = c(1, 2)) +
-  scale_colour_manual(values = c("deepskyblue3", "darkorange1"))+
-  facet_wrap(~motusTagID, nrow = 2)
-
-```
-
-**Figure 5.2**. Plot of the paths of several tags, showing whether detections were ambiguous (orange) or not (blue), for detections with a run length greater than two and standard deviation of frequency offset > 0.1. Tag deployment location is shown by a black 'x'. We note that the paths are much cleaner than in Figure 5.1.
-
-From these plots, we can make the following decisions:
-
-**motusTagID 16038:** 
-
-From this plot, there are no obvious false positive detections for this tag.
-
-**motusTagID 16047:** 
-
-There are no obvious false positive detections. The path follows an expected trajectory for a Red Knot departing on fall migration from the James Bay area.
-
-**motusTagID 22897:**
-
-Using 'clarify(sql.motus)', the ambiguous detections in the Great Lakes region could also belong to tag 24298 released by the Neonics project. Filtering the tag deployment metadata using 'filter(df.tagDeps.sub, tagID == 24298)', we see that that duplicate tag was released on the north shore of Lake Erie. Those ambiguities most likely belong to that tag, and can be dropped from our data.
-
-
-```{r filter1Tag3}
-
-df.tagRuns <- filter(df.alltags.filt, 
-                     motusTagID == 22897, 
-                     (!is.na(ambigID))) %>%
-                  select(motusTagID, runID) %>%
-                  distinct() %>%
-                  mutate(probability = 0) %>%
-                  bind_rows(df.tagRuns)
-
-```
-
-**motusTagID 22902:** 
-
-Using 'clarify(sql.motus)', the ambiguous detections for this tag, which occur in the great lakes region, could also belong to motusTagID 22778 from the RBrownAMWO project or motusTagID 24303 from the Neonics project. The Neonics project deployed tags on the north shore of Lake Erie in Ontario, Canada, so ambiguous detections in that region can be safely removed from the sample data.
-
-```{r filter1Tag4}
-
-df.tagRuns <- filter(df.alltags.filt, 
-                     motusTagID == 22902, 
-                     (!is.na(ambigID))) %>%
-                  select(motusTagID, runID) %>%
-                  distinct() %>%
-                  mutate(probability = 0) %>%
-                  bind_rows(df.tagRuns)
-
-```
-
-**motusTagID 22905:**
-
-It turns out that most of the ambiguous detections for this tag and tag 23319 were dropped as a result of runLen or freqsd. Using 'filter(df.tagDeps.sub, tagID == 22905|tagID == 23319)', we see that both tags were deployed by the James Bay Shorebird Project (Sample Project) within two weeks of each other, and from the same deployment location. As a result, all remaining ambiguities cannot be assigned with confidence to either tag. All ambiguous detections will be dropped for this tag and for tag 23319. Only non-ambiguous detections of tag 22905 between October 10 2016 when it was deployed, and October 15 2016 when the duplicate tag was deployed, will be useful for looking at local movement behaviour. 
-
-
-```{r filter1Tag5}
-
-df.tagRuns <- filter(df.alltags.filt, 
-                     motusTagID == 22905, 
-                     (!is.na(ambigID))) %>%
-                  select(motusTagID, runID) %>%
-                  distinct() %>%
-                  mutate(probability = 0) %>%
-                  bind_rows(df.tagRuns)
-
-```
-
-**motusTagID 23319:**
-
-As stated above for tag 22905, all ambiguous detections will be dropped for this tag, because they can't be assigned with confidence to either tag.
-
-```{r filter1Tag6}
-
-df.tagRuns <- filter(df.alltags.filt, 
-                     motusTagID == 23319, 
-                     (!is.na(ambigID))) %>%
-                  select(motusTagID, runID) %>%
-                  distinct() %>%
-                  mutate(probability = 0) %>%
-                  bind_rows(df.tagRuns)
-
-```
-
-Re-populate the 'filtAmbigFalsePos' filter with the 'df.tagRuns' list using the `writeRunsFilter` function. In this case, because we appended new runIDs to 'df.tagRuns' created previously, delete the existing records in the filter:
-
-```{r writeFilter2}
-
-writeRunsFilter(sql.motus, "filtAmbigFalsePos", motusProjID = 176, df = df.tagRuns, delete = TRUE)
-
-```
-
-To append new records to the filter, leaving previous records intact, use the overwrite = FALSE statement (not evaluated here):
-
-```{r overwriteFilter3, eval = FALSE}
-
-writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.tagRuns, overwrite = FALSE)
-
-```
-
-Apply the filter to the .motus file, and re-format the data into a flat file before continuing to the next step. Note that this code is *exactly* the same as in the previous section; the only difference is that the 'filtAmbigFalsePos' filter now contains more runIDs to filter out of the data:
-
-```{r overwriteFilter4}
-
-# load the .motus file
-sql.motus <- tagme(176, update = FALSE, dir = "./data/")
-
-# apply the filter; a dataframe is output
-df.alltags.filt <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
-
-# manage the dataframe
-df.alltags.filt <- df.alltags.filt %>%
-                      filter(motusTagID %in% tag.list$motusTagID) %>%
-                      mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
-                             recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
-                             recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt),
-                             ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
-                             tagDeployStart = as_datetime(tagDeployStart),
-                             tagDeployEnd = as_datetime(tagDeployEnd)) %>%
-                      select(-noise, -slop, -burstSlop, -done, -bootnum, -mfgID, -codeSet, -mfg, -nomFreq, -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID, -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat, -gpsLon, - recvAlt, - recvSiteName) %>%
-                      collect() %>%
-                      as.data.frame() %>%
-                      mutate() 
-
-```
-
-Re-run the plot of tag paths to see that the paths are again much cleaner:
-
-```{r plotPaths2, message = FALSE, warning = FALSE}
-
-df.alltags.path <- df.alltags.filt %>%
-                    filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
-                    arrange(motusTagID, ts) %>%       # order data by time stamp for each motus tag ID
-                    mutate(date = as_date(ts)) %>%    # create date variable
-                    group_by(motusTagID, date, recvDeployName, ambigID, tagDeployLon, tagDeployLat, recvLat, recvLon)%>%
-                    summarize(max.runLen = max(runLen)) 
-## map
-## set limits to map based on locations of detections, ensuring they include the deployment locations
-xmin <- min(df.alltags.path$recvLon, na.rm = TRUE) - 2
-xmax <- max(df.alltags.path$recvLon, na.rm = TRUE) + 2
-ymin <- min(df.alltags.path$recvLat, na.rm = TRUE) - 2
-ymax <- max(df.alltags.path$recvLat, na.rm = TRUE) + 2
-
-ggplot(na.lakes, aes(long, lat))+ 
-  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+#
-  geom_polygon(aes(group = group), colour = "grey", fill = "white")+
-  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
-  xlab("") + ylab("") + 
-  theme_bw() + 
-  geom_path(data = df.alltags.path, aes(recvLon, recvLat, group = motusTagID), colour = "grey20") + 
-  geom_point(data = df.alltags.path, aes(recvLon, recvLat, colour = !is.na(ambigID), shape = (max.runLen > 2)), size =1.5)+
-  geom_point(data = df.alltags.path, aes(tagDeployLon, tagDeployLat), colour = "black", shape = 4) +
-  scale_colour_discrete("motusTagID") +
-  scale_shape_manual(values = c(1, 2)) +
-  scale_colour_manual(values = c("deepskyblue3", "darkorange1"))+
-  facet_wrap(~motusTagID, nrow = 2)
-
-```
-
-## Filter data based on geographic position (latitude/longitude) against time
-
-Next, visualize the time and location of detections relative to the time and location of tag deployments. When we plot the data, we want to include the deployment date and location of any duplicate tag, so we can visualize where detections fall relative to the tag deployments. Because we are plotting with a facet based on motusTagID, and not ambigID, we need to first manipulate the data, so that we end up with a deployment metadata table that has a 'tagID' variable which tells us which 'motusTagID' the deployment information belongs to, and a 'motusTagID' field which tells us which of our tags this deployment information should be plotted with (i.e., which tag it is a duplicate of).  
-
-Note that if you have a large number of tags (say > 6) in your data, these plots will be messy, and you will want to plot each tag individually or in subsets of tags. 
-
-```{r importTagMeta}
-
-## get a list of the motusIDs for all of ambiguous IDs
-df.allambigs <-  tbl(sql.motus, "allambigs") %>%
-  collect() %>% 
-  as.data.frame() 
-
-df.myAmbigs <- df.allambigs %>%
-  filter(motusTagID %in% tag.list$motusTagID)
-
-## deployments in this table are the deployments of the duplicate tags (motusTagDup)
-df.myDeps <- left_join(df.tagDeps.sub,
-                          df.allambigs,
-                          by = c("tagID" = "motusTagID"))
-
-## merge again, creating a new variable with both the projectID
-## and the MotusTagID which makes it easier for plotting to see where
-## the various ambiguous come from.
-
-df.myDeps <- left_join(df.myDeps, df.myAmbigs, by = "ambigID") %>%
-  mutate(plot.id = paste(ambigID, tagID, projectID, sep = "."),
-         motusTagID = if_else(is.na(motusTagID), tagID, motusTagID))
-
-```
-
-**Plot latitude of detections against time.**
-
-```{r plotLatbyTime, fig.width=11, fig.height=6}
-
-ggplot(data = filter(df.alltags.filt, is.na(ambigID)), # plot ambiguous detections first
-            aes(ts, recvLat)) +
-  geom_point(size = 1, shape = 1) +
-  geom_point(data = filter(df.alltags.filt, !is.na(ambigID)), aes(ts, recvLat), size = 1, shape = 2) + # add non-ambiguous detections
-  geom_point(data = df.myDeps, aes(tsStart, latitude, colour = plot.id), size = 2, shape = 13) +
-  facet_wrap(~ motusTagID, ncol= 3, scales = "free") + 
-  theme_bw() +   
-  ylab("Latitude") + xlab("Date") +
-  guides(colour=guide_legend(title="id.motusTagID.projectID")) 
-
-```
-**Plot longitude of detections against time.**
-
-```{r plotLonbyTime}
-
-ggplot(data = filter(df.alltags.filt, is.na(ambigID)), # plot ambiguous detections first
-            aes(ts, recvLon)) +
-  geom_point(size = 1, shape = 1) +
-  geom_point(data = filter(df.alltags.filt, !is.na(ambigID)), aes(ts, recvLon), size = 1, shape = 2) + # add non-ambiguous detections
-  geom_point(data = df.myDeps, aes(tsStart, longitude, colour = plot.id), size = 2, shape = 13) +
-  facet_wrap(~ motusTagID, ncol= 3, scales = "free") + 
-  theme_bw() +   
-  ylab("Longitude") + xlab("Date") +
-  guides(colour=guide_legend(title="id.motusTagID.projectID")) 
-
-```
-
-**motusTagID 16038**
-
-There are detections at two towers, not far apart. From these plots, there don't appear to be additional false positives for this tag.
-
-**motusTagID 16047**
-
-There is nothing that stands out about these detections that requires filtering in this step; you can see that after this Red Knot departed the James Bay region, it was detected moving south along the east coast at an appropriate time of year and in an appropriate location.
-
-**motusTagID 22897**
-
-Using 'filter(df.alltags.filt, motusTagID == 22897, recvLon < -80)', we see that the detections in the Great Lakes region (recvDeployName "Old Cut") occurred on April 20, 2017 at 22:33 (HH:MM). The detections have a run length of 3 or 4, freqsd is < 0.1, and detections were recorded by three of four antennas at the Old Cut station. Normally Red Knots migrate through that region in May, so this is potentially a little bit early to detect Red Knots at this tower, but not impossible. 
-
-**motusTagID 22902**
-
-The only detections for this tag occur at the deployment location, near the deployment time, so these are true detections of the tag.
-
-**motusTagID 22905**
-
-There doesn't appear to be any issue with the remaining detections for this tag.
-
-**motusTagID 23319**
-
-<<<<<<< HEAD
-- 
-=======
-There are no unambiguous detections for this tag, so it can be dropped completely.
->>>>>>> 6a20ed29c14f0bdabe4d4292892ab641ed7f1e11
-
-## Filter data based on flight speed between detections {#filterFlightSpeed}
-
-By looking at the rate of movement between sites with consecutive detections, we can often quickly view flights that are not physically possible. At this point, our data is looking pretty clean, but we want to be thorough.
-
-Rate of movement between sites can be determined using the siteTrans function in the motus R package (see \@ref(#appendixB). The output is in m for distance, and m/s for rate. 
-
-```{r falseBySpeed1, message = FALSE, warning = FALSE}
-
-df.detectTrans <- as.data.frame(siteTrans(df.alltags.filt, latCoord = "recvLat", lonCoord = "recvLon")) ## create new data.base consisting of transitions between consecutive sites for each tag
-head(df.detectTrans)
-summary(df.detectTrans)
-
-```
-
-There are a few transitions with unusually high speeds. We subset those out to take a closer look:
-
-```{r falseBySpeed2}
-
-filter(df.detectTrans, rate > 60)
-```
-
-All of the high rates are for one tag, 16047, attached to a Red Knot, and appear to be the result of simultaneous detections by the BennetMeadow and Shelbourne sites, which are within 20km of each other north of Amherst Massachusetts, and 7 hours later by the the BISE and TRUS stations, which are within 30 km of each other on the east coast near Rhode Island. These are not false positive detections, rather, this method of estimating distance and speed is inappropriate in this circumstance, because the bird is most likely migrating somewhere between the two stations.
-
-No additional detections jumped out as false positive in this last step, so we move on to exploring the data in Chapter \@ref(#exploreData).
-
-#NOT SURE WHERE THIS WAS GOING:
-```{r notsurewhatthisisfor}
-df.detectTrans %>%
-  group_by(motusTagID) %>%
-  summarize()
-```
 
 
 <!--chapter:end:05-DataCleaning.Rmd-->
@@ -1592,34 +1701,53 @@ library(motus)
 
 ```
 
+
+```{r setTimeZone2 }
+
+Sys.setenv(TZ="GMT")
+
+```
+
+
 ## Load data
 
-If you followed along with the the previous \@ref(dataCleaning) chapter and are working with cleaned sql.filtered file, you can skip ahead to \@ref(dataSummaries).  Otherwise we will load the sample data and clean it now.  Recall from \@ref(accessingData) that when accessing the sample database, you will need to input "motus.sample" as both username and password when prompted by the tagme() user authentication process. 
+If you followed along with the the previous \@ref(dataCleaning) chapter and are working with cleaned 'df.alltags.filt' file, you can skip this step and move to \@ref(dataSummaries).  Otherwise we will load the previously downloaded sample data (see chapter \@ref(accessingData) and clean it now.
 
 ```{r importData}
 
-proj.num <- 176
+# load the .motus file
+sql.motus <- tagme(176, update = FALSE, dir = "./data/")
 
-# load detection data
-sql.motus <- tagme(proj.num, update = FALSE, dir = "./data")
-tbl.alltags <- tbl(sql.motus, "alltags")
-df.alltags <- tbl.alltags %>% collect() %>%
-                as.data.frame() %>%
-                mutate(ts = as_datetime(ts)) # work with dates AFTER transforming to flat file
-```
+# apply the filter; a dataframe is output
+df.alltags.filt <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
 
-## Remove false positives and ambiguous detections
-```{r overwriteFilter}
-
-sql.filtered <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
-
+# manage the dataframe
+df.alltags.filt <- df.alltags.filt %>%
+                      mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
+                             recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
+                             recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt),
+                             ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
+                             tagDeployStart = as_datetime(tagDeployStart),
+                             tagDeployEnd = as_datetime(tagDeployEnd)) %>%
+                      select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, -mfg, -nomFreq,
+                             -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID,
+                             -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat,
+                             -gpsLon, - recvAlt, - recvSiteName) %>%
+                      collect() %>%
+                      as.data.frame()
 ```
 
 ## Summarizing your data {#dataSummaries}
 Here we will run through some basic commands, starting with the summary() function to view all variables in a data frame, here we'll just examine a few select variables:
+
 ```{r summaryAllTags}
 
-sql.motus %>% tbl("alltags") %>% select(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, recvDeployLat, recvDeployLon) %>% collect %>% summary()
+sql.motus %>% 
+  tbl("alltags") %>% 
+  select(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, 
+         recvDeployLat, recvDeployLon) %>% 
+  collect() %>%
+  summary()
 
 ```
 
@@ -1628,23 +1756,25 @@ The dplyr package allows you to easily summarize data by group, manipulate varia
 We can manipulate existing variables or create new ones with dplyr's mutate function, here we'll convert ts to a POSIXct format, then make a new variable for year and day of year (doy):
 ```{r tagMutate}
 
-df.alltags <- df.alltags %>%
+df.alltags.filt <- df.alltags.filt %>%
   mutate(ts = as_datetime(ts, tz = "UTC"), ## convert ts to POSIXct format
          year = year(ts), ## extract year from ts
          doy = yday(ts)) ## extract numeric day of year from ts
-head(df.alltags)
+head(df.alltags.filt)
+
 ```
 
 We can also summarize information by group, in this case motusTagID, and apply various functions to these groups such as getting the total number of detections (n) for each tag, the number of receivers each tag was detected on, the first and last detection date, and the total number of days there was at least one detection:
 ```{r tagSummary}
 
-tagSummary <- df.alltags %>%
+tagSummary <- df.alltags.filt %>%
   group_by(motusTagID) %>% 
   summarize(nDet = n(),
             nRecv = length(unique(recvDeployName)),
             tsMin = min(ts),
             tsMax = max(ts),
             totDay = length(unique(doy)))
+
 head(tagSummary)
 
 ```
@@ -1652,13 +1782,14 @@ head(tagSummary)
 We can also group by multiple variables, applying the same function as above but now grouping by motusTagID and recvDepName, we will get information for each tag detected on each receiver. Since we've specified to group by recvDeployName, there will be by default only one recvDeployName in each group, thus the variable nRecv will be 1 for each row which is not very information, however we've kept this variable in to help illustrate how grouping works:
 ```{r tagRecvSum}
 
-tagRecvSummary <- df.alltags %>%
+tagRecvSummary <- df.alltags.filt %>%
   group_by(motusTagID, recvDeployName) %>% 
   summarize(nDet = n(),
             nRecv = length(unique(recvDeployName)),
             tsMin = min(ts),
             tsMax = max(ts),
             totDay = length(unique(doy)))
+
 head(tagRecvSummary)
 
 ```
@@ -1666,77 +1797,89 @@ head(tagRecvSummary)
 ## Plotting your data {#dataPlotting}
 Plotting your data is a powerful way to visualize broad and fine-scale detection patterns, this section will give you a brief intro into plotting using ggplot2.  For more in depth information on the uses of ggplot2 we recommend the Cookbook for R <http://www.cookbook-r.com/Graphs/>, and the rstudio ggplot2 cheatsheet <https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf>.  
 
-To make coarse-scale plots with large files we suggest first rounding the detection time to the nearest hour or day so that processing time is faster.  Here we'll round detection times to the nearest hour and work with that rounded dataframe, then we'll make a basic plot of hourly detection by motusTagID:
+To make coarse-scale plots with large files we suggest first rounding the detection time to the nearest hour or day so that processing time is faster.  Here we'll round detection times to the nearest hour and work with that rounded dataframe, then we'll make a basic plot of hourly detections by motusTagID:
 
-```{r}
-tmp$hour <- as.POSIXct(round(tmp$ts, "hour"))
-round.tmp <- tmp %>% select(motusTagID, port, mfgID, tagDepLat, tagDepLon, recvDeployLat, recvDeployLon, recvDepName, antBearing, speciesEN, year, doy, hour) %>% unique()
+```{r hourlyPlot}
+df.alltags.filt$hour <- as.POSIXct(round(df.alltags.filt$ts, "hour"))
+round.df.alltags.filt <- df.alltags.filt %>% filter(tagProjID == 176) %>% select(motusTagID, port, mfgID, tagDeployStart, tagDeployLat, tagDeployLon, recvLat, recvLon, recvDeployName, antBearing, speciesEN, year, doy, hour) %>% unique()
 
-ggplot(data = round.tmp, aes(hour, as.factor(motusTagID))) + geom_point()
+ggplot(data = round.df.alltags.filt, aes(hour, as.factor(motusTagID))) + geom_point()
 ```
 Let's focus only on tags deployed in 2016, we can also clean up the plot by removing the grey background, and we can colour the tags by species:
-```{r}
-ggplot(data = filter(round.tmp, round(tagDeployStart, "year") == 2016), aes(hour, as.factor(motusTagID), col = recvDepName)) +
+```{r hourlyPlotSpecies}
+ggplot(data = filter(round.df.alltags.filt, year(tagDeployStart) == 2016), aes(hour, as.factor(motusTagID), col = speciesEN)) +
   geom_point() +
   theme_bw()
 ```
 
-We can see how tags moved latitudinally:
-```{r}
-ggplot(data = filter(round.tmp, round(tagDeployStart, "year") == 2016), aes(hour, recvDeployLat, col = as.factor(motusTagID), group = as.factor(motusTagID))) +
+We can see how tags moved latitudinally by first ordering by hour:
+```{r hourlyPlotLat, warnings = FALSE}
+
+round.df.alltags.filt <- arrange(round.df.alltags.filt, hour)
+
+ggplot(data = filter(round.df.alltags.filt, year(tagDeployStart) == 2016), aes(hour, recvLat, col = as.factor(motusTagID), group = as.factor(motusTagID))) +
   geom_point() +
-  geom_path()
+  geom_path() +
   theme_bw()
 ```
 
-Now lets look at more detailed plots of signal variation, here we'll use the full tmp dataframe so we can get signal strength for each detection of a specific tag.  Let's examine fall 2015 detections of tag 16039, we can facet the plot by deployment name, ordered by decreasing latitude.
+Now lets look at more detailed plots of signal variation, here we'll use the full df.alltags.filt dataframe so we can get signal strength for each detection of a specific tag.  Let's examine fall 2016 detections of tag 22897 at Niapiskau, we can facet the plot by deployment name, ordered by decreasing latitude.
 
-```{r}
-tmp <- within(tmp, recvDepName <- reorder(recvDepName, (-recvDeployLat))) ## order sitelat by latitude
-ggplot(filter(tmp, motusTagID == 16039 & ts < as.POSIXct("2015-10-15")), aes(ts, sig)) + theme_bw() + geom_point() + facet_grid(recvDepName~.)
-```
-We can zoom in on certain time periods, for example the last detection and departure from the tagging location
-```{r}
-#NEED CODE
-```
+16047 22867 23316 16037 16038 16039 16044 16011 19129 17021 17357 24298 16035 16052 22778 24303 16036 16048 22897 22902
+[21] 22905 10811
 
-We can zoom in on a section of this plot and look at antenna bearings to see directional movement past stations:
-```{r}
-ggplot(filter(tmp, motusTagID == 16039 & ts > as.POSIXct("2015-09-14") &ts < as.POSIXct("2015-10-01")), aes(ts, sig, col = as.factor(antBearing))) + theme_bw() + geom_point() + facet_grid(recvDepName~.)
+```{r plot22897}
+df.alltags.filt <- within(df.alltags.filt, recvDepName <- reorder(recvDeployName, (-recvLat))) ## order sitelat by decreasing latitude
+
+ggplot(filter(df.alltags.filt, motusTagID == 22897 & recvDeployName == "Niapiskau"), aes(ts, sig)) + theme_bw() + geom_point() + facet_grid(recvDeployName~.)
 ```
 
 We can use the sunRiseSet function available in the motus R package (see \@ref(sunRiseSet)) to get sunrise and sunset times for all detections, we can then add that information to the above plot with geom_vline()
-```{r}
-tmp <- sunRiseSet(tmp)
-ggplot(filter(tmp, motusTagID == 22897 & ts > as.POSIXct("2016-10-01") &ts < as.POSIXct("2016-10-29") & recvDepName == "Niapiskau"), aes(ts, sig)) + theme_bw() + geom_point() + geom_vline(xintercept = tmp$sunrise, col = "orange") + geom_vline(xintercept = tmp$sunset, col = "blue")
+```{r plotSunriset22897}
+df.alltags.filt <- sunRiseSet(df.alltags.filt, lat = "recvLat", lon = "recvLon") ## add sunrise and sunset times to the dataframe
+
+ggplot(filter(df.alltags.filt, motusTagID == 22897 & ts > as.POSIXct("2016-10-11") & ts < as.POSIXct("2016-10-17") & recvDepName == "Niapiskau"), aes(ts, sig)) + theme_bw() + geom_point() + geom_vline(xintercept = df.alltags.filt$sunrise, col = "orange") + geom_vline(xintercept = df.alltags.filt$sunset, col = "blue")
 ```
+We can see that during this period, the tag was most often detected during the day, suggesting it may be actively foraging in this area during this time.  
+
+The same plots can provide valuable movement information, here well look at motusTagID 16039:
+```{r}
+ggplot(filter(df.alltags.filt, motusTagID == 16039 & ts < as.POSIXct("2015-10-01")), aes(ts, sig)) + theme_bw() + geom_point() + facet_grid(recvDepName~.)
+```
+We can zoom in on a section of this plot and look at antenna bearings to see directional movement past stations:
+```{r}
+ggplot(filter(df.alltags.filt, motusTagID == 16039 & ts > as.POSIXct("2015-09-14") &ts < as.POSIXct("2015-10-01")), aes(ts, sig, col = as.factor(antBearing))) + theme_bw() + geom_point() + facet_grid(recvDepName~.)
+```
+This plot shows the typical flyby pattern of a migrating bird, signal strength increases and then decreases as the tag approaches and moves past the station.
 
 ## Mapping your data {#mappingData}
 To generate maps of tag paths, we will once again use summarized data so we can work with a much smaller database for faster processing, here we'll summarize detections by day:
 ```{r plotTagPaths.6}
-tmp.path <- tmp.sub %>%
+proj.num = 176
+
+df.alltags.filt.path <- df.alltags.filt %>%
                     filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
                     arrange(motusTagID, ts) %>%       # order data by time stamp for each motus tag ID
                     mutate(date = as_date(ts)) %>%    # create date variable
-                    group_by(motusTagID, date, recvDepName, ambigID, tagDepLon, tagDepLat, recvLat, recvLon)
+                    group_by(motusTagID, date, recvDepName, ambigID, tagDeployLon, tagDeployLat, recvLat, recvLon)
 ```
 ### Mapping with Google Maps {#googleMaps}
 Mapping with Google Maps can be a fast way to view flight paths that allows you to select from multiple base layers.  
 For Google Maps, we'll need to load ggmap and ggplot2 packages, see \@ref(loadingPackages) for instructions on installing the package if you have no already done so.
 ```{r installGoogleMapPackages, message = FALSE, warning = FALSE, eval = FALSE}
 require(ggmap)
-require(ggplot2)
 ```
+
 The first step is creating a map with a specified map centre, maptype ("terrain", "roadmap", "satellite", or "hybrid"), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale).  We then add points for receivers and lines connecting consecutive detections by motusTagID.
-```{r}
-gmap <-  get_map(location = c(lon = lonCentre, lat = latCentre), ## lon/lat to centre map over
+```{r googleMap, warning = FALSE}
+gmap <-  get_map(location = c(lon = -75, lat = 40), ## lon/lat to centre map over
                  maptype = "satellite", ## select maptype
                  source = "google",
-                 zoom = 3) ## zoom, must be a whole number
+                 zoom = 4) ## zoom, must be a whole number
   p <- ggmap(gmap)
-  p + geom_point(data = tmp.path, aes(recvDeployLon, recvDeployLat), pch=21, colour = "black", fill = "yellow") +
-    geom_path(data=data, aes(recvDeployLon, recvDeployLat, group=fullID, col = fullID)) +
+  p + geom_point(data = df.alltags.filt.path, aes(recvLon, recvLat), pch=21, colour = "black", fill = "yellow") + geom_path(data=df.alltags.filt.path, aes(recvLon, recvLat, group=motusTagID, col = as.factor(motusTagID))) +
     theme_bw()
+
 ```
 
 ### Creating simple outline maps {#outlineMaps}
@@ -1771,10 +1914,10 @@ Finally, to map the paths, we set the x-axis and y-axis limits based on the loca
 ```{r mapDetections}
 
 # set limits to map based on locations of detections, ensuring they include the deployment locations
-xmin <- min(tmp.path$recvLon, na.rm = TRUE) - 2
-xmax <- max(tmp.path$recvLon, na.rm = TRUE) + 2
-ymin <- min(tmp.path$recvLat, na.rm = TRUE) - 2
-ymax <- max(tmp.path$recvLat, na.rm = TRUE) + 2
+xmin <- min(df.alltags.filt.path$recvLon, na.rm = TRUE) - 2
+xmax <- max(df.alltags.filt.path$recvLon, na.rm = TRUE) + 2
+ymin <- min(df.alltags.filt.path$recvLat, na.rm = TRUE) - 2
+ymax <- max(df.alltags.filt.path$recvLat, na.rm = TRUE) + 2
                 
 # map
 ggplot(na.lakes, aes(long, lat))+ 
@@ -1783,14 +1926,13 @@ ggplot(na.lakes, aes(long, lat))+
   coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
   xlab("") + ylab("") + 
   theme_bw() + 
-  geom_path(data = tmp.path, aes(recvLon, recvLat, group = motusTagID), colour = as.factor(motusTagID)) + 
-  geom_point(data = tmp.path, aes(tagDepLon, tagDepLat), colour = "black", shape = 4) +
+  geom_path(data = df.alltags.filt.path, aes(recvLon, recvLat, group = "motusTagID", colour = as.factor(motusTagID))) +
+  geom_point(data = df.alltags.filt.path, aes(tagDeployLon, tagDeployLat), colour = "black", shape = 4) +
   scale_colour_discrete("motusTagID") +
-  facet_wrap(~motusTagID, nrow = 2)
+  facet_wrap(~speciesEN, nrow = 2)
 
 ```
-
-
+The above functions provide examples for you how can begin exploring your data and are by no means exhaustive.  The next chapter will cover some common errors and troubleshooting you may encounter while trying to download and use the .motus sql files.
 
 
 <!--chapter:end:06-ExploringData.Rmd-->
@@ -1839,20 +1981,27 @@ The motus R package offers functions that work with .motus data to do common com
 ```{r appendixBSample, eval = FALSE}
 
 sql.motus <- tagme(176, new = TRUE, update = TRUE) # download and access sample data in sql format, username: motus.sample, password: motus.sample
-tbl.alltags <- tbl(sql.motus, "alltags") # convert sql file "sql.motus" to a tbl called "tbl.alltags"
-df.alltags <- tbl.alltags %>% collect %>% as.data.frame() ## convert the tbl "tbl.alltags" to a data.frame called "df.alltags"
+
+tbl.alltags <- tbl(sql.motus, "alltags") # extract "alltags"" table from sql file "sql.motus"
+df.alltags <- tbl.alltags %>% 
+  collect() %>% 
+  as.data.frame() ## convert the tbl "tbl.alltags" to a data.frame called "df.alltags"
 
 ```
 
-You can also access the function help pages like so:
+You can access the function help pages:
 
 ```{r functionHelp, eval = TRUE}
+
 ??SunRiseSet
+
 ```
 
 Or view the underlying function code like this:
 ```{r functionCode, eval = TRUE}
+
 SunRiseSet
+
 ```
 
 ## SunRiseSet {#sunRiseSet}
@@ -1890,7 +2039,11 @@ Plot latitude/longitude vs time (UTC rounded to the hour) for each tag using .mo
 ### Example
 Plot tags select tags from tbl.alltags with 3 tags per panel
 ```{r plotAllTagsCoord, eval = TRUE}
-plotAllTagsCoord(filter(tbl.alltags, motusTagID %in% c(19129, 16011, 17357, 16035, 22897, 23316)), tagsPerPanel = 3)
+
+plotAllTagsCoord(
+  filter(tbl.alltags, motusTagID %in% c(19129, 16011, 17357, 16035, 22897, 23316)), 
+  tagsPerPanel = 3)
+
 ```
 
 ## plotAllTagsSite {#plotAllTagsSite}
@@ -1909,7 +2062,11 @@ Plot latitude/longitude vs time (UTC rounded to the hour) for each tag using .mo
 ### Example
 Plot tbl file tbl.alltags using gpsLat and 3 tags per panel for select species Red Knot
 ```{r, plotAllTagsSite, eval = TRUE}
-plotAllTagsSite(filter(tbl.alltags, speciesEN == "Red Knot"), coordinate = "gpsLat", tagsPerPanel = 3)
+
+plotAllTagsSite(filter(tbl.alltags, speciesEN == "Red Knot"), 
+                coordinate = "gpsLat", 
+                tagsPerPanel = 3)
+
 ```
 
 ## plotDailySiteSum {#plotDailySiteSum}
@@ -1926,7 +2083,9 @@ Plots total number of detections across all tags, and total number of tags detec
 ### Example
 Plot of all tag detections at site Longridge using data.frame df.alltags
 ```{r, plotDailySiteSum, eval = TRUE}
+
 plotDailySiteSum(df.alltags, recvDepName = "Longridge")
+
 ```
 
 ## plotRouteMap {#plotRouteMap}
@@ -1944,7 +2103,12 @@ Google map of routes of Motus tag detections coloured by motusTagID.  User defin
 ### Example
 Plot routemap of all detection data, with "terrain" maptype, and receivers active between 2016-01-01 and 2017-01-01
 ```{r, plotRouteMap, eval = TRUE}
-plotRouteMap(sql.motus, maptype = "terrain", latCentre = 44, lonCentre = -70, zoom = 5, recvStart = "2016-01-01", recvEnd = "2016-12-31")
+
+plotRouteMap(sql.motus, 
+             maptype = "terrain", 
+             latCentre = 44, lonCentre = -70, zoom = 5, 
+             recvStart = "2016-01-01", recvEnd = "2016-12-31")
+
 ```
 
 
@@ -1961,7 +2125,9 @@ plotRouteMap(sql.motus, maptype = "terrain", latCentre = 44, lonCentre = -70, zo
 ### Example
 Plot only detections at a specific site; Piskwamish for data.frame df.alltags
 ```{r, plotSite, eval = TRUE}
+
 plotSite(filter(df.alltags, recvDepName == "Piskwamish"))
+
 ```
 
 ## plotSiteSig {#plotSiteSig}
@@ -1980,7 +2146,9 @@ Plot signal strength vs time for all tags detected at a specified site, coloured
 ### Example
 Plot select tags for site Piskwamish 
 ```{r, plotSiteSig, eval = TRUE}
+
 plotSiteSig(filter(df.alltags, motusTagID %in% c(16037, 16039, 16035)), recvDepName = "Netitishi")
+
 ```
 
 ## plotTagSig {#plotTagSig}
@@ -2000,7 +2168,9 @@ Plot signal strength vs time for specified tag, faceted by site (ordered by lati
 ### Example
 Plot signal strength of a specified tag using tbl file tbl.alltags
 ```{r, plotTagSig, eval = TRUE}
+
 plotTagSig(tbl.alltags, motusTagID = 16035)
+
 ```
 
 ## simSiteDet {#simSiteDet}
@@ -2015,8 +2185,10 @@ Creates a data.frame consisting of only detections of tags that are detected at 
 ### Example
 To get a data.frame called "simSites" of just simultaneous detections from a data.frame df.alltags
 ```{r, simSiteDet, eval = TRUE}
+
 simSites <- simSiteDet(df.alltags)
 head(simSites)
+
 ```
 
 ## siteSum {#siteSum}
@@ -2033,10 +2205,14 @@ Creates a summary of the first and last detection at a site, the length of time 
 **units** units to display time difference, defaults to "hours", options include "secs", "mins", "hours", "days", "weeks"  
 
 ### Example
-Create site summaries for only select sites with time in minutes
+Create site summaries for select sites with time in minutes
 ```{r, siteSum, eval = TRUE}
-site_summary <- siteSum(filter(df.alltags, recvDepName %in% c("Niapiskau", "Netitishi", "Old Cur", "Washkaugou")), units = "mins")
+
+site_summary <- siteSum(filter(df.alltags, 
+                               recvDepName %in% c("Niapiskau", "Netitishi", "Old Cur", "Washkaugou")),
+                        units = "mins")
 head(site_summary)
+
 ```
 
 ## siteSumDaily {#siteSumDaily}
@@ -2054,8 +2230,10 @@ Creates a summary of the first and last daily detection at a site, the length of
 ### Example
 Create site summaries for all sites within detection data with time in minutes using tbl file tbl.alltags
 ```{r, siteSumDaily, eval = TRUE}
+
 daily_site_summary <- siteSumDaily(tbl.alltags, units = "mins")
 head(daily_site_summary)
+
 ```
 
 ## siteTrans {#siteTrans}
@@ -2074,8 +2252,11 @@ Creates a data.frame of transitions between sites; detections are ordered by det
 ### Example
 View site transitions for only tag 16037 from data.frame df.alltags
 ```{r, siteTrans, eval = TRUE}
-transitions <- siteTrans(filter(df.alltags, motusTagID == 16037), latCoord = "recvDeployLat", lonCoord = "recvDeployLon")
+
+transitions <- siteTrans(filter(df.alltags, motusTagID == 16037), 
+                         latCoord = "recvDeployLat", lonCoord = "recvDeployLon")
 head(transitions)
+
 ```
 
 ## tagSum {#tagSum}
@@ -2094,8 +2275,10 @@ Creates a summary for each tag of it's first and last detection time, first and 
 ### Example
 Create tag summary for all tags within detection data using tbl file tbl.alltags
 ```{r, tagSum, eval = TRUE}
+
 tag_summary <- tagSum(tbl.alltags)
 head(tag_summary)
+
 ```
 
 ## tagSumSite {#tagSumSite}
@@ -2112,8 +2295,10 @@ Creates a summary for each tag of it's first and last detection time at each sit
 ### Example
 Create tag summaries for only select tags with time in default hours with data.frame df.alltags
 ```{r, tagSumSite, eval = TRUE}
+
 tag_site_summary <- tagSumSite(filter(df.alltags, motusTagID %in% c(16047, 16037, 16039)))
 head(tag_site_summary)
+
 ```
 
 ## timeToSunriset {#timeToSunriset}
@@ -2130,8 +2315,10 @@ Creates and adds variables for time to, and time from sunrise/sunset based on a 
 ### Example
 Get sunrise and sunset information with units in minutes using tbl file tbl.alltags
 ```{r, timeToSunriset, eval = TRUE}
+
 sunrise <- timeToSunriset(tbl.alltags, units = "mins")
 head(sunrise)
+
 ```
 
 <!--chapter:end:09-AppendixB.Rmd-->
@@ -2177,7 +2364,7 @@ Create a new filter. Prior to creating a filter, it checks to ensure a filter wi
 
 Create a new filter called “myfilter” for the sql.motus database which is not attached to a specific project:
 
-```{r createRunsFilter, eval = FALSE}
+```{r createRunsFilter2, eval = FALSE}
 
 createRunsFilter(sql.motus, "myfilter")
 
@@ -2261,7 +2448,8 @@ Build a dataframe and filter out all detections with probability < 0.5 as per "m
 
 ```{r applyRunsFilter, eval = FALSE}
 
-hits.df = applyRunsFilter(src = sql.motus, filterName = "myfilter", p.min = 0.5, where.stmt = “ts > 123333333 and motusTagID in (12,13,14)”)
+hits.df = applyRunsFilter(src = sql.motus, filterName = "myfilter", p.min = 0.5, 
+                          where.stmt = “ts > 123333333 and motusTagID in (12,13,14)”)
 
 ```
 

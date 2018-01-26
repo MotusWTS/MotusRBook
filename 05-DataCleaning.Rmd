@@ -155,7 +155,7 @@ df.alltags.path <- fun.getpath(df.alltags.sub)
 
 We would initially plot a subset of tags by either latitude or longitude, to get an overview of where there might be issues. Here, to simplify the example, we plot only six tags. We avoid the ambiguous tags for now. 
 
-```{r plot1.5 fig.width=12, fig.height=5}
+```{r plot1.5}
 
 p <- ggplot(data = filter(df.alltags.path, 
                           motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039)), 
@@ -178,7 +178,7 @@ filter(df.alltags.sub, month(ts) %in% c(12, 1),
 
 ```
 
-These detections were at sites around the Canadian Maritimes (Sable Island, Grand Manan) and were run lengths of 3. These are all indicators of likely false postives. We'll now start a tally of the particular runs involved, so that we can collate them in to a filter later. 
+These detections were at sites around the Canadian Maritimes (Sable Island, Grand Manan) and were run lengths of 3. These are all indicators of likely false positives. We'll now start a tally of the particular runs involved, so that we can collate them in to a filter later. 
 
 If you are interested, you can re-run the code above, but on the full data frame (df.alltags) containing run lengths of 2. You will see that there are additional false positive detections at these sites, that are already eliminated by filtering on runLen > 2. These additional detections provide further evidence that these sites experienced some radio noise during these particular months, resulting in some false positive detections.
 
@@ -211,7 +211,7 @@ It is impossible here to go through every possible issue; users are encouraged t
 
 For now, we'll save a vector of the runIDs for the offending false positives (we'll use this vector later to create a permanent filter) and then re-run the plot with these values removed.
 
-```{r createRunsFilter}
+```{r createRunsFilter1}
 
 ## create the filter
 
@@ -425,7 +425,7 @@ Both sets of detections are long run lengths, and look valid (increasing then de
 
 Keep in mind that it remains possible that someone deployed yet 
 
-We can look at which species were detected in the batchs around each of the detections, which might give some clarity. 
+We can look at which species were detected in the batches around each of the detections, which might give some clarity. 
 
 ```{r ambig106c}
 

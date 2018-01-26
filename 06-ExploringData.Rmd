@@ -13,7 +13,7 @@ library(motus)
 ```
 
 
-```{r setTimeZone }
+```{r setTimeZone2 }
 
 Sys.setenv(TZ="GMT")
 
