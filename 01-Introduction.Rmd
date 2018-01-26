@@ -24,10 +24,6 @@ This book does not cover how to register radio tags with Motus, manage tags and 
 
 This book assumes that you have a basic understanding of R. Regardless of whether you are new to R or not, we highly recommend that you become familiar with 'R for Data Science' by Garrett Grolemund and Hadley Wickham (<http://r4ds.had.co.nz/>). Their book covers how to import, visualize, and summarize data in R using the tidyverse collection of R packages <https://www.tidyverse.org/>. It also provides an invaluable framework for organizing your workflow to create clean, reproducible code (<http://r4ds.had.co.nz/workflow-projects.html>). We follow their lead by, wherever possible, using the tidyverse framework throughout this book.
 
-## How this book is organized {#bookOrganization}
-
-Each section of this book will begin with a paragraph or figure describing the broader intention or outcome of the section, followed by details on how to get there using R. For example, the section on accessing and downloading tag detection data begins with a screenshot of the structure of a dataframe, followed by the R code required to access the data.
-
 ## Sample dataset {#sampleData}
 
 Throughout this book we use a subset of data from the James Bay Shorebird Project to illustrate how to access, manage, and analyze Motus data in R. We recommend that you run through the sample code in each chapter with the sample dataset **before** running through with your own data, because you will undoubtedly need to modify the code we provide in order to deal most effectively with your own data (every situation is different).
