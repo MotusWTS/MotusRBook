@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R for Motus</title>
+  <meta name="description" content="R for Motus">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R for Motus" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="BSC_Motus_Logo.png" />
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R for Motus" />
+  
+  
+  <meta name="twitter:image" content="BSC_Motus_Logo.png" />
+
+<meta name="author" content="Tara L. Crewe, Zoe Crysler, and Philip Taylor">
+
+
+<meta name="date" content="2018-01-27">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="accessingData.html">
+<link rel="next" href="dataCleaning.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">R for Motus</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>A walk through the use of R for Motus automated radio-telemetry data</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#whatBookCovers"><i class="fa fa-check"></i><b>1.1</b> What this book does not cover</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#sampleData"><i class="fa fa-check"></i><b>1.3</b> Sample dataset</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="loadingPackages.html"><a href="loadingPackages.html"><i class="fa fa-check"></i><b>2</b> Loading R Packages</a><ul>
+<li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.1</b> Internal data processing</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="accessingData.html"><a href="accessingData.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
+<li class="chapter" data-level="3.1" data-path="accessingData.html"><a href="accessingData.html#databaseTypes"><i class="fa fa-check"></i><b>3.1</b> Database types</a></li>
+<li class="chapter" data-level="3.2" data-path="accessingData.html"><a href="accessingData.html#loadPackages"><i class="fa fa-check"></i><b>3.2</b> Load relevant R packages</a></li>
+<li class="chapter" data-level="3.3" data-path="accessingData.html"><a href="accessingData.html#set-system-environment"><i class="fa fa-check"></i><b>3.3</b> Set system environment</a></li>
+<li class="chapter" data-level="3.4" data-path="accessingData.html"><a href="accessingData.html#importDetections"><i class="fa fa-check"></i><b>3.4</b> Importing tag detections</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="accessingData.html"><a href="accessingData.html#download-data-for-a-project-or-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.4.1</b> Download data for a project or receiver for the <em>first time</em></a></li>
+<li class="chapter" data-level="3.4.2" data-path="accessingData.html"><a href="accessingData.html#userAuthentication"><i class="fa fa-check"></i><b>3.4.2</b> User Authentication</a></li>
+<li class="chapter" data-level="3.4.3" data-path="accessingData.html"><a href="accessingData.html#logout"><i class="fa fa-check"></i><b>3.4.3</b> Logging out</a></li>
+<li class="chapter" data-level="3.4.4" data-path="accessingData.html"><a href="accessingData.html#downloadData"><i class="fa fa-check"></i><b>3.4.4</b> Downloading detection data</a></li>
+<li class="chapter" data-level="3.4.5" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.4.5</b> Update and open a local tag database</a></li>
+<li class="chapter" data-level="3.4.6" data-path="accessingData.html"><a href="accessingData.html#tellme"><i class="fa fa-check"></i><b>3.4.6</b> Check if new data are available</a></li>
+<li class="chapter" data-level="3.4.7" data-path="accessingData.html"><a href="accessingData.html#forceMeta"><i class="fa fa-check"></i><b>3.4.7</b> Force an update/re-import of tag and receiver deployment metadata</a></li>
+<li class="chapter" data-level="3.4.8" data-path="accessingData.html"><a href="accessingData.html#metadata"><i class="fa fa-check"></i><b>3.4.8</b> Import additional metadata</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.5</b> Data structure</a></li>
+<li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#ensure-that-you-have-the-correct-database-version"><i class="fa fa-check"></i><b>3.6</b> Ensure that you have the correct database version</a></li>
+<li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.7</b> Convert a SQLITE table to a flat dataframe</a></li>
+<li class="chapter" data-level="3.8" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.8</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
+<li class="chapter" data-level="3.9" data-path="accessingData.html"><a href="accessingData.html#r-object-naming-convention"><i class="fa fa-check"></i><b>3.9</b> R object naming convention</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="deployments.html"><a href="deployments.html"><i class="fa fa-check"></i><b>4</b> Tag and Receiver Deployments</a><ul>
+<li class="chapter" data-level="4.1" data-path="deployments.html"><a href="deployments.html#load-relevant-r-packages-and-set-working-environment"><i class="fa fa-check"></i><b>4.1</b> Load relevant R packages and set working environment</a></li>
+<li class="chapter" data-level="4.2" data-path="deployments.html"><a href="deployments.html#load-.motus-file"><i class="fa fa-check"></i><b>4.2</b> Load .motus file</a></li>
+<li class="chapter" data-level="4.3" data-path="deployments.html"><a href="deployments.html#tagDeployments"><i class="fa fa-check"></i><b>4.3</b> Tag Deployments</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="deployments.html"><a href="deployments.html#download-full-project-tag-metadata"><i class="fa fa-check"></i><b>4.3.1</b> 1. Download full project tag metadata</a></li>
+<li class="chapter" data-level="4.3.2" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags"><i class="fa fa-check"></i><b>4.3.2</b> 2. Number of registered tags</a></li>
+<li class="chapter" data-level="4.3.3" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags-that-were-deployed"><i class="fa fa-check"></i><b>4.3.3</b> 3. Number of registered tags that were deployed</a></li>
+<li class="chapter" data-level="4.3.4" data-path="deployments.html"><a href="deployments.html#location-of-tag-deployments"><i class="fa fa-check"></i><b>4.3.4</b> 4. Location of tag deployments</a></li>
+<li class="chapter" data-level="4.3.5" data-path="deployments.html"><a href="deployments.html#check-completeness-and-accuracy-of-tag-deployment-metadata"><i class="fa fa-check"></i><b>4.3.5</b> 5. Check completeness and accuracy of tag deployment metadata</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="deployments.html"><a href="deployments.html#recvMetadata"><i class="fa fa-check"></i><b>4.4</b> Check Receiver Metadata</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="deployments.html"><a href="deployments.html#download-full-receiver-metadata"><i class="fa fa-check"></i><b>4.4.1</b> 1. Download full receiver metadata</a></li>
+<li class="chapter" data-level="4.4.2" data-path="deployments.html"><a href="deployments.html#number-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.2</b> 2. Number of project receiver deployments</a></li>
+<li class="chapter" data-level="4.4.3" data-path="deployments.html"><a href="deployments.html#timing-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.3</b> 3. Timing of project receiver deployments</a></li>
+<li class="chapter" data-level="4.4.4" data-path="deployments.html"><a href="deployments.html#location-of-receiver-deployments"><i class="fa fa-check"></i><b>4.4.4</b> 4. Location of receiver deployments</a></li>
+<li class="chapter" data-level="4.4.5" data-path="deployments.html"><a href="deployments.html#completeness-and-accuracy-of-receiver-metadata"><i class="fa fa-check"></i><b>4.4.5</b> 5. Completeness and accuracy of receiver metadata</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="dataCleaning.html"><a href="dataCleaning.html"><i class="fa fa-check"></i><b>5</b> Data Cleaning</a><ul>
+<li class="chapter" data-level="5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#falsePositives"><i class="fa fa-check"></i><b>5.1</b> False Positives</a></li>
+<li class="chapter" data-level="5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#load-required-packages"><i class="fa fa-check"></i><b>5.2</b> Load required packages</a></li>
+<li class="chapter" data-level="5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#load-detections-data"><i class="fa fa-check"></i><b>5.3</b> Load detections data</a></li>
+<li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.4</b> Preliminary data checks</a></li>
+<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#examining-ambiguous-detections-ambigs"><i class="fa fa-check"></i><b>5.5</b> Examining ambiguous detections (#ambigs)</a></li>
+<li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-the-data"><i class="fa fa-check"></i><b>5.6</b> Filter the data</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
+<li class="chapter" data-level="6.1" data-path="exploreData.html"><a href="exploreData.html#load-required-packages-1"><i class="fa fa-check"></i><b>6.1</b> Load required packages</a></li>
+<li class="chapter" data-level="6.2" data-path="exploreData.html"><a href="exploreData.html#load-data"><i class="fa fa-check"></i><b>6.2</b> Load data</a></li>
+<li class="chapter" data-level="6.3" data-path="exploreData.html"><a href="exploreData.html#dataSummaries"><i class="fa fa-check"></i><b>6.3</b> Summarizing your data</a></li>
+<li class="chapter" data-level="6.4" data-path="exploreData.html"><a href="exploreData.html#dataPlotting"><i class="fa fa-check"></i><b>6.4</b> Plotting your data</a></li>
+<li class="chapter" data-level="6.5" data-path="exploreData.html"><a href="exploreData.html#mappingData"><i class="fa fa-check"></i><b>6.5</b> Mapping your data</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="exploreData.html"><a href="exploreData.html#googleMaps"><i class="fa fa-check"></i><b>6.5.1</b> Mapping with Google Maps</a></li>
+<li class="chapter" data-level="6.5.2" data-path="exploreData.html"><a href="exploreData.html#outlineMaps"><i class="fa fa-check"></i><b>6.5.2</b> Creating simple outline maps</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Troubleshooting.html"><a href="Troubleshooting.html"><i class="fa fa-check"></i><b>7</b> Troubleshooting</a><ul>
+<li class="chapter" data-level="7.1" data-path="Troubleshooting.html"><a href="Troubleshooting.html#motusLogout"><i class="fa fa-check"></i><b>7.1</b> Logging out of motus</a></li>
+<li class="chapter" data-level="7.2" data-path="Troubleshooting.html"><a href="Troubleshooting.html#resumeDownload"><i class="fa fa-check"></i><b>7.2</b> Resume data download</a></li>
+<li class="chapter" data-level="7.3" data-path="Troubleshooting.html"><a href="Troubleshooting.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>7.3</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
+<li class="chapter" data-level="7.4" data-path="Troubleshooting.html"><a href="Troubleshooting.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>7.4</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
+<li class="chapter" data-level="7.5" data-path="Troubleshooting.html"><a href="Troubleshooting.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>7.5</b> I get an “Error: Forbidden” message when using tagme()</a></li>
+<li class="chapter" data-level="7.6" data-path="Troubleshooting.html"><a href="Troubleshooting.html#i-get-an-error-object-xxxx-not-found-refering-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>7.6</b> I get an error Object ‘xxxx’ not found, refering to a table or field name, or some of your examples in the book do not work.</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="appendixA.html"><a href="appendixA.html"><i class="fa fa-check"></i><b>8</b> Appendix C - alltags structure</a></li>
+<li class="chapter" data-level="9" data-path="appendixB.html"><a href="appendixB.html"><i class="fa fa-check"></i><b>9</b> The motus package</a><ul>
+<li class="chapter" data-level="9.1" data-path="appendixB.html"><a href="appendixB.html#sunRiseSet"><i class="fa fa-check"></i><b>9.1</b> sunRiseSet</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="appendixB.html"><a href="appendixB.html#description"><i class="fa fa-check"></i><b>9.1.1</b> Description</a></li>
+<li class="chapter" data-level="9.1.2" data-path="appendixB.html"><a href="appendixB.html#dependencies"><i class="fa fa-check"></i><b>9.1.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.1.3" data-path="appendixB.html"><a href="appendixB.html#example"><i class="fa fa-check"></i><b>9.1.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="appendixB.html"><a href="appendixB.html#plotAllTagsCoor"><i class="fa fa-check"></i><b>9.2</b> plotAllTagsCoord</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="appendixB.html"><a href="appendixB.html#description-1"><i class="fa fa-check"></i><b>9.2.1</b> Description</a></li>
+<li class="chapter" data-level="9.2.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-1"><i class="fa fa-check"></i><b>9.2.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.2.3" data-path="appendixB.html"><a href="appendixB.html#example-1"><i class="fa fa-check"></i><b>9.2.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="appendixB.html"><a href="appendixB.html#plotAllTagsSite"><i class="fa fa-check"></i><b>9.3</b> plotAllTagsSite</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="appendixB.html"><a href="appendixB.html#description-2"><i class="fa fa-check"></i><b>9.3.1</b> Description</a></li>
+<li class="chapter" data-level="9.3.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-2"><i class="fa fa-check"></i><b>9.3.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.3.3" data-path="appendixB.html"><a href="appendixB.html#example-2"><i class="fa fa-check"></i><b>9.3.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="appendixB.html"><a href="appendixB.html#plotDailySiteSum"><i class="fa fa-check"></i><b>9.4</b> plotDailySiteSum</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="appendixB.html"><a href="appendixB.html#description-3"><i class="fa fa-check"></i><b>9.4.1</b> Description</a></li>
+<li class="chapter" data-level="9.4.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-3"><i class="fa fa-check"></i><b>9.4.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.4.3" data-path="appendixB.html"><a href="appendixB.html#example-3"><i class="fa fa-check"></i><b>9.4.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="appendixB.html"><a href="appendixB.html#plotRouteMap"><i class="fa fa-check"></i><b>9.5</b> plotRouteMap</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="appendixB.html"><a href="appendixB.html#description-4"><i class="fa fa-check"></i><b>9.5.1</b> Description</a></li>
+<li class="chapter" data-level="9.5.2" data-path="appendixB.html"><a href="appendixB.html#example-4"><i class="fa fa-check"></i><b>9.5.2</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="appendixB.html"><a href="appendixB.html#plotSite"><i class="fa fa-check"></i><b>9.6</b> plotSite</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="appendixB.html"><a href="appendixB.html#description-5"><i class="fa fa-check"></i><b>9.6.1</b> Description</a></li>
+<li class="chapter" data-level="9.6.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-4"><i class="fa fa-check"></i><b>9.6.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.6.3" data-path="appendixB.html"><a href="appendixB.html#example-5"><i class="fa fa-check"></i><b>9.6.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="appendixB.html"><a href="appendixB.html#plotSiteSig"><i class="fa fa-check"></i><b>9.7</b> plotSiteSig</a><ul>
+<li class="chapter" data-level="9.7.1" data-path="appendixB.html"><a href="appendixB.html#description-6"><i class="fa fa-check"></i><b>9.7.1</b> Description</a></li>
+<li class="chapter" data-level="9.7.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-5"><i class="fa fa-check"></i><b>9.7.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.7.3" data-path="appendixB.html"><a href="appendixB.html#example-6"><i class="fa fa-check"></i><b>9.7.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="appendixB.html"><a href="appendixB.html#plotTagSig"><i class="fa fa-check"></i><b>9.8</b> plotTagSig</a><ul>
+<li class="chapter" data-level="9.8.1" data-path="appendixB.html"><a href="appendixB.html#description-7"><i class="fa fa-check"></i><b>9.8.1</b> Description</a></li>
+<li class="chapter" data-level="9.8.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-6"><i class="fa fa-check"></i><b>9.8.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.8.3" data-path="appendixB.html"><a href="appendixB.html#example-7"><i class="fa fa-check"></i><b>9.8.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.9" data-path="appendixB.html"><a href="appendixB.html#simSiteDet"><i class="fa fa-check"></i><b>9.9</b> simSiteDet</a><ul>
+<li class="chapter" data-level="9.9.1" data-path="appendixB.html"><a href="appendixB.html#description-8"><i class="fa fa-check"></i><b>9.9.1</b> Description</a></li>
+<li class="chapter" data-level="9.9.2" data-path="appendixB.html"><a href="appendixB.html#example-8"><i class="fa fa-check"></i><b>9.9.2</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.10" data-path="appendixB.html"><a href="appendixB.html#siteSum"><i class="fa fa-check"></i><b>9.10</b> siteSum</a><ul>
+<li class="chapter" data-level="9.10.1" data-path="appendixB.html"><a href="appendixB.html#description-9"><i class="fa fa-check"></i><b>9.10.1</b> Description</a></li>
+<li class="chapter" data-level="9.10.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-7"><i class="fa fa-check"></i><b>9.10.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.10.3" data-path="appendixB.html"><a href="appendixB.html#example-9"><i class="fa fa-check"></i><b>9.10.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.11" data-path="appendixB.html"><a href="appendixB.html#siteSumDaily"><i class="fa fa-check"></i><b>9.11</b> siteSumDaily</a><ul>
+<li class="chapter" data-level="9.11.1" data-path="appendixB.html"><a href="appendixB.html#description-10"><i class="fa fa-check"></i><b>9.11.1</b> Description</a></li>
+<li class="chapter" data-level="9.11.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-8"><i class="fa fa-check"></i><b>9.11.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.11.3" data-path="appendixB.html"><a href="appendixB.html#example-10"><i class="fa fa-check"></i><b>9.11.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.12" data-path="appendixB.html"><a href="appendixB.html#siteTrans"><i class="fa fa-check"></i><b>9.12</b> siteTrans</a><ul>
+<li class="chapter" data-level="9.12.1" data-path="appendixB.html"><a href="appendixB.html#description-11"><i class="fa fa-check"></i><b>9.12.1</b> Description</a></li>
+<li class="chapter" data-level="9.12.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-9"><i class="fa fa-check"></i><b>9.12.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.12.3" data-path="appendixB.html"><a href="appendixB.html#example-11"><i class="fa fa-check"></i><b>9.12.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.13" data-path="appendixB.html"><a href="appendixB.html#tagSum"><i class="fa fa-check"></i><b>9.13</b> tagSum</a><ul>
+<li class="chapter" data-level="9.13.1" data-path="appendixB.html"><a href="appendixB.html#description-12"><i class="fa fa-check"></i><b>9.13.1</b> Description</a></li>
+<li class="chapter" data-level="9.13.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-10"><i class="fa fa-check"></i><b>9.13.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.13.3" data-path="appendixB.html"><a href="appendixB.html#example-12"><i class="fa fa-check"></i><b>9.13.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.14" data-path="appendixB.html"><a href="appendixB.html#tagSumSite"><i class="fa fa-check"></i><b>9.14</b> tagSumSite</a><ul>
+<li class="chapter" data-level="9.14.1" data-path="appendixB.html"><a href="appendixB.html#description-13"><i class="fa fa-check"></i><b>9.14.1</b> Description</a></li>
+<li class="chapter" data-level="9.14.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-11"><i class="fa fa-check"></i><b>9.14.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.14.3" data-path="appendixB.html"><a href="appendixB.html#example-13"><i class="fa fa-check"></i><b>9.14.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.15" data-path="appendixB.html"><a href="appendixB.html#timeToSunriset"><i class="fa fa-check"></i><b>9.15</b> timeToSunriset</a><ul>
+<li class="chapter" data-level="9.15.1" data-path="appendixB.html"><a href="appendixB.html#description-14"><i class="fa fa-check"></i><b>9.15.1</b> Description</a></li>
+<li class="chapter" data-level="9.15.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-12"><i class="fa fa-check"></i><b>9.15.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.15.3" data-path="appendixB.html"><a href="appendixB.html#example-14"><i class="fa fa-check"></i><b>9.15.3</b> Example</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>10</b> The motusClient package - Data filtering functions</a><ul>
+<li class="chapter" data-level="10.1" data-path="appendixC.html"><a href="appendixC.html#listRunsFilters"><i class="fa fa-check"></i><b>10.1</b> listRunsFilters</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="appendixC.html"><a href="appendixC.html#description-15"><i class="fa fa-check"></i><b>10.1.1</b> Description</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-13"><i class="fa fa-check"></i><b>10.2</b> Dependencies</a></li>
+<li class="chapter" data-level="10.3" data-path="appendixC.html"><a href="appendixC.html#example-15"><i class="fa fa-check"></i><b>10.3</b> Example</a></li>
+<li class="chapter" data-level="10.4" data-path="appendixC.html"><a href="appendixC.html#createRunsFilter"><i class="fa fa-check"></i><b>10.4</b> createRunsFilter</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="appendixC.html"><a href="appendixC.html#description-16"><i class="fa fa-check"></i><b>10.4.1</b> Description</a></li>
+<li class="chapter" data-level="10.4.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-14"><i class="fa fa-check"></i><b>10.4.2</b> Dependencies</a></li>
+<li class="chapter" data-level="10.4.3" data-path="appendixC.html"><a href="appendixC.html#example-16"><i class="fa fa-check"></i><b>10.4.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="appendixC.html"><a href="appendixC.html#getRunsFilters"><i class="fa fa-check"></i><b>10.5</b> getRunsFilters</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="appendixC.html"><a href="appendixC.html#description-17"><i class="fa fa-check"></i><b>10.5.1</b> Description</a></li>
+<li class="chapter" data-level="10.5.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-15"><i class="fa fa-check"></i><b>10.5.2</b> Dependencies</a></li>
+<li class="chapter" data-level="10.5.3" data-path="appendixC.html"><a href="appendixC.html#example-17"><i class="fa fa-check"></i><b>10.5.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="appendixC.html"><a href="appendixC.html#writeRunsFilter"><i class="fa fa-check"></i><b>10.6</b> writeRunsFilter</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="appendixC.html"><a href="appendixC.html#description-18"><i class="fa fa-check"></i><b>10.6.1</b> Description</a></li>
+<li class="chapter" data-level="10.6.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-16"><i class="fa fa-check"></i><b>10.6.2</b> Dependencies</a></li>
+<li class="chapter" data-level="10.6.3" data-path="appendixC.html"><a href="appendixC.html#examples"><i class="fa fa-check"></i><b>10.6.3</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="appendixC.html"><a href="appendixC.html#applyRunsFilter"><i class="fa fa-check"></i><b>10.7</b> applyRunsFilter</a><ul>
+<li class="chapter" data-level="10.7.1" data-path="appendixC.html"><a href="appendixC.html#description-19"><i class="fa fa-check"></i><b>10.7.1</b> Description</a></li>
+<li class="chapter" data-level="10.7.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-17"><i class="fa fa-check"></i><b>10.7.2</b> Dependencies</a></li>
+<li class="chapter" data-level="10.7.3" data-path="appendixC.html"><a href="appendixC.html#examples-1"><i class="fa fa-check"></i><b>10.7.3</b> Examples</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Motus</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="deployments" class="section level1">
+<h1><span class="header-section-number">4</span> Tag and Receiver Deployments</h1>
+<p>Before working with your detection data, a first step is to summarize and visualize the metadata for tag and receiver deployments registered to your project. Summarizing and plotting your deployments can be an effective way to find any errors in tag or receiver deployment metadata, which can in turn influence the completeness of the detections data for your project and the projects of others with detections of their own tags on your receivers.</p>
+<p>This chapter is a complement to the online <a href="https://motus.org/data/issues">Data Issues page</a>, which provides each project with a list of metadata issues (missing or outlying values) to be accepted or ignored. As such, please address any and all errors associated with your project in the notification center <strong>before</strong> importing your data through R. This chapter does not provide a full check of your deployment metadata, but will help uncover errors that have been missed by the automatic queries in the notification center.</p>
+<p>We use the James Bay Shorebird Project sample dataset throughout this chapter (see Section <a href="introduction.html#sampleData">1.3</a>; as you run through the code to look at your own deployments, <strong>please fix any errors or omissions in your metadata by signing in to <a href="https://motus.org/" class="uri">https://motus.org/</a></strong>, and under the ‘Manage Data’ tab, select either ‘Manage Tags’ to fix tag deployment metadata or ‘Manage Receivers’ to fix receiver deployment metadata. It is important to fix metadata errors online, so that errors are fixed at the source and archived on the Motus Server, ensuring all users have access to the correct tag and receiver metadata. Metadata corrected online will automatically be corrected in your detection files. If you have already downloaded your detection data, you can update the existing file to include new metadata and detections (see <a href="accessingData.html#forceMeta">3.4.7</a>, <a href="accessingData.html#tagmeUpdate">3.4.5</a>).</p>
+<div id="load-relevant-r-packages-and-set-working-environment" class="section level2">
+<h2><span class="header-section-number">4.1</span> Load relevant R packages and set working environment</h2>
+<p>Before we begin working with data, we need to load the required packages for this chapter. If you have not yet installed these packages (from github and CRAN) then please return to Chapter <a href="loadingPackages.html#loadingPackages">2</a> and do so.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(tidyr)
+<span class="kw">library</span>(motus)
+
+## Set the system environment time zone to GMT (to ensure that you are always working in GMT)
+<span class="kw">Sys.setenv</span>(<span class="dt">TZ=</span><span class="st">&quot;GMT&quot;</span>)</code></pre></div>
+</div>
+<div id="load-.motus-file" class="section level2">
+<h2><span class="header-section-number">4.2</span> Load .motus file</h2>
+<p>This chapter assumes that the .motus file has already been downloaded, if you have not done so please return to Chapter <a href="accessingData.html#accessingData">3</a> for instructions on how to do so. To update and load the existing file into R, use tagme(), you may have to login as described in the previous chapter with username <strong>and</strong> password “motus.sample”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">proj.num &lt;-<span class="st"> </span><span class="dv">176</span>
+
+sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)</code></pre></div>
+</div>
+<div id="tagDeployments" class="section level2">
+<h2><span class="header-section-number">4.3</span> Tag Deployments</h2>
+<p>In your .motus file, when using the tagme function, you are only provided with the metadata for any tags from your project with detections along with metadata for associated ambiguous tags from other projects, and receiver metadata for stations where your tags were detected. Here we will:</p>
+<ol style="list-style-type: decimal">
+<li>download full tag metadata for our project only;<br />
+</li>
+<li>determine how many tags are registered to your project;<br />
+</li>
+<li>determine how many of those registered tags were deployed;<br />
+</li>
+<li>determine location of tag deployments;<br />
+</li>
+<li>determine completeness and accuracy of tag deployment metadata.</li>
+</ol>
+<p>We will run through each of these in sequence.</p>
+<div id="download-full-project-tag-metadata" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> 1. Download full project tag metadata</h3>
+<p>Incomplete metadata, or missing tag registrations can result in missing detection data. We therefore want to assess the completeness of all tags registered to our projects - not just tags for which we have detections. In order to to this we will use the metadata() function for project 176, described in more detail here: <a href="accessingData.html#metadata">3.4.8</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">metadata</span>(sql.motus, <span class="dt">projectIDs =</span> <span class="dv">176</span>)</code></pre></div>
+</div>
+<div id="number-of-registered-tags" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> 2. Number of registered tags</h3>
+<p>Now that we have complete tag metadata for our project, we can check the number of tags registered by loading the ‘tags’ table in the .motus file. The ‘tags’ table contains the metadata of each registered tag, including a unique tagID and information on manufacturer, model, nominal and offset frequency, burst interval, and pulse length, it does not include deployment information. We select the metadata specific to the James Bay Shorebird Project, and ignore tag metadata associated with any duplicate tags belonging to other projects:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tbl.tags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;tags&quot;</span>) 
+df.tags &lt;-<span class="st"> </span>tbl.tags <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">filter</span>(projectID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">as.data.frame</span>()</code></pre></div>
+<p>The number of rows in the ‘df.tags’ database is equivalent to the number of tags registered to the James Bay Shorebird Project in the sample dataset (i.e., 18 tags):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(df.tags) ## number of registered tags in the database</code></pre></div>
+<pre><code>## [1] 18</code></pre>
+<p>You can view the motusTagIDs:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(df.tags<span class="op">$</span>tagID)</code></pre></div>
+<pre><code>##  [1] 16011 16035 16036 16037 16038 16039 16044 16047 16048 16052 17357
+## [12] 19129 22867 22897 22902 22905 23316 23319</code></pre>
+<p>If you are missing registered tags, please follow the instructions here: <a href="https://motus.org/tag-registration/" class="uri">https://motus.org/tag-registration/</a></p>
+</div>
+<div id="number-of-registered-tags-that-were-deployed" class="section level3">
+<h3><span class="header-section-number">4.3.3</span> 3. Number of registered tags that were deployed</h3>
+<p>The tag deployment metadata table in the .motus file is required to check which registered tags have deployments. This file includes the date, time, species, and location of tag deployment. The database is subset to project ‘176’, and we use the anti_join function to determine which registered tags have (or do not have) corresponding deployment information.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tbl.tagDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;tagDeps&quot;</span>) 
+df.tagDeps &lt;-<span class="st"> </span>tbl.tagDeps <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">filter</span>(projectID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># once in dataframe format, can format dates using lubridate</span>
+<span class="st">                </span><span class="kw">mutate</span>(<span class="dt">tsStart =</span> <span class="kw">as_datetime</span>(tsStart, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>),
+                       <span class="dt">tsEnd =</span> <span class="kw">as_datetime</span>(tsEnd, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>)) 
+
+<span class="kw">anti_join</span>(df.tags, df.tagDeps, <span class="dt">by =</span> <span class="st">&quot;tagID&quot;</span>) </code></pre></div>
+<pre><code>##  [1] tagID        projectID    mfgID        type         codeSet     
+##  [6] manufacturer model        lifeSpan     nomFreq      offsetFreq  
+## [11] bi           pulseLen    
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<p>In the sample data, there are no registered tags without deployment metadata, which suggests that all tags were deployed. If you have undeployed tags in your own files, please check your records to ensure this is the case; without deployment metadata, detections for registered but ‘undeployed’ tags will be missing from your detections database.</p>
+</div>
+<div id="location-of-tag-deployments" class="section level3">
+<h3><span class="header-section-number">4.3.4</span> 4. Location of tag deployments</h3>
+<p>Creating a map of your tag deployments can point out any obvious errors in the tag deployment latitude or longitude that weren’t captured by the online metadata message center queries.</p>
+<ol style="list-style-type: lower-alpha">
+<li><strong>Load base map files.</strong></li>
+</ol>
+<p>Load base map files from the rworldmap package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## get the lake data; adjust longitude
+na.lakes &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="dt">map =</span> <span class="st">&quot;lakes&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">long =</span> long<span class="op">-</span><span class="st"> </span><span class="dv">360</span>)
+
+## get the country data; adjust longitude
+na.map &lt;-<span class="st"> </span><span class="kw">filter</span>(<span class="kw">map_data</span>(<span class="dt">map=</span><span class="st">&quot;world2&quot;</span>),
+                 region <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;USA&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">long =</span> long<span class="op">-</span><span class="st"> </span><span class="dv">360</span>)
+                
+## Others countries in the Americas that you may want to plot, depending on your location: &quot;Mexico&quot;, &quot;lakes&quot;,&quot;Belize&quot;, &quot;Costa Rica&quot;, &quot;Panama&quot;, &quot;Guatemala&quot;, &quot;Honduras&quot;, &quot;Nicaragua&quot;, &quot;El Salvador&quot;, &quot;Colombia&quot;, &quot;Venezuela&quot;, &quot;Ecuador&quot;, &quot;Peru&quot;, &quot;Brazil&quot;, &quot;Guyana&quot;,&quot;Suriname&quot;, &quot;Bolivia&quot;, &quot;French Guiana&quot;, &quot;Jamaica&quot;, &quot;Cuba&quot;, &quot;Haiti&quot;, &quot;Dominican Republic&quot;, &quot;The Bahamas&quot;, &quot;Turks and Caicos Islands&quot;, &quot;Puerto Rico&quot;, &quot;British Virgin Islands&quot;, &quot;Montserrat&quot;, &quot;Dominica&quot;, &quot;Saint Lucia&quot;, &quot;Barbados&quot;, &quot;Grenada&quot;, &quot;Trinidad and Tobago&quot;, &quot;Chile&quot;, &quot;Argentina&quot;, &quot;Uruguay&quot;</code></pre></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><strong>Map the locations of tag deployments.</strong></li>
+</ol>
+<p>Map the location of tag deployments for the sample data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## set limits to map based on locations of detections, ensuring they include the deployment locations
+xmin &lt;-<span class="st"> </span><span class="op">-</span><span class="dv">100</span> <span class="co">#min(df.tagDeps$longitude, na.rm = TRUE) - 5</span>
+xmax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tagDeps<span class="op">$</span>longitude, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">5</span>
+ymin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tagDeps<span class="op">$</span>latitude, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">5</span>
+ymax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tagDeps<span class="op">$</span>latitude, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">5</span>
+                
+## map using ggplot
+<span class="kw">ggplot</span>(na.lakes, <span class="kw">aes</span>(long, lat)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_polygon</span>(
+    <span class="dt">data =</span> na.map, 
+    <span class="kw">aes</span>(long, lat, <span class="dt">group=</span>group), <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;grey98&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_polygon</span>(
+    <span class="kw">aes</span>(<span class="dt">group =</span> group), <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_map</span>(<span class="dt">projection=</span><span class="st">&quot;mercator&quot;</span>, 
+            <span class="dt">xlim =</span> <span class="kw">c</span>(xmin, xmax), 
+            <span class="dt">ylim =</span> <span class="kw">c</span>(ymin, ymax)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.tagDeps, projectID <span class="op">==</span><span class="st"> </span><span class="dv">176</span>), 
+             <span class="kw">aes</span>(longitude, latitude), <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">pch =</span> <span class="dv">1</span>, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
+<p><img src="MotusRBook_files/figure-html/mapRecvs1-1.png" width="672" /> If there are any errors in tag deployment location, please correct these online: <a href="https://motus.org/data/" class="uri">https://motus.org/data/</a></p>
+</div>
+<div id="check-completeness-and-accuracy-of-tag-deployment-metadata" class="section level3">
+<h3><span class="header-section-number">4.3.5</span> 5. Check completeness and accuracy of tag deployment metadata</h3>
+<p>Required tag metadata includes deployment start date/time, end date/time (if applicable), deployment latitude, deployment longitude, and species. Lack of information on deployment date, time, and location in particular can influence the estimated lifespan of your tag, and therefore whether the tagFinder will ‘look’ for your tag at the appropriate time(s). It can also increase the potential for ambiguities with duplicate tags in the system.</p>
+<ol style="list-style-type: lower-alpha">
+<li><strong>Look at range of metadata values</strong>.</li>
+</ol>
+<p>As a first step, use summary(df.tagDeps) to get an idea of the range of each variable, and whether any variables have missing (NA) or odd values in the data. The following summarizes a subset of the variables in the df.tagDeps database. There are several things to consider: are the range of start and end dates reasonable for your deployments, or are there obvious errors in the timing of deployments? Is the range in deployment latitude and longitude reasonable? Are the values for species IDs correct?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.tagDeps <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">select</span>(tagID, projectID, tsStart, tsEnd, speciesID, latitude, longitude) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">summary</span>()</code></pre></div>
+<pre><code>##      tagID         projectID      tsStart                   
+##  Min.   :16011   Min.   :176   Min.   :2015-08-02 11:40:00  
+##  1st Qu.:16038   1st Qu.:176   1st Qu.:2015-08-13 15:25:00  
+##  Median :16050   Median :176   Median :2015-09-10 17:50:30  
+##  Mean   :18616   Mean   :176   Mean   :2016-01-24 12:49:36  
+##  3rd Qu.:22890   3rd Qu.:176   3rd Qu.:2016-09-25 15:34:15  
+##  Max.   :23319   Max.   :176   Max.   :2016-10-15 16:00:00  
+##      tsEnd                       speciesID       latitude    
+##  Min.   :2015-12-17 11:40:00   Min.   :4180   Min.   :50.19  
+##  1st Qu.:2015-12-28 15:25:00   1st Qu.:4670   1st Qu.:50.52  
+##  Median :2016-03-10 17:50:30   Median :4690   Median :51.48  
+##  Mean   :2016-07-28 18:09:36   Mean   :4674   Mean   :51.18  
+##  3rd Qu.:2017-06-06 09:53:45   3rd Qu.:4690   3rd Qu.:51.48  
+##  Max.   :2017-06-26 16:00:00   Max.   :4820   Max.   :51.80  
+##    longitude     
+##  Min.   :-80.69  
+##  1st Qu.:-80.45  
+##  Median :-80.45  
+##  Mean   :-75.85  
+##  3rd Qu.:-67.92  
+##  Max.   :-63.75</code></pre>
+<p>There are no missing start dates (tsStart), and deployment start dates range from 2015 to 2016, which is reasonable for this project.</p>
+<p>The species IDs are numeric, and somewhat meaningless without an ability to assign an actual species name to the numeric ID, which we do next, however there are no missing values.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><strong>Check that species IDs are appropriate for your data</strong>.</li>
+</ol>
+<p>The ‘species’ table in the .motus file associates each numeric species ID with an English, French, and scientific name. We load that table, and subset to the suite of numeric speciesIDs in your tag metadata:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## list of species IDs in project 38 metadata
+sp.list &lt;-<span class="st"> </span><span class="kw">unique</span>(df.tagDeps<span class="op">$</span>speciesID)     ## generate list of speciesIDs in the tag metadata
+
+## Species metadata
+tbl.species &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;species&quot;</span>) 
+tbl.species <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(id <span class="op">%in%</span><span class="st"> </span>sp.list) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">as.data.frame</span>()</code></pre></div>
+<pre><code>##     id                english                       french
+## 1 4180    Semipalmated Plover            Pluvier semipalmé
+## 2 4670               Red Knot           Bécasseau maubèche
+## 3 4680             Sanderling         Bécasseau sanderling
+## 4 4690 Semipalmated Sandpiper          Bécasseau semipalmé
+## 5 4760 White-rumped Sandpiper   Bécasseau à croupion blanc
+## 6 4780     Pectoral Sandpiper Bécasseau à poitrine cendrée
+## 7 4820                 Dunlin           Bécasseau variable
+##                scientific group sort
+## 1 Charadrius semipalmatus BIRDS   NA
+## 2        Calidris canutus BIRDS   NA
+## 3           Calidris alba BIRDS   NA
+## 4        Calidris pusilla BIRDS   NA
+## 5    Calidris fuscicollis BIRDS   NA
+## 6      Calidris melanotos BIRDS   NA
+## 7         Calidris alpina BIRDS   NA</code></pre>
+<p>This lists all species that are included in the tag deployment metadata for the project. If there are species that do not make sense, this is likely due to a data entry error when assigning a deployment to a species. You can look for records in your tag metadata that are associated with a particular speciesID using the following code; you would then use the deployID associated with the entry/entries to find and update the deployment record in your project metadata online:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(df.tagDeps, speciesID <span class="op">==</span><span class="st"> </span><span class="dv">4780</span>)</code></pre></div>
+<pre><code>##   deployID tagID projectID status             tsStart               tsEnd
+## 1    10517 22867       176   &lt;NA&gt; 2016-09-06 15:35:00 2017-05-18 15:35:00
+##   deferSec speciesID bandNumber markerNumber markerType latitude longitude
+## 1       NA      4780       &lt;NA&gt;   2641-20877 metal band 51.79861 -80.69139
+##   elevation
+## 1        NA
+##                                                                                                                                                                                                                                                                                               comments
+## 1 Sex:F, Age:HY, Bill28, Tarsus:26.2, Wing Chord:123, Wing Flat:129, Mass:57.7, Flag: (FEW)7P6, Blood:Y, Canada, Ontario, James Bay, LONGRIDGE, Comments: REKN tag on mesh; has a duplicate tag same burst rate 380-272 a HY REKN banded at Mingan Islands on 02-Oct-2016 and band number 9822-53171\n
+##   id bi tsStartCode tsEndCode                               fullID
+## 1 NA NA          1L        3L SampleData#272.1:5.3@166.38(M.22867)</code></pre>
+<p>** Don’t forget, any metadata corrections need to be made online **</p>
+</div>
+</div>
+<div id="recvMetadata" class="section level2">
+<h2><span class="header-section-number">4.4</span> Check Receiver Metadata</h2>
+<p>There are two sources of receiver metadata in Motus detection data: receivers registered to your own project, and receivers registered to the projects of others. You can access the metadata for all receivers in the network, because negative data (i.e., my tag was <em>not</em> detected at station x even though station x was active) is often as important as positive data. It also allows you to map where your tags were detected relative to the distribution of receivers throughout the Motus network.</p>
+<p>Receiver metadata errors or omissions that you find in your .motus file can only be fixed for receivers registered to your own project.</p>
+<p>All users are encouraged to enter complete and accurate receiver metadata for the benefit of the entire network. If you anticipate needing specific information on receiver or antenna deployments for stations deployed by others, please consider using the Motus discussion group (<a href="https://motus.org/discussion/" class="uri">https://motus.org/discussion/</a>) to request that other registered users record the receiver deployment details you will need; be specific about the exact receiver deployment details you are interested in, and when and where in the network your tags will be deployed and potentially detected.</p>
+<p>In the following steps we will check:</p>
+<ol style="list-style-type: decimal">
+<li>download full receiver metadata across the network;<br />
+</li>
+<li>determine number of project receiver deployments;</li>
+<li>determine timing of project receiver deployments;</li>
+<li>determine location of network-wide and project receiver deployments;</li>
+<li>determine completeness and accuracy of receiver metadata.</li>
+</ol>
+<div id="download-full-receiver-metadata" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> 1. Download full receiver metadata</h3>
+<p>Later on in this chapter we’ll want to map all receivers in the network, so we will now load metadata from all projects, as opposed to simply project176 as we did above, the metadata() function is described in more detail here: <a href="accessingData.html#metadata">3.4.8</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">metadata</span>(sql.motus)</code></pre></div>
+</div>
+<div id="number-of-project-receiver-deployments" class="section level3">
+<h3><span class="header-section-number">4.4.2</span> 2. Number of project receiver deployments</h3>
+<p>To see which (if any) receiver deployments are registered to your project, import, subset and summarize the receiver deployment data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tbl.recvDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;recvDeps&quot;</span>) 
+df.projRecvs &lt;-<span class="st"> </span>tbl.recvDeps <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">filter</span>(projectID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">mutate</span>(<span class="dt">tsStart =</span> <span class="kw">as_datetime</span>(tsStart, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>),
+                       <span class="dt">tsEnd =</span> <span class="kw">as_datetime</span>(tsEnd, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))
+
+<span class="kw">summary</span>(df.projRecvs)</code></pre></div>
+<pre><code>##     deployID       serno           receiverType          deviceID    
+##  Min.   :1134   Length:29          Length:29          Min.   : 74.0  
+##  1st Qu.:2289   Class :character   Class :character   1st Qu.:138.5  
+##  Median :3101   Mode  :character   Mode  :character   Median :280.0  
+##  Mean   :3007                                         Mean   :290.9  
+##  3rd Qu.:4048                                         3rd Qu.:349.0  
+##  Max.   :4222                                         Max.   :647.0  
+##                                                       NA&#39;s   :2      
+##   macAddress           status              name          
+##  Length:29          Length:29          Length:29         
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##                                                          
+##    siteName         fixtureType           latitude       longitude     
+##  Length:29          Length:29          Min.   :51.15   Min.   :-80.80  
+##  Class :character   Class :character   1st Qu.:51.29   1st Qu.:-80.57  
+##  Mode  :character   Mode  :character   Median :51.48   Median :-80.45  
+##                                        Mean   :51.51   Mean   :-80.35  
+##                                        3rd Qu.:51.66   3rd Qu.:-80.12  
+##                                        Max.   :51.88   Max.   :-79.69  
+##                                        NA&#39;s   :4       NA&#39;s   :4       
+##     isMobile         tsStart                   
+##  Min.   :0.0000   Min.   :2014-07-12 00:00:00  
+##  1st Qu.:0.0000   1st Qu.:2015-05-25 00:00:00  
+##  Median :0.0000   Median :2016-05-18 00:00:00  
+##  Mean   :0.1379   Mean   :2016-02-20 17:19:14  
+##  3rd Qu.:0.0000   3rd Qu.:2017-05-16 15:55:00  
+##  Max.   :1.0000   Max.   :2017-08-20 23:30:00  
+##                                                
+##      tsEnd                       projectID     elevation 
+##  Min.   :2014-11-06 00:00:00   Min.   :176   Min.   :-7  
+##  1st Qu.:2015-09-09 12:00:00   1st Qu.:176   1st Qu.:-4  
+##  Median :2015-11-03 00:00:00   Median :176   Median :-4  
+##  Mean   :2016-02-22 05:38:15   Mean   :176   Mean   : 3  
+##  3rd Qu.:2016-11-29 12:00:00   3rd Qu.:176   3rd Qu.: 0  
+##  Max.   :2017-08-20 23:30:00   Max.   :176   Max.   :30  
+##  NA&#39;s   :6                                   NA&#39;s   :24</code></pre>
+<p>There are 29 receiver deployments registered to the sample project. Four deployments are missing latitude and longitude, which should be added to the metatdata on the Motus site, and six deployments are missing end dates, which suggests that those receivers are still deployed.</p>
+<p>The following code keeps only variables of interest (by removing those we do not need), and arranges the remaining records by receiver ID, latitude, and start date:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.projRecvs <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dateStart =</span> <span class="kw">date</span>(tsStart)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>serno,<span class="op">-</span>fixtureType, <span class="op">-</span>macAddress, <span class="op">-</span>tsStart, <span class="op">-</span>tsEnd, <span class="op">-</span>elevation, 
+         <span class="op">-</span>projectID, <span class="op">-</span>status, <span class="op">-</span>receiverType, <span class="op">-</span>siteName) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(deviceID, latitude, dateStart)</code></pre></div>
+<pre><code>##    deployID deviceID               name latitude longitude isMobile
+## 1      3100       74         Washkaugou  51.1540  -79.8144        0
+## 2      2291       75        North Bluff  51.4839  -80.4500        0
+## 3      3102       75        North Bluff  51.4839  -80.4501        0
+## 4      4051       75        North Bluff  51.4839  -80.4501        0
+## 5      4221       75        North Bluff  51.4839  -80.4501        0
+## 6      3103       78         Piskwamish  51.6579  -80.5678        0
+## 7      4050       78         Piskwamish  51.6580  -80.5679        0
+## 8      3101      199          Netitishi  51.2912  -80.1167        0
+## 9      4052      199          Netitishi  51.2913  -80.1167        0
+## 10     4222      261        North Bluff  51.4839  -80.4501        0
+## 11     1140      261        North Bluff  51.4840  -80.4500        0
+## 12     1134      280          Longridge  51.8230  -80.6911        0
+## 13     2285      280          Longridge  51.8231  -80.6912        0
+## 14     3097      280          Longridge  51.8244  -80.6909        0
+## 15     4048      280      Halfway Point  51.8753  -80.7973        0
+## 16     1135      285          Netitishi  51.2913  -80.1167        0
+## 17     2289      285          Netitishi  51.2913  -80.1168        0
+## 18     2290      324 Washiskougau Creek  51.1542  -79.8145        0
+## 19     1136      324 Washiskougau Creek  51.1545  -79.8137        0
+## 20     2286      349         Piskwamish  51.6578  -80.5676        0
+## 21     1137      349         Piskwamish  51.6582  -80.5669        0
+## 22     3814      527          LR mobile       NA        NA        1
+## 23     3813      528          NP mobile       NA        NA        1
+## 24     4001      528   BurntPointAerial       NA        NA        1
+## 25     4002      528     JamesBayAerial       NA        NA        1
+## 26     3099      609         East Point  51.2301  -79.7124        0
+## 27     3098      647      Halfway Point  51.8752  -80.7973        0
+## 28     4053       NA         East Point  51.3818  -79.6857        0
+## 29     4049       NA          Longridge  51.8246  -80.6909        0
+##     dateStart
+## 1  2016-05-18
+## 2  2015-05-25
+## 3  2016-05-18
+## 4  2017-05-17
+## 5  2017-08-20
+## 6  2016-05-18
+## 7  2017-05-17
+## 8  2016-05-18
+## 9  2017-05-17
+## 10 2017-08-20
+## 11 2014-08-01
+## 12 2014-07-16
+## 13 2015-05-24
+## 14 2016-05-17
+## 15 2017-05-16
+## 16 2014-07-12
+## 17 2015-05-25
+## 18 2015-05-25
+## 19 2014-07-12
+## 20 2015-05-24
+## 21 2014-07-16
+## 22 2015-07-07
+## 23 2015-07-06
+## 24 2016-07-19
+## 25 2016-08-09
+## 26 2016-05-18
+## 27 2016-05-17
+## 28 2017-05-18
+## 29 2017-05-16</code></pre>
+<p>The number of receiver deployments in the metadata should correspond with the number of field deployments.</p>
+<p>Looking at the ‘isMobile’ column for the four receiver deployments that are missing latitude and longitude information, it is evident that these are mobile receivers that do not have a fixed position (ie. they have a value of 1), and so it is not possible to assign a latitude and longitude (these fields will remain NA).</p>
+</div>
+<div id="timing-of-project-receiver-deployments" class="section level3">
+<h3><span class="header-section-number">4.4.3</span> 3. Timing of project receiver deployments</h3>
+<p>The timing of deployments can be displayed graphically; horizontal line(s) in the following plot show the time span for each receiver (deviceID) deployment registered to the James Bay Shorebird Project. Note that for the two receivers without deployment end dates, the code assigns an arbitrary end date based on the maximum end date of the other receivers plus one month - without this fix, deployments without end dates do not get displayed. Different deployments of the same receiver should not overlap in time:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## put data in long format to simplify plotting (or use geom_segment)
+
+df.projRecvs.long &lt;-<span class="st"> </span><span class="kw">select</span>(df.projRecvs, deviceID, deployID, tsStart, tsEnd) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(when, ts, <span class="kw">c</span>(tsStart, tsEnd)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(ts), <span class="kw">max</span>(ts, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">duration</span>(<span class="dv">1</span>, <span class="st">&quot;month&quot;</span>), ts)) ## fake end date 
+
+<span class="kw">ggplot</span>(df.projRecvs.long, 
+       <span class="kw">aes</span>(<span class="dt">y =</span> <span class="kw">as.factor</span>(deviceID), <span class="dt">x =</span> ts, <span class="dt">colour =</span> <span class="kw">as.factor</span>(deployID))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">lwd=</span><span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span>
+<span class="st">  </span>## instead, center to the right
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span><span class="kw">filter</span>(df.projRecvs.long, when <span class="op">==</span><span class="st"> &quot;tsStart&quot;</span>), 
+            <span class="kw">aes</span>(<span class="dt">label=</span>deployID), <span class="dt">hjust=</span><span class="st">&quot;left&quot;</span>, <span class="dt">nudge_y =</span> <span class="fl">0.2</span>, <span class="dt">size=</span><span class="dv">3</span>, <span class="dt">angle =</span> <span class="dv">45</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Receiver ID&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Year&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)</code></pre></div>
+<p><img src="MotusRBook_files/figure-html/projectRecvDeploy-1.png" width="672" /> If you want more detail for a given year (or all years) you can either subset and re-plot, or use the day of year on the x-axis, and facet_wrap by year.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.projRecvs.long, 
+       <span class="kw">aes</span>(<span class="dt">y =</span> <span class="kw">as.factor</span>(deviceID), <span class="dt">x =</span> <span class="kw">yday</span>(ts), <span class="dt">colour =</span> <span class="kw">as.factor</span>(deployID))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">lwd=</span><span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span>
+<span class="st">  </span>## center labels to the left
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span><span class="kw">filter</span>(df.projRecvs.long, when <span class="op">==</span><span class="st"> &quot;tsStart&quot;</span>), 
+            <span class="kw">aes</span>(<span class="dt">label=</span>deployID), <span class="dt">hjust=</span><span class="st">&quot;left&quot;</span>, <span class="dt">nudge_y =</span> <span class="fl">0.4</span>, <span class="dt">size=</span><span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Receiver ID&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Day of year&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_grid</span>(<span class="kw">year</span>(ts) <span class="op">~</span><span class="st"> </span>., <span class="dt">scales=</span><span class="st">&quot;free&quot;</span>)</code></pre></div>
+<p><img src="MotusRBook_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="location-of-receiver-deployments" class="section level3">
+<h3><span class="header-section-number">4.4.4</span> 4. Location of receiver deployments</h3>
+<p>Maps provide better spatial context than simple plots; the following steps plot the location of Motus receivers on a map of North America, with receivers deployed by the sample project displayed in red.</p>
+<ol style="list-style-type: lower-alpha">
+<li><strong>Load all receiver metadata.</strong></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.recvDeps &lt;-<span class="st"> </span>tbl.recvDeps <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">mutate</span>(<span class="dt">tsStart =</span> <span class="kw">as_datetime</span>(tsStart, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>),
+                       <span class="dt">tsEnd =</span> <span class="kw">as_datetime</span>(tsEnd, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))</code></pre></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><strong>Load base map files.</strong></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">na.lakes &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="dt">map =</span> <span class="st">&quot;lakes&quot;</span>)
+na.lakes &lt;-<span class="st"> </span><span class="kw">mutate</span>(na.lakes, <span class="dt">long =</span> long<span class="op">-</span><span class="st"> </span><span class="dv">360</span>)
+
+## Include all of the Americas to begin
+
+na.map &lt;-<span class="st"> </span><span class="kw">subset</span>(<span class="kw">map_data</span>(<span class="dt">map=</span><span class="st">&quot;world2&quot;</span>), 
+                region <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;USA&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;lakes&quot;</span>,
+                               <span class="st">&quot;Belize&quot;</span>, <span class="st">&quot;Costa Rica&quot;</span>, <span class="st">&quot;Panama&quot;</span>, 
+                               <span class="st">&quot;Guatemala&quot;</span>, <span class="st">&quot;Honduras&quot;</span>, <span class="st">&quot;Nicaragua&quot;</span>, 
+                               <span class="st">&quot;El Salvador&quot;</span>, <span class="st">&quot;Colombia&quot;</span>, <span class="st">&quot;Venezuela&quot;</span>, <span class="st">&quot;Ecuador&quot;</span>, <span class="st">&quot;Peru&quot;</span>, <span class="st">&quot;Brazil&quot;</span>,
+                               <span class="st">&quot;Guyana&quot;</span>,<span class="st">&quot;Suriname&quot;</span>, <span class="st">&quot;Bolivia&quot;</span>, <span class="st">&quot;French Guiana&quot;</span>, <span class="st">&quot;Jamaica&quot;</span>, <span class="st">&quot;Cuba&quot;</span>, 
+                               <span class="st">&quot;Haiti&quot;</span>, <span class="st">&quot;Dominican Republic&quot;</span>, <span class="st">&quot;The Bahamas&quot;</span>, <span class="st">&quot;Turks and Caicos Islands&quot;</span>, 
+                               <span class="st">&quot;Puerto Rico&quot;</span>, <span class="st">&quot;British Virgin Islands&quot;</span>, <span class="st">&quot;Montserrat&quot;</span>, <span class="st">&quot;Dominica&quot;</span>, <span class="st">&quot;Saint Lucia&quot;</span>, 
+                               <span class="st">&quot;Barbados&quot;</span>, <span class="st">&quot;Grenada&quot;</span>, <span class="st">&quot;Trinidad and Tobago&quot;</span>, <span class="st">&quot;Chile&quot;</span>, <span class="st">&quot;Argentina&quot;</span>, 
+                               <span class="st">&quot;Uruguay&quot;</span>))
+
+na.map &lt;-<span class="st"> </span><span class="kw">mutate</span>(na.map, <span class="dt">long =</span> long<span class="op">-</span><span class="st"> </span><span class="dv">360</span>)</code></pre></div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li><strong>Map the location of receivers in the Americas.</strong></li>
+</ol>
+<p>Map showing the location of network-wide receivers (dark grey ‘x’) and receivers deployed by the James Bay Shorebird Project (project 38; red ‘x’).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## set limits to map based on locations of detections, ensuring they include the deployment locations
+xmin &lt;-<span class="st"> </span><span class="kw">min</span>(df.recvDeps<span class="op">$</span>longitude, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">2</span>
+xmax &lt;-<span class="st"> </span><span class="op">-</span><span class="dv">20</span> <span class="co"># restrict to the Americas (excluding a few points in Europe)</span>
+ymin &lt;-<span class="st"> </span><span class="kw">min</span>(df.recvDeps<span class="op">$</span>longitude, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">2</span>
+ymax &lt;-<span class="st"> </span><span class="kw">max</span>(df.recvDeps<span class="op">$</span>latitude, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">2</span>
+                
+## map
+<span class="kw">ggplot</span>(na.lakes, <span class="kw">aes</span>(long, lat))<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> na.map, <span class="kw">aes</span>(long, lat, <span class="dt">group=</span>group), <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;grey98&quot;</span>)<span class="op">+</span><span class="co">#</span>
+<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">group =</span> group), <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_map</span>(<span class="dt">projection=</span><span class="st">&quot;mercator&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(xmin, xmax), <span class="dt">ylim =</span> <span class="kw">c</span>(ymin, ymax))<span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.recvDeps, <span class="kw">aes</span>(longitude, latitude, <span class="dt">colour =</span> <span class="kw">as.logical</span>(projectID <span class="op">==</span><span class="st"> </span><span class="dv">176</span>)), 
+             <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">pch =</span> <span class="dv">4</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;grey30&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="dt">name =</span> <span class="st">&quot;Project 176 Deployment&quot;</span>) </code></pre></div>
+<p><img src="MotusRBook_files/figure-html/mapRecvs2-1.png" width="672" /></p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li><strong>Map the location of project specific receivers only.</strong></li>
+</ol>
+<p>Map of project-specific receivers, created by setting the x-axis (longitude) and y-axis (latitude) map limits using the ‘df.projRecvs’ dataframe created above. Deployments are restricted to those that were active at in 2016.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## set limits to map based on locations of detections, ensuring they include the deployment locations
+xmin &lt;-<span class="st"> </span><span class="kw">min</span>(df.projRecvs<span class="op">$</span>longitude, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">2</span>
+xmax &lt;-<span class="st"> </span><span class="kw">max</span>(df.projRecvs<span class="op">$</span>longitude, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">2</span>
+ymin &lt;-<span class="st"> </span><span class="kw">min</span>(df.projRecvs<span class="op">$</span>latitude, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
+ymax &lt;-<span class="st"> </span><span class="kw">max</span>(df.projRecvs<span class="op">$</span>latitude, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+                
+## map
+<span class="kw">ggplot</span>(na.lakes, <span class="kw">aes</span>(long, lat))<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> na.map, <span class="kw">aes</span>(long, lat, <span class="dt">group=</span>group), <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;grey98&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">group =</span> group), <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_map</span>(<span class="dt">projection=</span><span class="st">&quot;mercator&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(xmin, xmax), <span class="dt">ylim =</span> <span class="kw">c</span>(ymin, ymax)) <span class="op">+</span>
+<span class="co">#  coord_map(projection=&quot;mercator&quot;, xlim = c(xmin, xmax), ylim = c(50.154, 52.875)) +</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.projRecvs, 
+                            <span class="kw">year</span>(tsStart) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>, 
+                            <span class="op">!</span><span class="kw">is.na</span>(latitude)),  ## remove mobile receivers
+             <span class="kw">aes</span>(longitude, latitude, <span class="dt">colour =</span> <span class="kw">as.factor</span>(deviceID)), <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">pch =</span> <span class="dv">1</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name  =</span>  <span class="st">&quot;Receiver ID&quot;</span>) </code></pre></div>
+<p><img src="MotusRBook_files/figure-html/mapProjRecvs-1.png" width="672" /></p>
+</div>
+<div id="completeness-and-accuracy-of-receiver-metadata" class="section level3">
+<h3><span class="header-section-number">4.4.5</span> 5. Completeness and accuracy of receiver metadata</h3>
+<p>Motus users will be concerned primarily with the completeness of metadata for receiver deployments with detection(s) of their tags, because these can directly influence the interpretation of those detections. For example, missing deployment latitude or longitude will result in an unknown location for the tag detection, and missing information on antenna type and/or orientation can impede the estimation of flight or departure orientation.</p>
+<p>In many cases, however, metadata for receiver deployments <em>without</em> tag detections can also be useful, for example to estimate probability of detecting an animal that passes within range of a station.</p>
+<p>In this section, the focus is on metadata for receivers registered to a particular project. Depending on your interests, these summaries can be applied to a larger group of receivers, e.g., all receivers with detections or all receivers within certain geographic limits (with or without detections).</p>
+<ol style="list-style-type: lower-alpha">
+<li><strong>Load receiver and antenna metadata</strong></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## antenna metadata for ALL Motus antenna deployments; 
+## to simplify, keep only the variables of interest.
+tbl.antDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;antDeps&quot;</span>) 
+df.antDeps &lt;-<span class="st"> </span>tbl.antDeps <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">select</span>(deployID, port, antennaType, bearing, heightMeters) <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">as.data.frame</span>()
+
+## receiver deployments; select variables of interest
+df.recvDeps &lt;-<span class="st"> </span>df.recvDeps <span class="op">%&gt;%</span>
+<span class="st">                    </span><span class="kw">select</span>(deployID, receiverType, deviceID, name, latitude, longitude, isMobile, tsStart, tsEnd, projectID, elevation) 
+
+df.stationDeps &lt;-<span class="st"> </span><span class="kw">left_join</span>(df.recvDeps, df.antDeps, <span class="dt">by =</span> <span class="st">&quot;deployID&quot;</span>)</code></pre></div>
+<p>Subset these to receivers registered to a project:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.stationDeps &lt;-<span class="st"> </span><span class="kw">filter</span>(df.stationDeps, projectID <span class="op">==</span><span class="st"> </span>proj.num)</code></pre></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><strong>Look at range of metadata values</strong>.</li>
+</ol>
+<p>Use summary() to get a general idea of the distribution of the variables in the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(df.stationDeps)</code></pre></div>
+<pre><code>##     deployID    receiverType          deviceID         name          
+##  Min.   :1134   Length:91          Min.   : 74.0   Length:91         
+##  1st Qu.:2289   Class :character   1st Qu.: 78.0   Class :character  
+##  Median :3100   Mode  :character   Median :280.0   Mode  :character  
+##  Mean   :2996                      Mean   :258.7                     
+##  3rd Qu.:4049                      3rd Qu.:324.0                     
+##  Max.   :4222                      Max.   :647.0                     
+##                                    NA&#39;s   :6                         
+##     latitude       longitude         isMobile      
+##  Min.   :51.15   Min.   :-80.80   Min.   :0.00000  
+##  1st Qu.:51.29   1st Qu.:-80.57   1st Qu.:0.00000  
+##  Median :51.48   Median :-80.45   Median :0.00000  
+##  Mean   :51.52   Mean   :-80.36   Mean   :0.04396  
+##  3rd Qu.:51.66   3rd Qu.:-80.12   3rd Qu.:0.00000  
+##  Max.   :51.88   Max.   :-79.69   Max.   :1.00000  
+##  NA&#39;s   :4       NA&#39;s   :4                         
+##     tsStart                        tsEnd                       projectID  
+##  Min.   :2014-07-12 00:00:00   Min.   :2014-11-06 00:00:00   Min.   :176  
+##  1st Qu.:2015-05-25 00:00:00   1st Qu.:2015-11-02 00:00:00   1st Qu.:176  
+##  Median :2016-05-18 00:00:00   Median :2016-07-15 00:00:00   Median :176  
+##  Mean   :2016-03-28 08:40:07   Mean   :2016-04-04 01:07:25   Mean   :176  
+##  3rd Qu.:2017-05-16 19:42:00   3rd Qu.:2016-12-01 00:00:00   3rd Qu.:176  
+##  Max.   :2017-08-20 23:30:00   Max.   :2017-08-20 23:30:00   Max.   :176  
+##                                NA&#39;s   :21                                 
+##    elevation           port       antennaType           bearing     
+##  Min.   :-7.000   Min.   :1.000   Length:91          Min.   :  0.0  
+##  1st Qu.:-4.000   1st Qu.:1.000   Class :character   1st Qu.: 50.0  
+##  Median :-4.000   Median :2.000   Mode  :character   Median :145.0  
+##  Mean   : 4.235   Mean   :2.231                      Mean   :152.6  
+##  3rd Qu.: 0.000   3rd Qu.:3.000                      3rd Qu.:290.0  
+##  Max.   :30.000   Max.   :4.000                      Max.   :357.5  
+##  NA&#39;s   :74                                          NA&#39;s   :18     
+##   heightMeters  
+##  Min.   :4.800  
+##  1st Qu.:5.600  
+##  Median :5.800  
+##  Mean   :5.832  
+##  3rd Qu.:6.000  
+##  Max.   :6.200  
+##  NA&#39;s   :4</code></pre>
+<p>There are the 4 deployments with missing latitude and longitude associated with the four deployments of mobile receivers that we saw earlier.</p>
+<p>Elevation is missing from 74 of 91 records, but elevation is not a required field, and can be estimated from other sources, or directly in R (for example, see <a href="https://stackoverflow.com/questions/8973695/conversion-for-latitude-longitude-to-altitude-in-r" class="uri">https://stackoverflow.com/questions/8973695/conversion-for-latitude-longitude-to-altitude-in-r</a>).</p>
+<p>Antenna bearing is missing from 18 of 91 records, and height of the antenna(s) is missing for 4 of 91 records. Subset the records with missing antenna bearing to see if these can be fixed:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(df.stationDeps, <span class="kw">is.na</span>(bearing)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>elevation, <span class="op">-</span>deviceID, <span class="op">-</span>tsEnd)</code></pre></div>
+<pre><code>##    deployID receiverType             name latitude longitude isMobile
+## 1      3097  SENSORGNOME        Longridge  51.8244  -80.6909        0
+## 2      3098  SENSORGNOME    Halfway Point  51.8752  -80.7973        0
+## 3      3099  SENSORGNOME       East Point  51.2301  -79.7124        0
+## 4      3100  SENSORGNOME       Washkaugou  51.1540  -79.8144        0
+## 5      3101  SENSORGNOME        Netitishi  51.2912  -80.1167        0
+## 6      3102  SENSORGNOME      North Bluff  51.4839  -80.4501        0
+## 7      3103  SENSORGNOME       Piskwamish  51.6579  -80.5678        0
+## 8      3813  LOTEKSRX800        NP mobile       NA        NA        1
+## 9      3814  LOTEKSRX800        LR mobile       NA        NA        1
+## 10     4001  LOTEKSRX800 BurntPointAerial       NA        NA        1
+## 11     4002  LOTEKSRX800   JamesBayAerial       NA        NA        1
+## 12     4048  SENSORGNOME    Halfway Point  51.8753  -80.7973        0
+## 13     4049         &lt;NA&gt;        Longridge  51.8246  -80.6909        0
+## 14     4050  SENSORGNOME       Piskwamish  51.6580  -80.5679        0
+## 15     4051  SENSORGNOME      North Bluff  51.4839  -80.4501        0
+## 16     4052  SENSORGNOME        Netitishi  51.2913  -80.1167        0
+## 17     4221  SENSORGNOME      North Bluff  51.4839  -80.4501        0
+## 18     4222  SENSORGNOME      North Bluff  51.4839  -80.4501        0
+##                tsStart projectID port antennaType bearing heightMeters
+## 1  2016-05-17 00:00:00       176    4   omni-whip      NA          6.0
+## 2  2016-05-17 00:00:00       176    4   omni-whip      NA          6.0
+## 3  2016-05-18 00:00:00       176    4   omni-whip      NA          6.0
+## 4  2016-05-18 00:00:00       176    4   omni-whip      NA          6.0
+## 5  2016-05-18 00:00:00       176    4   omni-whip      NA          6.0
+## 6  2016-05-18 00:00:00       176    4   omni-whip      NA          6.0
+## 7  2016-05-18 00:00:00       176    4   omni-whip      NA          6.0
+## 8  2015-07-06 00:00:00       176    1      yagi-3      NA           NA
+## 9  2015-07-07 00:00:00       176    1      yagi-3      NA           NA
+## 10 2016-07-19 08:00:00       176    1      yagi-3      NA           NA
+## 11 2016-08-09 07:15:00       176    1      yagi-3      NA           NA
+## 12 2017-05-16 15:55:00       176    3   omni-whip      NA          6.2
+## 13 2017-05-16 19:42:00       176    4   omni-whip      NA          6.2
+## 14 2017-05-17 15:19:00       176    4   omni-whip      NA          6.2
+## 15 2017-05-17 15:00:00       176    4   omni-whip      NA          6.2
+## 16 2017-05-17 22:47:00       176    4   omni-whip      NA          6.2
+## 17 2017-08-20 23:30:00       176    4   omni-whip      NA          6.2
+## 18 2017-08-20 23:30:00       176    4   omni-whip      NA          6.2</code></pre>
+<p>Receiver deployments with missing antenna bearing(s) are restricted to deployments of omni-directional antennas or mobile receivers, and so the missing values make sense. These records also show that the four records with missing antenna height are also associated with the four mobile receivers, and so again the missing values make sense and do not need to be fixed.</p>
+<p>In the next chapter we will examine our data for false positives, and remove detections of ambiguous tags.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="accessingData.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dataCleaning.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["MotusRBook.pdf"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

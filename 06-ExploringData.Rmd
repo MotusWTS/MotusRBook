@@ -53,7 +53,7 @@ df.alltags.sub <- tbl.alltags.sub %>%
 
 Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues. You can do so by adding a filter to the above command (in this case, only creating a dataframe for motusTagID 16047):
 
-```{r importData}
+```{r importData2}
 
 # create a subset for a single tag, to keep the dataframe small
 df.alltags.16047 <- tbl.alltags.sub %>%
@@ -165,7 +165,7 @@ Let's focus only on tags deployed in 2016, we can also clean up the plot by remo
 p <- ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016), 
        aes(hour, as.factor(motusTagID), col = speciesEN)) 
 p + geom_point() +
-  xlab("Time (rounded to hour)") + ylab("MotusTagID") +
+  ylab("MotusTagID") + xlab("Time (rounded to hour)") +
   scale_colour_discrete(name = "Species")
   theme_bw()
 ```
@@ -252,7 +252,7 @@ This plot shows the typical flyby pattern of a migrating bird, with signal stren
 
 To generate maps of tag paths, we will once again use summarized data so we can work with a much smaller database for faster processing. Here we'll summarize detections by day. As we did in Chapter 5, well create a simple function to do this, since we will likely want to use it over and over again. 
 
-```{r fun.getpath}
+```{r fun.getpath2}
 
 ## simplify the data by summarizing by the runID. 
 ## if you want to summarize at a finer (or coarser) scale, you can also create other groups.  

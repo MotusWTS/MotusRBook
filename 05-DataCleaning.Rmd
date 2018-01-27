@@ -49,7 +49,7 @@ Recall from \@ref(accessingData) that when accessing the sample database, you wi
 
 When accessing the alltags table, we remove some unecessary variables to reduce the overall size of the data set and make it easier to work with. We then create receiver latitude and longitude variables based on the coordinates recorded by the receiver GPS, and where those are not available, infilled with coordinates from the receiver deployment metadata. We use the collect() and as.data.frame() statements to transform the dataframe into a 'flat' file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format. Finally, we create 'receiver names' from the latitude and longitude variables for those receivers in the database that do not have these values filled in.
 
-```{r importData5}
+```{r importData5, eval = FALSE}
 
 proj.num <- 176
 
@@ -57,6 +57,37 @@ proj.num <- 176
 ## We also fix up some sites that are missing receiver deployment data, or do not have names
 ## As more users explore (and fix!) their metadata, these missing values should begin to disappear.
 sql.motus <- tagme(proj.num, update = TRUE, dir = "./data/")
+tbl.alltags <- tbl(sql.motus, "alltags")
+
+df.alltags <- tbl.alltags %>% 
+                mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
+                       recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
+                       recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
+                select(-noise, -slop, -burstSlop, -done, -bootnum, -mfgID, -codeSet, -mfg, -nomFreq,
+                       -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID,
+                       -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat, 
+                       -gpsLon, - recvAlt, - recvSiteName) %>%
+                collect() %>%
+                as.data.frame() %>%
+                mutate(ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
+                       tagDeployStart = as_datetime(tagDeployStart),
+                       tagDeployEnd = as_datetime(tagDeployEnd), 
+                       recvLat = plyr::round_any(recvLat, 0.05), 
+                       recvLon = plyr::round_any(recvLon, 0.05),
+                       recvDeployName = if_else(is.na(recvDeployName), 
+                                                paste(recvLat, recvLon, sep=":"), recvDeployName))
+
+## Note that in the select statement, you can just select the variables you need
+## e.g.: select(runID, ts, sig, freqsd, motusTagID, ambigID, runLen, tagProjID, 
+##              tagDeployStart, tagDeployEnd, etc.)
+
+```
+```{r importData5b, echo = FALSE, eval = TRUE}
+
+proj.num <- 176
+
+## hidden data import so update can be set to FALSE
+sql.motus <- tagme(proj.num, update = FALSE, dir = "./data/")
 tbl.alltags <- tbl(sql.motus, "alltags")
 
 df.alltags <- tbl.alltags %>% 
@@ -139,7 +170,7 @@ filter(df.alltags.sub, is.na(recvLat)) %>%
 
 **3. Simplify the data for plotting**
 
-```{r fun.getpath}
+```{r fun.getpath, eval = TRUE}
 
 ## simplify the data by summarizing by the runID. 
 ## if you want to summarize at a finer (or coarser) scale, you can also create other groups.  
@@ -625,7 +656,7 @@ The Motus R package offers functionalities to create custom filters for your dat
 4. Use the 'applyRunsFilter' function to output a flat file of the alltags dataframe with probabilities assigned to each detection. Detections that are not included in the filter will be automatically assigned a probability of 1. Note that to also filter the data by a given probability, you must use the 'p.min =' statement. In this case, we use p.min = 0.1, which drops all detections with a probability less than that value. All detections that are not in your filter are assigned the p.default value (1.0).
 
 
-```{r}
+```{r saveFilter, eval=FALSE}
 
 # create a new filter with name filtAmbigFalsePos
 filterID = createRunsFilter(sql.motus, "filtAmbigFalsePos")

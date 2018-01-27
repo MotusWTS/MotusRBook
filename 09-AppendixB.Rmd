@@ -3,7 +3,17 @@ The motus R package offers functions that work with .motus data to do common com
 
 ```{r appendixBSample, eval = FALSE}
 
-sql.motus <- tagme(176, new = TRUE, update = TRUE) # download and access sample data in sql format, username: motus.sample, password: motus.sample
+sql.motus <- tagme(176, new = TRUE, update = TRUE, dir = "./data") # download and access sample data in sql format, username: motus.sample, password: motus.sample
+
+tbl.alltags <- tbl(sql.motus, "alltags") # extract "alltags"" table from sql file "sql.motus"
+df.alltags <- tbl.alltags %>% 
+  collect() %>% 
+  as.data.frame() ## convert the tbl "tbl.alltags" to a data.frame called "df.alltags"
+
+```
+```{r appendixBSample2, echo=FALSE, eval = TRUE}
+
+sql.motus <- tagme(176, new = FALSE, update = FALSE, dir = "./data") # download and access sample data in sql format, username: motus.sample, password: motus.sample
 
 tbl.alltags <- tbl(sql.motus, "alltags") # extract "alltags"" table from sql file "sql.motus"
 df.alltags <- tbl.alltags %>% 
@@ -14,20 +24,20 @@ df.alltags <- tbl.alltags %>%
 
 You can access the function help pages:
 
-```{r functionHelp, eval = TRUE}
+```{r functionHelp, eval = FALSE}
 
-??SunRiseSet
+??sunRiseSet
 
 ```
 
 Or view the underlying function code like this:
-```{r functionCode, eval = TRUE}
+```{r functionCode, eval = FALSE}
 
-SunRiseSet
+sunRiseSet
 
 ```
 
-## SunRiseSet {#sunRiseSet}
+## sunRiseSet {#sunRiseSet}
 ### Description 
 Creates and adds a sunrise and sunset variable to a data.frame containing latitude, longitude, and a date/time as POSIXct or numeric.
 
@@ -41,7 +51,7 @@ Creates and adds a sunrise and sunset variable to a data.frame containing latitu
 Add sunrise/sunset variables to the alltags data.frame
 ```{r sunRiseSet, eval = TRUE}
 
-alltags.df.sun <- SunRiseSet(df.alltags)
+alltags.df.sun <- sunRiseSet(df.alltags)
 head(alltags.df.sun)
 
 ```
@@ -84,7 +94,7 @@ Plot latitude/longitude vs time (UTC rounded to the hour) for each tag using .mo
 
 ### Example
 Plot tbl file tbl.alltags using gpsLat and 3 tags per panel for select species Red Knot
-```{r, plotAllTagsSite, eval = TRUE}
+```{r, plotAllTagsSite, eval = FALSE}
 
 plotAllTagsSite(filter(tbl.alltags, speciesEN == "Red Knot"), 
                 coordinate = "gpsLat", 
@@ -107,7 +117,7 @@ Plots total number of detections across all tags, and total number of tags detec
 Plot of all tag detections at site Longridge using data.frame df.alltags
 ```{r, plotDailySiteSum, eval = TRUE}
 
-plotDailySiteSum(df.alltags, recvDepName = "Longridge")
+plotDailySiteSum(df.alltags, recvDeployName = "Longridge")
 
 ```
 
@@ -149,7 +159,7 @@ plotRouteMap(sql.motus,
 Plot only detections at a specific site; Piskwamish for data.frame df.alltags
 ```{r, plotSite, eval = TRUE}
 
-plotSite(filter(df.alltags, recvDepName == "Piskwamish"))
+plotSite(filter(df.alltags, recvDeployName == "Piskwamish"))
 
 ```
 
@@ -170,7 +180,7 @@ Plot signal strength vs time for all tags detected at a specified site, coloured
 Plot select tags for site Piskwamish 
 ```{r, plotSiteSig, eval = TRUE}
 
-plotSiteSig(filter(df.alltags, motusTagID %in% c(16037, 16039, 16035)), recvDepName = "Netitishi")
+plotSiteSig(filter(df.alltags, motusTagID %in% c(16037, 16039, 16035)), recvDeployName = "Netitishi")
 
 ```
 
@@ -232,7 +242,7 @@ Create site summaries for select sites with time in minutes
 ```{r, siteSum, eval = TRUE}
 
 site_summary <- siteSum(filter(df.alltags, 
-                               recvDepName %in% c("Niapiskau", "Netitishi", "Old Cur", "Washkaugou")),
+                               recvDeployName %in% c("Niapiskau", "Netitishi", "Old Cur", "Washkaugou")),
                         units = "mins")
 head(site_summary)
 
