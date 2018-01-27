@@ -77,7 +77,7 @@ motusLogout()
 ### Downloading detection data {#downloadData}
 Let's get started. Note that there are no receivers registered to sample project 176, so the second call (by receiver) will not find any data. You can, however, replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample account, see \@ref(logout)). 
 
-Be warned that large datasets can take some time to download from the Motus server when downloading for the first time ('new = TRUE' in the tagme function call). The sample dataset, for example, can take upwards of 3 hours to download completely. 
+Be warned that large datasets can take some time to download from the Motus server when downloading for the first time ('new = TRUE' in the tagme function call). The sample dataset (about 10-20 Mb), for example can be loaded in under 3 minutes under optimal conditions. The download process should print its progress on the console. If you are not seeing it, trying scrolling down your screen while tagme is running.
 
 In the event that your connection to the Motus server fails prior to the download completing (e.g., due to poor internet connection), use 'tagme(proj.num, update = TRUE) eval = FALSE' to continue the download from where it left off, ensuring to specify a directory if it's saved outside the working directory.  
 
@@ -154,12 +154,12 @@ sql.motus <- tagme(projRecv = proj.num, forceMeta = TRUE)
 ```
 
 ### Import additional metadata (#metadata)
-In your .motus file, you are provided with the metadata for:
+In your .motus file, when using the tagme function, you are provided with the metadata for:
 1. any tags registered to your project which have detections;  
 2. tags from other projects which are associated with ambiguous detections (see Chapter \@ref(dataCleaning)) in your data;  
 3. receivers that your tags, plus ambiguous tags, were detected on.  
 
-We can use the metadata() function to access full tag and receiver metadata across the network:
+We can use the metadata() function to access full tag and receiver metadata across the network. All metadata is generally available to all Motus users, but some projects may have restricted access to some portions.
 
 ```{r metadata1, eval = FALSE}
 
@@ -267,6 +267,16 @@ The following table lists the variables available in the 'alltags' view, a full 
 tbl.alltags %>% 
       collect() %>%
       names()
+
+```
+
+## Ensure that you have the correct database version
+
+When you call the tagme function to load the sqlite database, there is a process that will verify that your database has the version matching the most current version of the motus package. Over time, changes will be made that require adding new tables, views or fields to the database. If you do not have the correct version, some of the examples contained in this book may not work.  The following call will ensure that your database has been updated to the version matching the current version of the motus package. Refer to the \@ref(Troubleshooting) chapter if this call returns a warning, and ensure that you have the most recent version of the motusClient package, the motus package, and the Motus R book.
+
+
+```{r dbVersion, eval = FALSE}
+checkVersion(sql.motus)
 
 ```
 

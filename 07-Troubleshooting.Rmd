@@ -22,3 +22,28 @@ If you get this message while updating your .motus file, use tagme() again to co
 
 ## I get an "Error: Forbidden" message when using tagme()
 This error may occur if you are attempting to download multiple projects simultaneously from the same user account. If you get this error, please logout of the motus package, and try tagme() again (see sections \@ref(motusLogout) and \@ref(resumeDownload)).
+
+## I get an error Object 'xxxx' not found, refering to a table or field name, or some of your examples in the book do not work. 
+
+You should ensure that your .motus database has been updated to support the latest version of the motusClient or the motus package. If the checkVersion function returns a warning, this may indicated that the internal function used to maintain your database up to date has not been triggered. This can happen for instance if you load only the motusClient package without also loading the motus package.
+
+```{r checkVersion, eval = FALSE}
+sql.motus <- tagme(project.num, dir= ...)
+checkVersion(sql.motus)
+```
+
+To correct this, you should follow these steps:
+
+1. download the latest versions of the motusClient and then the motus package (refer to Chapter 2 @ref(loadingPackages))
+2. terminate and restart your R session
+3. load the motus library
+4. load your sqlite file. Look for notes on the console indicating that your database is being updated.
+5. check the version again.
+
+```{r checkVersionFix, eval = FALSE}
+library(motus)
+sql <- tagme(project.num, dir= ...)
+checkVersion(sql)
+```
+
+Of course, there is always the possibility that the book contains errors! We would love to hear from you with error reports: motus@birdscanada.org.

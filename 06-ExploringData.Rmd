@@ -32,9 +32,9 @@ sql.motus <- tagme(176, update = FALSE, dir = "./data/")
 ## apply the filter; a dataframe is output -- keep all values for now, so that you 
 ## still have access to low probability detections for checking
 
-tbl.alltags.sub <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0)
+tbl.alltags.sub <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
 
-# manage the dataframe
+# convert the table into a dataframe, with a few modications
 df.alltags.sub <- tbl.alltags.sub %>%
                       mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
                              recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
@@ -49,8 +49,28 @@ df.alltags.sub <- tbl.alltags.sub %>%
                              tagDeployStart = as_datetime(tagDeployStart),
                              tagDeployEnd = as_datetime(tagDeployEnd))
 
-## if you are using the applyRunsFilter, you need to specify that you want the NA probability too
-df.alltags.sub <- filter(df.alltags.sub, probability > 0 | is.na(probability))
+```
+
+Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues. You can do so by adding a filter to the above command (in this case, only creating a dataframe for motusTagID 16047):
+
+```{r importData}
+
+# create a subset for a single tag, to keep the dataframe small
+df.alltags.16047 <- tbl.alltags.sub %>%
+                      mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
+                             recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
+                             recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
+                      select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, -mfg, -nomFreq,
+                             -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID,
+                             -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat,
+                             -gpsLon, - recvAlt, - recvSiteName) %>%
+                      filter(motusTagID == 16047) %>%
+                      collect() %>%
+                      as.data.frame() %>%
+                      mutate(ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
+                             tagDeployStart = as_datetime(tagDeployStart),
+                             tagDeployEnd = as_datetime(tagDeployEnd))
+
 
 ```
 
@@ -61,6 +81,13 @@ Here we will run through some basic commands, starting with the summary() functi
 
 sql.motus %>% 
   tbl("alltags") %>% 
+  select(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, 
+         recvDeployLat, recvDeployLon) %>% 
+  collect() %>%
+  summary()
+
+# same summary for the filtered data
+tbl.alltags.sub %>% 
   select(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, 
          recvDeployLat, recvDeployLon) %>% 
   collect() %>%
@@ -100,7 +127,7 @@ head(tagSummary)
 
 ```
 
-We can also group by multiple variables, applying the same function as above but now grouping by motusTagID and recvDepName, we will get information for each tag detected on each receiver. Since we've specified to group by recvDeployName, there will be by default only one recvDeployName in each group, thus the variable nRecv will be 1 for each row which is not very information, however we've kept this variable in to help illustrate how grouping works:
+We can also group by multiple variables, applying the same function as above but now grouping by motusTagID and recvDeployName, we will get information for each tag detected on each receiver. Since we've specified to group by recvDeployName, there will be by default only one recvDeployName in each group, thus the variable nRecv will be 1 for each row which is not very information, however we've kept this variable in to help illustrate how grouping works:
 ```{r tagRecvSum}
 
 tagRecvSummary <- df.alltags.sub %>%
@@ -181,7 +208,7 @@ df.alltags.sub <- sunRiseSet(df.alltags.sub, lat = "recvLat", lon = "recvLon")
 
 p <- ggplot(filter(df.alltags.sub, motusTagID == 22897 & 
                      ts > ymd("2016-10-11") & ts < ymd("2016-10-17") & 
-                     recvDepName == "Niapiskau"), 
+                     recvDeployName == "Niapiskau"), 
             aes(ts, sig))
 
 p + theme_bw() + 
@@ -197,11 +224,11 @@ The same plots can provide valuable movement information (when the receivers are
 ```{r}
 ## We'll first order sitelat by latitude (for plots)
 df.alltags.sub <- mutate(df.alltags.sub, 
-                         recvDepName = reorder(recvDeployName, recvLat)) 
+                         recvDeployName = reorder(recvDeployName, recvLat)) 
 
 p <- ggplot(filter(df.alltags.sub, motusTagID == 16039 & 
                      ts < ymd("2015-10-01")), 
-       aes(ts, recvDepName))
+       aes(ts, recvDeployName))
 
 p + theme_bw() + 
   geom_point() + 
@@ -217,7 +244,7 @@ p + theme_bw() +
   geom_point() + 
   xlab("Time of day") + ylab("Signal strength") +
   scale_color_discrete(name = "Antenna bearing")
-  facet_grid(recvDepName~.)
+  facet_grid(recvDeployName~.)
 ```
 This plot shows the typical flyby pattern of a migrating bird, with signal strength increasing and  decreasing as the tag moves through the beams of the antennas.
 
@@ -256,7 +283,7 @@ df.alltags.sub.path <- df.alltags.sub %>%
                     filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
                     arrange(motusTagID, ts) %>%       # order data by time stamp for each motus tag ID
                     mutate(date = as_date(ts)) %>%    # create date variable
-                    group_by(motusTagID, date, recvDepName, ambigID, tagDeployLon, tagDeployLat, recvLat, recvLon)
+                    group_by(motusTagID, date, recvDeployName, ambigID, tagDeployLon, tagDeployLat, recvLat, recvLon)
 
 df.alltags.path <- fun.getpath(df.alltags.sub)
 ```

@@ -29,7 +29,7 @@ library(devtools)
 install_github("MotusWTS/motus")
 
 ## install motusClient for data download
-install_github("MotusWTS/motusClient@staging", force=TRUE)
+install_github("MotusWTS/motusClient", force=TRUE)
 
 library(motus)
 
