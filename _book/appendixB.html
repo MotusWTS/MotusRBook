@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R for Motus</title>
+  <meta name="description" content="R for Motus">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R for Motus" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="BSC_Motus_Logo.png" />
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R for Motus" />
+  
+  
+  <meta name="twitter:image" content="BSC_Motus_Logo.png" />
+
+<meta name="author" content="Tara L. Crewe, Zoe Crysler, and Philip Taylor">
+
+
+<meta name="date" content="2018-01-27">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="appendixA.html">
+<link rel="next" href="appendixC.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">R for Motus</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>A walk through the use of R for Motus automated radio-telemetry data</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#whatBookCovers"><i class="fa fa-check"></i><b>1.1</b> What this book does not cover</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#sampleData"><i class="fa fa-check"></i><b>1.3</b> Sample dataset</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="loadingPackages.html"><a href="loadingPackages.html"><i class="fa fa-check"></i><b>2</b> Loading R Packages</a><ul>
+<li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.1</b> Internal data processing</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="accessingData.html"><a href="accessingData.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
+<li class="chapter" data-level="3.1" data-path="accessingData.html"><a href="accessingData.html#databaseTypes"><i class="fa fa-check"></i><b>3.1</b> Database types</a></li>
+<li class="chapter" data-level="3.2" data-path="accessingData.html"><a href="accessingData.html#loadPackages"><i class="fa fa-check"></i><b>3.2</b> Load relevant R packages</a></li>
+<li class="chapter" data-level="3.3" data-path="accessingData.html"><a href="accessingData.html#set-system-environment"><i class="fa fa-check"></i><b>3.3</b> Set system environment</a></li>
+<li class="chapter" data-level="3.4" data-path="accessingData.html"><a href="accessingData.html#importDetections"><i class="fa fa-check"></i><b>3.4</b> Importing tag detections</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="accessingData.html"><a href="accessingData.html#download-data-for-a-project-or-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.4.1</b> Download data for a project or receiver for the <em>first time</em></a></li>
+<li class="chapter" data-level="3.4.2" data-path="accessingData.html"><a href="accessingData.html#userAuthentication"><i class="fa fa-check"></i><b>3.4.2</b> User Authentication</a></li>
+<li class="chapter" data-level="3.4.3" data-path="accessingData.html"><a href="accessingData.html#logout"><i class="fa fa-check"></i><b>3.4.3</b> Logging out</a></li>
+<li class="chapter" data-level="3.4.4" data-path="accessingData.html"><a href="accessingData.html#downloadData"><i class="fa fa-check"></i><b>3.4.4</b> Downloading detection data</a></li>
+<li class="chapter" data-level="3.4.5" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.4.5</b> Update and open a local tag database</a></li>
+<li class="chapter" data-level="3.4.6" data-path="accessingData.html"><a href="accessingData.html#tellme"><i class="fa fa-check"></i><b>3.4.6</b> Check if new data are available</a></li>
+<li class="chapter" data-level="3.4.7" data-path="accessingData.html"><a href="accessingData.html#forceMeta"><i class="fa fa-check"></i><b>3.4.7</b> Force an update/re-import of tag and receiver deployment metadata</a></li>
+<li class="chapter" data-level="3.4.8" data-path="accessingData.html"><a href="accessingData.html#metadata"><i class="fa fa-check"></i><b>3.4.8</b> Import additional metadata</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.5</b> Data structure</a></li>
+<li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#ensure-that-you-have-the-correct-database-version"><i class="fa fa-check"></i><b>3.6</b> Ensure that you have the correct database version</a></li>
+<li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.7</b> Convert a SQLITE table to a flat dataframe</a></li>
+<li class="chapter" data-level="3.8" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.8</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
+<li class="chapter" data-level="3.9" data-path="accessingData.html"><a href="accessingData.html#r-object-naming-convention"><i class="fa fa-check"></i><b>3.9</b> R object naming convention</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="deployments.html"><a href="deployments.html"><i class="fa fa-check"></i><b>4</b> Tag and Receiver Deployments</a><ul>
+<li class="chapter" data-level="4.1" data-path="deployments.html"><a href="deployments.html#load-relevant-r-packages-and-set-working-environment"><i class="fa fa-check"></i><b>4.1</b> Load relevant R packages and set working environment</a></li>
+<li class="chapter" data-level="4.2" data-path="deployments.html"><a href="deployments.html#load-.motus-file"><i class="fa fa-check"></i><b>4.2</b> Load .motus file</a></li>
+<li class="chapter" data-level="4.3" data-path="deployments.html"><a href="deployments.html#tagDeployments"><i class="fa fa-check"></i><b>4.3</b> Tag Deployments</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="deployments.html"><a href="deployments.html#download-full-project-tag-metadata"><i class="fa fa-check"></i><b>4.3.1</b> 1. Download full project tag metadata</a></li>
+<li class="chapter" data-level="4.3.2" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags"><i class="fa fa-check"></i><b>4.3.2</b> 2. Number of registered tags</a></li>
+<li class="chapter" data-level="4.3.3" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags-that-were-deployed"><i class="fa fa-check"></i><b>4.3.3</b> 3. Number of registered tags that were deployed</a></li>
+<li class="chapter" data-level="4.3.4" data-path="deployments.html"><a href="deployments.html#location-of-tag-deployments"><i class="fa fa-check"></i><b>4.3.4</b> 4. Location of tag deployments</a></li>
+<li class="chapter" data-level="4.3.5" data-path="deployments.html"><a href="deployments.html#check-completeness-and-accuracy-of-tag-deployment-metadata"><i class="fa fa-check"></i><b>4.3.5</b> 5. Check completeness and accuracy of tag deployment metadata</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="deployments.html"><a href="deployments.html#recvMetadata"><i class="fa fa-check"></i><b>4.4</b> Check Receiver Metadata</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="deployments.html"><a href="deployments.html#download-full-receiver-metadata"><i class="fa fa-check"></i><b>4.4.1</b> 1. Download full receiver metadata</a></li>
+<li class="chapter" data-level="4.4.2" data-path="deployments.html"><a href="deployments.html#number-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.2</b> 2. Number of project receiver deployments</a></li>
+<li class="chapter" data-level="4.4.3" data-path="deployments.html"><a href="deployments.html#timing-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.3</b> 3. Timing of project receiver deployments</a></li>
+<li class="chapter" data-level="4.4.4" data-path="deployments.html"><a href="deployments.html#location-of-receiver-deployments"><i class="fa fa-check"></i><b>4.4.4</b> 4. Location of receiver deployments</a></li>
+<li class="chapter" data-level="4.4.5" data-path="deployments.html"><a href="deployments.html#completeness-and-accuracy-of-receiver-metadata"><i class="fa fa-check"></i><b>4.4.5</b> 5. Completeness and accuracy of receiver metadata</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="dataCleaning.html"><a href="dataCleaning.html"><i class="fa fa-check"></i><b>5</b> Data Cleaning</a><ul>
+<li class="chapter" data-level="5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#falsePositives"><i class="fa fa-check"></i><b>5.1</b> False Positives</a></li>
+<li class="chapter" data-level="5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#load-required-packages"><i class="fa fa-check"></i><b>5.2</b> Load required packages</a></li>
+<li class="chapter" data-level="5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#load-detections-data"><i class="fa fa-check"></i><b>5.3</b> Load detections data</a></li>
+<li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.4</b> Preliminary data checks</a></li>
+<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#examining-ambiguous-detections-ambigs"><i class="fa fa-check"></i><b>5.5</b> Examining ambiguous detections (#ambigs)</a></li>
+<li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-the-data"><i class="fa fa-check"></i><b>5.6</b> Filter the data</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
+<li class="chapter" data-level="6.1" data-path="exploreData.html"><a href="exploreData.html#load-required-packages-1"><i class="fa fa-check"></i><b>6.1</b> Load required packages</a></li>
+<li class="chapter" data-level="6.2" data-path="exploreData.html"><a href="exploreData.html#load-data"><i class="fa fa-check"></i><b>6.2</b> Load data</a></li>
+<li class="chapter" data-level="6.3" data-path="exploreData.html"><a href="exploreData.html#dataSummaries"><i class="fa fa-check"></i><b>6.3</b> Summarizing your data</a></li>
+<li class="chapter" data-level="6.4" data-path="exploreData.html"><a href="exploreData.html#dataPlotting"><i class="fa fa-check"></i><b>6.4</b> Plotting your data</a></li>
+<li class="chapter" data-level="6.5" data-path="exploreData.html"><a href="exploreData.html#mappingData"><i class="fa fa-check"></i><b>6.5</b> Mapping your data</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="exploreData.html"><a href="exploreData.html#googleMaps"><i class="fa fa-check"></i><b>6.5.1</b> Mapping with Google Maps</a></li>
+<li class="chapter" data-level="6.5.2" data-path="exploreData.html"><a href="exploreData.html#outlineMaps"><i class="fa fa-check"></i><b>6.5.2</b> Creating simple outline maps</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Troubleshooting.html"><a href="Troubleshooting.html"><i class="fa fa-check"></i><b>7</b> Troubleshooting</a><ul>
+<li class="chapter" data-level="7.1" data-path="Troubleshooting.html"><a href="Troubleshooting.html#motusLogout"><i class="fa fa-check"></i><b>7.1</b> Logging out of motus</a></li>
+<li class="chapter" data-level="7.2" data-path="Troubleshooting.html"><a href="Troubleshooting.html#resumeDownload"><i class="fa fa-check"></i><b>7.2</b> Resume data download</a></li>
+<li class="chapter" data-level="7.3" data-path="Troubleshooting.html"><a href="Troubleshooting.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>7.3</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
+<li class="chapter" data-level="7.4" data-path="Troubleshooting.html"><a href="Troubleshooting.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>7.4</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
+<li class="chapter" data-level="7.5" data-path="Troubleshooting.html"><a href="Troubleshooting.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>7.5</b> I get an “Error: Forbidden” message when using tagme()</a></li>
+<li class="chapter" data-level="7.6" data-path="Troubleshooting.html"><a href="Troubleshooting.html#i-get-an-error-object-xxxx-not-found-refering-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>7.6</b> I get an error Object ‘xxxx’ not found, refering to a table or field name, or some of your examples in the book do not work.</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="appendixA.html"><a href="appendixA.html"><i class="fa fa-check"></i><b>8</b> Appendix C - alltags structure</a></li>
+<li class="chapter" data-level="9" data-path="appendixB.html"><a href="appendixB.html"><i class="fa fa-check"></i><b>9</b> The motus package</a><ul>
+<li class="chapter" data-level="9.1" data-path="appendixB.html"><a href="appendixB.html#sunRiseSet"><i class="fa fa-check"></i><b>9.1</b> sunRiseSet</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="appendixB.html"><a href="appendixB.html#description"><i class="fa fa-check"></i><b>9.1.1</b> Description</a></li>
+<li class="chapter" data-level="9.1.2" data-path="appendixB.html"><a href="appendixB.html#dependencies"><i class="fa fa-check"></i><b>9.1.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.1.3" data-path="appendixB.html"><a href="appendixB.html#example"><i class="fa fa-check"></i><b>9.1.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="appendixB.html"><a href="appendixB.html#plotAllTagsCoor"><i class="fa fa-check"></i><b>9.2</b> plotAllTagsCoord</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="appendixB.html"><a href="appendixB.html#description-1"><i class="fa fa-check"></i><b>9.2.1</b> Description</a></li>
+<li class="chapter" data-level="9.2.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-1"><i class="fa fa-check"></i><b>9.2.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.2.3" data-path="appendixB.html"><a href="appendixB.html#example-1"><i class="fa fa-check"></i><b>9.2.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="appendixB.html"><a href="appendixB.html#plotAllTagsSite"><i class="fa fa-check"></i><b>9.3</b> plotAllTagsSite</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="appendixB.html"><a href="appendixB.html#description-2"><i class="fa fa-check"></i><b>9.3.1</b> Description</a></li>
+<li class="chapter" data-level="9.3.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-2"><i class="fa fa-check"></i><b>9.3.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.3.3" data-path="appendixB.html"><a href="appendixB.html#example-2"><i class="fa fa-check"></i><b>9.3.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="appendixB.html"><a href="appendixB.html#plotDailySiteSum"><i class="fa fa-check"></i><b>9.4</b> plotDailySiteSum</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="appendixB.html"><a href="appendixB.html#description-3"><i class="fa fa-check"></i><b>9.4.1</b> Description</a></li>
+<li class="chapter" data-level="9.4.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-3"><i class="fa fa-check"></i><b>9.4.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.4.3" data-path="appendixB.html"><a href="appendixB.html#example-3"><i class="fa fa-check"></i><b>9.4.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="appendixB.html"><a href="appendixB.html#plotRouteMap"><i class="fa fa-check"></i><b>9.5</b> plotRouteMap</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="appendixB.html"><a href="appendixB.html#description-4"><i class="fa fa-check"></i><b>9.5.1</b> Description</a></li>
+<li class="chapter" data-level="9.5.2" data-path="appendixB.html"><a href="appendixB.html#example-4"><i class="fa fa-check"></i><b>9.5.2</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="appendixB.html"><a href="appendixB.html#plotSite"><i class="fa fa-check"></i><b>9.6</b> plotSite</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="appendixB.html"><a href="appendixB.html#description-5"><i class="fa fa-check"></i><b>9.6.1</b> Description</a></li>
+<li class="chapter" data-level="9.6.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-4"><i class="fa fa-check"></i><b>9.6.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.6.3" data-path="appendixB.html"><a href="appendixB.html#example-5"><i class="fa fa-check"></i><b>9.6.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="appendixB.html"><a href="appendixB.html#plotSiteSig"><i class="fa fa-check"></i><b>9.7</b> plotSiteSig</a><ul>
+<li class="chapter" data-level="9.7.1" data-path="appendixB.html"><a href="appendixB.html#description-6"><i class="fa fa-check"></i><b>9.7.1</b> Description</a></li>
+<li class="chapter" data-level="9.7.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-5"><i class="fa fa-check"></i><b>9.7.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.7.3" data-path="appendixB.html"><a href="appendixB.html#example-6"><i class="fa fa-check"></i><b>9.7.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="appendixB.html"><a href="appendixB.html#plotTagSig"><i class="fa fa-check"></i><b>9.8</b> plotTagSig</a><ul>
+<li class="chapter" data-level="9.8.1" data-path="appendixB.html"><a href="appendixB.html#description-7"><i class="fa fa-check"></i><b>9.8.1</b> Description</a></li>
+<li class="chapter" data-level="9.8.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-6"><i class="fa fa-check"></i><b>9.8.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.8.3" data-path="appendixB.html"><a href="appendixB.html#example-7"><i class="fa fa-check"></i><b>9.8.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.9" data-path="appendixB.html"><a href="appendixB.html#simSiteDet"><i class="fa fa-check"></i><b>9.9</b> simSiteDet</a><ul>
+<li class="chapter" data-level="9.9.1" data-path="appendixB.html"><a href="appendixB.html#description-8"><i class="fa fa-check"></i><b>9.9.1</b> Description</a></li>
+<li class="chapter" data-level="9.9.2" data-path="appendixB.html"><a href="appendixB.html#example-8"><i class="fa fa-check"></i><b>9.9.2</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.10" data-path="appendixB.html"><a href="appendixB.html#siteSum"><i class="fa fa-check"></i><b>9.10</b> siteSum</a><ul>
+<li class="chapter" data-level="9.10.1" data-path="appendixB.html"><a href="appendixB.html#description-9"><i class="fa fa-check"></i><b>9.10.1</b> Description</a></li>
+<li class="chapter" data-level="9.10.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-7"><i class="fa fa-check"></i><b>9.10.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.10.3" data-path="appendixB.html"><a href="appendixB.html#example-9"><i class="fa fa-check"></i><b>9.10.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.11" data-path="appendixB.html"><a href="appendixB.html#siteSumDaily"><i class="fa fa-check"></i><b>9.11</b> siteSumDaily</a><ul>
+<li class="chapter" data-level="9.11.1" data-path="appendixB.html"><a href="appendixB.html#description-10"><i class="fa fa-check"></i><b>9.11.1</b> Description</a></li>
+<li class="chapter" data-level="9.11.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-8"><i class="fa fa-check"></i><b>9.11.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.11.3" data-path="appendixB.html"><a href="appendixB.html#example-10"><i class="fa fa-check"></i><b>9.11.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.12" data-path="appendixB.html"><a href="appendixB.html#siteTrans"><i class="fa fa-check"></i><b>9.12</b> siteTrans</a><ul>
+<li class="chapter" data-level="9.12.1" data-path="appendixB.html"><a href="appendixB.html#description-11"><i class="fa fa-check"></i><b>9.12.1</b> Description</a></li>
+<li class="chapter" data-level="9.12.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-9"><i class="fa fa-check"></i><b>9.12.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.12.3" data-path="appendixB.html"><a href="appendixB.html#example-11"><i class="fa fa-check"></i><b>9.12.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.13" data-path="appendixB.html"><a href="appendixB.html#tagSum"><i class="fa fa-check"></i><b>9.13</b> tagSum</a><ul>
+<li class="chapter" data-level="9.13.1" data-path="appendixB.html"><a href="appendixB.html#description-12"><i class="fa fa-check"></i><b>9.13.1</b> Description</a></li>
+<li class="chapter" data-level="9.13.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-10"><i class="fa fa-check"></i><b>9.13.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.13.3" data-path="appendixB.html"><a href="appendixB.html#example-12"><i class="fa fa-check"></i><b>9.13.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.14" data-path="appendixB.html"><a href="appendixB.html#tagSumSite"><i class="fa fa-check"></i><b>9.14</b> tagSumSite</a><ul>
+<li class="chapter" data-level="9.14.1" data-path="appendixB.html"><a href="appendixB.html#description-13"><i class="fa fa-check"></i><b>9.14.1</b> Description</a></li>
+<li class="chapter" data-level="9.14.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-11"><i class="fa fa-check"></i><b>9.14.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.14.3" data-path="appendixB.html"><a href="appendixB.html#example-13"><i class="fa fa-check"></i><b>9.14.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.15" data-path="appendixB.html"><a href="appendixB.html#timeToSunriset"><i class="fa fa-check"></i><b>9.15</b> timeToSunriset</a><ul>
+<li class="chapter" data-level="9.15.1" data-path="appendixB.html"><a href="appendixB.html#description-14"><i class="fa fa-check"></i><b>9.15.1</b> Description</a></li>
+<li class="chapter" data-level="9.15.2" data-path="appendixB.html"><a href="appendixB.html#dependencies-12"><i class="fa fa-check"></i><b>9.15.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.15.3" data-path="appendixB.html"><a href="appendixB.html#example-14"><i class="fa fa-check"></i><b>9.15.3</b> Example</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>10</b> The motusClient package - Data filtering functions</a><ul>
+<li class="chapter" data-level="10.1" data-path="appendixC.html"><a href="appendixC.html#listRunsFilters"><i class="fa fa-check"></i><b>10.1</b> listRunsFilters</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="appendixC.html"><a href="appendixC.html#description-15"><i class="fa fa-check"></i><b>10.1.1</b> Description</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-13"><i class="fa fa-check"></i><b>10.2</b> Dependencies</a></li>
+<li class="chapter" data-level="10.3" data-path="appendixC.html"><a href="appendixC.html#example-15"><i class="fa fa-check"></i><b>10.3</b> Example</a></li>
+<li class="chapter" data-level="10.4" data-path="appendixC.html"><a href="appendixC.html#createRunsFilter"><i class="fa fa-check"></i><b>10.4</b> createRunsFilter</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="appendixC.html"><a href="appendixC.html#description-16"><i class="fa fa-check"></i><b>10.4.1</b> Description</a></li>
+<li class="chapter" data-level="10.4.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-14"><i class="fa fa-check"></i><b>10.4.2</b> Dependencies</a></li>
+<li class="chapter" data-level="10.4.3" data-path="appendixC.html"><a href="appendixC.html#example-16"><i class="fa fa-check"></i><b>10.4.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="appendixC.html"><a href="appendixC.html#getRunsFilters"><i class="fa fa-check"></i><b>10.5</b> getRunsFilters</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="appendixC.html"><a href="appendixC.html#description-17"><i class="fa fa-check"></i><b>10.5.1</b> Description</a></li>
+<li class="chapter" data-level="10.5.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-15"><i class="fa fa-check"></i><b>10.5.2</b> Dependencies</a></li>
+<li class="chapter" data-level="10.5.3" data-path="appendixC.html"><a href="appendixC.html#example-17"><i class="fa fa-check"></i><b>10.5.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="appendixC.html"><a href="appendixC.html#writeRunsFilter"><i class="fa fa-check"></i><b>10.6</b> writeRunsFilter</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="appendixC.html"><a href="appendixC.html#description-18"><i class="fa fa-check"></i><b>10.6.1</b> Description</a></li>
+<li class="chapter" data-level="10.6.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-16"><i class="fa fa-check"></i><b>10.6.2</b> Dependencies</a></li>
+<li class="chapter" data-level="10.6.3" data-path="appendixC.html"><a href="appendixC.html#examples"><i class="fa fa-check"></i><b>10.6.3</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="appendixC.html"><a href="appendixC.html#applyRunsFilter"><i class="fa fa-check"></i><b>10.7</b> applyRunsFilter</a><ul>
+<li class="chapter" data-level="10.7.1" data-path="appendixC.html"><a href="appendixC.html#description-19"><i class="fa fa-check"></i><b>10.7.1</b> Description</a></li>
+<li class="chapter" data-level="10.7.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-17"><i class="fa fa-check"></i><b>10.7.2</b> Dependencies</a></li>
+<li class="chapter" data-level="10.7.3" data-path="appendixC.html"><a href="appendixC.html#examples-1"><i class="fa fa-check"></i><b>10.7.3</b> Examples</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Motus</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="appendixB" class="section level1">
+<h1><span class="header-section-number">9</span> The motus package</h1>
+<p>The motus R package offers functions that work with .motus data to do common computations, summaries and plots. This appendix outlines these functions and provides examples on function use. Many of these functions work with both tbl and data.frame formats, however some require the data to be in sql format as specified below. Detailed instructions on accessing and formatting data are available in Chapter <a href="accessingData.html#accessingData">3</a>. The examples throughout this chapter work with the sample data which can be accessed and converted to various formats through the following code:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>) <span class="co"># download and access sample data in sql format, username: motus.sample, password: motus.sample</span>
+
+tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>) <span class="co"># extract &quot;alltags&quot;&quot; table from sql file &quot;sql.motus&quot;</span>
+df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as.data.frame</span>() ## convert the tbl &quot;tbl.alltags&quot; to a data.frame called &quot;df.alltags&quot;</code></pre></div>
+<p>You can access the function help pages:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">??sunRiseSet</code></pre></div>
+<p>Or view the underlying function code like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sunRiseSet</code></pre></div>
+<div id="sunRiseSet" class="section level2">
+<h2><span class="header-section-number">9.1</span> sunRiseSet</h2>
+<div id="description" class="section level3">
+<h3><span class="header-section-number">9.1.1</span> Description</h3>
+<p>Creates and adds a sunrise and sunset variable to a data.frame containing latitude, longitude, and a date/time as POSIXct or numeric.</p>
+</div>
+<div id="dependencies" class="section level3">
+<h3><span class="header-section-number">9.1.2</span> Dependencies</h3>
+<p><strong>data</strong> can be either a selected table from .motus detection data eg. “alltags”, or a data.frame of detection data including at a minimum variables for date/time, latitude, and longitude<br />
+<strong>lat</strong> variable with latitude values, defaults to recvDeployLat<br />
+<strong>lon</strong> variable with longitude values, defaults to recvDeployLon<br />
+<strong>ts</strong> variable with time in UTC as numeric or POSIXct, defaults to ts</p>
+</div>
+<div id="example" class="section level3">
+<h3><span class="header-section-number">9.1.3</span> Example</h3>
+<p>Add sunrise/sunset variables to the alltags data.frame</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alltags.df.sun &lt;-<span class="st"> </span><span class="kw">sunRiseSet</span>(df.alltags)
+<span class="kw">head</span>(alltags.df.sun)</code></pre></div>
+<pre><code>##    hitID runID batchID                  ts sig sigsd noise freq freqsd
+## 1  45107  8886      53 2015-10-26 11:19:49  52     0   -96    4      0
+## 2  45108  8886      53 2015-10-26 11:20:28  54     0   -96    4      0
+## 3  45109  8886      53 2015-10-26 11:21:17  55     0   -96    4      0
+## 4  45110  8886      53 2015-10-26 11:21:55  52     0   -96    4      0
+## 5  45111  8886      53 2015-10-26 11:22:44  49     0   -96    4      0
+## 6 199885 23305      64 2015-10-26 11:12:04  33     0   -96    4      0
+##    slop burstSlop done motusTagID ambigID port runLen bootnum tagProjID
+## 1 1e-04    0.0000    1      16047      NA    3      5      11       176
+## 2 1e-04   -0.0021    1      16047      NA    3      5      11       176
+## 3 1e-04    0.0001    1      16047      NA    3      5      11       176
+## 4 1e-04   -0.0010    1      16047      NA    3      5      11       176
+## 5 1e-04    0.0001    1      16047      NA    3      5      11       176
+## 6 1e-04    0.0000    1      16047      NA    1     11       4       176
+##   mfgID tagType codeSet   mfg tagModel tagLifespan nomFreq  tagBI pulseLen
+## 1   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5
+## 2   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5
+## 3   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5
+## 4   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5
+## 5   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5
+## 6   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5
+##   tagDeployID speciesID markerNumber markerType tagDeployStart
+## 1        1839      4670    135268103 metal band     1441908000
+## 2        1839      4670    135268103 metal band     1441908000
+## 3        1839      4670    135268103 metal band     1441908000
+## 4        1839      4670    135268103 metal band     1441908000
+## 5        1839      4670    135268103 metal band     1441908000
+## 6        1839      4670    135268103 metal band     1441908000
+##   tagDeployEnd tagDeployLat tagDeployLon tagDeployAlt
+## 1   1457632800      51.4839       -80.45           NA
+## 2   1457632800      51.4839       -80.45           NA
+## 3   1457632800      51.4839       -80.45           NA
+## 4   1457632800      51.4839       -80.45           NA
+## 5   1457632800      51.4839       -80.45           NA
+## 6   1457632800      51.4839       -80.45           NA
+##                                                                                                                                                                                             tagDeployComments
+## 1 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+## 2 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+## 3 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+## 4 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+## 5 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+## 6 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+##                               fullID deviceID recvDeployID recvDeployLat
+## 1 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699
+## 2 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699
+## 3 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699
+## 4 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699
+## 5 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699
+## 6 SampleData#378:9.7@166.38(M.16047)      515         2512      42.68067
+##   recvDeployLon recvDeployAlt      recv recvDeployName recvSiteName
+## 1     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
+## 2     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
+## 3     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
+## 4     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
+## 5     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
+## 6     -72.47392            NA Lotek-164  BennettMeadow         &lt;NA&gt;
+##   isRecvMobile recvProjID antType antBearing antHeight speciesEN
+## 1            0         74  yagi-9        127        NA  Red Knot
+## 2            0         74  yagi-9        127        NA  Red Knot
+## 3            0         74  yagi-9        127        NA  Red Knot
+## 4            0         74  yagi-9        127        NA  Red Knot
+## 5            0         74  yagi-9        127        NA  Red Knot
+## 6            0         74  yagi-9        243        NA  Red Knot
+##            speciesFR       speciesSci speciesGroup tagProjName
+## 1 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+## 2 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+## 3 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+## 4 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+## 5 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+## 6 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+##   recvProjName gpsLat gpsLon gpsAlt             sunrise
+## 1         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 2         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 3         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 4         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 5         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 6         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:15:58
+##                sunset
+## 1 2015-10-26 21:52:11
+## 2 2015-10-26 21:52:11
+## 3 2015-10-26 21:52:11
+## 4 2015-10-26 21:52:11
+## 5 2015-10-26 21:52:11
+## 6 2015-10-26 21:51:06</code></pre>
+</div>
+</div>
+<div id="plotAllTagsCoor" class="section level2">
+<h2><span class="header-section-number">9.2</span> plotAllTagsCoord</h2>
+<div id="description-1" class="section level3">
+<h3><span class="header-section-number">9.2.1</span> Description</h3>
+<p>Plot latitude/longitude vs time (UTC rounded to the hour) for each tag using .motus detection data. Coordinate is by default taken from a receivers GPS latitude recordings.</p>
+</div>
+<div id="dependencies-1" class="section level3">
+<h3><span class="header-section-number">9.2.2</span> Dependencies</h3>
+<p><strong>data</strong> a selected table from .motus detection data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for date/time, and either latitude or longitude<br />
+<strong>tagsPerPanel</strong> number of tags in each panel of the plot, by default this is 5<br />
+<strong>coordinate</strong> variable name from which to obtain location values, by default it is set to recvDeployLat<br />
+<strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
+<strong>recvDepName</strong> variable consisting of receiver deployment name<br />
+<strong>fullID</strong> variable consisting of a tag fullID<br />
+<strong>mfgID</strong> variable consisting of a tags manufacturer ID</p>
+</div>
+<div id="example-1" class="section level3">
+<h3><span class="header-section-number">9.2.3</span> Example</h3>
+<p>Plot tags select tags from tbl.alltags with 3 tags per panel</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotAllTagsCoord</span>(
+  <span class="kw">filter</span>(tbl.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">19129</span>, <span class="dv">16011</span>, <span class="dv">17357</span>, <span class="dv">16035</span>, <span class="dv">22897</span>, <span class="dv">23316</span>)), 
+  <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>## Warning: Missing values are always removed in SQL.
+## Use `AVG(x, na.rm = TRUE)` to silence this warning</code></pre>
+<p><img src="MotusRBook_files/figure-html/plotAllTagsCoord-1.png" width="672" /></p>
+</div>
+</div>
+<div id="plotAllTagsSite" class="section level2">
+<h2><span class="header-section-number">9.3</span> plotAllTagsSite</h2>
+<div id="description-2" class="section level3">
+<h3><span class="header-section-number">9.3.1</span> Description</h3>
+<p>Plot latitude/longitude vs time (UTC rounded to the hour) for each tag using .motus detection data. Coordinate is by default taken from a receivers GPS latitude recordings.</p>
+</div>
+<div id="dependencies-2" class="section level3">
+<h3><span class="header-section-number">9.3.2</span> Dependencies</h3>
+<p><strong>data</strong> a selected table from .motus detection data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for date/time, and either latitude or longitude<br />
+<strong>tagsPerPanel</strong> number of tags in each panel of the plot, by default this is 5<br />
+<strong>coordinate</strong> variable name from which to obtain location values, by default it is set to recvDeployLat<br />
+<strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
+<strong>recvDepName</strong> variable consisting of receiver deployment name<br />
+<strong>fullID</strong> variable consisting of a tag fullID<br />
+<strong>mfgID</strong> variable consisting of a tags manufacturer ID</p>
+</div>
+<div id="example-2" class="section level3">
+<h3><span class="header-section-number">9.3.3</span> Example</h3>
+<p>Plot tbl file tbl.alltags using gpsLat and 3 tags per panel for select species Red Knot</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotAllTagsSite</span>(<span class="kw">filter</span>(tbl.alltags, speciesEN <span class="op">==</span><span class="st"> &quot;Red Knot&quot;</span>), 
+                <span class="dt">coordinate =</span> <span class="st">&quot;gpsLat&quot;</span>, 
+                <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</code></pre></div>
+</div>
+</div>
+<div id="plotDailySiteSum" class="section level2">
+<h2><span class="header-section-number">9.4</span> plotDailySiteSum</h2>
+<div id="description-3" class="section level3">
+<h3><span class="header-section-number">9.4.1</span> Description</h3>
+<p>Plots total number of detections across all tags, and total number of tags detected per day for a specified site. Depends on siteSumDaily function.</p>
+</div>
+<div id="dependencies-3" class="section level3">
+<h3><span class="header-section-number">9.4.2</span> Dependencies</h3>
+<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for motusTagID, sig, recvDepName, ts<br />
+<strong>motusTagID</strong> variable consisting of a motus tag ID<br />
+<strong>sig</strong> variable consisting a signal strength variable<br />
+<strong>recvDepName</strong> variable consisting of receiver deployment name<br />
+<strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts</p>
+</div>
+<div id="example-3" class="section level3">
+<h3><span class="header-section-number">9.4.3</span> Example</h3>
+<p>Plot of all tag detections at site Longridge using data.frame df.alltags</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotDailySiteSum</span>(df.alltags, <span class="dt">recvDeployName =</span> <span class="st">&quot;Longridge&quot;</span>)</code></pre></div>
+<p><img src="MotusRBook_files/figure-html/plotDailySiteSum-1.png" width="672" /></p>
+</div>
+</div>
+<div id="plotRouteMap" class="section level2">
+<h2><span class="header-section-number">9.5</span> plotRouteMap</h2>
+<div id="description-4" class="section level3">
+<h3><span class="header-section-number">9.5.1</span> Description</h3>
+<p>Google map of routes of Motus tag detections coloured by motusTagID. User defines a date range to show points for receivers that were operational at some point during specified date range. ### Dependencies <strong>data</strong> a .motus sql file<br />
+<strong>maptype</strong> google map type to display, can be: “terrain” , “roadmap”, “satellite”, or “hybrid”<br />
+<strong>latCentre</strong> latitude to centre map around<br />
+<strong>lonCentre</strong> longitude to centre map around<br />
+<strong>zoom</strong> integer for zoom 3-21, 3 being continent level, 10 being city-scale<br />
+<strong>recvStart</strong> start date for date range of active receivers<br />
+<strong>recvEnd</strong> end date for date range of active receivers</p>
+</div>
+<div id="example-4" class="section level3">
+<h3><span class="header-section-number">9.5.2</span> Example</h3>
+<p>Plot routemap of all detection data, with “terrain” maptype, and receivers active between 2016-01-01 and 2017-01-01</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotRouteMap</span>(sql.motus, 
+             <span class="dt">maptype =</span> <span class="st">&quot;terrain&quot;</span>, 
+             <span class="dt">latCentre =</span> <span class="dv">44</span>, <span class="dt">lonCentre =</span> <span class="op">-</span><span class="dv">70</span>, <span class="dt">zoom =</span> <span class="dv">5</span>, 
+             <span class="dt">recvStart =</span> <span class="st">&quot;2016-01-01&quot;</span>, <span class="dt">recvEnd =</span> <span class="st">&quot;2016-12-31&quot;</span>)</code></pre></div>
+<pre><code>## Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=44,-70&amp;zoom=5&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;language=en-EN&amp;sensor=false</code></pre>
+<pre><code>## Warning: Removed 120 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 685 rows containing missing values (geom_path).</code></pre>
+<p><img src="MotusRBook_files/figure-html/plotRouteMap-1.png" width="672" /></p>
+</div>
+</div>
+<div id="plotSite" class="section level2">
+<h2><span class="header-section-number">9.6</span> plotSite</h2>
+<div id="description-5" class="section level3">
+<h3><span class="header-section-number">9.6.1</span> Description</h3>
+</div>
+<div id="dependencies-4" class="section level3">
+<h3><span class="header-section-number">9.6.2</span> Dependencies</h3>
+<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for ts, antBearing, fullID, recvDepName<br />
+<strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
+<strong>antBearing</strong> variable consisting antenna bearing variable<br />
+<strong>fullID</strong> variable consisting of a tag fullID<br />
+<strong>recvDepName</strong> variable consisting of receiver deployment name</p>
+</div>
+<div id="example-5" class="section level3">
+<h3><span class="header-section-number">9.6.3</span> Example</h3>
+<p>Plot only detections at a specific site; Piskwamish for data.frame df.alltags</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotSite</span>(<span class="kw">filter</span>(df.alltags, recvDeployName <span class="op">==</span><span class="st"> &quot;Piskwamish&quot;</span>))</code></pre></div>
+<p><img src="MotusRBook_files/figure-html/plotSite-1.png" width="672" /></p>
+</div>
+</div>
+<div id="plotSiteSig" class="section level2">
+<h2><span class="header-section-number">9.7</span> plotSiteSig</h2>
+<div id="description-6" class="section level3">
+<h3><span class="header-section-number">9.7.1</span> Description</h3>
+<p>Plot signal strength vs time for all tags detected at a specified site, coloured by antenna</p>
+</div>
+<div id="dependencies-5" class="section level3">
+<h3><span class="header-section-number">9.7.2</span> Dependencies</h3>
+<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for antBearing, ts, lat, sig, fullID, recvDepName<br />
+<strong>antBearing</strong> variable consisting antenna bearing variable<br />
+<strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
+<strong>recvDeployLat</strong> variable consisting of receiver deployment latitude<br />
+<strong>sig</strong> variable consisting a signal strength variable<br />
+<strong>fullID</strong> variable consisting of a tag fullID<br />
+<strong>recvDepName</strong> variable consisting of receiver deployment name</p>
+</div>
+<div id="example-6" class="section level3">
+<h3><span class="header-section-number">9.7.3</span> Example</h3>
+<p>Plot select tags for site Piskwamish</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotSiteSig</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16037</span>, <span class="dv">16039</span>, <span class="dv">16035</span>)), <span class="dt">recvDeployName =</span> <span class="st">&quot;Netitishi&quot;</span>)</code></pre></div>
+<p><img src="MotusRBook_files/figure-html/plotSiteSig-1.png" width="672" /></p>
+</div>
+</div>
+<div id="plotTagSig" class="section level2">
+<h2><span class="header-section-number">9.8</span> plotTagSig</h2>
+<div id="description-7" class="section level3">
+<h3><span class="header-section-number">9.8.1</span> Description</h3>
+<p>Plot signal strength vs time for specified tag, faceted by site (ordered by latitude) and coloured by antenna</p>
+</div>
+<div id="dependencies-6" class="section level3">
+<h3><span class="header-section-number">9.8.2</span> Dependencies</h3>
+<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for motusTagID, sig, ts, antBearing, recvDeployLat, fullID, recvDepName<br />
+<strong>motusTagID</strong> variable consisting of a motus tag ID<br />
+<strong>antBearing</strong> variable consisting antenna bearing variable<br />
+<strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
+<strong>recvDeployLat</strong> variable consisting of receiver deployment latitude<br />
+<strong>sig</strong> variable consisting a signal strength variable<br />
+<strong>fullID</strong> variable consisting of a tag fullID<br />
+<strong>recvDepName</strong> variable consisting of receiver deployment name</p>
+</div>
+<div id="example-7" class="section level3">
+<h3><span class="header-section-number">9.8.3</span> Example</h3>
+<p>Plot signal strength of a specified tag using tbl file tbl.alltags</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotTagSig</span>(tbl.alltags, <span class="dt">motusTagID =</span> <span class="dv">16035</span>)</code></pre></div>
+<p><img src="MotusRBook_files/figure-html/plotTagSig-1.png" width="672" /></p>
+</div>
+</div>
+<div id="simSiteDet" class="section level2">
+<h2><span class="header-section-number">9.9</span> simSiteDet</h2>
+<div id="description-8" class="section level3">
+<h3><span class="header-section-number">9.9.1</span> Description</h3>
+<p>Creates a data.frame consisting of only detections of tags that are detected at two or more receivers at the same time. ### Dependencies <strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for ts, motusTagID, recvDepName<br />
+<strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
+<strong>motusTagID</strong> variable consisting of a motus tag ID<br />
+<strong>recvDepName</strong> variable consisting of receiver deployment name</p>
+</div>
+<div id="example-8" class="section level3">
+<h3><span class="header-section-number">9.9.2</span> Example</h3>
+<p>To get a data.frame called “simSites” of just simultaneous detections from a data.frame df.alltags</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simSites &lt;-<span class="st"> </span><span class="kw">simSiteDet</span>(df.alltags)
+<span class="kw">head</span>(simSites)</code></pre></div>
+<pre><code>##   motusTagID                  ts num.dup     hitID    runID batchID
+## 1      16047 2015-10-26 11:20:28       2     45108     8886      53
+## 2      16047 2015-10-26 11:20:28       2    199896    23305      64
+## 3      16047 2015-10-26 11:22:44       2    199902    23306      64
+## 4      16047 2015-10-26 11:22:44       2     45111     8886      53
+## 5      22897 2017-05-18 02:27:59       2 159449264  9005196   64491
+## 6      22897 2017-05-18 02:27:59       2 201832550 10191953   66308
+##        sig   sigsd    noise   freq freqsd  slop burstSlop done ambigID
+## 1  54.0000  0.0000 -96.0000 4.0000 0.0000 1e-04   -0.0021    1      NA
+## 2  20.0000  0.0000 -96.0000 4.0000 0.0000 1e-04    0.0012    1      NA
+## 3  28.0000  0.0000 -96.0000 4.0000 0.0000 1e-04   -0.0006    1      NA
+## 4  49.0000  0.0000 -96.0000 4.0000 0.0000 1e-04    0.0001    1      NA
+## 5 -63.7422 14.6880 -76.3434 2.7883 0.0196 1e-04    0.0003    1    -114
+## 6 -67.5413 14.6268 -75.6038 2.6942 0.0061 1e-04    0.0000    1    -114
+##   port runLen bootnum tagProjID mfgID tagType codeSet   mfg tagModel
+## 1    3      5      11       176   378      ID  Lotek4 Lotek NTQB-3-2
+## 2    1     11       4       176   378      ID  Lotek4 Lotek NTQB-3-2
+## 3    3      6       4       176   378      ID  Lotek4 Lotek NTQB-3-2
+## 4    3      5      11       176   378      ID  Lotek4 Lotek NTQB-3-2
+## 5    3      5     145       176 303.1      ID  Lotek4 Lotek NTQB-4-2
+## 6    1      6     374       176 303.1      ID  Lotek4 Lotek NTQB-4-2
+##   tagLifespan nomFreq  tagBI pulseLen tagDeployID speciesID markerNumber
+## 1          NA  166.38 9.6971      2.5        1839      4670    135268103
+## 2          NA  166.38 9.6971      2.5        1839      4670    135268103
+## 3          NA  166.38 9.6971      2.5        1839      4670    135268103
+## 4          NA  166.38 9.6971      2.5        1839      4670    135268103
+## 5          NA  166.38 5.2978      2.5       10485      4670   9822-53123
+## 6          NA  166.38 5.2978      2.5       10485      4670   9822-53123
+##   markerType tagDeployStart tagDeployEnd tagDeployLat tagDeployLon
+## 1 metal band     1441908000   1457632800     51.48390    -80.45000
+## 2 metal band     1441908000   1457632800     51.48390    -80.45000
+## 3 metal band     1441908000   1457632800     51.48390    -80.45000
+## 4 metal band     1441908000   1457632800     51.48390    -80.45000
+## 5 metal band     1475337600   1497283200     50.19278    -63.74528
+## 6 metal band     1475337600   1497283200     50.19278    -63.74528
+##   tagDeployAlt
+## 1           NA
+## 2           NA
+## 3           NA
+## 4           NA
+## 5           NA
+## 6           NA
+##                                                                                                                                                                                             tagDeployComments
+## 1 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+## 2 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+## 3 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+## 4 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+## 5                                                                                                                                                                                                        &lt;NA&gt;
+## 6                                                                                                                                                                                                        &lt;NA&gt;
+##                                 fullID deviceID recvDeployID recvDeployLat
+## 1   SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699
+## 2   SampleData#378:9.7@166.38(M.16047)      515         2512      42.68067
+## 3   SampleData#378:9.7@166.38(M.16047)      515         2512      42.68067
+## 4   SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699
+## 5 SampleData#303.1:5.3@166.38(M.22897)      297         2146      42.61540
+## 6 SampleData#303.1:5.3@166.38(M.22897)      304         2549      42.58290
+##   recvDeployLon recvDeployAlt            recv recvDeployName recvSiteName
+## 1     -72.71657            NA       Lotek-159      Shelburne         &lt;NA&gt;
+## 2     -72.47392            NA       Lotek-164  BennettMeadow         &lt;NA&gt;
+## 3     -72.47392            NA       Lotek-164  BennettMeadow         &lt;NA&gt;
+## 4     -72.71657            NA       Lotek-159      Shelburne         &lt;NA&gt;
+## 5     -80.45810            NA SG-5113BBBK2853         BSC HQ         &lt;NA&gt;
+## 6     -80.39840            NA SG-5113BBBK2972        Old Cut         &lt;NA&gt;
+##   isRecvMobile recvProjID      antType antBearing antHeight speciesEN
+## 1            0         74       yagi-9        127        NA  Red Knot
+## 2            0         74       yagi-9        243        NA  Red Knot
+## 3            0         74       yagi-9        120        NA  Red Knot
+## 4            0         74       yagi-9        127        NA  Red Knot
+## 5            0          1 yagi-9-laird        180        NA  Red Knot
+## 6            0          1 yagi-9-laird        290        25  Red Knot
+##            speciesFR       speciesSci speciesGroup tagProjName
+## 1 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+## 2 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+## 3 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+## 4 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+## 5 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+## 6 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+##   recvProjName gpsLat gpsLon gpsAlt
+## 1         &lt;NA&gt;     NA     NA     NA
+## 2         &lt;NA&gt;     NA     NA     NA
+## 3         &lt;NA&gt;     NA     NA     NA
+## 4         &lt;NA&gt;     NA     NA     NA
+## 5         &lt;NA&gt;     NA     NA     NA
+## 6         &lt;NA&gt;     NA     NA     NA</code></pre>
+</div>
+</div>
+<div id="siteSum" class="section level2">
+<h2><span class="header-section-number">9.10</span> siteSum</h2>
+<div id="description-9" class="section level3">
+<h3><span class="header-section-number">9.10.1</span> Description</h3>
+<p>Creates a summary of the first and last detection at a site, the length of time between first and last detection, the number of tags, and the total number of detections at a site. Plots total number of detections across all tags, and total number of tags detected at each site.</p>
+</div>
+<div id="dependencies-7" class="section level3">
+<h3><span class="header-section-number">9.10.2</span> Dependencies</h3>
+<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for motusTagID, sig, recvDeployLat, recvDepName, and ts<br />
+<strong>motusTagID</strong> variable consisting of a motus tag ID<br />
+<strong>sig</strong> variable consisting a signal strength variable<br />
+<strong>recvDeployLat</strong> variable consisting of receiver deployment latitude<br />
+<strong>recvDepName</strong> variable consisting of receiver deployment name<br />
+<strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
+<strong>units</strong> units to display time difference, defaults to “hours”, options include “secs”, “mins”, “hours”, “days”, “weeks”</p>
+</div>
+<div id="example-9" class="section level3">
+<h3><span class="header-section-number">9.10.3</span> Example</h3>
+<p>Create site summaries for select sites with time in minutes</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">site_summary &lt;-<span class="st"> </span><span class="kw">siteSum</span>(<span class="kw">filter</span>(df.alltags, 
+                               recvDeployName <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Niapiskau&quot;</span>, <span class="st">&quot;Netitishi&quot;</span>, <span class="st">&quot;Old Cur&quot;</span>, <span class="st">&quot;Washkaugou&quot;</span>)),
+                        <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)</code></pre></div>
+<p><img src="MotusRBook_files/figure-html/siteSum-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(site_summary)</code></pre></div>
+<pre><code>## # A tibble: 3 x 6
+##   recvDeployName first_ts            last_ts             tot_ts   num.tags
+##   &lt;fct&gt;          &lt;dttm&gt;              &lt;dttm&gt;              &lt;time&gt;      &lt;int&gt;
+## 1 Niapiskau      2016-10-01 23:47:57 2016-10-27 00:03:21 36015.4~        6
+## 2 Washkaugou     2016-10-09 23:52:45 2016-10-10 00:00:42 7.94683~        2
+## 3 Netitishi      2015-08-14 17:53:49 2015-09-08 01:10:13 34996.3~        7
+## # ... with 1 more variable: num.det &lt;int&gt;</code></pre>
+</div>
+</div>
+<div id="siteSumDaily" class="section level2">
+<h2><span class="header-section-number">9.11</span> siteSumDaily</h2>
+<div id="description-10" class="section level3">
+<h3><span class="header-section-number">9.11.1</span> Description</h3>
+<p>Creates a summary of the first and last daily detection at a site, the length of time between first and last detection, the number of tags, and the total number of detections at a site for each day. Same as siteSum, but daily by site.</p>
+</div>
+<div id="dependencies-8" class="section level3">
+<h3><span class="header-section-number">9.11.2</span> Dependencies</h3>
+<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for motusTagID, sig, recvDepName, ts<br />
+<strong>motusTagID</strong> variable consisting of a motus tag ID<br />
+<strong>sig</strong> variable consisting a signal strength variable<br />
+<strong>recvDepName</strong> variable consisting of receiver deployment name<br />
+<strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
+<strong>units</strong> units to display time difference, defaults to “hours”, options include “secs”, “mins”, “hours”, “days”, “weeks”</p>
+</div>
+<div id="example-10" class="section level3">
+<h3><span class="header-section-number">9.11.3</span> Example</h3>
+<p>Create site summaries for all sites within detection data with time in minutes using tbl file tbl.alltags</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily_site_summary &lt;-<span class="st"> </span><span class="kw">siteSumDaily</span>(tbl.alltags, <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)
+<span class="kw">head</span>(daily_site_summary)</code></pre></div>
+<pre><code>##               recvDeployName       date            first_ts
+## 1      Assateague State Park 2015-09-13 2015-09-13 10:12:50
+## 2                    Baccaro 2017-05-19 2017-05-19 16:01:21
+## 3              BennettMeadow 2015-10-26 2015-10-26 11:12:04
+## 4 Binbrook_Conservation_Area 2017-05-18 2017-05-18 03:13:25
+## 5                       BISE 2015-10-26 2015-10-26 17:55:47
+## 6                  Blandford 2015-12-26 2015-12-26 14:58:27
+##               last_ts         tot_ts num_tags num_det
+## 1 2015-09-13 10:14:40  1.828847 mins        1       6
+## 2 2017-05-19 16:02:40  1.323297 mins        3       6
+## 3 2015-10-26 11:30:49 18.747692 mins        1      27
+## 4 2017-05-18 03:13:46  0.353195 mins        2       6
+## 5 2015-10-26 19:16:55 81.132212 mins        1      44
+## 6 2015-12-26 14:58:47  0.323150 mins        1       2</code></pre>
+</div>
+</div>
+<div id="siteTrans" class="section level2">
+<h2><span class="header-section-number">9.12</span> siteTrans</h2>
+<div id="description-11" class="section level3">
+<h3><span class="header-section-number">9.12.1</span> Description</h3>
+<p>Creates a data.frame of transitions between sites; detections are ordered by detection time, then “transitions” are identified as the period between the final detection at site x (possible “departure”), and the first detection (possible “arrival”) at site y (ordered chronologically). Each row contains the last detection time and lat/lon of site x, first detection time and lat/lon of site y, distance between the site pair, time between detections, rate of movement between detections, and bearing between site pairs.</p>
+</div>
+<div id="dependencies-9" class="section level3">
+<h3><span class="header-section-number">9.12.2</span> Dependencies</h3>
+<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for ts, motusTagID, tagDeployID, recvDeployLat, recvDeployLon, recvDepName<br />
+<strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
+<strong>motusTagID</strong> variable consisting of a motus tag ID<br />
+<strong>tagDeployID</strong> variable consisting of Motus tag deployment ID<br />
+<strong>recvDeployLat</strong> variable consisting of receiver deployment latitude<br />
+<strong>recvDeployLon</strong> variable consisting of receiver deployment longitude<br />
+<strong>recvDepName</strong> variable consisting of receiver deployment name</p>
+</div>
+<div id="example-11" class="section level3">
+<h3><span class="header-section-number">9.12.3</span> Example</h3>
+<p>View site transitions for only tag 16037 from data.frame df.alltags</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">transitions &lt;-<span class="st"> </span><span class="kw">siteTrans</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16037</span>), 
+                         <span class="dt">latCoord =</span> <span class="st">&quot;recvDeployLat&quot;</span>, <span class="dt">lonCoord =</span> <span class="st">&quot;recvDeployLon&quot;</span>)
+<span class="kw">head</span>(transitions)</code></pre></div>
+<pre><code>## # A tibble: 6 x 14
+## # Groups:   motusTagID, tagDeployID [1]
+##   motusTagID tagDeployID ts.x                lat.x lon.x recvDeployName.x 
+##        &lt;int&gt;       &lt;int&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;            
+## 1      16037        1825 2015-08-17 17:02:39  NA    NA   NP mobile        
+## 2      16037        1825 2015-08-28 16:40:18  51.5 -80.4 North Bluff      
+## 3      16037        1825 2015-09-08 01:10:13  51.3 -80.1 Netitishi        
+## 4      16037        1825 2015-09-08 18:37:16  44.6 -65.8 Comeau (Marshall~
+## 5      16037        1825 2015-09-13 19:46:27  39.0 -74.8 NWW              
+## 6      16037        1825 2015-09-14 15:56:49  37.1 -76.0 BULL             
+## # ... with 8 more variables: ts.y &lt;dttm&gt;, lat.y &lt;dbl&gt;, lon.y &lt;dbl&gt;,
+## #   recvDeployName.y &lt;chr&gt;, tot_ts &lt;time&gt;, dist &lt;dbl&gt;, rate &lt;dbl&gt;,
+## #   bearing &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div id="tagSum" class="section level2">
+<h2><span class="header-section-number">9.13</span> tagSum</h2>
+<div id="description-12" class="section level3">
+<h3><span class="header-section-number">9.13.1</span> Description</h3>
+<p>Creates a summary for each tag of it’s first and last detection time, first and last detection site, length of time between first and last detection, straight line distance between first and last detection site, rate of movement, and bearing</p>
+</div>
+<div id="dependencies-10" class="section level3">
+<h3><span class="header-section-number">9.13.2</span> Dependencies</h3>
+<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection dataincluding at a minimum variables for motusTagID, fullID, recvDeployLat, recvDeployLon, recvDepName, ts<br />
+<strong>motusTagID</strong> variable consisting of a motus tag ID<br />
+<strong>fullID</strong> variable consisting of a tag fullID<br />
+<strong>recvDeployLat</strong> variable consisting of receiver deployment latitude<br />
+<strong>recvDeployLon</strong> variable consisting of receiver deployment longitude<br />
+<strong>recvDepName</strong> variable consisting of receiver deployment name<br />
+<strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts</p>
+</div>
+<div id="example-12" class="section level3">
+<h3><span class="header-section-number">9.13.3</span> Example</h3>
+<p>Create tag summary for all tags within detection data using tbl file tbl.alltags</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tag_summary &lt;-<span class="st"> </span><span class="kw">tagSum</span>(tbl.alltags)
+<span class="kw">head</span>(tag_summary)</code></pre></div>
+<pre><code>##                               fullID            first_ts
+## 1      Niles#152:6.1@166.38(M.10811) 2015-08-03 06:37:11
+## 2                   ?proj?-0#395:9.7 2015-07-23 10:10:54
+## 3      Selva#172:6.1@166.38(M.17021) 2015-09-02 04:06:07
+## 4 SampleData#152:6.1@166.38(M.16011) 2015-08-03 06:37:11
+## 5 SampleData#395:9.7@166.38(M.16052) 2015-09-12 17:38:04
+## 6 SampleData#179:6.1@166.38(M.16037) 2015-08-17 17:01:38
+##               last_ts  first_site     last_site recvDeployLat.x
+## 1 2015-08-03 06:37:35 North Bluff   North Bluff         51.4839
+## 2 2015-09-02 20:06:13     Machias        Ruby&#39;s         44.5023
+## 3 2015-09-03 00:27:16   Netitishi           MDR         51.2913
+## 4 2015-09-18 09:37:39 North Bluff           NWW         51.4839
+## 5 2015-10-20 20:43:43   Longridge    Mount Thom         51.8231
+## 6 2015-11-02 13:21:42   NP mobile Hillman_Marsh              NA
+##   recvDeployLat.y           tot_ts      dist       rate    bearing num_det
+## 1        51.48390      24.386 secs       0.0  0.0000000 -180.00000       4
+## 2        62.89072 3578118.674 secs 2360483.7  0.6596997   23.48228      12
+## 3        43.96893   73268.958 secs  981595.5 13.3971542 -143.17632     279
+## 4        39.02827 3985228.228 secs 1689644.4  0.4239768 -140.15017     127
+## 5        45.55480 3294338.784 secs  835297.8  0.2535555 -144.09424     147
+## 6        42.04270 6639604.044 secs        NA         NA         NA    1353</code></pre>
+</div>
+</div>
+<div id="tagSumSite" class="section level2">
+<h2><span class="header-section-number">9.14</span> tagSumSite</h2>
+<div id="description-13" class="section level3">
+<h3><span class="header-section-number">9.14.1</span> Description</h3>
+<p>Creates a summary for each tag of it’s first and last detection time at each site, length of time between first and last detection of each site, and total number of detections at each site.</p>
+</div>
+<div id="dependencies-11" class="section level3">
+<h3><span class="header-section-number">9.14.2</span> Dependencies</h3>
+<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for motusTagID, fullID, recvDepName, ts<br />
+<strong>motusTagID</strong> variable consisting of a motus tag ID<br />
+<strong>fullID</strong> variable consisting of a tag fullID<br />
+<strong>recvDepName</strong> variable consisting of receiver deployment name<br />
+<strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts</p>
+</div>
+<div id="example-13" class="section level3">
+<h3><span class="header-section-number">9.14.3</span> Example</h3>
+<p>Create tag summaries for only select tags with time in default hours with data.frame df.alltags</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tag_site_summary &lt;-<span class="st"> </span><span class="kw">tagSumSite</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16047</span>, <span class="dv">16037</span>, <span class="dv">16039</span>)))
+<span class="kw">head</span>(tag_site_summary)</code></pre></div>
+<pre><code>##                               fullID        recvDeployName
+## 1 SampleData#179:6.1@166.38(M.16037)                  BULL
+## 2 SampleData#179:6.1@166.38(M.16037) Comeau (Marshalltown)
+## 3 SampleData#179:6.1@166.38(M.16037)         Hillman_Marsh
+## 4 SampleData#179:6.1@166.38(M.16037)             Netitishi
+## 5 SampleData#179:6.1@166.38(M.16037)           North Bluff
+## 6 SampleData#179:6.1@166.38(M.16037)             NP mobile
+##              first_ts             last_ts             tot_ts num_det
+## 1 2015-09-14 15:55:48 2015-09-14 15:56:49   0.01693000 hours       2
+## 2 2015-09-08 18:29:57 2015-09-08 18:37:16   0.12192881 hours       6
+## 3 2015-11-02 13:20:47 2015-11-02 13:21:42   0.01525056 hours       2
+## 4 2015-08-30 01:36:08 2015-09-08 01:10:13 215.56819269 hours    1166
+## 5 2015-08-23 15:13:57 2015-08-28 16:40:18 121.43902892 hours      26
+## 6 2015-08-17 17:01:38 2015-08-17 17:02:39   0.01693344 hours      11</code></pre>
+</div>
+</div>
+<div id="timeToSunriset" class="section level2">
+<h2><span class="header-section-number">9.15</span> timeToSunriset</h2>
+<div id="description-14" class="section level3">
+<h3><span class="header-section-number">9.15.1</span> Description</h3>
+<p>Creates and adds variables for time to, and time from sunrise/sunset based on a variable of POSIXct dates/times data.frame must contain latitude, longitude, and a date/time variable</p>
+</div>
+<div id="dependencies-12" class="section level3">
+<h3><span class="header-section-number">9.15.2</span> Dependencies</h3>
+<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for date/time, latitude, and longitude<br />
+<strong>lat</strong> variable with latitude values, defaults to recvDeployLat<br />
+<strong>lon</strong> variable with latitude values, defaults to recvDeployLat<br />
+<strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
+<strong>units</strong> units to display time difference, defaults to “hours”, options include “secs”, “mins”, “hours”, “days”, “weeks”</p>
+</div>
+<div id="example-14" class="section level3">
+<h3><span class="header-section-number">9.15.3</span> Example</h3>
+<p>Get sunrise and sunset information with units in minutes using tbl file tbl.alltags</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sunrise &lt;-<span class="st"> </span><span class="kw">timeToSunriset</span>(tbl.alltags, <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)
+<span class="kw">head</span>(sunrise)</code></pre></div>
+<pre><code>##    hitID runID batchID                  ts sig sigsd noise freq freqsd
+## 1  45107  8886      53 2015-10-26 11:19:49  52     0   -96    4      0
+## 2  45108  8886      53 2015-10-26 11:20:28  54     0   -96    4      0
+## 3  45109  8886      53 2015-10-26 11:21:17  55     0   -96    4      0
+## 4  45110  8886      53 2015-10-26 11:21:55  52     0   -96    4      0
+## 5  45111  8886      53 2015-10-26 11:22:44  49     0   -96    4      0
+## 6 199885 23305      64 2015-10-26 11:12:04  33     0   -96    4      0
+##    slop burstSlop done motusTagID ambigID port runLen bootnum tagProjID
+## 1 1e-04    0.0000    1      16047      NA    3      5      11       176
+## 2 1e-04   -0.0021    1      16047      NA    3      5      11       176
+## 3 1e-04    0.0001    1      16047      NA    3      5      11       176
+## 4 1e-04   -0.0010    1      16047      NA    3      5      11       176
+## 5 1e-04    0.0001    1      16047      NA    3      5      11       176
+## 6 1e-04    0.0000    1      16047      NA    1     11       4       176
+##   mfgID tagType codeSet   mfg tagModel tagLifespan nomFreq  tagBI pulseLen
+## 1   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5
+## 2   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5
+## 3   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5
+## 4   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5
+## 5   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5
+## 6   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5
+##   tagDeployID speciesID markerNumber markerType tagDeployStart
+## 1        1839      4670    135268103 metal band     1441908000
+## 2        1839      4670    135268103 metal band     1441908000
+## 3        1839      4670    135268103 metal band     1441908000
+## 4        1839      4670    135268103 metal band     1441908000
+## 5        1839      4670    135268103 metal band     1441908000
+## 6        1839      4670    135268103 metal band     1441908000
+##   tagDeployEnd tagDeployLat tagDeployLon tagDeployAlt
+## 1   1457632800      51.4839       -80.45           NA
+## 2   1457632800      51.4839       -80.45           NA
+## 3   1457632800      51.4839       -80.45           NA
+## 4   1457632800      51.4839       -80.45           NA
+## 5   1457632800      51.4839       -80.45           NA
+## 6   1457632800      51.4839       -80.45           NA
+##                                                                                                                                                                                             tagDeployComments
+## 1 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+## 2 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+## 3 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+## 4 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+## 5 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+## 6 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
+##                               fullID deviceID recvDeployID recvDeployLat
+## 1 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699
+## 2 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699
+## 3 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699
+## 4 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699
+## 5 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699
+## 6 SampleData#378:9.7@166.38(M.16047)      515         2512      42.68067
+##   recvDeployLon recvDeployAlt      recv recvDeployName recvSiteName
+## 1     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
+## 2     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
+## 3     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
+## 4     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
+## 5     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
+## 6     -72.47392            NA Lotek-164  BennettMeadow         &lt;NA&gt;
+##   isRecvMobile recvProjID antType antBearing antHeight speciesEN
+## 1            0         74  yagi-9        127        NA  Red Knot
+## 2            0         74  yagi-9        127        NA  Red Knot
+## 3            0         74  yagi-9        127        NA  Red Knot
+## 4            0         74  yagi-9        127        NA  Red Knot
+## 5            0         74  yagi-9        127        NA  Red Knot
+## 6            0         74  yagi-9        243        NA  Red Knot
+##            speciesFR       speciesSci speciesGroup tagProjName
+## 1 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+## 2 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+## 3 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+## 4 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+## 5 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+## 6 Bécasseau maubèche Calidris canutus        BIRDS  SampleData
+##   recvProjName gpsLat gpsLon gpsAlt             sunrise
+## 1         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 2         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 3         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 4         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 5         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 6         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:15:58
+##                sunset ts_to_set ts_since_set  ts_to_rise ts_since_rise
+## 1 2015-10-26 21:52:11  632.3533     806.2056 1438.215974      3.013824
+## 2 2015-10-26 21:52:11  631.7104     806.8485 1437.573097      3.656701
+## 3 2015-10-26 21:52:11  630.9109     807.6480 1436.773577      4.456221
+## 4 2015-10-26 21:52:11  630.2513     808.3076 1436.113997      5.115801
+## 5 2015-10-26 21:52:11  629.4518     809.1071 1435.314477      5.915321
+## 6 2015-10-26 21:51:06  639.0310     799.5242    3.896393   1437.332308</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="appendixA.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appendixC.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["MotusRBook.pdf"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

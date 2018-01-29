@@ -78,7 +78,8 @@ motusLogout()
 
 Let's get started. Note that there are no receivers registered to sample project 176, so the second call (by receiver) will not find any data. You can, however, replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample account, see \@ref(logout)). 
 
-Be warned that large datasets can take some time (sometimes a few hours) to download from the Motus server when downloading for the first time ('new = TRUE' in the tagme function call). After the initial download, loading a .motus file into R using 'tagme(proj.num, update = TRUE)' will be near instantaneous.
+<<<<<<< HEAD
+Be warned that large datasets can take some time (sometimes a few hours) to download from the Motus server when downloading for the first time ('new = TRUE' in the tagme function call). After the initial download, loading a .motus file into R using 'tagme(proj.num, update = TRUE)' will be near instantaneous. The download process should print its progress on the console; if you are not seeing it, try scrolling down your screen while tagme is running.
 
 In the event that your connection to the Motus server fails prior to the download completing (e.g., due to poor internet connection), use 'tagme(proj.num, update = TRUE)' to continue the download from where it left off, ensuring to specify a directory if it is saved outside the working directory.  
 
@@ -118,7 +119,7 @@ sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = TRUE, dir = "./dat
 
 ```
 
-Alternatively, if you are working offline, and simply want to load an already downloaded database without updating:
+If you are working offline, and want to load an already downloaded database without connecting to the server, use:
 
 ```{r tagme3.1, eval = FALSE}
 
@@ -157,7 +158,7 @@ tellme(projRecv = proj.num, new = TRUE)
 
 Tag and receiver metadata are automatically merged with tag detections when data are downloaded. However, if you want to force a re-import of the metadata when updating a database, you can run:  
 
-```{r tagme4, eval = FALSE}
+```{r tagme7, eval = FALSE}
 
 sql.motus <- tagme(projRecv = proj.num, forceMeta = TRUE)
 
@@ -171,7 +172,7 @@ When you use tagme() to download or update your .motus file, you are provided wi
 2. tags from other projects which are associated with ambiguous detections (see Chapter \@ref(dataCleaning)) in your data; 
 3. receivers that your tags, plus ambiguous tags, were detected on.  
 
-In many instances, you will want access to the full metadata for all tags and receivers across the network, e.g., to determine how many of your deployed tags were not detected, or to plot the location of stations with and without detections. The metadata() function can be used to add the complete metadata to your saved .motus file; it only needs to be run once, but we suggest that you re-import the metadata occasionally to ensure that you have the most recent and up-to-date data.
+In many instances, you will want access to the full metadata for all tags and receivers across the network, e.g., to determine how many of your deployed tags were not detected, or to plot the location of stations with and without detections. The metadata() function can be used to add the complete Motus metadata to your saved .motus file. The metadata function only needs to be run once, but we suggest that you re-import the metadata occasionally to ensure that you have the most recent and up-to-date information.
 
 Metadata from across the network (all tags and all receivers) can be loaded to your .motus file using: 
 
@@ -280,6 +281,16 @@ The following table lists the variables available in the 'alltags' view, a full 
 tbl.alltags %>% 
       collect() %>%
       names()
+
+```
+
+## Ensure that you have the correct database version
+
+When you call the tagme function to load the sqlite database, there is a process that will verify that your database has the version matching the most current version of the motus package and store the version in a new table called admInfo. Over time, changes will be made that require adding new tables, views or fields to the database. If you do not have the correct version, some of the examples contained in this book may not work. The following call will ensure that your database has been updated to the version matching the current version of the motus package. Refer to the \@ref(Troubleshooting) chapter if this call returns a warning, and ensure that you have the most recent version of the motusClient package, the motus package, and the Motus R book.
+
+
+```{r dbVersion, eval = FALSE}
+checkVersion(sql.motus)
 
 ```
 
@@ -402,7 +413,7 @@ write_csv(df.alltags, "./data/df.alltags.CSV")
 
 ## R object naming convention
 
-Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with "sql.", virtual table objects will be prefixed with "tbl.", and dataframe objects will be prefixed with "df."; the rest of the name will include the name of the .motus table that the data originates from. Throughout the rest of the book we will be relying on and referencing the naming formats below; please ensure that you are familiar with these before continuing to the next chapter.  The following code assumes you have already downloaded the sample data and do not need to update it; if you have not, see section \@ref(dataDownload) for instructions on initial download:
+Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with "sql.", virtual table objects will be prefixed with "tbl.", and dataframe objects will be prefixed with "df."; the rest of the name will include the name of the .motus table that the data originates from. Throughout the rest of the book we will be relying on and referencing the naming formats below; please ensure that you are familiar with these before continuing to the next chapter. The following code assumes you have already downloaded the sample data and do not need to update it; if you have not, see section \@ref(dataDownload) for instructions on initial download:
 
 ```{r namingConvention, eval = FALSE}
 
@@ -411,7 +422,7 @@ tbl.alltags <- tbl(sql.motus, "alltags")  # virtual table object of the alltags 
                                           # sample.motus file
 df.alltags <- tbl.alltags %>%
                 collect() %>%
-                as.data.frame() #%>%        # dataframe ("flat") object of the alltags table
+                as.data.frame() %>%        # dataframe ("flat") object of the alltags table
                 mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))              
 
 ```

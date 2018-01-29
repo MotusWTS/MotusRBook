@@ -35,7 +35,7 @@ sql.motus <- tagme(176, update = TRUE, dir = "./data")
 
 ## Tag Deployments {#tagDeployments}
 
-In your .motus file, you are only provided with the metadata for any tags from your project with detections along with metadata for associated ambiguous tags from other projects, and receiver metadata for stations where your tags were detected.  Here we will:
+In your .motus file, when using the tagme function, you are only provided with the metadata for any tags from your project with detections along with metadata for associated ambiguous tags from other projects, and receiver metadata for stations where your tags were detected.  Here we will:
 
 1. download full tag metadata for our project only;  
 2. determine how many tags are registered to your project;  
@@ -69,7 +69,7 @@ df.tags <- tbl.tags %>%
 
 ```
 
-The number of rows in the 'df.tags' database is equivalent to the number of tags registered to the James Bay Shorebird Project in the sample dataset:
+The number of rows in the 'df.tags' database is equivalent to the number of tags registered to the James Bay Shorebird Project in the sample dataset (i.e., 18 tags):
 
 ```{r nRegisteredTags}
 
@@ -205,6 +205,7 @@ filter(df.tagDeps, speciesID == 4780)
 ** Don't forget, any metadata corrections need to be made online **
 
 ## Check Receiver Metadata {#recvMetadata}
+
 
 There are two sources of receiver metadata in Motus detection data: receivers registered to your own project, and receivers registered to the projects of others. You can access metadata for all receivers in the network, because negative data (i.e., my tag was *not* detected at station x even though station x was active) is often as important as positive data. It also allows you to map where your tags were detected relative to the distribution of receivers throughout the Motus network.
 
@@ -459,6 +460,6 @@ filter(df.stationDeps, is.na(bearing)) %>%
 
 ```
 
-Receiver deployments with missing antenna bearing(s) are restricted to deployments of omni-directional antennas or mobile receivers, and so the missing values make sense. These records also show that the four records with missing antenna height are also associated with the four mobile receivers, and so again the missing values make sense and cannot be fixed.
+Receiver deployments with missing antenna bearing(s) are restricted to deployments of omni-directional antennas or mobile receivers, and so the missing values make sense. These records also show that the four records with missing antenna height are also associated with the four mobile receivers, and so again the missing values make sense and do not need to be fixed.
 
 In the next chapter we will examine our data for false positives, and remove detections of ambiguous tags.
