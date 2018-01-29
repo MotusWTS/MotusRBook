@@ -300,7 +300,7 @@ require(ggmap)
 
 ```
 
-The first step is creating a map with a specified map centre, maptype ("terrain", "roadmap", "satellite", or "hybrid"), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale).  We then add points for receivers and lines connecting consecutive detections by motusTagID.
+The first step is creating a map with a specified map centre, maptype ("terrain", "roadmap", "satellite", or "hybrid"), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale).  We then add points for receivers and lines connecting consecutive detections by motusTagID.  We can also add points for all receivers that were active during a certain time period if we have already downloaded all metadata.
 
 ```{r googleMap, warning = FALSE, fig.width=10, fig.height=10}
 
@@ -322,6 +322,36 @@ p + geom_point(data=df.tmp,
   theme_bw() + 
   scale_color_discrete(name="MotusTagID")
 
+```
+We can make the same plot, with additional points for all receivers that were active during a specified time:
+
+```{r googleMapRecvs}
+
+## get receiver metadata
+tbl.recvDeps <- tbl(sql.motus, "recvDeps")
+df.recvDeps <- tbl.recvDeps %>% 
+                collect %>% 
+                as.data.frame() %>% 
+                mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
+                       tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01"))
+## for deployments with no end daets, make an end date a year from now
+df.recvDeps$tsEnd <-as.POSIXct(ifelse(is.na(df.recvDeps$tsEnd),
+                                       as.POSIXct(format(Sys.time(), "%Y-%m-%d %H:%M:%S")) +
+                                lubridate::dyears(1), df.recvDeps$tsEnd), tz = "UTC", origin = "1970-01-01")
+## get running intervals for all receiver deployments
+siteOp <- with(df.recvDeps, lubridate::interval(tsStart, tsEnd)) ## get running intervals for each deployment
+## set the date range you're interested in
+dateRange <- lubridate::interval(as.POSIXct("2015-08-01"), as.POSIXct("2016-01-01"))
+## create new variable "active" which will be set to TRUE if the receiver was active at some point during your specified date range, and FALSE if not
+df.recvDeps$active <- lubridate::int_overlaps(siteOp, dateRange) 
+
+## create map with receivers active during specified date range as red, and receivers with detections as yellow
+p <- ggmap(gmap)
+p + geom_point(data = subset(df.recvDeps, active == TRUE), ggplot2::aes(longitude, latitude), pch=21, colour = "black", fill = "red") +
+  geom_point(data=df.tmp, aes(recvLon, recvLat), pch=21, colour = "black", fill = "yellow") +
+  geom_path(data=df.tmp, aes(recvLon, recvLat, group=motusTagID, col = as.factor(motusTagID))) +
+  theme_bw() + 
+  scale_color_discrete(name="MotusTagID")
 ```
 
 ### Creating simple outline maps {#outlineMaps}
