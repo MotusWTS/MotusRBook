@@ -39,7 +39,7 @@ require(motus)
 
 Set the system environment time zone to Greenwich Mean Time (GMT), to ensure that you are always working in GMT. This is a very important step, and should be part of every working session. If you fail to do this, then two problems can arise. Times are stored in the Motus database in GMT, and if you do not keep your environment in GMT, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.
 
-```{r setTimeZone1 }
+```{r setTimeZone1}
 
 Sys.setenv(TZ="GMT")
 
@@ -89,14 +89,14 @@ In the event that your connection to the Motus server fails prior to the downloa
 getwd()         ## to see the current working directory; use setwd() to change it.
 proj.num <- 176 ## 176 for the sample data, or use the number associated with your project here
 
-sql.motus <- tagme(projRecv = proj.num, new = TRUE, update = TRUE)     # for project tag database
-sql.motus <- tagme(projRecv = "SG-123BBBK1234", update = TRUE, new = TRUE)           # for receiver tag database
+sql.motus <- tagme(projRecv = proj.num, new = TRUE, update = TRUE)  # for project tag database
+sql.motus <- tagme(projRecv = "SG-123BBBK1234", update = TRUE, new = TRUE)  # for receiver tag database
 
 ```
 
 If you don't want to use the working directory, specify a directory to create and open a local tag database using "dir = ":
 
-```{r tagme2, eval = FALSE, message = FALSE, warning = FALSE}
+```{r tagme2, eval = FALSE}
 
 sql.motus <- tagme(projRecv = proj.num, new = TRUE, update = TRUE, dir = "./data/") 
 
@@ -298,11 +298,11 @@ checkVersion(sql.motus)
 
 To convert the 'alltags' view or other table in the .motus file into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() and as.data.frame() functions. The output can then be further manipulated, or used to generate a RDS file of your data for archiving or export. 
 
-We suggest the following workflow. Prepare a script that downloads/updates your data, filters out the necessary variables, and that does any initial cleaning, and then save the resulting data as an RDS file. We suggest using RDS instead of CSV, because the RDS format preserves the underlying structure of the data (e.g. POSIX times stay as POSIX times). If you want to export your data to another program, then a CSV format might be preferred.
+We suggest the following workflow. Prepare a script that downloads/updates your data, filters out the necessary variables, and that does any initial cleaning, and then save the resulting data as an RDS file. We suggest using RDS instead of CSV, because the RDS format preserves the underlying structure of the data (e.g. POSIX times stay as POSIX times). If you want to export your data to another program, then a CSV format might be preferred.  
 
-We caution that producing a flat file using the full suite of fields can use a lot of memory, and can slow R down considerably when dealing with large datasets. For some combinations of data sets and computers, it may be impossible to directly use data frames in R. If that is the case, then this is the point in your workflow where you should carefully consider the information you need from within your data set (for example, how it is aggregated) and simplify it. You can always return to this script, creating a new RDS file with different variables, or aggregated at a different scale.
+We caution that producing a flat file using the full suite of fields can use a lot of memory, and can slow R down considerably when dealing with large datasets. For some combinations of data sets and computers, it may be impossible to directly use data frames in R. If that is the case, then this is the point in your workflow where you should carefully consider the information you need from within your data set (for example, how it is aggregated) and simplify it. You can always return to this script, creating a new RDS file with different variables, or aggregated at a different scale.  
 
-We elaborate on this idea in the following sections.
+We elaborate on this idea in the following sections.  
 
 Make a data frame ...
 
@@ -337,7 +337,7 @@ df.alltags <- tbl.alltags %>%
 ## the tz = "UTC" is not necessary here, provided you have set your system time to UTC/GMT... but it serves as a useful reminder!
 ```
 
-If you want to load only part of your entire virtual table (e.g. certain fields, certain tags, or all tags from a specified project or species), you can use dplyr funtions to filter the data before collecting into a dataframe. Some examples are below:
+If you want to load only part of your entire virtual table (e.g. certain fields, certain tags, or all tags from a specified project or species), you can use dplyr funtions to filter the data before collecting into a dataframe. Some examples are below:  
 
 1. To select certain variables:
 
