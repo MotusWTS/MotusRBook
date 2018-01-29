@@ -1,6 +1,6 @@
 # Exploring data with the Motus R package {#exploreData}
 
-Once you have clarified any possible ambiguous tags, and removed false positives, you are ready to start analyzing your clean data set.  This chapter will walk you through some simple procedures to start working with and visualizing the clean sample data set, you can modify these scripts to work with your data. For a more indepth totorial we strongly recommend working through R for Data Science by Garrett Grolemund and Hadley Wickham <http://r4ds.had.co.nz/>.
+Once you have clarified any possible ambiguous tags, and removed false positives, you are ready to start analyzing your clean data set.  This chapter will walk you through some simple procedures to start working with and visualizing the clean sample data set, you can modify these scripts to work with your data. For a more in-depth tutorial we strongly recommend working through R for Data Science by Garrett Grolemund and Hadley Wickham <http://r4ds.had.co.nz/>.
 
 ## Load required packages
 
@@ -143,7 +143,7 @@ head(tagRecvSummary)
 ```
 
 ## Plotting your data {#dataPlotting}
-Plotting your data is a powerful way to visualize broad and fine-scale detection patterns, this section will give you a brief intro into plotting using ggplot2.  For more in depth information on the uses of ggplot2 we recommend the Cookbook for R <http://www.cookbook-r.com/Graphs/>, and the rstudio ggplot2 cheatsheet <https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf>.  
+Plotting your data is a powerful way to visualize broad and fine-scale detection patterns, this section will give you a brief intro into plotting using ggplot2.  For more in depth information on the uses of ggplot2 we recommend the [Cookbook for R](http://www.cookbook-r.com/Graphs/), and the rstudio [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf).  
 
 To make coarse-scale plots with large files we suggest first rounding the detection time to the nearest hour or day so that processing time is faster.  Here we'll round detection times to the nearest hour and work with that rounded dataframe, then we'll make a basic plot of hourly detections by motusTagID:
 
@@ -159,18 +159,18 @@ p + geom_point() +
   ylab("MotusTagID") + xlab("Time (rounded to hour)") + 
   theme_bw()
 ```
-Let's focus only on tags deployed in 2016, we can also clean up the plot by removing the grey background, and we can colour the tags by species:
+Let's focus only on tags deployed in 2016, and we can colour the tags by species:
 
 ```{r hourlyPlotSpecies}
 p <- ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016), 
        aes(hour, as.factor(motusTagID), col = speciesEN)) 
 p + geom_point() +
   ylab("MotusTagID") + xlab("Time (rounded to hour)") +
-  scale_colour_discrete(name = "Species")
+  scale_colour_discrete(name = "Species") +
   theme_bw()
 ```
 
-We can see how tags moved latitudinally by first ordering by hour:
+We can see how tags moved latitudinally by first ordering by hour, and colouring by motusTagID:
 
 ```{r hourlyPlotLat, warnings = FALSE}
 
@@ -200,7 +200,7 @@ p +  theme_bw() +
 
 ```
 
-We can use the sunRiseSet function available in the motus R package (see \@ref(sunRiseSet)) to get sunrise and sunset times for all detections, we can then add that information to the above plot with geom_vline()
+We can use the sunRiseSet function available in the motus R package (see \@ref(sunRiseSet)) to get sunrise and sunset times for all detections, we can then zoom in on a certain timeframe and add that information to the above plot with geom_vline()
 
 ```{r plotSunriset22897}
 ## add sunrise and sunset times to the dataframe
@@ -246,11 +246,11 @@ p + theme_bw() +
   scale_color_discrete(name = "Antenna bearing")
   facet_grid(recvDeployName~.)
 ```
-This plot shows the typical flyby pattern of a migrating bird, with signal strength increasing and  decreasing as the tag moves through the beams of the antennas.
+This plot shows the typical flyby pattern of a migrating bird, with signal strength increasing and decreasing as the tag moves through the beams of the antennas.
 
 ## Mapping your data {#mappingData}
 
-To generate maps of tag paths, we will once again use summarized data so we can work with a much smaller database for faster processing. Here we'll summarize detections by day. As we did in Chapter 5, well create a simple function to do this, since we will likely want to use it over and over again. 
+To generate maps of tag paths, we will once again use summarized data so we can work with a much smaller database for faster processing. Here we'll summarize detections by day. As we did in Chapter 5, we'll create a simple function to do this, since we will likely want to use it over and over again. 
 
 ```{r fun.getpath2}
 
@@ -312,6 +312,8 @@ gmap <-  get_map(location = c(lon = -75, lat = 40), ## lon/lat to centre map ove
 ## just use the tags that we have examined carefully and filtered (in the previous chapter)
 df.tmp <- filter(df.alltags.path, 
                            motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039))
+df.tmp <- arrange(df.tmp, ts.h) ## arange by hour
+
 p <- ggmap(gmap)
 p + geom_point(data=df.tmp, 
                aes(recvLon, recvLat), pch=21, colour = "black", fill = "yellow") +
