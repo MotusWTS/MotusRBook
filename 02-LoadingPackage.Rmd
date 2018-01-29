@@ -8,7 +8,7 @@ Two R packages have been developed for Motus users:
 
 Motus **users** can install the latest stable versions of the R packages using the following code. As with all R packages, you only need to install the packages once; after installation, you need to load each package (using library() or require()) each time you open a new R session. 
 
-Please note that some functionalities of the devtools package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of R (<https://www.r-project.org/>) and RStudio (<https://www.rstudio.com/products/RStudio/>), and update your R packages using update.pacakges() in the R console.
+Please note that some functionalities of the devtools package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of [R](https://www.r-project.org/) and [RStudio](https://www.rstudio.com/products/RStudio/), and update your R packages using update.pacakges() in the R console.
 
 To update your existing packages:
 
@@ -29,13 +29,13 @@ library(devtools)
 install_github("MotusWTS/motus")
 
 ## install motusClient for data download
-install_github("MotusWTS/motusClient", force=TRUE)
+install_github("MotusWTS/motusClient")
 
 library(motus)
 
 ```
 
-Throughout the book, we use tidyverse (<https://www.tidyverse.org/>), which is a collection of R packages for data science, including tidyr, dplyr, ggplot2, and lubridate for managing and manipulating dates. More information on tidyverse can be found at <https://www.tidyverse.org/>, or by browsing (or better still, thoroughly reading) 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>. For mapping we also use the rworldmap, and ggmap packages.  These can be installed from CRAN, as follows:
+Throughout the book, we use tidyverse, which is a collection of R packages for data science, including tidyr, dplyr, ggplot2, and lubridate for managing and manipulating dates. More information on tidyverse can be found at <https://www.tidyverse.org/>, or by browsing (or better still, thoroughly reading) 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>. For mapping we also use the rworldmap, and ggmap packages.  These can be installed from CRAN, as follows:
 
 ```{r install tidyverse, eval = FALSE}
 
