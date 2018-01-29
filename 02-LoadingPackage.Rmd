@@ -35,6 +35,18 @@ library(motus)
 
 ```
 
+If you need to update an existing motus or motusClient package, you need to specify "force = TRUE":
+```{r update packages, eval = FALSE}
+## force a re-installation of motus package in case of required updates
+install_github("MotusWTS/motus", force = TRUE)
+
+## force a re-installation of motusClient package in case of required updates
+install_github("MotusWTS/motusClient", force = TRUE)
+
+library(motus)
+
+```
+
 Throughout the book, we use tidyverse, which is a collection of R packages for data science, including tidyr, dplyr, ggplot2, and lubridate for managing and manipulating dates. More information on tidyverse can be found at <https://www.tidyverse.org/>, or by browsing (or better still, thoroughly reading) 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>. For mapping we also use the rworldmap, and ggmap packages.  These can be installed from CRAN, as follows:
 
 ```{r install tidyverse, eval = FALSE}
