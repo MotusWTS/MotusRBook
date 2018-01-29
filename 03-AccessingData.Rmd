@@ -284,9 +284,9 @@ tbl.alltags %>%
 
 ```
 
-## Ensure that you have the correct database version
+## Ensure that you have the correct database version {checkVersion}
 
-When you call the tagme function to load the sqlite database, there is a process that will verify that your database has the version matching the most current version of the motus package and store the version in a new table called admInfo. Over time, changes will be made that require adding new tables, views or fields to the database. If you do not have the correct version, some of the examples contained in this book may not work. The following call will ensure that your database has been updated to the version matching the current version of the motus package. Refer to the \@ref(Troubleshooting) chapter if this call returns a warning, and ensure that you have the most recent version of the motusClient package, the motus package, and the Motus R book.
+When you call the tagme function to load the sqlite database, there is a process that will verify that your database has the version matching the most current version of the motus package and store the version in a new table called admInfo. Over time, changes will be made that require adding new tables, views or fields to the database. If you do not have the correct version, some of the examples contained in this book may not work. The following call will check that your database has been updated to the version matching the current version of the motus package. If you do not have the most current version, see \@ref(loadingPackages) for instructions on updating motus and motusClient.  Refer to the \@ref(Troubleshooting) chapter if this call returns a warning.
 
 
 ```{r dbVersion, eval = FALSE}
