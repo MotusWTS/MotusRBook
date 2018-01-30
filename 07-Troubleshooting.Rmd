@@ -26,7 +26,7 @@ If you get this message while updating your .motus file, use tagme() again to co
 ## I get an "Error: Forbidden" message when using tagme()
 This error may occur if you are attempting to download multiple projects simultaneously from the same user account. If you get this error, please logout of the motus package, and try tagme() again (see sections \@ref(motusLogout) and \@ref(resumeDownload)).
 
-## I get an error Object 'xxxx' not found, referring to a table or field name, or some of your examples in the book do not work. 
+## I get an error Object 'xxxx' not found, referring to a table or field name, or some of your examples in the book do not work.  
 
 Be sure to start the steps from the top of the chapter and run them in sequential order. Another possibility is that your .motus database hasn't been yet updated to support the latest version of the motusClient or the motus package. If the checkVersion function returns a warning, this may indicated that the internal function used to maintain your database up to date has not been triggered. This can happen for instance if you load only the motusClient package without also loading the motus package. Loading the motus package will also load motusClient, so you should only ever need load motus into the library. To ensure that your .motus file is up-to-date with the motus package:
 
