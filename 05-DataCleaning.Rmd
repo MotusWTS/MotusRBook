@@ -43,7 +43,7 @@ library(rworldmap) # for mapping
 
 Recall from \@ref(accessingData) that when accessing the sample database, you will need to input "motus.sample" in the R console as both username and password when prompted by the tagme() user authentication process. This section assumes you have already completed the initial sample data download. 
 
-When accessing the alltags table, we remove some unecessary variables to reduce the overall size of the data set and make it easier to work with. We then create receiver latitude and longitude variables based on the coordinates recorded by the receiver GPS, and where those are not available, infilled with coordinates from the receiver deployment metadata. We use the collect() and as.data.frame() statements to transform the dataframe into a 'flat' file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format. Finally, we create 'receiver names' from the latitude and longitude variables for those receivers in the database that do not have these values filled in.
+When accessing the alltags table, we remove some unnecessary variables to reduce the overall size of the data set and make it easier to work with. We then create receiver latitude and longitude variables based on the coordinates recorded by the receiver GPS, and where those are not available, infilled with coordinates from the receiver deployment metadata. We use the collect() and as.data.frame() statements to transform the dataframe into a 'flat' file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format. Finally, we create 'receiver names' from the latitude and longitude variables for those receivers in the database that do not have these values filled in.
 
 ```{r importData5, eval = FALSE}
 
@@ -153,7 +153,7 @@ df.block.0 <- filter(df.alltags,
 
 An initial view of the data is best achieved by plotting. We will show you later how to plot detections on a map, but we prefer a simpler approach first; plotting detections through time by both latitude and longitude. First however, we should simplify the data. If we don't, we risk trying to plot thousands or millions of points on a plot (which can take a long time). We'll do this by creating a little function here, since we'll use this operation again in future steps.
 
-Note that we need to remove about 150 detections, because there is no geographic data associated with the receiver metadata, and so no way to determine the location of those detections. Do a simple check to see if these receivers belong to you, and if so, FIX THE METADATA! 
+Note that we need to remove about 150 detections, because there is no geographic data associated with the receiver metadata, and so no way to determine the location of those detections. Do a simple check to see if these receivers belong to you, and if so, FIX THE METADATA ONLINE! 
 
 ```{r check for missing lat/lon}
 
@@ -534,7 +534,7 @@ p + geom_point() + scale_colour_discrete(name="Lat/Lon and\nStation Name") +
 
 ```
 
-Both sets of detections are long run lengths, and look valid (increasing then decreasing signal strength). They are about a day apart, and so it is possible they represent two different birds, or the departure flight of the white-rumped sandpiper from its staging ground. Let's use the siteTrans function (in the motus package) to examine the flight from Netitishi to MDR/Seal (in the Gulf of Maine)
+Both sets of detections are long run lengths, and look valid (increasing then decreasing signal strength). They are about a day apart, and so it is possible they represent two different birds, or the departure flight of the white-rumped sandpiper from its staging ground. Let's use the siteTrans function (in the motus package, see Chapter \@ref(siteTrans)) to examine the flight from Netitishi to MDR/Seal (in the Gulf of Maine)
 
 ```{r}
 df.ambig.106 %>% filter(motusTagID == 17021) %>% ## just pick one of the two ambiguous IDs
@@ -585,7 +585,7 @@ p <- ggplot(data=df.ambig.56,
 p + geom_point() + scale_colour_discrete(name="Lat/Lon and\nStation Name") 
 
 ```
-We can see from the plot that one bird stayed near longitude -65 after its initial deployment, and was present during and after detections of the ambiguous tag far to the west. It is also clear that anything informative about this ambiguity occurs between about 9-11 October, so let's zoom in on that part of the data set. 
+We can see from the plot that a tag is detected consistently near longitude -65, which is near the deployment location for motusTagID 23316 and after it's deployment start date, it was also present at -65 during and after detections far to the west. It's likely all the detections at -65 belong to motusTagID 23316, but it is also clear that anything informative about this ambiguity occurs between about 9-11 October, so let's zoom in on that part of the data set. 
 
 ```{r ambig56c}
 
@@ -598,7 +598,7 @@ p <- ggplot(data=filter(df.ambig.56,
 p + geom_point() + scale_colour_discrete(name="Lat/Lon and\nStation Name") 
 
 ```
-We can see that the ambiguous tag was detected consistently at Niapiskau and Grand Ile before and after the period when it was also detected to the north and west (at Washkaugou and Piskwamish) and then to the south. We can look at this transition by filtering out the portion of the data not near Niapiskau, and again using the siteTrans function from the motus package. 
+We can see that the ambiguous tag was detected consistently at Niapiskau and Grand Ile before and after the period when it was also detected to the north and west (at Washkaugou and Piskwamish) and then to the south (NBNJ, SHNJ, and CONY). We can look at this transition by filtering out the portion of the data not near Niapiskau, and again using the siteTrans function from the motus package. 
 
 ```{r ambig56d}
 
@@ -613,9 +613,21 @@ siteTrans(df.56.tmp, latCoord = "recvLat", lonCoord = "recvLon") %>%
 
 ```
 
-The bird made a 14.5 hour flight at a rate of 24 m/s, which is plausible. The researchers involved may have other data to support the inference (e.g. an actual sighting of the Red Knot still in Niapiskau after this flight was recorded) but it seems likely that the ambiguous detections can be reasonably divided between the two individuals.
+The bird made a 14.5 hour flight between Washkaugou and SHNJ at a rate of 24 m/s, which is plausible. The researchers involved may have other data to support or refute the inference (e.g. an actual sighting of the Red Knot still in Niapiskau after this flight was recorded) but it seems likely that while one tag remained at sites around longitude -65, another tag made the above migratory flights.  We can make another more detailed plot of signal strength to examine these potential migratory flights more closely:
 
-To fix this problem, we need to create two filters ... one that excludes ambiguous detections of tag 22867, and one that excludes some detections of 23316. In this instance, we can do this most easily by filtering on motusTagID and recvDeployName. 
+```{r ambig56e}
+
+df.56.tmp <- filter(df.alltags.sub, ambigID == -56, recvLon < -70)
+
+p <- ggplot(data=df.56.tmp, aes(ts, sig, colour=paste(recvLat, recvLon, recvDeployName, sep=": ")))
+p + geom_point() + scale_colour_discrete(name="Lat/Lon and\nStation Name") + 
+  facet_wrap(~as_date(ts), scales = "free_x")
+
+```
+
+These look like typical fly-by patterns of increasing and then decreasing signal strength.  This, coupled with overall detection patterns and knowledge of the species, leads us to believe that the ambiguous detections can be reasonably divided between the two individuals; one detected consistently around longitude -65, and the other migrating SW during the same period.
+
+To address this problem, we need to create two filters - one that excludes ambiguous detections of tag 22867, and one that excludes some detections of 23316. In this instance, we can do this most easily by filtering on motusTagID and recvDeployName. 
 
 ```{r ambigDetectionsFor56}
 
@@ -667,33 +679,27 @@ saveRDS(df.alltags.sub, file = "./data/df.alltags.sub.rds")
 ```
 
 
-### Create a custom filter associated with your Motus login
+### Save your filter in the motus database, and apply it to the detection data
 
-The Motus R package offers functionalities to create custom filters for your data (see \@ref(#appendixC)). The filters can be used to 1) assign probabilities to detections (runs), and 2) filter detections based on those probabilities each time you load your .motus file. For the moment, filters are only saved locally in your .motus database. A future release of the motus packages should allow you to save your filters to the Motus server, as well, as access public filters created by the Motus team or other Motus users.  A filter is created, populated, and applied in the following steps:
-
-1. use the 'createRunsFilter' function to create (but not populate) a filter, here named 'filtAmbigFalsePos'. 
-2. Generate a dataframe which includes the motusTagID and runID of detections you want to filter; assign a probability to those detections. In this case, because we want to exclude the data we are filtering, we assign a probability of 0 to all detections we consider to be false positives.  
-
-3. Use the 'writeRunsFilter' function to write the dataframe to the filter. Using the delete = TRUE option will remove all records previously written to the same filter, if you created one with the same name earlier.
-
-4. Use the 'applyRunsFilter' function to output a flat file of the alltags dataframe with probabilities assigned to each detection. Detections that are not included in the filter will be automatically assigned a probability of 1. Note that to also filter the data by a given probability, you must use the 'p.min =' statement. In this case, we use p.min = 0.1, which drops all detections with a probability less than that value. All detections that are not in your filter are assigned the p.default value (1.0).
-
+The Motus R package offers functionalities to create custom filters for your data. The filters can be used to 1) assign probabilities to detections (runs), and 2) filter detections based on those probabilities each time you load your .motus file. For the moment, filters are only saved locally in your .motus database. A future release of the motus packages should allow you to save your filters to the Motus server, as well, as access public filters created by the Motus team or other Motus users. In addition to the following steps, you can also use getRunsFilters to retrieve an existing filter as a sqlite table, and createRunsFilter to create a new filter with more properties (e.g. a description) or update the properties of an existing one. See \@ref(#appendixC) for more details. 
 
 ```{r saveFilter, eval=FALSE}
-
-# create a new filter with name filtAmbigFalsePos
-filterID = createRunsFilter(sql.motus, "filtAmbigFalsePos")
 
 # combine our df.block data frames into a single dataframe, and add probability = 0 for filtered records.  
 df.block.all <- bind_rows(df.block.0, df.block.1, df.block.2, df.block.3, 
                           df.block.4, df.block.5, df.block.6, df.block.7, df.block.8) %>%
   mutate(probability = 0)
 
-# write the filter to the .motus database
-writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.block.all, delete=TRUE)
+# create a new filter with name filtAmbigFalsePos
+tbl.filter.1 = writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.block.all, delete=TRUE)
 
 # obtain a table object where the filtered records have been removed
-tbl.alltags.sub = applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min=0.1, p.default=1.0)
+# tbl.alltags.sub = applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min=0.1, p.default=1.0)
+
+tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter.1, by = c("runID", "motusTagID")) %>%
+  mutate(probability = ifelse(is.na(probability), 1, probability)) %>%
+  filter(probability > 0)
+
 
 ```
 

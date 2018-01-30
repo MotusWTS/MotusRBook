@@ -2,7 +2,7 @@
 
 Before working with your detection data, a first step is to summarize and visualize the metadata for tag and receiver deployments registered to your project. Summarizing and plotting your deployments can be an effective way to find any errors in tag or receiver deployment metadata, which can in turn influence the completeness of the detections data for your project and the projects of others with detections of their own tags on your receivers. 
 
-This chapter is a complement to the online [Data Issues page](https://motus.org/data/issues), which provides each project with a list of metadata issues (missing or outlying values) to be accepted or ignored. As such, please address any and all errors associated with your project in the notification center **before** importing your data through R. This chapter does not provide a full check of your deployment metadata, but will help uncover errors that have been missed by the automatic queries in the notification center.
+This chapter is a complement to the online [Data Issues page](https://motus.org/data/issues), which provides each project with a list of metadata issues (missing or outlying values) to be accepted or ignored. As such, please address any and all errors associated with your project on the Data Issues page **before** importing your data through R. This chapter does not provide a full check of your deployment metadata, but will help uncover errors that have been missed by the automatic queries on the Data Issues page.
 
 We use the James Bay Shorebird Project sample dataset throughout this chapter (see Section \@ref(sampleData)). As you run through the code to look at your own deployments, **please fix any errors or omissions in your metadata by signing in to <https://motus.org/>**, and under the 'Manage Data' tab, select either 'Manage Tags' to fix tag deployment metadata or 'Manage Receivers' to fix receiver deployment metadata. It is important to fix metadata errors online, so that errors are fixed at the source and archived on the Motus Server, ensuring all users have access to the correct tag and receiver metadata. Metadata corrected online will automatically be corrected in your detection files. If you have already downloaded your detection data, you can update the existing file to include new metadata and detections (see \@ref(forceMeta), \@ref(tagmeUpdate)).
 
@@ -182,7 +182,7 @@ The 'species' table in the .motus file associates each numeric species ID with a
 
 ```{r checkSpecies}
 
-## list of species IDs in project 38 metadata
+## list of species IDs in project 176 metadata
 sp.list <- unique(df.tagDeps$speciesID)     ## generate list of speciesIDs in the tag metadata
 
 ## Species metadata
@@ -349,7 +349,7 @@ na.map <- mutate(na.map, long = long- 360)
 
 c. **Map the location of receivers in the Americas.**
 
-Map showing the location of network-wide receivers (dark grey 'x') and receivers deployed by the James Bay Shorebird Project (project 38; red 'x').
+Map showing the location of network-wide receivers (dark grey 'x') and receivers deployed by the James Bay Shorebird Project (project 176; red 'x').
 
 ```{r mapRecvs2, message = FALSE, warning = FALSE}
 
@@ -460,6 +460,8 @@ filter(df.stationDeps, is.na(bearing)) %>%
 
 ```
 
-Receiver deployments with missing antenna bearing(s) are restricted to deployments of omni-directional antennas or mobile receivers, and so the missing values make sense. These records also show that the four records with missing antenna height are also associated with the four mobile receivers, and so again the missing values make sense and do not need to be fixed.
+Receiver deployments with missing antenna bearing(s) are restricted to deployments of omni-directional antennas or mobile receivers, and so the missing values make sense. These records also show that the four records with missing antenna height are also associated with the four mobile receivers, and so again the missing values make sense and do not need to be fixed.  
+
+Remember that any missing metadata needs to be corrected online. Metadata corrected online will automatically be corrected in your detection files. If you have already downloaded your detection data, you can update the existing file to include new metadata and detections (see \@ref(forceMeta), \@ref(tagmeUpdate)).
 
 In the next chapter we will examine our data for false positives, and remove detections of ambiguous tags.
