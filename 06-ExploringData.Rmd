@@ -61,7 +61,7 @@ df.alltags.sub <- tbl.alltags.sub %>%
 
 ```
 
-Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues. You can do so by adding a filter to the above command (in this case, only creating a dataframe for motusTagID 16047):
+**Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues. Details on filtering the tbl prior to collecting as a dataframe are available in chapter \@ref(convertToFlat).  Here we do so by adding a filter to the above command (in this case, only creating a dataframe for motusTagID 16047):**
 
 ```{r importData2}
 
