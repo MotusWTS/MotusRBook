@@ -666,14 +666,21 @@ df.alltags.sub <- left_join(df.alltags, df.block.all, by = c("runID", "motusTagI
 
 ```
 
-Now save the local data frame as an RDS file, for use in the next chapter. Recall from \@ref(#exportDetections) that the RDS structure preserves the R data structure, such as time stamps. The other benefit of saving to RDS is you have the output from a given workflow saved as a flat file, and you won't need to go back through that workflow to reproduce the data.
+Now save the local data frame as an RDS file, for use in the next chapter. Recall from \@ref(#exportDetections) that the RDS format preserves the R data structure, including time stamps. The other benefit of saving to RDS is that you have the output from a given workflow saved as a flat file, which you can access again with a simple readRDS statement.
 
-```{r saveRDS}
+```{r saveRDS, eval = FALSE}
 
 saveRDS(df.alltags.sub, file = "./data/dfAlltagsSub.rds")
 
 ```
 
+And to read the data in again:
+
+```{r readRDS, eval = FALSE}
+
+df.alltags.sub <- readRDS("./data/dfAlltagsSub.rds")
+
+```
 
 ### Save a custom filter in the motus database, and apply it to the data
 
