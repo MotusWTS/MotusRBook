@@ -1,5 +1,6 @@
-# The motus package {#appendixB}
-The motus R package offers functions that work with .motus data to do common computations, summaries and plots.  This appendix outlines these functions and provides examples on function use.  Many of these functions work with both tbl and data.frame formats, however some require the data to be in sql format as specified below.  Detailed instructions on accessing and formatting data are available in Chapter \@ref(accessingData). The examples throughout this chapter work with the sample data which can be accessed and converted to various formats through the following code:
+# Appendix B - The Motus R Package {#appendixB}
+
+The motus R package offers functions that work with .motus data to do common computations, summaries and plots. This appendix outlines these functions and provides examples on function use. Many of these functions work with both tbl and data.frame formats, however some require the data to be in sql format as specified below. Detailed instructions on accessing and formatting data are available in Chapter \@ref(accessingData). The examples throughout this chapter work with the sample data which can be accessed and converted to various formats through the following code:
 
 ```{r appendixBSample, eval = FALSE}
 
@@ -31,6 +32,7 @@ You can access the function help pages:
 ```
 
 Or view the underlying function code like this:
+
 ```{r functionCode, eval = FALSE}
 
 sunRiseSet
@@ -39,6 +41,7 @@ sunRiseSet
 
 ## checkVersion {checkVersion.B}
 ### Description
+
 When you call the tagme() function to load the sqlite database, there is a process that will verify that your database has the version matching the most current version of the motus package and store the version in a new table called admInfo. Over time, changes will be made that require adding new tables, views or fields to the database. The following call will check that your database has been updated to the version matching the current version of the motus package. Refer to the \@ref(Troubleshooting) chapter if this call returns a warning, if you do not have the most recent version, see \@ref(loadingPackages) to update motus and motusClient.
 ### Dependencies
 **sql.motus** an sqlite database of .motus data downloaded using tagme()
