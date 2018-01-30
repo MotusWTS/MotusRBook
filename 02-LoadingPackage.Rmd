@@ -12,7 +12,7 @@ Please note that some functionalities of the devtools package may require update
 
 To update your existing packages:
 
-```{r update packages, eval = FALSE}
+```{r update packages.1, eval = FALSE}
 
 update.packages()                         
 
@@ -36,7 +36,7 @@ library(motus)
 ```
 
 If you need to update an existing motus or motusClient package, you need to specify "force = TRUE":
-```{r update packages, eval = FALSE}
+```{r update packages.2, eval = FALSE}
 ## force a re-installation of motus package in case of required updates
 install_github("MotusWTS/motus", force = TRUE)
 
