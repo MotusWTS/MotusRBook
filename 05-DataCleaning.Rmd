@@ -39,7 +39,7 @@ library(rworldmap) # for mapping
 
 Recall from \@ref(accessingData) that when accessing the sample database, you will need to input "motus.sample" in the R console as both username and password when prompted by the tagme() user authentication process. This section assumes you have already completed the initial sample data download. 
 
-When accessing the alltags table, we remove some unnecessary variables to reduce the overall size of the data set and make it easier to work with. We then create receiver latitude and longitude variables based on the coordinates recorded by the receiver GPS, and where those are not available, infilled with coordinates from the receiver deployment metadata. We use the collect() and as.data.frame() statements to transform the dataframe into a 'flat' file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format. Finally, we create 'receiver names' from the latitude and longitude variables for those receivers in the database that do not have these values filled in.
+When accessing the alltags table, we remove some unnecessary variables to reduce the overall size of the data set and make it easier to work with. **This is particularly important for large, unwieldy projects, details on how to view the variables in a tbl, and how to filter and subset prior to collecting data into a dataframe can be found in chapter\@ref(convertToFlat)**. We then create receiver latitude and longitude variables based on the coordinates recorded by the receiver GPS, and where those are not available, infilled with coordinates from the receiver deployment metadata. We use the collect() and as.data.frame() statements to transform the dataframe into a 'flat' file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format. Finally, we create 'receiver names' from the latitude and longitude variables for those receivers in the database that do not have these values filled in.
 
 ```{r importData5, eval = FALSE}
 
@@ -684,7 +684,7 @@ df.alltags.sub <- readRDS("./data/dfAlltagsSub.rds")
 
 ### Save a custom filter in the motus database, and apply it to the data
 
-As an alternative to saving your data as an RDS file, the Motus R package offers functionalities to create custom filters for your data. The filters can be used to 1) assign probabilities to detections (runs), and 2) filter detections based on those probabilities each time you load your .motus file. In addition to the following steps, you can also use getRunsFilters to retrieve an existing filter as a sqlite table, and createRunsFilter to create a new filter with more properties (e.g. a description) or update the properties of an existing one. See \@ref(#appendixC) for more details. 
+As an alternative to saving your data as an RDS file, the Motus R package offers functionalities to create custom filters for your data. The filters can be used to 1) assign probabilities to detections (runs), and 2) filter detections based on those probabilities each time you load your .motus file. In addition to the following steps, you can also use getRunsFilters to retrieve an existing filter as a sqlite table, and createRunsFilter to create a new filter with more properties (e.g. a description) or update the properties of an existing one. See \@ref(#appendixD) for more details. 
 
 ```{r saveFilter, eval=FALSE}
 
