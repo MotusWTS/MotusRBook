@@ -693,19 +693,21 @@ The Motus R package offers functionalities to create custom filters for your dat
 
 ```{r saveFilter, eval=FALSE}
 
-# create a new filter with name filtAmbigFalsePos
-filterID = createRunsFilter(sql.motus, "filtAmbigFalsePos")
-
 # combine our df.block data frames into a single dataframe, and add probability = 0 for filtered records.  
 df.block.all <- bind_rows(df.block.0, df.block.1, df.block.2, df.block.3, 
                           df.block.4, df.block.5, df.block.6, df.block.7, df.block.8) %>%
   mutate(probability = 0)
 
-# write the filter to the .motus database
-writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.block.all, delete=TRUE)
+# create a new filter with name filtAmbigFalsePos
+tbl.filter.1 = writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.block.all, delete=TRUE)
 
 # obtain a table object where the filtered records have been removed
-tbl.alltags.sub = applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min=0.1, p.default=1.0)
+# tbl.alltags.sub = applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min=0.1, p.default=1.0)
+
+tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter1, by = c("runID", "motusTagID")) %>%
+  mutate(probability = ifelse(is.na(probability), 1, probability)) %>%
+  filter(probability > 0)
+
 
 ```
 
