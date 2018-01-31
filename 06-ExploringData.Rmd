@@ -1,6 +1,6 @@
 # Exploring data with the Motus R package {#exploreData}
 
-Once you have clarified any possible ambiguous tags, and removed false positives, you are ready to start analyzing your clean data set.  This chapter will walk you through some simple procedures to start working with and visualizing the clean sample data set; you can modify these scripts to work with your own data. For a more in-depth R tutorial we strongly recommend working through R for Data Science by Garrett Grolemund and Hadley Wickham <http://r4ds.had.co.nz/>.
+Once you have clarified any possible ambiguous tags, and removed false positives, you are ready to start analyzing your clean data set. This chapter will walk you through some simple procedures to start working with and visualizing the clean sample data set; you can modify these scripts to work with your own data. For a more in-depth R tutorial we strongly recommend working through R for Data Science by Garrett Grolemund and Hadley Wickham <http://r4ds.had.co.nz/>.
 
 ## Load required packages
 
@@ -37,12 +37,15 @@ Or, if you've applied a custom filter to your .motus file, you can load the prev
 ```{r importData}
 
 # load the .motus file
-sql.motus <- tagme(176, update = FALSE, dir = "./data/")
+sql.motus <- tagme(176, update = TRUE, dir = "./data/")
 
 ## apply the filter; a dataframe is output -- keep all values for now, so that you 
 ## still have access to low probability detections for checking
 
-tbl.alltags.sub <- applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min = 0.1)
+# obtain a table object where the filtered records have been removed
+tbl.alltags.sub = applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min=0.1, p.default=1.0)
+
+tbl.alltags.sub <- applyRunsFilter(src = sql.motus, "filtAmbigFalsePos", p.min = 0.1)
 
 # convert the table into a dataframe, with a few modications
 df.alltags.sub <- tbl.alltags.sub %>%
@@ -61,7 +64,7 @@ df.alltags.sub <- tbl.alltags.sub %>%
 
 ```
 
-**Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues. Details on filtering the tbl prior to collecting as a dataframe are available in chapter \@ref(convertToFlat).  Here we do so by adding a filter to the above command (in this case, only creating a dataframe for motusTagID 16047):**
+**Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues. Details on filtering the tbl prior to collecting as a dataframe are available in section \@ref(convertToFlat).  Here we do so by adding a filter to the above command, in this case, only creating a dataframe for motusTagID 16047:**
 
 ```{r importData2}
 

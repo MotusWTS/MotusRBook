@@ -1,4 +1,4 @@
-# Appendix B - The Motus R Package {#appendixB}
+# Appendix C - The Motus R Package {#appendixC}
 
 The motus R package offers functions that work with .motus data to do common computations, summaries and plots. This appendix outlines these functions and provides examples on function use. Many of these functions work with both tbl and data.frame formats, however some require the data to be in sql format as specified below. Detailed instructions on accessing and formatting data are available in Chapter \@ref(accessingData). The examples throughout this chapter work with the sample data which can be accessed and converted to various formats through the following code:
 
