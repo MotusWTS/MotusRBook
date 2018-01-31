@@ -95,13 +95,6 @@ tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagI
 
 # create a subset for a single tag, to keep the dataframe small
 df.alltags.16047 <- tbl.alltags.sub %>%
-                      mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
-                             recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
-                             recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
-                      select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, -mfg, -nomFreq,
-                             -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID,
-                             -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat,
-                             -gpsLon, - recvAlt, - recvSiteName) %>%
                       filter(motusTagID == 16047) %>%
                       collect() %>%
                       as.data.frame() %>%
@@ -355,6 +348,7 @@ gmap <-  get_map(location = c(lon = -75, lat = 40), ## lon/lat to centre map ove
 df.tmp <- filter(df.alltags.path, 
                            motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039))
 df.tmp <- arrange(df.tmp, ts.h) ## arange by hour
+df.tmp <- as.data.frame(df.tmp)
 
 p <- ggmap(gmap)
 p + geom_point(data=df.tmp, 
