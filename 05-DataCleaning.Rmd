@@ -706,4 +706,3 @@ tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter.1, by = c("runID", "motusTa
 
 ```
 
-In the next chapter, we will be able to use the filtered table to start exploring the data.
