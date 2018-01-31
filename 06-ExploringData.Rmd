@@ -94,7 +94,7 @@ df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID
 ```{r importData2}
 
 # create a subset for a single tag, to keep the dataframe small
-df.alltags.16047 <- tbl.alltags.sub %>%
+df.alltags.16047 <- df.alltags.sub %>%
                       filter(motusTagID == 16047) %>%
                       collect() %>%
                       as.data.frame() %>%
@@ -125,7 +125,7 @@ sql.motus %>%
   summary()
 
 # same summary for the filtered sql data
-tbl.alltags.sub %>% 
+df.alltags.sub %>% 
   select(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, 
          recvLat, recvLon) %>% 
   collect() %>%
@@ -275,7 +275,7 @@ The same plots can provide valuable movement information when the receivers are 
 ```{r latPlot1}
 ## We'll first order sitelat by latitude (for plots)
 df.alltags.sub <- mutate(df.alltags.sub, 
-                         recvDeployName = reorder(recvDeployName, recvLat))  
+                         recvDeployName = as.factor(as.character(reorder(recvDeployName, recvLat))))
 
 p <- ggplot(filter(df.alltags.sub, motusTagID == 16039 & 
                      ts < ymd("2015-10-01")), 
