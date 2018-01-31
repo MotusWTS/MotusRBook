@@ -1,4 +1,4 @@
-# Appendix C - The motusClient Package - Data filtering functions {#appendixC}
+# Appendix D - The motusClient Package - Data filtering functions {#appendixD}
 
 The motusClient R package offers functions that can be used to assign probabilities to tag detections, and to filter detections based on those probabilities. For example, as you work through your data to clean false positive and ambiguous detections (see \@ref(dataCleaning)), you may determine that some detections do not belong to your tag(s). Instead of simply using an R script to filter out those detections, you can use these filter functions to create and save a custom filter in your .motus file, which assigns a probability value between 0 and 1 to the runIDs supplied in the filter. 
 
@@ -26,14 +26,15 @@ filt.df <- listRunsFilters(src = sql.motus)
 
 ### Description
 
-Create a new filter. Prior to creating a filter, it checks to ensure a filter with the same name does not exist locally for the current user and/or project. This function must be run prior to populating the filter. The function returns the filterID (integer) in the local database that matches the new filter.
+This function can be used mostly by users to modify properties of existing filters (e.g., filter description or projectID), but it is also being called internally by \@ref(writeRunsFilter) to generate a new filterID. To save the actual filter records, you must rather use  \@ref(writeRunsFilter). The function returns the filterID (integer) in the local database that matches the new or existing filter with the provided filterName. If a filter with the same name already exists, the function generates a warning and returns the ID of the existing filter. 
 
 ### Dependencies
 
 **src** is the SQLite object that you get from loading a .motus file into R, e.g., 'sql.motus' file in \@ref(accessingData).   
 **filterName** the name you would like to assign to the filter. The function only creates a new filter if the name does not already exist locally.  
-**motusProjID** the numeric ID associated with a project, e.g., 176 for the sample data used throughout this book. The function defaults to motusProjID = 'NA' when project ID is not supplied.  
-**descr* default 'NA'. Optional description of the filter. 
+**motusProjID** the numeric ID associated with a project, e.g., 176 for the sample data used throughout this book. The function defaults to motusProjID = 'NA' when project ID is not supplied, which is the recommended value for now. The project ID assigned to a filter will mostly be useful for future synchronization of filters with the Motus server. The detection records contained in the filter do not have to be assigned to the projectID assigned to the filter.
+**descr** default 'NA'. Optional description of the filter. 
+**update** boolean (default = FALSE). If the filter already exists, determines if the properties (e.g. descr are preserved or updated)
 
 ### Example
 
@@ -47,9 +48,9 @@ createRunsFilter(sql.motus, "myfilter")
 
 createRunsFilter(sql.motus, "myfilter", motusProjID = 176)
 
-# OR add project and description
+# OR add project and description, possibly updating any previous version called myfilter.
 
-createRunsFilter(sql.motus, "myfilter", motusProjID = 176, descr = "assign probability of 0 to false positives")
+createRunsFilter(sql.motus, "myfilter", motusProjID = 176, descr = "assign probability of 0 to false positives", update=TRUE)
 
 ```
 
@@ -57,19 +58,19 @@ createRunsFilter(sql.motus, "myfilter", motusProjID = 176, descr = "assign proba
 
 ### Description
 
-Returns a dataframe containing the runsFilters records (runID, motusTagID, and probability) associated with a specific name (and optionally project) from the local database.
+Returns a sqlite table reference to the  runsFilters records saved in the database (runID, motusTagID, and probability) associated with a specific name (and optionally project) from the local database. For examples on how you can use the returned table to merge with your detection data, refer to \@ref(#saveFilter) in chapter 5.
 
 ### Dependencies
 
 **src** is the SQLite object that you get from loading a .motus file into R, e.g., 'sql.motus' file in \@ref(accessingData).   
-**filterName** the name you would like to assign to the filter. The function only creates a new filter if the name does not already exist locally.  
+**filterName** the name you used when you created or saved your filter. Function returns a warning if the filterName doesn't exist.  
 **motusProjID** the numeric ID associated with a project, e.g., 176 for the sample data used throughout this book. The function defaults to motusProjID = 'NA' when project ID is not supplied.  
 
 ### Example
 
 ```{r getRunsFilters, eval = FALSE}
 
-filt.df <- getRunsFilters(src = sql.motus, filterName = "myfilter")
+tbl.filt <- getRunsFilters(src = sql.motus, filterName = "myfilter")
 
 ```
 
@@ -77,7 +78,7 @@ filt.df <- getRunsFilters(src = sql.motus, filterName = "myfilter")
 
 ### Description
 
-Writes to the local database (SQLite file) a dataframe containing runID, motusTagID, and assigned probability to a filter created using \@ref(createRunsFilter).
+Writes to the local database (SQLite file) the content of a dataframe containing runID, motusTagID, and assigned probability. If the filterName provided does not exist, the function will call \@ref(#createRunsFilter) to create one in your database. The default behaviour of the function is that any new records from the dataframe are appended to the existing or new filter called filterName, those that already are present (same runID and motusTagID) are replaced (overwrite=TRUE), but those that are not included in the dataframe are retained in the existing filter table (delete=FALSE). To entirely replace the existing filter values with those of the new dataframe, use delete=TRUE. The function returns a sqlite table reference to the filter, similarly to \@ref(#getRunsFilters).
 
 ### Dependencies
 
@@ -85,45 +86,21 @@ Writes to the local database (SQLite file) a dataframe containing runID, motusTa
 **filterName** the name of the filter you would like to assign the database to.  
 **motusProjID** the numeric ID associated with a project, e.g., 176 for the sample data used throughout this book. Default = 'NA' when project ID is not supplied.  
 **df* dataframe which contains the runID (integer), motusTagID (integer), and probability (float) of detections you would like to assign a filter to. MotusTagID should be the actual tag ID, and not the negative ambigID associated with ambiguous detections.
-**overwrite** Default = "TRUE". When TRUE, ensures that existing records mathching the same filterName and runID get replaced in the local database.
+**overwrite** Default = "TRUE". When TRUE, ensures that existing records (same runID and motusTagID) matching the same filterName and runID get replaced in the local database.
 **delete** Default = "FALSE". When TRUE, removes all existing filter records associated with the filterName and re-inserts the ones contained in df. This option should be used if df contains the entire set of filters you want to save.
 
 ### Examples
 
 ```{r writeRunsFilter, eval = FALSE}
 
-# write a dataframe containing filter records (runID and probability) to “myfilter”
+# write a dataframe containing filter records (runID, motusTagID and probability) to “myfilter”
 writeRunsFilter(src = sql.motus, filterName = "myfilter", df = filter.df)
 
-# write a dataframe containing filter records (runID and probability) to “myfilter”, overwriting a previous version entirely
+# write a dataframe containing filter records (runID, motusTagID and probability) to “myfilter”, overwriting a previous version entirely
 writeRunsFilter(src = sql.motus, fileName = "myfilter", df = filter.df, delete = TRUE)
 
-# write a dataframe containing filter records (runID and probability) to "myfilter", but only append new records, leaving previously created ones intact
+# write a dataframe containing filter records (runID, motusTagID and probability) to "myfilter", but only append new records, leaving previously created ones intact
 writeRunsFilter(src = sql.motus, "myfilter", df = filter.df, overwrite = FALSE)
 
 ```
 
-## applyRunsFilter {#applyRunsFilter}
-
-### Description
-
-Returns a dataframe equivalent to the 'alltags' view in the .motus SQLite file, to which the probabilities associated with the filter are appended. Optionally, only includes detections associated with runs that have a probability >= p.min.
-
-### Dependencies
-
-**src** is the SQLite object that you get from loading a .motus file into R, e.g., 'sql.motus' file in \@ref(accessingData).   
-**filterName** the name of the filter you would like to assign the database to.  
-**motusProjID** the numeric ID associated with a project, e.g., 176 for the sample data used throughout this book. Default = 'NA' when project ID is not supplied. 
-**p.min** the minimum probability to filter detections with. All runs with a probability <= p.min will be filtered from the dataframe returned by this function.
-**where.stmt** defaults to 'NA'; optional additional filters to apply, e.g., "tagID in (1,2,3) and ts > 123456789".
-
-### Examples
-
-Build a dataframe and filter out all detections with probability < 0.5 as per "myfilter".
-
-```{r applyRunsFilter, eval = FALSE}
-
-hits.df = applyRunsFilter(src = sql.motus, filterName = "myfilter", p.min = 0.5, 
-                          where.stmt = “ts > 123333333 and motusTagID in (12,13,14)”)
-
-```
