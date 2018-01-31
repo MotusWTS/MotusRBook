@@ -38,10 +38,10 @@ library(motus)
 If you need to update an existing motus or motusClient package, you need to specify "force = TRUE":
 ```{r update packages.2, eval = FALSE}
 ## force a re-installation of motus package in case of required updates
-install_github("MotusWTS/motus", force = TRUE)
+install_github("MotusWTS/motus")
 
 ## force a re-installation of motusClient package in case of required updates
-install_github("MotusWTS/motusClient", force = TRUE)
+install_github("MotusWTS/motusClient")
 
 library(motus)
 
