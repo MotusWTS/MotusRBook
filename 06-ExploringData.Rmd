@@ -37,7 +37,8 @@ Or, if you've applied a custom filter to your .motus file, you can load the prev
 ```{r importData, eval = FALSE}
 
 # load the .motus file
-sql.motus <- tagme(176, update = TRUE, dir = "./data/")
+proj.num = 176
+sql.motus <- tagme(proj.num, update = TRUE, dir = "./data/")
 tbl.alltags <- tbl(sql.motus, "alltags")
 
 # obtain a table object of the filter
@@ -64,7 +65,8 @@ df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID
 ```{r importDataDUPLICATE, echo = FALSE}
 
 # load the .motus file
-sql.motus <- tagme(176, update = FALSE, dir = "./data/")
+proj.num = 176
+sql.motus <- tagme(proj.num, update = FALSE, dir = "./data/")
 tbl.alltags <- tbl(sql.motus, "alltags")
 
 # obtain a table object of the filter
@@ -320,7 +322,8 @@ fun.getpath <- function(df)
     group_by(motusTagID, runID, recvDeployName, ambigID, 
              tagDeployLon, tagDeployLat, recvLat, recvLon) %>%
     summarize(max.runLen = max(runLen), ts.h = mean(ts)) %>%
-    arrange(motusTagID, ts.h)
+    arrange(motusTagID, ts.h) %>%
+    data.frame()
   } ## end of function call
 
 df.alltags.path <- fun.getpath(df.alltags.sub)
@@ -342,7 +345,6 @@ df.alltags.path <- fun.getpath(df.alltags.sub.path)
 ### Mapping with Google Maps {#googleMaps}
 
 Mapping with Google Maps can be a fast way to view flight paths and allows you to select from multiple base layers.  
-
 For Google Maps, we'll need to load ggmap and ggplot2 packages; see \@ref(loadingPackages) for instructions on installing the ggmap package if you have not already done so.
 
 ```{r installGoogleMapPackages, message = FALSE, warning = FALSE, eval = FALSE}
@@ -420,14 +422,14 @@ We first need to load the base maps.
 
 ```{r loadMaps.6, message = FALSE, warning = FALSE}
 
-na.lakes <- map_data(map = "lakes")
-na.lakes <- mutate(na.lakes, long = long- 360)
+## get the lake data; adjust longitude
+na.lakes <- map_data(map = "lakes") %>%
+  mutate(long = long- 360)
 
-# Include all of the Americas to begin
-na.map <- subset(map_data(map="world2"), 
-                 region %in% c("Canada", "USA", "Mexico", "lakes", "Belize", "Costa Rica", "Panama", "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay", "Paraguay"))
-
-na.map <- mutate(na.map, long = long- 360)
+## get the country data; adjust longitude
+na.map <- filter(map_data(map="world2"),
+                 region %in% c("Canada", "USA", "Mexico", "Belize", "Costa Rica", "Panama", "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay", "Paraguay")) %>%
+  mutate(long = long- 360)
 
 ```
 
