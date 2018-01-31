@@ -661,7 +661,7 @@ df.block.all <- bind_rows(df.block.0, df.block.1, df.block.2, df.block.3,
 
  
 df.alltags.sub <- left_join(df.alltags, df.block.all, by = c("runID", "motusTagID")) %>%
-  mutate(probability = ifelse(is.na(probability), 1, 0)) %>% # assign a probability of 1 to the records that will not be filtered
+  mutate(probability = ifelse(is.na(probability), 1, probability)) %>% # assign a probability of 1 to the records that will not be filtered
   filter(probability > 0)
 
 ```
@@ -684,7 +684,7 @@ df.alltags.sub <- readRDS("./data/dfAlltagsSub.rds")
 
 ### Save a custom filter in the motus database, and apply it to the data
 
-As an alternative to saving your data as an RDS file, the Motus R package offers functionalities to create custom filters for your data. The filters can be used to 1) assign probabilities to detections (runs), and 2) filter detections based on those probabilities each time you load your .motus file. In addition to the following steps, you can also use getRunsFilters to retrieve an existing filter as a sqlite table, and createRunsFilter to create a new filter with more properties (e.g. a description) or update the properties of an existing one. See \@ref(#appendixD) for more details. 
+As an alternative to saving your data as an RDS file, the Motus R package offers functionalities to save your filters directly within your .motus file. Once they are saved in your database, you can do the type of left_join() as above without having to rely on dataframes or an RDS file to store your data. In a future release, we expect it will be possible to sync your filters with the Motus server, and access public filters created by other users or global filters created by Motus. To learn more about the functions available to work with Motus filters, refer to \@ref(#appendixD) for more details. 
 
 ```{r saveFilter, eval=FALSE}
 
@@ -693,12 +693,18 @@ df.block.all <- bind_rows(df.block.0, df.block.1, df.block.2, df.block.3,
                           df.block.4, df.block.5, df.block.6, df.block.7, df.block.8) %>%
   mutate(probability = 0)
 
-# create a new filter with name filtAmbigFalsePos
+# create a new filter with name filtAmbigFalsePos and populate it with df.block.all
 tbl.filter.1 = writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.block.all, delete=TRUE)
 
-# obtain a table object where the filtered records have been removed
-# tbl.alltags.sub = applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min=0.1, p.default=1.0)
+# retrieve an existing filter previously saved, with name filtAmbigFalsePos2
+tbl.filter.2 = getRunsFilters(sql.motus, "filtAmbigFalsePos2")
 
+# obtain a table object where the filtered records from tbl.filter.1 have been removed
+tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter.1, by = c("runID", "motusTagID")) %>%
+  mutate(probability = ifelse(is.na(probability), 1, probability)) %>%
+  filter(probability > 0)
+
+# apply a second filter tbl.filter.2 to the result of the previous filter
 tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter.1, by = c("runID", "motusTagID")) %>%
   mutate(probability = ifelse(is.na(probability), 1, probability)) %>%
   filter(probability > 0)
