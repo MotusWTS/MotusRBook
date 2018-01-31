@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="loadingPackages.html">
+<link rel="prev" href="appendixC.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -301,37 +301,105 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<p><img src="images/Motus-System-IG-final.png" width="2250" /></p>
-<p><br></p>
-<p>The Motus Wildlife Tracking System (‘Motus’; Taylor et al. 2017; <a href="https://www.motus.org" class="uri">https://www.motus.org</a>) is an international, collaborative automated radio-telemetry network to track the movement and behaviour of flying organisms affixed with digitally encoded radio-transmitters. Motus was developed at Acadia University in 2012-2013. In 2014, a major infrastructure expansion was made possible through a Canada Foundation for Innovation grant to Western University, The University of Guelph, and Acadia University. Since then, Motus has grown through the collaboration of independent researchers and organizations <a href="https://motus.org/about/" class="uri">https://motus.org/about/</a>. It is now managed as a program of Bird Studies Canada (<a href="https://www.birdscanada.org" class="uri">https://www.birdscanada.org</a>) in partnership with Acadia University.</p>
-<p>Motus is unique among automated telemetry arrays in that all researchers in a geographic region (e.g., the Americas or Europe) use a shared radio frequency. This allows tagged animals to be detected by any receiving station across the network, greatly broadening the spatial scope of potential research questions. Motus users also use a shared data infrastructure and web portal: all data collected from across the network are centrally stored and archived, which allows users to access detections of their tags by anyone’s receiver in the network, and individuals that maintain receivers have access to all detections of anyone’s tags on those receivers.</p>
-<p>Having a shared data infrastructure also means that users can benefit from R functions written specifically for Motus data by any and all users. The Motus R package described in this book is in continual development, and the intent of this online ‘handbook’ is to help users learn the various functionalities of the package, and potentially contribute to it. We also show how additional R packages such as ggplot can be used to explore, visualize, transform, and analyze Motus data.</p>
-<p>The content of the handbook will continue to evolve and grow along with the analytical needs of the network. Those interested in contributing code to the Motus R package or this handbook can send proposed additions to <a href="mailto:motus@birdscanada.org">motus@birdscanada.org</a>.</p>
-<p>Taylor, P. D., T. L. Crewe, S. A. Mackenzie, D. Lepage, Y. Aubry, Z. Crysler, G. Finney, C. M. Francis, C. G. Guglielmo, D. J. Hamilton, R. L. Holberton, P. H. Loring, G. W. Mitchell, D. R. Noriis, J. Paquet, R. A. Ronconi, J. Smetzer, P. A. Smith, L. J. Welch, and B. K. Woodworth. 2017. The Motus Wildlife Tracking System: a collaborative research network to enhance the understanding of wildlife movement. Avian Conservation and Ecology 12(1):8. <a href="https://doi.org/10.5751/ACE-00953-120108" class="uri">https://doi.org/10.5751/ACE-00953-120108</a>.</p>
-<div id="whatBookCovers" class="section level2">
-<h2><span class="header-section-number">1.1</span> What this book does not cover</h2>
-<p>This book does not cover how to register radio tags with Motus, manage tags and station deployments, or upload raw detections data for processing. Information to guide you through those tasks can be found under the ‘resources’ tab on the Motus website at <a href="https://motus.org/resources/" class="uri">https://motus.org/resources/</a>. Please remember to register your tags <strong>prior to deployment</strong>, and enter tag and station metadata online in a timely manner. Please also see <a href="https://motus.org/policy/" class="uri">https://motus.org/policy/</a> to review the Motus collaboration policy and tag registration and fee schedule.</p>
+<div id="appendixD" class="section level1">
+<h1><span class="header-section-number">10</span> Appendix D - The motusClient Package - Data filtering functions</h1>
+<p>The motusClient R package offers functions that can be used to assign probabilities to tag detections, and to filter detections based on those probabilities. For example, as you work through your data to clean false positive and ambiguous detections (see <a href="dataCleaning.html#dataCleaning">5</a>), you may determine that some detections do not belong to your tag(s). Instead of simply using an R script to filter out those detections, you can use these filter functions to create and save a custom filter in your .motus file, which assigns a probability value between 0 and 1 to the runIDs supplied in the filter.</p>
+<p>The data filtering functions in the R package work at the level of a run. A run is a group of consecutive detections of a tag detected on a receiver. In general, a detection with a run length of 2 has a high probability of being a false positive detection. The probabilities associated with each runID can be generated in a number of possible ways, including at the simplest level, generating a list of 0’s and 1’s for records that you would like to exclude or include. Alternatively, you might develop a model that assigns a probability to each runID in your data.</p>
+<div id="listRunsFilters" class="section level2">
+<h2><span class="header-section-number">10.1</span> listRunsFilters</h2>
+<div id="description-16" class="section level3">
+<h3><span class="header-section-number">10.1.1</span> Description</h3>
+<p>Returns a dataframe containing the filterIDs, logins, names, projectIDs and descriptions for a given tag or receiver projectID available in the local database.</p>
 </div>
-<div id="prerequisites" class="section level2">
-<h2><span class="header-section-number">1.2</span> Prerequisites</h2>
-<p>This book assumes that you have a basic understanding of R. Regardless of whether you are new to R or not, we highly recommend that you become familiar with ‘R for Data Science’ by Garrett Grolemund and Hadley Wickham (<a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>). Their book covers how to import, visualize, and summarize data in R using the tidyverse collection of R packages <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>. It also provides an invaluable framework for organizing your workflow to create clean, reproducible code (<a href="http://r4ds.had.co.nz/workflow-projects.html" class="uri">http://r4ds.had.co.nz/workflow-projects.html</a>). We follow their lead by, wherever possible, using the tidyverse framework throughout this book.</p>
 </div>
-<div id="sampleData" class="section level2">
-<h2><span class="header-section-number">1.3</span> Sample dataset</h2>
-<p>Throughout this book we use a subset of data from the James Bay Shorebird Project to illustrate how to access, manage, and analyze Motus data in R. We recommend that you run through the sample code in each chapter with the sample dataset <strong>before</strong> running through with your own data, because you will undoubtedly need to modify the code we provide in order to deal most effectively with your own data (every situation is different).</p>
-<p>The James Bay Shorebird Project conducts monitoring and research on shorebirds staging along the James Bay coast, and is a collaborative effort among the Ontario Ministry of Natural Resources and Forestry, Bird Studies Canada, Trent University, and Environment and Climate Change Canada’s Canadian Wildlife Service, in conjunction with a larger conservation initiative involving James Bay First Nations and Nature Canada. The Royal Ontario Museum was a contributing partner until 2016. The goals of the project are to 1) improve the ability to estimate indices of abundance and population trends for shorebird species staging along the western James Bay coast, 2) understand movement patterns and their causes, and 3) identify the relative importance of shorebird staging sites and their habitats. Collectively, this information will aid in the development of conservation measures for Red Knot and other shorebird species through habitat protection like Western Hemisphere Shorebird Reserve Network (WHSRN) designation. More information can be viewed on the James Bay Shorebird Project website at <a href="https://www.jamesbayshorebirdproject.com/" class="uri">https://www.jamesbayshorebirdproject.com/</a>, on Facebook <a href="https://www.facebook.com/jamesbayshorebirdproject/" class="uri">https://www.facebook.com/jamesbayshorebirdproject/</a>, or by contacting their project lead:</p>
-<p>Christian Friis Wildlife Biologist Canadian Wildlife Service Environment and Climate Change Canada / Government of Canada <a href="mailto:christian.friis@canada.ca">christian.friis@canada.ca</a> / Tel: 416.739.4908</p>
-<p>biologiste de la faune<br />
-Service canadien de la faune Environnement et Changement Climatique Canada / Gouvernement du Canada <a href="mailto:christian.friis@canada.ca">christian.friis@canada.ca</a> / Tél. : 416.739.4908</p>
+<div id="dependencies-13" class="section level2">
+<h2><span class="header-section-number">10.2</span> Dependencies</h2>
+<p><strong>src</strong> is the SQLite object that you get from loading a .motus file into R, e.g., ‘sql.motus’ file in <a href="accessingData.html#accessingData">3</a>.</p>
 </div>
-<div id="acknowledgements" class="section level2">
-<h2><span class="header-section-number">1.4</span> Acknowledgements</h2>
-<p>Some of the text included in this book was adapted from John Brzustowski’s github repository for the Motus R package at: <a href="https://github.com/jbrzusto/motus" class="uri">https://github.com/jbrzusto/motus</a>.</p>
-<p>Motus was conceived as the SensorGnome network by Philip Taylor and John Brzustowski at Acadia University. Initial expansion of the network was supported by a Canada Foundation for Innovation Grant to Western University (Dr. Christopher Guglielmo), The University of Guelph (Dr. Ryan Norris), and Acadia University (Dr. Philip Taylor). The development of the Motus web interface, R package, and accompanying handbook were made possible through a Canarie grant to Bird Studies Canada (<a href="https://www.canarie.ca/" class="uri">https://www.canarie.ca/</a>). Motus continues to grow as a program of Bird Studies Canada, through the collaboration of numerous independent researchers, organizations, and individuals. A non-exhaustive list of Motus partners and collaborators can be found at <a href="https://motus.org/data/partners.jsp" class="uri">https://motus.org/data/partners.jsp</a>. If your organization is not listed, please contact <a href="mailto:motus@birdscanada.org">motus@birdscanada.org</a>.</p>
-<p>Many people have worked together to bring Motus technology, the web interface, and the R-package together. The core ‘Motus Team’ includes John Brzustowski, Tara Crewe, Zoe Crysler, Jeremy Hussell, Catherine Jardine, Denis Lepage, Stuart Mackenzie, Paul Morrill, and Philip Taylor.</p>
+<div id="example-16" class="section level2">
+<h2><span class="header-section-number">10.3</span> Example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">filt.df &lt;-<span class="st"> </span><span class="kw">listRunsFilters</span>(<span class="dt">src =</span> sql.motus)</code></pre></div>
+</div>
+<div id="createRunsFilter" class="section level2">
+<h2><span class="header-section-number">10.4</span> createRunsFilter</h2>
+<div id="description-17" class="section level3">
+<h3><span class="header-section-number">10.4.1</span> Description</h3>
+<p>This function can be used mostly by users to modify properties of existing filters (e.g., filter description or projectID), but it is also being called internally by <a href="appendixD.html#writeRunsFilter">10.6</a> to generate a new filterID. To save the actual filter records, you must rather use <a href="appendixD.html#writeRunsFilter">10.6</a>. The function returns the filterID (integer) in the local database that matches the new or existing filter with the provided filterName. If a filter with the same name already exists, the function generates a warning and returns the ID of the existing filter.</p>
+</div>
+<div id="dependencies-14" class="section level3">
+<h3><span class="header-section-number">10.4.2</span> Dependencies</h3>
+<p><strong>src</strong> is the SQLite object that you get from loading a .motus file into R, e.g., ‘sql.motus’ file in <a href="accessingData.html#accessingData">3</a>.<br />
+<strong>filterName</strong> the name you would like to assign to the filter. The function only creates a new filter if the name does not already exist locally.<br />
+<strong>motusProjID</strong> the numeric ID associated with a project, e.g., 176 for the sample data used throughout this book. The function defaults to motusProjID = ‘NA’ when project ID is not supplied, which is the recommended value for now. The project ID assigned to a filter will mostly be useful for future synchronization of filters with the Motus server. The detection records contained in the filter do not have to be assigned to the projectID assigned to the filter. <strong>descr</strong> default ‘NA’. Optional description of the filter. <strong>update</strong> boolean (default = FALSE). If the filter already exists, determines if the properties (e.g. descr are preserved or updated)</p>
+</div>
+<div id="example-17" class="section level3">
+<h3><span class="header-section-number">10.4.3</span> Example</h3>
+<p>Create a new filter called “myfilter” for the sql.motus database which is not attached to a specific project:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>)
 
+<span class="co"># OR add assignment to project</span>
+
+<span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">motusProjID =</span> <span class="dv">176</span>)
+
+<span class="co"># OR add project and description, possibly updating any previous version called myfilter.</span>
+
+<span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">motusProjID =</span> <span class="dv">176</span>, <span class="dt">descr =</span> <span class="st">&quot;assign probability of 0 to false positives&quot;</span>, <span class="dt">update=</span><span class="ot">TRUE</span>)</code></pre></div>
+</div>
+</div>
+<div id="getRunsFilters" class="section level2">
+<h2><span class="header-section-number">10.5</span> getRunsFilters</h2>
+<div id="description-18" class="section level3">
+<h3><span class="header-section-number">10.5.1</span> Description</h3>
+<p>Returns a sqlite table reference to the runsFilters records saved in the database (runID, motusTagID, and probability) associated with a specific name (and optionally project) from the local database. For examples on how you can use the returned table to merge with your detection data, refer to @ref(#saveFilter) in chapter 5.</p>
+</div>
+<div id="dependencies-15" class="section level3">
+<h3><span class="header-section-number">10.5.2</span> Dependencies</h3>
+<p><strong>src</strong> is the SQLite object that you get from loading a .motus file into R, e.g., ‘sql.motus’ file in <a href="accessingData.html#accessingData">3</a>.<br />
+<strong>filterName</strong> the name you used when you created or saved your filter. Function returns a warning if the filterName doesn’t exist.<br />
+<strong>motusProjID</strong> the numeric ID associated with a project, e.g., 176 for the sample data used throughout this book. The function defaults to motusProjID = ‘NA’ when project ID is not supplied.</p>
+</div>
+<div id="example-18" class="section level3">
+<h3><span class="header-section-number">10.5.3</span> Example</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tbl.filt &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(<span class="dt">src =</span> sql.motus, <span class="dt">filterName =</span> <span class="st">&quot;myfilter&quot;</span>)
+tbl.filt2 &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(sql.motus, <span class="st">&quot;myfilter2&quot;</span>)
+
+<span class="co"># filter records from df that are in tbl.filt</span>
+
+df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
+
+<span class="co"># you can apply a second filter, tbl.filt2, to the result of the previous filter</span>
+df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre></div>
+</div>
+</div>
+<div id="writeRunsFilter" class="section level2">
+<h2><span class="header-section-number">10.6</span> writeRunsFilter</h2>
+<div id="description-19" class="section level3">
+<h3><span class="header-section-number">10.6.1</span> Description</h3>
+<p>Writes to the local database (SQLite file) the content of a dataframe containing runID, motusTagID, and assigned probability. If the filterName provided does not exist, the function will call @ref(#createRunsFilter) to create one in your database. The default behaviour of the function is that any new records from the dataframe are appended to the existing or new filter called filterName, those that already are present (same runID and motusTagID) are replaced (overwrite=TRUE), but those that are not included in the dataframe are retained in the existing filter table (delete=FALSE). To entirely replace the existing filter values with those of the new dataframe, use delete=TRUE. The function returns a sqlite table reference to the filter, similarly to @ref(#getRunsFilters).</p>
+</div>
+<div id="dependencies-16" class="section level3">
+<h3><span class="header-section-number">10.6.2</span> Dependencies</h3>
+<p><strong>src</strong> is the SQLite object that you get from loading a .motus file into R, e.g., ‘sql.motus’ file in <a href="accessingData.html#accessingData">3</a>.<br />
+<strong>filterName</strong> the name of the filter you would like to assign the database to.<br />
+<strong>motusProjID</strong> the numeric ID associated with a project, e.g., 176 for the sample data used throughout this book. Default = ‘NA’ when project ID is not supplied.<br />
+<strong>df* dataframe which contains the runID (integer), motusTagID (integer), and probability (float) of detections you would like to assign a filter to. MotusTagID should be the actual tag ID, and not the negative ambigID associated with ambiguous detections. </strong>overwrite** Default = “TRUE”. When TRUE, ensures that existing records (same runID and motusTagID) matching the same filterName and runID get replaced in the local database. <strong>delete</strong> Default = “FALSE”. When TRUE, removes all existing filter records associated with the filterName and re-inserts the ones contained in df. This option should be used if df contains the entire set of filters you want to save.</p>
+</div>
+<div id="examples" class="section level3">
+<h3><span class="header-section-number">10.6.3</span> Examples</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># write a dataframe containing filter records (runID, motusTagID and probability) to “myfilter”</span>
+<span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="dt">filterName =</span> <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df)
+
+<span class="co"># write a dataframe containing filter records (runID, motusTagID and probability) to “myfilter”, overwriting a previous version entirely</span>
+<span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="dt">fileName =</span> <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df, <span class="dt">delete =</span> <span class="ot">TRUE</span>)
+
+<span class="co"># write a dataframe containing filter records (runID, motusTagID and probability) to &quot;myfilter&quot;, but only append new records, leaving previously created ones intact</span>
+<span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df, <span class="dt">overwrite =</span> <span class="ot">FALSE</span>)</code></pre></div>
+
+</div>
 </div>
 </div>
             </section>
@@ -339,8 +407,8 @@ Service canadien de la faune Environnement et Changement Climatique Canada / Gou
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="loadingPackages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="appendixC.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
