@@ -10,7 +10,7 @@ We use the James Bay Shorebird Project sample dataset throughout this chapter (s
 
 Before we begin working with data, we need to load the required packages for this chapter. If you have not yet installed these packages (from github and CRAN) then please return to Chapter \@ref(loadingPackages) and do so.
 
-```{r loadPackages.4, warning = FALSE, message = FALSE}
+```{r loadPackages.4, eval = FALSE, warning = FALSE, message = FALSE}
 
 library(tidyverse)
 library(tidyr)
@@ -274,7 +274,7 @@ The timing of deployments can be displayed graphically; horizontal line(s) in th
 ## put data in long format to simplify plotting (or use geom_segment)
 
 df.projRecvs.long <- select(df.projRecvs, deviceID, deployID, tsStart, tsEnd) %>% 
-  gather(when, ts, c(tsStart, tsEnd)) %>%
+  tidyr::gather(when, ts, c(tsStart, tsEnd)) %>%
   mutate(ts = if_else(is.na(ts), max(ts, na.rm = TRUE) + duration(1, "month"), ts)) ## fake end date 
 
 ggplot(df.projRecvs.long, 
