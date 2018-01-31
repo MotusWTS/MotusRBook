@@ -684,7 +684,7 @@ df.alltags.sub <- readRDS("./data/dfAlltagsSub.rds")
 
 ### Save a custom filter in the motus database, and apply it to the data
 
-As an alternative to saving your data as an RDS file, the Motus R package offers functionalities to save your filters directly within your .motus file. Once they are saved in your database, you can do the type of left_join() as above without having to rely on dataframes or an RDS file to store your data. In a future release, we expect it will be possible to sync your filters with the Motus server, and access public filters created by other users or global filters created by Motus. To learn more about the functions available to work with Motus filters, refer to \@ref(#appendixD) for more details. 
+As an alternative to saving your data as an RDS file, the Motus R package offers functionalities to save your filters directly within your .motus file. Once they are saved in your database, you can do the type of left_join() as above without having to rely on dataframes or an RDS file to store your data. To learn more about the functions available to work with Motus filters, refer to \@ref(#appendixD) for more details. 
 
 ```{r saveFilter, eval=FALSE}
 
@@ -694,21 +694,12 @@ df.block.all <- bind_rows(df.block.0, df.block.1, df.block.2, df.block.3,
   mutate(probability = 0)
 
 # create a new filter with name filtAmbigFalsePos and populate it with df.block.all
-tbl.filter.1 = writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.block.all, delete=TRUE)
-
-# retrieve an existing filter previously saved, with name filtAmbigFalsePos2
-tbl.filter.2 = getRunsFilters(sql.motus, "filtAmbigFalsePos2")
+tbl.filter = writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.block.all, delete=TRUE)
 
 # obtain a table object where the filtered records from tbl.filter.1 have been removed
-tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter.1, by = c("runID", "motusTagID")) %>%
+tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID")) %>%
   mutate(probability = ifelse(is.na(probability), 1, probability)) %>%
   filter(probability > 0)
-
-# apply a second filter tbl.filter.2 to the result of the previous filter
-tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter.1, by = c("runID", "motusTagID")) %>%
-  mutate(probability = ifelse(is.na(probability), 1, probability)) %>%
-  filter(probability > 0)
-
 
 ```
 

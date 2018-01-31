@@ -174,7 +174,7 @@ When you use tagme() to download or update your .motus file, you are provided wi
 
 In many instances, you will want access to the full metadata for all tags and receivers across the network, e.g., to determine how many of your deployed tags were not detected, or to plot the location of stations with and without detections. The metadata() function can be used to add the complete Motus metadata to your saved .motus file. The metadata function only needs to be run once, but we suggest that you re-import the metadata occasionally to ensure that you have the most recent and up-to-date information.
 
-Metadata from across the network (all tags and all receivers) can be loaded to your .motus file using: 
+Running the metadata function as follows will add the appropriate metadata from across the network (all tags and all receivers) to the 'recvDeps' and 'tagDeps' tables in your .motus file: 
 
 ```{r metadata1, eval = FALSE}
 

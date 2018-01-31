@@ -71,6 +71,18 @@ Returns a sqlite table reference to the  runsFilters records saved in the databa
 ```{r getRunsFilters, eval = FALSE}
 
 tbl.filt <- getRunsFilters(src = sql.motus, filterName = "myfilter")
+tbl.filt2 <- getRunsFilters(sql.motus, "myfilter2")
+
+# filter records from df that are in tbl.filt
+
+df <- left_join(df, tbl.filt, by = c("runID", "motusTagID")) %>%
+  mutate(probability = ifelse(is.na(probability), 1, probability)) %>%
+  filter(probability > 0)
+
+# you can apply a second filter, tbl.filt2, to the result of the previous filter
+df <- left_join(df, tbl.filt2, by = c("runID", "motusTagID")) %>%
+  mutate(probability = ifelse(is.na(probability), 1, probability)) %>%
+  filter(probability > 0)
 
 ```
 

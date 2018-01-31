@@ -32,35 +32,60 @@ df.alltags.sub <- readRDS("./data/dfAlltagsSub.rds") # change directory to your 
 
 ```
 
-Or, if you've applied a custom filter to your .motus file, you can load the previously downloaded sample .motus data (see chapter \@ref(accessingData) and clean it now. Currently the main benefit of using the custom filter is that you apply the filter to the .motus file, which allows you more flexibility in applying dplyr functions to manage and filter the data (e.g., you can select different variables to include in the data than we included in the RDS file in Chapter \@ref(#dataCleaning)):
+Or, if you've applied a custom filter to your .motus file, you can load the previously downloaded sample .motus data (see chapter \@ref(accessingData) and clean it now. Currently the main benefit of using the custom filter is that you apply the filter to the .motus file, which allows you more flexibility in applying dplyr functions to manage and filter the data (e.g., you can select different variables to include in the data than we included in the RDS file in Chapter \@ref(#dataCleaning)). Because we are selecting the same variables and filtering the same records, the following gives you the same dataset as the readRDS statement above:
 
-```{r importData}
+```{r importData, eval = FALSE}
 
 # load the .motus file
 sql.motus <- tagme(176, update = TRUE, dir = "./data/")
+tbl.alltags <- tbl(sql.motus, "alltags")
 
-## apply the filter; a dataframe is output -- keep all values for now, so that you 
-## still have access to low probability detections for checking
+# obtain a table object of the filter
+tbl.filter = getRunsFilters(sql.motus, "filtAmbigFalsePos")
 
-# obtain a table object where the filtered records have been removed
-tbl.alltags.sub = applyRunsFilter(sql.motus, "filtAmbigFalsePos", p.min=0.1, p.default=1.0)
-
-tbl.alltags.sub <- applyRunsFilter(src = sql.motus, "filtAmbigFalsePos", p.min = 0.1)
-
-# convert the table into a dataframe, with a few modications
-df.alltags.sub <- tbl.alltags.sub %>%
-                      mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
+# filter and convert the table into a dataframe, with a few modications
+tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID")) %>%
+  mutate(probability = ifelse(is.na(probability), 1, probability),
+         recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
                              recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
                              recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
-                      select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, -mfg, -nomFreq,
+  filter(probability > 0) %>%
+  select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, -mfg, -nomFreq,
                              -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID,
                              -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat,
                              -gpsLon, - recvAlt, - recvSiteName) %>%
-                      collect() %>%
-                      as.data.frame() %>%
-                      mutate(ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
-                             tagDeployStart = as_datetime(tagDeployStart),
-                             tagDeployEnd = as_datetime(tagDeployEnd))
+  collect() %>%
+  as.data.frame() %>%
+  mutate(ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
+         tagDeployStart = as_datetime(tagDeployStart),
+         tagDeployEnd = as_datetime(tagDeployEnd))
+
+```
+```{r importDataDUPLICATE, echo = FALSE}
+
+# load the .motus file
+sql.motus <- tagme(176, update = FALSE, dir = "./data/")
+tbl.alltags <- tbl(sql.motus, "alltags")
+
+# obtain a table object of the filter
+tbl.filter = getRunsFilters(sql.motus, "filtAmbigFalsePos")
+
+# filter and convert the table into a dataframe, with a few modications
+tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID")) %>%
+  mutate(probability = ifelse(is.na(probability), 1, probability),
+         recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
+                             recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
+                             recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
+  filter(probability > 0) %>%
+  select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, -mfg, -nomFreq,
+                             -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID,
+                             -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat,
+                             -gpsLon, - recvAlt, - recvSiteName) %>%
+  collect() %>%
+  as.data.frame() %>%
+  mutate(ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
+         tagDeployStart = as_datetime(tagDeployStart),
+         tagDeployEnd = as_datetime(tagDeployEnd))
 
 ```
 
@@ -103,7 +128,7 @@ sql.motus %>%
 # same summary for the filtered data
 tbl.alltags.sub %>% 
   select(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, 
-         recvDeployLat, recvDeployLon) %>% 
+         recvLat, recvLon) %>% 
   collect() %>%
   summary()
 
