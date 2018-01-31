@@ -44,7 +44,7 @@ tbl.alltags <- tbl(sql.motus, "alltags")
 tbl.filter = getRunsFilters(sql.motus, "filtAmbigFalsePos")
 
 # filter and convert the table into a dataframe, with a few modications
-tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID")) %>%
+df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID")) %>%
   mutate(probability = ifelse(is.na(probability), 1, probability),
          recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
                              recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
@@ -71,7 +71,7 @@ tbl.alltags <- tbl(sql.motus, "alltags")
 tbl.filter = getRunsFilters(sql.motus, "filtAmbigFalsePos")
 
 # filter and convert the table into a dataframe, with a few modications
-tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID")) %>%
+df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID")) %>%
   mutate(probability = ifelse(is.na(probability), 1, probability),
          recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
                              recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
@@ -101,15 +101,21 @@ df.alltags.16047 <- tbl.alltags.sub %>%
                       mutate(ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
                              tagDeployStart = as_datetime(tagDeployStart),
                              tagDeployEnd = as_datetime(tagDeployEnd))
+```
 
+Or, if you imported the RDS and are using a flat dataframe:
 
+```{r importData3, eval = FALSE}
+
+df.alltags.16047 <- df.alltags.sub %>%
+                        filter(motusTagID == 16047) %>%
 ```
 
 ## Summarizing your data {#dataSummaries}
 
 Here we will run through some basic commands, starting with the summary() function to view a selection of variables in a data frame:
 
-```{r summaryAllTags}
+```{r summaryAllTagsb}
 
 sql.motus %>% 
   tbl("alltags") %>% 
@@ -118,11 +124,21 @@ sql.motus %>%
   collect() %>%
   summary()
 
-# same summary for the filtered data
+# same summary for the filtered sql data
 tbl.alltags.sub %>% 
   select(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, 
          recvLat, recvLon) %>% 
   collect() %>%
+  summary()
+```
+
+Doing the same summary with the RDS dataframe:
+
+```{r summaryAllTags, eval = FALSE}
+
+df.alltags.sub %>% 
+  select(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, 
+         recvLat, recvLon) %>% 
   summary()
 
 ```
@@ -256,10 +272,10 @@ p + theme_bw() +
 We can see that during this period, the tag was most often detected during the day, suggesting it may be actively foraging in this area during this time.  
 
 The same plots can provide valuable movement information when the receivers are ordered geographically. We do this for motusTagID 16039:
-```{r}
+```{r latPlot1}
 ## We'll first order sitelat by latitude (for plots)
 df.alltags.sub <- mutate(df.alltags.sub, 
-                         recvDeployName = reorder(recvDeployName, recvLat)) 
+                         recvDeployName = reorder(recvDeployName, recvLat))  
 
 p <- ggplot(filter(df.alltags.sub, motusTagID == 16039 & 
                      ts < ymd("2015-10-01")), 
@@ -271,7 +287,7 @@ p + theme_bw() +
 ```
 We zoom in on a section of this plot and look at antenna bearings to see directional movement past stations:
 
-```{r}
+```{r plot2}
 p <- ggplot(filter(df.alltags.sub, motusTagID == 16039, 
                    ts > ymd("2015-09-14"), ts < ymd("2015-10-01")), 
             aes(ts, sig, col = as.factor(antBearing))) 
@@ -320,7 +336,7 @@ df.alltags.sub.path <- df.alltags.sub %>%
                     mutate(date = as_date(ts)) %>%    # create date variable
                     group_by(motusTagID, date, recvDeployName, ambigID, tagDeployLon, tagDeployLat, recvLat, recvLon)
 
-df.alltags.path <- fun.getpath(df.alltags.sub)
+df.alltags.path <- fun.getpath(df.alltags.sub.path)
 ```
 
 ### Mapping with Google Maps {#googleMaps}
@@ -409,13 +425,7 @@ na.lakes <- mutate(na.lakes, long = long- 360)
 
 # Include all of the Americas to begin
 na.map <- subset(map_data(map="world2"), 
-                 region %in% c("Canada", "USA", "Mexico", "lakes",
-                               "Belize", "Costa Rica", "Panama", 
-                               "Guatemala", "Honduras", "Nicaragua", 
-                               "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil",
-                               "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", 
-                               "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", 
-                               "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay", "Paraguay"))
+                 region %in% c("Canada", "USA", "Mexico", "lakes", "Belize", "Costa Rica", "Panama", "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay", "Paraguay"))
 
 na.map <- mutate(na.map, long = long- 360)
 
