@@ -1,8 +1,8 @@
 # Appendix B - Troubleshooting {#appendixB}
 
-As a first step, always ensure you are using the latest version of the motus package (see chapter \@ref(checkVersion)), and you have all required packages installed, loaded, and up to date (see Chapter \@ref(loadingPackages).  
+As a first step, always ensure you are using the latest version of the motus package (see section \@ref(checkVersion.B)), and you have all required packages installed, loaded, and up to date (see Chapter \@ref(loadingPackages)).  
 
-While attempting to download data with the motus package, you may encounter errors, many of which are likely due to an interrupted connection - **always ensure you are connected to the internet when using the tagme() function**.  Most issues can be solved by either logging out of the motus package, or by restarting R and resuming the download using tagme(). If errors persist and you are unable to download your data, the server may be temporarily offline. Please contact Motus with any concerns motus@birdscanada.org.
+While attempting to download data with the motus package, you may encounter errors, many of which are likely due to an interrupted connection. **Always ensure you are connected to the internet when using the tagme() function with 'update = TRUE'**.  Most issues can be solved by either logging out of the motus package, or by restarting R and resuming the download using tagme(). If errors persist and you are unable to download your data, the server may be temporarily offline. Please contact Motus with any concerns at motus@birdscanada.org.
 
 ## Logging out of motus {#motusLogout}
 ```{r motusLogout, eval = FALSE}
@@ -11,7 +11,7 @@ motusLogout()
 
 ## Resume data download {#resumeDownload}
 
-To resume your data download, run tagme() again, but do not include "new = TRUE":
+To resume your data download, run tagme() again, but do not include 'new = TRUE':
 
 ```{r tagmeResume, eval = FALSE}
 tagme(project.num, update = TRUE, dir = ...)

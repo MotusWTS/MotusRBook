@@ -39,11 +39,13 @@ sunRiseSet
 
 ```
 
-## checkVersion {checkVersion.B}
+## checkVersion {#checkVersion.B}
 ### Description
 
-When you call the tagme() function to load the sqlite database, there is a process that will verify that your database has the version matching the most current version of the motus package and store the version in a new table called admInfo. Over time, changes will be made that require adding new tables, views or fields to the database. The following call will check that your database has been updated to the version matching the current version of the motus package. Refer to the \@ref(Troubleshooting) chapter if this call returns a warning, if you do not have the most recent version, see \@ref(loadingPackages) to update motus and motusClient.
+When you call the tagme() function to load the sqlite database, there is a process that will verify that your database has the version matching the most current version of the motus package and store the version in a new table called admInfo. Over time, changes will be made that require adding new tables, views or fields to the database. The following call will check that your database has been updated to the version matching the current version of the motus package. Refer to Appendix B if this call returns a warning; if you do not have the most recent version, see Chapter \@ref(loadingPackages) to update motus and motusClient.
+
 ### Dependencies
+
 **sql.motus** an sqlite database of .motus data downloaded using tagme()
 
 ### Example
@@ -199,6 +201,7 @@ plotSiteSig(filter(df.alltags, motusTagID %in% c(16037, 16039, 16035)), recvDepl
 ```
 
 ## plotTagSig {#plotTagSig}
+
 ### Description
 Plot signal strength vs time for specified tag, faceted by site (ordered by latitude) and coloured by antenna
 
@@ -221,8 +224,10 @@ plotTagSig(tbl.alltags, motusTagID = 16035)
 ```
 
 ## simSiteDet {#simSiteDet}
+
 ### Description
 Creates a data.frame consisting of only detections of tags that are detected at two or more receivers at the same time.
+
 ### Dependencies
 **data** a selected table from .motus data, eg. "alltags", or a data.frame of detection data including at a minimum variables for ts, motusTagID, recvDepName  
 **ts** variable for a date/time object as numeric or POSIXct, defaults to ts  
@@ -239,6 +244,7 @@ head(simSites)
 ```
 
 ## siteSum {#siteSum}
+
 ### Description
 Creates a summary of the first and last detection at a site, the length of time between first and last detection, the number of tags, and the total number of detections at a site.  Plots total number of detections across all tags, and total number of tags detected at each site.
 

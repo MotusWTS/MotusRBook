@@ -35,7 +35,7 @@ library(motus)
 
 ```
 
-If you need to update an existing motus or motusClient package, you need to specify "force = TRUE":
+If you need to update an existing motus or motusClient package, you need to specify 'force = TRUE':
 ```{r update packages.2, eval = FALSE}
 ## force a re-installation of motus package in case of required updates
 install_github("MotusWTS/motus", force = TRUE)
@@ -47,7 +47,7 @@ library(motus)
 
 ```
 
-Throughout the book, we use tidyverse, which is a collection of R packages for data science, including tidyr, dplyr, ggplot2, and lubridate for managing and manipulating dates. More information on tidyverse can be found at <https://www.tidyverse.org/>, or by browsing (or better still, thoroughly reading) 'R for Data Science' by Garrett Grolemund and Hadley Wickham: <http://r4ds.had.co.nz/>. For mapping we also use the rworldmap, and ggmap packages.  These can be installed from CRAN, as follows:
+Throughout the book, we use tidyverse, which is a collection of R packages for data science, including tidyr, dplyr, ggplot2, and lubridate for managing and manipulating dates. More information on tidyverse can be found at <https://www.tidyverse.org/>, or by browsing (or better still, thoroughly reading) 'R for Data Science' by Garrett Grolemund and Hadley Wickham (<http://r4ds.had.co.nz/>). For mapping we also use the rworldmap, and ggmap packages.  These can be installed from CRAN, as follows:
 
 ```{r install tidyverse, eval = FALSE}
 
@@ -77,7 +77,7 @@ install.packages("plyr")
 
 ## Internal data processing {#internalProcessing}
 
-As an animal moves within the detection range of a Motus station, radio transmissions, or 'bursts', are detected by antenna(s) and recorded by a receiver. These raw detection data are either uploaded to the Motus database instantaneously via internet connection, or downloaded from the receiver and uploaded to Motus manually. Behind the scenes, various functions read and process the raw detections data to produce the tag detections file that users access using the R package (see Chapter \@ref(accessingData)). While most users will not need to call on the internal data processing functions, a complete list of functions within the Motus server R package can be found on GitHub: <https://github.com/jbrzusto/motusServer>. The code behind each function can be viewed on GitHub, or by typing the following in the R console after loading the R package, replacing 'function.name' with the name of the R function of interest:
+As an animal moves within the detection range of a Motus station, radio transmissions, or 'bursts', are detected by antenna(s) and recorded by a receiver. These raw detection data are either uploaded to the Motus database instantaneously via internet connection, or downloaded from the receiver and uploaded to Motus manually. Behind the scenes, various functions read and process the raw detections data to produce the tag detections file that users access using the R package (see Chapter \@ref(accessingData)). While most users will not need to call on the internal data processing functions, a complete list of functions within the Motus server R package can be found on GitHub (<https://github.com/jbrzusto/motusServer>). The code behind each function can be viewed on GitHub, or by typing the following in the R console after loading the R package, replacing 'function.name' with the name of the R function of interest:
 
 ```{r function.name, eval = FALSE}
 

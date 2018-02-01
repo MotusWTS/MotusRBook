@@ -8,7 +8,7 @@ knitr::include_graphics("images/DataStructure.png")
 
 <br>
 
-** Before downloading your detection data, please ensure that you have no pending metadata issues through the online [Data Issues page](https://motus.org/data/issues) **
+**Before downloading your detection data, please ensure that you have no pending metadata issues through the online [Data Issues page](https://motus.org/data/issues)**
 
 ## Database types {#databaseTypes}
 
@@ -20,9 +20,9 @@ There are two types of tag databases:
 
 These two databases correspond to the basic model of data sharing:
 
-1. you get all detections of anyone's tags by *your* receivers (i.e., one receiver tag database for each receiver you deploy)
+1. you get all detections of anyone's tags by *your* receivers (i.e., one receiver tag database for each receiver you deploy).
 
-2. you get all detections of *your* tags by *anyone's* receivers (i.e., one project tag database for each of your Motus projects)
+2. you get all detections of *your* tags by *anyone's* receivers (i.e., one project tag database for each of your Motus projects).
 
 ## Load relevant R packages {#loadPackages}
 
@@ -53,16 +53,20 @@ The success of the Motus network is dependent on the timely upload of detection 
 
 ### Download data for a project or receiver for the _first time_
 
-When downloading data from the Motus server for the first time, you must specify new = TRUE and update = TRUE. Unless the directory that you want your data saved in is stated explicitly within the function call, data will be downloaded to the current working directory. 
+When downloading data from the Motus server for the first time, you must specify 'new = TRUE' and 'update = TRUE'. Unless the directory that you want your data saved in is stated explicitly within the function call, data will be downloaded to the current working directory. 
 
 ### User Authentication {#userAuthentication}
 
 Note that the first time you call a function using the Motus R package, you will be asked to enter your motus.org username and password in the R console to authenticate your access to project data. This will only happen once per R session. If you do not have a Motus username and password, you can sign up at <https://motus.org/data/user/new>. Permission to access project data will then be granted by Motus staff or the project principal investigator.
 
-Throughout this book we will use sample data (see \@ref(sampleData)) which has been assigned to project 176.  When accessing this data you will need to login as follows:
+Throughout this book we will use sample data (see section \@ref(sampleData)) which has been assigned to project 176.  When accessing this data you will need to login as follows:
+
+```{r password, eval = FALSE}
 
 user name: motus.sample
 password: motus.sample
+
+```
 
 ### Logging out {#logout}
 
@@ -76,9 +80,8 @@ motusLogout()
 
 ### Downloading detection data {#downloadData}
 
-Let's get started. Note that there are no receivers registered to sample project 176, so the second call (by receiver) will not find any data. You can, however, replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample account, see \@ref(logout)). 
+Let's get started. Note that there are no receivers registered to sample project 176, so the second call (by receiver) will not find any data. You can, however, replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample account, see section \@ref(logout)). 
 
-<<<<<<< HEAD
 Be warned that large datasets can take some time (sometimes a few hours) to download from the Motus server when downloading for the first time ('new = TRUE' in the tagme function call). After the initial download, loading a .motus file into R using 'tagme(proj.num, update = TRUE)' will be near instantaneous. The download process should print its progress on the console; if you are not seeing it, try scrolling down your screen while tagme is running.
 
 In the event that your connection to the Motus server fails prior to the download completing (e.g., due to poor internet connection), use 'tagme(proj.num, update = TRUE)' to continue the download from where it left off, ensuring to specify a directory if it is saved outside the working directory.  
@@ -94,7 +97,7 @@ sql.motus <- tagme(projRecv = "SG-123BBBK1234", update = TRUE, new = TRUE)  # fo
 
 ```
 
-If you don't want to use the working directory, specify a directory to create and open a local tag database using "dir = ":
+If you don't want to use the working directory, specify a directory to create and open a local tag database using 'dir = ':
 
 ```{r tagme2, eval = FALSE}
 
@@ -164,7 +167,7 @@ sql.motus <- tagme(projRecv = proj.num, forceMeta = TRUE)
 
 ```
 
-### Import full tag and receiver metadata (#metadata)
+### Import full tag and receiver metadata {#metadata}
 
 When you use tagme() to download or update your .motus file, you are provided with the metadata for:
 
@@ -274,7 +277,7 @@ tbl.alltags <- tbl(sql.motus, "alltags") ## virtual table
 
 ```
 
-The following table lists the variables available in the 'alltags' view, a full description of each field is available in \@ref(appendixA)
+The following table lists the variables available in the 'alltags' view, a full description of each field is available in Appendix A.
 
 ```{r parameterTable.3, echo = FALSE, eval = FALSE}
 
@@ -286,7 +289,7 @@ tbl.alltags %>%
 
 ## Ensure that you have the correct database version {checkVersion}
 
-When you call the tagme function to load the sqlite database, there is a process that will verify that your database has the version matching the most current version of the motus package and store the version in a new table called admInfo. Over time, changes will be made that require adding new tables, views or fields to the database. If you do not have the correct version, some of the examples contained in this book may not work. The following call will check that your database has been updated to the version matching the current version of the motus package. If you do not have the most current version, see \@ref(loadingPackages) for instructions on updating motus and motusClient.  Refer to appendix \@ref(appendixB) if this call returns a warning.
+When you call the tagme function to load the sqlite database, there is a process that will verify that your database has the version matching the most current version of the motus package and store the version in a new table called admInfo. Over time, changes will be made that require adding new tables, views or fields to the database. If you do not have the correct version, some of the examples contained in this book may not work. The following call will check that your database has been updated to the version matching the current version of the motus package. If you do not have the most current version, see Chapter \@ref(loadingPackages) for instructions on updating motus and motusClient.  Refer to Appendix B if this call returns a warning.
 
 
 ```{r dbVersion, eval = FALSE}
@@ -296,7 +299,7 @@ checkVersion(sql.motus)
 
 ## Convert a SQLITE table to a flat dataframe {#convertToFlat}
 
-To convert the 'alltags' view or other table in the .motus file into a typical 'flat' format, i.e., with every record for each field filled in, use the collect() and as.data.frame() functions. The output can then be further manipulated, or used to generate a RDS file of your data for archiving or export. 
+To convert the 'alltags' view or other table in the .motus file into a typical 'flat' format, i.e., with every record for each field filled in, use the 'collect()' and 'as.data.frame()' functions. The output can then be further manipulated, or used to generate a RDS file of your data for archiving or export. 
 
 We suggest the following workflow. Prepare a script that downloads/updates your data, filters out the necessary variables, and that does any initial cleaning, and then save the resulting data as an RDS file. We suggest using RDS instead of CSV, because the RDS format preserves the underlying structure of the data (e.g. POSIX times stay as POSIX times). If you want to export your data to another program, then a CSV format might be preferred.  
 
@@ -413,7 +416,7 @@ write_csv(df.alltags, "./data/df.alltags.CSV")
 
 ## R object naming convention
 
-Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with "sql.", virtual table objects will be prefixed with "tbl.", and dataframe objects will be prefixed with "df."; the rest of the name will include the name of the .motus table that the data originates from. Throughout the rest of the book we will be relying on and referencing the naming formats below; please ensure that you are familiar with these before continuing to the next chapter. The following code assumes you have already downloaded the sample data and do not need to update it; if you have not, see section \@ref(dataDownload) for instructions on initial download:
+Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with 'sql.', virtual table objects will be prefixed with 'tbl.', and dataframe objects will be prefixed with 'df.'; the rest of the name will include the name of the .motus table that the data originates from. Throughout the rest of the book we will be relying on and referencing the naming formats below; please ensure that you are familiar with these before continuing to the next chapter. The following code assumes you have already downloaded the sample data and do not need to update it; if you have not, see section \@ref(downloadData) for instructions on initial download:
 
 ```{r namingConvention, eval = FALSE}
 
@@ -440,4 +443,4 @@ df.alltags <- tbl.alltags %>%
 
 ```
 
-In the next chapter we will check for missing metadata
+In the next chapter we will check for missing metadata.

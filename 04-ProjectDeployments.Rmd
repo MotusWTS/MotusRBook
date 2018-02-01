@@ -4,7 +4,7 @@ Before working with your detection data, a first step is to summarize and visual
 
 This chapter is a complement to the online [Data Issues page](https://motus.org/data/issues), which provides each project with a list of metadata issues (missing or outlying values) to be accepted or ignored. As such, please address any and all errors associated with your project on the Data Issues page **before** importing your data through R. This chapter does not provide a full check of your deployment metadata, but will help uncover errors that have been missed by the automatic queries on the Data Issues page.
 
-We use the James Bay Shorebird Project sample dataset throughout this chapter (see Section \@ref(sampleData)). As you run through the code to look at your own deployments, **please fix any errors or omissions in your metadata by signing in to <https://motus.org/>**, and under the 'Manage Data' tab, select either 'Manage Tags' to fix tag deployment metadata or 'Manage Receivers' to fix receiver deployment metadata. It is important to fix metadata errors online, so that errors are fixed at the source and archived on the Motus Server, ensuring all users have access to the correct tag and receiver metadata. Metadata corrected online will automatically be corrected in your detection files. If you have already downloaded your detection data, you can update the existing file to include new metadata and detections (see \@ref(forceMeta), \@ref(tagmeUpdate)).
+We use the James Bay Shorebird Project sample dataset throughout this chapter (see Section \@ref(sampleData)). As you run through the code to look at your own deployments, **please fix any errors or omissions in your metadata by signing in to <https://motus.org/>**, and under the 'Manage Data' tab, select either 'Manage Tags' to fix tag deployment metadata or 'Manage Receivers' to fix receiver deployment metadata. It is important to fix metadata errors online, so that errors are fixed at the source and archived on the Motus Server, ensuring all users have access to the correct tag and receiver metadata. Metadata corrected online will automatically be corrected in your detection files. If you have already downloaded your detection data, you can update the existing file to include new metadata and detections (see sections \@ref(forceMeta), \@ref(tagmeUpdate)).
 
 ## Load relevant R packages and set working environment
 
@@ -23,7 +23,7 @@ Sys.setenv(TZ="GMT")
 
 ## Load .motus file
 
-This chapter assumes that the .motus file has already been downloaded, if you have not done so please return to Chapter \@ref(accessingData) for instructions on how to do so. To update and load the existing file into R, use tagme(), you may have to login as described in the previous chapter with username **and** password "motus.sample"
+This chapter assumes that the .motus file has already been downloaded, if you have not done so please return to Chapter \@ref(accessingData) for instructions on how to do so. To update and load the existing file into R, use tagme(), you may have to login as described in the previous chapter with username **and** password 'motus.sample'
 
 ```{r loadDetections, eval = FALSE}
 
@@ -45,7 +45,7 @@ In your .motus file, when using the tagme function, you are only provided with t
 
 We will run through each of these in sequence.
 
-### 1. Download full project tag metadata 
+### Download full project tag metadata 
 
 Incomplete metadata or missing tag registrations can result in missing detection data. We therefore want to assess the completeness of all tags registered to our projects - not just tags for which we have detections. In order to to this we will use the metadata() function for project 176, described in more detail in section \@ref(metadata).
 
@@ -55,7 +55,7 @@ metadata(sql.motus, projectIDs = 176)
 
 ```
 
-### 2. Number of registered tags
+### Number of registered tags
 
 Now that we have complete tag metadata for our project, we can check the number of tags registered by loading the 'tags' table in the .motus file. The 'tags' table contains the metadata of each registered tag, including a unique tagID and information on manufacturer, model, nominal and offset frequency, burst interval, and pulse length. The 'tags' table does not include deployment information. We select the metadata specific to the James Bay Shorebird Project, and ignore tag metadata associated with any duplicate tags belonging to other projects:
 
@@ -81,9 +81,9 @@ You can view the motusTagIDs:
 ```{r, mtousTagIDs}
 unique(df.tags$tagID)
 ```
-If you are missing registered tags, please follow the instructions here: <https://motus.org/tag-registration/>
+If you are missing registered tags, please follow the instructions at <https://motus.org/tag-registration/>.
 
-### 3. Number of registered tags that were deployed
+### Number of registered tags that were deployed
 
 The tag deployment metadata table ('tagDeps') in the .motus file is required to check which registered tags have deployments. This file includes the date, time, species, and location of tag deployment. The database is subset to project '176', and we use the anti_join function to determine which registered tags have (or do not have) corresponding deployment information.
 
@@ -103,15 +103,15 @@ anti_join(df.tags, df.tagDeps, by = "tagID")
 
 In the sample data, there are no registered tags without deployment metadata, which suggests that all tags were deployed. If you have undeployed tags in your own files, please check your records to ensure this is the case; without deployment metadata, detections for registered but 'undeployed' tags will be missing from your detections database.
 
-### 4. Location of tag deployments
+### Location of tag deployments
 
 Creating a map of your tag deployments can point out any obvious errors in the tag deployment latitude or longitude that weren't captured by the online metadata message center queries.
 
-a. **Load base map files.**
+**a. Load base map files**
 
 Load base map files from the rworldmap package:
 
-```{r loadMapsRecv1, message = FALSE, warning = FALSE}
+```{r loadMapsRecv1, message = FALSE, warning = FALSE, echo = FALSE}
 
 ## get the lake data; adjust longitude
 na.lakes <- fortify(maps::map(map="lakes", region=".", exact = FALSE, plot = FALSE, fill = TRUE)) %>% 
@@ -125,7 +125,22 @@ na.map <- fortify(maps::map(map="world2", region=c("Canada","USA"), exact = FALS
 
 ```
 
-b. **Map the locations of tag deployments.**
+```{r loadMapsRecv1DUP, eval = FALSE}
+
+na.lakes <- map_data(map = "lakes")
+na.lakes$long <- with(na.lakes, long- 360)
+
+## Include all of the Americas to begin
+na.map <- filter(map_data(map="world2"), 
+                 region %in% c("Canada", "USA")
+                               
+na.map <- mutate(na.map, long = long- 360)
+                
+## Others countries in the Americas that you may want to plot, depending on your location: "Mexico", "lakes","Belize", "Costa Rica", "Panama", "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay"
+
+```
+
+**b. Map the locations of tag deployments**
 
 Map the location of tag deployments for the sample data: 
 
@@ -153,13 +168,13 @@ ggplot(na.lakes, aes(long, lat)) +
              aes(longitude, latitude), cex = 2, pch = 1, colour = "red")
    
 ```
-If there are any errors in tag deployment location, please correct these online: <https://motus.org/data/>
+If there are any errors in tag deployment location, please correct these online at <https://motus.org/data/>.
 
-### 5. Check completeness and accuracy of tag deployment metadata
+### Check completeness and accuracy of tag deployment metadata
 
 Required tag metadata includes deployment start date/time, end date/time (if applicable), deployment latitude, deployment longitude, and species. Lack of information on deployment date, time, and location in particular can influence the estimated lifespan of your tag, and therefore whether the tagFinder will 'look' for your tag at the appropriate time(s). It can also increase the potential for ambiguities with duplicate tags in the system. 
 
-a. **Look at range of metadata values**.
+**a. Look at range of metadata values**
 
 As a first step, use summary(df.tagDeps) to get an idea of the range of each variable, and whether any variables have missing (NA) or odd values. The following summarizes a subset of the variables in the df.tagDeps database. There are several things to consider: are the range of start and end dates reasonable for your deployments, or are there obvious errors in the timing of deployments? Is the range in deployment latitude and longitude reasonable? Are the values for species IDs correct?  
 
@@ -175,7 +190,7 @@ There are no missing start dates (tsStart), and deployment start dates range fro
 
 The species IDs are numeric, and somewhat meaningless without an ability to assign an actual species name to the numeric ID, which we do next, however there are no missing values. 
 
-b. **Check that species IDs are appropriate for your data**.
+**b. Check that species IDs are appropriate for your data**
 
 The 'species' table in the .motus file associates each numeric species ID with an English, French, and scientific name. We load that table, and subset to the suite of numeric speciesIDs in the tag metadata:
 
@@ -201,17 +216,15 @@ filter(df.tagDeps, speciesID == 4780)
 
 ```
 
-** Don't forget, any metadata corrections need to be made online **
+**Please remember, any metadata corrections need to be made online**
 
 ## Check Receiver Metadata {#recvMetadata}
-
 
 There are two sources of receiver metadata in Motus detection data: receivers registered to your own project, and receivers registered to the projects of others. You can access metadata for all receivers in the network, because negative data (i.e., my tag was *not* detected at station x even though station x was active) is often as important as positive data. It also allows you to map where your tags were detected relative to the distribution of receivers throughout the Motus network.
 
 Receiver metadata errors or omissions that you find in your .motus file can only be fixed for receivers registered to your own project. 
 
 All users are encouraged to enter complete and accurate receiver metadata for the benefit of the entire network. If you anticipate needing specific information on receiver or antenna deployments for stations deployed by others, please consider using the Motus discussion group (<https://motus.org/discussion/>) to request that other registered users record the receiver deployment details you will need; be specific about the exact receiver deployment details you are interested in, and when and where in the network your tags will be deployed and potentially detected. 
-
 In the following steps we will:
 
 1. download full receiver metadata across the network;  
@@ -220,15 +233,15 @@ In the following steps we will:
 4. determine location of network-wide and project receiver deployments;
 5. determine completeness and accuracy of receiver metadata.
 
-### 1. Download full  receiver metadata 
+### Download full  receiver metadata 
 
-Later on in this chapter we will want to map all receivers in the network, so we will now load metadata from all projects, as opposed to simply project 176 as we did above. The metadata() function is described in more detail here: \@ref(metadata).
+Later on in this chapter we will want to map all receivers in the network, so we will now load metadata from all projects, as opposed to simply project 176 as we did above. The metadata() function is described in more detail in section  \@ref(metadata).
 
 ```{r metadataall, eval = FALSE}
 metadata(sql.motus)
 ```
 
-### 2. Number of project receiver deployments
+### Number of project receiver deployments
 
 To see which (if any) receiver deployments are registered to your project, import, subset and summarize the receiver deployment data:
 
@@ -264,7 +277,7 @@ The number of receiver deployments in the metadata should correspond with the nu
 
 Looking at the 'isMobile' column for the four receiver deployments that are missing latitude and longitude information, it is evident that these are mobile receivers that do not have a fixed position (ie. they have a value of 1). Because they are mobile, coordinates of the deployment aren't expected, and in this case will remain NA. Receiver deployment coordinates for mobile receivers, when present, are meant to represent the starting point for the deployment.
 
-### 3. Timing of project receiver deployments
+### Timing of project receiver deployments
 
 The timing of deployments can be displayed graphically; horizontal line(s) in the following plot show the time span for each receiver (deviceID) deployment registered to the James Bay Shorebird Project. Note that for the two receivers without deployment end dates, the code assigns an arbitrary end date based on the maximum end date of the other receivers plus one month - without this fix, deployments without end dates do not get displayed. Different deployments of the same receiver should not overlap in time:
 
@@ -307,11 +320,11 @@ ggplot(df.projRecvs.long,
   
 ```
 
-### 4. Location of receiver deployments
+### Location of receiver deployments
 
 Maps provide better spatial context than simple plots; the following steps plot the location of Motus receivers on a map of North America, with receivers deployed by the sample project displayed in red.
 
-a. **Load all receiver metadata.**
+**a. Load all receiver metadata**
 ```{r loadRecvDeps}
 
 df.recvDeps <- tbl.recvDeps %>%
@@ -322,7 +335,7 @@ df.recvDeps <- tbl.recvDeps %>%
 
 ```
 
-b. **Load base map files.**
+**b. Load base map files**
 
 ```{r loadMapsRecv2, message = FALSE, warning = FALSE}
 
@@ -343,7 +356,7 @@ na.map <- fortify(maps::map(map="world2", region=regions, exact = FALSE, plot = 
 
 ```
 
-c. **Map the location of receivers in the Americas.**
+**c. Map the location of receivers in the Americas**
 
 Map showing the location of network-wide receivers (dark grey 'x') and receivers deployed by the James Bay Shorebird Project (project 176; red 'x').
 
@@ -369,7 +382,7 @@ ggplot(na.lakes, aes(long, lat))+
 
 ```
 
-c. **Map the location of project specific receivers only.**
+**d. Map the location of project specific receivers only**
 
 Map of project-specific receivers, created by setting the x-axis (longitude) and y-axis (latitude) map limits using the 'df.projRecvs' dataframe created above. Deployments are restricted to those that were active at in 2016.
 
@@ -397,7 +410,7 @@ ggplot(na.lakes, aes(long, lat))+
 
 ```
 
-### 5. Completeness and accuracy of receiver metadata
+### Completeness and accuracy of receiver metadata
 
 Motus users will be concerned primarily with the completeness of metadata for receiver deployments with detection(s) of their tags, because these can directly influence the interpretation of those detections. For example, missing deployment latitude or longitude will result in an unknown location for the tag detection, and missing information on antenna type and/or orientation can impede the estimation of flight or departure orientation. 
 
@@ -405,7 +418,7 @@ In many cases, however, metadata for receiver deployments *without* tag detectio
 
 In this section, the focus is on metadata for receivers registered to a particular project. Depending on your interests, these summaries can be applied to a larger group of receivers, e.g., all receivers with detections or all receivers within certain geographic limits (with or without detections).
 
-a. **Load receiver and antenna metadata**
+**a. Load receiver and antenna metadata**
 
 ```{r loadReceiverAntennaMetadata}
 
@@ -433,7 +446,7 @@ df.stationDeps <- filter(df.stationDeps, projectID == proj.num)
 
 ```
 
-b. **Look at range of metadata values**. 
+**b. Look at range of metadata values** 
 
 Use summary() to get a general idea of the distribution of the variables in the data. 
 
@@ -458,6 +471,6 @@ filter(df.stationDeps, is.na(bearing)) %>%
 
 Receiver deployments with missing antenna bearing(s) are restricted to deployments of omni-directional antennas or mobile receivers, and so the missing values make sense. These records also show that the four records with missing antenna height are also associated with the four mobile receivers, and so again the missing values make sense and do not need to be fixed.  
 
-Remember that any missing metadata needs to be corrected online. Metadata corrected online will automatically be corrected in your detection files. If you have already downloaded your detection data, you can update the existing file to include new metadata and detections (see \@ref(forceMeta), \@ref(tagmeUpdate)).
+Remember that any missing metadata needs to be corrected online. Metadata corrected online will automatically be corrected in your detection files. If you have already downloaded your detection data, you can update the existing file to include new metadata and detections (see sections \@ref(forceMeta), \@ref(tagmeUpdate)).
 
 In the next chapter we will examine our data for false positives, and remove detections of ambiguous tags.
