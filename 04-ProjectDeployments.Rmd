@@ -114,13 +114,12 @@ Load base map files from the rworldmap package:
 ```{r loadMapsRecv1, message = FALSE, warning = FALSE}
 
 ## get the lake data; adjust longitude
-na.lakes <- map_data(map = "lakes") %>%
-  mutate(long = long- 360)
+na.lakes <- fortify(maps::map(map="lakes", region=".", exact = FALSE, plot = FALSE, fill = TRUE)) %>% 
+  mutate(long = long - 360)
 
 ## get the country data; adjust longitude
-na.map <- filter(map_data(map="world2"),
-                 region %in% c("Canada", "USA")) %>%
-  mutate(long = long- 360)
+na.map <- fortify(maps::map(map="world2", region=c("Canada","USA"), exact = FALSE, plot = FALSE, fill = TRUE)) %>% 
+  mutate(long = long - 360)
                 
 ## Others countries in the Americas that you may want to plot, depending on your location: "Mexico", "lakes","Belize", "Costa Rica", "Panama", "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay"
 
@@ -327,23 +326,20 @@ b. **Load base map files.**
 
 ```{r loadMapsRecv2, message = FALSE, warning = FALSE}
 
-na.lakes <- map_data(map = "lakes")
-na.lakes <- mutate(na.lakes, long = long- 360)
+na.lakes <- fortify(maps::map(map="lakes", region=".", exact = FALSE, plot = FALSE, fill = TRUE)) %>% 
+  mutate(long = long - 360)
 
 ## Include all of the Americas to begin
+regions <- c("Canada", "USA", "Mexico", "lakes", "Belize", "Costa Rica", "Panama", 
+             "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", 
+             "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", 
+             "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", 
+             "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", 
+             "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", 
+             "Chile", "Argentina", "Uruguay", "Paraguay")
 
-na.map <- subset(map_data(map="world2"), 
-                region %in% c("Canada", "USA", "Mexico", "lakes",
-                               "Belize", "Costa Rica", "Panama", 
-                               "Guatemala", "Honduras", "Nicaragua", 
-                               "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil",
-                               "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", 
-                               "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", 
-                               "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", 
-                               "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", 
-                               "Uruguay"))
-
-na.map <- mutate(na.map, long = long- 360)
+na.map <- fortify(maps::map(map="world2", region=regions, exact = FALSE, plot = FALSE, fill = TRUE)) %>% 
+  mutate(long = long - 360)
 
 ```
 

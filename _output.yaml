@@ -5,5 +5,6 @@ bookdown::gitbook:
       before: |
         <li><strong><a href="./">R for Motus</a></strong></li>
 
+
 bookdown::pdf_book:
-   keep_tex: yes
+   keep_tex: no

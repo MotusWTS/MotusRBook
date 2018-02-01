@@ -51,6 +51,8 @@ Throughout the book, we use tidyverse, which is a collection of R packages for d
 
 ```{r install tidyverse, eval = FALSE}
 
+library(maps)
+
 install.packages("tidyverse")
 library(tidyverse)
 

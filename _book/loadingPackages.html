@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -332,7 +332,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <span class="kw">library</span>(motus)</code></pre></div>
 <p>Throughout the book, we use tidyverse, which is a collection of R packages for data science, including tidyr, dplyr, ggplot2, and lubridate for managing and manipulating dates. More information on tidyverse can be found at <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>, or by browsing (or better still, thoroughly reading) ‘R for Data Science’ by Garrett Grolemund and Hadley Wickham: <a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>. For mapping we also use the rworldmap, and ggmap packages. These can be installed from CRAN, as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(maps)
+
+<span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)
 <span class="kw">library</span>(tidyverse)
 
 <span class="kw">install.packages</span>(<span class="st">&quot;tidyr&quot;</span>)
@@ -391,7 +393,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["MotusRBook.pdf"],
+"download": null,
 "toc": {
 "collapse": "section"
 }

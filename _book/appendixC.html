@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -307,8 +307,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>) <span class="co"># download and access sample data in sql format, username: motus.sample, password: motus.sample</span>
 
 tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>) <span class="co"># extract &quot;alltags&quot;&quot; table from sql file &quot;sql.motus&quot;</span>
-df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+df.alltags &lt;-<span class="st"> </span>tbl.alltags %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>() %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">as.data.frame</span>() ## convert the tbl &quot;tbl.alltags&quot; to a data.frame called &quot;df.alltags&quot;</code></pre></div>
 <p>You can access the function help pages:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">??sunRiseSet</code></pre></div>
@@ -449,7 +449,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <h3><span class="header-section-number">9.3.3</span> Example</h3>
 <p>Plot tags select tags from tbl.alltags with 3 tags per panel</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotAllTagsCoord</span>(
-  <span class="kw">filter</span>(tbl.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">19129</span>, <span class="dv">16011</span>, <span class="dv">17357</span>, <span class="dv">16035</span>, <span class="dv">22897</span>, <span class="dv">23316</span>)), 
+  <span class="kw">filter</span>(tbl.alltags, motusTagID %in%<span class="st"> </span><span class="kw">c</span>(<span class="dv">19129</span>, <span class="dv">16011</span>, <span class="dv">17357</span>, <span class="dv">16035</span>, <span class="dv">22897</span>, <span class="dv">23316</span>)), 
   <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</code></pre></div>
 <pre><code>## Warning: Missing values are always removed in SQL.
 ## Use `AVG(x, na.rm = TRUE)` to silence this warning</code></pre>
@@ -475,7 +475,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-3" class="section level3">
 <h3><span class="header-section-number">9.4.3</span> Example</h3>
 <p>Plot tbl file tbl.alltags using gpsLat and 3 tags per panel for select species Red Knot</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotAllTagsSite</span>(<span class="kw">filter</span>(tbl.alltags, speciesEN <span class="op">==</span><span class="st"> &quot;Red Knot&quot;</span>), 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotAllTagsSite</span>(<span class="kw">filter</span>(tbl.alltags, speciesEN ==<span class="st"> &quot;Red Knot&quot;</span>), 
                 <span class="dt">coordinate =</span> <span class="st">&quot;recvDeployLat&quot;</span>, 
                 <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</code></pre></div>
 <pre><code>## Warning: Missing values are always removed in SQL.
@@ -521,7 +521,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <p>Plot routemap of all detection data, with “terrain” maptype, and receivers active between 2016-01-01 and 2017-01-01</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotRouteMap</span>(sql.motus, 
              <span class="dt">maptype =</span> <span class="st">&quot;terrain&quot;</span>, 
-             <span class="dt">latCentre =</span> <span class="dv">44</span>, <span class="dt">lonCentre =</span> <span class="op">-</span><span class="dv">70</span>, <span class="dt">zoom =</span> <span class="dv">5</span>, 
+             <span class="dt">latCentre =</span> <span class="dv">44</span>, <span class="dt">lonCentre =</span> -<span class="dv">70</span>, <span class="dt">zoom =</span> <span class="dv">5</span>, 
              <span class="dt">recvStart =</span> <span class="st">&quot;2016-01-01&quot;</span>, <span class="dt">recvEnd =</span> <span class="st">&quot;2016-12-31&quot;</span>)</code></pre></div>
 <pre><code>## Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=44,-70&amp;zoom=5&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;language=en-EN&amp;sensor=false</code></pre>
 <pre><code>## Warning: Removed 11 rows containing missing values (geom_point).</code></pre>
@@ -545,7 +545,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-6" class="section level3">
 <h3><span class="header-section-number">9.7.3</span> Example</h3>
 <p>Plot only detections at a specific site; Piskwamish for data.frame df.alltags</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotSite</span>(<span class="kw">filter</span>(df.alltags, recvDeployName <span class="op">==</span><span class="st"> &quot;Piskwamish&quot;</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotSite</span>(<span class="kw">filter</span>(df.alltags, recvDeployName ==<span class="st"> &quot;Piskwamish&quot;</span>))</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotSite-1.png" width="672" /></p>
 </div>
 </div>
@@ -568,7 +568,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-7" class="section level3">
 <h3><span class="header-section-number">9.8.3</span> Example</h3>
 <p>Plot select tags for site Piskwamish</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotSiteSig</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16037</span>, <span class="dv">16039</span>, <span class="dv">16035</span>)), <span class="dt">recvDeployName =</span> <span class="st">&quot;Netitishi&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotSiteSig</span>(<span class="kw">filter</span>(df.alltags, motusTagID %in%<span class="st"> </span><span class="kw">c</span>(<span class="dv">16037</span>, <span class="dv">16039</span>, <span class="dv">16035</span>)), <span class="dt">recvDeployName =</span> <span class="st">&quot;Netitishi&quot;</span>)</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotSiteSig-1.png" width="672" /></p>
 </div>
 </div>
@@ -716,7 +716,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <h3><span class="header-section-number">9.11.3</span> Example</h3>
 <p>Create site summaries for select sites with time in minutes</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">site_summary &lt;-<span class="st"> </span><span class="kw">siteSum</span>(<span class="kw">filter</span>(df.alltags, 
-                               recvDeployName <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Niapiskau&quot;</span>, <span class="st">&quot;Netitishi&quot;</span>, <span class="st">&quot;Old Cur&quot;</span>, <span class="st">&quot;Washkaugou&quot;</span>)),
+                               recvDeployName %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Niapiskau&quot;</span>, <span class="st">&quot;Netitishi&quot;</span>, <span class="st">&quot;Old Cur&quot;</span>, <span class="st">&quot;Washkaugou&quot;</span>)),
                         <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/siteSum-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(site_summary)</code></pre></div>
@@ -783,7 +783,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-12" class="section level3">
 <h3><span class="header-section-number">9.13.3</span> Example</h3>
 <p>View site transitions for only tag 16037 from data.frame df.alltags</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">transitions &lt;-<span class="st"> </span><span class="kw">siteTrans</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16037</span>), 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">transitions &lt;-<span class="st"> </span><span class="kw">siteTrans</span>(<span class="kw">filter</span>(df.alltags, motusTagID ==<span class="st"> </span><span class="dv">16037</span>), 
                          <span class="dt">latCoord =</span> <span class="st">&quot;recvDeployLat&quot;</span>, <span class="dt">lonCoord =</span> <span class="st">&quot;recvDeployLon&quot;</span>)
 <span class="kw">head</span>(transitions)</code></pre></div>
 <pre><code>## # A tibble: 6 x 14
@@ -861,7 +861,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-14" class="section level3">
 <h3><span class="header-section-number">9.15.3</span> Example</h3>
 <p>Create tag summaries for only select tags with time in default hours with data.frame df.alltags</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tag_site_summary &lt;-<span class="st"> </span><span class="kw">tagSumSite</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16047</span>, <span class="dv">16037</span>, <span class="dv">16039</span>)))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tag_site_summary &lt;-<span class="st"> </span><span class="kw">tagSumSite</span>(<span class="kw">filter</span>(df.alltags, motusTagID %in%<span class="st"> </span><span class="kw">c</span>(<span class="dv">16047</span>, <span class="dv">16037</span>, <span class="dv">16039</span>)))
 <span class="kw">head</span>(tag_site_summary)</code></pre></div>
 <pre><code>##                               fullID        recvDeployName
 ## 1 SampleData#179:6.1@166.38(M.16037)                  BULL
@@ -1024,7 +1024,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["MotusRBook.pdf"],
+"download": null,
 "toc": {
 "collapse": "section"
 }

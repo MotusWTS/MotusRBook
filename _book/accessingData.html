@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -455,8 +455,8 @@ tbl.tagDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus,
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(tbl.tagDeps)</code></pre></div>
 <p>The first part of the list, ‘src’, is a list that provides details of the SQLiteConnection, including where the database is stored. The second part is a list that includes the underlying table. Thus, the R object ‘tagDeps’ is a <em>virtual</em> table that stores the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and functions within the dplyr package can be used to manipulate and summarize the tables before collecting the results into a typical “flat” format dataframe.</p>
 <p>If you want to use familiar functions to get access to components of the underlying data frame, then use the ‘collect’ function. For example, to look at the names of the variables in tagDeps:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tbl.tagDeps <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tbl.tagDeps %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>() %&gt;%
 <span class="st">  </span><span class="kw">names</span>() <span class="co"># list the variable names in the table</span></code></pre></div>
 <pre><code>##  [1] &quot;deployID&quot;     &quot;tagID&quot;        &quot;projectID&quot;    &quot;status&quot;      
 ##  [5] &quot;tsStart&quot;      &quot;tsEnd&quot;        &quot;deferSec&quot;     &quot;speciesID&quot;   
@@ -479,8 +479,8 @@ tbl.tagDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus,
 <p>We caution that producing a flat file using the full suite of fields can use a lot of memory, and can slow R down considerably when dealing with large datasets. For some combinations of data sets and computers, it may be impossible to directly use data frames in R. If that is the case, then this is the point in your workflow where you should carefully consider the information you need from within your data set (for example, how it is aggregated) and simplify it. You can always return to this script, creating a new RDS file with different variables, or aggregated at a different scale.</p>
 <p>We elaborate on this idea in the following sections.</p>
 <p>Make a data frame …</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">                </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags &lt;-<span class="st"> </span>tbl.alltags %&gt;%<span class="st"> </span>
+<span class="st">                </span><span class="kw">collect</span>() %&gt;%<span class="st"> </span>
 <span class="st">                </span><span class="kw">as.data.frame</span>()      ## for all fields in the df (data frame)</code></pre></div>
 <p>… and take a quick look at the resulting file.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(df.alltags)     ## field names
@@ -488,9 +488,9 @@ tbl.tagDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus,
 <span class="kw">head</span>(df.alltags)      ## Look at first 6 rows of your df
 <span class="kw">summary</span>(df.alltags)   ## summary of each column in your df</code></pre></div>
 <p>Note that the format of the time stamp (ts) field is numeric and represents seconds since January 1 1970. We recommend that when you transform your tables into flat dataframes, that you format the time stamp using the lubridate package at that time, e.g.:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">                </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">                </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">     </span>## for all fields in the df (data frame)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags &lt;-<span class="st"> </span>tbl.alltags %&gt;%<span class="st"> </span>
+<span class="st">                </span><span class="kw">collect</span>() %&gt;%<span class="st"> </span>
+<span class="st">                </span><span class="kw">as.data.frame</span>() %&gt;%<span class="st">     </span>## for all fields in the df (data frame)
 <span class="st">                </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))
 
 ## the tz = &quot;UTC&quot; is not necessary here, provided you have set your system time to UTC/GMT... but it serves as a useful reminder!</code></pre></div>
@@ -499,37 +499,37 @@ tbl.tagDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus,
 <li>To select certain variables:</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## to grab a subset of variables, in this case a unique list of Motus tag IDs at each receiver and antenna.
-df.alltagsSub &lt;-<span class="st"> </span><span class="kw">select</span>(tbl.alltags, recv, port, motusTagID) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+df.alltagsSub &lt;-<span class="st"> </span><span class="kw">select</span>(tbl.alltags, recv, port, motusTagID) %&gt;%
+<span class="st">  </span><span class="kw">distinct</span>() %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>() %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">as.data.frame</span>() </code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>To select certain tag IDs:</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## filter to include only motusTagIDs 16011, 23316
-df.alltagsSub &lt;-<span class="st"> </span><span class="kw">filter</span>(tbl.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16011</span>, <span class="dv">23316</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">                  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">                  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">    </span>
+df.alltagsSub &lt;-<span class="st"> </span><span class="kw">filter</span>(tbl.alltags, motusTagID %in%<span class="st"> </span><span class="kw">c</span>(<span class="dv">16011</span>, <span class="dv">23316</span>)) %&gt;%<span class="st"> </span>
+<span class="st">                  </span><span class="kw">collect</span>() %&gt;%<span class="st"> </span>
+<span class="st">                  </span><span class="kw">as.data.frame</span>() %&gt;%<span class="st">    </span>
 <span class="st">                  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))    </code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>To select a specified species:</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## filter to only Red Knot (using speciesID)
-df.<span class="dv">4670</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(tbl.alltags, speciesID <span class="op">==</span><span class="st"> </span><span class="dv">4670</span>) <span class="op">%&gt;%</span><span class="st">  </span>
-<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">    </span>
+df<span class="fl">.4670</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(tbl.alltags, speciesID ==<span class="st"> </span><span class="dv">4670</span>) %&gt;%<span class="st">  </span>
+<span class="st">  </span><span class="kw">collect</span>() %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">as.data.frame</span>() %&gt;%<span class="st">    </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))  
 
 ## filter to only Red Knot (using English name)
-df.redKnot &lt;-<span class="st"> </span><span class="kw">filter</span>(tbl.alltags, speciesEN <span class="op">==</span><span class="st"> &quot;Red Knot&quot;</span>) <span class="op">%&gt;%</span><span class="st">   </span>
-<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">    </span>
+df.redKnot &lt;-<span class="st"> </span><span class="kw">filter</span>(tbl.alltags, speciesEN ==<span class="st"> &quot;Red Knot&quot;</span>) %&gt;%<span class="st">   </span>
+<span class="st">  </span><span class="kw">collect</span>() %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">as.data.frame</span>() %&gt;%<span class="st">    </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))    </code></pre></div>
 <p>Using dplyr(), your virtual table can also be summarized before converting to a flat file. For example, to find the number of different detections for each tag at each receiver:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.detectSum &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(motusTagID, recv) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.detectSum &lt;-<span class="st"> </span>tbl.alltags %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(motusTagID, recv) %&gt;%
+<span class="st">  </span><span class="kw">tally</span>() %&gt;%
+<span class="st">  </span><span class="kw">collect</span>() %&gt;%
 <span class="st">  </span><span class="kw">as.data.frame</span>() </code></pre></div>
 <p>In later chapter(s) we will show you additional ways of summarizing and working with your data.</p>
 </div>
@@ -551,9 +551,9 @@ df.redKnot &lt;-<span class="st"> </span><span class="kw">filter</span>(tbl.allt
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)   <span class="co"># SQLite R object, which links to the .motus file</span>
 tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)  <span class="co"># virtual table object of the alltags table in the</span>
                                           <span class="co"># sample.motus file</span>
-df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span>
-<span class="st">                </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
-<span class="st">                </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">        </span><span class="co"># dataframe (&quot;flat&quot;) object of the alltags table</span>
+df.alltags &lt;-<span class="st"> </span>tbl.alltags %&gt;%
+<span class="st">                </span><span class="kw">collect</span>() %&gt;%
+<span class="st">                </span><span class="kw">as.data.frame</span>() %&gt;%<span class="st">        </span><span class="co"># dataframe (&quot;flat&quot;) object of the alltags table</span>
 <span class="st">                </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))              </code></pre></div>
 <p>In the next chapter we will check for missing metadata</p>
 
@@ -597,7 +597,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["MotusRBook.pdf"],
+"download": null,
 "toc": {
 "collapse": "section"
 }

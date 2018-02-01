@@ -33,7 +33,7 @@ df.alltags.sub <- readRDS("./data/dfAlltagsSub.rds") # change directory to your 
 
 ```
 
-Or, if you've applied a custom filter to your .motus file, you can load the previously downloaded sample .motus data (see chapter \@ref(accessingData) and clean it now. Currently the main benefit of using the custom filter is that you apply the filter to the .motus file, which allows you more flexibility in applying dplyr functions to manage and filter the data (e.g., you can select different variables to include in the data than we included in the RDS file in Chapter \@ref(#dataCleaning)). Because we are selecting the same variables and filtering the same records, the following gives you the same dataset as the readRDS statement above:
+Or, if you've applied a custom filter to your .motus file, you can load the previously downloaded sample .motus data (see chapter \@ref(accessingData) and clean it now. Currently the main benefit of using the custom filter is that you apply the filter to the .motus file, which allows you more flexibility in applying dplyr functions to manage and filter the data (e.g., you can select different variables to include in the data than we included in the RDS file in Chapter \@ref(#dataCleaning)). This approach also also you to more readily integrate new data added to your database with the tagme function. Because we are selecting the same variables and filtering the same records, the following gives you the same dataset as the readRDS statement above:
 
 ```{r importData, eval = FALSE}
 
@@ -92,7 +92,7 @@ df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID
 
 ```
 
-**Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues. Details on filtering the tbl prior to collecting as a dataframe are available in section \@ref(convertToFlat).  Here we do so by adding a filter to the above command, in this case, only creating a dataframe for motusTagID 16047:**
+**Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues. Details on filtering the tbl prior to collecting as a dataframe are available in section \@ref(convertToFlat).  Here we do so by adding a filter to the above command, in this case, only creating a dataframe for motusTagID 16047, but you can decide how to best subset your data based on your need (e.g. by species or year):**
 
 ```{r importData2}
 
@@ -388,7 +388,7 @@ p + geom_point(data = subset(df.recvDeps, active == TRUE), ggplot2::aes(longitud
 
 For mapping with outline maps, we'll need to load the rworldmap package; see \@ref(loadingPackages) for instructions on installing the package if you have not already done so.
 
-```{r installMapPackages, message = FALSE, warning = FALSE, eval = FALSE}
+```{r installMapPackages, message = FALSE, warning = FALSE}
 
 require(rworldmap)
 
@@ -396,16 +396,36 @@ require(rworldmap)
 
 We first need to load the base maps.
 
-```{r loadMaps.6, message = FALSE, warning = FALSE, eval = FALSE}
+```{r loadMaps.6, message = FALSE, warning = FALSE}
 
 ## get the lake data; adjust longitude
-na.lakes <- map_data(map = "lakes") %>%
-  mutate(long = long- 360)
+na.lakes <- fortify(maps::map(map="lakes", region=".", exact = FALSE, plot = FALSE, fill = TRUE)) %>% 
+  mutate(long = long - 360)
 
-## get the country data; adjust longitude
-na.map <- filter(map_data(map="world2"),
-                 region %in% c("Canada", "USA", "Mexico", "Belize", "Costa Rica", "Panama", "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay", "Paraguay")) %>%
-  mutate(long = long- 360)
+## Include all of the Americas to begin
+regions <- c("Canada", "USA", "Mexico", "lakes", "Belize", "Costa Rica", "Panama", 
+             "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", 
+             "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", 
+             "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", 
+             "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", 
+             "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", 
+             "Chile", "Argentina", "Uruguay", "Paraguay")
+
+na.map <- fortify(maps::map(map="world2", region=regions, exact = FALSE, plot = FALSE, fill = TRUE)) %>% 
+  mutate(long = long - 360)
+
+```
+
+```{r loadMaps.6b}
+
+
+#na.lakes <- map_data(map = "lakes")
+na.lakes$long <- with(na.lakes, long- 360)
+
+# Include all of the Americas to begin
+#na.map <- subset(map_data(map="world2"), 
+#                 region %in% c("Canada", "USA", "Mexico", "lakes", "Belize", "Costa Rica", "Panama", "Guatemala", "Honduras", #"Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French #Guiana", "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", "Puerto Rico", "British #Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", #"Uruguay", "Paraguay"))
+#na.map <- mutate(na.map, long = long- 360)
 
 ```
 
