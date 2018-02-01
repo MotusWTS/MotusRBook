@@ -70,6 +70,9 @@ proj.num = 176
 sql.motus <- tagme(proj.num, update = FALSE, dir = "./data/")
 tbl.alltags <- tbl(sql.motus, "alltags")
 
+# create a new filter with name filtAmbigFalsePos and populate it with df.block.all
+tbl.filter = writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.block.all, delete=TRUE)
+
 # obtain a table object of the filter
 tbl.filter = getRunsFilters(sql.motus, "filtAmbigFalsePos")
 
