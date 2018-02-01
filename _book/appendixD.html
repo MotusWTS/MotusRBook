@@ -365,14 +365,14 @@ tbl.filt2 &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(s
 
 <span class="co"># filter records from df that are in tbl.filt</span>
 
-df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(probability &gt;<span class="st"> </span><span class="dv">0</span>)
+df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
 
 <span class="co"># you can apply a second filter, tbl.filt2, to the result of the previous filter</span>
-df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(probability &gt;<span class="st"> </span><span class="dv">0</span>)</code></pre></div>
+df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre></div>
 </div>
 </div>
 <div id="writeRunsFilter" class="section level2">
@@ -440,7 +440,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"download": ["MotusRBook.pdf"],
 "toc": {
 "collapse": "section"
 }
