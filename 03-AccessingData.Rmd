@@ -1,9 +1,21 @@
 # Accessing and understanding detections data {#accessingData}
-
 ```{r tidyr3, echo = FALSE, message = FALSE, warning = FALSE}
 
 library(knitr)
 opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
+
+```
+
+```{r dataImport, echo = FALSE, eval = TRUE}
+# hidden data import so update can be set to FALSE
+proj.num= 176
+sql.motus <- tagme(176, update = FALSE, dir = "./data")   # SQLite R object, which links to the .motus file
+tbl.alltags <- tbl(sql.motus, "alltags")  # virtual table object of the alltags table in the
+                                          # sample.motus file
+df.alltags <- tbl.alltags %>%
+                collect() %>%
+                as.data.frame() %>%        # dataframe ("flat") object of the alltags table
+                mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))              
 
 ```
 
@@ -102,11 +114,6 @@ If you don't want to use the working directory, specify a directory to create an
 
 sql.motus <- tagme(projRecv = proj.num, new = TRUE, update = TRUE, dir = "./data/") 
 
-```
-
-```{r sql.motus, echo = FALSE}
-# hidden function to load sql.motus file into working directory for rest of book to work
-sql.motus <- tagme(176, update = FALSE, dir = "./data")
 ```
 
 The tagme() function will write a copy of your tag database to the working or specified folder, stored as an SQLite file with the extension '.motus'. 
@@ -442,18 +449,4 @@ df.alltags <- tbl.alltags %>%
                 mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))              
 
 ```
-
-```{r dataImport, echo = FALSE, eval = TRUE}
-# hidden data import so update can be set to FALSE
-proj.num= 176
-sql.motus <- tagme(176, update = FALSE, dir = "./data")   # SQLite R object, which links to the .motus file
-tbl.alltags <- tbl(sql.motus, "alltags")  # virtual table object of the alltags table in the
-                                          # sample.motus file
-df.alltags <- tbl.alltags %>%
-                collect() %>%
-                as.data.frame() %>%        # dataframe ("flat") object of the alltags table
-                mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))              
-
-```
-
 In the next chapter we will check for missing metadata.

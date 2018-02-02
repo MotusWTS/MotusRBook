@@ -13,5 +13,5 @@ The following variables are included in each 'alltags' view in the SQLite file:
 
 ```{r parameterTable.A, echo = FALSE}
 param.table <- dplyr::select(read.csv("./data/DatabaseParameters.csv", stringsAsFactors=FALSE), 1:2)
-pander::pander(param.table, split.cell = 50, split.table = Inf) 
+pander(param.table, split.cell = 50, split.table = Inf) 
 ```
