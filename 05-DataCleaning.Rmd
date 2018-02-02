@@ -52,9 +52,10 @@ When accessing the alltags table, we remove some unnecessary variables to reduce
 
 proj.num <- 176
 
-# Load detection data, select variables, create latitude variables, and transform to flat file.
-# We also fix up some sites that are missing receiver deployment data, or do not have names
-# As more users explore (and fix!) their metadata, these missing values should begin to disappear.
+# Load detection data, select variables, create latitude variables, and transform to 
+# flat file. We also fix up some sites that are missing receiver deployment data, or 
+# do not have names. As more users explore (and fix!) their metadata, these missing 
+# values should begin to disappear.
 sql.motus <- tagme(proj.num, update = TRUE, dir = "./data/")
 tbl.alltags <- tbl(sql.motus, "alltags")
 
@@ -175,7 +176,7 @@ filter(df.alltags.sub, is.na(recvLat)) %>%
 ```{r fun.getpath, eval = TRUE}
 
 # simplify the data by summarizing by the runID. 
-# if you want to summarize at a finer (or coarser) scale, you can also create other groups.  
+# If you want to summarize at a finer/coarser scale, you can also create other groups.  
 # The simplest alternative is a rounded timestamp variable; for example by using 
 # mutate(ts.h = plyr::round_any(ts, 3600) function call. 
 # Other options are to just use date (e.g date = as_date(ts))
@@ -617,8 +618,8 @@ p + geom_point() +
 We can see that the ambiguous tag was detected consistently at Niapiskau and Grand Ile before and after the period when it was also detected to the north and west (at Washkaugou and Piskwamish) and then to the south (NBNJ, SHNJ, and CONY). We can look at this transition by filtering out the portion of the data not near Niapiskau, and again using the siteTrans function from the motus package. 
 
 ```{r ambig56d}
-
-df.56.tmp <- filter(df.ambig.56, !(recvLat == 50.2), motusTagID == 22867) # other tag is dupl.
+# other tag is a duplicate
+df.56.tmp <- filter(df.ambig.56, !(recvLat == 50.2), motusTagID == 22867) 
 
 siteTrans(df.56.tmp, latCoord = "recvLat", lonCoord = "recvLon") %>%
   ungroup() %>%

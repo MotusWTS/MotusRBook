@@ -590,10 +590,11 @@ fun.getpath &lt;-<span class="st"> </span><span class="cf">function</span>(df)
 
 df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(df.alltags.sub)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub.path &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
-<span class="st">                    </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># keep to tags registered to the sample project</span>
-<span class="st">                    </span><span class="kw">arrange</span>(motusTagID, ts) <span class="op">%&gt;%</span><span class="st">       </span><span class="co"># order data by time stamp for each motus tag ID</span>
-<span class="st">                    </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">as_date</span>(ts)) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># create date variable</span>
-<span class="st">                    </span><span class="kw">group_by</span>(motusTagID, date, recvDeployName, ambigID, tagDeployLon, tagDeployLat, recvLat, recvLon)
+<span class="st">                </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># keep to tags registered to the sample project</span>
+<span class="st">                </span><span class="kw">arrange</span>(motusTagID, ts) <span class="op">%&gt;%</span><span class="st">       </span><span class="co"># order data by time stamp for each motus tag ID</span>
+<span class="st">                </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">as_date</span>(ts)) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># create date variable</span>
+<span class="st">                </span><span class="kw">group_by</span>(motusTagID, date, recvDeployName, ambigID, 
+                         tagDeployLon, tagDeployLat, recvLat, recvLon)
 
 df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(df.alltags.sub.path)</code></pre></div>
 <div id="googleMaps" class="section level3">

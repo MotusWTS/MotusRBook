@@ -332,9 +332,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>When accessing the alltags table, we remove some unnecessary variables to reduce the overall size of the data set and make it easier to work with. <strong>This is particularly important for large, unwieldy projects</strong>; details on how to view the variables in a tbl, and how to filter and subset prior to collecting data into a dataframe can be found in Chapter <a href="accessingData.html#convertToFlat">3.7</a>. We then create receiver latitude and longitude variables based on the coordinates recorded by the receiver GPS, and where those are not available, infilled with coordinates from the receiver deployment metadata. We use the ‘collect()’ and ‘as.data.frame()’ statements to transform the dataframe into a ‘flat’ file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format. Finally, we create ‘receiver names’ from the latitude and longitude variables for those receivers in the database that do not have these values filled in.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">proj.num &lt;-<span class="st"> </span><span class="dv">176</span>
 
-<span class="co"># Load detection data, select variables, create latitude variables, and transform to flat file.</span>
-<span class="co"># We also fix up some sites that are missing receiver deployment data, or do not have names</span>
-<span class="co"># As more users explore (and fix!) their metadata, these missing values should begin to disappear.</span>
+<span class="co"># Load detection data, select variables, create latitude variables, and transform to </span>
+<span class="co"># flat file. We also fix up some sites that are missing receiver deployment data, or </span>
+<span class="co"># do not have names. As more users explore (and fix!) their metadata, these missing </span>
+<span class="co"># values should begin to disappear.</span>
 sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)
 tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)
 
@@ -424,7 +425,7 @@ df.block.<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw
 ## 3         &lt;NA&gt;</code></pre>
 <p><strong>Simplify the data for plotting</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># simplify the data by summarizing by the runID. </span>
-<span class="co"># if you want to summarize at a finer (or coarser) scale, you can also create other groups.  </span>
+<span class="co"># If you want to summarize at a finer/coarser scale, you can also create other groups.  </span>
 <span class="co"># The simplest alternative is a rounded timestamp variable; for example by using </span>
 <span class="co"># mutate(ts.h = plyr::round_any(ts, 3600) function call. </span>
 <span class="co"># Other options are to just use date (e.g date = as_date(ts))</span>
@@ -774,7 +775,8 @@ p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">
 p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Lat/Lon and</span><span class="ch">\n</span><span class="st">Station Name&quot;</span>)</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/ambig56c-1.png" width="672" /></p>
 <p>We can see that the ambiguous tag was detected consistently at Niapiskau and Grand Ile before and after the period when it was also detected to the north and west (at Washkaugou and Piskwamish) and then to the south (NBNJ, SHNJ, and CONY). We can look at this transition by filtering out the portion of the data not near Niapiskau, and again using the siteTrans function from the motus package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.<span class="fl">56.</span>tmp &lt;-<span class="st"> </span><span class="kw">filter</span>(df.ambig.<span class="dv">56</span>, <span class="op">!</span>(recvLat <span class="op">==</span><span class="st"> </span><span class="fl">50.2</span>), motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22867</span>) <span class="co"># other tag is dupl.</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># other tag is a duplicate</span>
+df.<span class="fl">56.</span>tmp &lt;-<span class="st"> </span><span class="kw">filter</span>(df.ambig.<span class="dv">56</span>, <span class="op">!</span>(recvLat <span class="op">==</span><span class="st"> </span><span class="fl">50.2</span>), motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22867</span>) 
 
 <span class="kw">siteTrans</span>(df.<span class="fl">56.</span>tmp, <span class="dt">latCoord =</span> <span class="st">&quot;recvLat&quot;</span>, <span class="dt">lonCoord =</span> <span class="st">&quot;recvLon&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>

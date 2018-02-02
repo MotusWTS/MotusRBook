@@ -305,11 +305,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="appendixC" class="section level1">
 <h1><span class="header-section-number">C</span> Appendix - The Motus R Package</h1>
 <p>The motus R package offers functions that work with .motus data to do common computations, summaries and plots. This appendix outlines these functions and provides examples on function use. Many of these functions work with both tbl and data.frame formats, however some require the data to be in sql format as specified below. Detailed instructions on accessing and formatting data are available in Chapter <a href="accessingData.html#accessingData">3</a>. The examples throughout this chapter work with the sample data which can be accessed and converted to various formats through the following code:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, 
-    <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)  <span class="co"># download and access sample data in sql format, username: motus.sample, password: motus.sample</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download and access sample data in sql format,</span>
+<span class="co"># username: motus.sample, password: motus.sample</span>
+sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, 
+    <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)
 
-tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)  <span class="co"># extract &#39;alltags&#39;&#39; table from sql file &#39;sql.motus&#39;</span>
-df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()  ## convert the tbl &#39;tbl.alltags&#39; to a data.frame called &#39;df.alltags&#39;</code></pre></div>
+<span class="co"># extract &#39;alltags&#39;&#39; table from sql file</span>
+<span class="co"># &#39;sql.motus&#39;</span>
+tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)
+
+## convert the tbl &#39;tbl.alltags&#39; to a data.frame
+## called &#39;df.alltags&#39;
+df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</code></pre></div>
 <p>You can access the function help pages:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">?</span><span class="st">`</span>(<span class="st">`</span><span class="dt">?</span><span class="st">`</span>(sunRiseSet))</code></pre></div>
 <p>Or view the underlying function code like this:</p>

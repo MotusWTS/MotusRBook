@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.8.18)  2 FEB 2018 13:54
 =======
 This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.2.20)  2 FEB 2018 04:07
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.2.20)  2 FEB 2018 18:03
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -899,6 +903,7 @@ LaTeX Font Info:    ... okay on input line 141.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 141.
 LaTeX Font Info:    ... okay on input line 141.
 LaTeX Font Info:    Try loading font information for T1+lmr on input line 141.
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
 =======
 LaTeX Font Info:    ... okay on input line 142.
@@ -909,6 +914,9 @@ LaTeX Font Info:    ... okay on input line 142.
 LaTeX Font Info:    Try loading font information for T1+lmr on input line 142.
 (/usr/local/texlive/2016basic/texmf-dist/tex/latex/lm/t1lmr.fd
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+(/usr/local/texlive/2016basic/texmf-dist/tex/latex/lm/t1lmr.fd
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Info: Redefining \microtypecontext on input line 141.
@@ -962,17 +970,23 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 \AtBeginShipoutBox=\box33
 <<<<<<< HEAD
 Package hyperref Info: Link coloring OFF on input line 141.
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
 =======
 Package hyperref Info: Link coloring OFF on input line 142.
+=======
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (/usr/local/texlive/2016basic/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/local/texlive/2016basic/texmf-dist/tex/generic/oberdiek/gettitlestring.st
 y
+<<<<<<< HEAD
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count135
@@ -981,6 +995,7 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 141.
 LaTeX Info: Redefining \pageref on input line 141.
 LaTeX Info: Redefining \nameref on input line 141.
+<<<<<<< HEAD
 (MotusRBook.out) (MotusRBook.out)
 =======
 LaTeX Info: Redefining \ref on input line 142.
@@ -988,6 +1003,9 @@ LaTeX Info: Redefining \pageref on input line 142.
 LaTeX Info: Redefining \nameref on input line 142.
 (./MotusRBook.out) (./MotusRBook.out)
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+(./MotusRBook.out) (./MotusRBook.out)
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 \@outlinefile=\write4
 \openout4 = `MotusRBook.out'.
 
@@ -1144,7 +1162,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 1235--1237
  []
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 [22] [23] <images/mapRecvs1.png, id=534, 397.485pt x 216.81pt>
+=======
+[22] [23] <images/mapRecvs1.png, id=538, 397.485pt x 216.81pt>
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 File: images/mapRecvs1.png Graphic file (type png)
 <use images/mapRecvs1.png>
 Package pdftex.def Info: images/mapRecvs1.png used on input line 1407.
@@ -1189,6 +1211,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1567--1569
 
  []
 
+<<<<<<< HEAD
 [27] [28]
 <<<<<<< HEAD
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1198,19 +1221,24 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 =======
 <MotusRBook_files/figure-latex/projectRecvDeploy-1.pdf, id=578, 469.755pt x 325
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[27] [28] [29]
+<MotusRBook_files/figure-latex/projectRecvDeploy-1.pdf, id=579, 469.755pt x 325
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 .215pt>
 File: MotusRBook_files/figure-latex/projectRecvDeploy-1.pdf Graphic file (type 
 pdf)
 <use MotusRBook_files/figure-latex/projectRecvDeploy-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/projectRecvDeploy-1.pdf 
-used on input line 1780.
+used on input line 1758.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1780--1784
+Underfull \hbox (badness 10000) in paragraph at lines 1758--1762
 [][]
  []
 
 
+<<<<<<< HEAD
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 <<<<<<< HEAD
@@ -1220,20 +1248,28 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [29]
 <MotusRBook_files/figure-latex/unnamed-chunk-2-1.pdf, id=584, 469.755pt x 325.2
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+<MotusRBook_files/figure-latex/unnamed-chunk-2-1.pdf, id=580, 469.755pt x 325.2
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 15pt>
 File: MotusRBook_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pd
 f)
 <use MotusRBook_files/figure-latex/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/unnamed-chunk-2-1.pdf us
 <<<<<<< HEAD
+<<<<<<< HEAD
 ed on input line 1799.
 =======
 ed on input line 1765.
+=======
+ed on input line 1777.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [30 <./MotusRBook_files/figure-latex/projectRecvDeploy-1.pdf>] [31 <./MotusRBoo
+<<<<<<< HEAD
 k_files/figure-latex/unnamed-chunk-2-1.pdf>]
 <MotusRBook_files/figure-latex/mapRecvs2-1.pdf, id=605, 469.755pt x 325.215pt>
 File: MotusRBook_files/figure-latex/mapRecvs2-1.pdf Graphic file (type pdf)
@@ -1248,10 +1284,13 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 <<<<<<< HEAD
 [31 <./MotusRBook_files/figure-latex/projectRecvDeploy-1.pdf>] [32 <./MotusRBoo
 k_files/figure-latex/unnamed-chunk-2-1.pdf>] <images/mapRecvs2.png, id=600, 397
+=======
+k_files/figure-latex/unnamed-chunk-2-1.pdf>] <images/mapRecvs2.png, id=601, 397
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 .485pt x 361.35pt>
 File: images/mapRecvs2.png Graphic file (type png)
 <use images/mapRecvs2.png>
-Package pdftex.def Info: images/mapRecvs2.png used on input line 1868.
+Package pdftex.def Info: images/mapRecvs2.png used on input line 1847.
 (pdftex.def)             Requested size: 397.48402pt x 361.34912pt.
 =======
 [32]
@@ -1266,39 +1305,48 @@ on input line 1871.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[33] [34 <./images/mapRecvs2.png>] <images/mapProjRecvs.png, id=610, 397.485pt 
+[32] [33 <./images/mapRecvs2.png>] <images/mapProjRecvs.png, id=611, 397.485pt 
 x 289.08pt>
 File: images/mapProjRecvs.png Graphic file (type png)
 <use images/mapProjRecvs.png>
-Package pdftex.def Info: images/mapProjRecvs.png used on input line 1902.
+Package pdftex.def Info: images/mapProjRecvs.png used on input line 1882.
 (pdftex.def)             Requested size: 397.50221pt x 289.09251pt.
-[35 <./images/mapProjRecvs.png>] [36] [37] [38]
+
+Overfull \vbox (0.17195pt too high) detected at line 1926
+ []
+
+[34 <./images/mapProjRecvs.png>] [35] [36]
 Chapter 5.
 
 Underfull \vbox (badness 1917) has occurred while \output is active []
 
-[39
+[37
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 ] [40] [41] [42] <MotusRBook_files/figure-latex/plot1.5-1.pdf, id=661, 469.755p
 =======
 ] [38] [39] [40] <MotusRBook_files/figure-latex/plot1.5-1.pdf, id=670, 469.755p
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+] [38] [39] [40] <MotusRBook_files/figure-latex/plot1.5-1.pdf, id=658, 469.755p
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 t x 325.215pt>
 File: MotusRBook_files/figure-latex/plot1.5-1.pdf Graphic file (type pdf)
 <use MotusRBook_files/figure-latex/plot1.5-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/plot1.5-1.pdf used on in
-put line 2382.
+put line 2349.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2382--2388
+Underfull \hbox (badness 10000) in paragraph at lines 2349--2355
 [][]
  []
 
 
-Overfull \vbox (1.2844pt too high) detected at line 2396
+Overfull \vbox (1.22766pt too high) detected at line 2363
  []
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [43 <./MotusRBook_files/figure-latex/plot1.5-1.pdf>] [44]
 <MotusRBook_files/figure-latex/createRunsFilter1-1.pdf, id=676, 469.755pt x 325
@@ -1306,16 +1354,21 @@ Overfull \vbox (1.2844pt too high) detected at line 2396
 [41 <./MotusRBook_files/figure-latex/plot1.5-1.pdf>] [42]
 <MotusRBook_files/figure-latex/createRunsFilter1-1.pdf, id=684, 469.755pt x 325
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[41 <./MotusRBook_files/figure-latex/plot1.5-1.pdf>] [42]
+<MotusRBook_files/figure-latex/createRunsFilter1-1.pdf, id=672, 469.755pt x 325
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 .215pt>
 File: MotusRBook_files/figure-latex/createRunsFilter1-1.pdf Graphic file (type 
 pdf)
 <use MotusRBook_files/figure-latex/createRunsFilter1-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/createRunsFilter1-1.pdf 
-used on input line 2514.
+used on input line 2481.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [45] [46 <./MotusRBook_files/figure-latex/createRunsFilter1-1.pdf>] [47]
 <MotusRBook_files/figure-latex/plotAmbigs-1.pdf, id=694, 469.755pt x 325.215pt>
@@ -1323,11 +1376,16 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [43] [44 <./MotusRBook_files/figure-latex/createRunsFilter1-1.pdf>] [45]
 <MotusRBook_files/figure-latex/plotAmbigs-1.pdf, id=704, 469.755pt x 325.215pt>
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[43] [44 <./MotusRBook_files/figure-latex/createRunsFilter1-1.pdf>] [45]
+<MotusRBook_files/figure-latex/plotAmbigs-1.pdf, id=691, 469.755pt x 325.215pt>
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 File: MotusRBook_files/figure-latex/plotAmbigs-1.pdf Graphic file (type pdf)
 <use MotusRBook_files/figure-latex/plotAmbigs-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/plotAmbigs-1.pdf used on
- input line 2630.
+ input line 2597.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<<<<<<< HEAD
 <<<<<<< HEAD
 [48 <./MotusRBook_files/figure-latex/plotAmbigs-1.pdf>]
 <MotusRBook_files/figure-latex/plotofambigtags-134inOctober-1.pdf, id=704, 469.
@@ -1335,20 +1393,29 @@ Package pdftex.def Info: MotusRBook_files/figure-latex/plotAmbigs-1.pdf used on
 [46 <./MotusRBook_files/figure-latex/plotAmbigs-1.pdf>]
 <MotusRBook_files/figure-latex/plotofambigtags-134inOctober-1.pdf, id=714, 469.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[46 <./MotusRBook_files/figure-latex/plotAmbigs-1.pdf>]
+<MotusRBook_files/figure-latex/plotofambigtags-134inOctober-1.pdf, id=702, 469.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 755pt x 325.215pt>
 File: MotusRBook_files/figure-latex/plotofambigtags-134inOctober-1.pdf Graphic 
 file (type pdf)
 <use MotusRBook_files/figure-latex/plotofambigtags-134inOctober-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/plotofambigtags-134inOct
 <<<<<<< HEAD
+<<<<<<< HEAD
 ober-1.pdf used on input line 2713.
 =======
 ober-1.pdf used on input line 2671.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+ober-1.pdf used on input line 2683.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [49] [50 <./MotusRBook_files/figure-latex/plotofambigtags-134inOctober-1.pdf>]
 <MotusRBook_files/figure-latex/unnamed-chunk-7-1.pdf, id=719, 469.755pt x 325.2
@@ -1356,20 +1423,29 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [47] [48 <./MotusRBook_files/figure-latex/plotofambigtags-134inOctober-1.pdf>]
 <MotusRBook_files/figure-latex/unnamed-chunk-7-1.pdf, id=728, 469.755pt x 325.2
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[47] [48 <./MotusRBook_files/figure-latex/plotofambigtags-134inOctober-1.pdf>]
+<MotusRBook_files/figure-latex/unnamed-chunk-7-1.pdf, id=716, 469.755pt x 325.2
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 15pt>
 File: MotusRBook_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pd
 f)
 <use MotusRBook_files/figure-latex/unnamed-chunk-7-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/unnamed-chunk-7-1.pdf us
 <<<<<<< HEAD
+<<<<<<< HEAD
 ed on input line 2805.
 =======
 ed on input line 2763.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+ed on input line 2775.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [51] [52 <./MotusRBook_files/figure-latex/unnamed-chunk-7-1.pdf>]
 <MotusRBook_files/figure-latex/ambig141b plot 1-1.pdf, id=733, 469.755pt x 325.
@@ -1377,19 +1453,28 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [49] [50 <./MotusRBook_files/figure-latex/unnamed-chunk-7-1.pdf>]
 <MotusRBook_files/figure-latex/ambig141b plot 1-1.pdf, id=743, 469.755pt x 325.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[49] [50 <./MotusRBook_files/figure-latex/unnamed-chunk-7-1.pdf>]
+<MotusRBook_files/figure-latex/ambig141b plot 1-1.pdf, id=731, 469.755pt x 325.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 215pt>
 File: MotusRBook_files/figure-latex/ambig141b plot 1-1.pdf Graphic file (type p
 df)
 <use MotusRBook_files/figure-latex/ambig141b plot 1-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/ambig141b plot 1-1.pdf u
 <<<<<<< HEAD
+<<<<<<< HEAD
 sed on input line 2871.
+=======
+sed on input line 2841.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[53 <./MotusRBook_files/figure-latex/ambig141b plot 1-1.pdf>]
-<MotusRBook_files/figure-latex/ambig106b-1.pdf, id=743, 469.755pt x 325.215pt>
+[51 <./MotusRBook_files/figure-latex/ambig141b plot 1-1.pdf>]
+<MotusRBook_files/figure-latex/ambig106b-1.pdf, id=741, 469.755pt x 325.215pt>
 File: MotusRBook_files/figure-latex/ambig106b-1.pdf Graphic file (type pdf)
 <use MotusRBook_files/figure-latex/ambig106b-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/ambig106b-1.pdf used on 
+<<<<<<< HEAD
 input line 2925.
 =======
 sed on input line 2829.
@@ -1401,10 +1486,14 @@ File: MotusRBook_files/figure-latex/ambig106b-1.pdf Graphic file (type pdf)
 Package pdftex.def Info: MotusRBook_files/figure-latex/ambig106b-1.pdf used on 
 input line 2883.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+input line 2895.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \vbox (badness 1546) has occurred while \output is active []
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [54 <./MotusRBook_files/figure-latex/ambig106b-1.pdf>] <MotusRBook_files/figure
 -latex/ambig56b-1.pdf, id=754, 469.755pt x 325.215pt>
@@ -1420,30 +1509,47 @@ File: MotusRBook_files/figure-latex/ambig56b-1.pdf Graphic file (type pdf)
 Package pdftex.def Info: MotusRBook_files/figure-latex/ambig56b-1.pdf used on i
 nput line 2962.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[52 <./MotusRBook_files/figure-latex/ambig106b-1.pdf>] <MotusRBook_files/figure
+-latex/ambig56b-1.pdf, id=752, 469.755pt x 325.215pt>
+File: MotusRBook_files/figure-latex/ambig56b-1.pdf Graphic file (type pdf)
+<use MotusRBook_files/figure-latex/ambig56b-1.pdf>
+Package pdftex.def Info: MotusRBook_files/figure-latex/ambig56b-1.pdf used on i
+nput line 2974.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [55] <MotusRBook_files/figure-latex/ambig56c-1.pdf, id=760, 469.755pt x 325.215
 =======
 [53] <MotusRBook_files/figure-latex/ambig56c-1.pdf, id=769, 469.755pt x 325.215
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[53] <MotusRBook_files/figure-latex/ambig56c-1.pdf, id=757, 469.755pt x 325.215
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 pt>
 File: MotusRBook_files/figure-latex/ambig56c-1.pdf Graphic file (type pdf)
 <use MotusRBook_files/figure-latex/ambig56c-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/ambig56c-1.pdf used on i
 <<<<<<< HEAD
+<<<<<<< HEAD
 nput line 3025.
 =======
 nput line 2983.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+nput line 2995.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[56 <./MotusRBook_files/figure-latex/ambig56b-1.pdf>] [57 <./MotusRBook_files/f
+[54 <./MotusRBook_files/figure-latex/ambig56b-1.pdf>] [55 <./MotusRBook_files/f
 igure-latex/ambig56c-1.pdf>] <MotusRBook_files/figure-latex/ambig56e-1.pdf, id=
+<<<<<<< HEAD
 <<<<<<< HEAD
 779, 469.755pt x 325.215pt>
 File: MotusRBook_files/figure-latex/ambig56e-1.pdf Graphic file (type pdf)
@@ -1457,23 +1563,36 @@ File: MotusRBook_files/figure-latex/ambig56e-1.pdf Graphic file (type pdf)
 Package pdftex.def Info: MotusRBook_files/figure-latex/ambig56e-1.pdf used on i
 nput line 3036.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+777, 469.755pt x 325.215pt>
+File: MotusRBook_files/figure-latex/ambig56e-1.pdf Graphic file (type pdf)
+<use MotusRBook_files/figure-latex/ambig56e-1.pdf>
+Package pdftex.def Info: MotusRBook_files/figure-latex/ambig56e-1.pdf used on i
+nput line 3049.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[58 <./MotusRBook_files/figure-latex/ambig56e-1.pdf>] [59] [60]
+[56 <./MotusRBook_files/figure-latex/ambig56e-1.pdf>] [57] [58]
 Chapter 6.
-[61
+[59
 
-] [62]
+] [60]
 Underfull \vbox (badness 1622) has occurred while \output is active []
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 [63] [64] [65]
 <MotusRBook_files/figure-latex/hourlyPlot-1.pdf, id=830, 469.755pt x 325.215pt>
+=======
+[61] [62] [63]
+<MotusRBook_files/figure-latex/hourlyPlot-1.pdf, id=829, 469.755pt x 325.215pt>
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 File: MotusRBook_files/figure-latex/hourlyPlot-1.pdf Graphic file (type pdf)
 <use MotusRBook_files/figure-latex/hourlyPlot-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/hourlyPlot-1.pdf used on
- input line 3531.
+ input line 3503.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
+<<<<<<< HEAD
 Underfull \hbox (badness 10000) in paragraph at lines 3531--3534
 =======
 [61] [62] [63]
@@ -1486,29 +1605,41 @@ Package pdftex.def Info: MotusRBook_files/figure-latex/hourlyPlot-1.pdf used on
 
 Underfull \hbox (badness 10000) in paragraph at lines 3490--3493
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Underfull \hbox (badness 10000) in paragraph at lines 3503--3506
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 [][]
  []
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <MotusRBook_files/figure-latex/hourlyPlotSpecies-1.pdf, id=831, 469.755pt x 325
 =======
 <MotusRBook_files/figure-latex/hourlyPlotSpecies-1.pdf, id=842, 469.755pt x 325
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+<MotusRBook_files/figure-latex/hourlyPlotSpecies-1.pdf, id=830, 469.755pt x 325
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 .215pt>
 File: MotusRBook_files/figure-latex/hourlyPlotSpecies-1.pdf Graphic file (type 
 pdf)
 <use MotusRBook_files/figure-latex/hourlyPlotSpecies-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/hourlyPlotSpecies-1.pdf 
 <<<<<<< HEAD
+<<<<<<< HEAD
 used on input line 3544.
 =======
 used on input line 3503.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+used on input line 3516.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [66 <./MotusRBook_files/figure-latex/hourlyPlot-1.pdf>]
 <MotusRBook_files/figure-latex/hourlyPlotLat-1.pdf, id=841, 469.755pt x 325.215
@@ -1516,20 +1647,29 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [64 <./MotusRBook_files/figure-latex/hourlyPlot-1.pdf>]
 <MotusRBook_files/figure-latex/hourlyPlotLat-1.pdf, id=852, 469.755pt x 325.215
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[64 <./MotusRBook_files/figure-latex/hourlyPlot-1.pdf>]
+<MotusRBook_files/figure-latex/hourlyPlotLat-1.pdf, id=840, 469.755pt x 325.215
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 pt>
 File: MotusRBook_files/figure-latex/hourlyPlotLat-1.pdf Graphic file (type pdf)
 
 <use MotusRBook_files/figure-latex/hourlyPlotLat-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/hourlyPlotLat-1.pdf used
 <<<<<<< HEAD
+<<<<<<< HEAD
  on input line 3561.
 =======
  on input line 3520.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+ on input line 3533.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [67 <./MotusRBook_files/figure-latex/hourlyPlotSpecies-1.pdf>]
 <MotusRBook_files/figure-latex/plot22897-1.pdf, id=852, 469.755pt x 325.215pt>
@@ -1545,10 +1685,19 @@ File: MotusRBook_files/figure-latex/plot22897-1.pdf Graphic file (type pdf)
 Package pdftex.def Info: MotusRBook_files/figure-latex/plot22897-1.pdf used on 
 input line 3537.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[65 <./MotusRBook_files/figure-latex/hourlyPlotSpecies-1.pdf>]
+<MotusRBook_files/figure-latex/plot22897-1.pdf, id=850, 469.755pt x 325.215pt>
+File: MotusRBook_files/figure-latex/plot22897-1.pdf Graphic file (type pdf)
+<use MotusRBook_files/figure-latex/plot22897-1.pdf>
+Package pdftex.def Info: MotusRBook_files/figure-latex/plot22897-1.pdf used on 
+input line 3550.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [68 <./MotusRBook_files/figure-latex/hourlyPlotLat-1.pdf>]
 <MotusRBook_files/figure-latex/plotSunriset22897-1.pdf, id=863, 469.755pt x 325
@@ -1556,11 +1705,16 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [66 <./MotusRBook_files/figure-latex/hourlyPlotLat-1.pdf>]
 <MotusRBook_files/figure-latex/plotSunriset22897-1.pdf, id=873, 469.755pt x 325
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[66 <./MotusRBook_files/figure-latex/hourlyPlotLat-1.pdf>]
+<MotusRBook_files/figure-latex/plotSunriset22897-1.pdf, id=861, 469.755pt x 325
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 .215pt>
 File: MotusRBook_files/figure-latex/plotSunriset22897-1.pdf Graphic file (type 
 pdf)
 <use MotusRBook_files/figure-latex/plotSunriset22897-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/plotSunriset22897-1.pdf 
+<<<<<<< HEAD
 <<<<<<< HEAD
 used on input line 3603.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
@@ -1572,12 +1726,19 @@ used on input line 3562.
 
 Underfull \hbox (badness 10000) in paragraph at lines 3562--3566
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+used on input line 3575.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 3575--3579
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 [][]
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [69 <./MotusRBook_files/figure-latex/plot22897-1.pdf>] <MotusRBook_files/figure
 -latex/latPlot1-1.pdf, id=873, 469.755pt x 325.215pt>
@@ -1593,10 +1754,19 @@ File: MotusRBook_files/figure-latex/latPlot1-1.pdf Graphic file (type pdf)
 Package pdftex.def Info: MotusRBook_files/figure-latex/latPlot1-1.pdf used on i
 nput line 3584.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[67 <./MotusRBook_files/figure-latex/plot22897-1.pdf>] <MotusRBook_files/figure
+-latex/latPlot1-1.pdf, id=872, 469.755pt x 325.215pt>
+File: MotusRBook_files/figure-latex/latPlot1-1.pdf Graphic file (type pdf)
+<use MotusRBook_files/figure-latex/latPlot1-1.pdf>
+Package pdftex.def Info: MotusRBook_files/figure-latex/latPlot1-1.pdf used on i
+nput line 3597.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [70 <./MotusRBook_files/figure-latex/plotSunriset22897-1.pdf>] <MotusRBook_file
 s/figure-latex/plot2-1.pdf, id=883, 469.755pt x 325.215pt>
@@ -1612,26 +1782,39 @@ File: MotusRBook_files/figure-latex/plot2-1.pdf Graphic file (type pdf)
 Package pdftex.def Info: MotusRBook_files/figure-latex/plot2-1.pdf used on inpu
 t line 3599.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[68 <./MotusRBook_files/figure-latex/plotSunriset22897-1.pdf>] <MotusRBook_file
+s/figure-latex/plot2-1.pdf, id=882, 469.755pt x 325.215pt>
+File: MotusRBook_files/figure-latex/plot2-1.pdf Graphic file (type pdf)
+<use MotusRBook_files/figure-latex/plot2-1.pdf>
+Package pdftex.def Info: MotusRBook_files/figure-latex/plot2-1.pdf used on inpu
+t line 3613.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 [71 <./MotusRBook_files/figure-latex/latPlot1-1.pdf>] [72 <./MotusRBook_files/f
+=======
+[69 <./MotusRBook_files/figure-latex/latPlot1-1.pdf>] [70 <./MotusRBook_files/f
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 igure-latex/plot2-1.pdf>] <MotusRBook_files/figure-latex/googleMap-1.pdf, id=90
-3, 722.7pt x 722.7pt>
+2, 722.7pt x 722.7pt>
 File: MotusRBook_files/figure-latex/googleMap-1.pdf Graphic file (type pdf)
 <use MotusRBook_files/figure-latex/googleMap-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/googleMap-1.pdf used on 
-input line 3729.
+input line 3702.
 (pdftex.def)             Requested size: 469.76045pt x 469.76045pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[73]
-Overfull \vbox (1.54317pt too high) detected at line 3774
+[71]
+Overfull \vbox (1.54317pt too high) detected at line 3747
  []
 
+<<<<<<< HEAD
 [74 <./MotusRBook_files/figure-latex/googleMap-1.pdf>]
 <MotusRBook_files/figure-latex/googleMapRecvs-1.pdf, id=920, 722.7pt x 722.7pt>
 =======
@@ -1654,26 +1837,40 @@ input line 3725.
 [72 <./MotusRBook_files/figure-latex/googleMap-1.pdf>]
 <MotusRBook_files/figure-latex/googleMapRecvs-1.pdf, id=930, 722.7pt x 722.7pt>
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[72 <./MotusRBook_files/figure-latex/googleMap-1.pdf>]
+<MotusRBook_files/figure-latex/googleMapRecvs-1.pdf, id=918, 722.7pt x 722.7pt>
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 File: MotusRBook_files/figure-latex/googleMapRecvs-1.pdf Graphic file (type pdf
 )
 <use MotusRBook_files/figure-latex/googleMapRecvs-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/googleMapRecvs-1.pdf use
 <<<<<<< HEAD
+<<<<<<< HEAD
 d on input line 3776.
 =======
 d on input line 3772.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+d on input line 3749.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.76045pt x 469.76045pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 [75] [76 <./MotusRBook_files/figure-latex/googleMapRecvs-1.pdf>] <images/mapDet
 ections.png, id=936, 397.485pt x 289.08pt>
+=======
+[73] [74 <./MotusRBook_files/figure-latex/googleMapRecvs-1.pdf>] <images/mapDet
+ections.png, id=935, 397.485pt x 289.08pt>
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 File: images/mapDetections.png Graphic file (type png)
 <use images/mapDetections.png>
-Package pdftex.def Info: images/mapDetections.png used on input line 3826.
+Package pdftex.def Info: images/mapDetections.png used on input line 3799.
 (pdftex.def)             Requested size: 397.50221pt x 289.09251pt.
+<<<<<<< HEAD
 [77 <./images/mapDetections.png>] [78
 =======
 [73] [74 <./MotusRBook_files/figure-latex/googleMapRecvs-1.pdf>]
@@ -1689,26 +1886,38 @@ Package pdftex.def Info: MotusRBook_files/figure-latex/mapDetections-1.pdf used
 Appendix A.
 [77
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[75 <./images/mapDetections.png>] [76
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 
 ]
 Appendix A.
-[79]
+[77]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[80]
+[78]
 Appendix B.
-[81
+[79
 
+<<<<<<< HEAD
 ] [82]
 <<<<<<< HEAD
+=======
+] [80]
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 Appendix C.
-[83
+[81
 
+<<<<<<< HEAD
 ] [84]
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4482--4482
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4479--4479
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+] [82]
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 4462--4462
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ##                                                           
                                                                                
                                                    tagDeployComments[] 
@@ -1716,10 +1925,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 4479--4479
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4482--4482
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4479--4479
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 4462--4462
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 1 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -1727,10 +1940,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 4479--4479
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4482--4482
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4479--4479
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 4462--4462
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 2 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -1738,10 +1955,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 4479--4479
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4482--4482
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4479--4479
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 4462--4462
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 3 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -1749,10 +1970,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 4479--4479
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4482--4482
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4479--4479
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 4462--4462
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 4 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -1760,10 +1985,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 4479--4479
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4482--4482
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4479--4479
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 4462--4462
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 5 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -1771,10 +2000,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 4479--4479
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4482--4482
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4479--4479
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 4462--4462
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 6 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -1784,28 +2017,41 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 4479--4479
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 [85]
 <MotusRBook_files/figure-latex/plotAllTagsCoord-1.pdf, id=1003, 469.755pt x 325
 =======
 [83]
 <MotusRBook_files/figure-latex/plotAllTagsCoord-1.pdf, id=1018, 469.755pt x 325
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[83]
+<MotusRBook_files/figure-latex/plotAllTagsCoord-1.pdf, id=1002, 469.755pt x 325
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 .215pt>
 File: MotusRBook_files/figure-latex/plotAllTagsCoord-1.pdf Graphic file (type p
 df)
 <use MotusRBook_files/figure-latex/plotAllTagsCoord-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/plotAllTagsCoord-1.pdf u
 <<<<<<< HEAD
+<<<<<<< HEAD
 sed on input line 4518.
 =======
 sed on input line 4520.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+sed on input line 4498.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 [86] [87 <./MotusRBook_files/figure-latex/plotAllTagsCoord-1.pdf>]
+=======
+[84] [85 <./MotusRBook_files/figure-latex/plotAllTagsCoord-1.pdf>]
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 <MotusRBook_files/figure-latex/plotAllTagsSite-1.pdf, id=1023, 469.755pt x 325.
 =======
 [84] [85 <./MotusRBook_files/figure-latex/plotAllTagsCoord-1.pdf>]
@@ -1817,9 +2063,13 @@ f)
 <use MotusRBook_files/figure-latex/plotAllTagsSite-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/plotAllTagsSite-1.pdf us
 <<<<<<< HEAD
+<<<<<<< HEAD
 ed on input line 4560.
+=======
+ed on input line 4540.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[88 <./MotusRBook_files/figure-latex/plotAllTagsSite-1.pdf>]
+[86 <./MotusRBook_files/figure-latex/plotAllTagsSite-1.pdf>]
 <MotusRBook_files/figure-latex/plotDailySiteSum-1.pdf, id=1035, 469.755pt x 325
 =======
 ed on input line 4562.
@@ -1833,6 +2083,7 @@ df)
 <use MotusRBook_files/figure-latex/plotDailySiteSum-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/plotDailySiteSum-1.pdf u
 <<<<<<< HEAD
+<<<<<<< HEAD
 sed on input line 4591.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [89 <./MotusRBook_files/figure-latex/plotDailySiteSum-1.pdf>]
@@ -1843,6 +2094,12 @@ sed on input line 4593.
 [87 <./MotusRBook_files/figure-latex/plotDailySiteSum-1.pdf>]
 Overfull \hbox (312.4927pt too wide) in paragraph at lines 4627--4627
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+sed on input line 4571.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[87 <./MotusRBook_files/figure-latex/plotDailySiteSum-1.pdf>]
+Overfull \hbox (312.4927pt too wide) in paragraph at lines 4605--4605
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## Map from URL : http://maps.googleapis.com/maps/api/staticm
 ap?center=44,-70&zoom=5&size=640x640&scale=2&maptype=terrain&language=en-EN&sen
 sor=false[] 
@@ -1859,16 +2116,20 @@ File: MotusRBook_files/figure-latex/plotRouteMap-1.pdf Graphic file (type pdf)
 <use MotusRBook_files/figure-latex/plotRouteMap-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/plotRouteMap-1.pdf used 
 <<<<<<< HEAD
+<<<<<<< HEAD
 on input line 4635.
+=======
+on input line 4615.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[90 <./MotusRBook_files/figure-latex/plotRouteMap-1.pdf>]
+[88 <./MotusRBook_files/figure-latex/plotRouteMap-1.pdf>]
 <MotusRBook_files/figure-latex/plotSite-1.pdf, id=1061, 469.755pt x 325.215pt>
 File: MotusRBook_files/figure-latex/plotSite-1.pdf Graphic file (type pdf)
 <use MotusRBook_files/figure-latex/plotSite-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/plotSite-1.pdf used on i
-nput line 4663.
+nput line 4643.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[91 <./MotusRBook_files/figure-latex/plotSite-1.pdf>]
+[89 <./MotusRBook_files/figure-latex/plotSite-1.pdf>]
 <MotusRBook_files/figure-latex/plotSiteSig-1.pdf, id=1075, 469.755pt x 325.215p
 =======
 on input line 4637.
@@ -1888,9 +2149,13 @@ File: MotusRBook_files/figure-latex/plotSiteSig-1.pdf Graphic file (type pdf)
 <use MotusRBook_files/figure-latex/plotSiteSig-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/plotSiteSig-1.pdf used o
 <<<<<<< HEAD
+<<<<<<< HEAD
 n input line 4697.
+=======
+n input line 4677.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[92 <./MotusRBook_files/figure-latex/plotSiteSig-1.pdf>]
+[90 <./MotusRBook_files/figure-latex/plotSiteSig-1.pdf>]
 <MotusRBook_files/figure-latex/plotTagSig-1.pdf, id=1088, 469.755pt x 325.215pt
 =======
 n input line 4699.
@@ -1903,6 +2168,7 @@ File: MotusRBook_files/figure-latex/plotTagSig-1.pdf Graphic file (type pdf)
 <use MotusRBook_files/figure-latex/plotTagSig-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/plotTagSig-1.pdf used on
 <<<<<<< HEAD
+<<<<<<< HEAD
  input line 4731.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [93 <./MotusRBook_files/figure-latex/plotTagSig-1.pdf>]
@@ -1913,6 +2179,12 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 4847--4847
 [91 <./MotusRBook_files/figure-latex/plotTagSig-1.pdf>]
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4849--4849
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+ input line 4711.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[91 <./MotusRBook_files/figure-latex/plotTagSig-1.pdf>]
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 4827--4827
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ##                                                           
                                                                                
                                                    tagDeployComments[] 
@@ -1920,10 +2192,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 4849--4849
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4847--4847
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4849--4849
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 4827--4827
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 1 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -1931,10 +2207,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 4849--4849
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4847--4847
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4849--4849
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 4827--4827
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 2 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -1942,10 +2222,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 4849--4849
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4847--4847
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4849--4849
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 4827--4827
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 3 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -1953,10 +2237,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 4849--4849
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4847--4847
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4849--4849
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 4827--4827
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 4 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -1964,10 +2252,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 4849--4849
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4847--4847
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4849--4849
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 4827--4827
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 5                                                         
                                                                                
                                                                 <NA>[] 
@@ -1975,33 +2267,46 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 4849--4849
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4847--4847
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 4849--4849
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 4827--4827
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 6                                                         
                                                                                
                                                                 <NA>[] 
  []
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 [94] [95] <MotusRBook_files/figure-latex/siteSum-1.pdf, id=1112, 469.755pt x 32
 =======
 [92] [93] <MotusRBook_files/figure-latex/siteSum-1.pdf, id=1129, 469.755pt x 32
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[92] [93] <MotusRBook_files/figure-latex/siteSum-1.pdf, id=1113, 469.755pt x 32
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 5.215pt>
 File: MotusRBook_files/figure-latex/siteSum-1.pdf Graphic file (type pdf)
 <use MotusRBook_files/figure-latex/siteSum-1.pdf>
 Package pdftex.def Info: MotusRBook_files/figure-latex/siteSum-1.pdf used on in
 <<<<<<< HEAD
+<<<<<<< HEAD
 put line 4885.
 =======
 put line 4887.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+put line 4865.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \vbox (badness 4492) has occurred while \output is active []
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [96 <./MotusRBook_files/figure-latex/siteSum-1.pdf>] [97] [98]
 Overfull \vbox (0.6274pt too high) detected at line 5098
@@ -2017,6 +2322,14 @@ Overfull \vbox (0.6274pt too high) detected at line 5102
 [97] [98]
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 5238--5238
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+[94 <./MotusRBook_files/figure-latex/siteSum-1.pdf>] [95] [96]
+Overfull \vbox (0.6274pt too high) detected at line 5080
+ []
+
+[97] [98]
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 5216--5216
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ##                                                           
                                                                                
                                                    tagDeployComments[] 
@@ -2024,10 +2337,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 5238--5238
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 5234--5234
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 5238--5238
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 5216--5216
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 1 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -2035,10 +2352,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 5238--5238
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 5234--5234
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 5238--5238
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 5216--5216
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 2 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -2046,10 +2367,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 5238--5238
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 5234--5234
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 5238--5238
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 5216--5216
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 3 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -2057,10 +2382,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 5238--5238
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 5234--5234
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 5238--5238
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 5216--5216
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 4 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -2068,10 +2397,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 5238--5238
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 5234--5234
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 5238--5238
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 5216--5216
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 5 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -2079,10 +2412,14 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 5238--5238
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 5234--5234
 =======
 Overfull \hbox (622.2418pt too wide) in paragraph at lines 5238--5238
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+Overfull \hbox (622.2418pt too wide) in paragraph at lines 5216--5216
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 []\T1/lmtt/m/n/10 ## 6 {"ageID":"HY","bill":36.5,"blood":"Y","country":"Canada"
 ,"culmen":36.5,"fatScore":3,"locationID":"NorthPoint_net","province":"Ontario",
 "sexID":"U","tarsus":33.3,"weight":137.8,"wing":162,"comments":null}[] 
@@ -2091,12 +2428,13 @@ Overfull \hbox (622.2418pt too wide) in paragraph at lines 5238--5238
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[101] [102]
+[99] [100]
 Appendix D.
-[103
+[101
 
 ]
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 LaTeX Warning: Reference `saveFilter' on page 104 undefined on input line 5342.
 
@@ -2120,6 +2458,18 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 5443.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5443.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5443.
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+LaTeX Warning: Reference `saveFilter' on page 102 undefined on input line 5324.
+
+
+[102] [103]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5421.
+[104]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 5421.
+(./MotusRBook.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5421.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5421.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
 
 Package rerunfilecheck Info: File `MotusRBook.out' has not changed.
 (rerunfilecheck)             Checksum: F0C85FF39950608A5B4F783F1E4057D6;10697.
@@ -2127,29 +2477,36 @@ Package rerunfilecheck Info: File `MotusRBook.out' has not changed.
 LaTeX Warning: There were undefined references.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5439.
+=======
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5421.
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
  ) 
 Here is how much of TeX's memory you used:
- 13918 strings out of 493323
- 204990 string characters out of 3139075
- 318628 words of memory out of 3000000
- 16830 multiletter control sequences out of 15000+200000
- 69489 words of font info for 106 fonts, out of 3000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 32i,6n,38p,595b,459s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Program Files/
-MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files/MiKTeX 2.9/fonts/type
-1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx1
-2.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbxi10.pfb><C:/Progra
-m Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiKTeX 2.9
-/fonts/type1/public/lm/lmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
-c/lm/lmri10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmri12.pfb><
-C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmro10.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pfb><C:/Program Files/MiKTeX 2.9/fonts/
-type1/public/lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/l
-mtti10.pfb>
-Output written on MotusRBook.pdf (106 pages, 10319787 bytes).
+ 13872 strings out of 494447
+ 206416 string characters out of 6166766
+ 313401 words of memory out of 5000000
+ 16584 multiletter control sequences out of 15000+600000
+ 69489 words of font info for 106 fonts, out of 8000000 for 9000
+ 319 hyphenation exceptions out of 8191
+ 32i,6n,38p,593b,455s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2016basic/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/
+local/texlive/2016basic/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</usr/local/tex
+live/2016basic/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/
+2016basic/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2016b
+asic/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></usr/local/texlive/2016basic
+/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2016basic/texmf
+-dist/fonts/type1/public/lm/lmr17.pfb></usr/local/texlive/2016basic/texmf-dist/
+fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2016basic/texmf-dist/fonts
+/type1/public/lm/lmri12.pfb></usr/local/texlive/2016basic/texmf-dist/fonts/type
+1/public/lm/lmro10.pfb></usr/local/texlive/2016basic/texmf-dist/fonts/type1/pub
+lic/lm/lmtk10.pfb></usr/local/texlive/2016basic/texmf-dist/fonts/type1/public/l
+m/lmtt10.pfb></usr/local/texlive/2016basic/texmf-dist/fonts/type1/public/lm/lmt
+ti10.pfb>
+Output written on MotusRBook.pdf (104 pages, 10201374 bytes).
 PDF statistics:
+<<<<<<< HEAD
  1309 PDF objects out of 1440 (max. 8388607)
  314 named destinations out of 1000 (max. 500000)
 =======
@@ -2182,5 +2539,10 @@ PDF statistics:
  1127 compressed objects within 12 object streams
  312 named destinations out of 1000 (max. 500000)
 >>>>>>> cc6541c5446590aec40a2a36417fda38e54ec7ed
+=======
+ 1313 PDF objects out of 1440 (max. 8388607)
+ 1111 compressed objects within 12 object streams
+ 312 named destinations out of 1000 (max. 500000)
+>>>>>>> ff7746c9f3d164ca49b2da2abe536a868298c614
  12976 words of extra memory for PDF output out of 14400 (max. 10000000)
 

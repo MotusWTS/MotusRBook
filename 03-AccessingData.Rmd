@@ -358,7 +358,7 @@ df.alltags <- tbl.alltags %>%
 
 ```
 
-If you want to load only part of your entire virtual table (e.g. certain fields, certain tags, or all tags from a specified project or species), you can use dplyr funtions to filter the data before collecting into a dataframe. Some examples are below:  
+If you want to load only part of your entire virtual table (e.g. certain fields, certain tags, or all tags from a specified project or species), you can use dplyr functions to filter the data before collecting into a dataframe. Some examples are below:  
 
 1. To select certain variables:
 
