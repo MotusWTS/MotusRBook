@@ -27,11 +27,11 @@ Follow the instructions in Chapter \@ref(loadingPackages) to install the followi
 
 Sys.setenv(tz="GMT")
 
-library(devtools)
+#library(devtools)
 library(motus)
 library(tidyverse)
 library(lubridate)
-library(rworldmap) # for mapping
+#library(rworldmap) # for mapping
 
 ```
 
