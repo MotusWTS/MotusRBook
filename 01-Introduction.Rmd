@@ -7,7 +7,7 @@ opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
 
 ```
 
-```{r fig1, echo=FALSE}
+```{r fig1, echo=FALSE, fig.align='center'}
 knitr::include_graphics("images/Motus-System-IG-finalSml.png")
 ```
 
