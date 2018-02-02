@@ -1,5 +1,12 @@
 # Exploring data with the Motus R package {#exploreData}
 
+```{r tidyr6, echo = FALSE, message = FALSE, warning = FALSE}
+
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
+
+```
+
 Once you have clarified any possible ambiguous tags, and removed false positives, you are ready to start analyzing your clean data set. This chapter will walk you through some simple procedures to start working with and visualizing the clean sample data set; you can modify these scripts to work with your own data. For a more in-depth R tutorial we strongly recommend working through R for Data Science by Garrett Grolemund and Hadley Wickham (<http://r4ds.had.co.nz/>).
 
 ## Load required packages
@@ -30,7 +37,7 @@ Otherwise, if you saved your data as an RDS file, you can load it using:
 
 ```{r importDataRDS, eval = FALSE}
 
-df.alltags.sub <- readRDS("./data/dfAlltagsSub.rds") # change directory to your local directory
+df.alltags.sub <- readRDS("./data/dfAlltagsSub.rds") # change dir to local directory
 
 ```
 
@@ -38,25 +45,31 @@ Or, if you've applied a custom filter to your .motus file, you can load the prev
 
 ```{r importData, eval = FALSE}
 
-## load the .motus file
+# load the .motus file
 proj.num = 176
 sql.motus <- tagme(proj.num, update = TRUE, dir = "./data/")
 tbl.alltags <- tbl(sql.motus, "alltags")
 
-## obtain a table object of the filter
+# obtain a table object of the filter
 tbl.filter = getRunsFilters(sql.motus, "filtAmbigFalsePos")
 
-## filter and convert the table into a dataframe, with a few modications
+# filter and convert the table into a dataframe, with a few modications
 df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID")) %>%
   mutate(probability = ifelse(is.na(probability), 1, probability),
-         recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
-                             recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
-                             recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
+         recvLat = if_else((is.na(gpsLat)|gpsLat == 0), 
+                           recvDeployLat, 
+                           gpsLat),
+         recvLon = if_else((is.na(gpsLon)|gpsLon == 0), 
+                           recvDeployLon, 
+                           gpsLon),
+         recvAlt = if_else(is.na(gpsAlt), 
+                           recvDeployAlt, 
+                           gpsAlt)) %>%
   filter(probability > 0) %>%
-  select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, -mfg, -nomFreq,
-                             -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID,
-                             -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat,
-                             -gpsLon, - recvAlt, - recvSiteName) %>%
+  select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, 
+         -mfg, -nomFreq,-markerNumber, -markerType, -tagDeployComments, 
+         -fullID, -deviceID,-recvDeployLat, -recvDeployLon, -recvDeployAlt, 
+         -speciesGroup, -gpsLat,-gpsLon, - recvAlt, - recvSiteName) %>%
   collect() %>%
   as.data.frame() %>%
   mutate(ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
@@ -66,15 +79,15 @@ df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID
 ```
 ```{r importDataDUPLICATE, echo = FALSE}
 
-## load the .motus file
+# load the .motus file
 proj.num = 176
 sql.motus <- tagme(proj.num, update = FALSE, dir = "./data/")
 tbl.alltags <- tbl(sql.motus, "alltags")
 
-## obtain a table object of the filter
+# obtain a table object of the filter
 tbl.filter = getRunsFilters(sql.motus, "filtAmbigFalsePos")
 
-## filter and convert the table into a dataframe, with a few modications
+# filter and convert the table into a dataframe, with a few modications
 df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID")) %>%
   mutate(probability = ifelse(is.na(probability), 1, probability),
          recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
@@ -132,9 +145,9 @@ We'll also remove the set of points with missing receiver latitude and longitude
 ```{r tagMutate}
 
 df.alltags.sub <- df.alltags.sub %>%
-  mutate(ts = as_datetime(ts, tz = "UTC"), ## convert ts to POSIXct format
-         year = year(ts), ## extract year from ts
-         doy = yday(ts)) %>% ## extract numeric day of year from ts
+  mutate(ts = as_datetime(ts, tz = "UTC"), # convert ts to POSIXct format
+         year = year(ts), # extract year from ts
+         doy = yday(ts)) %>% # extract numeric day of year from ts
   filter(!is.na(recvLat))
 head(df.alltags.sub)
 
@@ -234,7 +247,7 @@ p +  theme_bw() +
 We use the sunRiseSet function available in the motus R package (see \@ref(sunRiseSet)) to get sunrise and sunset times for all detections. We then zoom in on a certain timeframe and add that information to the above plot by adding a geom_vline() statement to the code, which adds a yellow line for sunrise time, and a blue line for sunset time:
 
 ```{r plotSunriset22897}
-## add sunrise and sunset times to the dataframe
+# add sunrise and sunset times to the dataframe
 df.alltags.sub <- sunRiseSet(df.alltags.sub, lat = "recvLat", lon = "recvLon") 
 
 p <- ggplot(filter(df.alltags.sub, motusTagID == 22897 & 
@@ -253,7 +266,7 @@ We can see that during this period, the tag was most often detected during the d
 
 The same plots can provide valuable movement information when the receivers are ordered geographically. We do this for motusTagID 16039:
 ```{r latPlot1}
-## We'll first order sitelat by latitude (for plots)
+# We'll first order sitelat by latitude (for plots)
 df.alltags.sub <- mutate(df.alltags.sub, 
                          recvDeployName = as.factor(as.character(reorder(recvDeployName, recvLat))))
 
@@ -287,13 +300,13 @@ To generate maps of tag paths, we will once again use summarized data so we can 
 
 ```{r fun.getpath2}
 
-## simplify the data by summarizing by the runID. 
-## if you want to summarize at a finer (or coarser) scale, you can also create other groups.  
-## The simplest alternative is a rounded timestamp variable; for example by using 
-## mutate(ts.h = plyr::round_any(ts, 3600) function call. 
-## Other options are to just use date (e.g date = as_date(ts))
+# simplify the data by summarizing by the runID. 
+# if you want to summarize at a finer (or coarser) scale, you can also create other groups.  
+# The simplest alternative is a rounded timestamp variable; for example by using 
+# mutate(ts.h = plyr::round_any(ts, 3600) function call. 
+# Other options are to just use date (e.g date = as_date(ts))
 
-## 
+# 
 fun.getpath <- function(df) 
   {
   df %>%
@@ -304,7 +317,7 @@ fun.getpath <- function(df)
     summarize(max.runLen = max(runLen), ts.h = mean(ts)) %>%
     arrange(motusTagID, ts.h) %>%
     data.frame()
-  } ## end of function call
+  } # end of function call
 
 df.alltags.path <- fun.getpath(df.alltags.sub)
                     
@@ -330,15 +343,15 @@ The first step is to create a map with a specified map centre, maptype ("terrain
 
 ```{r googleMap, warning = FALSE, fig.width=10, fig.height=10}
 
-gmap <-  get_map(location = c(lon = -75, lat = 40), ## lon/lat to centre map over
-                 maptype = "satellite", ## select maptype
+gmap <-  get_map(location = c(lon = -75, lat = 40), # lon/lat to centre map over
+                 maptype = "satellite", # select maptype
                  source = "google",
-                 zoom = 4) ## zoom, must be a whole number
+                 zoom = 4) # zoom, must be a whole number
 
-## just use the tags that we have examined carefully and filtered (in the previous chapter)
+# just use the tags that we have examined carefully and filtered (in the previous chapter)
 df.tmp <- filter(df.alltags.path, 
                            motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039))
-df.tmp <- arrange(df.tmp, ts.h) ## arange by hour
+df.tmp <- arrange(df.tmp, ts.h) # arange by hour
 df.tmp <- as.data.frame(df.tmp)
 
 p <- ggmap(gmap)
@@ -355,25 +368,25 @@ We make the same plot, with additional points for all receivers that were active
 
 ```{r googleMapRecvs, warning = FALSE, message = FALSE, fig.width=10, fig.height=10}
 
-## get receiver metadata
+# get receiver metadata
 tbl.recvDeps <- tbl(sql.motus, "recvDeps")
 df.recvDeps <- tbl.recvDeps %>% 
                 collect %>% 
                 as.data.frame() %>% 
                 mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
                        tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01"))
-## for deployments with no end daets, make an end date a year from now
+# for deployments with no end daets, make an end date a year from now
 df.recvDeps$tsEnd <-as.POSIXct(ifelse(is.na(df.recvDeps$tsEnd),
                                        as.POSIXct(format(Sys.time(), "%Y-%m-%d %H:%M:%S")) +
                                 lubridate::dyears(1), df.recvDeps$tsEnd), tz = "UTC", origin = "1970-01-01")
-## get running intervals for all receiver deployments
-siteOp <- with(df.recvDeps, lubridate::interval(tsStart, tsEnd)) ## get running intervals for each deployment
-## set the date range you're interested in
+# get running intervals for all receiver deployments
+siteOp <- with(df.recvDeps, lubridate::interval(tsStart, tsEnd)) # get running intervals for each deployment
+# set the date range you're interested in
 dateRange <- lubridate::interval(as.POSIXct("2015-08-01"), as.POSIXct("2016-01-01"))
-## create new variable "active" which will be set to TRUE if the receiver was active at some point during your specified date range, and FALSE if not
+# create new variable "active" which will be set to TRUE if the receiver was active at some point during your specified date range, and FALSE if not
 df.recvDeps$active <- lubridate::int_overlaps(siteOp, dateRange) 
 
-## create map with receivers active during specified date range as red, and receivers with detections as yellow
+# create map with receivers active during specified date range as red, and receivers with detections as yellow
 p <- ggmap(gmap)
 p + geom_point(data = subset(df.recvDeps, active == TRUE), ggplot2::aes(longitude, latitude), pch=21, colour = "black", fill = "red") +
   geom_point(data=df.tmp, aes(recvLon, recvLat), pch=21, colour = "black", fill = "yellow") +
@@ -388,11 +401,11 @@ We load the base maps.
 
 ```{r loadMaps.6, message = FALSE, warning = FALSE, echo = FALSE}
 
-## get the lake data; adjust longitude
+# get the lake data; adjust longitude
 na.lakes <- fortify(maps::map(map="lakes", region=".", exact = FALSE, plot = FALSE, fill = TRUE)) %>% 
   mutate(long = long - 360)
 
-## Include all of the Americas to begin
+# Include all of the Americas to begin
 regions <- c("Canada", "USA", "Mexico", "lakes", "Belize", "Costa Rica", "Panama", 
              "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", 
              "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", 
@@ -411,7 +424,7 @@ na.map <- fortify(maps::map(map="world2", region=regions, exact = FALSE, plot = 
 na.lakes <- map_data(map = "lakes")
 na.lakes$long <- with(na.lakes, long- 360)
 
-## Include all of the Americas to begin
+# Include all of the Americas to begin
 na.map <- filter(map_data(map="world2"), 
                  region %in% c("Canada", "USA", "Mexico", "lakes", "Belize", "Costa Rica", "Panama", "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French #Guiana", "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", "Puerto Rico", "British #Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay", "Paraguay")
                                
@@ -423,13 +436,13 @@ Then, to map the paths, we set the x-axis and y-axis limits based on the locatio
 
 ```{r mapDetections}
 
-## set limits to map based on locations of detections, ensuring they include the deployment locations
+# set limits to map based on locations of detections, ensuring they include the deployment locations
 xmin <- min(df.tmp$recvLon, na.rm = TRUE) - 2
 xmax <- max(df.tmp$recvLon, na.rm = TRUE) + 2
 ymin <- min(df.tmp$recvLat, na.rm = TRUE) - 2
 ymax <- max(df.tmp$recvLat, na.rm = TRUE) + 2
                 
-## map
+# map
 ggplot(na.lakes, aes(long, lat))+ 
   geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+
   geom_polygon(aes(group = group), colour = "grey", fill = "white")+

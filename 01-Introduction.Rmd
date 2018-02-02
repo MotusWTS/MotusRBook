@@ -1,5 +1,12 @@
 # Introduction {#introduction}
 
+```{r tidyr1, echo = FALSE, message = FALSE, warning = FALSE}
+
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
+
+```
+
 ```{r fig1, echo=FALSE}
 knitr::include_graphics("images/Motus-System-IG-final.png")
 ```

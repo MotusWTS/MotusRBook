@@ -1,4 +1,11 @@
-# Appendix C - The Motus R Package {#appendixC}
+# Appendix - The Motus R Package {#appendixC}
+
+```{r tidyr9, echo = FALSE, message = FALSE, warning = FALSE}
+
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
+
+```
 
 The motus R package offers functions that work with .motus data to do common computations, summaries and plots. This appendix outlines these functions and provides examples on function use. Many of these functions work with both tbl and data.frame formats, however some require the data to be in sql format as specified below. Detailed instructions on accessing and formatting data are available in Chapter \@ref(accessingData). The examples throughout this chapter work with the sample data which can be accessed and converted to various formats through the following code:
 
@@ -19,7 +26,7 @@ sql.motus <- tagme(176, new = FALSE, update = FALSE, dir = "./data") # download 
 tbl.alltags <- tbl(sql.motus, "alltags") # extract "alltags"" table from sql file "sql.motus"
 df.alltags <- tbl.alltags %>% 
   collect() %>% 
-  as.data.frame() ## convert the tbl "tbl.alltags" to a data.frame called "df.alltags"
+  as.data.frame() # convert the tbl "tbl.alltags" to a data.frame called "df.alltags"
 
 ```
 
@@ -262,8 +269,8 @@ Create site summaries for select sites with time in minutes
 ```{r, siteSum, eval = TRUE}
 
 site_summary <- siteSum(filter(df.alltags, 
-                               recvDeployName %in% c("Niapiskau", "Netitishi", "Old Cur", "Washkaugou")),
-                        units = "mins")
+                               recvDeployName %in% c("Niapiskau", "Netitishi", "Old Cur", "Washkaugou")), units = "mins")
+
 head(site_summary)
 
 ```

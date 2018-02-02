@@ -1,4 +1,11 @@
-# Appendix B - Troubleshooting {#appendixB}
+# Appendix - Troubleshooting {#appendixB}
+
+```{r tidyr8, echo = FALSE, message = FALSE, warning = FALSE}
+
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
+
+```
 
 As a first step, always ensure you are using the latest version of the motus package (see section \@ref(checkVersion.B)), and you have all required packages installed, loaded, and up to date (see Chapter \@ref(loadingPackages)).  
 

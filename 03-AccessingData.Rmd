@@ -1,12 +1,11 @@
 # Accessing and understanding detections data {#accessingData}
 
-```{r fig3, echo = FALSE}
+```{r tidyr3, echo = FALSE, message = FALSE, warning = FALSE}
 
-knitr::include_graphics("images/DataStructure.png")
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
 
 ```
-
-<br>
 
 **Before downloading your detection data, please ensure that you have no pending metadata issues through the online [Data Issues page](https://motus.org/data/issues)**
 
@@ -30,7 +29,7 @@ Before we begin working with data, we need to load the required packages for thi
 
 ```{r loadPackages, warning = FALSE, message = FALSE}
 
-## required 'motus' package from github
+# required 'motus' package from github
 require(motus)
 
 ```
@@ -89,8 +88,8 @@ In the event that your connection to the Motus server fails prior to the downloa
 
 ```{r tagme1, eval = FALSE}
 
-getwd()         ## to see the current working directory; use setwd() to change it.
-proj.num <- 176 ## 176 for the sample data, or use the number associated with your project here
+getwd()         # show working directory; use setwd() to change it.
+proj.num <- 176 # 176 for the sample data, or insert your project number
 
 sql.motus <- tagme(projRecv = proj.num, new = TRUE, update = TRUE)  # for project tag database
 sql.motus <- tagme(projRecv = "SG-123BBBK1234", update = TRUE, new = TRUE)  # for receiver tag database
@@ -106,7 +105,7 @@ sql.motus <- tagme(projRecv = proj.num, new = TRUE, update = TRUE, dir = "./data
 ```
 
 ```{r sql.motus, echo = FALSE}
-## hidden function to load sql.motus file into working directory for rest of book to work
+# hidden function to load sql.motus file into working directory for rest of book to work
 sql.motus <- tagme(176, update = FALSE, dir = "./data")
 ```
 
@@ -118,7 +117,7 @@ To open and update a detections database that already exists (has been downloade
 
 ```{r tagme3, eval = FALSE}
 
-sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = TRUE, dir = "./data/") ## use dir = to specify a directory
+sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = TRUE, dir = "./data/") # use dir = to specify a directory
 
 ```
 
@@ -144,8 +143,8 @@ The following assumes that a local copy of the database already exists:
 
 ```{r tagme5, eval = FALSE}
 
-tellme(projRecv = proj.num)                    ## If db is in the working directory
-tellme(projRecv = proj.num, dir = "./data/")   ## To specify a different directory
+tellme(projRecv = proj.num)                    # If db is in the working directory
+tellme(projRecv = proj.num, dir = "./data/")   # To specify a different directory
 
 ```
 
@@ -181,7 +180,8 @@ Running the metadata function as follows will add the appropriate metadata from 
 
 ```{r metadata1, eval = FALSE}
 
-metadata(sql.motus) ## access all available tag and receiver metadata for all projects in the network.
+# access all tag and receiver metadata for all projects in the network.
+metadata(sql.motus) 
 
 ```
 
@@ -189,8 +189,11 @@ Alternatively, you can load metadata for a specific project(s) using:
 
 ```{r metadata2, eval = FALSE}
 
-metadata(sql.motus, projectIDs = 176) ## access tag and receiver metadata associated with project 176
-metadata(sql.motus, projectIDs = c(176, 1)) ## access tag and receiver metadata associated with projects 176 and 1
+# access tag and receiver metadata associated with project 176
+metadata(sql.motus, projectIDs = 176) 
+
+# access tag and receiver metadata associated with projects 176 and 1
+metadata(sql.motus, projectIDs = c(176, 1)) 
 
 ```
 
@@ -228,9 +231,15 @@ You can view the list of tables, and variables contained within those tables usi
 
 ```{r sqlTables, eval = FALSE}
 
-file.name <- dbConnect(SQLite(), "./data/project-176.motus") ## specify the location and project file name.
-dbListTables(file.name) ## get a list of tables in the .motus file specified above.
-dbListFields(file.name, "species") ## get a list of variables contained within the "species" table in the .motus file specified above.
+# specify the location and project file name.
+file.name <- dbConnect(SQLite(), "./data/project-176.motus") 
+
+# get a list of tables in the .motus file specified above.
+dbListTables(file.name) 
+
+# get a list of variables in the "species" table in the .motus file.
+dbListFields(file.name, "species") 
+
 ```
 
 In addition to these tables, there are also 'virtual' tables or 'views', which have been created through queries that merge data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in each .motus file:
@@ -244,7 +253,7 @@ Each table and view in the .motus file can be accessed using the tbl() function.
 
 ```{r getTable}
 
-## get the tag deployment metadata table for the current project
+# get the tag deployment metadata table for the current project
 tbl.tagDeps <- tbl(sql.motus, "tagDeps")
      
 ```
@@ -273,7 +282,7 @@ The *virtual* table 'alltags' contains the detection data, along with all metada
 
 ```{r getAllTagsTable, eval = FALSE}
 
-tbl.alltags <- tbl(sql.motus, "alltags") ## virtual table
+tbl.alltags <- tbl(sql.motus, "alltags") # virtual table
 
 ```
 
@@ -313,7 +322,7 @@ Make a data frame ...
 
 df.alltags <- tbl.alltags %>% 
                 collect() %>% 
-                as.data.frame()      ## for all fields in the df (data frame)
+                as.data.frame()  # for all fields in the df
 
 ```
 
@@ -321,10 +330,10 @@ df.alltags <- tbl.alltags %>%
 
 ```{r quickLook, eval = FALSE}
 
-names(df.alltags)     ## field names
-str(df.alltags)       ## Look at the structure of your data fields
-head(df.alltags)      ## Look at first 6 rows of your df
-summary(df.alltags)   ## summary of each column in your df
+names(df.alltags)     # field names
+str(df.alltags)       # Look at the structure of your data fields
+head(df.alltags)      # Look at first 6 rows of your df
+summary(df.alltags)   # summary of each column in your df
 
 ```
 
@@ -334,10 +343,12 @@ Note that the format of the time stamp (ts) field is numeric and represents seco
 
 df.alltags <- tbl.alltags %>% 
                 collect() %>% 
-                as.data.frame() %>%     ## for all fields in the df (data frame)
+                as.data.frame() %>%     # for all fields in the df (data frame)
                 mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))
 
-## the tz = "UTC" is not necessary here, provided you have set your system time to UTC/GMT... but it serves as a useful reminder!
+# the tz = "UTC" is not necessary here, provided you have set your system time to UTC/GMT
+# ... but it serves as a useful reminder!
+
 ```
 
 If you want to load only part of your entire virtual table (e.g. certain fields, certain tags, or all tags from a specified project or species), you can use dplyr funtions to filter the data before collecting into a dataframe. Some examples are below:  
@@ -346,7 +357,7 @@ If you want to load only part of your entire virtual table (e.g. certain fields,
 
 ```{r collect1, eval = FALSE}
 
-## to grab a subset of variables, in this case a unique list of Motus tag IDs at each receiver and antenna.
+# to grab a subset of variables, in this case a unique list of Motus tag IDs at each receiver and antenna.
 df.alltagsSub <- select(tbl.alltags, recv, port, motusTagID) %>%
   distinct() %>% 
   collect() %>% 
@@ -357,7 +368,7 @@ df.alltagsSub <- select(tbl.alltags, recv, port, motusTagID) %>%
 2. To select certain tag IDs:
 
 ```{r collect2, eval = FALSE}
-## filter to include only motusTagIDs 16011, 23316
+# filter to include only motusTagIDs 16011, 23316
 df.alltagsSub <- filter(tbl.alltags, motusTagID %in% c(16011, 23316)) %>% 
                   collect() %>% 
                   as.data.frame() %>%    
@@ -369,13 +380,13 @@ df.alltagsSub <- filter(tbl.alltags, motusTagID %in% c(16011, 23316)) %>%
 
 ```{r collect3, eval = FALSE}
 
-## filter to only Red Knot (using speciesID)
+# filter to only Red Knot (using speciesID)
 df.4670 <- filter(tbl.alltags, speciesID == 4670) %>%  
   collect() %>% 
   as.data.frame() %>%    
   mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))  
 
-## filter to only Red Knot (using English name)
+# filter to only Red Knot (using English name)
 df.redKnot <- filter(tbl.alltags, speciesEN == "Red Knot") %>%   
   collect() %>% 
   as.data.frame() %>%    
@@ -403,12 +414,12 @@ We re-iterated that a good workflow is to create a script that deals with all of
 
 ```{r createRDS, eval = FALSE, message = FALSE, warning = FALSE}
 
-## save an RDS file
+# save an RDS file
 
 saveRDS(df.alltags, "./data/df.alltags.RDS")  
 
-## or save as CSV file, which does not preserve time stamps, 
-## but can be read more easily by other programs.
+# or save as CSV file, which does not preserve time stamps, 
+# but can be read more easily by other programs.
 
 write_csv(df.alltags, "./data/df.alltags.CSV")
 
@@ -420,18 +431,20 @@ Throughout this chapter and the rest of the book, we name R objects according to
 
 ```{r namingConvention, eval = FALSE}
 
-sql.motus <- tagme(176, update = TRUE, dir = "./data")   # SQLite R object, which links to the .motus file
-tbl.alltags <- tbl(sql.motus, "alltags")  # virtual table object of the alltags table in the
-                                          # sample.motus file
+# SQLite R object, which links to the .motus file:
+sql.motus <- tagme(176, update = TRUE, dir = "./data")  
+
+# virtual table object of the alltags table in the sample.motus file:
+tbl.alltags <- tbl(sql.motus, "alltags")  
 df.alltags <- tbl.alltags %>%
                 collect() %>%
-                as.data.frame() %>%        # dataframe ("flat") object of the alltags table
+                as.data.frame() %>%   # dataframe ("flat") object of alltags table
                 mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))              
 
 ```
 
 ```{r dataImport, echo = FALSE, eval = TRUE}
-## hidden data import so update can be set to FALSE
+# hidden data import so update can be set to FALSE
 proj.num= 176
 sql.motus <- tagme(176, update = FALSE, dir = "./data")   # SQLite R object, which links to the .motus file
 tbl.alltags <- tbl(sql.motus, "alltags")  # virtual table object of the alltags table in the

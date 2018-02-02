@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Tara L. Crewe, Zoe Crysler, and Philip Taylor">
 
 
-<meta name="date" content="2018-01-31">
+<meta name="date" content="2018-02-02">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -124,7 +124,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.4.5" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.4.5</b> Update and open a local tag database</a></li>
 <li class="chapter" data-level="3.4.6" data-path="accessingData.html"><a href="accessingData.html#tellme"><i class="fa fa-check"></i><b>3.4.6</b> Check if new data are available</a></li>
 <li class="chapter" data-level="3.4.7" data-path="accessingData.html"><a href="accessingData.html#forceMeta"><i class="fa fa-check"></i><b>3.4.7</b> Force an update/re-import of tag and receiver deployment metadata</a></li>
-<li class="chapter" data-level="3.4.8" data-path="accessingData.html"><a href="accessingData.html#import-full-tag-and-receiver-metadata-metadata"><i class="fa fa-check"></i><b>3.4.8</b> Import full tag and receiver metadata (#metadata)</a></li>
+<li class="chapter" data-level="3.4.8" data-path="accessingData.html"><a href="accessingData.html#metadata"><i class="fa fa-check"></i><b>3.4.8</b> Import full tag and receiver metadata</a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.5</b> Data structure</a></li>
 <li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#ensure-that-you-have-the-correct-database-version-checkversion"><i class="fa fa-check"></i><b>3.6</b> Ensure that you have the correct database version {checkVersion}</a></li>
@@ -136,18 +136,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.1" data-path="deployments.html"><a href="deployments.html#load-relevant-r-packages-and-set-working-environment"><i class="fa fa-check"></i><b>4.1</b> Load relevant R packages and set working environment</a></li>
 <li class="chapter" data-level="4.2" data-path="deployments.html"><a href="deployments.html#load-.motus-file"><i class="fa fa-check"></i><b>4.2</b> Load .motus file</a></li>
 <li class="chapter" data-level="4.3" data-path="deployments.html"><a href="deployments.html#tagDeployments"><i class="fa fa-check"></i><b>4.3</b> Tag Deployments</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="deployments.html"><a href="deployments.html#download-full-project-tag-metadata"><i class="fa fa-check"></i><b>4.3.1</b> 1. Download full project tag metadata</a></li>
-<li class="chapter" data-level="4.3.2" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags"><i class="fa fa-check"></i><b>4.3.2</b> 2. Number of registered tags</a></li>
-<li class="chapter" data-level="4.3.3" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags-that-were-deployed"><i class="fa fa-check"></i><b>4.3.3</b> 3. Number of registered tags that were deployed</a></li>
-<li class="chapter" data-level="4.3.4" data-path="deployments.html"><a href="deployments.html#location-of-tag-deployments"><i class="fa fa-check"></i><b>4.3.4</b> 4. Location of tag deployments</a></li>
-<li class="chapter" data-level="4.3.5" data-path="deployments.html"><a href="deployments.html#check-completeness-and-accuracy-of-tag-deployment-metadata"><i class="fa fa-check"></i><b>4.3.5</b> 5. Check completeness and accuracy of tag deployment metadata</a></li>
+<li class="chapter" data-level="4.3.1" data-path="deployments.html"><a href="deployments.html#download-full-project-tag-metadata"><i class="fa fa-check"></i><b>4.3.1</b> Download full project tag metadata</a></li>
+<li class="chapter" data-level="4.3.2" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags"><i class="fa fa-check"></i><b>4.3.2</b> Number of registered tags</a></li>
+<li class="chapter" data-level="4.3.3" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags-that-were-deployed"><i class="fa fa-check"></i><b>4.3.3</b> Number of registered tags that were deployed</a></li>
+<li class="chapter" data-level="4.3.4" data-path="deployments.html"><a href="deployments.html#location-of-tag-deployments"><i class="fa fa-check"></i><b>4.3.4</b> Location of tag deployments</a></li>
+<li class="chapter" data-level="4.3.5" data-path="deployments.html"><a href="deployments.html#check-completeness-and-accuracy-of-tag-deployment-metadata"><i class="fa fa-check"></i><b>4.3.5</b> Check completeness and accuracy of tag deployment metadata</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="deployments.html"><a href="deployments.html#recvMetadata"><i class="fa fa-check"></i><b>4.4</b> Check Receiver Metadata</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="deployments.html"><a href="deployments.html#download-full-receiver-metadata"><i class="fa fa-check"></i><b>4.4.1</b> 1. Download full receiver metadata</a></li>
-<li class="chapter" data-level="4.4.2" data-path="deployments.html"><a href="deployments.html#number-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.2</b> 2. Number of project receiver deployments</a></li>
-<li class="chapter" data-level="4.4.3" data-path="deployments.html"><a href="deployments.html#timing-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.3</b> 3. Timing of project receiver deployments</a></li>
-<li class="chapter" data-level="4.4.4" data-path="deployments.html"><a href="deployments.html#location-of-receiver-deployments"><i class="fa fa-check"></i><b>4.4.4</b> 4. Location of receiver deployments</a></li>
-<li class="chapter" data-level="4.4.5" data-path="deployments.html"><a href="deployments.html#completeness-and-accuracy-of-receiver-metadata"><i class="fa fa-check"></i><b>4.4.5</b> 5. Completeness and accuracy of receiver metadata</a></li>
+<li class="chapter" data-level="4.4.1" data-path="deployments.html"><a href="deployments.html#download-full-receiver-metadata"><i class="fa fa-check"></i><b>4.4.1</b> Download full receiver metadata</a></li>
+<li class="chapter" data-level="4.4.2" data-path="deployments.html"><a href="deployments.html#number-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.2</b> Number of project receiver deployments</a></li>
+<li class="chapter" data-level="4.4.3" data-path="deployments.html"><a href="deployments.html#timing-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.3</b> Timing of project receiver deployments</a></li>
+<li class="chapter" data-level="4.4.4" data-path="deployments.html"><a href="deployments.html#location-of-receiver-deployments"><i class="fa fa-check"></i><b>4.4.4</b> Location of receiver deployments</a></li>
+<li class="chapter" data-level="4.4.5" data-path="deployments.html"><a href="deployments.html#completeness-and-accuracy-of-receiver-metadata"><i class="fa fa-check"></i><b>4.4.5</b> Completeness and accuracy of receiver metadata</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="dataCleaning.html"><a href="dataCleaning.html"><i class="fa fa-check"></i><b>5</b> Data Cleaning</a><ul>
@@ -156,7 +156,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.3</b> Preliminary data checks</a><ul>
 <li class="chapter" data-level="5.3.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.3.1</b> Summarize tag detections</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#examining-ambiguous-detections-ambigs"><i class="fa fa-check"></i><b>5.4</b> Examining ambiguous detections (#ambigs)</a></li>
+<li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#ambigs"><i class="fa fa-check"></i><b>5.4</b> Examining ambiguous detections</a></li>
 <li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.5</b> Filtering the data</a><ul>
 <li class="chapter" data-level="5.5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.5.1</b> Filter and save to RDS</a></li>
 <li class="chapter" data-level="5.5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.5.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
@@ -172,116 +172,119 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.5.2" data-path="exploreData.html"><a href="exploreData.html#outlineMaps"><i class="fa fa-check"></i><b>6.5.2</b> Creating simple outline maps</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="appendixA.html"><a href="appendixA.html"><i class="fa fa-check"></i><b>7</b> Appendix A - alltags structure</a></li>
-<li class="chapter" data-level="8" data-path="appendixB.html"><a href="appendixB.html"><i class="fa fa-check"></i><b>8</b> Appendix B - Troubleshooting</a><ul>
-<li class="chapter" data-level="8.1" data-path="appendixB.html"><a href="appendixB.html#motusLogout"><i class="fa fa-check"></i><b>8.1</b> Logging out of motus</a></li>
-<li class="chapter" data-level="8.2" data-path="appendixB.html"><a href="appendixB.html#resumeDownload"><i class="fa fa-check"></i><b>8.2</b> Resume data download</a></li>
-<li class="chapter" data-level="8.3" data-path="appendixB.html"><a href="appendixB.html#common-error-messages-and-solutions"><i class="fa fa-check"></i><b>8.3</b> Common error messages and solutions:</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>8.3.1</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
-<li class="chapter" data-level="8.3.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>8.3.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
-<li class="chapter" data-level="8.3.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>8.3.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
-<li class="chapter" data-level="8.3.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>8.3.4</b> I get an error Object ‘xxxx’ not found, referring to a table or field name, or some of your examples in the book do not work.</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appendixA.html"><a href="appendixA.html"><i class="fa fa-check"></i><b>A</b> Appendix A - alltags structure</a></li>
+<li class="chapter" data-level="B" data-path="appendixB.html"><a href="appendixB.html"><i class="fa fa-check"></i><b>B</b> Appendix B - Troubleshooting</a><ul>
+<li class="chapter" data-level="B.1" data-path="appendixB.html"><a href="appendixB.html#motusLogout"><i class="fa fa-check"></i><b>B.1</b> Logging out of motus</a></li>
+<li class="chapter" data-level="B.2" data-path="appendixB.html"><a href="appendixB.html#resumeDownload"><i class="fa fa-check"></i><b>B.2</b> Resume data download</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#common-error-messages-and-solutions"><i class="fa fa-check"></i><b>B.3</b> Common error messages and solutions:</a><ul>
+<li class="chapter" data-level="B.3.1" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.3.1</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
+<li class="chapter" data-level="B.3.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.3.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
+<li class="chapter" data-level="B.3.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.3.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
+<li class="chapter" data-level="B.3.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.3.4</b> I get an error Object ‘xxxx’ not found, referring to a table or field name, or some of your examples in the book do not work.</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>9</b> Appendix C - The Motus R Package</a><ul>
-<li class="chapter" data-level="9.1" data-path="appendixC.html"><a href="appendixC.html#checkversion-checkversion.b"><i class="fa fa-check"></i><b>9.1</b> checkVersion {checkVersion.B}</a><ul>
-<li class="chapter" data-level="9.1.1" data-path="appendixC.html"><a href="appendixC.html#description"><i class="fa fa-check"></i><b>9.1.1</b> Description</a></li>
-<li class="chapter" data-level="9.1.2" data-path="appendixC.html"><a href="appendixC.html#example"><i class="fa fa-check"></i><b>9.1.2</b> Example</a></li>
+<li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix C - The Motus R Package</a><ul>
+<li class="chapter" data-level="C.1" data-path="appendixC.html"><a href="appendixC.html#checkVersion.B"><i class="fa fa-check"></i><b>C.1</b> checkVersion</a><ul>
+<li class="chapter" data-level="C.1.1" data-path="appendixC.html"><a href="appendixC.html#description"><i class="fa fa-check"></i><b>C.1.1</b> Description</a></li>
+<li class="chapter" data-level="C.1.2" data-path="appendixC.html"><a href="appendixC.html#dependencies"><i class="fa fa-check"></i><b>C.1.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.1.3" data-path="appendixC.html"><a href="appendixC.html#example"><i class="fa fa-check"></i><b>C.1.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="appendixC.html"><a href="appendixC.html#sunRiseSet"><i class="fa fa-check"></i><b>9.2</b> sunRiseSet</a><ul>
-<li class="chapter" data-level="9.2.1" data-path="appendixC.html"><a href="appendixC.html#description-1"><i class="fa fa-check"></i><b>9.2.1</b> Description</a></li>
-<li class="chapter" data-level="9.2.2" data-path="appendixC.html"><a href="appendixC.html#dependencies"><i class="fa fa-check"></i><b>9.2.2</b> Dependencies</a></li>
-<li class="chapter" data-level="9.2.3" data-path="appendixC.html"><a href="appendixC.html#example-1"><i class="fa fa-check"></i><b>9.2.3</b> Example</a></li>
+<li class="chapter" data-level="C.2" data-path="appendixC.html"><a href="appendixC.html#sunRiseSet"><i class="fa fa-check"></i><b>C.2</b> sunRiseSet</a><ul>
+<li class="chapter" data-level="C.2.1" data-path="appendixC.html"><a href="appendixC.html#description-1"><i class="fa fa-check"></i><b>C.2.1</b> Description</a></li>
+<li class="chapter" data-level="C.2.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-1"><i class="fa fa-check"></i><b>C.2.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.2.3" data-path="appendixC.html"><a href="appendixC.html#example-1"><i class="fa fa-check"></i><b>C.2.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsCoor"><i class="fa fa-check"></i><b>9.3</b> plotAllTagsCoord</a><ul>
-<li class="chapter" data-level="9.3.1" data-path="appendixC.html"><a href="appendixC.html#description-2"><i class="fa fa-check"></i><b>9.3.1</b> Description</a></li>
-<li class="chapter" data-level="9.3.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-1"><i class="fa fa-check"></i><b>9.3.2</b> Dependencies</a></li>
-<li class="chapter" data-level="9.3.3" data-path="appendixC.html"><a href="appendixC.html#example-2"><i class="fa fa-check"></i><b>9.3.3</b> Example</a></li>
+<li class="chapter" data-level="C.3" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsCoor"><i class="fa fa-check"></i><b>C.3</b> plotAllTagsCoord</a><ul>
+<li class="chapter" data-level="C.3.1" data-path="appendixC.html"><a href="appendixC.html#description-2"><i class="fa fa-check"></i><b>C.3.1</b> Description</a></li>
+<li class="chapter" data-level="C.3.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-2"><i class="fa fa-check"></i><b>C.3.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.3.3" data-path="appendixC.html"><a href="appendixC.html#example-2"><i class="fa fa-check"></i><b>C.3.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsSite"><i class="fa fa-check"></i><b>9.4</b> plotAllTagsSite</a><ul>
-<li class="chapter" data-level="9.4.1" data-path="appendixC.html"><a href="appendixC.html#description-3"><i class="fa fa-check"></i><b>9.4.1</b> Description</a></li>
-<li class="chapter" data-level="9.4.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-2"><i class="fa fa-check"></i><b>9.4.2</b> Dependencies</a></li>
-<li class="chapter" data-level="9.4.3" data-path="appendixC.html"><a href="appendixC.html#example-3"><i class="fa fa-check"></i><b>9.4.3</b> Example</a></li>
+<li class="chapter" data-level="C.4" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsSite"><i class="fa fa-check"></i><b>C.4</b> plotAllTagsSite</a><ul>
+<li class="chapter" data-level="C.4.1" data-path="appendixC.html"><a href="appendixC.html#description-3"><i class="fa fa-check"></i><b>C.4.1</b> Description</a></li>
+<li class="chapter" data-level="C.4.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-3"><i class="fa fa-check"></i><b>C.4.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.4.3" data-path="appendixC.html"><a href="appendixC.html#example-3"><i class="fa fa-check"></i><b>C.4.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="appendixC.html"><a href="appendixC.html#plotDailySiteSum"><i class="fa fa-check"></i><b>9.5</b> plotDailySiteSum</a><ul>
-<li class="chapter" data-level="9.5.1" data-path="appendixC.html"><a href="appendixC.html#description-4"><i class="fa fa-check"></i><b>9.5.1</b> Description</a></li>
-<li class="chapter" data-level="9.5.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-3"><i class="fa fa-check"></i><b>9.5.2</b> Dependencies</a></li>
-<li class="chapter" data-level="9.5.3" data-path="appendixC.html"><a href="appendixC.html#example-4"><i class="fa fa-check"></i><b>9.5.3</b> Example</a></li>
+<li class="chapter" data-level="C.5" data-path="appendixC.html"><a href="appendixC.html#plotDailySiteSum"><i class="fa fa-check"></i><b>C.5</b> plotDailySiteSum</a><ul>
+<li class="chapter" data-level="C.5.1" data-path="appendixC.html"><a href="appendixC.html#description-4"><i class="fa fa-check"></i><b>C.5.1</b> Description</a></li>
+<li class="chapter" data-level="C.5.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-4"><i class="fa fa-check"></i><b>C.5.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.5.3" data-path="appendixC.html"><a href="appendixC.html#example-4"><i class="fa fa-check"></i><b>C.5.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="9.6" data-path="appendixC.html"><a href="appendixC.html#plotRouteMap"><i class="fa fa-check"></i><b>9.6</b> plotRouteMap</a><ul>
-<li class="chapter" data-level="9.6.1" data-path="appendixC.html"><a href="appendixC.html#description-5"><i class="fa fa-check"></i><b>9.6.1</b> Description</a></li>
-<li class="chapter" data-level="9.6.2" data-path="appendixC.html"><a href="appendixC.html#example-5"><i class="fa fa-check"></i><b>9.6.2</b> Example</a></li>
+<li class="chapter" data-level="C.6" data-path="appendixC.html"><a href="appendixC.html#plotRouteMap"><i class="fa fa-check"></i><b>C.6</b> plotRouteMap</a><ul>
+<li class="chapter" data-level="C.6.1" data-path="appendixC.html"><a href="appendixC.html#description-5"><i class="fa fa-check"></i><b>C.6.1</b> Description</a></li>
+<li class="chapter" data-level="C.6.2" data-path="appendixC.html"><a href="appendixC.html#example-5"><i class="fa fa-check"></i><b>C.6.2</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="9.7" data-path="appendixC.html"><a href="appendixC.html#plotSite"><i class="fa fa-check"></i><b>9.7</b> plotSite</a><ul>
-<li class="chapter" data-level="9.7.1" data-path="appendixC.html"><a href="appendixC.html#description-6"><i class="fa fa-check"></i><b>9.7.1</b> Description</a></li>
-<li class="chapter" data-level="9.7.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-4"><i class="fa fa-check"></i><b>9.7.2</b> Dependencies</a></li>
-<li class="chapter" data-level="9.7.3" data-path="appendixC.html"><a href="appendixC.html#example-6"><i class="fa fa-check"></i><b>9.7.3</b> Example</a></li>
+<li class="chapter" data-level="C.7" data-path="appendixC.html"><a href="appendixC.html#plotSite"><i class="fa fa-check"></i><b>C.7</b> plotSite</a><ul>
+<li class="chapter" data-level="C.7.1" data-path="appendixC.html"><a href="appendixC.html#description-6"><i class="fa fa-check"></i><b>C.7.1</b> Description</a></li>
+<li class="chapter" data-level="C.7.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-5"><i class="fa fa-check"></i><b>C.7.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.7.3" data-path="appendixC.html"><a href="appendixC.html#example-6"><i class="fa fa-check"></i><b>C.7.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="9.8" data-path="appendixC.html"><a href="appendixC.html#plotSiteSig"><i class="fa fa-check"></i><b>9.8</b> plotSiteSig</a><ul>
-<li class="chapter" data-level="9.8.1" data-path="appendixC.html"><a href="appendixC.html#description-7"><i class="fa fa-check"></i><b>9.8.1</b> Description</a></li>
-<li class="chapter" data-level="9.8.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-5"><i class="fa fa-check"></i><b>9.8.2</b> Dependencies</a></li>
-<li class="chapter" data-level="9.8.3" data-path="appendixC.html"><a href="appendixC.html#example-7"><i class="fa fa-check"></i><b>9.8.3</b> Example</a></li>
+<li class="chapter" data-level="C.8" data-path="appendixC.html"><a href="appendixC.html#plotSiteSig"><i class="fa fa-check"></i><b>C.8</b> plotSiteSig</a><ul>
+<li class="chapter" data-level="C.8.1" data-path="appendixC.html"><a href="appendixC.html#description-7"><i class="fa fa-check"></i><b>C.8.1</b> Description</a></li>
+<li class="chapter" data-level="C.8.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-6"><i class="fa fa-check"></i><b>C.8.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.8.3" data-path="appendixC.html"><a href="appendixC.html#example-7"><i class="fa fa-check"></i><b>C.8.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="9.9" data-path="appendixC.html"><a href="appendixC.html#plotTagSig"><i class="fa fa-check"></i><b>9.9</b> plotTagSig</a><ul>
-<li class="chapter" data-level="9.9.1" data-path="appendixC.html"><a href="appendixC.html#description-8"><i class="fa fa-check"></i><b>9.9.1</b> Description</a></li>
-<li class="chapter" data-level="9.9.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-6"><i class="fa fa-check"></i><b>9.9.2</b> Dependencies</a></li>
-<li class="chapter" data-level="9.9.3" data-path="appendixC.html"><a href="appendixC.html#example-8"><i class="fa fa-check"></i><b>9.9.3</b> Example</a></li>
+<li class="chapter" data-level="C.9" data-path="appendixC.html"><a href="appendixC.html#plotTagSig"><i class="fa fa-check"></i><b>C.9</b> plotTagSig</a><ul>
+<li class="chapter" data-level="C.9.1" data-path="appendixC.html"><a href="appendixC.html#description-8"><i class="fa fa-check"></i><b>C.9.1</b> Description</a></li>
+<li class="chapter" data-level="C.9.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-7"><i class="fa fa-check"></i><b>C.9.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.9.3" data-path="appendixC.html"><a href="appendixC.html#example-8"><i class="fa fa-check"></i><b>C.9.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="9.10" data-path="appendixC.html"><a href="appendixC.html#simSiteDet"><i class="fa fa-check"></i><b>9.10</b> simSiteDet</a><ul>
-<li class="chapter" data-level="9.10.1" data-path="appendixC.html"><a href="appendixC.html#description-9"><i class="fa fa-check"></i><b>9.10.1</b> Description</a></li>
-<li class="chapter" data-level="9.10.2" data-path="appendixC.html"><a href="appendixC.html#example-9"><i class="fa fa-check"></i><b>9.10.2</b> Example</a></li>
+<li class="chapter" data-level="C.10" data-path="appendixC.html"><a href="appendixC.html#simSiteDet"><i class="fa fa-check"></i><b>C.10</b> simSiteDet</a><ul>
+<li class="chapter" data-level="C.10.1" data-path="appendixC.html"><a href="appendixC.html#description-9"><i class="fa fa-check"></i><b>C.10.1</b> Description</a></li>
+<li class="chapter" data-level="C.10.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-8"><i class="fa fa-check"></i><b>C.10.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.10.3" data-path="appendixC.html"><a href="appendixC.html#example-9"><i class="fa fa-check"></i><b>C.10.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="9.11" data-path="appendixC.html"><a href="appendixC.html#siteSum"><i class="fa fa-check"></i><b>9.11</b> siteSum</a><ul>
-<li class="chapter" data-level="9.11.1" data-path="appendixC.html"><a href="appendixC.html#description-10"><i class="fa fa-check"></i><b>9.11.1</b> Description</a></li>
-<li class="chapter" data-level="9.11.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-7"><i class="fa fa-check"></i><b>9.11.2</b> Dependencies</a></li>
-<li class="chapter" data-level="9.11.3" data-path="appendixC.html"><a href="appendixC.html#example-10"><i class="fa fa-check"></i><b>9.11.3</b> Example</a></li>
+<li class="chapter" data-level="C.11" data-path="appendixC.html"><a href="appendixC.html#siteSum"><i class="fa fa-check"></i><b>C.11</b> siteSum</a><ul>
+<li class="chapter" data-level="C.11.1" data-path="appendixC.html"><a href="appendixC.html#description-10"><i class="fa fa-check"></i><b>C.11.1</b> Description</a></li>
+<li class="chapter" data-level="C.11.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-9"><i class="fa fa-check"></i><b>C.11.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.11.3" data-path="appendixC.html"><a href="appendixC.html#example-10"><i class="fa fa-check"></i><b>C.11.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="9.12" data-path="appendixC.html"><a href="appendixC.html#siteSumDaily"><i class="fa fa-check"></i><b>9.12</b> siteSumDaily</a><ul>
-<li class="chapter" data-level="9.12.1" data-path="appendixC.html"><a href="appendixC.html#description-11"><i class="fa fa-check"></i><b>9.12.1</b> Description</a></li>
-<li class="chapter" data-level="9.12.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-8"><i class="fa fa-check"></i><b>9.12.2</b> Dependencies</a></li>
-<li class="chapter" data-level="9.12.3" data-path="appendixC.html"><a href="appendixC.html#example-11"><i class="fa fa-check"></i><b>9.12.3</b> Example</a></li>
+<li class="chapter" data-level="C.12" data-path="appendixC.html"><a href="appendixC.html#siteSumDaily"><i class="fa fa-check"></i><b>C.12</b> siteSumDaily</a><ul>
+<li class="chapter" data-level="C.12.1" data-path="appendixC.html"><a href="appendixC.html#description-11"><i class="fa fa-check"></i><b>C.12.1</b> Description</a></li>
+<li class="chapter" data-level="C.12.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-10"><i class="fa fa-check"></i><b>C.12.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.12.3" data-path="appendixC.html"><a href="appendixC.html#example-11"><i class="fa fa-check"></i><b>C.12.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="9.13" data-path="appendixC.html"><a href="appendixC.html#siteTrans"><i class="fa fa-check"></i><b>9.13</b> siteTrans</a><ul>
-<li class="chapter" data-level="9.13.1" data-path="appendixC.html"><a href="appendixC.html#description-12"><i class="fa fa-check"></i><b>9.13.1</b> Description</a></li>
-<li class="chapter" data-level="9.13.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-9"><i class="fa fa-check"></i><b>9.13.2</b> Dependencies</a></li>
-<li class="chapter" data-level="9.13.3" data-path="appendixC.html"><a href="appendixC.html#example-12"><i class="fa fa-check"></i><b>9.13.3</b> Example</a></li>
+<li class="chapter" data-level="C.13" data-path="appendixC.html"><a href="appendixC.html#siteTrans"><i class="fa fa-check"></i><b>C.13</b> siteTrans</a><ul>
+<li class="chapter" data-level="C.13.1" data-path="appendixC.html"><a href="appendixC.html#description-12"><i class="fa fa-check"></i><b>C.13.1</b> Description</a></li>
+<li class="chapter" data-level="C.13.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-11"><i class="fa fa-check"></i><b>C.13.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.13.3" data-path="appendixC.html"><a href="appendixC.html#example-12"><i class="fa fa-check"></i><b>C.13.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="9.14" data-path="appendixC.html"><a href="appendixC.html#tagSum"><i class="fa fa-check"></i><b>9.14</b> tagSum</a><ul>
-<li class="chapter" data-level="9.14.1" data-path="appendixC.html"><a href="appendixC.html#description-13"><i class="fa fa-check"></i><b>9.14.1</b> Description</a></li>
-<li class="chapter" data-level="9.14.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-10"><i class="fa fa-check"></i><b>9.14.2</b> Dependencies</a></li>
-<li class="chapter" data-level="9.14.3" data-path="appendixC.html"><a href="appendixC.html#example-13"><i class="fa fa-check"></i><b>9.14.3</b> Example</a></li>
+<li class="chapter" data-level="C.14" data-path="appendixC.html"><a href="appendixC.html#tagSum"><i class="fa fa-check"></i><b>C.14</b> tagSum</a><ul>
+<li class="chapter" data-level="C.14.1" data-path="appendixC.html"><a href="appendixC.html#description-13"><i class="fa fa-check"></i><b>C.14.1</b> Description</a></li>
+<li class="chapter" data-level="C.14.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-12"><i class="fa fa-check"></i><b>C.14.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.14.3" data-path="appendixC.html"><a href="appendixC.html#example-13"><i class="fa fa-check"></i><b>C.14.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="9.15" data-path="appendixC.html"><a href="appendixC.html#tagSumSite"><i class="fa fa-check"></i><b>9.15</b> tagSumSite</a><ul>
-<li class="chapter" data-level="9.15.1" data-path="appendixC.html"><a href="appendixC.html#description-14"><i class="fa fa-check"></i><b>9.15.1</b> Description</a></li>
-<li class="chapter" data-level="9.15.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-11"><i class="fa fa-check"></i><b>9.15.2</b> Dependencies</a></li>
-<li class="chapter" data-level="9.15.3" data-path="appendixC.html"><a href="appendixC.html#example-14"><i class="fa fa-check"></i><b>9.15.3</b> Example</a></li>
+<li class="chapter" data-level="C.15" data-path="appendixC.html"><a href="appendixC.html#tagSumSite"><i class="fa fa-check"></i><b>C.15</b> tagSumSite</a><ul>
+<li class="chapter" data-level="C.15.1" data-path="appendixC.html"><a href="appendixC.html#description-14"><i class="fa fa-check"></i><b>C.15.1</b> Description</a></li>
+<li class="chapter" data-level="C.15.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-13"><i class="fa fa-check"></i><b>C.15.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.15.3" data-path="appendixC.html"><a href="appendixC.html#example-14"><i class="fa fa-check"></i><b>C.15.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="9.16" data-path="appendixC.html"><a href="appendixC.html#timeToSunriset"><i class="fa fa-check"></i><b>9.16</b> timeToSunriset</a><ul>
-<li class="chapter" data-level="9.16.1" data-path="appendixC.html"><a href="appendixC.html#description-15"><i class="fa fa-check"></i><b>9.16.1</b> Description</a></li>
-<li class="chapter" data-level="9.16.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-12"><i class="fa fa-check"></i><b>9.16.2</b> Dependencies</a></li>
-<li class="chapter" data-level="9.16.3" data-path="appendixC.html"><a href="appendixC.html#example-15"><i class="fa fa-check"></i><b>9.16.3</b> Example</a></li>
+<li class="chapter" data-level="C.16" data-path="appendixC.html"><a href="appendixC.html#timeToSunriset"><i class="fa fa-check"></i><b>C.16</b> timeToSunriset</a><ul>
+<li class="chapter" data-level="C.16.1" data-path="appendixC.html"><a href="appendixC.html#description-15"><i class="fa fa-check"></i><b>C.16.1</b> Description</a></li>
+<li class="chapter" data-level="C.16.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-14"><i class="fa fa-check"></i><b>C.16.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.16.3" data-path="appendixC.html"><a href="appendixC.html#example-15"><i class="fa fa-check"></i><b>C.16.3</b> Example</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="appendixD.html"><a href="appendixD.html"><i class="fa fa-check"></i><b>10</b> Appendix D - The motusClient Package - Data filtering functions</a><ul>
-<li class="chapter" data-level="10.1" data-path="appendixD.html"><a href="appendixD.html#listRunsFilters"><i class="fa fa-check"></i><b>10.1</b> listRunsFilters</a><ul>
-<li class="chapter" data-level="10.1.1" data-path="appendixD.html"><a href="appendixD.html#description-16"><i class="fa fa-check"></i><b>10.1.1</b> Description</a></li>
+<li class="chapter" data-level="D" data-path="appendixD.html"><a href="appendixD.html"><i class="fa fa-check"></i><b>D</b> Appendix D - The motusClient Package - Data filtering functions</a><ul>
+<li class="chapter" data-level="D.1" data-path="appendixD.html"><a href="appendixD.html#listRunsFilters"><i class="fa fa-check"></i><b>D.1</b> listRunsFilters</a><ul>
+<li class="chapter" data-level="D.1.1" data-path="appendixD.html"><a href="appendixD.html#description-16"><i class="fa fa-check"></i><b>D.1.1</b> Description</a></li>
 </ul></li>
-<li class="chapter" data-level="10.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-13"><i class="fa fa-check"></i><b>10.2</b> Dependencies</a></li>
-<li class="chapter" data-level="10.3" data-path="appendixD.html"><a href="appendixD.html#example-16"><i class="fa fa-check"></i><b>10.3</b> Example</a></li>
-<li class="chapter" data-level="10.4" data-path="appendixD.html"><a href="appendixD.html#createRunsFilter"><i class="fa fa-check"></i><b>10.4</b> createRunsFilter</a><ul>
-<li class="chapter" data-level="10.4.1" data-path="appendixD.html"><a href="appendixD.html#description-17"><i class="fa fa-check"></i><b>10.4.1</b> Description</a></li>
-<li class="chapter" data-level="10.4.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-14"><i class="fa fa-check"></i><b>10.4.2</b> Dependencies</a></li>
-<li class="chapter" data-level="10.4.3" data-path="appendixD.html"><a href="appendixD.html#example-17"><i class="fa fa-check"></i><b>10.4.3</b> Example</a></li>
+<li class="chapter" data-level="D.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-15"><i class="fa fa-check"></i><b>D.2</b> Dependencies</a></li>
+<li class="chapter" data-level="D.3" data-path="appendixD.html"><a href="appendixD.html#example-16"><i class="fa fa-check"></i><b>D.3</b> Example</a></li>
+<li class="chapter" data-level="D.4" data-path="appendixD.html"><a href="appendixD.html#createRunsFilter"><i class="fa fa-check"></i><b>D.4</b> createRunsFilter</a><ul>
+<li class="chapter" data-level="D.4.1" data-path="appendixD.html"><a href="appendixD.html#description-17"><i class="fa fa-check"></i><b>D.4.1</b> Description</a></li>
+<li class="chapter" data-level="D.4.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-16"><i class="fa fa-check"></i><b>D.4.2</b> Dependencies</a></li>
+<li class="chapter" data-level="D.4.3" data-path="appendixD.html"><a href="appendixD.html#example-17"><i class="fa fa-check"></i><b>D.4.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="10.5" data-path="appendixD.html"><a href="appendixD.html#getRunsFilters"><i class="fa fa-check"></i><b>10.5</b> getRunsFilters</a><ul>
-<li class="chapter" data-level="10.5.1" data-path="appendixD.html"><a href="appendixD.html#description-18"><i class="fa fa-check"></i><b>10.5.1</b> Description</a></li>
-<li class="chapter" data-level="10.5.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-15"><i class="fa fa-check"></i><b>10.5.2</b> Dependencies</a></li>
-<li class="chapter" data-level="10.5.3" data-path="appendixD.html"><a href="appendixD.html#example-18"><i class="fa fa-check"></i><b>10.5.3</b> Example</a></li>
+<li class="chapter" data-level="D.5" data-path="appendixD.html"><a href="appendixD.html#getRunsFilters"><i class="fa fa-check"></i><b>D.5</b> getRunsFilters</a><ul>
+<li class="chapter" data-level="D.5.1" data-path="appendixD.html"><a href="appendixD.html#description-18"><i class="fa fa-check"></i><b>D.5.1</b> Description</a></li>
+<li class="chapter" data-level="D.5.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-17"><i class="fa fa-check"></i><b>D.5.2</b> Dependencies</a></li>
+<li class="chapter" data-level="D.5.3" data-path="appendixD.html"><a href="appendixD.html#example-18"><i class="fa fa-check"></i><b>D.5.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="10.6" data-path="appendixD.html"><a href="appendixD.html#writeRunsFilter"><i class="fa fa-check"></i><b>10.6</b> writeRunsFilter</a><ul>
-<li class="chapter" data-level="10.6.1" data-path="appendixD.html"><a href="appendixD.html#description-19"><i class="fa fa-check"></i><b>10.6.1</b> Description</a></li>
-<li class="chapter" data-level="10.6.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-16"><i class="fa fa-check"></i><b>10.6.2</b> Dependencies</a></li>
-<li class="chapter" data-level="10.6.3" data-path="appendixD.html"><a href="appendixD.html#examples"><i class="fa fa-check"></i><b>10.6.3</b> Examples</a></li>
+<li class="chapter" data-level="D.6" data-path="appendixD.html"><a href="appendixD.html#writeRunsFilter"><i class="fa fa-check"></i><b>D.6</b> writeRunsFilter</a><ul>
+<li class="chapter" data-level="D.6.1" data-path="appendixD.html"><a href="appendixD.html#description-19"><i class="fa fa-check"></i><b>D.6.1</b> Description</a></li>
+<li class="chapter" data-level="D.6.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-18"><i class="fa fa-check"></i><b>D.6.2</b> Dependencies</a></li>
+<li class="chapter" data-level="D.6.3" data-path="appendixD.html"><a href="appendixD.html#examples"><i class="fa fa-check"></i><b>D.6.3</b> Examples</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -305,18 +308,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">1</span> Introduction</h1>
 <p><img src="images/Motus-System-IG-final.png" width="2250" /></p>
 <p><br></p>
-<p>The Motus Wildlife Tracking System (‘Motus’; Taylor et al. 2017; <a href="https://www.motus.org" class="uri">https://www.motus.org</a>) is an international, collaborative automated radio-telemetry network to track the movement and behaviour of flying organisms affixed with digitally encoded radio-transmitters. Motus was developed at Acadia University in 2012-2013. In 2014, a major infrastructure expansion was made possible through a Canada Foundation for Innovation grant to Western University, The University of Guelph, and Acadia University. Since then, Motus has grown through the collaboration of independent researchers and organizations <a href="https://motus.org/about/" class="uri">https://motus.org/about/</a>. It is now managed as a program of Bird Studies Canada (<a href="https://www.birdscanada.org" class="uri">https://www.birdscanada.org</a>) in partnership with Acadia University.</p>
+<p>The Motus Wildlife Tracking System (‘Motus’; Taylor et al. 2017; <a href="https://www.motus.org" class="uri">https://www.motus.org</a>) is an international, collaborative automated radio-telemetry network to track the movement and behaviour of flying organisms affixed with digitally encoded radio-transmitters. Motus was developed at Acadia University in 2012-2013. In 2014, a major infrastructure expansion was made possible through a Canada Foundation for Innovation grant to Western University, The University of Guelph, and Acadia University. Since then, Motus has grown through the collaboration of independent researchers and organizations (see <a href="https://motus.org/about/" class="uri">https://motus.org/about/</a>). It is now managed as a program of Bird Studies Canada (<a href="https://www.birdscanada.org" class="uri">https://www.birdscanada.org</a>) in partnership with Acadia University.</p>
 <p>Motus is unique among automated telemetry arrays in that all researchers in a geographic region (e.g., the Americas or Europe) use a shared radio frequency. This allows tagged animals to be detected by any receiving station across the network, greatly broadening the spatial scope of potential research questions. Motus users also use a shared data infrastructure and web portal: all data collected from across the network are centrally stored and archived, which allows users to access detections of their tags by anyone’s receiver in the network, and individuals that maintain receivers have access to all detections of anyone’s tags on those receivers.</p>
 <p>Having a shared data infrastructure also means that users can benefit from R functions written specifically for Motus data by any and all users. The Motus R package described in this book is in continual development, and the intent of this online ‘handbook’ is to help users learn the various functionalities of the package, and potentially contribute to it. We also show how additional R packages such as ggplot can be used to explore, visualize, transform, and analyze Motus data.</p>
 <p>The content of the handbook will continue to evolve and grow along with the analytical needs of the network. Those interested in contributing code to the Motus R package or this handbook can send proposed additions to <a href="mailto:motus@birdscanada.org">motus@birdscanada.org</a>.</p>
 <p>Taylor, P. D., T. L. Crewe, S. A. Mackenzie, D. Lepage, Y. Aubry, Z. Crysler, G. Finney, C. M. Francis, C. G. Guglielmo, D. J. Hamilton, R. L. Holberton, P. H. Loring, G. W. Mitchell, D. R. Noriis, J. Paquet, R. A. Ronconi, J. Smetzer, P. A. Smith, L. J. Welch, and B. K. Woodworth. 2017. The Motus Wildlife Tracking System: a collaborative research network to enhance the understanding of wildlife movement. Avian Conservation and Ecology 12(1):8. <a href="https://doi.org/10.5751/ACE-00953-120108" class="uri">https://doi.org/10.5751/ACE-00953-120108</a>.</p>
 <div id="whatBookCovers" class="section level2">
 <h2><span class="header-section-number">1.1</span> What this book does not cover</h2>
-<p>This book does not cover how to register radio tags with Motus, manage tags and station deployments, or upload raw detections data for processing. Information to guide you through those tasks can be found under the ‘resources’ tab on the Motus website at <a href="https://motus.org/resources/" class="uri">https://motus.org/resources/</a>. Please remember to register your tags <strong>prior to deployment</strong>, and enter tag and station metadata online in a timely manner. Please also see <a href="https://motus.org/policy/" class="uri">https://motus.org/policy/</a> to review the Motus collaboration policy and tag registration and fee schedule.</p>
+<p>This book does not cover how to register radio tags with Motus, manage tags and station deployments, or upload raw detections data for processing. Information to guide you through those tasks can be found under the ‘resources’ tab on the Motus website at <a href="https://motus.org/resources/" class="uri">https://motus.org/resources/</a>. Please remember to register your tags <strong>prior to deployment</strong>, and enter tag and station metadata online in a timely manner. Please also review the Motus collaboration policy and tag registration and fee schedule at <a href="https://motus.org/policy/" class="uri">https://motus.org/policy/</a>.</p>
 </div>
 <div id="prerequisites" class="section level2">
 <h2><span class="header-section-number">1.2</span> Prerequisites</h2>
-<p>This book assumes that you have a basic understanding of R. Regardless of whether you are new to R or not, we highly recommend that you become familiar with ‘R for Data Science’ by Garrett Grolemund and Hadley Wickham (<a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>). Their book covers how to import, visualize, and summarize data in R using the tidyverse collection of R packages <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>. It also provides an invaluable framework for organizing your workflow to create clean, reproducible code (<a href="http://r4ds.had.co.nz/workflow-projects.html" class="uri">http://r4ds.had.co.nz/workflow-projects.html</a>). We follow their lead by, wherever possible, using the tidyverse framework throughout this book.</p>
+<p>This book assumes that you have a basic understanding of R. Regardless of whether you are new to R or not, we highly recommend that you become familiar with ‘R for Data Science’ by Garrett Grolemund and Hadley Wickham (<a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>). Their book covers how to import, visualize, and summarize data in R using the tidyverse collection of R packages (<a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>). It also provides an invaluable framework for organizing your workflow to create clean, reproducible code (<a href="http://r4ds.had.co.nz/workflow-projects.html" class="uri">http://r4ds.had.co.nz/workflow-projects.html</a>). We follow their lead by, wherever possible, using the tidyverse framework throughout this book.</p>
 </div>
 <div id="sampleData" class="section level2">
 <h2><span class="header-section-number">1.3</span> Sample dataset</h2>

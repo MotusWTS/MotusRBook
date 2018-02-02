@@ -1,4 +1,11 @@
-# Appendix D - The motusClient Package - Data filtering functions {#appendixD}
+# Appendix - The motusClient Package - Data filtering functions {#appendixD}
+
+```{r tidyr10, echo = FALSE, message = FALSE, warning = FALSE}
+
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
+
+```
 
 The motusClient R package offers functions that can be used to assign probabilities to tag detections, and to filter detections based on those probabilities. For example, as you work through your data to clean false positive and ambiguous detections (see Chapter \@ref(dataCleaning)), you may determine that some detections do not belong to your tag(s). Instead of simply using an R script to filter out those detections, you can use these filter functions to create and save a custom filter in your .motus file, which assigns a probability value between 0 and 1 to the runIDs supplied in the filter. 
 
@@ -74,7 +81,6 @@ tbl.filt <- getRunsFilters(src = sql.motus, filterName = "myfilter")
 tbl.filt2 <- getRunsFilters(sql.motus, "myfilter2")
 
 # filter records from df that are in tbl.filt
-
 df <- left_join(df, tbl.filt, by = c("runID", "motusTagID")) %>%
   mutate(probability = ifelse(is.na(probability), 1, probability)) %>%
   filter(probability > 0)
