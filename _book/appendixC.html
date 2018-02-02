@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -146,6 +146,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.4.2" data-path="deployments.html"><a href="deployments.html#number-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.2</b> Number of project receiver deployments</a></li>
 <li class="chapter" data-level="4.4.3" data-path="deployments.html"><a href="deployments.html#timing-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.3</b> Timing of project receiver deployments</a></li>
 <li class="chapter" data-level="4.4.4" data-path="deployments.html"><a href="deployments.html#location-of-receiver-deployments"><i class="fa fa-check"></i><b>4.4.4</b> Location of receiver deployments</a></li>
+<li class="chapter" data-level="4.4.5" data-path="deployments.html"><a href="deployments.html#completeness-and-accuracy-of-receiver-metadata"><i class="fa fa-check"></i><b>4.4.5</b> Completeness and accuracy of receiver metadata</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="dataCleaning.html"><a href="dataCleaning.html"><i class="fa fa-check"></i><b>5</b> Data Cleaning</a><ul>
@@ -317,9 +318,7 @@ tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus,
 ## convert the tbl &#39;tbl.alltags&#39; to a data.frame
 ## called &#39;df.alltags&#39;
 df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</code></pre></div>
-<p>You can access the function help pages:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">?</span><span class="st">`</span>(<span class="st">`</span><span class="dt">?</span><span class="st">`</span>(sunRiseSet))</code></pre></div>
-<p>Or view the underlying function code like this:</p>
+<p>You can access the function help pages using ‘??sunRiseSet’ in the R console. Or view the underlying function code like this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sunRiseSet</code></pre></div>
 <div id="checkVersion.B" class="section level2">
 <h2><span class="header-section-number">C.1</span> checkVersion</h2>
@@ -344,7 +343,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 </div>
 <div id="dependencies-1" class="section level3">
 <h3><span class="header-section-number">C.2.2</span> Dependencies</h3>
-<p><strong>data</strong> can be either a selected table from .motus detection data eg. “alltags”, or a data.frame of detection data including at a minimum variables for date/time, latitude, and longitude<br />
+<p><strong>data</strong> can be either a selected table from .motus detection data e.g. “alltags”, or a data.frame of detection data including at a minimum variables for date/time, latitude, and longitude<br />
 <strong>lat</strong> variable with latitude values, defaults to recvDeployLat<br />
 <strong>lon</strong> variable with longitude values, defaults to recvDeployLon<br />
 <strong>ts</strong> variable with time in UTC as numeric or POSIXct, defaults to ts</p>
@@ -448,7 +447,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 </div>
 <div id="dependencies-2" class="section level3">
 <h3><span class="header-section-number">C.3.2</span> Dependencies</h3>
-<p><strong>data</strong> a selected table from .motus detection data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for date/time, and either latitude or longitude<br />
+<p><strong>data</strong> a selected table from .motus detection data, e.g. “alltags”, or a data.frame of detection data including at a minimum variables for date/time, and either latitude or longitude<br />
 <strong>tagsPerPanel</strong> number of tags in each panel of the plot, by default this is 5<br />
 <strong>coordinate</strong> variable name from which to obtain location values, by default it is set to recvDeployLat<br />
 <strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
@@ -472,7 +471,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 </div>
 <div id="dependencies-3" class="section level3">
 <h3><span class="header-section-number">C.4.2</span> Dependencies</h3>
-<p><strong>data</strong> a selected table from .motus detection data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for date/time, and either latitude or longitude<br />
+<p><strong>data</strong> a selected table from .motus detection data, e.g. “alltags”, or a data.frame of detection data including at a minimum variables for date/time, and either latitude or longitude<br />
 <strong>tagsPerPanel</strong> number of tags in each panel of the plot, by default this is 5<br />
 <strong>coordinate</strong> variable name from which to obtain location values, by default it is set to recvDeployLat<br />
 <strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
@@ -498,7 +497,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 </div>
 <div id="dependencies-4" class="section level3">
 <h3><span class="header-section-number">C.5.2</span> Dependencies</h3>
-<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for motusTagID, sig, recvDepName, ts<br />
+<p><strong>data</strong> a selected table from .motus data, e.g. “alltags”, or a data.frame of detection data including at a minimum variables for motusTagID, sig, recvDepName, ts<br />
 <strong>motusTagID</strong> variable consisting of a motus tag ID<br />
 <strong>sig</strong> variable consisting a signal strength variable<br />
 <strong>recvDepName</strong> variable consisting of receiver deployment name<br />
@@ -542,7 +541,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 </div>
 <div id="dependencies-5" class="section level3">
 <h3><span class="header-section-number">C.7.2</span> Dependencies</h3>
-<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for ts, antBearing, fullID, recvDepName<br />
+<p><strong>data</strong> a selected table from .motus data, e.g. “alltags”, or a data.frame of detection data including at a minimum variables for ts, antBearing, fullID, recvDepName<br />
 <strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
 <strong>antBearing</strong> variable consisting antenna bearing variable<br />
 <strong>fullID</strong> variable consisting of a tag fullID<br />
@@ -563,7 +562,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 </div>
 <div id="dependencies-6" class="section level3">
 <h3><span class="header-section-number">C.8.2</span> Dependencies</h3>
-<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for antBearing, ts, lat, sig, fullID, recvDepName<br />
+<p><strong>data</strong> a selected table from .motus data, e.g. “alltags”, or a data.frame of detection data including at a minimum variables for antBearing, ts, lat, sig, fullID, recvDepName<br />
 <strong>antBearing</strong> variable consisting antenna bearing variable<br />
 <strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
 <strong>recvDeployLat</strong> variable consisting of receiver deployment latitude<br />
@@ -587,7 +586,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 </div>
 <div id="dependencies-7" class="section level3">
 <h3><span class="header-section-number">C.9.2</span> Dependencies</h3>
-<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for motusTagID, sig, ts, antBearing, recvDeployLat, fullID, recvDepName<br />
+<p><strong>data</strong> a selected table from .motus data, e.g. “alltags”, or a data.frame of detection data including at a minimum variables for motusTagID, sig, ts, antBearing, recvDeployLat, fullID, recvDepName<br />
 <strong>motusTagID</strong> variable consisting of a motus tag ID<br />
 <strong>antBearing</strong> variable consisting antenna bearing variable<br />
 <strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
@@ -611,7 +610,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 </div>
 <div id="dependencies-8" class="section level3">
 <h3><span class="header-section-number">C.10.2</span> Dependencies</h3>
-<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for ts, motusTagID, recvDepName<br />
+<p><strong>data</strong> a selected table from .motus data, e.g. “alltags”, or a data.frame of detection data including at a minimum variables for ts, motusTagID, recvDepName<br />
 <strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
 <strong>motusTagID</strong> variable consisting of a motus tag ID<br />
 <strong>recvDepName</strong> variable consisting of receiver deployment name</p>
@@ -715,7 +714,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 </div>
 <div id="dependencies-9" class="section level3">
 <h3><span class="header-section-number">C.11.2</span> Dependencies</h3>
-<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for motusTagID, sig, recvDeployLat, recvDepName, and ts<br />
+<p><strong>data</strong> a selected table from .motus data, e.g. “alltags”, or a data.frame of detection data including at a minimum variables for motusTagID, sig, recvDeployLat, recvDepName, and ts<br />
 <strong>motusTagID</strong> variable consisting of a motus tag ID<br />
 <strong>sig</strong> variable consisting a signal strength variable<br />
 <strong>recvDeployLat</strong> variable consisting of receiver deployment latitude<br />
@@ -732,12 +731,11 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <p><img src="MotusRBook_files/figure-html/siteSum-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(site_summary)</code></pre></div>
 <pre><code>## # A tibble: 3 x 6
-##   recvDeployName first_ts            last_ts             tot_ts   num.tags
-##   &lt;fct&gt;          &lt;dttm&gt;              &lt;dttm&gt;              &lt;time&gt;      &lt;int&gt;
-## 1 Niapiskau      2016-10-01 23:47:57 2016-10-27 00:03:21 36015.4…        6
-## 2 Washkaugou     2016-10-09 23:52:45 2016-10-10 00:00:42 7.94683…        2
-## 3 Netitishi      2015-08-14 17:53:49 2015-09-08 01:10:13 34996.3…        7
-## # ... with 1 more variable: num.det &lt;int&gt;</code></pre>
+##   recvDeployName first_ts            last_ts             tot_~ num.~ num.~
+##   &lt;fctr&gt;         &lt;dttm&gt;              &lt;dttm&gt;              &lt;tim&gt; &lt;int&gt; &lt;int&gt;
+## 1 Niapiskau      2016-10-01 23:47:57 2016-10-27 00:03:21 3601~     6 82376
+## 2 Washkaugou     2016-10-09 23:52:45 2016-10-10 00:00:42 7.94~     2   172
+## 3 Netitishi      2015-08-14 17:53:49 2015-09-08 01:10:13 3499~     7  2363</code></pre>
 </div>
 </div>
 <div id="siteSumDaily" class="section level2">
@@ -748,7 +746,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 </div>
 <div id="dependencies-10" class="section level3">
 <h3><span class="header-section-number">C.12.2</span> Dependencies</h3>
-<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for motusTagID, sig, recvDepName, ts<br />
+<p><strong>data</strong> a selected table from .motus data, e.g. “alltags”, or a data.frame of detection data including at a minimum variables for motusTagID, sig, recvDepName, ts<br />
 <strong>motusTagID</strong> variable consisting of a motus tag ID<br />
 <strong>sig</strong> variable consisting a signal strength variable<br />
 <strong>recvDepName</strong> variable consisting of receiver deployment name<br />
@@ -784,7 +782,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 </div>
 <div id="dependencies-11" class="section level3">
 <h3><span class="header-section-number">C.13.2</span> Dependencies</h3>
-<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for ts, motusTagID, tagDeployID, recvDeployLat, recvDeployLon, recvDepName<br />
+<p><strong>data</strong> a selected table from .motus data, e.g. “alltags”, or a data.frame of detection data including at a minimum variables for ts, motusTagID, tagDeployID, recvDeployLat, recvDeployLon, recvDepName<br />
 <strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
 <strong>motusTagID</strong> variable consisting of a motus tag ID<br />
 <strong>tagDeployID</strong> variable consisting of Motus tag deployment ID<br />
@@ -799,18 +797,17 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <span class="st">    </span><span class="dv">16037</span>), <span class="dt">latCoord =</span> <span class="st">&quot;recvDeployLat&quot;</span>, <span class="dt">lonCoord =</span> <span class="st">&quot;recvDeployLon&quot;</span>)
 <span class="kw">head</span>(transitions)</code></pre></div>
 <pre><code>## # A tibble: 6 x 14
-## # Groups:   motusTagID, tagDeployID [1]
-##   motusTagID tagDeployID ts.x                lat.x lon.x recvDeployName.x 
-##        &lt;int&gt;       &lt;int&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;            
-## 1      16037        1825 2015-08-17 17:02:39  NA    NA   NP mobile        
-## 2      16037        1825 2015-08-28 16:40:18  51.5 -80.4 North Bluff      
-## 3      16037        1825 2015-09-08 01:10:13  51.3 -80.1 Netitishi        
-## 4      16037        1825 2015-09-08 18:37:16  44.6 -65.8 Comeau (Marshall…
-## 5      16037        1825 2015-09-13 19:46:27  39.0 -74.8 NWW              
-## 6      16037        1825 2015-09-14 15:56:49  37.1 -76.0 BULL             
-## # ... with 8 more variables: ts.y &lt;dttm&gt;, lat.y &lt;dbl&gt;, lon.y &lt;dbl&gt;,
-## #   recvDeployName.y &lt;chr&gt;, tot_ts &lt;time&gt;, dist &lt;dbl&gt;, rate &lt;dbl&gt;,
-## #   bearing &lt;dbl&gt;</code></pre>
+## # Groups: motusTagID, tagDeployID [1]
+##   motus~ tagDe~ ts.x                lat.x lon.x recvD~ ts.y               
+##    &lt;int&gt;  &lt;int&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dttm&gt;             
+## 1  16037   1825 2015-08-17 17:02:39  NA    NA   NP mo~ 2015-08-23 15:13:57
+## 2  16037   1825 2015-08-28 16:40:18  51.5 -80.4 North~ 2015-08-30 01:36:08
+## 3  16037   1825 2015-09-08 01:10:13  51.3 -80.1 Netit~ 2015-09-08 18:29:57
+## 4  16037   1825 2015-09-08 18:37:16  44.6 -65.8 Comea~ 2015-09-13 15:36:30
+## 5  16037   1825 2015-09-13 19:46:27  39.0 -74.8 NWW    2015-09-14 15:55:48
+## 6  16037   1825 2015-09-14 15:56:49  37.1 -76.0 BULL   2015-10-15 11:14:46
+## # ... with 7 more variables: lat.y &lt;dbl&gt;, lon.y &lt;dbl&gt;, recvDeployName.y
+## #   &lt;chr&gt;, tot_ts &lt;time&gt;, dist &lt;dbl&gt;, rate &lt;dbl&gt;, bearing &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <div id="tagSum" class="section level2">
@@ -821,7 +818,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 </div>
 <div id="dependencies-12" class="section level3">
 <h3><span class="header-section-number">C.14.2</span> Dependencies</h3>
-<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection dataincluding at a minimum variables for motusTagID, fullID, recvDeployLat, recvDeployLon, recvDepName, ts<br />
+<p><strong>data</strong> a selected table from .motus data, e.g. “alltags”, or a data.frame of detection dataincluding at a minimum variables for motusTagID, fullID, recvDeployLat, recvDeployLon, recvDepName, ts<br />
 <strong>motusTagID</strong> variable consisting of a motus tag ID<br />
 <strong>fullID</strong> variable consisting of a tag fullID<br />
 <strong>recvDeployLat</strong> variable consisting of receiver deployment latitude<br />
@@ -865,7 +862,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 </div>
 <div id="dependencies-13" class="section level3">
 <h3><span class="header-section-number">C.15.2</span> Dependencies</h3>
-<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for motusTagID, fullID, recvDepName, ts<br />
+<p><strong>data</strong> a selected table from .motus data, e.g. “alltags”, or a data.frame of detection data including at a minimum variables for motusTagID, fullID, recvDepName, ts<br />
 <strong>motusTagID</strong> variable consisting of a motus tag ID<br />
 <strong>fullID</strong> variable consisting of a tag fullID<br />
 <strong>recvDepName</strong> variable consisting of receiver deployment name<br />
@@ -901,7 +898,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 </div>
 <div id="dependencies-14" class="section level3">
 <h3><span class="header-section-number">C.16.2</span> Dependencies</h3>
-<p><strong>data</strong> a selected table from .motus data, eg. “alltags”, or a data.frame of detection data including at a minimum variables for date/time, latitude, and longitude<br />
+<p><strong>data</strong> a selected table from .motus data, e.g. “alltags”, or a data.frame of detection data including at a minimum variables for date/time, latitude, and longitude<br />
 <strong>lat</strong> variable with latitude values, defaults to recvDeployLat<br />
 <strong>lon</strong> variable with latitude values, defaults to recvDeployLat<br />
 <strong>ts</strong> variable for a date/time object as numeric or POSIXct, defaults to ts<br />
