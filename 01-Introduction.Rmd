@@ -8,7 +8,7 @@ opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
 ```
 
 ```{r fig1, echo=FALSE}
-knitr::include_graphics("images/Motus-System-IG-final.png")
+knitr::include_graphics("images/Motus-System-IG-finalSml.png")
 ```
 
  <br>
@@ -53,4 +53,3 @@ Some of the text included in this book was adapted from John Brzustowski's githu
 Motus was conceived as the SensorGnome network by Philip Taylor and John Brzustowski at Acadia University. Initial expansion of the network was supported by a Canada Foundation for Innovation Grant to Western University (Dr. Christopher Guglielmo), The University of Guelph (Dr. Ryan Norris), and Acadia University (Dr. Philip Taylor). The development of the Motus web interface, R package, and accompanying handbook were made possible through a Canarie grant to Bird Studies Canada (<https://www.canarie.ca/>). Motus continues to grow as a program of Bird Studies Canada, through the collaboration of numerous independent researchers, organizations, and individuals. A non-exhaustive list of Motus partners and collaborators can be found at <https://motus.org/data/partners.jsp>. If your organization is not listed, please contact motus@birdscanada.org.
 
 Many people have worked together to bring Motus technology, the web interface, and the R-package together. The core 'Motus Team' includes John Brzustowski, Tara Crewe, Zoe Crysler, Jeremy Hussell, Catherine Jardine, Denis Lepage, Stuart Mackenzie, Paul Morrill, and Philip Taylor. 
-

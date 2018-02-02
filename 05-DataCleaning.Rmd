@@ -76,7 +76,9 @@ df.alltags <- tbl.alltags %>%
          tagDeployEnd = as_datetime(tagDeployEnd), 
          recvLat = plyr::round_any(recvLat, 0.05),
          recvLon = plyr::round_any(recvLon, 0.05),
-         recvDeployName = if_else(is.na(recvDeployName), paste(recvLat, recvLon, sep=":"), recvDeployName))
+         recvDeployName = if_else(is.na(recvDeployName), 
+                                  paste(recvLat, recvLon, sep=":"), 
+                                  recvDeployName))
 
 # Note that in the select statement, you can just select the variables you need
 # e.g.: select(runID, ts, sig, freqsd, motusTagID, ambigID, runLen, tagProjID, 
@@ -168,7 +170,6 @@ filter(df.alltags.sub, is.na(recvLat)) %>%
 
 ```
 
-
 **Simplify the data for plotting**
 
 ```{r fun.getpath, eval = TRUE}
@@ -250,10 +251,9 @@ df.alltags.sub %>%
   spread(key=month, value=max.rl)
 
 ```
+It is impossible to go through every possible issue that you may encounter here. Users are strongly encouraged to explore their data fully, and make reasoned decisions on which detections are unlikely or indeterminate. Through the rest of this chapter we will show you how to collect these runs, and apply them to your data prior to analysis.
 
-It is impossible to go through every possible issue that you may encounter here. Users are strongly encouraged to explore their data fully, and make reasoned decisions on which detections are unlikely or indeterminate. Through the rest of this chapter we will show you how to collect these runs, and apply them to your data prior to analysis. 
-
-To start, we'll create a data frame that contains the motusTagIDs and runIDs for the false positives identified above. 
+To start, we'll create a data frame that contains the motusTagIDs and runIDs for the false positives identified above.
 
 We will then re-create the plot With the newly filtered data.
 
@@ -344,9 +344,7 @@ p + geom_point() +
 
 Let's deal with the easy ones first. 
 
-**ambiguous tag -337**
-
-**motusTagIDs 10811 and 16011:**
+**ambiguous tag -337: motusTagIDs 10811 and 16011**
 
 ```{r lookatambigtag-337}
 
@@ -355,7 +353,6 @@ filter(df.alltags.sub, ambigID == -337) %>%
   tally()
 
 ```
-
 We can see from the plot that ambiguous tag -337 is ambiguous only at the beginning of the deployment.
 
 We can see from the summary of the tag deployment data that there were only 4 detections, at the exact latitude of deployment of tag 16011, and just before the non-ambiguous detections of motusTagID 16011. So the issue here is simply that the tail end of the deployment of tag 10811 slightly overlaps with the deployment of tag 16011. We can confidently claim these detections as belonging to motusTagID 16011, and remove the ambiguous detections assigned to the other tag.
@@ -375,10 +372,7 @@ df.block.2 <- filter(df.alltags.sub,
 
 ```
 
-
-**ambiguous tag -134**
-
-**motusTagIDs 22905 and 23319:**
+**ambiguous tag -134: motusTagIDs 22905 and 23319**
 
 ```{r checkAmbigs}
 
@@ -429,10 +423,7 @@ df.block.3 <- filter(df.alltags.sub,
 
 ```
 
-
-**ambiguous tag -171**
-
-**motusTagIDs 22778, 22902 and 22403:**
+**ambiguous tag -171: motusTagIDs 22778, 22902 and 22403**
 
 The ambiguous detections for this tag, which occur in the Great Lakes region, could also belong to motusTagID 22778 from the RBrownAMWO project or motusTagID 24303 from the Neonics project. Let's take a closer look at these detections.
 
@@ -480,10 +471,7 @@ df.block.4 <- filter(df.alltags.sub,
   distinct()
 ```
 
-
-**ambiguous tag -114**
-
-**motusTagIDs 22897 and 24298:**
+**ambiguous tag -114: motusTagIDs 22897 and 24298**
 
 Next we look at the ambiguities for ambiguous tag -114.
 
@@ -524,10 +512,7 @@ df.block.5 <- filter(df.alltags.sub,
 
 ```
 
-
-**ambig -106**
-
-**motusTagIDs 17021 and 17357:**
+**ambig -106: motusTagIDs 17021 and 17357**
 
 These two tags pose an interesting problem. There is only a short period of overlap, between mid August 2015 and mid September. One individual is a Grey-cheeked Thrush, tagged in Colombia, the other a White-rumped Sandpiper, associated with the sample project. 
 
@@ -579,10 +564,7 @@ df.block.6 <- filter(df.alltags.sub,
   distinct()
 ```
 
-
-**ambig -56**
-
-**motusTagIDs 22867 and 23316:**
+**ambig -56: motusTagIDs 22867 and 23316**
 
 These two tags were also both deployed by the same project. 
 
@@ -742,4 +724,3 @@ tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagI
   filter(probability > 0)
 
 ```
-
