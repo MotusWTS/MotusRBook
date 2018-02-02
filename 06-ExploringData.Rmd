@@ -41,7 +41,7 @@ df.alltags.sub <- readRDS("./data/dfAlltagsSub.rds") # change dir to local direc
 
 ```
 
-Or, if you've applied a custom filter to your .motus file, you can load the previously downloaded sample .motus data (see Chapter \@ref(accessingData) and clean it now. Currently the main benefit of using the custom filter is that you apply the filter to the .motus file, which allows you more flexibility in applying dplyr functions to manage and filter the data (e.g., you can select different variables to include in the data than we included in the RDS file in Chapter \@ref(dataCleaning). This approach also also you to more readily integrate new data added to your database with the tagme function. Because we are selecting the same variables and filtering the same records, the following gives you the same dataset as the readRDS statement above:
+Or, if you've applied a custom filter to your .motus file, you can load the previously downloaded sample .motus data (see Chapter \@ref(accessingData) and clean it now. Currently the main benefit of using the custom filter is that you apply the filter to the .motus file, which allows you more flexibility in applying dplyr functions to manage and filter the data (e.g., you can select different variables to include in the data than we included in the RDS file in Chapter \@ref(dataCleaning). This approach also allows you to more readily integrate new data added to your database with the tagme function. Because we are selecting the same variables and filtering the same records, the following gives you the same dataset as the readRDS statement above:
 
 ```{r importData, eval = FALSE}
 
@@ -204,7 +204,6 @@ p + geom_point() +
   theme_bw()
 ```
 Let's focus only on tags deployed in 2016, and we can colour the tags by species:
-
 ```{r hourlyPlotSpecies}
 p <- ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016), 
        aes(hour, as.factor(motusTagID), col = speciesEN)) 
@@ -327,10 +326,11 @@ df.alltags.path <- fun.getpath(df.alltags.sub)
 ```{r plotTagPaths.6}
 
 df.alltags.sub.path <- df.alltags.sub %>%
-                    filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
-                    arrange(motusTagID, ts) %>%       # order data by time stamp for each motus tag ID
-                    mutate(date = as_date(ts)) %>%    # create date variable
-                    group_by(motusTagID, date, recvDeployName, ambigID, tagDeployLon, tagDeployLat, recvLat, recvLon)
+                filter(tagProjID == proj.num) %>% # keep to tags registered to the sample project
+                arrange(motusTagID, ts) %>%       # order data by time stamp for each motus tag ID
+                mutate(date = as_date(ts)) %>%    # create date variable
+                group_by(motusTagID, date, recvDeployName, ambigID, 
+                         tagDeployLon, tagDeployLat, recvLat, recvLon)
 
 df.alltags.path <- fun.getpath(df.alltags.sub.path)
 ```

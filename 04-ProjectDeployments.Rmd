@@ -367,12 +367,14 @@ ymax <- max(df.recvDeps$latitude, na.rm = TRUE) + 2
                 
 # map
 ggplot(na.lakes, aes(long, lat))+ 
-  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+#
+  geom_polygon(data = na.map, aes(long, lat, group=group), 
+               colour = "grey", fill="grey98") +
   geom_polygon(aes(group = group), colour = "grey", fill = "white")+
   coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
   xlab("") + ylab("") + 
   theme_bw() + 
-  geom_point(data = df.recvDeps, aes(longitude, latitude, colour = as.logical(projectID == 176)), 
+  geom_point(data = df.recvDeps, 
+             aes(longitude, latitude, colour = as.logical(projectID == 176)), 
              cex = 0.8, pch = 4)+
   scale_colour_manual(values = c("grey30", "red"), name = "Project 176 Deployment") 
 
@@ -397,7 +399,8 @@ ymax <- max(df.projRecvs$latitude, na.rm = TRUE) + 1
                 
 # map
 ggplot(na.lakes, aes(long, lat))+ 
-  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98") +
+  geom_polygon(data = na.map, 
+               aes(long, lat, group=group), colour = "grey", fill="grey98") +
   geom_polygon(aes(group = group), colour = "grey", fill = "white") +
   coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
 #  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(50.154, 52.875)) +
