@@ -211,6 +211,7 @@ p + geom_point() +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 
 ```
+
 It is immediately apparent that there may be an issue with some tags showing up around 44 degrees during in the winter, which is possible but unlikely for the sample project's shorebirds. Let's examine these tags in more detail by examining the runs in the data frame that are associated with detections in December and January.
 
 ```{r examineRuns}
@@ -251,6 +252,7 @@ df.alltags.sub %>%
   spread(key=month, value=max.rl)
 
 ```
+
 It is impossible to go through every possible issue that you may encounter here. Users are strongly encouraged to explore their data fully, and make reasoned decisions on which detections are unlikely or indeterminate. Through the rest of this chapter we will show you how to collect these runs, and apply them to your data prior to analysis.
 
 To start, we'll create a data frame that contains the motusTagIDs and runIDs for the false positives identified above.
@@ -308,6 +310,7 @@ df.ambigTags <- select(df.alltags.sub, ambigID, motusTagID) %>%
   distinct() 
 
 ```
+
 Using our getpath function, we'll create paths and then plot these detections. We'll add some information to the plot, showing where (in time) the tags are actually ambiguous. We can then inspect the overall plots (or portions of them) to determine if we can contextually unambiguously assign a detection of an ambiguous tag to a single deployment.  
 
 ```{r plotAmbigs}
@@ -344,7 +347,7 @@ p + geom_point() +
 
 Let's deal with the easy ones first. 
 
-**ambiguous tag -337: motusTagIDs 10811 and 16011**
+**AmbigID -337: motusTagIDs 10811 and 16011**
 
 ```{r lookatambigtag-337}
 
@@ -372,7 +375,7 @@ df.block.2 <- filter(df.alltags.sub,
 
 ```
 
-**ambiguous tag -134: motusTagIDs 22905 and 23319**
+**AmnigID -134: motusTagIDs 22905 and 23319**
 
 ```{r checkAmbigs}
 
@@ -423,7 +426,7 @@ df.block.3 <- filter(df.alltags.sub,
 
 ```
 
-**ambiguous tag -171: motusTagIDs 22778, 22902 and 22403**
+**AmbigID -171: motusTagIDs 22778, 22902 and 22403**
 
 The ambiguous detections for this tag, which occur in the Great Lakes region, could also belong to motusTagID 22778 from the RBrownAMWO project or motusTagID 24303 from the Neonics project. Let's take a closer look at these detections.
 
@@ -471,7 +474,7 @@ df.block.4 <- filter(df.alltags.sub,
   distinct()
 ```
 
-**ambiguous tag -114: motusTagIDs 22897 and 24298**
+**AmbigID -114: motusTagIDs 22897 and 24298**
 
 Next we look at the ambiguities for ambiguous tag -114.
 
@@ -490,12 +493,13 @@ We again subset these and plot them. An initial plot suggested that all of the d
 
 ```{r ambig141b plot 1}
 
-df.ambig.114 <- filter(df.alltags.sub, ambigID == -114)
+df.ambig.114 <- filter(df.alltags.sub, ambigID == -114) %>%
+  mutate(LatLonStationName = paste(recvLat, recvLon, recvDeployName, sep=": "))
 
-p <- ggplot(data=df.ambig.114, aes(ts, sig, colour=paste(recvLat, recvLon, recvDeployName, sep=": ")))
+p <- ggplot(data=df.ambig.114, 
+            aes(ts, sig, colour=LatLonStationName)) 
 
 p + geom_point() + 
-  scale_colour_discrete(name="Lat/Lon and\nStation Name") + 
   theme_bw() +
   facet_wrap(~as_date(ts), scales = "free_x")
 
@@ -512,7 +516,7 @@ df.block.5 <- filter(df.alltags.sub,
 
 ```
 
-**ambig -106: motusTagIDs 17021 and 17357**
+**AmbigID -106: motusTagIDs 17021 and 17357**
 
 These two tags pose an interesting problem. There is only a short period of overlap, between mid August 2015 and mid September. One individual is a Grey-cheeked Thrush, tagged in Colombia, the other a White-rumped Sandpiper, associated with the sample project. 
 
@@ -564,7 +568,7 @@ df.block.6 <- filter(df.alltags.sub,
   distinct()
 ```
 
-**ambig -56: motusTagIDs 22867 and 23316**
+**AmbigID -56: motusTagIDs 22867 and 23316**
 
 These two tags were also both deployed by the same project. 
 

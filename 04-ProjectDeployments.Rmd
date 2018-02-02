@@ -414,6 +414,7 @@ ggplot(na.lakes, aes(long, lat))+
 ```{r fig4.3, echo=FALSE, fig.align='center'}
 knitr::include_graphics("images/mapProjRecvs.png")
 ```
+
 ### Completeness and accuracy of receiver metadata
 
 Motus users will be concerned primarily with the completeness of metadata for receiver deployments with detection(s) of their tags, because these can directly influence the interpretation of those detections. For example, missing deployment latitude or longitude will result in an unknown location for the tag detection, and missing information on antenna type and/or orientation can impede the estimation of flight or departure orientation. 

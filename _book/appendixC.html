@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -725,11 +725,12 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <p><img src="MotusRBook_files/figure-html/siteSum-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(site_summary)</code></pre></div>
 <pre><code>## # A tibble: 3 x 6
-##   recvDeployName first_ts            last_ts             tot_~ num.~ num.~
-##   &lt;fctr&gt;         &lt;dttm&gt;              &lt;dttm&gt;              &lt;tim&gt; &lt;int&gt; &lt;int&gt;
-## 1 Niapiskau      2016-10-01 23:47:57 2016-10-27 00:03:21 3601~     6 82376
-## 2 Washkaugou     2016-10-09 23:52:45 2016-10-10 00:00:42 7.94~     2   172
-## 3 Netitishi      2015-08-14 17:53:49 2015-09-08 01:10:13 3499~     7  2363</code></pre>
+##   recvDeployName first_ts            last_ts             tot_ts   num.tags
+##   &lt;fct&gt;          &lt;dttm&gt;              &lt;dttm&gt;              &lt;time&gt;      &lt;int&gt;
+## 1 Niapiskau      2016-10-01 23:47:57 2016-10-27 00:03:21 36015.4…        6
+## 2 Washkaugou     2016-10-09 23:52:45 2016-10-10 00:00:42 7.94683…        2
+## 3 Netitishi      2015-08-14 17:53:49 2015-09-08 01:10:13 34996.3…        7
+## # ... with 1 more variable: num.det &lt;int&gt;</code></pre>
 </div>
 </div>
 <div id="siteSumDaily" class="section level2">
@@ -791,17 +792,18 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <span class="st">    </span><span class="dv">16037</span>), <span class="dt">latCoord =</span> <span class="st">&quot;recvDeployLat&quot;</span>, <span class="dt">lonCoord =</span> <span class="st">&quot;recvDeployLon&quot;</span>)
 <span class="kw">head</span>(transitions)</code></pre></div>
 <pre><code>## # A tibble: 6 x 14
-## # Groups: motusTagID, tagDeployID [1]
-##   motus~ tagDe~ ts.x                lat.x lon.x recvD~ ts.y               
-##    &lt;int&gt;  &lt;int&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dttm&gt;             
-## 1  16037   1825 2015-08-17 17:02:39  NA    NA   NP mo~ 2015-08-23 15:13:57
-## 2  16037   1825 2015-08-28 16:40:18  51.5 -80.4 North~ 2015-08-30 01:36:08
-## 3  16037   1825 2015-09-08 01:10:13  51.3 -80.1 Netit~ 2015-09-08 18:29:57
-## 4  16037   1825 2015-09-08 18:37:16  44.6 -65.8 Comea~ 2015-09-13 15:36:30
-## 5  16037   1825 2015-09-13 19:46:27  39.0 -74.8 NWW    2015-09-14 15:55:48
-## 6  16037   1825 2015-09-14 15:56:49  37.1 -76.0 BULL   2015-10-15 11:14:46
-## # ... with 7 more variables: lat.y &lt;dbl&gt;, lon.y &lt;dbl&gt;, recvDeployName.y
-## #   &lt;chr&gt;, tot_ts &lt;time&gt;, dist &lt;dbl&gt;, rate &lt;dbl&gt;, bearing &lt;dbl&gt;</code></pre>
+## # Groups:   motusTagID, tagDeployID [1]
+##   motusTagID tagDeployID ts.x                lat.x lon.x recvDeployName.x 
+##        &lt;int&gt;       &lt;int&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;            
+## 1      16037        1825 2015-08-17 17:02:39  NA    NA   NP mobile        
+## 2      16037        1825 2015-08-28 16:40:18  51.5 -80.4 North Bluff      
+## 3      16037        1825 2015-09-08 01:10:13  51.3 -80.1 Netitishi        
+## 4      16037        1825 2015-09-08 18:37:16  44.6 -65.8 Comeau (Marshall…
+## 5      16037        1825 2015-09-13 19:46:27  39.0 -74.8 NWW              
+## 6      16037        1825 2015-09-14 15:56:49  37.1 -76.0 BULL             
+## # ... with 8 more variables: ts.y &lt;dttm&gt;, lat.y &lt;dbl&gt;, lon.y &lt;dbl&gt;,
+## #   recvDeployName.y &lt;chr&gt;, tot_ts &lt;time&gt;, dist &lt;dbl&gt;, rate &lt;dbl&gt;,
+## #   bearing &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <div id="tagSum" class="section level2">

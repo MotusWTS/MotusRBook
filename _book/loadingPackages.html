@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -349,6 +349,55 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <span class="kw">install.packages</span>(<span class="st">&quot;ggmap&quot;</span>)
 <span class="kw">library</span>(ggmap)</code></pre></div>
+<pre><code>## Loading required package: RSQLite</code></pre>
+<pre><code>## Loading required package: dplyr</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre><code>## Loading required package: dbplyr</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dbplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     ident, sql</code></pre>
+<pre><code>## Loading required package: maptools</code></pre>
+<pre><code>## Loading required package: sp</code></pre>
+<pre><code>## Warning: package &#39;sp&#39; was built under R version 3.4.3</code></pre>
+<pre><code>## Checking rgeos availability: FALSE
+##      Note: when rgeos is not available, polygon geometry     computations in maptools depend on gpclib,
+##      which has a restricted licence. It is disabled by default;
+##      to enable gpclib, type gpclibPermit()</code></pre>
+<pre><code>## Loading required package: lubridate</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     date</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## Loading required package: ggmap</code></pre>
+<pre><code>## ── Attaching packages ──────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ✔ tibble  1.4.2     ✔ purrr   0.2.4
+## ✔ tidyr   0.7.2     ✔ stringr 1.2.0
+## ✔ readr   1.1.1     ✔ forcats 0.2.0</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.4.3</code></pre>
+<pre><code>## ── Conflicts ─────────────────────────────── tidyverse_conflicts() ──
+## ✖ lubridate::as.difftime() masks base::as.difftime()
+## ✖ lubridate::date()        masks base::date()
+## ✖ dplyr::filter()          masks stats::filter()
+## ✖ dbplyr::ident()          masks dplyr::ident()
+## ✖ lubridate::intersect()   masks base::intersect()
+## ✖ dplyr::lag()             masks stats::lag()
+## ✖ purrr::map()             masks maps::map()
+## ✖ lubridate::setdiff()     masks base::setdiff()
+## ✖ dbplyr::sql()            masks dplyr::sql()
+## ✖ lubridate::union()       masks base::union()</code></pre>
+<pre><code>## ### Welcome to rworldmap ###</code></pre>
+<pre><code>## For a short introduction type :   vignette(&#39;rworldmap&#39;)</code></pre>
 <p>We also install but do not load the plyr package; we use it directly for the handy round_any function, but loading it can cause problems with the dplyr functions:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;plyr&quot;</span>)</code></pre></div>
 <div id="internalProcessing" class="section level2">

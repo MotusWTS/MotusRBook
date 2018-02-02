@@ -30,15 +30,7 @@ df.alltags <- tbl.alltags %>%
 
 ```
 
-You can access the function help pages:
-
-```{r functionHelp, eval = FALSE}
-
-??sunRiseSet
-
-```
-
-Or view the underlying function code like this:
+You can access the function help pages using '??sunRiseSet' in the R console. Or view the underlying function code like this:
 
 ```{r functionCode, eval = FALSE}
 
