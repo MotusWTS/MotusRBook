@@ -1,5 +1,4 @@
 # Loading R Packages {#loadingPackages}
-
 ```{r tidyr2, echo = FALSE, message = FALSE, warning = FALSE}
 
 library(knitr)
@@ -73,7 +72,15 @@ install.packages("ggmap")
 library(ggmap)
 
 ```
+```{r loadAllPackages, echo = FALSE}
+library(motus)
+library(maps)
+library(tidyverse)
+library(tidyr)
+library(rworldmap)
+library(ggmap)
 
+```
 We also install but do not load the plyr package; we use it directly for the handy round_any function, but loading it can cause problems with the dplyr functions:
 
 ```{r install plyr, eval = FALSE}
@@ -92,4 +99,4 @@ function.name()
 
 ```
 
-In the next chapter we will examine and load some data. 
+In the next chapter we will examine and load some data.
