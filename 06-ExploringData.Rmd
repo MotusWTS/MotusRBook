@@ -10,6 +10,7 @@ Follow the instructions in Chapter \@ref(loadingPackages) to install the followi
 
 library(motus)
 library(tidyverse)
+library(ggmap)
 
 ```
 
@@ -69,9 +70,6 @@ df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID
 proj.num = 176
 sql.motus <- tagme(proj.num, update = FALSE, dir = "./data/")
 tbl.alltags <- tbl(sql.motus, "alltags")
-
-## create a new filter with name filtAmbigFalsePos and populate it with df.block.all
-tbl.filter = writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.block.all, delete=TRUE)
 
 ## obtain a table object of the filter
 tbl.filter = getRunsFilters(sql.motus, "filtAmbigFalsePos")
@@ -328,14 +326,6 @@ df.alltags.path <- fun.getpath(df.alltags.sub.path)
 
 Mapping with Google Maps can be a fast way to view flight paths and allows you to select from multiple base layers.  
 
-For Google Maps, we'll need to load ggmap and ggplot2 packages; see Chapter \@ref(loadingPackages) for instructions on installing the ggmap package if you have not already done so.
-
-```{r installGoogleMapPackages, message = FALSE, warning = FALSE, eval = FALSE}
-
-require(ggmap)
-
-```
-
 The first step is to create a map with a specified map centre, maptype ("terrain", "roadmap", "satellite", or "hybrid"), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale).  We then add points for receivers and lines connecting consecutive detections by motusTagID. We can also add points for all receivers that were active during a certain time period if we have already downloaded all metadata.
 
 ```{r googleMap, warning = FALSE, fig.width=10, fig.height=10}
@@ -394,14 +384,6 @@ p + geom_point(data = subset(df.recvDeps, active == TRUE), ggplot2::aes(longitud
 
 ### Creating simple outline maps {#outlineMaps}
 
-For mapping with outline maps, we'll need to load the rworldmap package; see Chapter \@ref(loadingPackages) for instructions on installing the package if you have not already done so.
-
-```{r installMapPackages, message = FALSE, warning = FALSE}
-
-require(rworldmap)
-
-```
-
 We load the base maps.
 
 ```{r loadMaps.6, message = FALSE, warning = FALSE, echo = FALSE}
@@ -439,7 +421,7 @@ na.map <- mutate(na.map, long = long- 360)
 
 Then, to map the paths, we set the x-axis and y-axis limits based on the location of receivers with detections. Depending on your data, these might need to be modified to encompass the deployment location of the tags, if tags were not deployed near towers with detections. We then use ggplot to plot the map and tag paths. Here we use the Mercator projection and are colouring the paths by motusTagID, including a point for where the tag was deployed:
 
-```{r mapDetections, eval = FALSE}
+```{r mapDetections}
 
 ## set limits to map based on locations of detections, ensuring they include the deployment locations
 xmin <- min(df.tmp$recvLon, na.rm = TRUE) - 2
@@ -453,9 +435,9 @@ ggplot(na.lakes, aes(long, lat))+
   geom_polygon(aes(group = group), colour = "grey", fill = "white")+
   coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
   xlab("") + ylab("") + 
-  theme_bw()# + 
+  theme_bw() + 
   geom_path(data = df.tmp, 
-           aes(recvLon, recvLat, group = as.factor(motusTagID), colour = as.factor(motusTagID))) #+
+           aes(recvLon, recvLat, group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
   geom_point(data = df.tmp, 
              aes(tagDeployLon, tagDeployLat), colour = "black", shape = 4) +
   scale_colour_discrete("motusTagID") 
