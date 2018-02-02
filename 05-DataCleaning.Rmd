@@ -243,7 +243,7 @@ df.alltags.sub %>%
 
 Alternatively, you can produce a list of sites where the maximum run length of detections was never greater than (say) 4, which may sometimes (but not always!) indicate they are simply false detections.
 
-```{r}
+```{r noisySites2}
 
 df.alltags.sub %>%
   mutate(month = month(ts)) %>%
@@ -315,7 +315,6 @@ df.ambigTags <- select(df.alltags.sub, ambigID, motusTagID) %>%
 Using our getpath function, we'll create paths and then plot these detections. We'll add some information to the plot, showing where (in time) the tags are actually ambiguous. We can then inspect the overall plots (or portions of them) to determine if we can contextually unambiguously assign a detection of an ambiguous tag to a single deployment.  
 
 ```{r plotAmbigs}
-
 df.alltags.path <- fun.getpath(filter(df.alltags.sub, 
                                       motusTagID %in% df.ambigTags$motusTagID, 
                                       tagProjID == proj.num)) %>%
@@ -343,7 +342,6 @@ p + geom_point() +
   theme_bw() +
   facet_wrap(~newID, scales = "free", ncol=2) + 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
-
 ```
 
 Let's deal with the easy ones first. 
@@ -351,11 +349,9 @@ Let's deal with the easy ones first.
 **ambigID -337: motusTagIDs 10811 and 16011**
 
 ```{r ambig337a}
-
 filter(df.alltags.sub, ambigID == -337) %>%
   group_by(motusTagID, tagDeployStart, tagDeployEnd, tagDeployLat, tagDeployLon) %>%
   tally()
-
 ```
 We can see from the plot that ambiguous tag -337 is ambiguous only at the beginning of the deployment.
 
@@ -364,7 +360,6 @@ We can see from the summary of the tag deployment data that there were only 4 de
 We'll create another data frame to keep track of these runs. 
 
 ```{r ambig337b}
-
 # we want the detections associated with the motusTagID that we want to 
 # ultimately REMOVE from the data frame 
 df.block.2 <- filter(df.alltags.sub, 
@@ -372,31 +367,25 @@ df.block.2 <- filter(df.alltags.sub,
                      motusTagID == 10811) %>% 
   select(motusTagID, runID) %>%
   distinct()
-
-
 ```
 
 **ambigID -134: motusTagIDs 22905 and 23319**
 
 ```{r ambig134a}
-
 filter(df.alltags.sub, ambigID == -134) %>%
   group_by(motusTagID, tagDeployStart, tagDeployEnd, tagDeployLat, tagDeployLon, month(ts)) %>%
   tally()
-
 ```
 
 Here we have a similar situation, but one that is a bit more complex. Two identical tags were deployed at the same location, shortly after one another. Let's examine a simple plot. 
 
 ```{r ambig134b}
-
-(filter(df.alltags.sub, motusTagID %in% c(22905, 23319), month(ts) == 10) %>%
+filter(df.alltags.sub, motusTagID %in% c(22905, 23319), month(ts) == 10) %>%
   ggplot(aes(ts, sig, group=recvDeployName, colour=recvDeployName)) + 
    geom_point() + 
    theme_bw() +
    xlab("Time") + ylab("Signal strength") +
-   facet_grid(recvLon~.))
-
+   facet_grid(recvLon~.)
 ```
 
 It appears that these are overlapping detections, at two sites in proximity to one another. Additional information from the field researchers may enable us to disentangle them, but it is not clear from the data.
@@ -406,11 +395,9 @@ We also examine the non-ambiguous detections of tag -134 that occur in mid-April
 We see from the following filter that there are two separate runs of length 3 each, separated by 3 days. If we inspect the rest of this batch (that is, if we also look at run lengths of 2 from the original data frame) ... 
 
 ```{r ambig134c}
-
 filter(df.alltags, batchID == 79646) %>% select(runLen, recvDeployName) %>%
   group_by(runLen, recvDeployName) %>%
   tally()
-
 ```
 
 ... we can see that there are many false positives at this tower around the same time (within the same batch) and so the run lengths of 3 are likely false positives. We will therefore remove all detections of this ambiguous tag from the database. 
@@ -423,8 +410,6 @@ df.block.3 <- filter(df.alltags.sub,
                      ambigID == -134) %>% 
   select(motusTagID, runID) %>%
   distinct()
-
-
 ```
 
 **ambigID -171: motusTagIDs 22778, 22902 and 22403**
@@ -434,20 +419,17 @@ The ambiguous detections for this tag, which occur in the Great Lakes region, co
 First, find the deployment dates and locations for each tag. 
 
 ```{r ambig171a}
-
 filter(df.alltags, ambigID == -171) %>% 
   filter(!is.na(tagDeployStart)) %>%
   select(motusTagID, tagProjID, start=tagDeployStart, end=tagDeployEnd, 
          lat=tagDeployLat, lon=tagDeployLon, species=speciesEN) %>%
   distinct() %>%
   arrange(start)
-
 ```
 
 And plot the ambiguous detections. 
 
 ```{r ambig171b}
-
 df.ambig.171 <- filter(df.alltags.sub, ambigID == -171)
 
 p <- ggplot(data=df.ambig.171, aes(ts, sig, colour=as.factor(port)))
@@ -457,8 +439,6 @@ p +
   theme_bw() +
   facet_wrap(as_date(ts) ~ recvDeployName, scales = "free_x") +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
-
-
 ```
 
 We see that there are a large number of ambiguous detections on 10 May 2017 at Old Cut (Long Point, Lake Erie, Ontario), consistent with a bird 'hanging around'. These are almost certainly detections of motusTagID '24303' which was deployed at Old Cut on 10 May 2017. Subsequent detections on the 18th of May are near Old Cut (Bird Studies Canada HQ, Port Rowan, Ontario), and then a location to the North of Old Cut (Hagersville, Ontario). These detections are consistent with a bird departing on migration. Note in particular the pattern in the latter two panels of increasing then decreasing signal strength which indicates a bird is flying through the beam of an antenna.
@@ -595,9 +575,7 @@ p <- ggplot(data=df.ambig.56,
 p + geom_point() + 
   theme_bw() +
   scale_colour_discrete(name="Lat/Lon and\nStation Name") 
-
 ```
-
 We can see from the plot that a tag is detected consistently near longitude -65, which is near the deployment location for motusTagID 23316 and after it's deployment start date, it was also present at -65 during and after detections far to the west. It's likely all the detections at -65 belong to motusTagID 23316, but it is also clear that anything informative about this ambiguity occurs between about 9-11 October, so let's zoom in on that part of the data set. 
 
 ```{r ambig56c}

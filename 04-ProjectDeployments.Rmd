@@ -118,7 +118,7 @@ Creating a map of your tag deployments can point out any obvious errors in the t
 
 Load base map files from the rworldmap package:
 
-```{r loadMapsRecv1DUP, eval = FALSE}
+```{r loadMapsRecv1DUP, eval = FALSE, message = FALSE, warning = FALSE}
 
 na.lakes <- map_data(map = "lakes")
 na.lakes <- mutate(na.lakes, long = long- 360)
@@ -324,7 +324,7 @@ ggplot(df.projRecvs.long,
 Maps provide better spatial context than simple plots; the following steps plot the location of Motus receivers on a map of North America, with receivers deployed by the sample project displayed in red.
 
 **a. Load all receiver metadata**
-```{r loadRecvDeps}
+```{r loadRecvDeps, message = FALSE, warning = FALSE}
 
 df.recvDeps <- tbl.recvDeps %>%
                 collect() %>%
@@ -353,6 +353,7 @@ na.map <- filter(na.map, region %in% c("Canada", "USA", "Mexico", "lakes", "Beli
   mutate(long = long- 360)
                 
 ```
+
 **c. Map the location of receivers in the Americas**
 Map showing the location of network-wide receivers (dark grey 'x') and receivers deployed by the James Bay Shorebird Project (project 176; red 'x').
 

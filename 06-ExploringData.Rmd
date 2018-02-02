@@ -78,7 +78,6 @@ df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID
 
 ```
 ```{r importDataDUPLICATE, echo = FALSE}
-
 # load the .motus file
 proj.num = 176
 sql.motus <- tagme(proj.num, update = FALSE, dir = "./data/")
@@ -103,10 +102,10 @@ df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID
   mutate(ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
          tagDeployStart = as_datetime(tagDeployStart),
          tagDeployEnd = as_datetime(tagDeployEnd))
-
 ```
 
 **Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues.** Details on filtering the tbl prior to collecting as a dataframe are available in section \@ref(convertToFlat).  
+
 Here we do so by adding a filter to the above command, in this case, only creating a dataframe for motusTagID 16047, but you can decide how to best subset your data based on your need (e.g. by species or year):
 
 ```{r importData2}
@@ -204,6 +203,7 @@ p + geom_point() +
   theme_bw()
 ```
 Let's focus only on tags deployed in 2016, and we can colour the tags by species:
+
 ```{r hourlyPlotSpecies}
 p <- ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016), 
        aes(hour, as.factor(motusTagID), col = speciesEN)) 
@@ -212,7 +212,6 @@ p + geom_point() +
   scale_colour_discrete(name = "Species") +
   theme_bw()
 ```
-
 We can see how tags moved latitudinally by first ordering by hour, and colouring by motusTagID:
 
 ```{r hourlyPlotLat, warnings = FALSE}
@@ -226,9 +225,7 @@ p +  geom_point() +
   theme_bw() + xlab("Time (rounded to hour)") + ylab ("Receiver latitude") +
   scale_colour_discrete(name = "MotusTagID")
 ```
-
 Now lets look at more detailed plots of signal variation. We use the full df.alltags.sub dataframe so that we can get signal strength for each detection of a specific tag. Let's examine fall 2016 detections of tag 22897 at Niapiskau; we facet the plot by deployment name, ordered by decreasing latitude:
-
 
 ```{r plot22897}
 
@@ -321,7 +318,6 @@ fun.getpath <- function(df)
 df.alltags.path <- fun.getpath(df.alltags.sub)
                     
 ```
-
 
 ```{r plotTagPaths.6}
 
