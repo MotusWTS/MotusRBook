@@ -25,7 +25,7 @@
 <meta name="author" content="Tara L. Crewe, Zoe Crysler, and Philip Taylor">
 
 
-<meta name="date" content="2018-01-31">
+<meta name="date" content="2018-02-01">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -49,43 +49,6 @@
 
 
 
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-</style>
 
 </head>
 
@@ -110,67 +73,168 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="loadingPackages.html"><a href="loadingPackages.html"><i class="fa fa-check"></i><b>2</b> Loading R Packages</a><ul>
-<li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.1</b> Internal data processing</a></li>
+<li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#install-motus-for-data-download-data-manipulation-visualization-and-analysis"><i class="fa fa-check"></i><b>2.1</b> install motus for data download, data manipulation, visualization and analysis</a></li>
+<li class="chapter" data-level="2.2" data-path="loadingPackages.html"><a href="loadingPackages.html#install-motusclient-for-data-download"><i class="fa fa-check"></i><b>2.2</b> install motusClient for data download</a></li>
+<li class="chapter" data-level="2.3" data-path="loadingPackages.html"><a href="loadingPackages.html#force-a-re-installation-of-motus-package-in-case-of-required-updates"><i class="fa fa-check"></i><b>2.3</b> force a re-installation of motus package in case of required updates</a></li>
+<li class="chapter" data-level="2.4" data-path="loadingPackages.html"><a href="loadingPackages.html#force-a-re-installation-of-motusclient-package-in-case-of-required-updates"><i class="fa fa-check"></i><b>2.4</b> force a re-installation of motusClient package in case of required updates</a></li>
+<li class="chapter" data-level="2.5" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.5</b> Internal data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="accessingData.html"><a href="accessingData.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
 <li class="chapter" data-level="3.1" data-path="accessingData.html"><a href="accessingData.html#databaseTypes"><i class="fa fa-check"></i><b>3.1</b> Database types</a></li>
 <li class="chapter" data-level="3.2" data-path="accessingData.html"><a href="accessingData.html#loadPackages"><i class="fa fa-check"></i><b>3.2</b> Load relevant R packages</a></li>
-<li class="chapter" data-level="3.3" data-path="accessingData.html"><a href="accessingData.html#set-system-environment"><i class="fa fa-check"></i><b>3.3</b> Set system environment</a></li>
-<li class="chapter" data-level="3.4" data-path="accessingData.html"><a href="accessingData.html#importDetections"><i class="fa fa-check"></i><b>3.4</b> Importing tag detections</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="accessingData.html"><a href="accessingData.html#download-data-for-a-project-or-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.4.1</b> Download data for a project or receiver for the <em>first time</em></a></li>
-<li class="chapter" data-level="3.4.2" data-path="accessingData.html"><a href="accessingData.html#userAuthentication"><i class="fa fa-check"></i><b>3.4.2</b> User Authentication</a></li>
-<li class="chapter" data-level="3.4.3" data-path="accessingData.html"><a href="accessingData.html#logout"><i class="fa fa-check"></i><b>3.4.3</b> Logging out</a></li>
-<li class="chapter" data-level="3.4.4" data-path="accessingData.html"><a href="accessingData.html#downloadData"><i class="fa fa-check"></i><b>3.4.4</b> Downloading detection data</a></li>
-<li class="chapter" data-level="3.4.5" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.4.5</b> Update and open a local tag database</a></li>
-<li class="chapter" data-level="3.4.6" data-path="accessingData.html"><a href="accessingData.html#tellme"><i class="fa fa-check"></i><b>3.4.6</b> Check if new data are available</a></li>
-<li class="chapter" data-level="3.4.7" data-path="accessingData.html"><a href="accessingData.html#forceMeta"><i class="fa fa-check"></i><b>3.4.7</b> Force an update/re-import of tag and receiver deployment metadata</a></li>
-<li class="chapter" data-level="3.4.8" data-path="accessingData.html"><a href="accessingData.html#import-full-tag-and-receiver-metadata-metadata"><i class="fa fa-check"></i><b>3.4.8</b> Import full tag and receiver metadata (#metadata)</a></li>
+<li class="chapter" data-level="3.3" data-path="accessingData.html"><a href="accessingData.html#required-motus-package-from-github"><i class="fa fa-check"></i><b>3.3</b> required ‘motus’ package from github</a></li>
+<li class="chapter" data-level="3.4" data-path="accessingData.html"><a href="accessingData.html#set-system-environment"><i class="fa fa-check"></i><b>3.4</b> Set system environment</a></li>
+<li class="chapter" data-level="3.5" data-path="accessingData.html"><a href="accessingData.html#importDetections"><i class="fa fa-check"></i><b>3.5</b> Importing tag detections</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="accessingData.html"><a href="accessingData.html#download-data-for-a-project-or-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.5.1</b> Download data for a project or receiver for the <em>first time</em></a></li>
+<li class="chapter" data-level="3.5.2" data-path="accessingData.html"><a href="accessingData.html#userAuthentication"><i class="fa fa-check"></i><b>3.5.2</b> User Authentication</a></li>
+<li class="chapter" data-level="3.5.3" data-path="accessingData.html"><a href="accessingData.html#logout"><i class="fa fa-check"></i><b>3.5.3</b> Logging out</a></li>
+<li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloadData"><i class="fa fa-check"></i><b>3.5.4</b> Downloading detection data</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.5</b> Data structure</a></li>
-<li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#ensure-that-you-have-the-correct-database-version-checkversion"><i class="fa fa-check"></i><b>3.6</b> Ensure that you have the correct database version {checkVersion}</a></li>
-<li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.7</b> Convert a SQLITE table to a flat dataframe</a></li>
-<li class="chapter" data-level="3.8" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.8</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
-<li class="chapter" data-level="3.9" data-path="accessingData.html"><a href="accessingData.html#r-object-naming-convention"><i class="fa fa-check"></i><b>3.9</b> R object naming convention</a></li>
+<li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#hidden-function-to-load-sql.motus-file-into-working-directory-for-rest-of-book-to-work"><i class="fa fa-check"></i><b>3.6</b> hidden function to load sql.motus file into working directory for rest of book to work</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.6.1</b> Update and open a local tag database</a></li>
+<li class="chapter" data-level="3.6.2" data-path="accessingData.html"><a href="accessingData.html#tellme"><i class="fa fa-check"></i><b>3.6.2</b> Check if new data are available</a></li>
+<li class="chapter" data-level="3.6.3" data-path="accessingData.html"><a href="accessingData.html#forceMeta"><i class="fa fa-check"></i><b>3.6.3</b> Force an update/re-import of tag and receiver deployment metadata</a></li>
+<li class="chapter" data-level="3.6.4" data-path="accessingData.html"><a href="accessingData.html#metadata"><i class="fa fa-check"></i><b>3.6.4</b> Import full tag and receiver metadata</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.7</b> Data structure</a></li>
+<li class="chapter" data-level="3.8" data-path="accessingData.html"><a href="accessingData.html#get-the-tag-deployment-metadata-table-for-the-current-project"><i class="fa fa-check"></i><b>3.8</b> get the tag deployment metadata table for the current project</a></li>
+<li class="chapter" data-level="3.9" data-path="accessingData.html"><a href="accessingData.html#ensure-that-you-have-the-correct-database-version-checkversion"><i class="fa fa-check"></i><b>3.9</b> Ensure that you have the correct database version {checkVersion}</a></li>
+<li class="chapter" data-level="3.10" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.10</b> Convert a SQLITE table to a flat dataframe</a></li>
+<li class="chapter" data-level="3.11" data-path="accessingData.html"><a href="accessingData.html#the-tz-utc-is-not-necessary-here-provided-you-have-set-your-system-time-to-utcgmt-but-it-serves-as-a-useful-reminder"><i class="fa fa-check"></i><b>3.11</b> the tz = “UTC” is not necessary here, provided you have set your system time to UTC/GMT… but it serves as a useful reminder!</a></li>
+<li class="chapter" data-level="3.12" data-path="accessingData.html"><a href="accessingData.html#to-grab-a-subset-of-variables-in-this-case-a-unique-list-of-motus-tag-ids-at-each-receiver-and-antenna."><i class="fa fa-check"></i><b>3.12</b> to grab a subset of variables, in this case a unique list of Motus tag IDs at each receiver and antenna.</a></li>
+<li class="chapter" data-level="3.13" data-path="accessingData.html"><a href="accessingData.html#filter-to-include-only-motustagids-16011-23316"><i class="fa fa-check"></i><b>3.13</b> filter to include only motusTagIDs 16011, 23316</a></li>
+<li class="chapter" data-level="3.14" data-path="accessingData.html"><a href="accessingData.html#filter-to-only-red-knot-using-speciesid"><i class="fa fa-check"></i><b>3.14</b> filter to only Red Knot (using speciesID)</a></li>
+<li class="chapter" data-level="3.15" data-path="accessingData.html"><a href="accessingData.html#filter-to-only-red-knot-using-english-name"><i class="fa fa-check"></i><b>3.15</b> filter to only Red Knot (using English name)</a></li>
+<li class="chapter" data-level="3.16" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.16</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
+<li class="chapter" data-level="3.17" data-path="accessingData.html"><a href="accessingData.html#save-an-rds-file"><i class="fa fa-check"></i><b>3.17</b> save an RDS file</a></li>
+<li class="chapter" data-level="3.18" data-path="accessingData.html"><a href="accessingData.html#or-save-as-csv-file-which-does-not-preserve-time-stamps"><i class="fa fa-check"></i><b>3.18</b> or save as CSV file, which does not preserve time stamps,</a></li>
+<li class="chapter" data-level="3.19" data-path="accessingData.html"><a href="accessingData.html#but-can-be-read-more-easily-by-other-programs."><i class="fa fa-check"></i><b>3.19</b> but can be read more easily by other programs.</a></li>
+<li class="chapter" data-level="3.20" data-path="accessingData.html"><a href="accessingData.html#r-object-naming-convention"><i class="fa fa-check"></i><b>3.20</b> R object naming convention</a></li>
+<li class="chapter" data-level="3.21" data-path="accessingData.html"><a href="accessingData.html#hidden-data-import-so-update-can-be-set-to-false"><i class="fa fa-check"></i><b>3.21</b> hidden data import so update can be set to FALSE</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="deployments.html"><a href="deployments.html"><i class="fa fa-check"></i><b>4</b> Tag and Receiver Deployments</a><ul>
 <li class="chapter" data-level="4.1" data-path="deployments.html"><a href="deployments.html#load-relevant-r-packages-and-set-working-environment"><i class="fa fa-check"></i><b>4.1</b> Load relevant R packages and set working environment</a></li>
-<li class="chapter" data-level="4.2" data-path="deployments.html"><a href="deployments.html#load-.motus-file"><i class="fa fa-check"></i><b>4.2</b> Load .motus file</a></li>
-<li class="chapter" data-level="4.3" data-path="deployments.html"><a href="deployments.html#tagDeployments"><i class="fa fa-check"></i><b>4.3</b> Tag Deployments</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="deployments.html"><a href="deployments.html#download-full-project-tag-metadata"><i class="fa fa-check"></i><b>4.3.1</b> 1. Download full project tag metadata</a></li>
-<li class="chapter" data-level="4.3.2" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags"><i class="fa fa-check"></i><b>4.3.2</b> 2. Number of registered tags</a></li>
-<li class="chapter" data-level="4.3.3" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags-that-were-deployed"><i class="fa fa-check"></i><b>4.3.3</b> 3. Number of registered tags that were deployed</a></li>
-<li class="chapter" data-level="4.3.4" data-path="deployments.html"><a href="deployments.html#location-of-tag-deployments"><i class="fa fa-check"></i><b>4.3.4</b> 4. Location of tag deployments</a></li>
-<li class="chapter" data-level="4.3.5" data-path="deployments.html"><a href="deployments.html#check-completeness-and-accuracy-of-tag-deployment-metadata"><i class="fa fa-check"></i><b>4.3.5</b> 5. Check completeness and accuracy of tag deployment metadata</a></li>
+<li class="chapter" data-level="4.2" data-path="deployments.html"><a href="deployments.html#set-the-system-environment-time-zone-to-gmt-to-ensure-that-you-are-always-working-in-gmt"><i class="fa fa-check"></i><b>4.2</b> Set the system environment time zone to GMT (to ensure that you are always working in GMT)</a></li>
+<li class="chapter" data-level="4.3" data-path="deployments.html"><a href="deployments.html#load-.motus-file"><i class="fa fa-check"></i><b>4.3</b> Load .motus file</a></li>
+<li class="chapter" data-level="4.4" data-path="deployments.html"><a href="deployments.html#tagDeployments"><i class="fa fa-check"></i><b>4.4</b> Tag Deployments</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="deployments.html"><a href="deployments.html#download-full-project-tag-metadata"><i class="fa fa-check"></i><b>4.4.1</b> Download full project tag metadata</a></li>
+<li class="chapter" data-level="4.4.2" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags"><i class="fa fa-check"></i><b>4.4.2</b> Number of registered tags</a></li>
+<li class="chapter" data-level="4.4.3" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags-that-were-deployed"><i class="fa fa-check"></i><b>4.4.3</b> Number of registered tags that were deployed</a></li>
+<li class="chapter" data-level="4.4.4" data-path="deployments.html"><a href="deployments.html#location-of-tag-deployments"><i class="fa fa-check"></i><b>4.4.4</b> Location of tag deployments</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="deployments.html"><a href="deployments.html#recvMetadata"><i class="fa fa-check"></i><b>4.4</b> Check Receiver Metadata</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="deployments.html"><a href="deployments.html#download-full-receiver-metadata"><i class="fa fa-check"></i><b>4.4.1</b> 1. Download full receiver metadata</a></li>
-<li class="chapter" data-level="4.4.2" data-path="deployments.html"><a href="deployments.html#number-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.2</b> 2. Number of project receiver deployments</a></li>
-<li class="chapter" data-level="4.4.3" data-path="deployments.html"><a href="deployments.html#timing-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.3</b> 3. Timing of project receiver deployments</a></li>
-<li class="chapter" data-level="4.4.4" data-path="deployments.html"><a href="deployments.html#location-of-receiver-deployments"><i class="fa fa-check"></i><b>4.4.4</b> 4. Location of receiver deployments</a></li>
-<li class="chapter" data-level="4.4.5" data-path="deployments.html"><a href="deployments.html#completeness-and-accuracy-of-receiver-metadata"><i class="fa fa-check"></i><b>4.4.5</b> 5. Completeness and accuracy of receiver metadata</a></li>
+<li class="chapter" data-level="4.5" data-path="deployments.html"><a href="deployments.html#get-the-lake-data-adjust-longitude"><i class="fa fa-check"></i><b>4.5</b> get the lake data; adjust longitude</a></li>
+<li class="chapter" data-level="4.6" data-path="deployments.html"><a href="deployments.html#get-the-country-data-adjust-longitude"><i class="fa fa-check"></i><b>4.6</b> get the country data; adjust longitude</a></li>
+<li class="chapter" data-level="4.7" data-path="deployments.html"><a href="deployments.html#others-countries-in-the-americas-that-you-may-want-to-plot-depending-on-your-location-mexico-lakesbelize-costa-rica-panama-guatemala-honduras-nicaragua-el-salvador-colombia-venezuela-ecuador-peru-brazil-guyanasuriname-bolivia-french-guiana-jamaica-cuba-haiti-dominican-republic-the-bahamas-turks-and-caicos-islands-puerto-rico-british-virgin-islands-montserrat-dominica-saint-lucia-barbados-grenada-trinidad-and-tobago-chile-argentina-uruguay"><i class="fa fa-check"></i><b>4.7</b> Others countries in the Americas that you may want to plot, depending on your location: “Mexico”, “lakes”,“Belize”, “Costa Rica”, “Panama”, “Guatemala”, “Honduras”, “Nicaragua”, “El Salvador”, “Colombia”, “Venezuela”, “Ecuador”, “Peru”, “Brazil”, “Guyana”,“Suriname”, “Bolivia”, “French Guiana”, “Jamaica”, “Cuba”, “Haiti”, “Dominican Republic”, “The Bahamas”, “Turks and Caicos Islands”, “Puerto Rico”, “British Virgin Islands”, “Montserrat”, “Dominica”, “Saint Lucia”, “Barbados”, “Grenada”, “Trinidad and Tobago”, “Chile”, “Argentina”, “Uruguay”</a></li>
+<li class="chapter" data-level="4.8" data-path="deployments.html"><a href="deployments.html#include-all-of-the-americas-to-begin"><i class="fa fa-check"></i><b>4.8</b> Include all of the Americas to begin</a></li>
+<li class="chapter" data-level="4.9" data-path="deployments.html"><a href="deployments.html#others-countries-in-the-americas-that-you-may-want-to-plot-depending-on-your-location-mexico-lakesbelize-costa-rica-panama-guatemala-honduras-nicaragua-el-salvador-colombia-venezuela-ecuador-peru-brazil-guyanasuriname-bolivia-french-guiana-jamaica-cuba-haiti-dominican-republic-the-bahamas-turks-and-caicos-islands-puerto-rico-british-virgin-islands-montserrat-dominica-saint-lucia-barbados-grenada-trinidad-and-tobago-chile-argentina-uruguay-1"><i class="fa fa-check"></i><b>4.9</b> Others countries in the Americas that you may want to plot, depending on your location: “Mexico”, “lakes”,“Belize”, “Costa Rica”, “Panama”, “Guatemala”, “Honduras”, “Nicaragua”, “El Salvador”, “Colombia”, “Venezuela”, “Ecuador”, “Peru”, “Brazil”, “Guyana”,“Suriname”, “Bolivia”, “French Guiana”, “Jamaica”, “Cuba”, “Haiti”, “Dominican Republic”, “The Bahamas”, “Turks and Caicos Islands”, “Puerto Rico”, “British Virgin Islands”, “Montserrat”, “Dominica”, “Saint Lucia”, “Barbados”, “Grenada”, “Trinidad and Tobago”, “Chile”, “Argentina”, “Uruguay”</a></li>
+<li class="chapter" data-level="4.10" data-path="deployments.html"><a href="deployments.html#set-limits-to-map-based-on-locations-of-detections-ensuring-they-include-the-deployment-locations"><i class="fa fa-check"></i><b>4.10</b> set limits to map based on locations of detections, ensuring they include the deployment locations</a></li>
+<li class="chapter" data-level="4.11" data-path="deployments.html"><a href="deployments.html#map-using-ggplot"><i class="fa fa-check"></i><b>4.11</b> map using ggplot</a><ul>
+<li class="chapter" data-level="4.11.1" data-path="deployments.html"><a href="deployments.html#check-completeness-and-accuracy-of-tag-deployment-metadata"><i class="fa fa-check"></i><b>4.11.1</b> Check completeness and accuracy of tag deployment metadata</a></li>
 </ul></li>
+<li class="chapter" data-level="4.12" data-path="deployments.html"><a href="deployments.html#list-of-species-ids-in-project-176-metadata"><i class="fa fa-check"></i><b>4.12</b> list of species IDs in project 176 metadata</a></li>
+<li class="chapter" data-level="4.13" data-path="deployments.html"><a href="deployments.html#species-metadata"><i class="fa fa-check"></i><b>4.13</b> Species metadata</a></li>
+<li class="chapter" data-level="4.14" data-path="deployments.html"><a href="deployments.html#recvMetadata"><i class="fa fa-check"></i><b>4.14</b> Check Receiver Metadata</a><ul>
+<li class="chapter" data-level="4.14.1" data-path="deployments.html"><a href="deployments.html#download-full-receiver-metadata"><i class="fa fa-check"></i><b>4.14.1</b> Download full receiver metadata</a></li>
+<li class="chapter" data-level="4.14.2" data-path="deployments.html"><a href="deployments.html#number-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.14.2</b> Number of project receiver deployments</a></li>
+<li class="chapter" data-level="4.14.3" data-path="deployments.html"><a href="deployments.html#timing-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.14.3</b> Timing of project receiver deployments</a></li>
+</ul></li>
+<li class="chapter" data-level="4.15" data-path="deployments.html"><a href="deployments.html#put-data-in-long-format-to-simplify-plotting-or-use-geom_segment"><i class="fa fa-check"></i><b>4.15</b> put data in long format to simplify plotting (or use geom_segment)</a><ul>
+<li class="chapter" data-level="4.15.1" data-path="deployments.html"><a href="deployments.html#location-of-receiver-deployments"><i class="fa fa-check"></i><b>4.15.1</b> Location of receiver deployments</a></li>
+</ul></li>
+<li class="chapter" data-level="4.16" data-path="deployments.html"><a href="deployments.html#include-all-of-the-americas-to-begin-1"><i class="fa fa-check"></i><b>4.16</b> Include all of the Americas to begin</a></li>
+<li class="chapter" data-level="4.17" data-path="deployments.html"><a href="deployments.html#set-limits-to-map-based-on-locations-of-detections-ensuring-they-include-the-deployment-locations-1"><i class="fa fa-check"></i><b>4.17</b> set limits to map based on locations of detections, ensuring they include the deployment locations</a></li>
+<li class="chapter" data-level="4.18" data-path="deployments.html"><a href="deployments.html#map"><i class="fa fa-check"></i><b>4.18</b> map</a></li>
+<li class="chapter" data-level="4.19" data-path="deployments.html"><a href="deployments.html#set-limits-to-map-based-on-locations-of-detections-ensuring-they-include-the-deployment-locations-2"><i class="fa fa-check"></i><b>4.19</b> set limits to map based on locations of detections, ensuring they include the deployment locations</a></li>
+<li class="chapter" data-level="4.20" data-path="deployments.html"><a href="deployments.html#map-1"><i class="fa fa-check"></i><b>4.20</b> map</a><ul>
+<li class="chapter" data-level="4.20.1" data-path="deployments.html"><a href="deployments.html#completeness-and-accuracy-of-receiver-metadata"><i class="fa fa-check"></i><b>4.20.1</b> Completeness and accuracy of receiver metadata</a></li>
+</ul></li>
+<li class="chapter" data-level="4.21" data-path="deployments.html"><a href="deployments.html#antenna-metadata-for-all-motus-antenna-deployments"><i class="fa fa-check"></i><b>4.21</b> antenna metadata for ALL Motus antenna deployments;</a></li>
+<li class="chapter" data-level="4.22" data-path="deployments.html"><a href="deployments.html#to-simplify-keep-only-the-variables-of-interest."><i class="fa fa-check"></i><b>4.22</b> to simplify, keep only the variables of interest.</a></li>
+<li class="chapter" data-level="4.23" data-path="deployments.html"><a href="deployments.html#receiver-deployments-select-variables-of-interest"><i class="fa fa-check"></i><b>4.23</b> receiver deployments; select variables of interest</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="dataCleaning.html"><a href="dataCleaning.html"><i class="fa fa-check"></i><b>5</b> Data Cleaning</a><ul>
 <li class="chapter" data-level="5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#load-required-packages"><i class="fa fa-check"></i><b>5.1</b> Load required packages</a></li>
 <li class="chapter" data-level="5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#load-detections-data"><i class="fa fa-check"></i><b>5.2</b> Load detections data</a></li>
-<li class="chapter" data-level="5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.3</b> Preliminary data checks</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.3.1</b> Summarize tag detections</a></li>
+<li class="chapter" data-level="5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#load-detection-data-select-variables-create-latitude-variables-and-transform-to-flat-file."><i class="fa fa-check"></i><b>5.3</b> Load detection data, select variables, create latitude variables, and transform to flat file.</a></li>
+<li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#we-also-fix-up-some-sites-that-are-missing-receiver-deployment-data-or-do-not-have-names"><i class="fa fa-check"></i><b>5.4</b> We also fix up some sites that are missing receiver deployment data, or do not have names</a></li>
+<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#as-more-users-explore-and-fix-their-metadata-these-missing-values-should-begin-to-disappear."><i class="fa fa-check"></i><b>5.5</b> As more users explore (and fix!) their metadata, these missing values should begin to disappear.</a></li>
+<li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#note-that-in-the-select-statement-you-can-just-select-the-variables-you-need"><i class="fa fa-check"></i><b>5.6</b> Note that in the select statement, you can just select the variables you need</a></li>
+<li class="chapter" data-level="5.7" data-path="dataCleaning.html"><a href="dataCleaning.html#e.g.-selectrunid-ts-sig-freqsd-motustagid-ambigid-runlen-tagprojid"><i class="fa fa-check"></i><b>5.7</b> e.g.: select(runID, ts, sig, freqsd, motusTagID, ambigID, runLen, tagProjID,</a></li>
+<li class="chapter" data-level="5.8" data-path="dataCleaning.html"><a href="dataCleaning.html#tagdeploystart-tagdeployend-etc."><i class="fa fa-check"></i><b>5.8</b> tagDeployStart, tagDeployEnd, etc.)</a></li>
+<li class="chapter" data-level="5.9" data-path="dataCleaning.html"><a href="dataCleaning.html#hidden-data-import-so-update-can-be-set-to-false-1"><i class="fa fa-check"></i><b>5.9</b> hidden data import so update can be set to FALSE</a></li>
+<li class="chapter" data-level="5.10" data-path="dataCleaning.html"><a href="dataCleaning.html#note-that-in-the-select-statement-you-can-just-select-the-variables-you-need-1"><i class="fa fa-check"></i><b>5.10</b> Note that in the select statement, you can just select the variables you need</a></li>
+<li class="chapter" data-level="5.11" data-path="dataCleaning.html"><a href="dataCleaning.html#e.g.-selectrunid-ts-sig-freqsd-motustagid-ambigid-runlen-tagprojid-1"><i class="fa fa-check"></i><b>5.11</b> e.g.: select(runID, ts, sig, freqsd, motusTagID, ambigID, runLen, tagProjID,</a></li>
+<li class="chapter" data-level="5.12" data-path="dataCleaning.html"><a href="dataCleaning.html#tagdeploystart-tagdeployend-etc.-1"><i class="fa fa-check"></i><b>5.12</b> tagDeployStart, tagDeployEnd, etc.)</a></li>
+<li class="chapter" data-level="5.13" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.13</b> Preliminary data checks</a><ul>
+<li class="chapter" data-level="5.13.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.13.1</b> Summarize tag detections</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#examining-ambiguous-detections-ambigs"><i class="fa fa-check"></i><b>5.4</b> Examining ambiguous detections (#ambigs)</a></li>
-<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.5</b> Filtering the data</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.5.1</b> Filter and save to RDS</a></li>
-<li class="chapter" data-level="5.5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.5.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
+<li class="chapter" data-level="5.14" data-path="dataCleaning.html"><a href="dataCleaning.html#simplify-the-data-by-summarizing-by-the-runid."><i class="fa fa-check"></i><b>5.14</b> simplify the data by summarizing by the runID.</a></li>
+<li class="chapter" data-level="5.15" data-path="dataCleaning.html"><a href="dataCleaning.html#if-you-want-to-summarize-at-a-finer-or-coarser-scale-you-can-also-create-other-groups."><i class="fa fa-check"></i><b>5.15</b> if you want to summarize at a finer (or coarser) scale, you can also create other groups.</a></li>
+<li class="chapter" data-level="5.16" data-path="dataCleaning.html"><a href="dataCleaning.html#the-simplest-alternative-is-a-rounded-timestamp-variable-for-example-by-using"><i class="fa fa-check"></i><b>5.16</b> The simplest alternative is a rounded timestamp variable; for example by using</a></li>
+<li class="chapter" data-level="5.17" data-path="dataCleaning.html"><a href="dataCleaning.html#mutatets.h-plyrround_anyts-3600-function-call."><i class="fa fa-check"></i><b>5.17</b> mutate(ts.h = plyr::round_any(ts, 3600) function call.</a></li>
+<li class="chapter" data-level="5.18" data-path="dataCleaning.html"><a href="dataCleaning.html#other-options-are-to-just-use-date-e.g-date-as_datets"><i class="fa fa-check"></i><b>5.18</b> Other options are to just use date (e.g date = as_date(ts))</a></li>
+<li class="chapter" data-level="5.19" data-path="dataCleaning.html"><a href="dataCleaning.html#section"><i class="fa fa-check"></i><b>5.19</b> </a></li>
+<li class="chapter" data-level="5.20" data-path="dataCleaning.html"><a href="dataCleaning.html#create-the-filter"><i class="fa fa-check"></i><b>5.20</b> create the filter</a></li>
+<li class="chapter" data-level="5.21" data-path="dataCleaning.html"><a href="dataCleaning.html#use-the-function-we-created-earlier-to-make-a-new-path-data-frame-for-plotting"><i class="fa fa-check"></i><b>5.21</b> use the function we created earlier to make a new ‘path’ data frame for plotting</a></li>
+<li class="chapter" data-level="5.22" data-path="dataCleaning.html"><a href="dataCleaning.html#ambigs"><i class="fa fa-check"></i><b>5.22</b> Examining ambiguous detections</a></li>
+<li class="chapter" data-level="5.23" data-path="dataCleaning.html"><a href="dataCleaning.html#to-put-all-ambiguous-tags-from-the-same-project-on-the-same-plot-together-we-need-to-create"><i class="fa fa-check"></i><b>5.23</b> to put all ambiguous tags from the same project on the same plot together, we need to create</a></li>
+<li class="chapter" data-level="5.24" data-path="dataCleaning.html"><a href="dataCleaning.html#a-new-ambig-tag-variable-we-call-newid."><i class="fa fa-check"></i><b>5.24</b> a new ‘ambig tag’ variable we call ’newID.</a></li>
+<li class="chapter" data-level="5.25" data-path="dataCleaning.html"><a href="dataCleaning.html#and-merge-that-with-df.alltags.path"><i class="fa fa-check"></i><b>5.25</b> and merge that with df.alltags.path</a></li>
+<li class="chapter" data-level="5.26" data-path="dataCleaning.html"><a href="dataCleaning.html#we-want-the-detections-associated-with-the-motustagid-that-we-want-to"><i class="fa fa-check"></i><b>5.26</b> we want the detections associated with the motusTagID that we want to</a></li>
+<li class="chapter" data-level="5.27" data-path="dataCleaning.html"><a href="dataCleaning.html#ultimately-remove-from-the-data-frame"><i class="fa fa-check"></i><b>5.27</b> ultimately REMOVE from the data frame</a></li>
+<li class="chapter" data-level="5.28" data-path="dataCleaning.html"><a href="dataCleaning.html#we-want-the-detections-associated-with-the-motustagid-that-we-want-to-1"><i class="fa fa-check"></i><b>5.28</b> we want the detections associated with the motusTagID that we want to</a></li>
+<li class="chapter" data-level="5.29" data-path="dataCleaning.html"><a href="dataCleaning.html#ultimately-remove-from-the-data-frame-1"><i class="fa fa-check"></i><b>5.29</b> ultimately REMOVE from the data frame</a></li>
+<li class="chapter" data-level="5.30" data-path="dataCleaning.html"><a href="dataCleaning.html#we-want-the-detections-associated-with-the-motustagid-that-we-want-to-2"><i class="fa fa-check"></i><b>5.30</b> we want the detections associated with the motusTagID that we want to</a></li>
+<li class="chapter" data-level="5.31" data-path="dataCleaning.html"><a href="dataCleaning.html#ultimately-remove-from-the-data-frame-2"><i class="fa fa-check"></i><b>5.31</b> ultimately REMOVE from the data frame</a></li>
+<li class="chapter" data-level="5.32" data-path="dataCleaning.html"><a href="dataCleaning.html#tag-23316-was-only-ever-at-grand-ile-niapiskau-and-tag-22867-was-never-detected"><i class="fa fa-check"></i><b>5.32</b> tag 23316 was only ever at “Grand-Ile”, “Niapiskau”, and tag 22867 was never detected</a></li>
+<li class="chapter" data-level="5.33" data-path="dataCleaning.html"><a href="dataCleaning.html#at-those-sites.-so-we-exclude-all-detections-not-at-grand-ile-niapiskau-for-motustag"><i class="fa fa-check"></i><b>5.33</b> at those sites. So we exclude all detections not at “Grand-Ile”, “Niapiskau” for motusTag</a></li>
+<li class="chapter" data-level="5.34" data-path="dataCleaning.html"><a href="dataCleaning.html#and-do-the-opposite-for-tag-22867."><i class="fa fa-check"></i><b>5.34</b> 23316, and do the opposite for tag 22867.</a></li>
+<li class="chapter" data-level="5.35" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.35</b> Filtering the data</a><ul>
+<li class="chapter" data-level="5.35.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.35.1</b> Filter and save to RDS</a></li>
 </ul></li>
+<li class="chapter" data-level="5.36" data-path="dataCleaning.html"><a href="dataCleaning.html#combine-our-df.block-data-frames-into-a-single-dataframe-and-add-probability-0-for-filtered-records."><i class="fa fa-check"></i><b>5.36</b> combine our df.block data frames into a single dataframe, and add probability = 0 for filtered records.</a><ul>
+<li class="chapter" data-level="5.36.1" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.36.1</b> Save a custom filter in the motus database, and apply it to the data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.37" data-path="dataCleaning.html"><a href="dataCleaning.html#combine-our-df.block-data-frames-into-a-single-dataframe-and-add-probability-0-for-filtered-records.-1"><i class="fa fa-check"></i><b>5.37</b> combine our df.block data frames into a single dataframe, and add probability = 0 for filtered records.</a></li>
+<li class="chapter" data-level="5.38" data-path="dataCleaning.html"><a href="dataCleaning.html#create-a-new-filter-with-name-filtambigfalsepos-and-populate-it-with-df.block.all"><i class="fa fa-check"></i><b>5.38</b> create a new filter with name filtAmbigFalsePos and populate it with df.block.all</a></li>
+<li class="chapter" data-level="5.39" data-path="dataCleaning.html"><a href="dataCleaning.html#obtain-a-table-object-where-the-filtered-records-from-tbl.filter.1-have-been-removed"><i class="fa fa-check"></i><b>5.39</b> obtain a table object where the filtered records from tbl.filter.1 have been removed</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
 <li class="chapter" data-level="6.1" data-path="exploreData.html"><a href="exploreData.html#load-required-packages-1"><i class="fa fa-check"></i><b>6.1</b> Load required packages</a></li>
 <li class="chapter" data-level="6.2" data-path="exploreData.html"><a href="exploreData.html#load-data"><i class="fa fa-check"></i><b>6.2</b> Load data</a></li>
-<li class="chapter" data-level="6.3" data-path="exploreData.html"><a href="exploreData.html#dataSummaries"><i class="fa fa-check"></i><b>6.3</b> Summarizing your data</a></li>
-<li class="chapter" data-level="6.4" data-path="exploreData.html"><a href="exploreData.html#dataPlotting"><i class="fa fa-check"></i><b>6.4</b> Plotting your data</a></li>
-<li class="chapter" data-level="6.5" data-path="exploreData.html"><a href="exploreData.html#mappingData"><i class="fa fa-check"></i><b>6.5</b> Mapping your data</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="exploreData.html"><a href="exploreData.html#googleMaps"><i class="fa fa-check"></i><b>6.5.1</b> Mapping with Google Maps</a></li>
-<li class="chapter" data-level="6.5.2" data-path="exploreData.html"><a href="exploreData.html#outlineMaps"><i class="fa fa-check"></i><b>6.5.2</b> Creating simple outline maps</a></li>
+<li class="chapter" data-level="6.3" data-path="exploreData.html"><a href="exploreData.html#load-the-.motus-file"><i class="fa fa-check"></i><b>6.3</b> load the .motus file</a></li>
+<li class="chapter" data-level="6.4" data-path="exploreData.html"><a href="exploreData.html#obtain-a-table-object-of-the-filter"><i class="fa fa-check"></i><b>6.4</b> obtain a table object of the filter</a></li>
+<li class="chapter" data-level="6.5" data-path="exploreData.html"><a href="exploreData.html#filter-and-convert-the-table-into-a-dataframe-with-a-few-modications"><i class="fa fa-check"></i><b>6.5</b> filter and convert the table into a dataframe, with a few modications</a></li>
+<li class="chapter" data-level="6.6" data-path="exploreData.html"><a href="exploreData.html#load-the-.motus-file-1"><i class="fa fa-check"></i><b>6.6</b> load the .motus file</a></li>
+<li class="chapter" data-level="6.7" data-path="exploreData.html"><a href="exploreData.html#obtain-a-table-object-of-the-filter-1"><i class="fa fa-check"></i><b>6.7</b> obtain a table object of the filter</a></li>
+<li class="chapter" data-level="6.8" data-path="exploreData.html"><a href="exploreData.html#filter-and-convert-the-table-into-a-dataframe-with-a-few-modications-1"><i class="fa fa-check"></i><b>6.8</b> filter and convert the table into a dataframe, with a few modications</a></li>
+<li class="chapter" data-level="6.9" data-path="exploreData.html"><a href="exploreData.html#dataSummaries"><i class="fa fa-check"></i><b>6.9</b> Summarizing your data</a></li>
+<li class="chapter" data-level="6.10" data-path="exploreData.html"><a href="exploreData.html#dataPlotting"><i class="fa fa-check"></i><b>6.10</b> Plotting your data</a></li>
+<li class="chapter" data-level="6.11" data-path="exploreData.html"><a href="exploreData.html#add-sunrise-and-sunset-times-to-the-dataframe"><i class="fa fa-check"></i><b>6.11</b> add sunrise and sunset times to the dataframe</a></li>
+<li class="chapter" data-level="6.12" data-path="exploreData.html"><a href="exploreData.html#well-first-order-sitelat-by-latitude-for-plots"><i class="fa fa-check"></i><b>6.12</b> We’ll first order sitelat by latitude (for plots)</a></li>
+<li class="chapter" data-level="6.13" data-path="exploreData.html"><a href="exploreData.html#mappingData"><i class="fa fa-check"></i><b>6.13</b> Mapping your data</a></li>
+<li class="chapter" data-level="6.14" data-path="exploreData.html"><a href="exploreData.html#simplify-the-data-by-summarizing-by-the-runid.-1"><i class="fa fa-check"></i><b>6.14</b> simplify the data by summarizing by the runID.</a></li>
+<li class="chapter" data-level="6.15" data-path="exploreData.html"><a href="exploreData.html#if-you-want-to-summarize-at-a-finer-or-coarser-scale-you-can-also-create-other-groups.-1"><i class="fa fa-check"></i><b>6.15</b> if you want to summarize at a finer (or coarser) scale, you can also create other groups.</a></li>
+<li class="chapter" data-level="6.16" data-path="exploreData.html"><a href="exploreData.html#the-simplest-alternative-is-a-rounded-timestamp-variable-for-example-by-using-1"><i class="fa fa-check"></i><b>6.16</b> The simplest alternative is a rounded timestamp variable; for example by using</a></li>
+<li class="chapter" data-level="6.17" data-path="exploreData.html"><a href="exploreData.html#mutatets.h-plyrround_anyts-3600-function-call.-1"><i class="fa fa-check"></i><b>6.17</b> mutate(ts.h = plyr::round_any(ts, 3600) function call.</a></li>
+<li class="chapter" data-level="6.18" data-path="exploreData.html"><a href="exploreData.html#other-options-are-to-just-use-date-e.g-date-as_datets-1"><i class="fa fa-check"></i><b>6.18</b> Other options are to just use date (e.g date = as_date(ts))</a></li>
+<li class="chapter" data-level="6.19" data-path="exploreData.html"><a href="exploreData.html#section-1"><i class="fa fa-check"></i><b>6.19</b> </a><ul>
+<li class="chapter" data-level="6.19.1" data-path="exploreData.html"><a href="exploreData.html#googleMaps"><i class="fa fa-check"></i><b>6.19.1</b> Mapping with Google Maps</a></li>
 </ul></li>
+<li class="chapter" data-level="6.20" data-path="exploreData.html"><a href="exploreData.html#just-use-the-tags-that-we-have-examined-carefully-and-filtered-in-the-previous-chapter"><i class="fa fa-check"></i><b>6.20</b> just use the tags that we have examined carefully and filtered (in the previous chapter)</a></li>
+<li class="chapter" data-level="6.21" data-path="exploreData.html"><a href="exploreData.html#get-receiver-metadata"><i class="fa fa-check"></i><b>6.21</b> get receiver metadata</a></li>
+<li class="chapter" data-level="6.22" data-path="exploreData.html"><a href="exploreData.html#for-deployments-with-no-end-daets-make-an-end-date-a-year-from-now"><i class="fa fa-check"></i><b>6.22</b> for deployments with no end daets, make an end date a year from now</a></li>
+<li class="chapter" data-level="6.23" data-path="exploreData.html"><a href="exploreData.html#get-running-intervals-for-all-receiver-deployments"><i class="fa fa-check"></i><b>6.23</b> get running intervals for all receiver deployments</a></li>
+<li class="chapter" data-level="6.24" data-path="exploreData.html"><a href="exploreData.html#set-the-date-range-youre-interested-in"><i class="fa fa-check"></i><b>6.24</b> set the date range you’re interested in</a></li>
+<li class="chapter" data-level="6.25" data-path="exploreData.html"><a href="exploreData.html#create-new-variable-active-which-will-be-set-to-true-if-the-receiver-was-active-at-some-point-during-your-specified-date-range-and-false-if-not"><i class="fa fa-check"></i><b>6.25</b> create new variable “active” which will be set to TRUE if the receiver was active at some point during your specified date range, and FALSE if not</a></li>
+<li class="chapter" data-level="6.26" data-path="exploreData.html"><a href="exploreData.html#create-map-with-receivers-active-during-specified-date-range-as-red-and-receivers-with-detections-as-yellow"><i class="fa fa-check"></i><b>6.26</b> create map with receivers active during specified date range as red, and receivers with detections as yellow</a><ul>
+<li class="chapter" data-level="6.26.1" data-path="exploreData.html"><a href="exploreData.html#outlineMaps"><i class="fa fa-check"></i><b>6.26.1</b> Creating simple outline maps</a></li>
+</ul></li>
+<li class="chapter" data-level="6.27" data-path="exploreData.html"><a href="exploreData.html#get-the-lake-data-adjust-longitude-1"><i class="fa fa-check"></i><b>6.27</b> get the lake data; adjust longitude</a></li>
+<li class="chapter" data-level="6.28" data-path="exploreData.html"><a href="exploreData.html#include-all-of-the-americas-to-begin-2"><i class="fa fa-check"></i><b>6.28</b> Include all of the Americas to begin</a></li>
+<li class="chapter" data-level="6.29" data-path="exploreData.html"><a href="exploreData.html#include-all-of-the-americas-to-begin-3"><i class="fa fa-check"></i><b>6.29</b> Include all of the Americas to begin</a></li>
+<li class="chapter" data-level="6.30" data-path="exploreData.html"><a href="exploreData.html#set-limits-to-map-based-on-locations-of-detections-ensuring-they-include-the-deployment-locations-3"><i class="fa fa-check"></i><b>6.30</b> set limits to map based on locations of detections, ensuring they include the deployment locations</a></li>
+<li class="chapter" data-level="6.31" data-path="exploreData.html"><a href="exploreData.html#map-2"><i class="fa fa-check"></i><b>6.31</b> map</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="appendixA.html"><a href="appendixA.html"><i class="fa fa-check"></i><b>7</b> Appendix A - alltags structure</a></li>
 <li class="chapter" data-level="8" data-path="appendixB.html"><a href="appendixB.html"><i class="fa fa-check"></i><b>8</b> Appendix B - Troubleshooting</a><ul>
@@ -184,81 +248,84 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>9</b> Appendix C - The Motus R Package</a><ul>
-<li class="chapter" data-level="9.1" data-path="appendixC.html"><a href="appendixC.html#checkversion-checkversion.b"><i class="fa fa-check"></i><b>9.1</b> checkVersion {checkVersion.B}</a><ul>
+<li class="chapter" data-level="9.1" data-path="appendixC.html"><a href="appendixC.html#checkVersion.B"><i class="fa fa-check"></i><b>9.1</b> checkVersion</a><ul>
 <li class="chapter" data-level="9.1.1" data-path="appendixC.html"><a href="appendixC.html#description"><i class="fa fa-check"></i><b>9.1.1</b> Description</a></li>
-<li class="chapter" data-level="9.1.2" data-path="appendixC.html"><a href="appendixC.html#example"><i class="fa fa-check"></i><b>9.1.2</b> Example</a></li>
+<li class="chapter" data-level="9.1.2" data-path="appendixC.html"><a href="appendixC.html#dependencies"><i class="fa fa-check"></i><b>9.1.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.1.3" data-path="appendixC.html"><a href="appendixC.html#example"><i class="fa fa-check"></i><b>9.1.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9.2" data-path="appendixC.html"><a href="appendixC.html#sunRiseSet"><i class="fa fa-check"></i><b>9.2</b> sunRiseSet</a><ul>
 <li class="chapter" data-level="9.2.1" data-path="appendixC.html"><a href="appendixC.html#description-1"><i class="fa fa-check"></i><b>9.2.1</b> Description</a></li>
-<li class="chapter" data-level="9.2.2" data-path="appendixC.html"><a href="appendixC.html#dependencies"><i class="fa fa-check"></i><b>9.2.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.2.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-1"><i class="fa fa-check"></i><b>9.2.2</b> Dependencies</a></li>
 <li class="chapter" data-level="9.2.3" data-path="appendixC.html"><a href="appendixC.html#example-1"><i class="fa fa-check"></i><b>9.2.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsCoor"><i class="fa fa-check"></i><b>9.3</b> plotAllTagsCoord</a><ul>
 <li class="chapter" data-level="9.3.1" data-path="appendixC.html"><a href="appendixC.html#description-2"><i class="fa fa-check"></i><b>9.3.1</b> Description</a></li>
-<li class="chapter" data-level="9.3.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-1"><i class="fa fa-check"></i><b>9.3.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.3.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-2"><i class="fa fa-check"></i><b>9.3.2</b> Dependencies</a></li>
 <li class="chapter" data-level="9.3.3" data-path="appendixC.html"><a href="appendixC.html#example-2"><i class="fa fa-check"></i><b>9.3.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9.4" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsSite"><i class="fa fa-check"></i><b>9.4</b> plotAllTagsSite</a><ul>
 <li class="chapter" data-level="9.4.1" data-path="appendixC.html"><a href="appendixC.html#description-3"><i class="fa fa-check"></i><b>9.4.1</b> Description</a></li>
-<li class="chapter" data-level="9.4.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-2"><i class="fa fa-check"></i><b>9.4.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.4.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-3"><i class="fa fa-check"></i><b>9.4.2</b> Dependencies</a></li>
 <li class="chapter" data-level="9.4.3" data-path="appendixC.html"><a href="appendixC.html#example-3"><i class="fa fa-check"></i><b>9.4.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9.5" data-path="appendixC.html"><a href="appendixC.html#plotDailySiteSum"><i class="fa fa-check"></i><b>9.5</b> plotDailySiteSum</a><ul>
 <li class="chapter" data-level="9.5.1" data-path="appendixC.html"><a href="appendixC.html#description-4"><i class="fa fa-check"></i><b>9.5.1</b> Description</a></li>
-<li class="chapter" data-level="9.5.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-3"><i class="fa fa-check"></i><b>9.5.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.5.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-4"><i class="fa fa-check"></i><b>9.5.2</b> Dependencies</a></li>
 <li class="chapter" data-level="9.5.3" data-path="appendixC.html"><a href="appendixC.html#example-4"><i class="fa fa-check"></i><b>9.5.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9.6" data-path="appendixC.html"><a href="appendixC.html#plotRouteMap"><i class="fa fa-check"></i><b>9.6</b> plotRouteMap</a><ul>
 <li class="chapter" data-level="9.6.1" data-path="appendixC.html"><a href="appendixC.html#description-5"><i class="fa fa-check"></i><b>9.6.1</b> Description</a></li>
-<li class="chapter" data-level="9.6.2" data-path="appendixC.html"><a href="appendixC.html#example-5"><i class="fa fa-check"></i><b>9.6.2</b> Example</a></li>
+<li class="chapter" data-level="9.6.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-5"><i class="fa fa-check"></i><b>9.6.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.6.3" data-path="appendixC.html"><a href="appendixC.html#example-5"><i class="fa fa-check"></i><b>9.6.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9.7" data-path="appendixC.html"><a href="appendixC.html#plotSite"><i class="fa fa-check"></i><b>9.7</b> plotSite</a><ul>
 <li class="chapter" data-level="9.7.1" data-path="appendixC.html"><a href="appendixC.html#description-6"><i class="fa fa-check"></i><b>9.7.1</b> Description</a></li>
-<li class="chapter" data-level="9.7.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-4"><i class="fa fa-check"></i><b>9.7.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.7.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-6"><i class="fa fa-check"></i><b>9.7.2</b> Dependencies</a></li>
 <li class="chapter" data-level="9.7.3" data-path="appendixC.html"><a href="appendixC.html#example-6"><i class="fa fa-check"></i><b>9.7.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9.8" data-path="appendixC.html"><a href="appendixC.html#plotSiteSig"><i class="fa fa-check"></i><b>9.8</b> plotSiteSig</a><ul>
 <li class="chapter" data-level="9.8.1" data-path="appendixC.html"><a href="appendixC.html#description-7"><i class="fa fa-check"></i><b>9.8.1</b> Description</a></li>
-<li class="chapter" data-level="9.8.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-5"><i class="fa fa-check"></i><b>9.8.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.8.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-7"><i class="fa fa-check"></i><b>9.8.2</b> Dependencies</a></li>
 <li class="chapter" data-level="9.8.3" data-path="appendixC.html"><a href="appendixC.html#example-7"><i class="fa fa-check"></i><b>9.8.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9.9" data-path="appendixC.html"><a href="appendixC.html#plotTagSig"><i class="fa fa-check"></i><b>9.9</b> plotTagSig</a><ul>
 <li class="chapter" data-level="9.9.1" data-path="appendixC.html"><a href="appendixC.html#description-8"><i class="fa fa-check"></i><b>9.9.1</b> Description</a></li>
-<li class="chapter" data-level="9.9.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-6"><i class="fa fa-check"></i><b>9.9.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.9.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-8"><i class="fa fa-check"></i><b>9.9.2</b> Dependencies</a></li>
 <li class="chapter" data-level="9.9.3" data-path="appendixC.html"><a href="appendixC.html#example-8"><i class="fa fa-check"></i><b>9.9.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9.10" data-path="appendixC.html"><a href="appendixC.html#simSiteDet"><i class="fa fa-check"></i><b>9.10</b> simSiteDet</a><ul>
 <li class="chapter" data-level="9.10.1" data-path="appendixC.html"><a href="appendixC.html#description-9"><i class="fa fa-check"></i><b>9.10.1</b> Description</a></li>
-<li class="chapter" data-level="9.10.2" data-path="appendixC.html"><a href="appendixC.html#example-9"><i class="fa fa-check"></i><b>9.10.2</b> Example</a></li>
+<li class="chapter" data-level="9.10.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-9"><i class="fa fa-check"></i><b>9.10.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.10.3" data-path="appendixC.html"><a href="appendixC.html#example-9"><i class="fa fa-check"></i><b>9.10.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9.11" data-path="appendixC.html"><a href="appendixC.html#siteSum"><i class="fa fa-check"></i><b>9.11</b> siteSum</a><ul>
 <li class="chapter" data-level="9.11.1" data-path="appendixC.html"><a href="appendixC.html#description-10"><i class="fa fa-check"></i><b>9.11.1</b> Description</a></li>
-<li class="chapter" data-level="9.11.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-7"><i class="fa fa-check"></i><b>9.11.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.11.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-10"><i class="fa fa-check"></i><b>9.11.2</b> Dependencies</a></li>
 <li class="chapter" data-level="9.11.3" data-path="appendixC.html"><a href="appendixC.html#example-10"><i class="fa fa-check"></i><b>9.11.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9.12" data-path="appendixC.html"><a href="appendixC.html#siteSumDaily"><i class="fa fa-check"></i><b>9.12</b> siteSumDaily</a><ul>
 <li class="chapter" data-level="9.12.1" data-path="appendixC.html"><a href="appendixC.html#description-11"><i class="fa fa-check"></i><b>9.12.1</b> Description</a></li>
-<li class="chapter" data-level="9.12.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-8"><i class="fa fa-check"></i><b>9.12.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.12.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-11"><i class="fa fa-check"></i><b>9.12.2</b> Dependencies</a></li>
 <li class="chapter" data-level="9.12.3" data-path="appendixC.html"><a href="appendixC.html#example-11"><i class="fa fa-check"></i><b>9.12.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9.13" data-path="appendixC.html"><a href="appendixC.html#siteTrans"><i class="fa fa-check"></i><b>9.13</b> siteTrans</a><ul>
 <li class="chapter" data-level="9.13.1" data-path="appendixC.html"><a href="appendixC.html#description-12"><i class="fa fa-check"></i><b>9.13.1</b> Description</a></li>
-<li class="chapter" data-level="9.13.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-9"><i class="fa fa-check"></i><b>9.13.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.13.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-12"><i class="fa fa-check"></i><b>9.13.2</b> Dependencies</a></li>
 <li class="chapter" data-level="9.13.3" data-path="appendixC.html"><a href="appendixC.html#example-12"><i class="fa fa-check"></i><b>9.13.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9.14" data-path="appendixC.html"><a href="appendixC.html#tagSum"><i class="fa fa-check"></i><b>9.14</b> tagSum</a><ul>
 <li class="chapter" data-level="9.14.1" data-path="appendixC.html"><a href="appendixC.html#description-13"><i class="fa fa-check"></i><b>9.14.1</b> Description</a></li>
-<li class="chapter" data-level="9.14.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-10"><i class="fa fa-check"></i><b>9.14.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.14.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-13"><i class="fa fa-check"></i><b>9.14.2</b> Dependencies</a></li>
 <li class="chapter" data-level="9.14.3" data-path="appendixC.html"><a href="appendixC.html#example-13"><i class="fa fa-check"></i><b>9.14.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9.15" data-path="appendixC.html"><a href="appendixC.html#tagSumSite"><i class="fa fa-check"></i><b>9.15</b> tagSumSite</a><ul>
 <li class="chapter" data-level="9.15.1" data-path="appendixC.html"><a href="appendixC.html#description-14"><i class="fa fa-check"></i><b>9.15.1</b> Description</a></li>
-<li class="chapter" data-level="9.15.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-11"><i class="fa fa-check"></i><b>9.15.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.15.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-14"><i class="fa fa-check"></i><b>9.15.2</b> Dependencies</a></li>
 <li class="chapter" data-level="9.15.3" data-path="appendixC.html"><a href="appendixC.html#example-14"><i class="fa fa-check"></i><b>9.15.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9.16" data-path="appendixC.html"><a href="appendixC.html#timeToSunriset"><i class="fa fa-check"></i><b>9.16</b> timeToSunriset</a><ul>
 <li class="chapter" data-level="9.16.1" data-path="appendixC.html"><a href="appendixC.html#description-15"><i class="fa fa-check"></i><b>9.16.1</b> Description</a></li>
-<li class="chapter" data-level="9.16.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-12"><i class="fa fa-check"></i><b>9.16.2</b> Dependencies</a></li>
+<li class="chapter" data-level="9.16.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-15"><i class="fa fa-check"></i><b>9.16.2</b> Dependencies</a></li>
 <li class="chapter" data-level="9.16.3" data-path="appendixC.html"><a href="appendixC.html#example-15"><i class="fa fa-check"></i><b>9.16.3</b> Example</a></li>
 </ul></li>
 </ul></li>
@@ -266,21 +333,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10.1" data-path="appendixD.html"><a href="appendixD.html#listRunsFilters"><i class="fa fa-check"></i><b>10.1</b> listRunsFilters</a><ul>
 <li class="chapter" data-level="10.1.1" data-path="appendixD.html"><a href="appendixD.html#description-16"><i class="fa fa-check"></i><b>10.1.1</b> Description</a></li>
 </ul></li>
-<li class="chapter" data-level="10.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-13"><i class="fa fa-check"></i><b>10.2</b> Dependencies</a></li>
+<li class="chapter" data-level="10.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-16"><i class="fa fa-check"></i><b>10.2</b> Dependencies</a></li>
 <li class="chapter" data-level="10.3" data-path="appendixD.html"><a href="appendixD.html#example-16"><i class="fa fa-check"></i><b>10.3</b> Example</a></li>
 <li class="chapter" data-level="10.4" data-path="appendixD.html"><a href="appendixD.html#createRunsFilter"><i class="fa fa-check"></i><b>10.4</b> createRunsFilter</a><ul>
 <li class="chapter" data-level="10.4.1" data-path="appendixD.html"><a href="appendixD.html#description-17"><i class="fa fa-check"></i><b>10.4.1</b> Description</a></li>
-<li class="chapter" data-level="10.4.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-14"><i class="fa fa-check"></i><b>10.4.2</b> Dependencies</a></li>
+<li class="chapter" data-level="10.4.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-17"><i class="fa fa-check"></i><b>10.4.2</b> Dependencies</a></li>
 <li class="chapter" data-level="10.4.3" data-path="appendixD.html"><a href="appendixD.html#example-17"><i class="fa fa-check"></i><b>10.4.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="10.5" data-path="appendixD.html"><a href="appendixD.html#getRunsFilters"><i class="fa fa-check"></i><b>10.5</b> getRunsFilters</a><ul>
 <li class="chapter" data-level="10.5.1" data-path="appendixD.html"><a href="appendixD.html#description-18"><i class="fa fa-check"></i><b>10.5.1</b> Description</a></li>
-<li class="chapter" data-level="10.5.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-15"><i class="fa fa-check"></i><b>10.5.2</b> Dependencies</a></li>
+<li class="chapter" data-level="10.5.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-18"><i class="fa fa-check"></i><b>10.5.2</b> Dependencies</a></li>
 <li class="chapter" data-level="10.5.3" data-path="appendixD.html"><a href="appendixD.html#example-18"><i class="fa fa-check"></i><b>10.5.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="10.6" data-path="appendixD.html"><a href="appendixD.html#writeRunsFilter"><i class="fa fa-check"></i><b>10.6</b> writeRunsFilter</a><ul>
 <li class="chapter" data-level="10.6.1" data-path="appendixD.html"><a href="appendixD.html#description-19"><i class="fa fa-check"></i><b>10.6.1</b> Description</a></li>
-<li class="chapter" data-level="10.6.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-16"><i class="fa fa-check"></i><b>10.6.2</b> Dependencies</a></li>
+<li class="chapter" data-level="10.6.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-19"><i class="fa fa-check"></i><b>10.6.2</b> Dependencies</a></li>
 <li class="chapter" data-level="10.6.3" data-path="appendixD.html"><a href="appendixD.html#examples"><i class="fa fa-check"></i><b>10.6.3</b> Examples</a></li>
 </ul></li>
 </ul></li>
@@ -305,18 +372,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">1</span> Introduction</h1>
 <p><img src="images/Motus-System-IG-final.png" width="2250" /></p>
 <p><br></p>
-<p>The Motus Wildlife Tracking System (‘Motus’; Taylor et al. 2017; <a href="https://www.motus.org" class="uri">https://www.motus.org</a>) is an international, collaborative automated radio-telemetry network to track the movement and behaviour of flying organisms affixed with digitally encoded radio-transmitters. Motus was developed at Acadia University in 2012-2013. In 2014, a major infrastructure expansion was made possible through a Canada Foundation for Innovation grant to Western University, The University of Guelph, and Acadia University. Since then, Motus has grown through the collaboration of independent researchers and organizations <a href="https://motus.org/about/" class="uri">https://motus.org/about/</a>. It is now managed as a program of Bird Studies Canada (<a href="https://www.birdscanada.org" class="uri">https://www.birdscanada.org</a>) in partnership with Acadia University.</p>
+<p>The Motus Wildlife Tracking System (‘Motus’; Taylor et al. 2017; <a href="https://www.motus.org" class="uri">https://www.motus.org</a>) is an international, collaborative automated radio-telemetry network to track the movement and behaviour of flying organisms affixed with digitally encoded radio-transmitters. Motus was developed at Acadia University in 2012-2013. In 2014, a major infrastructure expansion was made possible through a Canada Foundation for Innovation grant to Western University, The University of Guelph, and Acadia University. Since then, Motus has grown through the collaboration of independent researchers and organizations (see <a href="https://motus.org/about/" class="uri">https://motus.org/about/</a>). It is now managed as a program of Bird Studies Canada (<a href="https://www.birdscanada.org" class="uri">https://www.birdscanada.org</a>) in partnership with Acadia University.</p>
 <p>Motus is unique among automated telemetry arrays in that all researchers in a geographic region (e.g., the Americas or Europe) use a shared radio frequency. This allows tagged animals to be detected by any receiving station across the network, greatly broadening the spatial scope of potential research questions. Motus users also use a shared data infrastructure and web portal: all data collected from across the network are centrally stored and archived, which allows users to access detections of their tags by anyone’s receiver in the network, and individuals that maintain receivers have access to all detections of anyone’s tags on those receivers.</p>
 <p>Having a shared data infrastructure also means that users can benefit from R functions written specifically for Motus data by any and all users. The Motus R package described in this book is in continual development, and the intent of this online ‘handbook’ is to help users learn the various functionalities of the package, and potentially contribute to it. We also show how additional R packages such as ggplot can be used to explore, visualize, transform, and analyze Motus data.</p>
 <p>The content of the handbook will continue to evolve and grow along with the analytical needs of the network. Those interested in contributing code to the Motus R package or this handbook can send proposed additions to <a href="mailto:motus@birdscanada.org">motus@birdscanada.org</a>.</p>
 <p>Taylor, P. D., T. L. Crewe, S. A. Mackenzie, D. Lepage, Y. Aubry, Z. Crysler, G. Finney, C. M. Francis, C. G. Guglielmo, D. J. Hamilton, R. L. Holberton, P. H. Loring, G. W. Mitchell, D. R. Noriis, J. Paquet, R. A. Ronconi, J. Smetzer, P. A. Smith, L. J. Welch, and B. K. Woodworth. 2017. The Motus Wildlife Tracking System: a collaborative research network to enhance the understanding of wildlife movement. Avian Conservation and Ecology 12(1):8. <a href="https://doi.org/10.5751/ACE-00953-120108" class="uri">https://doi.org/10.5751/ACE-00953-120108</a>.</p>
 <div id="whatBookCovers" class="section level2">
 <h2><span class="header-section-number">1.1</span> What this book does not cover</h2>
-<p>This book does not cover how to register radio tags with Motus, manage tags and station deployments, or upload raw detections data for processing. Information to guide you through those tasks can be found under the ‘resources’ tab on the Motus website at <a href="https://motus.org/resources/" class="uri">https://motus.org/resources/</a>. Please remember to register your tags <strong>prior to deployment</strong>, and enter tag and station metadata online in a timely manner. Please also see <a href="https://motus.org/policy/" class="uri">https://motus.org/policy/</a> to review the Motus collaboration policy and tag registration and fee schedule.</p>
+<p>This book does not cover how to register radio tags with Motus, manage tags and station deployments, or upload raw detections data for processing. Information to guide you through those tasks can be found under the ‘resources’ tab on the Motus website at <a href="https://motus.org/resources/" class="uri">https://motus.org/resources/</a>. Please remember to register your tags <strong>prior to deployment</strong>, and enter tag and station metadata online in a timely manner. Please also review the Motus collaboration policy and tag registration and fee schedule at <a href="https://motus.org/policy/" class="uri">https://motus.org/policy/</a>.</p>
 </div>
 <div id="prerequisites" class="section level2">
 <h2><span class="header-section-number">1.2</span> Prerequisites</h2>
-<p>This book assumes that you have a basic understanding of R. Regardless of whether you are new to R or not, we highly recommend that you become familiar with ‘R for Data Science’ by Garrett Grolemund and Hadley Wickham (<a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>). Their book covers how to import, visualize, and summarize data in R using the tidyverse collection of R packages <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>. It also provides an invaluable framework for organizing your workflow to create clean, reproducible code (<a href="http://r4ds.had.co.nz/workflow-projects.html" class="uri">http://r4ds.had.co.nz/workflow-projects.html</a>). We follow their lead by, wherever possible, using the tidyverse framework throughout this book.</p>
+<p>This book assumes that you have a basic understanding of R. Regardless of whether you are new to R or not, we highly recommend that you become familiar with ‘R for Data Science’ by Garrett Grolemund and Hadley Wickham (<a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>). Their book covers how to import, visualize, and summarize data in R using the tidyverse collection of R packages (<a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>). It also provides an invaluable framework for organizing your workflow to create clean, reproducible code (<a href="http://r4ds.had.co.nz/workflow-projects.html" class="uri">http://r4ds.had.co.nz/workflow-projects.html</a>). We follow their lead by, wherever possible, using the tidyverse framework throughout this book.</p>
 </div>
 <div id="sampleData" class="section level2">
 <h2><span class="header-section-number">1.3</span> Sample dataset</h2>
