@@ -288,7 +288,7 @@ p <- ggplot(filter(df.alltags.sub, motusTagID == 16039,
 p + theme_bw() + 
   geom_point() + 
   xlab("Time of day") + ylab("Signal strength") +
-  scale_color_discrete(name = "Antenna bearing")
+  scale_color_discrete(name = "Antenna bearing") +
   facet_grid(recvDeployName~.)
 ```
 
@@ -341,7 +341,7 @@ Mapping with Google Maps can be a fast way to view flight paths and allows you t
 
 The first step is to create a map with a specified map centre, maptype ("terrain", "roadmap", "satellite", or "hybrid"), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale).  We then add points for receivers and lines connecting consecutive detections by motusTagID. We can also add points for all receivers that were active during a certain time period if we have already downloaded all metadata.
 
-```{r googleMap, warning = FALSE, fig.width=10, fig.height=10}
+```{r googleMap, warning = FALSE, message = FALSE, fig.width=10, fig.height=10}
 
 gmap <-  get_map(location = c(lon = -75, lat = 40), # lon/lat to centre map over
                  maptype = "satellite", # select maptype
@@ -399,48 +399,28 @@ p + geom_point(data = subset(df.recvDeps, active == TRUE), ggplot2::aes(longitud
 
 We load the base maps.
 
-```{r loadMaps.6, message = FALSE, warning = FALSE, echo = FALSE}
-
-# get the lake data; adjust longitude
-na.lakes <- fortify(maps::map(map="lakes", region=".", exact = FALSE, plot = FALSE, fill = TRUE)) %>% 
-  mutate(long = long - 360)
-
-# Include all of the Americas to begin
-regions <- c("Canada", "USA", "Mexico", "lakes", "Belize", "Costa Rica", "Panama", 
-             "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", 
-             "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", 
-             "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", 
-             "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", 
-             "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", 
-             "Chile", "Argentina", "Uruguay", "Paraguay")
-
-na.map <- fortify(maps::map(map="world2", region=regions, exact = FALSE, plot = FALSE, fill = TRUE)) %>% 
-  mutate(long = long - 360)
-
-```
-
-```{r loadMaps.6bDUP, eval = FALSE}
+```{r loadMaps.6b, eval = FALSE}
 
 na.lakes <- map_data(map = "lakes")
-na.lakes$long <- with(na.lakes, long- 360)
+na.lakes <- na.lakes %>% mutate(long = long- 360)
 
 # Include all of the Americas to begin
-na.map <- filter(map_data(map="world2"), 
-                 region %in% c("Canada", "USA", "Mexico", "lakes", "Belize", "Costa Rica", "Panama", "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French #Guiana", "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", "Puerto Rico", "British #Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay", "Paraguay")
-                               
-na.map <- mutate(na.map, long = long- 360)
+na.map <- map_data(map = "world2")
+na.map <- na.map %>%
+  filter(region %in% c("Canada", "USA")) %>%
+           mutate(long = long- 360)
 
 ```
 
 Then, to map the paths, we set the x-axis and y-axis limits based on the location of receivers with detections. Depending on your data, these might need to be modified to encompass the deployment location of the tags, if tags were not deployed near towers with detections. We then use ggplot to plot the map and tag paths. Here we use the Mercator projection and are colouring the paths by motusTagID, including a point for where the tag was deployed:
 
-```{r mapDetections}
+```{r mapDetections, eval = FALSE}
 
 # set limits to map based on locations of detections, ensuring they include the deployment locations
 xmin <- min(df.tmp$recvLon, na.rm = TRUE) - 2
 xmax <- max(df.tmp$recvLon, na.rm = TRUE) + 2
-ymin <- min(df.tmp$recvLat, na.rm = TRUE) - 2
-ymax <- max(df.tmp$recvLat, na.rm = TRUE) + 2
+ymin <- min(df.tmp$recvLat, na.rm = TRUE) - 1
+ymax <- max(df.tmp$recvLat, na.rm = TRUE) + 1
                 
 # map
 ggplot(na.lakes, aes(long, lat))+ 
@@ -454,8 +434,10 @@ ggplot(na.lakes, aes(long, lat))+
   geom_point(data = df.tmp, 
              aes(tagDeployLon, tagDeployLat), colour = "black", shape = 4) +
   scale_colour_discrete("motusTagID") 
+```
 
-
+```{r fig6.1, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/mapDetections.png")
 ```
 
 The functions above provide examples for you how can begin exploring your data and are by no means exhaustive. The next chapter will cover some common errors and troubleshooting you may encounter while trying to download and use the .motus sql files.

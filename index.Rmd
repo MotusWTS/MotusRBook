@@ -1,7 +1,7 @@
 ---
 title: "Motus R Book"
 author: "Tara L. Crewe, Zoe Crysler, and Philip Taylor"
-date: "`r Sys.Date()`"
+#date: "`r Sys.Date()`"
 output: bookdown::gitbook
 documentclass: book
 site: bookdown::bookdown_site

@@ -25,7 +25,6 @@
 <meta name="author" content="Tara L. Crewe, Zoe Crysler, and Philip Taylor">
 
 
-<meta name="date" content="2018-02-02">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -147,7 +146,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.4.2" data-path="deployments.html"><a href="deployments.html#number-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.2</b> Number of project receiver deployments</a></li>
 <li class="chapter" data-level="4.4.3" data-path="deployments.html"><a href="deployments.html#timing-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.3</b> Timing of project receiver deployments</a></li>
 <li class="chapter" data-level="4.4.4" data-path="deployments.html"><a href="deployments.html#location-of-receiver-deployments"><i class="fa fa-check"></i><b>4.4.4</b> Location of receiver deployments</a></li>
-<li class="chapter" data-level="4.4.5" data-path="deployments.html"><a href="deployments.html#completeness-and-accuracy-of-receiver-metadata"><i class="fa fa-check"></i><b>4.4.5</b> Completeness and accuracy of receiver metadata</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="dataCleaning.html"><a href="dataCleaning.html"><i class="fa fa-check"></i><b>5</b> Data Cleaning</a><ul>
@@ -562,30 +560,9 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</s
     ts <span class="op">&gt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-09-14&quot;</span>), ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-10-01&quot;</span>)), 
     <span class="kw">aes</span>(ts, sig, <span class="dt">col =</span> <span class="kw">as.factor</span>(antBearing)))
 p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Time of day&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Antenna bearing&quot;</span>)</code></pre></div>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Antenna bearing&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">facet_grid</span>(recvDeployName <span class="op">~</span><span class="st"> </span>.)</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plot2-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">facet_grid</span>(recvDeployName <span class="op">~</span><span class="st"> </span>.)</code></pre></div>
-<pre><code>## &lt;ggproto object: Class FacetGrid, Facet&gt;
-##     compute_layout: function
-##     draw_back: function
-##     draw_front: function
-##     draw_labels: function
-##     draw_panels: function
-##     finish_data: function
-##     init_scales: function
-##     map: function
-##     map_data: function
-##     params: list
-##     render_back: function
-##     render_front: function
-##     render_panels: function
-##     setup_data: function
-##     setup_params: function
-##     shrink: TRUE
-##     train: function
-##     train_positions: function
-##     train_scales: function
-##     super:  &lt;ggproto object: Class FacetGrid, Facet&gt;</code></pre>
 <p>This plot shows the typical flyby pattern of a migrating animal, with signal strength increasing and then decreasing as the tag moves through the beams of the antennas.</p>
 </div>
 <div id="mappingData" class="section level2">
@@ -625,9 +602,9 @@ df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gmap &lt;-<span class="st">  </span><span class="kw">get_map</span>(<span class="dt">location =</span> <span class="kw">c</span>(<span class="dt">lon =</span> <span class="op">-</span><span class="dv">75</span>, <span class="dt">lat =</span> <span class="dv">40</span>), <span class="co"># lon/lat to centre map over</span>
                  <span class="dt">maptype =</span> <span class="st">&quot;satellite&quot;</span>, <span class="co"># select maptype</span>
                  <span class="dt">source =</span> <span class="st">&quot;google&quot;</span>,
-                 <span class="dt">zoom =</span> <span class="dv">4</span>) <span class="co"># zoom, must be a whole number</span></code></pre></div>
-<pre><code>## Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=40,-75&amp;zoom=4&amp;size=640x640&amp;scale=2&amp;maptype=satellite&amp;language=en-EN&amp;sensor=false</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># just use the tags that we have examined carefully and filtered (in the previous chapter)</span>
+                 <span class="dt">zoom =</span> <span class="dv">4</span>) <span class="co"># zoom, must be a whole number</span>
+
+<span class="co"># just use the tags that we have examined carefully and filtered (in the previous chapter)</span>
 df.tmp &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.path, 
                            motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16011</span>, <span class="dv">16035</span>, <span class="dv">16036</span>, <span class="dv">16037</span>, <span class="dv">16038</span>, <span class="dv">16039</span>))
 df.tmp &lt;-<span class="st"> </span><span class="kw">arrange</span>(df.tmp, ts.h) <span class="co"># arange by hour</span>
@@ -685,21 +662,20 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
 <h3><span class="header-section-number">6.5.2</span> Creating simple outline maps</h3>
 <p>We load the base maps.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">na.lakes &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="dt">map =</span> <span class="st">&quot;lakes&quot;</span>)
-na.lakes<span class="op">$</span>long &lt;-<span class="st"> </span><span class="kw">with</span>(na.lakes, long<span class="op">-</span><span class="st"> </span><span class="dv">360</span>)
+na.lakes &lt;-<span class="st"> </span>na.lakes <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">long =</span> long <span class="op">-</span><span class="st"> </span><span class="dv">360</span>)
 
 <span class="co"># Include all of the Americas to begin</span>
-na.map &lt;-<span class="st"> </span><span class="kw">filter</span>(<span class="kw">map_data</span>(<span class="dt">map=</span><span class="st">&quot;world2&quot;</span>), 
-                 region <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;USA&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;lakes&quot;</span>, <span class="st">&quot;Belize&quot;</span>, <span class="st">&quot;Costa Rica&quot;</span>, <span class="st">&quot;Panama&quot;</span>, <span class="st">&quot;Guatemala&quot;</span>, <span class="st">&quot;Honduras&quot;</span>, <span class="st">&quot;Nicaragua&quot;</span>, <span class="st">&quot;El Salvador&quot;</span>, <span class="st">&quot;Colombia&quot;</span>, <span class="st">&quot;Venezuela&quot;</span>, <span class="st">&quot;Ecuador&quot;</span>, <span class="st">&quot;Peru&quot;</span>, <span class="st">&quot;Brazil&quot;</span>, <span class="st">&quot;Guyana&quot;</span>,<span class="st">&quot;Suriname&quot;</span>, <span class="st">&quot;Bolivia&quot;</span>, <span class="st">&quot;French #Guiana&quot;</span>, <span class="st">&quot;Jamaica&quot;</span>, <span class="st">&quot;Cuba&quot;</span>, <span class="st">&quot;Haiti&quot;</span>, <span class="st">&quot;Dominican Republic&quot;</span>, <span class="st">&quot;The Bahamas&quot;</span>, <span class="st">&quot;Turks and Caicos Islands&quot;</span>, <span class="st">&quot;Puerto Rico&quot;</span>, <span class="st">&quot;British #Virgin Islands&quot;</span>, <span class="st">&quot;Montserrat&quot;</span>, <span class="st">&quot;Dominica&quot;</span>, <span class="st">&quot;Saint Lucia&quot;</span>, <span class="st">&quot;Barbados&quot;</span>, <span class="st">&quot;Grenada&quot;</span>, <span class="st">&quot;Trinidad and Tobago&quot;</span>, <span class="st">&quot;Chile&quot;</span>, <span class="st">&quot;Argentina&quot;</span>, <span class="st">&quot;Uruguay&quot;</span>, <span class="st">&quot;Paraguay&quot;</span>)
-                               
-na.map &lt;-<span class="st"> </span><span class="kw">mutate</span>(na.map, <span class="dt">long =</span> long<span class="op">-</span><span class="st"> </span><span class="dv">360</span>)</code></pre></div>
+na.map &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="dt">map =</span> <span class="st">&quot;world2&quot;</span>)
+na.map &lt;-<span class="st"> </span>na.map <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(region <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, 
+    <span class="st">&quot;USA&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">long =</span> long <span class="op">-</span><span class="st"> </span><span class="dv">360</span>)</code></pre></div>
 <p>Then, to map the paths, we set the x-axis and y-axis limits based on the location of receivers with detections. Depending on your data, these might need to be modified to encompass the deployment location of the tags, if tags were not deployed near towers with detections. We then use ggplot to plot the map and tag paths. Here we use the Mercator projection and are colouring the paths by motusTagID, including a point for where the tag was deployed:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># set limits to map based on locations of</span>
 <span class="co"># detections, ensuring they include the deployment</span>
 <span class="co"># locations</span>
 xmin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tmp<span class="op">$</span>recvLon, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">2</span>
 xmax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class="op">$</span>recvLon, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">2</span>
-ymin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">2</span>
-ymax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">2</span>
+ymin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
+ymax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
 
 <span class="co"># map</span>
 <span class="kw">ggplot</span>(na.lakes, <span class="kw">aes</span>(long, lat)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> na.map, 
@@ -712,7 +688,7 @@ ymax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class
         <span class="dt">colour =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, 
     <span class="kw">aes</span>(tagDeployLon, tagDeployLat), <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, 
     <span class="dt">shape =</span> <span class="dv">4</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_colour_discrete</span>(<span class="st">&quot;motusTagID&quot;</span>)</code></pre></div>
-<p><img src="MotusRBook_files/figure-html/mapDetections-1.png" width="672" /></p>
+<p><img src="images/mapDetections.png" width="1650" style="display: block; margin: auto;" /></p>
 <p>The functions above provide examples for you how can begin exploring your data and are by no means exhaustive. The next chapter will cover some common errors and troubleshooting you may encounter while trying to download and use the .motus sql files.</p>
 
 </div>

@@ -94,7 +94,7 @@ Plot latitude/longitude vs time (UTC rounded to the hour) for each tag using .mo
 
 ### Example
 Plot tags select tags from tbl.alltags with 3 tags per panel
-```{r plotAllTagsCoord, eval = TRUE}
+```{r plotAllTagsCoord, eval = TRUE, message = FALSE, warning = FALSE}
 
 plotAllTagsCoord(
   filter(tbl.alltags, motusTagID %in% c(19129, 16011, 17357, 16035, 22897, 23316)), 

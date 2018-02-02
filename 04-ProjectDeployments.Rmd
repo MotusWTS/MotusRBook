@@ -36,7 +36,7 @@ This chapter assumes that the .motus file has already been downloaded, if you ha
 
 proj.num <- 176
 
-sql.motus <- tagme(176, update = TRUE, dir = "./data")
+sql.motus <- tagme(proj.num, update = TRUE, dir = "./data")
 
 ```
 
@@ -58,7 +58,7 @@ Incomplete metadata or missing tag registrations can result in missing detection
 
 ```{r metadata176, eval = FALSE}
 
-metadata(sql.motus, projectIDs = 176)
+metadata(sql.motus, projectIDs = proj.num)
 
 ```
 
@@ -118,36 +118,14 @@ Creating a map of your tag deployments can point out any obvious errors in the t
 
 Load base map files from the rworldmap package:
 
-```{r loadMapsRecv1, message = FALSE, warning = FALSE, echo = FALSE}
-
-# get the lake data; adjust longitude
-na.lakes <- fortify(maps::map(map="lakes", region=".", exact = FALSE, plot = FALSE, fill = TRUE)) %>% 
-  mutate(long = long - 360)
-
-# get the country data; adjust longitude
-na.map <- fortify(maps::map(map="world2", region=c("Canada","USA"), exact = FALSE, plot = FALSE, fill = TRUE)) %>% 
-  mutate(long = long - 360)
-                
-# Others countries in the Americas that you may want to plot, 
-# depending on your location: "Mexico", "lakes","Belize", 
-# "Costa Rica", "Panama", "Guatemala", "Honduras", "Nicaragua", 
-# "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", 
-# "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", 
-# "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", 
-# "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", 
-# "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", 
-# "Trinidad and Tobago", "Chile", "Argentina", "Uruguay"
-
-```
-
 ```{r loadMapsRecv1DUP, eval = FALSE}
 
 na.lakes <- map_data(map = "lakes")
-na.lakes$long <- with(na.lakes, long- 360)
+na.lakes <- mutate(na.lakes, long = long- 360)
 
 # Include all of the Americas to begin
-na.map <- filter(map_data(map="world2"), 
-                 region %in% c("Canada", "USA")
+na.map <- map_data(map = "world2")
+na.map <- filter(na.map, region %in% c("Canada", "USA"))
                                
 na.map <- mutate(na.map, long = long- 360)
                 
@@ -159,7 +137,7 @@ na.map <- mutate(na.map, long = long- 360)
 
 Map the location of tag deployments for the sample data: 
 
-```{r mapRecvs1}
+```{r mapRecvs1, eval = FALSE, message = FALSE, warning = FALSE}
 
 # set limits to map based on locations of detections, ensuring they include the deployment locations
 xmin <- -100 #min(df.tagDeps$longitude, na.rm = TRUE) - 5
@@ -181,8 +159,13 @@ ggplot(na.lakes, aes(long, lat)) +
   theme_bw() + 
   geom_point(data = filter(df.tagDeps, projectID == 176), 
              aes(longitude, latitude), cex = 2, pch = 1, colour = "red")
-   
+
 ```
+
+```{r fig4.1, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/mapRecvs1.png")
+```
+
 If there are any errors in tag deployment location, please correct these online at <https://motus.org/data/>.
 
 ### Check completeness and accuracy of tag deployment metadata
@@ -353,34 +336,33 @@ df.recvDeps <- tbl.recvDeps %>%
 
 **b. Load base map files**
 
-```{r loadMapsRecv2, message = FALSE, warning = FALSE}
+```{r loadMapsRecv2, eval = FALSE, message = FALSE, warning = FALSE}
 
-na.lakes <- fortify(maps::map(map="lakes", region=".", exact = FALSE, plot = FALSE, fill = TRUE)) %>% 
-  mutate(long = long - 360)
+na.lakes <- map_data(map = "lakes")
+na.lakes <- mutate(na.lakes, long = long- 360)
 
 # Include all of the Americas to begin
-regions <- c("Canada", "USA", "Mexico", "lakes", "Belize", "Costa Rica", "Panama", 
+na.map <- map_data(map = "world2")
+na.map <- filter(na.map, region %in% c("Canada", "USA", "Mexico", "lakes", "Belize", "Costa Rica", "Panama", 
              "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", 
              "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", 
              "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", 
              "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", 
              "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", 
-             "Chile", "Argentina", "Uruguay", "Paraguay")
-
-na.map <- fortify(maps::map(map="world2", region=regions, exact = FALSE, plot = FALSE, fill = TRUE)) %>% 
-  mutate(long = long - 360)
-
+             "Chile", "Argentina", "Uruguay", "Paraguay")) %>%
+  mutate(long = long- 360)
+                
 ```
 **c. Map the location of receivers in the Americas**
 Map showing the location of network-wide receivers (dark grey 'x') and receivers deployed by the James Bay Shorebird Project (project 176; red 'x').
 
-```{r mapRecvs2, message = FALSE, warning = FALSE}
+```{r mapRecvs2, eval = FALSE, message = FALSE, warning = FALSE}
 
 # set map limits using detection locations; 
 # ensure they include the deployment locations
 xmin <- min(df.recvDeps$longitude, na.rm = TRUE) - 2
 xmax <- -20 # restrict to the Americas (excluding a few points in Europe)
-ymin <- min(df.recvDeps$longitude, na.rm = TRUE) - 2
+ymin <- -60 #min(df.recvDeps$longitude, na.rm = TRUE) - 2
 ymax <- max(df.recvDeps$latitude, na.rm = TRUE) + 2
                 
 # map
@@ -393,15 +375,18 @@ ggplot(na.lakes, aes(long, lat))+
   geom_point(data = df.recvDeps, aes(longitude, latitude, colour = as.logical(projectID == 176)), 
              cex = 0.8, pch = 4)+
   scale_colour_manual(values = c("grey30", "red"), name = "Project 176 Deployment") 
-  
 
+```  
+
+```{r fig4.2, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/mapRecvs2.png")
 ```
 
 **d. Map the location of project specific receivers only**
 
 Map of project-specific receivers, created by setting the x-axis (longitude) and y-axis (latitude) map limits using the 'df.projRecvs' dataframe created above. Deployments are restricted to those that were active at in 2016.
 
-```{r mapProjRecvs, message = FALSE, warning = FALSE}
+```{r mapProjRecvs, eval = FALSE, message = FALSE, warning = FALSE}
 
 # set map limits using detection locations;
 # ensure they include the deployment locations
@@ -426,6 +411,9 @@ ggplot(na.lakes, aes(long, lat))+
 
 ```
 
+```{r fig4.3, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/mapProjRecvs.png")
+```
 ### Completeness and accuracy of receiver metadata
 
 Motus users will be concerned primarily with the completeness of metadata for receiver deployments with detection(s) of their tags, because these can directly influence the interpretation of those detections. For example, missing deployment latitude or longitude will result in an unknown location for the tag detection, and missing information on antenna type and/or orientation can impede the estimation of flight or departure orientation. 
