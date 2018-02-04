@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -385,7 +385,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> rl.gt.<span class="dv">2</span>, <span class="dt">value=</span>n)</code></pre></div>
 <pre><code>## # A tibble: 18 x 3
-## # Groups: motusTagID [18]
+## # Groups:   motusTagID [18]
 ##    motusTagID `FALSE` `TRUE`
 ##  *      &lt;int&gt;   &lt;int&gt;  &lt;int&gt;
 ##  1      16011     125      2
@@ -459,7 +459,7 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
     <span class="kw">month</span>(ts), runLen) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">length</span>(ts), 
     <span class="dt">n.tags =</span> <span class="kw">length</span>(<span class="kw">unique</span>(motusTagID)))</code></pre></div>
 <pre><code>## # A tibble: 2 x 5
-## # Groups: recvDeployName, month(ts) [?]
+## # Groups:   recvDeployName, month(ts) [?]
 ##   recvDeployName     `month(ts)` runLen     n n.tags
 ##   &lt;chr&gt;                    &lt;dbl&gt;  &lt;int&gt; &lt;int&gt;  &lt;int&gt;
 ## 1 Sable West Light 2        1.00      3     3      1
@@ -471,12 +471,12 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
     month) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">max.rl =</span> <span class="kw">max</span>(runLen)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">spread</span>(<span class="dt">key =</span> month, <span class="dt">value =</span> max.rl)</code></pre></div>
 <pre><code>## # A tibble: 49 x 9
-## # Groups: recvDeployName [49]
+## # Groups:   recvDeployName [49]
 ##    recvDeployName            `1`   `3`   `4`   `5`   `8`   `9`  `10`  `12`
 ##  * &lt;chr&gt;                   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ##  1 Assateague State Park      NA    NA    NA NA       NA  6.00 NA       NA
 ##  2 BennettMeadow              NA    NA    NA NA       NA NA    11.0     NA
-##  3 Binbrook_Conservation_~    NA    NA    NA  3.00    NA NA    NA       NA
+##  3 Binbrook_Conservation_…    NA    NA    NA  3.00    NA NA    NA       NA
 ##  4 BISE                       NA    NA    NA NA       NA NA     6.00    NA
 ##  5 Bombay Hook                NA    NA    NA NA       NA 53.0  NA       NA
 ##  6 Brier2                     NA    NA    NA NA       NA 29.0  NA       NA
@@ -490,7 +490,7 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
     month) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">max.rl =</span> <span class="kw">max</span>(runLen)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">filter</span>(max.rl <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>(<span class="dt">key =</span> month, <span class="dt">value =</span> max.rl)</code></pre></div>
 <pre><code>## # A tibble: 12 x 8
-## # Groups: recvDeployName [12]
+## # Groups:   recvDeployName [12]
 ##    recvDeployName               `1`   `3`   `4`   `5`   `9`  `10`  `12`
 ##  * &lt;chr&gt;                      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ##  1 Binbrook_Conservation_Area NA    NA    NA     3.00 NA    NA    NA   
@@ -599,11 +599,12 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
     tagDeployStart, tagDeployEnd, tagDeployLat, tagDeployLon) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">tally</span>()</code></pre></div>
 <pre><code>## # A tibble: 2 x 6
-## # Groups: motusTagID, tagDeployStart, tagDeployEnd, tagDeployLat [?]
-##   motusTagID tagDeployStart      tagDeployEnd        tagDep~ tagDep~     n
-##        &lt;int&gt; &lt;dttm&gt;              &lt;dttm&gt;                &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
-## 1      10811 2014-10-28 07:00:00 2015-08-03 07:00:00    39.1   -74.7     4
-## 2      16011 2015-08-02 11:39:59 2015-12-17 11:39:59    51.5   -80.4     4</code></pre>
+## # Groups:   motusTagID, tagDeployStart, tagDeployEnd, tagDeployLat [?]
+##   motusTagID tagDeployStart      tagDeployEnd        tagDeployLat
+##        &lt;int&gt; &lt;dttm&gt;              &lt;dttm&gt;                     &lt;dbl&gt;
+## 1      10811 2014-10-28 07:00:00 2015-08-03 07:00:00         39.1
+## 2      16011 2015-08-02 11:39:59 2015-12-17 11:39:59         51.5
+## # ... with 2 more variables: tagDeployLon &lt;dbl&gt;, n &lt;int&gt;</code></pre>
 <p>We can see from the plot that ambiguous tag -337 is ambiguous only at the beginning of the deployment.</p>
 <p>We can see from the summary of the tag deployment data that there were only 4 detections, at the exact latitude of deployment of tag 16011, and just before the non-ambiguous detections of motusTagID 16011. So the issue here is simply that the tail end of the deployment of tag 10811 slightly overlaps with the deployment of tag 16011. We can confidently claim these detections as belonging to motusTagID 16011, and remove the ambiguous detections assigned to the other tag.</p>
 <p>We’ll create another data frame to keep track of these runs.</p>
@@ -618,14 +619,16 @@ df.block.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw
     tagDeployStart, tagDeployEnd, tagDeployLat, tagDeployLon, 
     <span class="kw">month</span>(ts)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tally</span>()</code></pre></div>
 <pre><code>## # A tibble: 4 x 7
-## # Groups: motusTagID, tagDeployStart, tagDeployEnd, tagDeployLat,
+## # Groups:   motusTagID, tagDeployStart, tagDeployEnd, tagDeployLat,
 ## #   tagDeployLon [?]
-##   motus~ tagDeployStart      tagDeployEnd        tagDe~ tagDe~ `mon~     n
-##    &lt;int&gt; &lt;dttm&gt;              &lt;dttm&gt;               &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
-## 1  22905 2016-10-01 16:00:00 2017-06-12 16:00:00   50.2  -63.7  4.00     6
-## 2  22905 2016-10-01 16:00:00 2017-06-12 16:00:00   50.2  -63.7 10.0  22465
-## 3  23319 2016-10-15 16:00:00 2017-06-26 16:00:00   50.2  -63.7  4.00     6
-## 4  23319 2016-10-15 16:00:00 2017-06-26 16:00:00   50.2  -63.7 10.0  22465</code></pre>
+##   motusTagID tagDeployStart      tagDeployEnd        tagDeployLat
+##        &lt;int&gt; &lt;dttm&gt;              &lt;dttm&gt;                     &lt;dbl&gt;
+## 1      22905 2016-10-01 16:00:00 2017-06-12 16:00:00         50.2
+## 2      22905 2016-10-01 16:00:00 2017-06-12 16:00:00         50.2
+## 3      23319 2016-10-15 16:00:00 2017-06-26 16:00:00         50.2
+## 4      23319 2016-10-15 16:00:00 2017-06-26 16:00:00         50.2
+## # ... with 3 more variables: tagDeployLon &lt;dbl&gt;, `month(ts)` &lt;dbl&gt;,
+## #   n &lt;int&gt;</code></pre>
 <p>Here we have a similar situation, but one that is a bit more complex. Two identical tags were deployed at the same location, shortly after one another. Let’s examine a simple plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">22905</span>, <span class="dv">23319</span>), 
     <span class="kw">month</span>(ts) <span class="op">==</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(ts, sig, <span class="dt">group =</span> recvDeployName, 
@@ -640,7 +643,7 @@ df.block.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw
     recvDeployName) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(runLen, recvDeployName) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">tally</span>()</code></pre></div>
 <pre><code>## # A tibble: 2 x 3
-## # Groups: runLen [?]
+## # Groups:   runLen [?]
 ##   runLen recvDeployName     n
 ##    &lt;int&gt; &lt;chr&gt;          &lt;int&gt;
 ## 1      2 Koffler          110
@@ -738,9 +741,9 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
 <span class="st">  </span><span class="kw">select</span>(<span class="dt">start=</span>recvDeployName.x, <span class="dt">end=</span>recvDeployName.y, <span class="dt">date=</span>ts.x, <span class="st">&quot;rate(m/s)&quot;</span> =<span class="st"> </span>rate, 
          dist, <span class="dt">total.time =</span> total.time, bearing)</code></pre></div>
 <pre><code>## # A tibble: 1 x 7
-##   start     end   date                `rate(m/s)`    dist total.time bear~
-##   &lt;chr&gt;     &lt;chr&gt; &lt;dttm&gt;                    &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
-## 1 Netitishi MDR   2015-09-02 04:18:42        17.1 1211567      70879   128</code></pre>
+##   start    end   date                `rate(m/s)`   dist total.time bearing
+##   &lt;chr&gt;    &lt;chr&gt; &lt;dttm&gt;                    &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Netitis… MDR   2015-09-02 04:18:42        17.1 1.21e⁶      70879     128</code></pre>
 <p>These detections are &gt;1200 km distant from one another, but the flight speed (17 m/s) is consistent with a white-rumped Sandpiper. Given that the Gray-cheeked Thrush tag was near the end of its expected lifetime, we can reasonably claim these detections for our project, and remove the ambiguous detections associated with motusTagID 17021.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.block.<span class="dv">6</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">106</span>, 
     motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">17021</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -785,10 +788,10 @@ df.<span class="fl">56.</span>tmp &lt;-<span class="st"> </span><span class="kw"
          <span class="dt">date=</span>ts.x, <span class="st">&quot;rate(m/s)&quot;</span> =<span class="st"> </span>rate, 
          dist, <span class="dt">total.time =</span> total.time, bearing)</code></pre></div>
 <pre><code>## # A tibble: 2 x 7
-##   start      end        date                `rate(m/s)`   dist tota~ bear~
-##   &lt;chr&gt;      &lt;chr&gt;      &lt;dttm&gt;                    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 Piskwamish Washkaugou 2016-10-09 22:49:59        20.3 7.63e4  3767   137
-## 2 Washkaugou SHNJ       2016-10-10 00:00:42        24.3 1.27e6 52386   157</code></pre>
+##   start   end    date                `rate(m/s)`   dist total.time bearing
+##   &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;                    &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Piskwa… Washk… 2016-10-09 22:49:59        20.3 7.63e⁴       3767     137
+## 2 Washka… SHNJ   2016-10-10 00:00:42        24.3 1.27e⁶      52386     157</code></pre>
 <p>The bird made a 14.5 hour flight between Washkaugou and SHNJ at a rate of 24 m/s, which is plausible. The researchers involved may have other data to support or refute the inference (e.g. an actual sighting of the Red Knot still in Niapiskau after this flight was recorded) but it seems likely that while one tag remained at sites around longitude -65, another tag made the above migratory flights. We can make another more detailed plot of signal strength to examine these potential migratory flights more closely:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.<span class="fl">56.</span>tmp &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">56</span>, 
     recvLon <span class="op">&lt;</span><span class="st"> </span><span class="op">-</span><span class="dv">70</span>)
