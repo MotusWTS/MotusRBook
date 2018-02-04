@@ -70,14 +70,12 @@ When downloading data from the Motus server for the first time, you must specify
 
 Note that the first time you call a function using the Motus R package, you will be asked to enter your motus.org username and password in the R console to authenticate your access to project data. This will only happen once per R session. If you do not have a Motus username and password, you can sign up at <https://motus.org/data/user/new>. Permission to access project data will then be granted by Motus staff or the project principal investigator.
 
-Throughout this book we will use sample data (see section \@ref(sampleData)) which has been assigned to project 176.  When accessing this data you will need to login as follows:
+Throughout this book we will use sample data (see section \@ref(sampleData)) which has been assigned to project 176.  When accessing this data you will need to login using username and password 'motus.sample' in the R console when prompted by the tagme() function. It will look like this:
 
-```{r password, eval = FALSE}
-
-user name: motus.sample
-password: motus.sample
-
+```{r fig3.1, echo=FALSE, fig.align='center'}
+knitr::include_graphics("images/SampleLogin.png")
 ```
+
 
 ### Logging out {#logout}
 
