@@ -138,8 +138,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.3.1" data-path="deployments.html"><a href="deployments.html#download-full-project-tag-metadata"><i class="fa fa-check"></i><b>4.3.1</b> Download full project tag metadata</a></li>
 <li class="chapter" data-level="4.3.2" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags"><i class="fa fa-check"></i><b>4.3.2</b> Number of registered tags</a></li>
 <li class="chapter" data-level="4.3.3" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags-that-were-deployed"><i class="fa fa-check"></i><b>4.3.3</b> Number of registered tags that were deployed</a></li>
-<li class="chapter" data-level="4.3.4" data-path="deployments.html"><a href="deployments.html#location-of-tag-deployments"><i class="fa fa-check"></i><b>4.3.4</b> Location of tag deployments</a></li>
-<li class="chapter" data-level="4.3.5" data-path="deployments.html"><a href="deployments.html#check-completeness-and-accuracy-of-tag-deployment-metadata"><i class="fa fa-check"></i><b>4.3.5</b> Check completeness and accuracy of tag deployment metadata</a></li>
+<li class="chapter" data-level="4.3.4" data-path="deployments.html"><a href="deployments.html#checkNumberTagDeployments"><i class="fa fa-check"></i><b>4.3.4</b> Number of deployments per tag</a></li>
+<li class="chapter" data-level="4.3.5" data-path="deployments.html"><a href="deployments.html#location-of-tag-deployments"><i class="fa fa-check"></i><b>4.3.5</b> Location of tag deployments</a></li>
+<li class="chapter" data-level="4.3.6" data-path="deployments.html"><a href="deployments.html#check-completeness-and-accuracy-of-tag-deployment-metadata"><i class="fa fa-check"></i><b>4.3.6</b> Check completeness and accuracy of tag deployment metadata</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="deployments.html"><a href="deployments.html#recvMetadata"><i class="fa fa-check"></i><b>4.4</b> Check Receiver Metadata</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="deployments.html"><a href="deployments.html#download-full-receiver-metadata"><i class="fa fa-check"></i><b>4.4.1</b> Download full receiver metadata</a></li>
@@ -156,9 +157,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.3.1</b> Summarize tag detections</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#ambigs"><i class="fa fa-check"></i><b>5.4</b> Examining ambiguous detections</a></li>
-<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.5</b> Filtering the data</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.5.1</b> Filter and save to RDS</a></li>
-<li class="chapter" data-level="5.5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.5.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
+<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2"><i class="fa fa-check"></i><b>5.5</b> Checking validity of run lengths of 2</a></li>
+<li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.6</b> Filtering the data</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.6.1</b> Filter and save to RDS</a></li>
+<li class="chapter" data-level="5.6.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.6.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
@@ -377,6 +379,8 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <li><p>An animal with a properly activated tag might not have passed within range of a receiving station. Study designs that incorporate strategic placement of receivers to meet project goals can improve the probability of a tag being detected.</p></li>
 <li><p>Missing or incorrect tag deployment metadata in the Motus database can result in the data processing algorithm not ‘looking’ for your tag at the time the tag was deployed, or at all. Please ensure your tag metadata are entered correctly.</p></li>
 </ol>
+<p>Before going further, <strong>please check whether any of your tags were deployed more than once</strong>, as described in section <a href="deployments.html#checkNumberTagDeployments">4.3.4</a>. If so, you will need to use ‘tagDeployID’ or a combination of ‘motusTagID’ and ‘tagDeployID’ to uniquely define detections associated with a tag deployment (either will do, but combining the two fields will let you know which tagID is associated with each deployment).</p>
+<p>In the sample data, all tags were deployed only once, and so we use the ‘motusTagID’ as a unique identifier for a tag deployment in all R code throughout the book.</p>
 <p>Using the following code, we see there are detections for 18 tags deployed by the sample project, and that many have run lengths of 2 (TRUE):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># subset to include only tags registered to project</span>
@@ -816,10 +820,14 @@ df.block.<span class="dv">8</span> &lt;-<span class="st"> </span><span class="kw
         <span class="st">&quot;Niapiskau&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">distinct</span>()</code></pre></div>
 </div>
+<div id="checking-validity-of-run-lengths-of-2" class="section level2">
+<h2><span class="header-section-number">5.5</span> Checking validity of run lengths of 2</h2>
+<p>At the beginning of this chapter, we dropped all detections with a run length of 2 because they are considered to have a high probability of being false positive. Now that we’ve cleaned the data, and are confident in the detections that remain, you might at this point decide to go back and take a closer look at those detections with a run length of 2. You could do this, for example, by re-running the various plots described in this chapter (begin with lat/lon by time plots), to see if any of those detections make sense in the context of where the true detections lie. It is up to the user to decide which detections are reasonable in terms of the biology and behaviour of each tagged individual.</p>
+</div>
 <div id="filtering-the-data" class="section level2">
-<h2><span class="header-section-number">5.5</span> Filtering the data</h2>
+<h2><span class="header-section-number">5.6</span> Filtering the data</h2>
 <div id="filter-and-save-to-rds" class="section level3">
-<h3><span class="header-section-number">5.5.1</span> Filter and save to RDS</h3>
+<h3><span class="header-section-number">5.6.1</span> Filter and save to RDS</h3>
 <p>To filter the data, we can simply join the df.block data frames back to the original data using a left_join(), and filter those from the data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine our df.block data frames into a single</span>
 <span class="co"># dataframe, and add probability = 0 for filtered</span>
@@ -840,7 +848,7 @@ df.alltags.sub &lt;-<span class="st"> </span><span class="kw">left_join</span>(d
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/dfAlltagsSub.rds&quot;</span>)</code></pre></div>
 </div>
 <div id="save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data" class="section level3">
-<h3><span class="header-section-number">5.5.2</span> Save a custom filter in the motus database, and apply it to the data</h3>
+<h3><span class="header-section-number">5.6.2</span> Save a custom filter in the motus database, and apply it to the data</h3>
 <p>As an alternative to saving your data as an RDS file, the Motus R package offers functionalities to save your filters directly within your .motus file. Once they are saved in your database, you can do the type of left_join() as above without having to rely on dataframes or an RDS file to store your data. To learn more about the functions available to work with Motus filters, refer to Appendix D for more details.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine our df.block data frames into a single</span>
 <span class="co"># dataframe, and add probability = 0 for filtered</span>

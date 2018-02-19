@@ -130,7 +130,11 @@ First, determine which project tags have detections, and determine how many are 
 
 2) An animal with a properly activated tag might not have passed within range of a receiving station. Study designs that incorporate strategic placement of receivers to meet project goals can improve the probability of a tag being detected.  
 
-3) Missing or incorrect tag deployment metadata in the Motus database can result in the data processing algorithm not 'looking' for your tag at the time the tag was deployed, or at all. Please ensure your tag metadata are entered correctly.  
+3) Missing or incorrect tag deployment metadata in the Motus database can result in the data processing algorithm not 'looking' for your tag at the time the tag was deployed, or at all. Please ensure your tag metadata are entered correctly. 
+
+Before going further, **please check whether any of your tags were deployed more than once**, as described in section \@ref(checkNumberTagDeployments). If so, you will need to use 'tagDeployID' or a combination of 'motusTagID' and 'tagDeployID' to uniquely define detections associated with a tag deployment (either will do, but combining the two fields will let you know which tagID is associated with each deployment). 
+
+In the sample data, all tags were deployed only once, and so we use the 'motusTagID' as a unique identifier for a tag deployment in all R code throughout the book. 
 
 Using the following code, we see there are detections for 18 tags deployed by the sample project, and that many have run lengths of 2 (TRUE):
 
@@ -649,6 +653,10 @@ df.block.8 <- filter(df.alltags.sub,
 
 ```
 
+## Checking validity of run lengths of 2
+
+At the beginning of this chapter, we dropped all detections with a run length of 2 because they are considered to have a high probability of being false positive. Now that we've cleaned the data, and are confident in the detections that remain, you might at this point decide to go back and take a closer look at those detections with a run length of 2. You could do this, for example, by re-running the various plots described in this chapter (begin with lat/lon by time plots), to see if any of those detections make sense in the context of where the true detections lie. It is up to the user to decide which detections are reasonable in terms of the biology and behaviour of each tagged individual.
+
 ## Filtering the data
 
 ### Filter and save to RDS
@@ -706,3 +714,4 @@ tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagI
   filter(probability > 0)
 
 ```
+
