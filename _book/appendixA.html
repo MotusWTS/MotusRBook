@@ -310,8 +310,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The following variables are included in each ‘alltags’ view in the SQLite file:</p>
 <table>
 <colgroup>
-<col width="29%" />
-<col width="70%" />
+<col width="27%" />
+<col width="72%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -377,7 +377,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <td align="center">ambiguous ID assigned to ambiguous tags</td>
 </tr>
 <tr class="odd">
-<td align="center">ant</td>
+<td align="center">port</td>
 <td align="center">the port number that the detection occurred on</td>
 </tr>
 <tr class="even">
@@ -445,6 +445,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <td align="center">type of additional marker (e.g. metal band)</td>
 </tr>
 <tr class="even">
+<td align="center">tagDeployStart</td>
+<td align="center">tag deployment start date</td>
+</tr>
+<tr class="odd">
+<td align="center">tagDeployEnd</td>
+<td align="center">tag deployment end date</td>
+</tr>
+<tr class="even">
 <td align="center">tagDeployLat</td>
 <td align="center">latitude of tag deployment, in decimal degrees N - negative values for Southern hemisphere</td>
 </tr>
@@ -469,92 +477,88 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <td align="center">Motus device ID associated with the receiver serial number</td>
 </tr>
 <tr class="even">
+<td align="center">recvDeployID</td>
+<td align="center">Receiver deployment ID</td>
+</tr>
+<tr class="odd">
 <td align="center">recvDeployLat</td>
 <td align="center">latitude of receiver deployment, in decimal degrees N - negative values for Southern hemisphere</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">recvDeployLon</td>
 <td align="center">longitude of receiver deployment, in decimal degrees E - negative values for Western hemisphere</td>
 </tr>
-<tr class="even">
-<td align="center">recvDeployElevation</td>
-<td align="center">elevation of receiver deployment, in meters ASL</td>
-</tr>
 <tr class="odd">
+<td align="center">recvDeployAlt</td>
+<td align="center">altitude of receiver deployment, in meters ASL</td>
+</tr>
+<tr class="even">
 <td align="center">recv</td>
 <td align="center">serial number of the receiver; e.g., SG-1234BBBK5678 or Lotek-12345</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">recvDeployName</td>
 <td align="center">name assigned to the receiver deployment by the project manager</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">recvSiteName</td>
 <td align="center">name assigned to a site by the project manager (e.g. location name). The same label can be used for multiple deployments.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">isRecvMobile</td>
 <td align="center">logical; whether the sensor is deployed on a mobile platform (eg. a ship)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">recvProjID</td>
 <td align="center">unique (numeric) ID of the project that deployed this receiver (e.g., 8)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">antType</td>
 <td align="center">character; antenna type, e.g. “9-element Yagi”, “Omni”</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">antBearing</td>
 <td align="center">numeric; compass direction antenna main axis is pointing at (degrees clockwise from local magnetic North 0-360)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">antHeight</td>
 <td align="center">numeric; height (meters) of antenna main axis above ground</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">speciesEN</td>
 <td align="center">species English (common) name</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">speciesFR</td>
 <td align="center">species French (common) name</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">speciesSci</td>
 <td align="center">species scientific name</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">speciesGroup</td>
 <td align="center">species group, e.g., BIRDS, BATS</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">tagProjName</td>
 <td align="center">short label of project that deployed the tag, e.g., “HolbSESA”</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">recvProjName</td>
 <td align="center">short label of project that deployed the receiver e.g., “HolbSESA”</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">gpsLat</td>
 <td align="center">latitude of receiver GPS location at time of writing the hourly detections file (degrees North)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">gpsLon</td>
 <td align="center">longitude of receiver GPS location at time of writing the hourly detections file (degrees East)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">gpsAlt</td>
 <td align="center">altitude of receiver GPS at time of writing the hourly detections file (meters)</td>
-</tr>
-<tr class="even">
-<td align="center">tagDeployStart</td>
-<td align="center">tag deployment start date</td>
-</tr>
-<tr class="odd">
-<td align="center">tagDeployEnd</td>
-<td align="center">tag deployment end date</td>
 </tr>
 </tbody>
 </table>
