@@ -91,6 +91,8 @@ motusLogout()
 
 Let's get started. Note that there are no receivers registered to sample project 176, so the second call (by receiver) will not find any data. You can, however, replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample account, see section \@ref(logout)). 
 
+**All downloads will be saved to your working directory, unless otherwise specified in the tagme call as detailed below.**
+
 Be warned that large datasets can take some time (sometimes a few hours) to download from the Motus server when downloading for the first time ('new = TRUE' in the tagme function call). After the initial download, loading a .motus file into R using 'tagme(proj.num, update = TRUE)' will be near instantaneous. The download process should print its progress on the console; if you are not seeing it, try scrolling down your screen while tagme is running.
 
 In the event that your connection to the Motus server fails prior to the download completing (e.g., due to poor internet connection), use 'tagme(proj.num, update = TRUE)' to continue the download from where it left off, ensuring to specify a directory if it is saved outside the working directory.  
