@@ -183,6 +183,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="B.3.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.3.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
 <li class="chapter" data-level="B.3.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.3.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
 <li class="chapter" data-level="B.3.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.3.4</b> I get an error Object ‘xxxx’ not found, referring to a table or field name, or some of your examples in the book do not work.</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.3.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - The Motus R Package</a><ul>
@@ -345,12 +346,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">motusProjID =</span> <span class="dv">176</span>)
 
-<span class="co"># OR add project and description, possibly updating</span>
-<span class="co"># any previous version called myfilter.</span>
+<span class="co"># OR add project and description, possibly updating any previous version called myfilter.</span>
 
-<span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">motusProjID =</span> <span class="dv">176</span>, 
-    <span class="dt">descr =</span> <span class="st">&quot;assign probability of 0 to false positives&quot;</span>, 
-    <span class="dt">update =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">motusProjID =</span> <span class="dv">176</span>, <span class="dt">descr =</span> <span class="st">&quot;assign probability of 0 to false positives&quot;</span>, <span class="dt">update=</span><span class="ot">TRUE</span>)</code></pre></div>
 </div>
 </div>
 <div id="getRunsFilters" class="section level2">
@@ -371,15 +369,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 tbl.filt2 &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(sql.motus, <span class="st">&quot;myfilter2&quot;</span>)
 
 <span class="co"># filter records from df that are in tbl.filt</span>
-df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), 
-        <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
+df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
 
-<span class="co"># you can apply a second filter, tbl.filt2, to the</span>
-<span class="co"># result of the previous filter</span>
-df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), 
-        <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre></div>
+<span class="co"># you can apply a second filter, tbl.filt2, to the result of the previous filter</span>
+df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre></div>
 </div>
 </div>
 <div id="writeRunsFilter" class="section level2">
@@ -397,24 +394,14 @@ df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt2
 </div>
 <div id="examples" class="section level3">
 <h3><span class="header-section-number">D.6.3</span> Examples</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># write a dataframe containing filter records</span>
-<span class="co"># (runID, motusTagID and probability) to “myfilter”</span>
-<span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="dt">filterName =</span> <span class="st">&quot;myfilter&quot;</span>, 
-    <span class="dt">df =</span> filter.df)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># write a dataframe containing filter records (runID, motusTagID and probability) to “myfilter”</span>
+<span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="dt">filterName =</span> <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df)
 
-<span class="co"># write a dataframe containing filter records</span>
-<span class="co"># (runID, motusTagID and probability) to</span>
-<span class="co"># “myfilter”, overwriting a previous version</span>
-<span class="co"># entirely</span>
-<span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="dt">fileName =</span> <span class="st">&quot;myfilter&quot;</span>, 
-    <span class="dt">df =</span> filter.df, <span class="dt">delete =</span> <span class="ot">TRUE</span>)
+<span class="co"># write a dataframe containing filter records (runID, motusTagID and probability) to “myfilter”, overwriting a previous version entirely</span>
+<span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="dt">fileName =</span> <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df, <span class="dt">delete =</span> <span class="ot">TRUE</span>)
 
-<span class="co"># write a dataframe containing filter records</span>
-<span class="co"># (runID, motusTagID and probability) to</span>
-<span class="co"># &#39;myfilter&#39;, but only append new records, leaving</span>
-<span class="co"># previously created ones intact</span>
-<span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df, 
-    <span class="dt">overwrite =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<span class="co"># write a dataframe containing filter records (runID, motusTagID and probability) to &quot;myfilter&quot;, but only append new records, leaving previously created ones intact</span>
+<span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df, <span class="dt">overwrite =</span> <span class="ot">FALSE</span>)</code></pre></div>
 
 </div>
 </div>

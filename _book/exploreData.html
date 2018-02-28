@@ -183,6 +183,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="B.3.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.3.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
 <li class="chapter" data-level="B.3.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.3.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
 <li class="chapter" data-level="B.3.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.3.4</b> I get an error Object ‘xxxx’ not found, referring to a table or field name, or some of your examples in the book do not work.</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.3.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - The Motus R Package</a><ul>
@@ -314,13 +315,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(motus)
 <span class="kw">library</span>(tidyverse)
 <span class="kw">library</span>(ggmap)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;GMT&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.setenv</span>(<span class="dt">TZ=</span><span class="st">&quot;GMT&quot;</span>)</code></pre></div>
 </div>
 <div id="load-data" class="section level2">
 <h2><span class="header-section-number">6.2</span> Load data</h2>
 <p>If you followed along with the the previous Chapter (Chapter <a href="dataCleaning.html#dataCleaning">5</a>) and are working with the cleaned ‘df.alltags.sub’ file, you can skip this step and move to section <a href="exploreData.html#dataSummaries">6.3</a>.</p>
 <p>Otherwise, if you saved your data as an RDS file, you can load it using:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/dfAlltagsSub.rds&quot;</span>)  <span class="co"># change dir to local directory</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/dfAlltagsSub.rds&quot;</span>) <span class="co"># change dir to local directory</span></code></pre></div>
 <p>Or, if you’ve applied a custom filter to your .motus file, you can load the previously downloaded sample .motus data (see Chapter <a href="accessingData.html#accessingData">3</a> and clean it now. Currently the main benefit of using the custom filter is that you apply the filter to the .motus file, which allows you more flexibility in applying dplyr functions to manage and filter the data (e.g., you can select different variables to include in the data than we included in the RDS file in Chapter <a href="dataCleaning.html#dataCleaning">5</a>. This approach also allows you to more readily integrate new data added to your database with the tagme function. Because we are selecting the same variables and filtering the same records, the following gives you the same dataset as the readRDS statement above:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load the .motus file</span>
 proj.num =<span class="st"> </span><span class="dv">176</span>
@@ -354,18 +355,19 @@ df.alltags.sub &lt;-<span class="st"> </span><span class="kw">left_join</span>(t
          <span class="dt">tagDeployEnd =</span> <span class="kw">as_datetime</span>(tagDeployEnd))</code></pre></div>
 <p><strong>Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues.</strong> Details on filtering the tbl prior to collecting as a dataframe are available in section <a href="accessingData.html#convertToFlat">3.7</a>.</p>
 <p>Here we do so by adding a filter to the above command, in this case, only creating a dataframe for motusTagID 16047, but you can decide how to best subset your data based on your need (e.g. by species or year):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a subset for a single tag, to keep the</span>
-<span class="co"># dataframe small</span>
-df.alltags.<span class="dv">16047</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(motusTagID <span class="op">==</span><span class="st"> </span>
-<span class="st">    </span><span class="dv">16047</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a subset for a single tag, to keep the dataframe small</span>
+df.alltags.<span class="dv">16047</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">                      </span><span class="kw">filter</span>(motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16047</span>) </code></pre></div>
 </div>
 <div id="dataSummaries" class="section level2">
 <h2><span class="header-section-number">6.3</span> Summarizing your data</h2>
 <p>Here we will run through some basic commands, starting with the summary() function to view a selection of variables in a data frame:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql.motus <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl</span>(<span class="st">&quot;alltags&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(ts, motusTagID, 
-    runLen, speciesEN, tagDeployLat, tagDeployLon, 
-    recvDeployLat, recvDeployLon) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">summary</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql.motus <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tbl</span>(<span class="st">&quot;alltags&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, 
+         recvDeployLat, recvDeployLon) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summary</span>()</code></pre></div>
 <pre><code>##        ts              motusTagID        runLen        speciesEN        
 ##  Min.   :1.438e+09   Min.   :10811   Min.   :   2.0   Length:108826     
 ##  1st Qu.:1.476e+09   1st Qu.:22897   1st Qu.:  30.0   Class :character  
@@ -383,9 +385,10 @@ df.alltags.<span class="dv">16047</span> &lt;-<span class="st"> </span>df.alltag
 ##  Max.   :51.80   Max.   :-63.75   Max.   : 62.89   Max.   : -60.02  
 ##  NA&#39;s   :2025    NA&#39;s   :2025     NA&#39;s   :173      NA&#39;s   :173</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># same summary for the filtered sql data</span>
-df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(ts, motusTagID, runLen, speciesEN, 
-    tagDeployLat, tagDeployLon, recvLat, recvLon) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">summary</span>()</code></pre></div>
+df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, 
+         recvLat, recvLon) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summary</span>()</code></pre></div>
 <pre><code>##        ts                        motusTagID        runLen      
 ##  Min.   :2015-08-03 06:37:11   Min.   :16011   Min.   :   3.0  
 ##  1st Qu.:2016-10-06 10:30:26   1st Qu.:22897   1st Qu.:  25.0  
@@ -469,9 +472,13 @@ df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span><span clas
 ## 5         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657 2015 299
 ## 6         &lt;NA&gt;     NA       NA           1 42.68067 -72.47392 2015 299</code></pre>
 <p>We can also summarize information by group, in this case motusTagID, and apply various functions to these groups such as getting the total number of detections (n) for each tag, the number of receivers each tag was detected on, the first and last detection date, and the total number of days there was at least one detection:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tagSummary &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(motusTagID) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">summarize</span>(<span class="dt">nDet =</span> <span class="kw">n</span>(), <span class="dt">nRecv =</span> <span class="kw">length</span>(<span class="kw">unique</span>(recvDeployName)), 
-        <span class="dt">tsMin =</span> <span class="kw">min</span>(ts), <span class="dt">tsMax =</span> <span class="kw">max</span>(ts), <span class="dt">totDay =</span> <span class="kw">length</span>(<span class="kw">unique</span>(doy)))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tagSummary &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(motusTagID) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">nDet =</span> <span class="kw">n</span>(),
+            <span class="dt">nRecv =</span> <span class="kw">length</span>(<span class="kw">unique</span>(recvDeployName)),
+            <span class="dt">tsMin =</span> <span class="kw">min</span>(ts),
+            <span class="dt">tsMax =</span> <span class="kw">max</span>(ts),
+            <span class="dt">totDay =</span> <span class="kw">length</span>(<span class="kw">unique</span>(doy)))
 
 <span class="kw">head</span>(tagSummary)</code></pre></div>
 <pre><code>## # A tibble: 6 x 6
@@ -484,85 +491,104 @@ df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span><span clas
 ## 5      16038    73     1 2015-08-20 18:42:33 2015-08-22 22:19:37      3
 ## 6      16039  1050    10 2015-08-23 02:28:45 2015-09-19 06:08:31      8</code></pre>
 <p>We can also group by multiple variables; applying the same function as above but now grouping by motusTagID and recvDeployName, we will get information for each tag detected on each receiver. Since we are grouping by recvDeployName, there will be by default only one recvDeployName in each group, thus the variable nRecv will be 1 for each row. This in not very informative, however we include this to help illustrate how grouping works:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tagRecvSummary &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(motusTagID, 
-    recvDeployName) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">nDet =</span> <span class="kw">n</span>(), <span class="dt">nRecv =</span> <span class="kw">length</span>(<span class="kw">unique</span>(recvDeployName)), 
-    <span class="dt">tsMin =</span> <span class="kw">min</span>(ts), <span class="dt">tsMax =</span> <span class="kw">max</span>(ts), <span class="dt">totDay =</span> <span class="kw">length</span>(<span class="kw">unique</span>(doy)))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tagRecvSummary &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(motusTagID, recvDeployName) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">nDet =</span> <span class="kw">n</span>(),
+            <span class="dt">nRecv =</span> <span class="kw">length</span>(<span class="kw">unique</span>(recvDeployName)),
+            <span class="dt">tsMin =</span> <span class="kw">min</span>(ts),
+            <span class="dt">tsMax =</span> <span class="kw">max</span>(ts),
+            <span class="dt">totDay =</span> <span class="kw">length</span>(<span class="kw">unique</span>(doy)))
 
 <span class="kw">head</span>(tagRecvSummary)</code></pre></div>
 <pre><code>## # A tibble: 6 x 7
 ## # Groups: motusTagID [2]
-##   motus~ recvDe~  nDet nRecv tsMin               tsMax               totD~
-##    &lt;int&gt; &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;dttm&gt;              &lt;dttm&gt;              &lt;int&gt;
-## 1  16011 North ~   122     1 2015-08-03 06:37:11 2015-08-05 20:41:12     3
-## 2  16035 Brier2     41     1 2015-09-02 14:03:19 2015-09-02 14:06:09     1
-## 3  16035 D&#39;Esti~    32     1 2015-09-02 07:58:43 2015-09-02 08:04:24     1
-## 4  16035 Netiti~   286     1 2015-08-14 17:53:49 2015-09-01 21:35:32     5
-## 5  16035 Southw~    65     1 2015-09-02 13:06:13 2015-09-02 13:14:39     1
-## 6  16035 Swallo~     6     1 2015-09-02 13:21:27 2015-09-02 13:22:22     1</code></pre>
+##   motusTagID recvDeployName  nDet nRecv tsMin              
+##        &lt;int&gt; &lt;chr&gt;          &lt;int&gt; &lt;int&gt; &lt;dttm&gt;             
+## 1      16011 North Bluff      122     1 2015-08-03 06:37:11
+## 2      16035 Brier2            41     1 2015-09-02 14:03:19
+## 3      16035 D&#39;Estimauville    32     1 2015-09-02 07:58:43
+## 4      16035 Netitishi        286     1 2015-08-14 17:53:49
+## 5      16035 Southwest Head    65     1 2015-09-02 13:06:13
+## 6      16035 Swallowtail        6     1 2015-09-02 13:21:27
+## # ... with 2 more variables: tsMax &lt;dttm&gt;, totDay &lt;int&gt;</code></pre>
 </div>
 <div id="dataPlotting" class="section level2">
 <h2><span class="header-section-number">6.4</span> Plotting your data</h2>
 <p>Plotting your data is a powerful way to visualize broad and fine-scale detection patterns. This section will give you a brief introduction to plotting using ggplot2. For more in depth information on the uses of ggplot2, we recommend the <a href="http://www.cookbook-r.com/Graphs/">Cookbook for R</a>, and the rstudio <a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf">ggplot2 cheatsheet</a>.</p>
 <p>To make coarse-scale plots with large files, we suggest first rounding the detection time to the nearest hour or day so that processing time is faster. Here we round detection times to the nearest hour, then make a basic plot of hourly detections by motusTagID:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">mutate</span>(df.alltags.sub, <span class="dt">hour =</span> <span class="kw">as.POSIXct</span>(<span class="kw">round</span>(ts, 
-    <span class="st">&quot;hour&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(motusTagID, port, tagDeployStart, 
-    tagDeployLat, tagDeployLon, recvLat, recvLon, recvDeployName, 
-    antBearing, speciesEN, year, doy, hour) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">mutate</span>(df.alltags.sub, 
+                         <span class="dt">hour =</span> <span class="kw">as.POSIXct</span>(<span class="kw">round</span>(ts, <span class="st">&quot;hour&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(motusTagID, port, tagDeployStart, tagDeployLat, tagDeployLon, 
+         recvLat, recvLon, recvDeployName, antBearing, speciesEN, year, doy, hour) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">distinct</span>()
 
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> df.alltags.sub.<span class="dv">2</span>, <span class="kw">aes</span>(hour, <span class="kw">as.factor</span>(motusTagID)))
-p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;MotusTagID&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Time (rounded to hour)&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">theme_bw</span>()</code></pre></div>
+p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> df.alltags.sub.<span class="dv">2</span>, <span class="kw">aes</span>(hour, <span class="kw">as.factor</span>(motusTagID))) 
+p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;MotusTagID&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Time (rounded to hour)&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/hourlyPlot-1.png" width="672" /> Let’s focus only on tags deployed in 2016, and we can colour the tags by species:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub.<span class="dv">2</span>, <span class="kw">year</span>(tagDeployStart) <span class="op">==</span><span class="st"> </span>
-<span class="st">    </span><span class="dv">2016</span>), <span class="kw">aes</span>(hour, <span class="kw">as.factor</span>(motusTagID), <span class="dt">col =</span> speciesEN))
-p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;MotusTagID&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Time (rounded to hour)&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Species&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub.<span class="dv">2</span>, <span class="kw">year</span>(tagDeployStart) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>), 
+       <span class="kw">aes</span>(hour, <span class="kw">as.factor</span>(motusTagID), <span class="dt">col =</span> speciesEN)) 
+p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;MotusTagID&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Time (rounded to hour)&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Species&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/hourlyPlotSpecies-1.png" width="672" /> We can see how tags moved latitudinally by first ordering by hour, and colouring by motusTagID:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">arrange</span>(df.alltags.sub.<span class="dv">2</span>, hour)
 
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub.<span class="dv">2</span>, <span class="kw">year</span>(tagDeployStart) <span class="op">==</span><span class="st"> </span>
-<span class="st">    </span><span class="dv">2016</span>), <span class="kw">aes</span>(hour, recvLat, <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID), 
-    <span class="dt">group =</span> <span class="kw">as.factor</span>(motusTagID)))
-p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_path</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Time (rounded to hour)&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Receiver latitude&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</code></pre></div>
+p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub.<span class="dv">2</span>, <span class="kw">year</span>(tagDeployStart) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>), 
+       <span class="kw">aes</span>(hour, recvLat, <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID), <span class="dt">group =</span> <span class="kw">as.factor</span>(motusTagID)))
+p <span class="op">+</span><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Time (rounded to hour)&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span> (<span class="st">&quot;Receiver latitude&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/hourlyPlotLat-1.png" width="672" /> Now lets look at more detailed plots of signal variation. We use the full df.alltags.sub dataframe so that we can get signal strength for each detection of a specific tag. Let’s examine fall 2016 detections of tag 22897 at Niapiskau; we facet the plot by deployment name, ordered by decreasing latitude:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22897</span>, 
-    recvDeployName <span class="op">==</span><span class="st"> &quot;Niapiskau&quot;</span>), <span class="kw">aes</span>(ts, sig))
-p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Time&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">facet_grid</span>(recvDeployName <span class="op">~</span><span class="st"> </span>.)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">filter</span>(df.alltags.sub, 
+                   motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22897</span>, 
+                   recvDeployName <span class="op">==</span><span class="st"> &quot;Niapiskau&quot;</span>), 
+       <span class="kw">aes</span>(ts, sig)) 
+p <span class="op">+</span><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Time&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(recvDeployName<span class="op">~</span>.)</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plot22897-1.png" width="672" /></p>
 <p>We use the sunRiseSet function available in the motus R package (see <a href="appendixC.html#sunRiseSet">C.2</a>) to get sunrise and sunset times for all detections. We then zoom in on a certain timeframe and add that information to the above plot by adding a geom_vline() statement to the code, which adds a yellow line for sunrise time, and a blue line for sunset time:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add sunrise and sunset times to the dataframe</span>
-df.alltags.sub &lt;-<span class="st"> </span><span class="kw">sunRiseSet</span>(df.alltags.sub, <span class="dt">lat =</span> <span class="st">&quot;recvLat&quot;</span>, 
-    <span class="dt">lon =</span> <span class="st">&quot;recvLon&quot;</span>)
+df.alltags.sub &lt;-<span class="st"> </span><span class="kw">sunRiseSet</span>(df.alltags.sub, <span class="dt">lat =</span> <span class="st">&quot;recvLat&quot;</span>, <span class="dt">lon =</span> <span class="st">&quot;recvLon&quot;</span>) 
 
 p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22897</span> <span class="op">&amp;</span><span class="st"> </span>
-<span class="st">    </span>ts <span class="op">&gt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2016-10-11&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2016-10-17&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>
-<span class="st">    </span>recvDeployName <span class="op">==</span><span class="st"> &quot;Niapiskau&quot;</span>), <span class="kw">aes</span>(ts, sig))
+<span class="st">                     </span>ts <span class="op">&gt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2016-10-11&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2016-10-17&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>
+<span class="st">                     </span>recvDeployName <span class="op">==</span><span class="st"> &quot;Niapiskau&quot;</span>), 
+            <span class="kw">aes</span>(ts, sig))
 
-p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Time of year&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> df.alltags.sub<span class="op">$</span>sunrise, 
-    <span class="dt">col =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> df.alltags.sub<span class="op">$</span>sunset, 
-    <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
+p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Time of year&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> df.alltags.sub<span class="op">$</span>sunrise, <span class="dt">col =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> df.alltags.sub<span class="op">$</span>sunset, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotSunriset22897-1.png" width="672" /> We can see that during this period, the tag was most often detected during the day, suggesting it may be actively foraging in this area during this time.</p>
 <p>The same plots can provide valuable movement information when the receivers are ordered geographically. We do this for motusTagID 16039:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We&#39;ll first order sitelat by latitude (for plots)</span>
-df.alltags.sub &lt;-<span class="st"> </span><span class="kw">mutate</span>(df.alltags.sub, <span class="dt">recvDeployName =</span> <span class="kw">as.factor</span>(<span class="kw">as.character</span>(<span class="kw">reorder</span>(recvDeployName, 
-    recvLat))))
+df.alltags.sub &lt;-<span class="st"> </span><span class="kw">mutate</span>(df.alltags.sub, 
+                         <span class="dt">recvDeployName =</span> <span class="kw">as.factor</span>(<span class="kw">as.character</span>(<span class="kw">reorder</span>(recvDeployName, recvLat))))
 
 p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16039</span> <span class="op">&amp;</span><span class="st"> </span>
-<span class="st">    </span>ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-10-01&quot;</span>)), <span class="kw">aes</span>(ts, recvDeployName))
+<span class="st">                     </span>ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-10-01&quot;</span>)), 
+       <span class="kw">aes</span>(ts, recvDeployName))
 
-p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Time of year&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Receiver name (ordered by latitude)&quot;</span>)</code></pre></div>
+p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Time of year&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Receiver name (ordered by latitude)&quot;</span>)</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/latPlot1-1.png" width="672" /></p>
 <p>We zoom in on a section of this plot and look at antenna bearings to see directional movement past stations:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16039</span>, 
-    ts <span class="op">&gt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-09-14&quot;</span>), ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-10-01&quot;</span>)), 
-    <span class="kw">aes</span>(ts, sig, <span class="dt">col =</span> <span class="kw">as.factor</span>(antBearing)))
-p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Time of day&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Antenna bearing&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">facet_grid</span>(recvDeployName <span class="op">~</span><span class="st"> </span>.)</code></pre></div>
+                   ts <span class="op">&gt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-09-14&quot;</span>), ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-10-01&quot;</span>)), 
+            <span class="kw">aes</span>(ts, sig, <span class="dt">col =</span> <span class="kw">as.factor</span>(antBearing))) 
+p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Time of day&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Antenna bearing&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(recvDeployName<span class="op">~</span>.)</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plot2-1.png" width="672" /></p>
 <p>This plot shows the typical flyby pattern of a migrating animal, with signal strength increasing and then decreasing as the tag moves through the beams of the antennas.</p>
 </div>
@@ -623,73 +649,61 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
 <p>We make the same plot, with additional points for all receivers that were active during a specified time:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># get receiver metadata</span>
 tbl.recvDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;recvDeps&quot;</span>)
-df.recvDeps &lt;-<span class="st"> </span>tbl.recvDeps <span class="op">%&gt;%</span><span class="st"> </span>collect <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">tsStart =</span> <span class="kw">as_datetime</span>(tsStart, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, 
-        <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>), <span class="dt">tsEnd =</span> <span class="kw">as_datetime</span>(tsEnd, 
-        <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))
-<span class="co"># for deployments with no end daets, make an end</span>
-<span class="co"># date a year from now</span>
-df.recvDeps<span class="op">$</span>tsEnd &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="kw">ifelse</span>(<span class="kw">is.na</span>(df.recvDeps<span class="op">$</span>tsEnd), 
-    <span class="kw">as.POSIXct</span>(<span class="kw">format</span>(<span class="kw">Sys.time</span>(), <span class="st">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)) <span class="op">+</span><span class="st"> </span>
-<span class="st">        </span>lubridate<span class="op">::</span><span class="kw">dyears</span>(<span class="dv">1</span>), df.recvDeps<span class="op">$</span>tsEnd), <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, 
-    <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>)
-<span class="co"># get running intervals for all receiver</span>
-<span class="co"># deployments</span>
-siteOp &lt;-<span class="st"> </span><span class="kw">with</span>(df.recvDeps, lubridate<span class="op">::</span><span class="kw">interval</span>(tsStart, 
-    tsEnd))  <span class="co"># get running intervals for each deployment</span>
+df.recvDeps &lt;-<span class="st"> </span>tbl.recvDeps <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">                </span>collect <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">                </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">                </span><span class="kw">mutate</span>(<span class="dt">tsStart =</span> <span class="kw">as_datetime</span>(tsStart, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>),
+                       <span class="dt">tsEnd =</span> <span class="kw">as_datetime</span>(tsEnd, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))
+<span class="co"># for deployments with no end daets, make an end date a year from now</span>
+df.recvDeps<span class="op">$</span>tsEnd &lt;-<span class="kw">as.POSIXct</span>(<span class="kw">ifelse</span>(<span class="kw">is.na</span>(df.recvDeps<span class="op">$</span>tsEnd),
+                                       <span class="kw">as.POSIXct</span>(<span class="kw">format</span>(<span class="kw">Sys.time</span>(), <span class="st">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)) <span class="op">+</span>
+<span class="st">                                </span>lubridate<span class="op">::</span><span class="kw">dyears</span>(<span class="dv">1</span>), df.recvDeps<span class="op">$</span>tsEnd), <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>)
+<span class="co"># get running intervals for all receiver deployments</span>
+siteOp &lt;-<span class="st"> </span><span class="kw">with</span>(df.recvDeps, lubridate<span class="op">::</span><span class="kw">interval</span>(tsStart, tsEnd)) <span class="co"># get running intervals for each deployment</span>
 <span class="co"># set the date range you&#39;re interested in</span>
-dateRange &lt;-<span class="st"> </span>lubridate<span class="op">::</span><span class="kw">interval</span>(<span class="kw">as.POSIXct</span>(<span class="st">&quot;2015-08-01&quot;</span>), 
-    <span class="kw">as.POSIXct</span>(<span class="st">&quot;2016-01-01&quot;</span>))
-<span class="co"># create new variable &#39;active&#39; which will be set to</span>
-<span class="co"># TRUE if the receiver was active at some point</span>
-<span class="co"># during your specified date range, and FALSE if</span>
-<span class="co"># not</span>
-df.recvDeps<span class="op">$</span>active &lt;-<span class="st"> </span>lubridate<span class="op">::</span><span class="kw">int_overlaps</span>(siteOp, 
-    dateRange)
+dateRange &lt;-<span class="st"> </span>lubridate<span class="op">::</span><span class="kw">interval</span>(<span class="kw">as.POSIXct</span>(<span class="st">&quot;2015-08-01&quot;</span>), <span class="kw">as.POSIXct</span>(<span class="st">&quot;2016-01-01&quot;</span>))
+<span class="co"># create new variable &quot;active&quot; which will be set to TRUE if the receiver was active at some point during your specified date range, and FALSE if not</span>
+df.recvDeps<span class="op">$</span>active &lt;-<span class="st"> </span>lubridate<span class="op">::</span><span class="kw">int_overlaps</span>(siteOp, dateRange) 
 
-<span class="co"># create map with receivers active during specified</span>
-<span class="co"># date range as red, and receivers with detections</span>
-<span class="co"># as yellow</span>
+<span class="co"># create map with receivers active during specified date range as red, and receivers with detections as yellow</span>
 p &lt;-<span class="st"> </span><span class="kw">ggmap</span>(gmap)
-p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(df.recvDeps, active <span class="op">==</span><span class="st"> </span>
-<span class="st">    </span><span class="ot">TRUE</span>), ggplot2<span class="op">::</span><span class="kw">aes</span>(longitude, latitude), <span class="dt">pch =</span> <span class="dv">21</span>, 
-    <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, 
-    <span class="kw">aes</span>(recvLon, recvLat), <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, 
-    <span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, <span class="kw">aes</span>(recvLon, 
-    recvLat, <span class="dt">group =</span> motusTagID, <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</code></pre></div>
+p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(df.recvDeps, active <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>), ggplot2<span class="op">::</span><span class="kw">aes</span>(longitude, latitude), <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>df.tmp, <span class="kw">aes</span>(recvLon, recvLat), <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data=</span>df.tmp, <span class="kw">aes</span>(recvLon, recvLat, <span class="dt">group=</span>motusTagID, <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name=</span><span class="st">&quot;MotusTagID&quot;</span>)</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/googleMapRecvs-1.png" width="960" /></p>
 </div>
 <div id="outlineMaps" class="section level3">
 <h3><span class="header-section-number">6.5.2</span> Creating simple outline maps</h3>
 <p>We load the base maps.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">na.lakes &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="dt">map =</span> <span class="st">&quot;lakes&quot;</span>)
-na.lakes &lt;-<span class="st"> </span>na.lakes <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">long =</span> long <span class="op">-</span><span class="st"> </span><span class="dv">360</span>)
+na.lakes &lt;-<span class="st"> </span>na.lakes <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">long =</span> long<span class="op">-</span><span class="st"> </span><span class="dv">360</span>)
 
 <span class="co"># Include all of the Americas to begin</span>
 na.map &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="dt">map =</span> <span class="st">&quot;world2&quot;</span>)
-na.map &lt;-<span class="st"> </span>na.map <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(region <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, 
-    <span class="st">&quot;USA&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">long =</span> long <span class="op">-</span><span class="st"> </span><span class="dv">360</span>)</code></pre></div>
+na.map &lt;-<span class="st"> </span>na.map <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(region <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;USA&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">           </span><span class="kw">mutate</span>(<span class="dt">long =</span> long<span class="op">-</span><span class="st"> </span><span class="dv">360</span>)</code></pre></div>
 <p>Then, to map the paths, we set the x-axis and y-axis limits based on the location of receivers with detections. Depending on your data, these might need to be modified to encompass the deployment location of the tags, if tags were not deployed near towers with detections. We then use ggplot to plot the map and tag paths. Here we use the Mercator projection and are colouring the paths by motusTagID, including a point for where the tag was deployed:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># set limits to map based on locations of</span>
-<span class="co"># detections, ensuring they include the deployment</span>
-<span class="co"># locations</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># set limits to map based on locations of detections, ensuring they include the deployment locations</span>
 xmin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tmp<span class="op">$</span>recvLon, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">2</span>
 xmax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class="op">$</span>recvLon, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">2</span>
 ymin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
 ymax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
-
+                
 <span class="co"># map</span>
-<span class="kw">ggplot</span>(na.lakes, <span class="kw">aes</span>(long, lat)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> na.map, 
-    <span class="kw">aes</span>(long, lat, <span class="dt">group =</span> group), <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, 
-    <span class="dt">fill =</span> <span class="st">&quot;grey98&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">group =</span> group), 
-    <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">coord_map</span>(<span class="dt">projection =</span> <span class="st">&quot;mercator&quot;</span>, 
-    <span class="dt">xlim =</span> <span class="kw">c</span>(xmin, xmax), <span class="dt">ylim =</span> <span class="kw">c</span>(ymin, ymax)) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, 
-    <span class="kw">aes</span>(recvLon, recvLat, <span class="dt">group =</span> <span class="kw">as.factor</span>(motusTagID), 
-        <span class="dt">colour =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, 
-    <span class="kw">aes</span>(tagDeployLon, tagDeployLat), <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, 
-    <span class="dt">shape =</span> <span class="dv">4</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_colour_discrete</span>(<span class="st">&quot;motusTagID&quot;</span>)</code></pre></div>
+<span class="kw">ggplot</span>(na.lakes, <span class="kw">aes</span>(long, lat))<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> na.map, <span class="kw">aes</span>(long, lat, <span class="dt">group=</span>group), <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;grey98&quot;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">group =</span> group), <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_map</span>(<span class="dt">projection=</span><span class="st">&quot;mercator&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(xmin, xmax), <span class="dt">ylim =</span> <span class="kw">c</span>(ymin, ymax))<span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, 
+           <span class="kw">aes</span>(recvLon, recvLat, <span class="dt">group =</span> <span class="kw">as.factor</span>(motusTagID), <span class="dt">colour =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, 
+             <span class="kw">aes</span>(tagDeployLon, tagDeployLat), <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">shape =</span> <span class="dv">4</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="st">&quot;motusTagID&quot;</span>) </code></pre></div>
 <p><img src="images/mapDetections.png" width="1650" style="display: block; margin: auto;" /></p>
 <p>The functions above provide examples for you how can begin exploring your data and are by no means exhaustive. The next chapter will cover some common errors and troubleshooting you may encounter while trying to download and use the .motus sql files.</p>
 
