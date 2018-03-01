@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -337,7 +337,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">B.3.4</span> I get an error Object ‘xxxx’ not found, referring to a table or field name, or some of your examples in the book do not work.</h3>
 <p>Be sure to start the steps from the top of the chapter and run them in sequential order. Another possibility is that your .motus database hasn’t been updated to support the latest version of the motusClient or the motus package. If the checkVersion function returns a warning, this may indicate that the internal function used to update your database has not been triggered by tagme(). This can happen, for example, if you load the motusClient package without also loading the motus package. Loading the motus package will also load motusClient, so you should only ever need load motus into your R library.</p>
 <p>To ensure that your .motus file is up-to-date with the motus package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir =</span> ...)
 <span class="kw">checkVersion</span>(sql.motus)</code></pre></div>
 <p>To correct any warnings, you should follow these steps:</p>
 <ol style="list-style-type: decimal">
@@ -348,16 +348,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>check the version again.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(motus)
-sql &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)
+sql &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir =</span> ...)
 <span class="kw">checkVersion</span>(sql)</code></pre></div>
 </div>
 <div id="i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme" class="section level3">
 <h3><span class="header-section-number">B.3.5</span> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</h3>
 <p>If you get this message, it’s likely that you’re attempting a new download or update to a non-existant directory. The directory is specified in the <strong>dir = “”</strong> command of the tagme() function. If the directory is not specified, files will be saved to your working directory. Use getwd() to determine your current working directory. Use setwd() to set a new working directory. To specify a location to save files from your working directory use “./” followed by the file path.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>() <span class="co"># show working directory, in this case it&#39;s &quot;C:/Documents&quot;</span>
-<span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>) <span class="co"># downloads data to your working directory</span>
-<span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>) <span class="co"># downloads data to the data folder within your working directory ie. the file path C:/Documents/data</span>
-<span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;C:/Downloads&quot;</span>) <span class="co"># downloads data to the file path C:/Downloads</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>()  <span class="co"># show working directory, in this case it&#39;s &#39;C:/Documents&#39;</span>
+<span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)  <span class="co"># downloads data to your working directory</span>
+<span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)  <span class="co"># downloads data to the data folder within your working directory ie. the file path C:/Documents/data</span>
+<span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;C:/Downloads&quot;</span>)  <span class="co"># downloads data to the file path C:/Downloads</span></code></pre></div>
 <p>Of course, there is always the possibility that the book contains errors! If this does not work, please contact <a href="mailto:motus@birdscanada.org">motus@birdscanada.org</a>.</p>
 
 </div>
