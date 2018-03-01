@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -138,8 +138,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.3.1" data-path="deployments.html"><a href="deployments.html#download-full-project-tag-metadata"><i class="fa fa-check"></i><b>4.3.1</b> Download full project tag metadata</a></li>
 <li class="chapter" data-level="4.3.2" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags"><i class="fa fa-check"></i><b>4.3.2</b> Number of registered tags</a></li>
 <li class="chapter" data-level="4.3.3" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags-that-were-deployed"><i class="fa fa-check"></i><b>4.3.3</b> Number of registered tags that were deployed</a></li>
-<li class="chapter" data-level="4.3.4" data-path="deployments.html"><a href="deployments.html#location-of-tag-deployments"><i class="fa fa-check"></i><b>4.3.4</b> Location of tag deployments</a></li>
-<li class="chapter" data-level="4.3.5" data-path="deployments.html"><a href="deployments.html#check-completeness-and-accuracy-of-tag-deployment-metadata"><i class="fa fa-check"></i><b>4.3.5</b> Check completeness and accuracy of tag deployment metadata</a></li>
+<li class="chapter" data-level="4.3.4" data-path="deployments.html"><a href="deployments.html#checkNumberTagDeployments"><i class="fa fa-check"></i><b>4.3.4</b> Number of deployments per tag</a></li>
+<li class="chapter" data-level="4.3.5" data-path="deployments.html"><a href="deployments.html#location-of-tag-deployments"><i class="fa fa-check"></i><b>4.3.5</b> Location of tag deployments</a></li>
+<li class="chapter" data-level="4.3.6" data-path="deployments.html"><a href="deployments.html#check-completeness-and-accuracy-of-tag-deployment-metadata"><i class="fa fa-check"></i><b>4.3.6</b> Check completeness and accuracy of tag deployment metadata</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="deployments.html"><a href="deployments.html#recvMetadata"><i class="fa fa-check"></i><b>4.4</b> Check Receiver Metadata</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="deployments.html"><a href="deployments.html#download-full-receiver-metadata"><i class="fa fa-check"></i><b>4.4.1</b> Download full receiver metadata</a></li>
@@ -156,9 +157,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.3.1</b> Summarize tag detections</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#ambigs"><i class="fa fa-check"></i><b>5.4</b> Examining ambiguous detections</a></li>
-<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.5</b> Filtering the data</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.5.1</b> Filter and save to RDS</a></li>
-<li class="chapter" data-level="5.5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.5.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
+<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2"><i class="fa fa-check"></i><b>5.5</b> Checking validity of run lengths of 2</a></li>
+<li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.6</b> Filtering the data</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.6.1</b> Filter and save to RDS</a></li>
+<li class="chapter" data-level="5.6.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.6.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
@@ -181,6 +183,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="B.3.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.3.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
 <li class="chapter" data-level="B.3.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.3.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
 <li class="chapter" data-level="B.3.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.3.4</b> I get an error Object ‘xxxx’ not found, referring to a table or field name, or some of your examples in the book do not work.</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.3.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - The Motus R Package</a><ul>
@@ -379,8 +382,32 @@ df.tagDeps &lt;-<span class="st"> </span>tbl.tagDeps <span class="op">%&gt;%</sp
 ## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
 <p>In the sample data, there are no registered tags without deployment metadata, which suggests that all tags were deployed. If you have undeployed tags in your own files, please check your records to ensure this is the case; without deployment metadata, detections for registered but ‘undeployed’ tags will be missing from your detections database.</p>
 </div>
+<div id="checkNumberTagDeployments" class="section level3">
+<h3><span class="header-section-number">4.3.4</span> Number of deployments per tag</h3>
+<p>A tag might be deployed more than once, for example, if a previously deployed tag was recovered, and then later re-deployed on another individual. When tags are deployed more than once, the detections data should be considered independently for each deployment.</p>
+<p>Throughout this book we use the ‘motusTagID’ as a unique identifier for a deployment. However, when a tag is deployed more than once, the ‘motusTagID’ will remain consistent between deployments, and we instead need to use the ‘tagDeployID’, or combination of ‘motusTagID’ and ‘tagDeployID’ to distinguish which detections belong to which deployment.</p>
+<p>Here, we check whether there are any tags with more than one deployment in the sample data (there are none), and then show you how to make a combined tagID/deployID variable to use in place of the ‘motusTagID’ if you have multiple deployments of a tag in your own data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(motusTagID, tagDeployID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>(<span class="kw">is.na</span>(tagDeployID))) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># remove NA tagDeployIDs</span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(motusTagID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<pre><code>## # A tibble: 0 x 3
+## # Groups:   motusTagID [0]
+## # ... with 3 variables: motusTagID &lt;int&gt;, tagDeployID &lt;int&gt;, n &lt;int&gt;</code></pre>
+<p>If you do have multiple deployments for a tag, we recommend creating a ‘motusTagDepID’ to use in place of the ‘motusTagID’ to define unique deployments of a tag. Moving forward, you would use ‘motusTagDepID’ in place of ‘motusTagID’ as you work through the rest of the book:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags &lt;-<span class="st"> </span>df.alltags <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">motusTagDepID =</span> <span class="kw">paste</span>(motusTagID, 
+    tagDeployID, <span class="dt">sep =</span> <span class="st">&quot;.&quot;</span>))
+
+<span class="co"># and do the same for the tag metadata</span>
+
+df.tagDeps &lt;-<span class="st"> </span>df.tagDeps <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">motusTagDepID =</span> <span class="kw">paste</span>(tagID, 
+    deployID, <span class="dt">sep =</span> <span class="st">&quot;.&quot;</span>))</code></pre></div>
+</div>
 <div id="location-of-tag-deployments" class="section level3">
-<h3><span class="header-section-number">4.3.4</span> Location of tag deployments</h3>
+<h3><span class="header-section-number">4.3.5</span> Location of tag deployments</h3>
 <p>Creating a map of your tag deployments can point out any obvious errors in the tag deployment latitude or longitude that weren’t captured by the online metadata message center queries.</p>
 <p><strong>a. Load base map files</strong></p>
 <p>Load base map files from the rworldmap package:</p>
@@ -429,7 +456,7 @@ ymax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tagDeps<span c
 <p>If there are any errors in tag deployment location, please correct these online at <a href="https://motus.org/data/" class="uri">https://motus.org/data/</a>.</p>
 </div>
 <div id="check-completeness-and-accuracy-of-tag-deployment-metadata" class="section level3">
-<h3><span class="header-section-number">4.3.5</span> Check completeness and accuracy of tag deployment metadata</h3>
+<h3><span class="header-section-number">4.3.6</span> Check completeness and accuracy of tag deployment metadata</h3>
 <p>Required tag metadata includes deployment start date/time, end date/time (if applicable), deployment latitude, deployment longitude, and species. Lack of information on deployment date, time, and location in particular can influence the estimated lifespan of your tag, and therefore whether the tagFinder will ‘look’ for your tag at the appropriate time(s). It can also increase the potential for ambiguities with duplicate tags in the system.</p>
 <p><strong>a. Look at range of metadata values</strong></p>
 <p>As a first step, use summary(df.tagDeps) to get an idea of the range of each variable, and whether any variables have missing (NA) or odd values. The following summarizes a subset of the variables in the df.tagDeps database. There are several things to consider: are the range of start and end dates reasonable for your deployments, or are there obvious errors in the timing of deployments? Is the range in deployment latitude and longitude reasonable? Are the values for species IDs correct?</p>
@@ -495,7 +522,9 @@ tbl.species <span class="op">%&gt;%</span><span class="st"> </span><span class="
 ##                                                                                                                                                                                                                                                                                               comments
 ## 1 Sex:F, Age:HY, Bill28, Tarsus:26.2, Wing Chord:123, Wing Flat:129, Mass:57.7, Flag: (FEW)7P6, Blood:Y, Canada, Ontario, James Bay, LONGRIDGE, Comments: REKN tag on mesh; has a duplicate tag same burst rate 380-272 a HY REKN banded at Mingan Islands on 02-Oct-2016 and band number 9822-53171\n
 ##   id bi tsStartCode tsEndCode                               fullID
-## 1 NA NA          1L        3L SampleData#272.1:5.3@166.38(M.22867)</code></pre>
+## 1 NA NA          1L        3L SampleData#272.1:5.3@166.38(M.22867)
+##   motusTagDepID
+## 1   22867.10517</code></pre>
 <p><strong>Please remember, any metadata corrections need to be made online</strong></p>
 </div>
 </div>

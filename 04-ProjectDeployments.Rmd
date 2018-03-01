@@ -110,6 +110,43 @@ anti_join(df.tags, df.tagDeps, by = "tagID")
 
 In the sample data, there are no registered tags without deployment metadata, which suggests that all tags were deployed. If you have undeployed tags in your own files, please check your records to ensure this is the case; without deployment metadata, detections for registered but 'undeployed' tags will be missing from your detections database.
 
+### Number of deployments per tag {#checkNumberTagDeployments}
+
+A tag might be deployed more than once, for example, if a previously deployed tag was recovered, and then later re-deployed on another individual. When tags are deployed more than once, the detections data should be considered independently for each deployment. 
+
+Throughout this book we use the 'motusTagID' as a unique identifier for a deployment. However, when a tag is deployed more than once, the 'motusTagID' will remain consistent between deployments, and we instead need to use the 'tagDeployID', or combination of 'motusTagID' and 'tagDeployID' to distinguish which detections belong to which deployment. 
+
+Here, we check whether there are any tags with more than one deployment in the sample data (there are none), and then show you how to make a combined tagID/deployID variable to use in place of the 'motusTagID' if you have multiple deployments of a tag in your own data:
+
+```{r CheckMultipleDeploy}
+
+df.alltags %>%
+  select(motusTagID, tagDeployID) %>%
+  filter(!(is.na(tagDeployID))) %>% # remove NA tagDeployIDs
+  distinct() %>%
+  group_by(motusTagID) %>%
+  mutate(n = n()) %>%
+  filter(n > 1)
+
+```
+
+If you do have multiple deployments for a tag, we recommend creating a 'motusTagDepID' to use in place of the 'motusTagID' to define unique deployments of a tag. Moving forward, you would use 'motusTagDepID' in place of 'motusTagID' as you work through the rest of the book:
+
+```{r createMotusTagDepID}
+
+df.alltags <- df.alltags %>%
+  mutate(motusTagDepID = paste(motusTagID, tagDeployID, sep = "."))
+
+# and do the same for the tag metadata
+
+df.tagDeps <- df.tagDeps %>%
+  mutate(motusTagDepID = paste(tagID, deployID, sep = "."))
+
+
+```
+
+
+
 ### Location of tag deployments
 
 Creating a map of your tag deployments can point out any obvious errors in the tag deployment latitude or longitude that weren't captured by the online metadata message center queries.

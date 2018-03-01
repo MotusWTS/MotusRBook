@@ -13,7 +13,7 @@ burstSlop,signed difference (seconds) between detection and registration burst i
 done,logical: is run finished?
 motusTagID,Motus tag ID - unique to each individual tag registered
 ambigID,ambiguous ID assigned to ambiguous tags
-ant,the port number that the detection occurred on
+port,the port number that the detection occurred on
 runLen,number of tag bursts in the current run; constant for all records having the same runID
 bootnum,boot session of receiver for SG; NA for Lotek
 tagProjectID,ID of the project that manages this tag. 
@@ -30,15 +30,18 @@ tagDeployID,Motus tag deployment ID
 speciesID,unique numeric Motus ID (integer) for the species on which the tag was deployed
 markerNumber,"number for any additional marker placed on organism (e.g., bird band #)"
 markerType,type of additional marker (e.g. metal band)
+tagDeployStart,tag deployment start date
+tagDeployEnd,tag deployment end date
 tagDeployLat,"latitude of tag deployment,  in decimal degrees N - negative values for Southern hemisphere"
 tagDeployLon,"longitude of tag deployment, in decimal degrees E - negative values for Western hemisphere"
 tagDeployAlt,"altitude of tag deployment, in meters ASL"
 tagDeployComments,additional comments or unclassified metadata for tag (often in JSON format)
 fullID,full tag ID as PROJECT#MFGID:BI@NOMFREQ. Not necessarily unique over time. See motusTagID for a unique tag
 deviceID,Motus device ID associated with the receiver serial number
+recvDeployID,Receiver deployment ID
 recvDeployLat,"latitude of receiver deployment,  in decimal degrees N - negative values for Southern hemisphere"
 recvDeployLon,"longitude of receiver deployment, in decimal degrees E - negative values for Western hemisphere"
-recvDeployElevation,"elevation of receiver deployment, in meters ASL"
+recvDeployAlt,"altitude of receiver deployment, in meters ASL"
 recv,"serial number of the receiver; e.g., SG-1234BBBK5678 or Lotek-12345"
 recvDeployName,name assigned to the receiver deployment by the project manager
 recvSiteName,name assigned to a site by the project manager (e.g. location name). The same label can be used for multiple deployments.
@@ -56,5 +59,3 @@ recvProjName,"short label of project that deployed the receiver e.g., ""HolbSESA
 gpsLat,latitude of receiver GPS location at time of writing the hourly detections file (degrees North)
 gpsLon,longitude of receiver GPS  location at time of writing the hourly detections file (degrees East)
 gpsAlt,altitude of receiver GPS at time of writing the hourly detections file (meters)
-tagDeployStart,tag deployment start date
-tagDeployEnd,tag deployment end date

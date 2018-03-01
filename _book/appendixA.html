@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -138,8 +138,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.3.1" data-path="deployments.html"><a href="deployments.html#download-full-project-tag-metadata"><i class="fa fa-check"></i><b>4.3.1</b> Download full project tag metadata</a></li>
 <li class="chapter" data-level="4.3.2" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags"><i class="fa fa-check"></i><b>4.3.2</b> Number of registered tags</a></li>
 <li class="chapter" data-level="4.3.3" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags-that-were-deployed"><i class="fa fa-check"></i><b>4.3.3</b> Number of registered tags that were deployed</a></li>
-<li class="chapter" data-level="4.3.4" data-path="deployments.html"><a href="deployments.html#location-of-tag-deployments"><i class="fa fa-check"></i><b>4.3.4</b> Location of tag deployments</a></li>
-<li class="chapter" data-level="4.3.5" data-path="deployments.html"><a href="deployments.html#check-completeness-and-accuracy-of-tag-deployment-metadata"><i class="fa fa-check"></i><b>4.3.5</b> Check completeness and accuracy of tag deployment metadata</a></li>
+<li class="chapter" data-level="4.3.4" data-path="deployments.html"><a href="deployments.html#checkNumberTagDeployments"><i class="fa fa-check"></i><b>4.3.4</b> Number of deployments per tag</a></li>
+<li class="chapter" data-level="4.3.5" data-path="deployments.html"><a href="deployments.html#location-of-tag-deployments"><i class="fa fa-check"></i><b>4.3.5</b> Location of tag deployments</a></li>
+<li class="chapter" data-level="4.3.6" data-path="deployments.html"><a href="deployments.html#check-completeness-and-accuracy-of-tag-deployment-metadata"><i class="fa fa-check"></i><b>4.3.6</b> Check completeness and accuracy of tag deployment metadata</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="deployments.html"><a href="deployments.html#recvMetadata"><i class="fa fa-check"></i><b>4.4</b> Check Receiver Metadata</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="deployments.html"><a href="deployments.html#download-full-receiver-metadata"><i class="fa fa-check"></i><b>4.4.1</b> Download full receiver metadata</a></li>
@@ -156,9 +157,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.3.1</b> Summarize tag detections</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#ambigs"><i class="fa fa-check"></i><b>5.4</b> Examining ambiguous detections</a></li>
-<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.5</b> Filtering the data</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.5.1</b> Filter and save to RDS</a></li>
-<li class="chapter" data-level="5.5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.5.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
+<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2"><i class="fa fa-check"></i><b>5.5</b> Checking validity of run lengths of 2</a></li>
+<li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.6</b> Filtering the data</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.6.1</b> Filter and save to RDS</a></li>
+<li class="chapter" data-level="5.6.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.6.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
@@ -181,6 +183,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="B.3.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.3.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
 <li class="chapter" data-level="B.3.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.3.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
 <li class="chapter" data-level="B.3.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.3.4</b> I get an error Object ‘xxxx’ not found, referring to a table or field name, or some of your examples in the book do not work.</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.3.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - The Motus R Package</a><ul>
@@ -308,8 +311,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The following variables are included in each ‘alltags’ view in the SQLite file:</p>
 <table>
 <colgroup>
-<col width="29%" />
-<col width="70%" />
+<col width="27%" />
+<col width="72%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -375,7 +378,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <td align="center">ambiguous ID assigned to ambiguous tags</td>
 </tr>
 <tr class="odd">
-<td align="center">ant</td>
+<td align="center">port</td>
 <td align="center">the port number that the detection occurred on</td>
 </tr>
 <tr class="even">
@@ -443,6 +446,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <td align="center">type of additional marker (e.g. metal band)</td>
 </tr>
 <tr class="even">
+<td align="center">tagDeployStart</td>
+<td align="center">tag deployment start date</td>
+</tr>
+<tr class="odd">
+<td align="center">tagDeployEnd</td>
+<td align="center">tag deployment end date</td>
+</tr>
+<tr class="even">
 <td align="center">tagDeployLat</td>
 <td align="center">latitude of tag deployment, in decimal degrees N - negative values for Southern hemisphere</td>
 </tr>
@@ -467,92 +478,88 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <td align="center">Motus device ID associated with the receiver serial number</td>
 </tr>
 <tr class="even">
+<td align="center">recvDeployID</td>
+<td align="center">Receiver deployment ID</td>
+</tr>
+<tr class="odd">
 <td align="center">recvDeployLat</td>
 <td align="center">latitude of receiver deployment, in decimal degrees N - negative values for Southern hemisphere</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">recvDeployLon</td>
 <td align="center">longitude of receiver deployment, in decimal degrees E - negative values for Western hemisphere</td>
 </tr>
-<tr class="even">
-<td align="center">recvDeployElevation</td>
-<td align="center">elevation of receiver deployment, in meters ASL</td>
-</tr>
 <tr class="odd">
+<td align="center">recvDeployAlt</td>
+<td align="center">altitude of receiver deployment, in meters ASL</td>
+</tr>
+<tr class="even">
 <td align="center">recv</td>
 <td align="center">serial number of the receiver; e.g., SG-1234BBBK5678 or Lotek-12345</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">recvDeployName</td>
 <td align="center">name assigned to the receiver deployment by the project manager</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">recvSiteName</td>
 <td align="center">name assigned to a site by the project manager (e.g. location name). The same label can be used for multiple deployments.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">isRecvMobile</td>
 <td align="center">logical; whether the sensor is deployed on a mobile platform (eg. a ship)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">recvProjID</td>
 <td align="center">unique (numeric) ID of the project that deployed this receiver (e.g., 8)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">antType</td>
 <td align="center">character; antenna type, e.g. “9-element Yagi”, “Omni”</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">antBearing</td>
 <td align="center">numeric; compass direction antenna main axis is pointing at (degrees clockwise from local magnetic North 0-360)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">antHeight</td>
 <td align="center">numeric; height (meters) of antenna main axis above ground</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">speciesEN</td>
 <td align="center">species English (common) name</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">speciesFR</td>
 <td align="center">species French (common) name</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">speciesSci</td>
 <td align="center">species scientific name</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">speciesGroup</td>
 <td align="center">species group, e.g., BIRDS, BATS</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">tagProjName</td>
 <td align="center">short label of project that deployed the tag, e.g., “HolbSESA”</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">recvProjName</td>
 <td align="center">short label of project that deployed the receiver e.g., “HolbSESA”</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">gpsLat</td>
 <td align="center">latitude of receiver GPS location at time of writing the hourly detections file (degrees North)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">gpsLon</td>
 <td align="center">longitude of receiver GPS location at time of writing the hourly detections file (degrees East)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">gpsAlt</td>
 <td align="center">altitude of receiver GPS at time of writing the hourly detections file (meters)</td>
-</tr>
-<tr class="even">
-<td align="center">tagDeployStart</td>
-<td align="center">tag deployment start date</td>
-</tr>
-<tr class="odd">
-<td align="center">tagDeployEnd</td>
-<td align="center">tag deployment end date</td>
 </tr>
 </tbody>
 </table>
