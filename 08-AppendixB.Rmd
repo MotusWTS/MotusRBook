@@ -72,6 +72,20 @@ tagme(proj.num, new = TRUE, update = TRUE, dir = "./data/") # downloads data to 
 tagme(proj.num, new = TRUE, update = TRUE, dir = "C:/Downloads") # downloads data to the file path C:/Downloads
 ```
 
+### I see GPS coordinates of "0" or "999"
+These values are recorded from the GPS unit in the field.  Values like these should be ignored, you can replace these with "NA", or insert the recvDeployLat/recvDeplOyLon values which are taken from receiver deployment metadata entered by users.
+```{r replaceGPSValues, eval = FALSE}
+## to replace gpsLat/gpsLon values of NA, 0, or 999 with that of receiver deployment metadata in the alltags table, and read into a data.frame
+df.alltags <- tbl.alltags %>% 
+  mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0|gpsLat == 999), 
+                           recvDeployLat, gpsLat), 
+         recvLon = if_else((is.na(gpsLon)|gpsLon == 0|gpsLon == 999), 
+                           recvDeployLon, gpsLon)
+  collect() %>% as.data.frame
+```
+
+### I see port with a value of -1
+Port "-1" represents the "A1+A2+A3+A4" compound antenna which is sometimes reported in Lotek .DTA file detections. This likely means the receiver has combined the signal from 4 antennas to detect the tag.
 
 
 Of course, there is always the possibility that the book contains errors! If this does not work, please contact motus@birdscanada.org.

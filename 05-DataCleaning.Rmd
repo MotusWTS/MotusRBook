@@ -46,7 +46,7 @@ library(lubridate)
 
 Recall from Chapter \@ref(accessingData) that when accessing the sample database, you will need to input 'motus.sample' in the R console as both username and password when prompted by the tagme() user authentication process. This section assumes you have already completed the initial sample data download. 
 
-When accessing the alltags table, we remove some unnecessary variables to reduce the overall size of the data set and make it easier to work with. **This is particularly important for large, unwieldy projects**; details on how to view the variables in a tbl, and how to filter and subset prior to collecting data into a dataframe can be found in Chapter \@ref(convertToFlat). We then create receiver latitude and longitude variables ('recvLat', 'recvLon', 'recvAlt') based on the coordinates recorded by the receiver GPS ('gpsLat', 'gpsLon', 'gpdAlt'), and where those are not available, infilled with coordinates from the receiver deployment metadata ('recvDeployLat', 'recvDeployLon', 'recvDeployAlt'). We use the 'collect()' and 'as.data.frame()' statements to transform the dataframe into a 'flat' file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format. Finally, we create 'receiver names' from the latitude and longitude variables for those receivers in the database that do not have these values filled in.
+When accessing the alltags table, we remove some unnecessary variables to reduce the overall size of the data set and make it easier to work with. **This is particularly important for large, unwieldy projects**; details on how to view the variables in a tbl, and how to filter and subset prior to collecting data into a dataframe can be found in Chapter \@ref(convertToFlat). We then create receiver latitude and longitude variables ('recvLat', 'recvLon', 'recvAlt') based on the coordinates recorded by the receiver GPS ('gpsLat', 'gpsLon', 'gpsAlt'), and where those are not available, infilled with coordinates from the receiver deployment metadata ('recvDeployLat', 'recvDeployLon', 'recvDeployAlt'). Missing gps coordinates may appear as NA if they are missing, or as "0" or "999" if there was a problem with the unit recording. We use the 'collect()' and 'as.data.frame()' statements to transform the dataframe into a 'flat' file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format. Finally, we create 'receiver names' from the latitude and longitude variables for those receivers in the database that do not have these values filled in.
 
 ```{r importData5, eval = FALSE}
 
@@ -60,9 +60,9 @@ sql.motus <- tagme(proj.num, update = TRUE, dir = "./data/")
 tbl.alltags <- tbl(sql.motus, "alltags")
 
 df.alltags <- tbl.alltags %>% 
-  mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), 
+  mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0|gpsLat == 999), 
                            recvDeployLat, gpsLat), 
-         recvLon = if_else((is.na(gpsLon)|gpsLon == 0), 
+         recvLon = if_else((is.na(gpsLon)|gpsLon == 0|gpsLon == 999), 
                            recvDeployLon, gpsLon), 
          recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
   select(-noise, -slop, -burstSlop, -done, -bootnum, -mfgID, 
@@ -95,8 +95,8 @@ sql.motus <- tagme(proj.num, update = FALSE, dir = "./data/")
 tbl.alltags <- tbl(sql.motus, "alltags")
 
 df.alltags <- tbl.alltags %>% 
-                mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
-                       recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
+                mutate(recvLat = if_else((is.na(gpsLat)|gpsLat == 0|gpsLat == 999), recvDeployLat, gpsLat),
+                       recvLon = if_else((is.na(gpsLon)|gpsLon == 0|gpsLon == 999), recvDeployLon, gpsLon),
                        recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
                 select(-noise, -slop, -burstSlop, -done, -bootnum, -mfgID, -codeSet, -mfg, -nomFreq,
                        -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID,
