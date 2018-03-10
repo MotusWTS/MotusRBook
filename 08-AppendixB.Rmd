@@ -87,5 +87,8 @@ df.alltags <- tbl.alltags %>%
 ### I see port with a value of -1
 Port "-1" represents the "A1+A2+A3+A4" compound antenna which is sometimes reported in Lotek .DTA file detections. This likely means the receiver has combined the signal from 4 antennas to detect the tag.
 
+### I get the error "Error in rsqlite_fetch(res@ptr, n = n) : database disk image is malformed"
+This is likely due to corrupt files which can occur during download. The easiest solution is to delete your current .motus file and download from scratch.
+
 
 Of course, there is always the possibility that the book contains errors! If this does not work, please contact motus@birdscanada.org.

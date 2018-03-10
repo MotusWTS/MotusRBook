@@ -184,6 +184,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="B.3.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.3.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
 <li class="chapter" data-level="B.3.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.3.4</b> I get an error Object ‘xxxx’ not found, referring to a table or field name, or some of your examples in the book do not work.</a></li>
 <li class="chapter" data-level="B.3.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.3.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
+<li class="chapter" data-level="B.3.6" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.3.6</b> I see GPS coordinates of “0” or “999”</a></li>
+<li class="chapter" data-level="B.3.7" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.3.7</b> I see port with a value of -1</a></li>
+<li class="chapter" data-level="B.3.8" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.3.8</b> I get the error “Error in rsqlite_fetch(<a href="mailto:res@ptr">res@ptr</a>, n = n) : database disk image is malformed”</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - The Motus R Package</a><ul>
@@ -358,6 +361,25 @@ sql &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <sp
 <span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)  <span class="co"># downloads data to your working directory</span>
 <span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)  <span class="co"># downloads data to the data folder within your working directory ie. the file path C:/Documents/data</span>
 <span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;C:/Downloads&quot;</span>)  <span class="co"># downloads data to the file path C:/Downloads</span></code></pre></div>
+</div>
+<div id="i-see-gps-coordinates-of-0-or-999" class="section level3">
+<h3><span class="header-section-number">B.3.6</span> I see GPS coordinates of “0” or “999”</h3>
+<p>These values are recorded from the GPS unit in the field. Values like these should be ignored, you can replace these with “NA”, or insert the recvDeployLat/recvDeplOyLon values which are taken from receiver deployment metadata entered by users.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## to replace gpsLat/gpsLon values of NA, 0, or 999 with that of receiver deployment metadata in the alltags table, and read into a data.frame
+df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">recvLat =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLat)<span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), 
+                           recvDeployLat, gpsLat), 
+         <span class="dt">recvLon =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLon)<span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), 
+                           recvDeployLon, gpsLon)
+  <span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</code></pre></div>
+</div>
+<div id="i-see-port-with-a-value-of--1" class="section level3">
+<h3><span class="header-section-number">B.3.7</span> I see port with a value of -1</h3>
+<p>Port “-1” represents the “A1+A2+A3+A4” compound antenna which is sometimes reported in Lotek .DTA file detections. This likely means the receiver has combined the signal from 4 antennas to detect the tag.</p>
+</div>
+<div id="i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed" class="section level3">
+<h3><span class="header-section-number">B.3.8</span> I get the error “Error in rsqlite_fetch(<a href="mailto:res@ptr">res@ptr</a>, n = n) : database disk image is malformed”</h3>
+<p>This is likely due to corrupt files which can occur during download. The easiest solution is to delete your current .motus file and download from scratch.</p>
 <p>Of course, there is always the possibility that the book contains errors! If this does not work, please contact <a href="mailto:motus@birdscanada.org">motus@birdscanada.org</a>.</p>
 
 </div>

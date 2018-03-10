@@ -184,6 +184,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="B.3.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.3.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
 <li class="chapter" data-level="B.3.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.3.4</b> I get an error Object ‘xxxx’ not found, referring to a table or field name, or some of your examples in the book do not work.</a></li>
 <li class="chapter" data-level="B.3.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.3.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
+<li class="chapter" data-level="B.3.6" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.3.6</b> I see GPS coordinates of “0” or “999”</a></li>
+<li class="chapter" data-level="B.3.7" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.3.7</b> I see port with a value of -1</a></li>
+<li class="chapter" data-level="B.3.8" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.3.8</b> I get the error “Error in rsqlite_fetch(<a href="mailto:res@ptr">res@ptr</a>, n = n) : database disk image is malformed”</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - The Motus R Package</a><ul>
@@ -334,10 +337,10 @@ tbl.filter =<span class="st"> </span><span class="kw">getRunsFilters</span>(sql.
 <span class="co"># filter and convert the table into a dataframe, with a few modications</span>
 df.alltags.sub &lt;-<span class="st"> </span><span class="kw">left_join</span>(tbl.alltags, tbl.filter, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability),
-         <span class="dt">recvLat =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLat)<span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span>), 
+         <span class="dt">recvLat =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLat)<span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), 
                            recvDeployLat, 
                            gpsLat),
-         <span class="dt">recvLon =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLon)<span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">0</span>), 
+         <span class="dt">recvLon =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLon)<span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), 
                            recvDeployLon, 
                            gpsLon),
          <span class="dt">recvAlt =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(gpsAlt), 
@@ -352,7 +355,10 @@ df.alltags.sub &lt;-<span class="st"> </span><span class="kw">left_join</span>(t
 <span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts),  <span class="co"># work with dates AFTER transforming to flat file</span>
          <span class="dt">tagDeployStart =</span> <span class="kw">as_datetime</span>(tagDeployStart),
-         <span class="dt">tagDeployEnd =</span> <span class="kw">as_datetime</span>(tagDeployEnd))</code></pre></div>
+         <span class="dt">tagDeployEnd =</span> <span class="kw">as_datetime</span>(tagDeployEnd),
+         <span class="dt">recvDeployName =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(recvDeployName), 
+                                  <span class="kw">paste</span>(recvLat, recvLon, <span class="dt">sep=</span><span class="st">&quot;:&quot;</span>), 
+                                  recvDeployName))</code></pre></div>
 <p><strong>Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues.</strong> Details on filtering the tbl prior to collecting as a dataframe are available in section <a href="accessingData.html#convertToFlat">3.7</a>.</p>
 <p>Here we do so by adding a filter to the above command, in this case, only creating a dataframe for motusTagID 16047, but you can decide how to best subset your data based on your need (e.g. by species or year):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a subset for a single tag, to keep the</span>
@@ -629,7 +635,7 @@ df.recvDeps &lt;-<span class="st"> </span>tbl.recvDeps <span class="op">%&gt;%</
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">tsStart =</span> <span class="kw">as_datetime</span>(tsStart, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, 
         <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>), <span class="dt">tsEnd =</span> <span class="kw">as_datetime</span>(tsEnd, 
         <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))
-<span class="co"># for deployments with no end daets, make an end</span>
+<span class="co"># for deployments with no end dates, make an end</span>
 <span class="co"># date a year from now</span>
 df.recvDeps<span class="op">$</span>tsEnd &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="kw">ifelse</span>(<span class="kw">is.na</span>(df.recvDeps<span class="op">$</span>tsEnd), 
     <span class="kw">as.POSIXct</span>(<span class="kw">format</span>(<span class="kw">Sys.time</span>(), <span class="st">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)) <span class="op">+</span><span class="st"> </span>
