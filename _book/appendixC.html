@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -126,7 +126,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.4.8" data-path="accessingData.html"><a href="accessingData.html#metadata"><i class="fa fa-check"></i><b>3.4.8</b> Import full tag and receiver metadata</a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.5</b> Data structure</a></li>
-<li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#ensure-that-you-have-the-correct-database-version-checkversion"><i class="fa fa-check"></i><b>3.6</b> Ensure that you have the correct database version {checkVersion}</a></li>
+<li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#checkVersion"><i class="fa fa-check"></i><b>3.6</b> Ensure that you have the correct database version</a></li>
 <li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.7</b> Convert a SQLITE table to a flat dataframe</a></li>
 <li class="chapter" data-level="3.8" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.8</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
 <li class="chapter" data-level="3.9" data-path="accessingData.html"><a href="accessingData.html#r-object-naming-convention"><i class="fa fa-check"></i><b>3.9</b> R object naming convention</a></li>
@@ -309,18 +309,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="appendixC" class="section level1">
 <h1><span class="header-section-number">C</span> Appendix - The Motus R Package</h1>
 <p>The motus R package offers functions that work with .motus data to do common computations, summaries and plots. This appendix outlines these functions and provides examples on function use. Many of these functions work with both tbl and data.frame formats, however some require the data to be in sql format as specified below. Detailed instructions on accessing and formatting data are available in Chapter <a href="accessingData.html#accessingData">3</a>. The examples throughout this chapter work with the sample data which can be accessed and converted to various formats through the following code:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download and access sample data in sql format,</span>
-<span class="co"># username: motus.sample, password: motus.sample</span>
-sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, 
-    <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download and access sample data in sql format, username: motus.sample, password: motus.sample</span>
+sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)
 
-<span class="co"># extract &#39;alltags&#39;&#39; table from sql file</span>
-<span class="co"># &#39;sql.motus&#39;</span>
-tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)
+<span class="co"># extract &quot;alltags&quot;&quot; table from sql file &quot;sql.motus&quot;</span>
+tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>) 
 
-## convert the tbl &#39;tbl.alltags&#39; to a data.frame
-## called &#39;df.alltags&#39;
-df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</code></pre></div>
+## convert the tbl &quot;tbl.alltags&quot; to a data.frame called &quot;df.alltags&quot;
+df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as.data.frame</span>()</code></pre></div>
 <p>You can access the function help pages using ‘??sunRiseSet’ in the R console. Or view the underlying function code like this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sunRiseSet</code></pre></div>
 <div id="checkVersion.B" class="section level2">
@@ -461,8 +459,9 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-2" class="section level3">
 <h3><span class="header-section-number">C.3.3</span> Example</h3>
 <p>Plot tags select tags from tbl.alltags with 3 tags per panel</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotAllTagsCoord</span>(<span class="kw">filter</span>(tbl.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">c</span>(<span class="dv">19129</span>, <span class="dv">16011</span>, <span class="dv">17357</span>, <span class="dv">16035</span>, <span class="dv">22897</span>, <span class="dv">23316</span>)), <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotAllTagsCoord</span>(
+  <span class="kw">filter</span>(tbl.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">19129</span>, <span class="dv">16011</span>, <span class="dv">17357</span>, <span class="dv">16035</span>, <span class="dv">22897</span>, <span class="dv">23316</span>)), 
+  <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotAllTagsCoord-1.png" width="672" /></p>
 </div>
 </div>
@@ -486,7 +485,8 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <h3><span class="header-section-number">C.4.3</span> Example</h3>
 <p>Plot tbl file tbl.alltags using gpsLat and 3 tags per panel for select species Red Knot</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotAllTagsSite</span>(<span class="kw">filter</span>(tbl.alltags, speciesEN <span class="op">==</span><span class="st"> &quot;Red Knot&quot;</span>), 
-    <span class="dt">coordinate =</span> <span class="st">&quot;recvDeployLat&quot;</span>, <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</code></pre></div>
+                <span class="dt">coordinate =</span> <span class="st">&quot;recvDeployLat&quot;</span>, 
+                <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</code></pre></div>
 <pre><code>## Warning: Missing values are always removed in SQL.
 ## Use `AVG(x, na.rm = TRUE)` to silence this warning</code></pre>
 <p><img src="MotusRBook_files/figure-html/plotAllTagsSite-1.png" width="672" /></p>
@@ -528,9 +528,10 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-5" class="section level3">
 <h3><span class="header-section-number">C.6.2</span> Example</h3>
 <p>Plot routemap of all detection data, with “terrain” maptype, and receivers active between 2016-01-01 and 2017-01-01</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotRouteMap</span>(sql.motus, <span class="dt">maptype =</span> <span class="st">&quot;terrain&quot;</span>, <span class="dt">latCentre =</span> <span class="dv">44</span>, 
-    <span class="dt">lonCentre =</span> <span class="op">-</span><span class="dv">70</span>, <span class="dt">zoom =</span> <span class="dv">5</span>, <span class="dt">recvStart =</span> <span class="st">&quot;2016-01-01&quot;</span>, 
-    <span class="dt">recvEnd =</span> <span class="st">&quot;2016-12-31&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotRouteMap</span>(sql.motus, 
+             <span class="dt">maptype =</span> <span class="st">&quot;terrain&quot;</span>, 
+             <span class="dt">latCentre =</span> <span class="dv">44</span>, <span class="dt">lonCentre =</span> <span class="op">-</span><span class="dv">70</span>, <span class="dt">zoom =</span> <span class="dv">5</span>, 
+             <span class="dt">recvStart =</span> <span class="st">&quot;2016-01-01&quot;</span>, <span class="dt">recvEnd =</span> <span class="st">&quot;2016-12-31&quot;</span>)</code></pre></div>
 <pre><code>## Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=44,-70&amp;zoom=5&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;language=en-EN&amp;sensor=false</code></pre>
 <pre><code>## Warning: Removed 120 rows containing missing values (geom_point).</code></pre>
 <pre><code>## Warning: Removed 685 rows containing missing values (geom_path).</code></pre>
@@ -576,8 +577,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-7" class="section level3">
 <h3><span class="header-section-number">C.8.3</span> Example</h3>
 <p>Plot select tags for site Piskwamish</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotSiteSig</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16037</span>, 
-    <span class="dv">16039</span>, <span class="dv">16035</span>)), <span class="dt">recvDeployName =</span> <span class="st">&quot;Netitishi&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotSiteSig</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16037</span>, <span class="dv">16039</span>, <span class="dv">16035</span>)), <span class="dt">recvDeployName =</span> <span class="st">&quot;Netitishi&quot;</span>)</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotSiteSig-1.png" width="672" /></p>
 </div>
 </div>
@@ -728,17 +728,16 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-10" class="section level3">
 <h3><span class="header-section-number">C.11.3</span> Example</h3>
 <p>Create site summaries for select sites with time in minutes</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">site_summary &lt;-<span class="st"> </span><span class="kw">siteSum</span>(<span class="kw">filter</span>(df.alltags, recvDeployName <span class="op">%in%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">c</span>(<span class="st">&quot;Niapiskau&quot;</span>, <span class="st">&quot;Netitishi&quot;</span>, <span class="st">&quot;Old Cur&quot;</span>, <span class="st">&quot;Washkaugou&quot;</span>)), 
-    <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">site_summary &lt;-<span class="st"> </span><span class="kw">siteSum</span>(<span class="kw">filter</span>(df.alltags, 
+                               recvDeployName <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Niapiskau&quot;</span>, <span class="st">&quot;Netitishi&quot;</span>, <span class="st">&quot;Old Cur&quot;</span>, <span class="st">&quot;Washkaugou&quot;</span>)), <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/siteSum-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(site_summary)</code></pre></div>
 <pre><code>## # A tibble: 3 x 6
-##   recvDeployName first_ts            last_ts             tot_ts   num.tags
-##   &lt;fct&gt;          &lt;dttm&gt;              &lt;dttm&gt;              &lt;time&gt;      &lt;int&gt;
-## 1 Niapiskau      2016-10-01 23:47:57 2016-10-27 00:03:21 36015.4…        6
-## 2 Washkaugou     2016-10-09 23:52:45 2016-10-10 00:00:42 7.94683…        2
-## 3 Netitishi      2015-08-14 17:53:49 2015-09-08 01:10:13 34996.3…        7
+##   recvDeployName  first_ts            last_ts             tot_ts  num.tags
+##   &lt;fct&gt;           &lt;dttm&gt;              &lt;dttm&gt;              &lt;time&gt;     &lt;int&gt;
+## 1 Niapiskau_50.2~ 2016-10-01 23:47:57 2016-10-27 00:03:21 36015.~        6
+## 2 Washkaugou_51.~ 2016-10-09 23:52:45 2016-10-10 00:00:42 7.9468~        2
+## 3 Netitishi_51.3~ 2015-08-14 17:53:49 2015-09-08 01:10:13 34996.~        7
 ## # ... with 1 more variable: num.det &lt;int&gt;</code></pre>
 </div>
 </div>
@@ -762,13 +761,13 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <p>Create site summaries for all sites within detection data with time in minutes using tbl file tbl.alltags</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily_site_summary &lt;-<span class="st"> </span><span class="kw">siteSumDaily</span>(tbl.alltags, <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)
 <span class="kw">head</span>(daily_site_summary)</code></pre></div>
-<pre><code>##               recvDeployName       date            first_ts
-## 1      Assateague State Park 2015-09-13 2015-09-13 10:12:50
-## 2                    Baccaro 2017-05-19 2017-05-19 16:01:21
-## 3              BennettMeadow 2015-10-26 2015-10-26 11:12:04
-## 4 Binbrook_Conservation_Area 2017-05-18 2017-05-18 03:13:25
-## 5                       BISE 2015-10-26 2015-10-26 17:55:47
-## 6                  Blandford 2015-12-26 2015-12-26 14:58:27
+<pre><code>##                            recvDeployName       date            first_ts
+## 1      Assateague State Park\n38.2, -75.1 2015-09-13 2015-09-13 10:12:50
+## 2                    Baccaro\n43.5, -65.5 2017-05-19 2017-05-19 16:01:21
+## 3              BennettMeadow\n42.7, -72.5 2015-10-26 2015-10-26 11:12:04
+## 4 Binbrook_Conservation_Area\n43.1, -79.8 2017-05-18 2017-05-18 03:13:25
+## 5                       BISE\n41.2, -71.6 2015-10-26 2015-10-26 17:55:47
+## 6                  Blandford\n44.5, -64.1 2015-12-26 2015-12-26 14:58:27
 ##               last_ts         tot_ts num_tags num_det
 ## 1 2015-09-13 10:14:40  1.828847 mins        1       6
 ## 2 2017-05-19 16:02:40  1.323297 mins        3       6
@@ -797,22 +796,22 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-12" class="section level3">
 <h3><span class="header-section-number">C.13.3</span> Example</h3>
 <p>View site transitions for only tag 16037 from data.frame df.alltags</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">transitions &lt;-<span class="st"> </span><span class="kw">siteTrans</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">==</span><span class="st"> </span>
-<span class="st">    </span><span class="dv">16037</span>), <span class="dt">latCoord =</span> <span class="st">&quot;recvDeployLat&quot;</span>, <span class="dt">lonCoord =</span> <span class="st">&quot;recvDeployLon&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">transitions &lt;-<span class="st"> </span><span class="kw">siteTrans</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16037</span>), 
+                         <span class="dt">latCoord =</span> <span class="st">&quot;recvDeployLat&quot;</span>, <span class="dt">lonCoord =</span> <span class="st">&quot;recvDeployLon&quot;</span>)
 <span class="kw">head</span>(transitions)</code></pre></div>
 <pre><code>## # A tibble: 6 x 14
-## # Groups:   motusTagID, tagDeployID [1]
+## # Groups: motusTagID, tagDeployID [1]
 ##   motusTagID tagDeployID ts.x                lat.x lon.x recvDeployName.x 
 ##        &lt;int&gt;       &lt;int&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;            
-## 1      16037        1825 2015-08-17 17:02:39  NA    NA   NP mobile        
-## 2      16037        1825 2015-08-28 16:40:18  51.5 -80.4 North Bluff      
-## 3      16037        1825 2015-09-08 01:10:13  51.3 -80.1 Netitishi        
-## 4      16037        1825 2015-09-08 18:37:16  44.6 -65.8 Comeau (Marshall…
-## 5      16037        1825 2015-09-13 19:46:27  39.0 -74.8 NWW              
-## 6      16037        1825 2015-09-14 15:56:49  37.1 -76.0 BULL             
+## 1      16037        1825 2015-08-17 17:02:39  NA    NA   NP mobile_NA, NA 
+## 2      16037        1825 2015-08-28 16:40:18  51.5 -80.4 North Bluff_51.5~
+## 3      16037        1825 2015-09-08 01:10:13  51.3 -80.1 Netitishi_51.3, ~
+## 4      16037        1825 2015-09-08 18:37:16  44.6 -65.8 Comeau (Marshall~
+## 5      16037        1825 2015-09-13 19:46:27  39.0 -74.8 NWW_39, -74.8    
+## 6      16037        1825 2015-09-14 15:56:49  37.1 -76.0 BULL_37.1, -76   
 ## # ... with 8 more variables: ts.y &lt;dttm&gt;, lat.y &lt;dbl&gt;, lon.y &lt;dbl&gt;,
-## #   recvDeployName.y &lt;chr&gt;, tot_ts &lt;time&gt;, dist &lt;dbl&gt;, rate &lt;dbl&gt;,
-## #   bearing &lt;dbl&gt;</code></pre>
+## #   recvDeployName.y &lt;chr&gt;, tot_ts &lt;time&gt;, dist &lt;dbl&gt;, rate &lt;dbl&gt;, bearing
+## #   &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <div id="tagSum" class="section level2">
@@ -843,20 +842,27 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 ## 4 SampleData#152:6.1@166.38(M.16011) 2015-08-03 06:37:11
 ## 5 SampleData#395:9.7@166.38(M.16052) 2015-09-12 17:38:04
 ## 6 SampleData#179:6.1@166.38(M.16037) 2015-08-17 17:01:38
-##               last_ts  first_site     last_site recvDeployLat.x
-## 1 2015-08-03 06:37:35 North Bluff   North Bluff         51.4839
-## 2 2015-09-02 20:06:13     Machias        Ruby&#39;s         44.5023
-## 3 2015-09-03 00:27:16   Netitishi           MDR         51.2913
-## 4 2015-09-18 09:37:39 North Bluff           NWW         51.4839
-## 5 2015-10-20 20:43:43   Longridge    Mount Thom         51.8231
-## 6 2015-11-02 13:21:42   NP mobile Hillman_Marsh              NA
-##   recvDeployLat.y           tot_ts      dist       rate    bearing num_det
-## 1        51.48390      24.386 secs       0.0  0.0000000 -180.00000       4
-## 2        62.89072 3578118.674 secs 2360483.7  0.6596997   23.48228      12
-## 3        43.96893   73268.958 secs  981595.5 13.3971542 -143.17632     279
-## 4        39.02827 3985228.228 secs 1689644.4  0.4239768 -140.15017     127
-## 5        45.55480 3294338.784 secs  835297.8  0.2535555 -144.09424     147
-## 6        42.04270 6639604.044 secs        NA         NA         NA    1353</code></pre>
+##               last_ts              first_site               last_site
+## 1 2015-08-03 06:37:35 North Bluff_51.5, -80.5 North Bluff_51.5, -80.5
+## 2 2015-09-02 20:06:13     Machias_44.5, -67.1     Ruby&#39;s_62.9, -143.7
+## 3 2015-09-03 00:27:16   Netitishi_51.3, -80.1           MDR_44, -68.1
+## 4 2015-09-18 09:37:39 North Bluff_51.5, -80.5           NWW_39, -74.8
+## 5 2015-10-20 20:43:43   Longridge_51.8, -80.7    Mount Thom_45.6, -63
+## 6 2015-11-02 13:21:42        NP mobile_NA, NA Hillman_Marsh_42, -82.5
+##   recvLat.x recvLon.x recvLat.y  recvLon.y           tot_ts    dist
+## 1   51.4839  -80.4500  51.48390  -80.45000      24.386 secs       0
+## 2   44.5023  -67.1018  62.89072 -143.68170 3578118.674 secs 5087724
+## 3   51.2913  -80.1168  43.96893  -68.12830   73268.958 secs 1211577
+## 4   51.4839  -80.4500  39.02827  -74.81004 3985228.228 secs 1452237
+## 5   51.8231  -80.6912  45.55480  -62.98590 3294338.784 secs 1472844
+## 6        NA        NA  42.04270  -82.51440 6639604.044 secs      NA
+##         rate    bearing num_det
+## 1  0.0000000 -180.00000       4
+## 2  1.4218993  -38.36268      12
+## 3 16.5360200  127.53144     279
+## 4  0.3644051  160.20437     127
+## 5  0.4470832  111.25011     147
+## 6         NA         NA    1353</code></pre>
 </div>
 </div>
 <div id="tagSumSite" class="section level2">
@@ -876,16 +882,15 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-14" class="section level3">
 <h3><span class="header-section-number">C.15.3</span> Example</h3>
 <p>Create tag summaries for only select tags with time in default hours with data.frame df.alltags</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tag_site_summary &lt;-<span class="st"> </span><span class="kw">tagSumSite</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">c</span>(<span class="dv">16047</span>, <span class="dv">16037</span>, <span class="dv">16039</span>)))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tag_site_summary &lt;-<span class="st"> </span><span class="kw">tagSumSite</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16047</span>, <span class="dv">16037</span>, <span class="dv">16039</span>)))
 <span class="kw">head</span>(tag_site_summary)</code></pre></div>
-<pre><code>##                               fullID        recvDeployName
-## 1 SampleData#179:6.1@166.38(M.16037)                  BULL
-## 2 SampleData#179:6.1@166.38(M.16037) Comeau (Marshalltown)
-## 3 SampleData#179:6.1@166.38(M.16037)         Hillman_Marsh
-## 4 SampleData#179:6.1@166.38(M.16037)             Netitishi
-## 5 SampleData#179:6.1@166.38(M.16037)           North Bluff
-## 6 SampleData#179:6.1@166.38(M.16037)             NP mobile
+<pre><code>##                               fullID                     recvDeployName
+## 1 SampleData#179:6.1@166.38(M.16037)                    BULL\n37.1, -76
+## 2 SampleData#179:6.1@166.38(M.16037) Comeau (Marshalltown)\n44.6, -65.8
+## 3 SampleData#179:6.1@166.38(M.16037)           Hillman_Marsh\n42, -82.5
+## 4 SampleData#179:6.1@166.38(M.16037)             Netitishi\n51.3, -80.1
+## 5 SampleData#179:6.1@166.38(M.16037)           North Bluff\n51.5, -80.5
+## 6 SampleData#179:6.1@166.38(M.16037)                  NP mobile\nNA, NA
 ##              first_ts             last_ts             tot_ts num_det
 ## 1 2015-09-14 15:55:48 2015-09-14 15:56:49   0.01693000 hours       2
 ## 2 2015-09-08 18:29:57 2015-09-08 18:37:16   0.12192881 hours       6
