@@ -371,7 +371,7 @@ df.recvDeps <- tbl.recvDeps %>%
                 as.data.frame() %>% 
                 mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
                        tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01"))
-# for deployments with no end daets, make an end date a year from now
+# for deployments with no end dates, make an end date a year from now
 df.recvDeps$tsEnd <-as.POSIXct(ifelse(is.na(df.recvDeps$tsEnd),
                                        as.POSIXct(format(Sys.time(), "%Y-%m-%d %H:%M:%S")) +
                                 lubridate::dyears(1), df.recvDeps$tsEnd), tz = "UTC", origin = "1970-01-01")
@@ -436,5 +436,5 @@ ggplot(na.lakes, aes(long, lat))+
 knitr::include_graphics("images/mapDetections.png")
 ```
 
-The functions above provide examples for you how can begin exploring your data and are by no means exhaustive. The next chapter will cover some common errors and troubleshooting you may encounter while trying to download and use the .motus sql files.
+The functions above provide examples of how you can begin exploring your data and are by no means exhaustive. The next chapter will cover some common errors and troubleshooting you may encounter while trying to download and use the .motus sql files.
 
