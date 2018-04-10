@@ -88,7 +88,7 @@ Plot latitude/longitude vs time (UTC rounded to the hour) for each tag using .mo
 **mfgID** variable consisting of a tags manufacturer ID  
 
 ### Example
-Plot tags select tags from tbl.alltags with 3 tags per panel
+Plot select tags from tbl.alltags with 3 tags per panel
 ```{r plotAllTagsCoord, eval = TRUE, message = FALSE, warning = FALSE}
 
 plotAllTagsCoord(
@@ -363,7 +363,7 @@ Creates and adds variables for time to, and time from sunrise/sunset based on a 
 ### Dependencies
 **data** a selected table from .motus data, e.g. "alltags", or a data.frame of detection data including at a minimum variables for date/time, latitude, and longitude  
 **lat** variable with latitude values, defaults to recvDeployLat  
-**lon** variable with latitude values, defaults to recvDeployLat  
+**lon** variable with longitude values, defaults to recvDeployLon  
 **ts** variable for a date/time object as numeric or POSIXct, defaults to ts  
 **units** units to display time difference, defaults to "hours", options include "secs", "mins", "hours", "days", "weeks"  
 

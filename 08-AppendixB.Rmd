@@ -38,7 +38,7 @@ If you get this message while updating your .motus file, use tagme() again to co
 
 This error may occur if you are attempting to download multiple projects simultaneously from the same user account. If you get this error, please logout of the motus package, and try tagme() again (see sections \@ref(motusLogout) and \@ref(resumeDownload)).
 
-### I get an error Object 'xxxx' not found, referring to a table or field name, or some of your examples in the book do not work.  
+### I get an error "Object 'xxxx' not found", referring to a table or field name, or some of your examples in the book do not work.  
 
 Be sure to start the steps from the top of the chapter and run them in sequential order. Another possibility is that your .motus database hasn't been updated to support the latest version of the motusClient or the motus package. If the checkVersion function returns a warning, this may indicate that the internal function used to update your database has not been triggered by tagme(). This can happen, for example, if you load the motusClient package without also loading the motus package. Loading the motus package will also load motusClient, so you should only ever need load motus into your R library. 
 
