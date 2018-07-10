@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -105,7 +105,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#whatBookCovers"><i class="fa fa-check"></i><b>1.1</b> What this book does not cover</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.2</b> Prerequisites</a></li>
-<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#sampleData"><i class="fa fa-check"></i><b>1.3</b> Sample dataset</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#sampleData"><i class="fa fa-check"></i><b>1.3</b> Sample datasets</a></li>
 <li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="loadingPackages.html"><a href="loadingPackages.html"><i class="fa fa-check"></i><b>2</b> Loading R Packages</a><ul>
@@ -172,6 +172,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.5.1" data-path="exploreData.html"><a href="exploreData.html#googleMaps"><i class="fa fa-check"></i><b>6.5.1</b> Mapping with Google Maps</a></li>
 <li class="chapter" data-level="6.5.2" data-path="exploreData.html"><a href="exploreData.html#outlineMaps"><i class="fa fa-check"></i><b>6.5.2</b> Creating simple outline maps</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="vanishingBearings.html"><a href="vanishingBearings.html"><i class="fa fa-check"></i><b>7</b> Vanishing bearings</a><ul>
+<li class="chapter" data-level="7.1" data-path="vanishingBearings.html"><a href="vanishingBearings.html#thingsToBeAwareOf"><i class="fa fa-check"></i><b>7.1</b> Things to be aware of</a></li>
+<li class="chapter" data-level="7.2" data-path="vanishingBearings.html"><a href="vanishingBearings.html#estimateBearings"><i class="fa fa-check"></i><b>7.2</b> Estimate vanishing bearings: step-by-step</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="vanishingBearings.html"><a href="vanishingBearings.html#load-the-required-packages"><i class="fa fa-check"></i><b>7.2.1</b> Load the required packages</a></li>
+<li class="chapter" data-level="7.2.2" data-path="vanishingBearings.html"><a href="vanishingBearings.html#vanishingSample"><i class="fa fa-check"></i><b>7.2.2</b> Load the sample data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="vanishingBearings.html"><a href="vanishingBearings.html#select-individuals-that-show-clear-departure-detections"><i class="fa fa-check"></i><b>7.2.3</b> Select individuals that show clear departure detections</a></li>
+<li class="chapter" data-level="7.2.4" data-path="vanishingBearings.html"><a href="vanishingBearings.html#obtain-departure-times"><i class="fa fa-check"></i><b>7.2.4</b> Obtain departure times</a></li>
+<li class="chapter" data-level="7.2.5" data-path="vanishingBearings.html"><a href="vanishingBearings.html#calculate-vanishing-bearings-for-individuals-with-departure-times."><i class="fa fa-check"></i><b>7.2.5</b> Calculate vanishing bearings for individuals with departure times.</a></li>
+<li class="chapter" data-level="7.2.6" data-path="vanishingBearings.html"><a href="vanishingBearings.html#plot-the-vanishing-bearings-on-a-map"><i class="fa fa-check"></i><b>7.2.6</b> Plot the vanishing bearings on a map</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="vanishingBearings.html"><a href="vanishingBearings.html#vanishingLitCited"><i class="fa fa-check"></i><b>7.3</b> Literature Cited</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="appendixA.html"><a href="appendixA.html"><i class="fa fa-check"></i><b>A</b> Appendix - alltags structure</a></li>
@@ -324,12 +336,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>This book assumes that you have a basic understanding of R. Regardless of whether you are new to R or not, we highly recommend that you become familiar with ‘R for Data Science’ by Garrett Grolemund and Hadley Wickham (<a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>). Their book covers how to import, visualize, and summarize data in R using the tidyverse collection of R packages (<a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>). It also provides an invaluable framework for organizing your workflow to create clean, reproducible code (<a href="http://r4ds.had.co.nz/workflow-projects.html" class="uri">http://r4ds.had.co.nz/workflow-projects.html</a>). We follow their lead by, wherever possible, using the tidyverse framework throughout this book.</p>
 </div>
 <div id="sampleData" class="section level2">
-<h2><span class="header-section-number">1.3</span> Sample dataset</h2>
-<p>Throughout this book we use a subset of data from the James Bay Shorebird Project to illustrate how to access, manage, and analyze Motus data in R. We recommend that you run through the sample code in each chapter with the sample dataset <strong>before</strong> running through with your own data, because you will undoubtedly need to modify the code we provide in order to deal most effectively with your own data (every situation is different).</p>
-<p>The James Bay Shorebird Project conducts monitoring and research on shorebirds staging along the James Bay coast, and is a collaborative effort among the Ontario Ministry of Natural Resources and Forestry, Bird Studies Canada, Trent University, and Environment and Climate Change Canada’s Canadian Wildlife Service, in conjunction with a larger conservation initiative involving James Bay First Nations and Nature Canada. The Royal Ontario Museum was a contributing partner until 2016. The goals of the project are to 1) improve the ability to estimate indices of abundance and population trends for shorebird species staging along the western James Bay coast, 2) understand movement patterns and their causes, and 3) identify the relative importance of shorebird staging sites and their habitats. Collectively, this information will aid in the development of conservation measures for Red Knot and other shorebird species through habitat protection like Western Hemisphere Shorebird Reserve Network (WHSRN) designation. More information can be viewed on the James Bay Shorebird Project website at <a href="https://www.jamesbayshorebirdproject.com/" class="uri">https://www.jamesbayshorebirdproject.com/</a>, on Facebook <a href="https://www.facebook.com/jamesbayshorebirdproject/" class="uri">https://www.facebook.com/jamesbayshorebirdproject/</a>, or by contacting their project lead:</p>
+<h2><span class="header-section-number">1.3</span> Sample datasets</h2>
+<p>Throughout this book we use subsets of real datasets to illustrate how to access, manage, explore and analyze Motus data in R. We recommend that you run through the sample code in each chapter with the sample dataset <strong>before</strong> running through with your own data, because you will undoubtedly need to modify the code we provide in order to deal most effectively with your own data (every situation is different).</p>
+<p>Chapters 2 through 6 use a subset of data from the James Bay Shorebird Project. The James Bay Shorebird Project conducts monitoring and research on shorebirds staging along the James Bay coast, and is a collaborative effort among the Ontario Ministry of Natural Resources and Forestry, Bird Studies Canada, Trent University, and Environment and Climate Change Canada’s Canadian Wildlife Service, in conjunction with a larger conservation initiative involving James Bay First Nations and Nature Canada. The Royal Ontario Museum was a contributing partner until 2016. The goals of the project are to 1) improve the ability to estimate indices of abundance and population trends for shorebird species staging along the western James Bay coast, 2) understand movement patterns and their causes, and 3) identify the relative importance of shorebird staging sites and their habitats. Collectively, this information will aid in the development of conservation measures for Red Knot and other shorebird species through habitat protection like Western Hemisphere Shorebird Reserve Network (WHSRN) designation. More information can be viewed on the James Bay Shorebird Project website at <a href="https://www.jamesbayshorebirdproject.com/" class="uri">https://www.jamesbayshorebirdproject.com/</a>, on Facebook <a href="https://www.facebook.com/jamesbayshorebirdproject/" class="uri">https://www.facebook.com/jamesbayshorebirdproject/</a>, or by contacting their project lead:</p>
 <p>Christian Friis Wildlife Biologist Canadian Wildlife Service Environment and Climate Change Canada / Government of Canada <a href="mailto:christian.friis@canada.ca">christian.friis@canada.ca</a> / Tel: 416.739.4908</p>
 <p>Biologiste de la Faune<br />
 Service Canadien de la Faune Environnement et Changement Climatique Canada / Gouvernement du Canada <a href="mailto:christian.friis@canada.ca">christian.friis@canada.ca</a> / Tél. : 416.739.4908</p>
+<p>In Chapter 7, we use a subset of data collected by the Motus project ‘Studies of Migratory Birds and Bats, 2014-2017’ (Projects #20 and #50) to illustrate the calculation of vanishing bearings of birds departing a stopover site. This project holds Motus data for several Western University projects that took place in southern Ontario, Canada. These projects were led by principal investigators (Chris Guglielmo and Yolanda Morbey) and a number of their graduate students. A variety of species of birds and bats were tracked. For more information contact:</p>
+<p>Chris Guglielmo, Professor, Department of Biology, Western University, Canada, <a href="mailto:cguglie2@uwo.ca">cguglie2@uwo.ca</a> / Tel: 519.661.2111 (ext. 81204)</p>
+<p>Yolanda Morbey, Associate Professor, Department of Biology, Western University, Canada, <a href="mailto:ymorbey@uwo.ca">ymorbey@uwo.ca</a> / Tel: 519.661.2111 (ext. 80116)</p>
 </div>
 <div id="acknowledgements" class="section level2">
 <h2><span class="header-section-number">1.4</span> Acknowledgements</h2>

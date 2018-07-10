@@ -30,11 +30,11 @@ This book does not cover how to register radio tags with Motus, manage tags and 
 
 This book assumes that you have a basic understanding of R. Regardless of whether you are new to R or not, we highly recommend that you become familiar with 'R for Data Science' by Garrett Grolemund and Hadley Wickham (<http://r4ds.had.co.nz/>). Their book covers how to import, visualize, and summarize data in R using the tidyverse collection of R packages (<https://www.tidyverse.org/>). It also provides an invaluable framework for organizing your workflow to create clean, reproducible code (<http://r4ds.had.co.nz/workflow-projects.html>). We follow their lead by, wherever possible, using the tidyverse framework throughout this book.
 
-## Sample dataset {#sampleData}
+## Sample datasets {#sampleData}
 
-Throughout this book we use a subset of data from the James Bay Shorebird Project to illustrate how to access, manage, and analyze Motus data in R. We recommend that you run through the sample code in each chapter with the sample dataset **before** running through with your own data, because you will undoubtedly need to modify the code we provide in order to deal most effectively with your own data (every situation is different).
+Throughout this book we use subsets of real datasets to illustrate how to access, manage, explore and analyze Motus data in R. We recommend that you run through the sample code in each chapter with the sample dataset **before** running through with your own data, because you will undoubtedly need to modify the code we provide in order to deal most effectively with your own data (every situation is different).
 
-The James Bay Shorebird Project conducts monitoring and research on shorebirds staging along the James Bay coast, and is a collaborative effort among the Ontario Ministry of Natural Resources and Forestry, Bird Studies Canada, Trent University, and Environment and Climate Change Canada's Canadian Wildlife Service, in conjunction with a larger conservation initiative involving James Bay First Nations and Nature Canada. The Royal Ontario Museum was a contributing partner until 2016. The goals of the project are to 1) improve the ability to estimate indices of abundance and population trends for shorebird species staging along the western James Bay coast, 2) understand movement patterns and their causes, and 3) identify the relative importance of shorebird staging sites and their habitats. Collectively, this information will aid in the development of conservation measures for Red Knot and other shorebird species through habitat protection like Western Hemisphere Shorebird Reserve Network (WHSRN) designation. More information can be viewed on the James Bay Shorebird Project website at <https://www.jamesbayshorebirdproject.com/>, on Facebook <https://www.facebook.com/jamesbayshorebirdproject/>, or by contacting their project lead:
+Chapters 2 through 6 use a subset of data from the James Bay Shorebird Project. The James Bay Shorebird Project conducts monitoring and research on shorebirds staging along the James Bay coast, and is a collaborative effort among the Ontario Ministry of Natural Resources and Forestry, Bird Studies Canada, Trent University, and Environment and Climate Change Canada's Canadian Wildlife Service, in conjunction with a larger conservation initiative involving James Bay First Nations and Nature Canada. The Royal Ontario Museum was a contributing partner until 2016. The goals of the project are to 1) improve the ability to estimate indices of abundance and population trends for shorebird species staging along the western James Bay coast, 2) understand movement patterns and their causes, and 3) identify the relative importance of shorebird staging sites and their habitats. Collectively, this information will aid in the development of conservation measures for Red Knot and other shorebird species through habitat protection like Western Hemisphere Shorebird Reserve Network (WHSRN) designation. More information can be viewed on the James Bay Shorebird Project website at <https://www.jamesbayshorebirdproject.com/>, on Facebook <https://www.facebook.com/jamesbayshorebirdproject/>, or by contacting their project lead:
 
 Christian Friis
 Wildlife Biologist
@@ -44,6 +44,12 @@ christian.friis@canada.ca / Tel: 416.739.4908
 Biologiste de la Faune  
 Service Canadien de la Faune Environnement et Changement Climatique Canada / Gouvernement du Canada 
 christian.friis@canada.ca / Tél. : 416.739.4908 
+
+In Chapter 7, we use a subset of data collected by the Motus project 'Studies of Migratory Birds and Bats, 2014-2017' (Projects #20 and #50) to illustrate the calculation of vanishing bearings of birds departing a stopover site. This project holds Motus data for several Western University projects that took place in southern Ontario, Canada. These projects were led by principal investigators (Chris Guglielmo and Yolanda Morbey) and a number of their graduate students. A variety of species of birds and bats were tracked. For more information contact:
+
+Chris Guglielmo, Professor, Department of Biology, Western University, Canada, cguglie2@uwo.ca / Tel: 519.661.2111 (ext. 81204)
+
+Yolanda Morbey, Associate Professor, Department of Biology, Western University, Canada, ymorbey@uwo.ca / Tel: 519.661.2111 (ext. 80116)
 
 ## Acknowledgements {#acknowledgements}
 
