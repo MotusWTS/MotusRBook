@@ -97,14 +97,17 @@ Sys.setenv(TZ = "GMT")
 
 ### Load the sample data {#vanishingSample}
 
-The sample data used in this chapter includes the detections of three Magnolia Warblers that were tagged at the Old Cut field research station of the Long Point Bird Observatory in Ontario, Canada, by Morbey et al. (2017). The warblers were tagged and released in spring 2015; these sample data are included in the Motus R package, and can be accessed using the following code:
+The sample data used in this chapter includes the detections of three Magnolia Warblers that were tagged at the Old Cut field research station of the Long Point Bird Observatory in Ontario, Canada, by Morbey et al. (2017). The warblers were tagged and released in spring 2015; these sample data are included in a Motus data R package, and can be accessed using the following code:
 
 ```{r vanishLoadData, warning = FALSE, message = FALSE}
+
+install_github("MotusWTS/motusData")
+require(motusData)
 
 ## Load the sample data we provided from 3 individual warblers departing Old Cut during the Spring of 2015
 ## We also do a couple manipulations here, to reorder the levels of the recvSiteName factor, and order the data by ts
 
-df.sample <- readRDS("data/vanishBearing_data2015.RDS") %>%
+df.vanish <- vanishBearing %>%
   mutate(recvSiteName = reorder(recvSiteName, recvLat),
          motusTagID = as.factor(as.character(motusTagID))) %>% # order sites by latitude
   arrange(ts) # arrange by ts
@@ -119,7 +122,7 @@ By selecting only clear departures, we make sure that the bird departed from nea
 
 ```{r vanishPlotLatvsSIG}
 
-p1 <- ggplot(df.sample, aes(ts, recvLat, colour= as.factor(recvSiteName))) + 
+p1 <- ggplot(df.vanish, aes(ts, recvLat, colour= as.factor(recvSiteName))) + 
   geom_point(pch = 21) +
   facet_wrap(~motusTagID, scales = "free", ncol = 1) +
   theme_bw()
@@ -132,7 +135,7 @@ We also make sure that the bird was being detected by several antennas at once d
 
 ```{r vanishPlotTSvsSIG}
 
-p1 <- ggplot(subset(df.sample, motusTagID == 16823 & ts > "2015-05-30 00:00:00"), aes(ts, sig, colour= as.factor(port))) + 
+p1 <- ggplot(subset(df.vanish, motusTagID == 16823 & ts > "2015-05-30 00:00:00"), aes(ts, sig, colour= as.factor(port))) + 
   geom_point(pch = 21) +
   facet_grid(recvSiteName ~ .) +
   theme_bw()
@@ -152,7 +155,7 @@ Continuing with tag 16823, let's find the departure time.
 
 ```{r vanishFindDepTime}
 
-p2 <- ggplot(subset(df.sample, motusTagID == 16823), aes(ts, sig, colour= as.factor(antBearing))) + 
+p2 <- ggplot(subset(df.vanish, motusTagID == 16823), aes(ts, sig, colour= as.factor(antBearing))) + 
   geom_point() +
   facet_grid(recvSiteName~.) +
   theme_bw()
@@ -167,7 +170,7 @@ We then subset the plot in order to zoom in to the last few minutes of detection
 
 ```{r vanishPlotTSvsSIG2}
 
-p3 <- ggplot(subset(df.sample, motusTagID == 16823 & ts > "2015-05-30 03:03:00" & ts < "2015-05-30 03:10:00"), aes(ts, sig, colour= as.factor(antBearing))) + 
+p3 <- ggplot(subset(df.vanish, motusTagID == 16823 & ts > "2015-05-30 03:03:00" & ts < "2015-05-30 03:10:00"), aes(ts, sig, colour= as.factor(antBearing))) + 
   geom_point() +
   facet_grid(recvSiteName~.) +
   theme_bw()
@@ -227,7 +230,7 @@ depart.station <- "Old Cut"
 min.sig <- -78.0691 # normally max and min sig would be taken from the complete raw data for a station
 max.sig <- -17.8707
 
-df.vanish <- right_join(df.sample, df.departTime, by = "motusTagID") %>% # in this case, right join should drop any individuals that don't have departure times in df.departTime
+df.vanish <- right_join(df.vanish, df.departTime, by = "motusTagID") %>% # in this case, right join should drop any individuals that don't have departure times in df.departTime
   filter(ts >= ts_depart,
          recvSiteName == depart.station) %>%
   distinct() %>%
@@ -288,7 +291,7 @@ ptspermm <- 2.83464567  # need this because geom_text uses mm, and themes use pt
 
 ## To map antenna bearings:
 ## Create a station dataframe with antenna bearings for all antennas with detections for the tag of interest
-df.stations <- df.sample %>%
+df.stations <- df.vanish %>%
   filter(motusTagID == tagID) %>%
   select(recvSiteName, antBearing, port, recvLon, recvLat) %>%
   distinct()
