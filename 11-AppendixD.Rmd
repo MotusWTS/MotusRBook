@@ -1,6 +1,6 @@
 # Appendix - The motusClient Package - Data filtering functions {#appendixD}
 
-```{r tidyr10, echo = FALSE, message = FALSE, warning = FALSE}
+```{r tidyr11, echo = FALSE, message = FALSE, warning = FALSE}
 
 library(knitr)
 opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)

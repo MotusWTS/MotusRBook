@@ -1,3 +1,10 @@
+```{r tidyr7, echo = FALSE, message = FALSE, warning = FALSE}
+
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
+
+```
+
 # Vanishing bearings {#vanishingBearings}
 
 *This chapter was contributed by Ana Morales and Tara Crewe, using data collected by Morbey et al. (2017) (see \@ref(sampleData)), and with financial support from a NSERC CREATE Environmental Innovation Program internship awarded to A.M. through McGill University, with partner Bird Studies Canada (T.C.).*
@@ -16,7 +23,7 @@ It is really important to note that this method **WILL NOT WORK** unless this as
 
 The deviation between estimated vanishing bearings and actual departure orientation that results from birds departing from locations removed from a station is called parallax error. Parallax error can be minimized by analyzing only departures in which we can be confident from signal strength characteristics that an individual departed from fairly close to the receiving station. Using radar data, Sjöberg and Nilsson (2015) estimated parallax error to be +- 10 degrees when the bird departed close to the station.
 
-Manual telemetry can be used to determine the precise location of an individual during stopover. In the absence of known location, a good way to know if an individual departed from the general location of a receiving station is to look at the pattern of detections pre- and post-departure. If an individual departs from near a station, the data will show clear detection patterns by at least two different antennas prior to and during departure. The following plots use data collected for tagged warblers in spring 2014 and 2015 by Morbey et al. (2017), and show examples of a) a tag with a clear departure, and b) a tag that does not show a clear departure; more information on the data can be found in section \@ref(sampleData) and \@ref(vanishingSample) below: 
+Manual telemetry can be used to determine the precise location of an individual during stopover. In the absence of known location, a good way to know if an individual departed from the general location of a receiving station is to look at the pattern of detections pre- and post-departure. If an individual departs from near a station, the data will show clear detection patterns by at least two different antennas prior to and during departure. The following plots use data collected for tagged warblers in spring 2014 and 2015 by Morbey et al. (2017), and show examples of a) a tag with a clear departure, and b) a tag that does not show a clear departure; more information on the data can be found in sections \@ref(sampleData) and \@ref(vanishingSample) below: 
 
 a) **Good departure**: you can see that the bird stayed in the vicinity of the Old Cut station during stopover, as shown by increased signal variation during the day, and decreased signal variation during the night. On the night of departure, the tag shows the usual decrease in activity at night, followed by an increase of activity at around 02:30 am as it departs; the tag stops being detected by the Old Cut's station soon after, and is then detected by other nearby receivers during its departure flight:  
 
@@ -79,7 +86,7 @@ We now walk through how to estimate vanishing bearings in the following steps:
 5. Estimate vanishing bearings
 6. Plot vanishing bearing on a map
 
-### Load the required packages
+### Load the required packages {#loadPackages7}
 
 ```{r vanishLoadPackages, warning = FALSE, message = FALSE}
 
@@ -97,12 +104,13 @@ Sys.setenv(TZ = "GMT")
 
 ### Load the sample data {#vanishingSample}
 
-The sample data used in this chapter includes the detections of three Magnolia Warblers that were tagged at the Old Cut field research station of the Long Point Bird Observatory in Ontario, Canada, by Morbey et al. (2017). The warblers were tagged and released in spring 2015; these sample data are included in a Motus data R package, and can be accessed using the following code:
+The sample data used in this chapter includes the detections of three Magnolia Warblers that were tagged at the Old Cut field research station of the Long Point Bird Observatory in Ontario, Canada, by Morbey et al. (2017). The warblers were tagged and released in spring 2015.
+
+The sample data are included in the motusData R package as the "vanishBearing.rda" file. In order to access these data, you will need to first install the motusData package following the instructions in  section \@ref(loadingPackages), *prior* to running the code in this chapter: 
 
 ```{r vanishLoadData, warning = FALSE, message = FALSE}
 
-install_github("MotusWTS/motusData")
-require(motusData)
+library(motusData) # load the motusData package, which contains the sample data for this chapter
 
 ## Load the sample data we provided from 3 individual warblers departing Old Cut during the Spring of 2015
 ## We also do a couple manipulations here, to reorder the levels of the recvSiteName factor, and order the data by ts
@@ -170,9 +178,10 @@ We then subset the plot in order to zoom in to the last few minutes of detection
 
 ```{r vanishPlotTSvsSIG2}
 
-p3 <- ggplot(subset(df.vanish, motusTagID == 16823 & ts > "2015-05-30 03:03:00" & ts < "2015-05-30 03:10:00"), aes(ts, sig, colour= as.factor(antBearing))) + 
+p3 <- ggplot(subset(df.vanish, motusTagID == 16823 & ts > "2015-05-30 03:03:00" & ts < "2015-05-30 03:10:00"), 
+             aes(ts, sig, colour= as.factor(antBearing))) + 
   geom_point() +
-  facet_grid(recvSiteName~.) +
+  #facet_grid(recvSiteName~.) +
   theme_bw()
 
 p3
@@ -230,7 +239,7 @@ depart.station <- "Old Cut"
 min.sig <- -78.0691 # normally max and min sig would be taken from the complete raw data for a station
 max.sig <- -17.8707
 
-df.vanish <- right_join(df.vanish, df.departTime, by = "motusTagID") %>% # in this case, right join should drop any individuals that don't have departure times in df.departTime
+df.vanishBearing <- right_join(df.vanish, df.departTime, by = "motusTagID") %>% # in this case, right join should drop any individuals that don't have departure times in df.departTime
   filter(ts >= ts_depart,
          recvSiteName == depart.station) %>%
   distinct() %>%
@@ -248,8 +257,8 @@ The resulting 'df.vanish' dataframe contains the motusTagID, the vanishing beari
 
 ```{r plotCircular}
 
-plot.circular(df.vanish$vanish.bearing, zero = pi/2) # if you have many bearings/points, can use stack = TRUE
-arrows.circular(mean(df.vanish$vanish.bearing), zero = pi/2)
+plot.circular(df.vanishBearing$vanish.bearing, zero = pi/2) # if you have many bearings/points, can use stack = TRUE
+arrows.circular(mean(df.vanishBearing$vanish.bearing), zero = pi/2)
 
 ```
 
@@ -307,7 +316,7 @@ out.map <- ggmap(map.OC) +
                                          y = recvLat, yend = recvLat + (cos(rad(antBearing))*arr.sc)), colour= "yellow") +  
     
     # add vanishing bearings
-    geom_segment(data = filter(df.vanish, motusTagID == tagID), 
+    geom_segment(data = filter(df.vanishBearing, motusTagID == tagID), 
                  aes( x = recvLon, xend= recvLon + (sin(rad(vanish.bearing))*arr.sc),
                       y = recvLat, yend = recvLat + (cos(rad(vanish.bearing))*arr.sc), colour = motusTagID)) +
   

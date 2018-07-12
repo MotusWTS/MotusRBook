@@ -6,11 +6,13 @@ opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
 
 ```
 
-Two R packages have been developed for Motus users:
+Three R packages have been developed for Motus users:
 
 1. motus: provides functions to output summary plots, and to transform (add sun rise/sun set times) and analyze Motus data.
 
 2. motusClient: provides functions to download and update detections data and tag and receiver deployment metadata from the Motus server.
+
+3. motusData: provides sample datasets used in some of the chapters of this book.
 
 Motus **users** can install the latest stable versions of the R packages using the following code. As with all R packages, you only need to install the packages once; after installation, you need to load each package (using library() or require()) each time you open a new R session. 
 
@@ -37,7 +39,11 @@ install_github("MotusWTS/motus")
 # install motusClient for data download
 install_github("MotusWTS/motusClient")
 
+# install motusData package which contains sample datasets, e.g., vanishBearing used in Chapter 7
+install_github("MotusWTS/motusData")
+
 library(motus)
+library(motusData)
 
 ```
 

@@ -176,7 +176,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7" data-path="vanishingBearings.html"><a href="vanishingBearings.html"><i class="fa fa-check"></i><b>7</b> Vanishing bearings</a><ul>
 <li class="chapter" data-level="7.1" data-path="vanishingBearings.html"><a href="vanishingBearings.html#thingsToBeAwareOf"><i class="fa fa-check"></i><b>7.1</b> Things to be aware of</a></li>
 <li class="chapter" data-level="7.2" data-path="vanishingBearings.html"><a href="vanishingBearings.html#estimateBearings"><i class="fa fa-check"></i><b>7.2</b> Estimate vanishing bearings: step-by-step</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="vanishingBearings.html"><a href="vanishingBearings.html#load-the-required-packages"><i class="fa fa-check"></i><b>7.2.1</b> Load the required packages</a></li>
+<li class="chapter" data-level="7.2.1" data-path="vanishingBearings.html"><a href="vanishingBearings.html#loadPackages7"><i class="fa fa-check"></i><b>7.2.1</b> Load the required packages</a></li>
 <li class="chapter" data-level="7.2.2" data-path="vanishingBearings.html"><a href="vanishingBearings.html#vanishingSample"><i class="fa fa-check"></i><b>7.2.2</b> Load the sample data</a></li>
 <li class="chapter" data-level="7.2.3" data-path="vanishingBearings.html"><a href="vanishingBearings.html#select-individuals-that-show-clear-departure-detections"><i class="fa fa-check"></i><b>7.2.3</b> Select individuals that show clear departure detections</a></li>
 <li class="chapter" data-level="7.2.4" data-path="vanishingBearings.html"><a href="vanishingBearings.html#obtain-departure-times"><i class="fa fa-check"></i><b>7.2.4</b> Obtain departure times</a></li>
@@ -331,25 +331,25 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <p>It is really important to note that this method <strong>WILL NOT WORK</strong> unless this assumption is met. Because tagged individuals most likely aren’t departing from the exact location of the receiver station, they should be considered coarse estimates of departure orientation.</p>
 <p>The deviation between estimated vanishing bearings and actual departure orientation that results from birds departing from locations removed from a station is called parallax error. Parallax error can be minimized by analyzing only departures in which we can be confident from signal strength characteristics that an individual departed from fairly close to the receiving station. Using radar data, Sjöberg and Nilsson (2015) estimated parallax error to be +- 10 degrees when the bird departed close to the station.</p>
-<p>Manual telemetry can be used to determine the precise location of an individual during stopover. In the absence of known location, a good way to know if an individual departed from the general location of a receiving station is to look at the pattern of detections pre- and post-departure. If an individual departs from near a station, the data will show clear detection patterns by at least two different antennas prior to and during departure. The following plots use data collected for tagged warblers in spring 2014 and 2015 by Morbey et al. (2017), and show examples of a) a tag with a clear departure, and b) a tag that does not show a clear departure; more information on the data can be found in section <a href="introduction.html#sampleData">1.3</a> and <a href="vanishingBearings.html#vanishingSample">7.2.2</a> below:</p>
+<p>Manual telemetry can be used to determine the precise location of an individual during stopover. In the absence of known location, a good way to know if an individual departed from the general location of a receiving station is to look at the pattern of detections pre- and post-departure. If an individual departs from near a station, the data will show clear detection patterns by at least two different antennas prior to and during departure. The following plots use data collected for tagged warblers in spring 2014 and 2015 by Morbey et al. (2017), and show examples of a) a tag with a clear departure, and b) a tag that does not show a clear departure; more information on the data can be found in sections <a href="introduction.html#sampleData">1.3</a> and <a href="vanishingBearings.html#vanishingSample">7.2.2</a> below:</p>
 <ol style="list-style-type: lower-alpha">
 <li><strong>Good departure</strong>: you can see that the bird stayed in the vicinity of the Old Cut station during stopover, as shown by increased signal variation during the day, and decreased signal variation during the night. On the night of departure, the tag shows the usual decrease in activity at night, followed by an increase of activity at around 02:30 am as it departs; the tag stops being detected by the Old Cut’s station soon after, and is then detected by other nearby receivers during its departure flight:</li>
 </ol>
-<p><img src="images/vanishBearing_goodDetection.png" width="354" style="display: block; margin: auto;" /></p>
+<p><img src="images/vanishBearing_goodDetection.png" width="252" style="display: block; margin: auto;" /></p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li><strong>Unclear departure</strong>: this bird was not detected by the Old Cut station for quite a while, and was only detected during an apparent flyover; signal characteristics did not support a clear departure from the station. In this case, we do not know how far the bird was from the station during the flyby. We caution against using examples like this to estimate vanishing bearings:</li>
 </ol>
-<p><img src="images/vanishBearing_badDetection.png" width="360" style="display: block; margin: auto;" /></p>
+<p><img src="images/vanishBearing_badDetection.png" width="252" style="display: block; margin: auto;" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li><strong>The more closely spaced the antennas on a station, the greater the resolution to estimate an accurate vanishing bearing</strong></li>
 </ol>
 <p>At the Old Cut field station, three antennas were spaced 120 degrees apart in 2014, and 90 degrees apart in 2015 (facing approximately east, north and west). In both years we calculated a coarse departure bearing using the mean of station-to-station bearings for warblers that were detected by multiple stations during departure. This gave us a known departure direction. We then calculated vanishing bearings to compare.</p>
 <p>The following is a figure showing the estimated coarse and vanishing bearing for a warbler departing northwards from Old Cut in spring 2014, when the 3 antennas were spaced 120 degrees apart. The green line represents the estimated vanishing bearing of tag ID 277. The blue line represents the average course bearing based on detections from other stations (red points):</p>
-<p><img src="images/vanishBearing2014.png" width="636" style="display: block; margin: auto;" /></p>
+<p><img src="images/vanishBearing2014.png" width="252" style="display: block; margin: auto;" /></p>
 <p>In the example below, estimated coarse and vanishing bearings are shown for a warbler departing to the north in spring 2015, when Old Cut’s antennas were spaced 90 degrees apart. We can see that the estimated vanishing bearing is pretty close to the coarse bearing estimate.</p>
-<p><img src="images/vanishBearing2015.png" width="659" style="display: block; margin: auto;" /></p>
+<p><img src="images/vanishBearing2015.png" width="252" style="display: block; margin: auto;" /></p>
 <p>Overall, mean deviation between coarse and vanishing bearings was higher in 2014 (n = 14 departures) when antennas were spaced 120 degrees apart, than in 2015 (n = 12 departures) when antennas were spaced 90 degrees apart:</p>
-<p><img src="images/vanishBearingDeviation.png" width="452" style="display: block; margin: auto;" /></p>
+<p><img src="images/vanishBearingDeviation.png" width="252" style="display: block; margin: auto;" /></p>
 <p>This suggests that stations with closer spaced antennas yield more accurate vanishing bearings. If the estimation of vanishing bearings is a primary goal of your research, we suggest spacing antennas 60 degrees apart, as in Sissel and Nilson (2015).</p>
 <ol start="3" style="list-style-type: decimal">
 <li><strong>For receivers with negative signal strength values, weights need to be normalized</strong></li>
@@ -367,7 +367,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Estimate vanishing bearings</li>
 <li>Plot vanishing bearing on a map</li>
 </ol>
-<div id="load-the-required-packages" class="section level3">
+<div id="loadPackages7" class="section level3">
 <h3><span class="header-section-number">7.2.1</span> Load the required packages</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(circular)
 <span class="kw">library</span>(tidyverse)
@@ -381,12 +381,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="vanishingSample" class="section level3">
 <h3><span class="header-section-number">7.2.2</span> Load the sample data</h3>
-<p>The sample data used in this chapter includes the detections of three Magnolia Warblers that were tagged at the Old Cut field research station of the Long Point Bird Observatory in Ontario, Canada, by Morbey et al. (2017). The warblers were tagged and released in spring 2015; these sample data are included in the Motus R package, and can be accessed using the following code:</p>
-<p>[NEED TO UPDATE THIS ONCE FILES ARE IN PACKAGE]</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Load the sample data we provided from 3 individual warblers departing Old Cut during the Spring of 2015
+<p>The sample data used in this chapter includes the detections of three Magnolia Warblers that were tagged at the Old Cut field research station of the Long Point Bird Observatory in Ontario, Canada, by Morbey et al. (2017). The warblers were tagged and released in spring 2015.</p>
+<p>The sample data are included in the motusData R package as the “vanishBearing.rda” file. In order to access these data, you will need to first install the motusData package following the instructions in section <a href="loadingPackages.html#loadingPackages">2</a>, <em>prior</em> to running the code in this chapter:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(motusData) <span class="co"># load the motusData package, which contains the sample data for this chapter</span>
+
+## Load the sample data we provided from 3 individual warblers departing Old Cut during the Spring of 2015
 ## We also do a couple manipulations here, to reorder the levels of the recvSiteName factor, and order the data by ts
 
-df.sample &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;data/vanishBearing_data2015.RDS&quot;</span>) <span class="op">%&gt;%</span>
+df.vanish &lt;-<span class="st"> </span>vanishBearing <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">recvSiteName =</span> <span class="kw">reorder</span>(recvSiteName, recvLat),
          <span class="dt">motusTagID =</span> <span class="kw">as.factor</span>(<span class="kw">as.character</span>(motusTagID))) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># order sites by latitude</span>
 <span class="st">  </span><span class="kw">arrange</span>(ts) <span class="co"># arrange by ts</span></code></pre></div>
@@ -395,14 +397,14 @@ df.sample &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span cl
 <h3><span class="header-section-number">7.2.3</span> Select individuals that show clear departure detections</h3>
 <p>First, we subset the data to the individuals that showed clear departures from the stopover site of interest. In fact, the sample data only includes three departures of birds we <em>know</em> have clear departures from Old Cut, but we show this step here regardless!</p>
 <p>By selecting only clear departures, we make sure that the bird departed from nearby the station, minimizing the potential for parallax error. We look for clear departures by first plotting latitude against time. In this case, we can see the birds departing north past several stations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df.sample, <span class="kw">aes</span>(ts, recvLat, <span class="dt">colour =</span> <span class="kw">as.factor</span>(recvSiteName))) <span class="op">+</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df.vanish, <span class="kw">aes</span>(ts, recvLat, <span class="dt">colour =</span> <span class="kw">as.factor</span>(recvSiteName))) <span class="op">+</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>motusTagID, 
     <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
 
 p1</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/vanishPlotLatvsSIG-1.png" width="672" /></p>
 <p>We also make sure that the bird was being detected by several antennas at once during departure; if detections are on only one antenna, the vanishing bearing will simply be the direction of the lone antenna with detections. We plot signal strength by time for a subset of the data, to show the last few hours of detections of the bird at Old Cut. Let’s try this with tag # 16823 from our sample data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">subset</span>(df.sample, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span> <span class="op">&amp;</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">subset</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span> <span class="op">&amp;</span><span class="st"> </span>
 <span class="st">    </span>ts <span class="op">&gt;</span><span class="st"> &quot;2015-05-30 00:00:00&quot;</span>), <span class="kw">aes</span>(ts, sig, <span class="dt">colour =</span> <span class="kw">as.factor</span>(port))) <span class="op">+</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(recvSiteName <span class="op">~</span><span class="st"> </span>
 <span class="st">    </span>.) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
@@ -416,7 +418,7 @@ p1</code></pre></div>
 <h3><span class="header-section-number">7.2.4</span> Obtain departure times</h3>
 <p>In order to estimate vanishing bearings based on the signal strength of departure detections, we must first determine the approximate time that the bird started its departure flight. For now, the best way to do this is by manually going through each set of detections from each bird and obtaining the approximate time by plotting the time versus signal strength.</p>
 <p>Continuing with tag 16823, let’s find the departure time.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">subset</span>(df.sample, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>), 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">subset</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>), 
     <span class="kw">aes</span>(ts, sig, <span class="dt">colour =</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(recvSiteName <span class="op">~</span><span class="st"> </span>.) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
 
@@ -424,10 +426,11 @@ p2</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/vanishFindDepTime-1.png" width="672" /></p>
 <p>We can see the complete set of detections of tag 16823 for Old Cut and other stations this bird was detected at post-departure.</p>
 <p>We then subset the plot in order to zoom in to the last few minutes of detections at Old Cut, which is where the bird is departing from. By zooming in we can find the exact departure time.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">subset</span>(df.sample, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span> <span class="op">&amp;</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">subset</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span> <span class="op">&amp;</span><span class="st"> </span>
 <span class="st">    </span>ts <span class="op">&gt;</span><span class="st"> &quot;2015-05-30 03:03:00&quot;</span> <span class="op">&amp;</span><span class="st"> </span>ts <span class="op">&lt;</span><span class="st"> &quot;2015-05-30 03:10:00&quot;</span>), 
     <span class="kw">aes</span>(ts, sig, <span class="dt">colour =</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(recvSiteName <span class="op">~</span><span class="st"> </span>.) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
+<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="co"># facet_grid(recvSiteName~.) +</span>
+<span class="kw">theme_bw</span>()
 
 p3</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/vanishPlotTSvsSIG2-1.png" width="672" /></p>
@@ -475,7 +478,7 @@ depart.station &lt;-<span class="st"> &quot;Old Cut&quot;</span>
 min.sig &lt;-<span class="st"> </span><span class="op">-</span><span class="fl">78.0691</span> <span class="co"># normally max and min sig would be taken from the complete raw data for a station</span>
 max.sig &lt;-<span class="st"> </span><span class="op">-</span><span class="fl">17.8707</span>
 
-df.vanish &lt;-<span class="st"> </span><span class="kw">right_join</span>(df.sample, df.departTime, <span class="dt">by =</span> <span class="st">&quot;motusTagID&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># in this case, right join should drop any individuals that don&#39;t have departure times in df.departTime</span>
+df.vanishBearing &lt;-<span class="st"> </span><span class="kw">right_join</span>(df.vanish, df.departTime, <span class="dt">by =</span> <span class="st">&quot;motusTagID&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># in this case, right join should drop any individuals that don&#39;t have departure times in df.departTime</span>
 <span class="st">  </span><span class="kw">filter</span>(ts <span class="op">&gt;=</span><span class="st"> </span>ts_depart,
          recvSiteName <span class="op">==</span><span class="st"> </span>depart.station) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span>
@@ -487,8 +490,9 @@ df.vanish &lt;-<span class="st"> </span><span class="kw">right_join</span>(df.sa
             <span class="dt">minutes.used =</span> <span class="kw">as.duration</span>(<span class="kw">min</span>(ts) <span class="op">%--%</span><span class="st"> </span><span class="kw">max</span>(ts))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">as.data.frame</span>()</code></pre></div>
 <p>The resulting ‘df.vanish’ dataframe contains the motusTagID, the vanishing bearing of the tag, the time in seconds/minutes used to estimate the bearing, and the receiver’s name and coordinates. We can make a circular plot with points for the individual vanishing bearings and an arrow for the mean bearing as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot.circular</span>(df.vanish<span class="op">$</span>vanish.bearing, <span class="dt">zero =</span> pi<span class="op">/</span><span class="dv">2</span>)  <span class="co"># if you have many bearings/points, can use stack = TRUE</span>
-<span class="kw">arrows.circular</span>(<span class="kw">mean</span>(df.vanish<span class="op">$</span>vanish.bearing), <span class="dt">zero =</span> pi<span class="op">/</span><span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot.circular</span>(df.vanishBearing<span class="op">$</span>vanish.bearing, <span class="dt">zero =</span> pi<span class="op">/</span><span class="dv">2</span>)  <span class="co"># if you have many bearings/points, can use stack = TRUE</span>
+<span class="kw">arrows.circular</span>(<span class="kw">mean</span>(df.vanishBearing<span class="op">$</span>vanish.bearing), 
+    <span class="dt">zero =</span> pi<span class="op">/</span><span class="dv">2</span>)</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotCircular-1.png" width="672" /></p>
 </div>
 <div id="plot-the-vanishing-bearings-on-a-map" class="section level3">
@@ -520,7 +524,7 @@ ptspermm &lt;-<span class="st"> </span><span class="fl">2.83464567</span>  <span
 ## To map antenna bearings: Create a station
 ## dataframe with antenna bearings for all antennas
 ## with detections for the tag of interest
-df.stations &lt;-<span class="st"> </span>df.sample <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(motusTagID <span class="op">==</span><span class="st"> </span>tagID) <span class="op">%&gt;%</span><span class="st"> </span>
+df.stations &lt;-<span class="st"> </span>df.vanish <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(motusTagID <span class="op">==</span><span class="st"> </span>tagID) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">select</span>(recvSiteName, antBearing, port, recvLon, 
         recvLat) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>()
 
@@ -538,7 +542,7 @@ out.map &lt;-<span class="st"> </span><span class="kw">ggmap</span>(map.OC) <spa
 <span class="st">    </span>(<span class="kw">cos</span>(<span class="kw">rad</span>(antBearing)) <span class="op">*</span><span class="st"> </span>arr.sc)), <span class="dt">colour =</span> <span class="st">&quot;yellow&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">    </span>
 <span class="co"># add vanishing bearings</span>
-<span class="kw">geom_segment</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span>
+<span class="kw">geom_segment</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanishBearing, motusTagID <span class="op">==</span><span class="st"> </span>
 <span class="st">    </span>tagID), <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">xend =</span> recvLon <span class="op">+</span><span class="st"> </span>(<span class="kw">sin</span>(<span class="kw">rad</span>(vanish.bearing)) <span class="op">*</span><span class="st"> </span>
 <span class="st">    </span>arr.sc), <span class="dt">y =</span> recvLat, <span class="dt">yend =</span> recvLat <span class="op">+</span><span class="st"> </span>(<span class="kw">cos</span>(<span class="kw">rad</span>(vanish.bearing)) <span class="op">*</span><span class="st"> </span>
 <span class="st">    </span>arr.sc), <span class="dt">colour =</span> motusTagID)) <span class="op">+</span><span class="st"> </span>
