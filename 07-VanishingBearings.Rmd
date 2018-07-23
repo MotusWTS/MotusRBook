@@ -17,7 +17,7 @@ This chapter will show you how to estimate the departure bearing of your tagged 
 
 ## Things to be aware of {#thingsToBeAwareOf}
 
-1) This method **assumes that the tagged animal is departing from the general location of the receiving station, and moving radially away from the station**. 
+1) **This method assumes that the tagged animal is departing from the general location of the receiving station, and moving radially away from the station**. 
 
 It is really important to note that this method **WILL NOT WORK** unless this assumption is met. Because tagged individuals most likely aren't departing from the exact location of the receiver station, they should be considered coarse estimates of departure orientation. 
 
@@ -33,7 +33,7 @@ knitr::include_graphics("images/vanishBearing_goodDetection.png")
 
 ```
 
-b) **Unclear departure**: this bird was not detected by the Old Cut station for quite a while, and was only detected during an apparent flyover; signal characteristics did not support a clear departure from the station. In this case, we do not know how far the bird was from the station during the flyby. We caution against using examples like this to estimate vanishing bearings: 
+b) **Unclear departure**: this bird was not detected by the Old Cut station for quite a while, and was only detected during an apparent flyover; signal characteristics do not support a clear departure from the station. In this case, we do not know how far the bird was from the station during the flyby. We caution against using examples like this to estimate vanishing bearings: 
 
 ```{r vanishFig2, echo=FALSE, fig.align='center'}
 
@@ -41,11 +41,11 @@ knitr::include_graphics("images/vanishBearing_badDetection.png")
 
 ```
 
-2) **The more closely spaced the antennas on a station, the greater the resolution to estimate an accurate vanishing bearing** 
+2) **The more closely spaced the antennas on a station, the greater the resolution to estimate an accurate vanishing bearing.** 
 
 At the Old Cut field station, three antennas were spaced 120 degrees apart in 2014, and 90 degrees apart in 2015 (facing approximately east, north and west). In both years we calculated a coarse departure bearing using the mean of station-to-station bearings for warblers that were detected by multiple stations during departure. This gave us a known departure direction. We then calculated vanishing bearings to compare. 
 
-The following is a figure showing the estimated coarse and vanishing bearing for a warbler departing northwards from Old Cut in spring 2014, when the 3 antennas were spaced 120 degrees apart. The green line represents the estimated vanishing bearing of tag ID 277. The blue line represents the average course bearing based on detections from other stations (red points): 
+The following is a figure showing the estimated coarse and vanishing bearing for a warbler departing northwards from Old Cut in spring 2014, when the 3 antennas were spaced 120 degrees apart. The red line represents the estimated vanishing bearing of tag ID 277. The blue line represents the average course bearing based on detections from other stations (red points): 
 
 ```{r vanishFig3, echo=FALSE, fig.align='center'}
 
@@ -274,7 +274,7 @@ tagID <- 16823
 
 ```
 
-Then, create a map with a specified map centre, maptype (“terrain”, “roadmap”, “satellite”, or “hybrid”), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale). We add a yellow point for the stations with detections, yellow lines to represent antenna bearings with detections, and a green line for the vanishing bearing:
+Then, create a map with a specified map centre, maptype (“terrain”, “roadmap”, “satellite”, or “hybrid”), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale). We add a yellow point for the stations with detections, yellow lines to represent antenna bearings with detections, and a red line for the vanishing bearing:
 
 ```{r vanishMapping, warning = FALSE, message = FALSE}
 
@@ -341,7 +341,7 @@ out.map
 
 ```
 
-Lengths of the yellow and green lines do not represent antenna range or exact path of the bird. For this departure, we have detections on two other stations which corroborate the vanishing bearing. 
+Lengths of the yellow and red lines do not represent antenna range or exact path of the bird. For this departure, we have detections on two other stations which corroborate the vanishing bearing. 
 
 If desired, you can print the map to file as follows:
 

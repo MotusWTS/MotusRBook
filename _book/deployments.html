@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -407,7 +407,7 @@ df.tagDeps &lt;-<span class="st"> </span>tbl.tagDeps <span class="op">%&gt;%</sp
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</code></pre></div>
 <pre><code>## # A tibble: 0 x 3
-## # Groups: motusTagID [0]
+## # Groups:   motusTagID [0]
 ## # ... with 3 variables: motusTagID &lt;int&gt;, tagDeployID &lt;int&gt;, n &lt;int&gt;</code></pre>
 <p>If you do have multiple deployments for a tag, we recommend creating a ‘motusTagDepID’ to use in place of the ‘motusTagID’ to define unique deployments of a tag. Moving forward, you would use ‘motusTagDepID’ in place of ‘motusTagID’ as you work through the rest of the book:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags &lt;-<span class="st"> </span>df.alltags <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">motusTagDepID =</span> <span class="kw">paste</span>(motusTagID, 

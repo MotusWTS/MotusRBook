@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -327,7 +327,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="thingsToBeAwareOf" class="section level2">
 <h2><span class="header-section-number">7.1</span> Things to be aware of</h2>
 <ol style="list-style-type: decimal">
-<li>This method <strong>assumes that the tagged animal is departing from the general location of the receiving station, and moving radially away from the station</strong>.</li>
+<li><strong>This method assumes that the tagged animal is departing from the general location of the receiving station, and moving radially away from the station</strong>.</li>
 </ol>
 <p>It is really important to note that this method <strong>WILL NOT WORK</strong> unless this assumption is met. Because tagged individuals most likely aren’t departing from the exact location of the receiver station, they should be considered coarse estimates of departure orientation.</p>
 <p>The deviation between estimated vanishing bearings and actual departure orientation that results from birds departing from locations removed from a station is called parallax error. Parallax error can be minimized by analyzing only departures in which we can be confident from signal strength characteristics that an individual departed from fairly close to the receiving station. Using radar data, Sjöberg and Nilsson (2015) estimated parallax error to be +- 10 degrees when the bird departed close to the station.</p>
@@ -337,14 +337,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <p><img src="images/vanishBearing_goodDetection.png" width="252" style="display: block; margin: auto;" /></p>
 <ol start="2" style="list-style-type: lower-alpha">
-<li><strong>Unclear departure</strong>: this bird was not detected by the Old Cut station for quite a while, and was only detected during an apparent flyover; signal characteristics did not support a clear departure from the station. In this case, we do not know how far the bird was from the station during the flyby. We caution against using examples like this to estimate vanishing bearings:</li>
+<li><strong>Unclear departure</strong>: this bird was not detected by the Old Cut station for quite a while, and was only detected during an apparent flyover; signal characteristics do not support a clear departure from the station. In this case, we do not know how far the bird was from the station during the flyby. We caution against using examples like this to estimate vanishing bearings:</li>
 </ol>
 <p><img src="images/vanishBearing_badDetection.png" width="252" style="display: block; margin: auto;" /></p>
 <ol start="2" style="list-style-type: decimal">
-<li><strong>The more closely spaced the antennas on a station, the greater the resolution to estimate an accurate vanishing bearing</strong></li>
+<li><strong>The more closely spaced the antennas on a station, the greater the resolution to estimate an accurate vanishing bearing.</strong></li>
 </ol>
 <p>At the Old Cut field station, three antennas were spaced 120 degrees apart in 2014, and 90 degrees apart in 2015 (facing approximately east, north and west). In both years we calculated a coarse departure bearing using the mean of station-to-station bearings for warblers that were detected by multiple stations during departure. This gave us a known departure direction. We then calculated vanishing bearings to compare.</p>
-<p>The following is a figure showing the estimated coarse and vanishing bearing for a warbler departing northwards from Old Cut in spring 2014, when the 3 antennas were spaced 120 degrees apart. The green line represents the estimated vanishing bearing of tag ID 277. The blue line represents the average course bearing based on detections from other stations (red points):</p>
+<p>The following is a figure showing the estimated coarse and vanishing bearing for a warbler departing northwards from Old Cut in spring 2014, when the 3 antennas were spaced 120 degrees apart. The red line represents the estimated vanishing bearing of tag ID 277. The blue line represents the average course bearing based on detections from other stations (red points):</p>
 <p><img src="images/vanishBearing2014.png" width="252" style="display: block; margin: auto;" /></p>
 <p>In the example below, estimated coarse and vanishing bearings are shown for a warbler departing to the north in spring 2015, when Old Cut’s antennas were spaced 90 degrees apart. We can see that the estimated vanishing bearing is pretty close to the coarse bearing estimate.</p>
 <p><img src="images/vanishBearing2015.png" width="252" style="display: block; margin: auto;" /></p>
@@ -500,7 +500,7 @@ df.vanishBearing &lt;-<span class="st"> </span><span class="kw">right_join</span
 <p>Mapping your vanishing bearing(s) with google maps can also be a great way to visualize the departure direction of your bird(s). Here we use Google Maps to show the stations and orientations of antennas that detected the bird during departure, along with the orientation of the vanishing bearing.</p>
 <p>First, pick a tag to map:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tagID &lt;-<span class="st"> </span><span class="dv">16823</span></code></pre></div>
-<p>Then, create a map with a specified map centre, maptype (“terrain”, “roadmap”, “satellite”, or “hybrid”), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale). We add a yellow point for the stations with detections, yellow lines to represent antenna bearings with detections, and a green line for the vanishing bearing:</p>
+<p>Then, create a map with a specified map centre, maptype (“terrain”, “roadmap”, “satellite”, or “hybrid”), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale). We add a yellow point for the stations with detections, yellow lines to represent antenna bearings with detections, and a red line for the vanishing bearing:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## First we obtain a map of our location of
 ## interest, in this case Old Cut
 map.OC &lt;-<span class="st"> </span><span class="kw">get_map</span>(<span class="dt">location =</span> <span class="kw">c</span>(<span class="dt">lon =</span> <span class="op">-</span><span class="fl">80.399334</span>, <span class="dt">lat =</span> <span class="fl">42.582185</span>), 
@@ -558,7 +558,7 @@ out.map &lt;-<span class="st"> </span><span class="kw">ggmap</span>(map.OC) <spa
 
 out.map</code></pre></div>
 <p><img src="MotusRBook_files/figure-html/vanishMapping-1.png" width="672" /></p>
-<p>Lengths of the yellow and green lines do not represent antenna range or exact path of the bird. For this departure, we have detections on two other stations which corroborate the vanishing bearing.</p>
+<p>Lengths of the yellow and red lines do not represent antenna range or exact path of the bird. For this departure, we have detections on two other stations which corroborate the vanishing bearing.</p>
 <p>If desired, you can print the map to file as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tiff</span>(<span class="dt">file =</span> <span class="kw">paste</span>(tagID, <span class="st">&quot;vanishBearing.tiff&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>))
 <span class="kw">print</span>(out.map)
