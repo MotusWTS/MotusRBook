@@ -179,6 +179,63 @@ This will download a file to your working directory named 'SG-123BBBK1234.motus'
 
 Users may wish to work directly with the .motus SQLite file. However, since many users are more familiar with a 'flat' dataframe format, instructions to view the the data as a flat dataframe within R, and on how to export the flat file to .csv or .rds format, are included below. Throughout the majority of this book, we use a flat dataframe format.
 
+### Downloading multiple receivers at the same time
+If you have a large number of receivers in your project, and wish to get receiver specific data for each one, rather than downloading them one by one as above, we can download them with a simple loop. Note that since the sample project doesn't have any receivers associated with it, this script will not result in a download but you can try it with your own project if you have receivers.
+```{r tagmeAllRecvs, eval = FALSE}
+
+# specify the project whose receivers you wish to download:
+proj.num = 176
+# get a copy of the metadata only
+sql.motus <- tagme(proj.num, new = TRUE, update = FALSE, dir = "C:/Users/guest/Documents/data/")
+metadata(sql.motus, proj.num)
+tbl.recvDeps <- tbl(sql.motus, "recvDeps")
+df.serno = tbl.recvDeps %>% 
+  filter(projectID == proj.num) %>% 
+  select(serno) %>% 
+  distinct() %>% 
+  collect() %>% as.data.frame()
+
+# loop through each receiver (may take a while!)
+for (row in 1:nrow(df.serno)) {
+  tagme(df.serno[row, "serno"], dir="C:/Users/guest/Documents/data/", new=TRUE, update=TRUE)
+}
+
+# Note you can remove the dir call if you want to save it to your working directory, just make
+# sure that you use the same directory in both calls
+
+```
+
+You can also create a list of receivers you'd like to download if you don't want to download project-wide receivers:
+```{r tagmeMultipleRecvs, eval = FALSE}
+
+# create list of receivers you'd like to download
+df.serno <- c("SG-FC74RPI3EE3D", "SG-5016BBBK0DC0"))
+
+# loop through each receiver (may take a while!), and save to the working directory
+for (k in 1:length(df.serno)) {
+  tagme(df.serno[k], new=TRUE, update=TRUE)
+}
+
+# loop through each receiver (may take a while!), and save to a specified directory
+for (k in 1:length(df.serno)) {
+  tagme(df.serno[k], dir="/Users/zoecrysler/Downloads/", new=TRUE, update=TRUE)
+}
+```
+
+### Updating all .motus files within a directory
+
+Once you have .motus files, you can also update them all by simply calling the tagme() function but leaving all arguments blank, apart from the directory:
+
+```{r AllRecvsUpdate, eval = FALSE}
+# If you have them saved your working directory:
+tagme()
+
+# If you have them saved in a different directory:
+tagme(dir = "C:/Users/guest/Documents/data/")
+
+```
+
+
 ### Accessing downloaded detection data {#accessSQL}
 
 Now that we've downloaded our data as an SQLite database and loaded it into an R object called 'sql.motus', we want to access the tables stored within. Detailed descriptions of all the tables stored in the .motus file can be found in section \@ref(databaseStructure).
