@@ -340,8 +340,8 @@ The first step is to create a map with a specified map centre, maptype ("terrain
 
 **Important Note** As of October 16, 2018 recent updates require the use of a Google key to access google maps. Full instructions are available in Appendix B in section \@ref(googleMapsKey). Once you have your access key, you'll need to provide it with the call register_google(), **each time you start a new R session you will be required to enter your key.**
 ```{r googleKey, eval = TRUE, echo = FALSE}
-# IMPORTANT! If you don't want to save your personal key in the RBook, just make sure to run register_google(key = "Your key") prior to building book, or you can save it here:
-ggmap::register_google(key = "AIzaSyBmWa9vDRHHqQHtbINekS2S7OIOb7e79mk")
+# IMPORTANT! Your personal key has to be entered here, I recommend regenerating your personal key AFTER building the book, rendering this key useless. You could also build the book with your key, push changes, then delete it and push changes again WITHOUT building. However it will still be saved in old versions of the book on Git so I still recommend regenerating your own key after.
+ggmap::register_google(key = "Your Key Here")
 
 gmap <-  get_map(location = c(lon = -75, lat = 40), # lon/lat to centre map over
                  maptype = "satellite", # select maptype
