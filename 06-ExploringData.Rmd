@@ -17,6 +17,7 @@ Follow the instructions in Chapter \@ref(loadingPackages) to install the followi
 
 library(motus)
 library(tidyverse)
+# Oct 16, 2018: Note that the developers version must be used as described in Chapter 2
 library(ggmap)
 
 ```
@@ -337,6 +338,9 @@ Mapping with Google Maps can be a fast way to view flight paths and allows you t
 
 The first step is to create a map with a specified map centre, maptype ("terrain", "roadmap", "satellite", or "hybrid"), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale).  We then add points for receivers and lines connecting consecutive detections by motusTagID. We can also add points for all receivers that were active during a certain time period if we have already downloaded all metadata.
 
+**Important Note** As of October 16, 2018 recent updates require the use of a Google key to access google maps. To obtain an access key, you must be a registered Google user with up to date payment details (you do not have to pay for the service however). To obtain a key...
+See(ENTER THE GOOGLE FEED YOLANDA POSTED)
+Each time you start a new R session you will be required to enter your key
 ```{r googleMap, warning = FALSE, message = FALSE, fig.width=10, fig.height=10}
 
 gmap <-  get_map(location = c(lon = -75, lat = 40), # lon/lat to centre map over

@@ -74,9 +74,10 @@ library(tidyr)
 install.packages("rworldmap")
 library(rworldmap)
 
-install.packages("ggmap")
+# Oct 16, 2018: due to recent updates, the developers version of ggmap must be used
+# ensure that packages are updated prior to installing
+devtools::install_github("dkahle/ggmap")
 library(ggmap)
-
 ```
 ```{r loadAllPackages, echo = FALSE, warning = FALSE, message = FALSE}
 library(motus)
