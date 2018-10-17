@@ -24,6 +24,18 @@ To resume your data download, run tagme() again, but do not include 'new = TRUE'
 tagme(project.num, update = TRUE, dir = ...)
 ```
 
+## Google Maps {#googleMapsKey}
+As of October 16, 2018 recent updates require the use of a Google key to access google maps. To obtain an access key, you must be a registered Google user with **up to date billing information**, however you do not have to pay for the service. To obtain a key:  
+1. login to the [Google Cloud Platform](https://cloud.google.com/console/google/maps-apis/overview).  
+2. If you do not already have a project then create one.  
+3. Check that you have current billing information - you will not be charged but it must be present and up to date.  
+4. Under the navigation menu on the left, click APIs & Services > Credentials, then click Create credentials > API key.   
+5. You may need to enable Google Maps Static API. You can do this through the navigation menu in the upper left corner, and selecting APIs & Services > library, choosing "Google Maps Static API" and clicking "Enable".
+
+Full details are listed under "Detailed Guide" [here](https://developers.google.com/maps/documentation/javascript/get-api-key). Note that you may have to enable Google Maps Static API. For troubleshooting see [here](https://groups.google.com/forum/#!topic/motus-wts/UxqFIO6Pcmo) and [here](https://groups.google.com/forum/#!topic/motus-wts/UxqFIO6Pcmo and https://github.com/dkahle/ggmap/issues/51).
+
+Once you have your access key, you'll need to provide it with the call register_google(), **each time you start a new R session you will be required to enter your key.**
+
 ## Common error messages and solutions:
 
 ### I get the message "Auto-disconnecting SQLiteConnection" one or multiple times after using tagme()
@@ -71,7 +83,5 @@ tagme(proj.num, new = TRUE, update = TRUE) # downloads data to your working dire
 tagme(proj.num, new = TRUE, update = TRUE, dir = "./data/") # downloads data to the data folder within your working directory ie. the file path C:/Documents/data
 tagme(proj.num, new = TRUE, update = TRUE, dir = "C:/Downloads") # downloads data to the file path C:/Downloads
 ```
-
-
 
 Of course, there is always the possibility that the book contains errors! If this does not work, please contact motus@birdscanada.org.

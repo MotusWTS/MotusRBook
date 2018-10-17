@@ -87,6 +87,7 @@ We now walk through how to estimate vanishing bearings in the following steps:
 6. Plot vanishing bearing on a map
 
 ### Load the required packages {#loadPackages7}
+Follow the instructions in Chapter \@ref(loadingPackages) to install the following packages before loading, if they are not already installed.
 
 ```{r vanishLoadPackages, warning = FALSE, message = FALSE}
 
@@ -96,6 +97,7 @@ library(tidyr)
 library(motus)
 library(ggplot2)
 library(jpeg)
+# Oct 16, 2018: Note that the development version must be used as described in Chapter 2
 library(ggmap)
 #Make sure working on GMT 
 Sys.setenv(TZ = "GMT")
@@ -266,6 +268,8 @@ arrows.circular(mean(df.vanishBearing$vanish.bearing), zero = pi/2)
 
 Mapping your vanishing bearing(s) with google maps can also be a great way to visualize the departure direction of your bird(s). Here we use Google Maps to show the stations and orientations of antennas that detected the bird during departure, along with the orientation of the vanishing bearing.
 
+**Important Note** As of October 16, 2018 recent updates require the use of a Google key to access google maps. Full instructions are available in Appendix B in section \@ref(googleMapsKey). Once you have your access key, you'll need to provide it with the call register_google(), **each time you start a new R session you will be required to enter your key.**
+
 First, pick a tag to map:
 
 ```{r vanishChooseTag}
@@ -309,6 +313,8 @@ arr.sc <- 0.03 # determines length of the vectors for antenna bearings and vanis
 rad <- function(x) {x * pi/180}
 
 ## Now we make the map
+## Oct 16 2018: note that if you haven't already registered the google key for your current session you will need to:
+## ggmap::register_google(key = "Your key here")
 out.map <- ggmap(map.OC) +
     geom_point(data = df.stations, aes(recvLon,recvLat), size=1, colour = "yellow") +
     # Add antenna bearings

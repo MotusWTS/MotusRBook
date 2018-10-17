@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -120,7 +120,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.5.1" data-path="accessingData.html"><a href="accessingData.html#downloadData"><i class="fa fa-check"></i><b>3.5.1</b> Download data for a project for the <em>first time</em></a></li>
 <li class="chapter" data-level="3.5.2" data-path="accessingData.html"><a href="accessingData.html#userAuthentication"><i class="fa fa-check"></i><b>3.5.2</b> User Authentication</a></li>
 <li class="chapter" data-level="3.5.3" data-path="accessingData.html"><a href="accessingData.html#download-data-for-a-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.5.3</b> Download data for a receiver for the <em>first time</em></a></li>
-<li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.4</b> Accessing downloaded detection data</a></li>
+<li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloading-multiple-receivers-at-the-same-time"><i class="fa fa-check"></i><b>3.5.4</b> Downloading multiple receivers at the same time</a></li>
+<li class="chapter" data-level="3.5.5" data-path="accessingData.html"><a href="accessingData.html#updating-all-.motus-files-within-a-directory"><i class="fa fa-check"></i><b>3.5.5</b> Updating all .motus files within a directory</a></li>
+<li class="chapter" data-level="3.5.6" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.6</b> Accessing downloaded detection data</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.6</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
 <li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.7</b> Update and/or open an existing database</a></li>
@@ -190,12 +192,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="B" data-path="appendixB.html"><a href="appendixB.html"><i class="fa fa-check"></i><b>B</b> Appendix - Troubleshooting</a><ul>
 <li class="chapter" data-level="B.1" data-path="appendixB.html"><a href="appendixB.html#motusLogout"><i class="fa fa-check"></i><b>B.1</b> Logging out of motus</a></li>
 <li class="chapter" data-level="B.2" data-path="appendixB.html"><a href="appendixB.html#resumeDownload"><i class="fa fa-check"></i><b>B.2</b> Resume data download</a></li>
-<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#common-error-messages-and-solutions"><i class="fa fa-check"></i><b>B.3</b> Common error messages and solutions:</a><ul>
-<li class="chapter" data-level="B.3.1" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.3.1</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
-<li class="chapter" data-level="B.3.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.3.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
-<li class="chapter" data-level="B.3.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.3.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
-<li class="chapter" data-level="B.3.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.3.4</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
-<li class="chapter" data-level="B.3.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.3.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#googleMapsKey"><i class="fa fa-check"></i><b>B.3</b> Google Maps</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixB.html"><a href="appendixB.html#common-error-messages-and-solutions"><i class="fa fa-check"></i><b>B.4</b> Common error messages and solutions:</a><ul>
+<li class="chapter" data-level="B.4.1" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.4.1</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
+<li class="chapter" data-level="B.4.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.4.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
+<li class="chapter" data-level="B.4.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.4.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
+<li class="chapter" data-level="B.4.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.4.4</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
+<li class="chapter" data-level="B.4.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.4.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - The Motus R Package</a><ul>
@@ -331,22 +334,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>To resume your data download, run tagme() again, but do not include ‘new = TRUE’:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tagme</span>(project.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> ...)</code></pre></div>
 </div>
+<div id="googleMapsKey" class="section level2">
+<h2><span class="header-section-number">B.3</span> Google Maps</h2>
+<p>As of October 16, 2018 recent updates require the use of a Google key to access google maps. To obtain an access key, you must be a registered Google user with <strong>up to date billing information</strong>, however you do not have to pay for the service. To obtain a key:<br />
+1. login to the <a href="https://cloud.google.com/console/google/maps-apis/overview">Google Cloud Platform</a>.<br />
+2. If you do not already have a project then create one.<br />
+3. Check that you have current billing information - you will not be charged but it must be present and up to date.<br />
+4. Under the navigation menu on the left, click APIs &amp; Services &gt; Credentials, then click Create credentials &gt; API key.<br />
+5. You may need to enable Google Maps Static API. You can do this through the navigation menu in the upper left corner, and selecting APIs &amp; Services &gt; library, choosing “Google Maps Static API” and clicking “Enable”.</p>
+<p>Full details are listed under “Detailed Guide” <a href="https://developers.google.com/maps/documentation/javascript/get-api-key">here</a>. Note that you may have to enable Google Maps Static API. For troubleshooting see <a href="https://groups.google.com/forum/#!topic/motus-wts/UxqFIO6Pcmo">here</a> and <a href="https://groups.google.com/forum/#!topic/motus-wts/UxqFIO6Pcmo%20and%20https://github.com/dkahle/ggmap/issues/51">here</a>.</p>
+<p>Once you have your access key, you’ll need to provide it with the call register_google(), <strong>each time you start a new R session you will be required to enter your key.</strong></p>
+</div>
 <div id="common-error-messages-and-solutions" class="section level2">
-<h2><span class="header-section-number">B.3</span> Common error messages and solutions:</h2>
+<h2><span class="header-section-number">B.4</span> Common error messages and solutions:</h2>
 <div id="i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme" class="section level3">
-<h3><span class="header-section-number">B.3.1</span> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</h3>
+<h3><span class="header-section-number">B.4.1</span> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</h3>
 <p>If this occurs after data download has finished, this message can be ignored. If it occurs during an active download, the connection will usually be maintained and the download will continue. However if the download stops, simply run tagme() again. If that does not work, we suggest logging out of the motus package or restarting R (see sections <a href="appendixB.html#motusLogout">B.1</a> and <a href="appendixB.html#resumeDownload">B.2</a>).</p>
 </div>
 <div id="i-get-an-internal-server-error-message-when-using-tagme-update-true" class="section level3">
-<h3><span class="header-section-number">B.3.2</span> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</h3>
+<h3><span class="header-section-number">B.4.2</span> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</h3>
 <p>If you get this message while updating your .motus file, use tagme() again to continue the download.</p>
 </div>
 <div id="i-get-an-error-forbidden-message-when-using-tagme" class="section level3">
-<h3><span class="header-section-number">B.3.3</span> I get an “Error: Forbidden” message when using tagme()</h3>
+<h3><span class="header-section-number">B.4.3</span> I get an “Error: Forbidden” message when using tagme()</h3>
 <p>This error may occur if you are attempting to download multiple projects simultaneously from the same user account. If you get this error, please logout of the motus package, and try tagme() again (see sections <a href="appendixB.html#motusLogout">B.1</a> and <a href="appendixB.html#resumeDownload">B.2</a>).</p>
 </div>
 <div id="i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work." class="section level3">
-<h3><span class="header-section-number">B.3.4</span> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</h3>
+<h3><span class="header-section-number">B.4.4</span> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</h3>
 <p>Be sure to start the steps from the top of the chapter and run them in sequential order. Another possibility is that your .motus database hasn’t been updated to support the latest version of the motusClient or the motus package. If the checkVersion function returns a warning, this may indicate that the internal function used to update your database has not been triggered by tagme(). This can happen, for example, if you load the motusClient package without also loading the motus package. Loading the motus package will also load motusClient, so you should only ever need load motus into your R library.</p>
 <p>To ensure that your .motus file is up-to-date with the motus package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir =</span> ...)
@@ -364,7 +378,7 @@ sql &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <sp
 <span class="kw">checkVersion</span>(sql)</code></pre></div>
 </div>
 <div id="i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme" class="section level3">
-<h3><span class="header-section-number">B.3.5</span> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</h3>
+<h3><span class="header-section-number">B.4.5</span> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</h3>
 <p>If you get this message, it’s likely that you’re attempting a new download or update to a non-existant directory. The directory is specified in the <strong>dir = “”</strong> command of the tagme() function. If the directory is not specified, files will be saved to your working directory. Use getwd() to determine your current working directory. Use setwd() to set a new working directory. To specify a location to save files from your working directory use “./” followed by the file path.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>()  <span class="co"># show working directory, in this case it&#39;s &#39;C:/Documents&#39;</span>
 <span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)  <span class="co"># downloads data to your working directory</span>
@@ -399,10 +413,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",

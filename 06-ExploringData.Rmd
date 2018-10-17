@@ -338,12 +338,35 @@ Mapping with Google Maps can be a fast way to view flight paths and allows you t
 
 The first step is to create a map with a specified map centre, maptype ("terrain", "roadmap", "satellite", or "hybrid"), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale).  We then add points for receivers and lines connecting consecutive detections by motusTagID. We can also add points for all receivers that were active during a certain time period if we have already downloaded all metadata.
 
-**Important Note** As of October 16, 2018 recent updates require the use of a Google key to access google maps. To obtain an access key, you must be a registered Google user with **up to date billing information**, however you do not have to pay for the service. To obtain a key, login to the [Google Cloud Platform](https://cloud.google.com/console/google/maps-apis/overview), and under teh navigation menu click APIs & Services > Credentials, then click Create credentials > API key full details are listed under ["Detailed guide"](https://developers.google.com/maps/documentation/javascript/get-api-key)
-See(ENTER THE GOOGLE FEED YOLANDA POSTED)
-Each time you start a new R session you will be required to enter your key
-```{r googleMap, warning = FALSE, message = FALSE, fig.width=10, fig.height=10}
+**Important Note** As of October 16, 2018 recent updates require the use of a Google key to access google maps. Full instructions are available in Appendix B in section \@ref(googleMapsKey). Once you have your access key, you'll need to provide it with the call register_google(), **each time you start a new R session you will be required to enter your key.**
+```{r googleKey, eval = TRUE, echo = FALSE}
+# IMPORTANT! If you don't want to save your personal key in the RBook, just make sure to run register_google(key = "Your key") prior to building book, or you can save it here:
+ggmap::register_google(key = "AIzaSyBmWa9vDRHHqQHtbINekS2S7OIOb7e79mk")
 
-ggmap::register_google(key = "Your Key Here")
+gmap <-  get_map(location = c(lon = -75, lat = 40), # lon/lat to centre map over
+                 maptype = "satellite", # select maptype
+                 source = "google",
+                 zoom = 4) # zoom, must be a whole number
+
+# just use the tags that we have examined carefully and filtered (in the previous chapter)
+df.tmp <- filter(df.alltags.path, 
+                           motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039))
+df.tmp <- arrange(df.tmp, ts.h) # arange by hour
+df.tmp <- as.data.frame(df.tmp)
+
+p <- ggmap(gmap)
+p + geom_point(data=df.tmp, 
+               aes(recvLon, recvLat), pch=21, colour = "black", fill = "yellow") +
+  geom_path(data=df.tmp, 
+            aes(recvLon, recvLat, group=motusTagID, col = as.factor(motusTagID))) +
+  theme_bw() + 
+  scale_color_discrete(name="MotusTagID")
+
+```
+
+```{r googleMap, eval = FALSE, warning = FALSE, message = FALSE, fig.width=10, fig.height=10}
+
+ggmap::register_google(key = "Your Key here")
 
 gmap <-  get_map(location = c(lon = -75, lat = 40), # lon/lat to centre map over
                  maptype = "satellite", # select maptype
@@ -389,6 +412,8 @@ dateRange <- lubridate::interval(as.POSIXct("2015-08-01"), as.POSIXct("2016-01-0
 df.recvDeps$active <- lubridate::int_overlaps(siteOp, dateRange) 
 
 # create map with receivers active during specified date range as red, and receivers with detections as yellow
+# remember to register your google key if you haven't already!
+# ggmap::register_google(key = "Your key here")
 p <- ggmap(gmap)
 p + geom_point(data = subset(df.recvDeps, active == TRUE), ggplot2::aes(longitude, latitude), pch=21, colour = "black", fill = "red") +
   geom_point(data=df.tmp, aes(recvLon, recvLat), pch=21, colour = "black", fill = "yellow") +

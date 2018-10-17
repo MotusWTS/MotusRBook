@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -120,7 +120,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.5.1" data-path="accessingData.html"><a href="accessingData.html#downloadData"><i class="fa fa-check"></i><b>3.5.1</b> Download data for a project for the <em>first time</em></a></li>
 <li class="chapter" data-level="3.5.2" data-path="accessingData.html"><a href="accessingData.html#userAuthentication"><i class="fa fa-check"></i><b>3.5.2</b> User Authentication</a></li>
 <li class="chapter" data-level="3.5.3" data-path="accessingData.html"><a href="accessingData.html#download-data-for-a-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.5.3</b> Download data for a receiver for the <em>first time</em></a></li>
-<li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.4</b> Accessing downloaded detection data</a></li>
+<li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloading-multiple-receivers-at-the-same-time"><i class="fa fa-check"></i><b>3.5.4</b> Downloading multiple receivers at the same time</a></li>
+<li class="chapter" data-level="3.5.5" data-path="accessingData.html"><a href="accessingData.html#updating-all-.motus-files-within-a-directory"><i class="fa fa-check"></i><b>3.5.5</b> Updating all .motus files within a directory</a></li>
+<li class="chapter" data-level="3.5.6" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.6</b> Accessing downloaded detection data</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.6</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
 <li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.7</b> Update and/or open an existing database</a></li>
@@ -190,12 +192,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="B" data-path="appendixB.html"><a href="appendixB.html"><i class="fa fa-check"></i><b>B</b> Appendix - Troubleshooting</a><ul>
 <li class="chapter" data-level="B.1" data-path="appendixB.html"><a href="appendixB.html#motusLogout"><i class="fa fa-check"></i><b>B.1</b> Logging out of motus</a></li>
 <li class="chapter" data-level="B.2" data-path="appendixB.html"><a href="appendixB.html#resumeDownload"><i class="fa fa-check"></i><b>B.2</b> Resume data download</a></li>
-<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#common-error-messages-and-solutions"><i class="fa fa-check"></i><b>B.3</b> Common error messages and solutions:</a><ul>
-<li class="chapter" data-level="B.3.1" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.3.1</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
-<li class="chapter" data-level="B.3.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.3.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
-<li class="chapter" data-level="B.3.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.3.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
-<li class="chapter" data-level="B.3.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.3.4</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
-<li class="chapter" data-level="B.3.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.3.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#googleMapsKey"><i class="fa fa-check"></i><b>B.3</b> Google Maps</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixB.html"><a href="appendixB.html#common-error-messages-and-solutions"><i class="fa fa-check"></i><b>B.4</b> Common error messages and solutions:</a><ul>
+<li class="chapter" data-level="B.4.1" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.4.1</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
+<li class="chapter" data-level="B.4.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.4.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
+<li class="chapter" data-level="B.4.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.4.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
+<li class="chapter" data-level="B.4.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.4.4</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
+<li class="chapter" data-level="B.4.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.4.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - The Motus R Package</a><ul>
@@ -345,7 +348,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="load-detections-data" class="section level2">
 <h2><span class="header-section-number">5.2</span> Load detections data</h2>
 <p>Recall from Chapter <a href="accessingData.html#accessingData">3</a> that when accessing the sample database, you will need to input ‘motus.sample’ in the R console as both username and password when prompted by the tagme() user authentication process. This section assumes you have already completed the initial sample data download.</p>
-<p>When accessing the alltags table, we remove some unnecessary variables to reduce the overall size of the data set and make it easier to work with. <strong>This is particularly important for large, unwieldy projects</strong>; details on how to view the variables in a tbl, and how to filter and subset prior to collecting data into a dataframe can be found in Chapter <a href="accessingData.html#accessSQL">3.5.4</a>. We then create receiver latitude and longitude variables (‘recvLat’, ‘recvLon’, ‘recvAlt’) based on the coordinates recorded by the receiver GPS (‘gpsLat’, ‘gpsLon’, ‘gpdAlt’), and where those are not available, infilled with coordinates from the receiver deployment metadata (‘recvDeployLat’, ‘recvDeployLon’, ‘recvDeployAlt’). We use the ‘collect()’ and ‘as.data.frame()’ statements to transform the dataframe into a ‘flat’ file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format. Finally, we create ‘receiver names’ from the latitude and longitude variables for those receivers in the database that do not have these values filled in.</p>
+<p>When accessing the alltags table, we remove some unnecessary variables to reduce the overall size of the data set and make it easier to work with. <strong>This is particularly important for large, unwieldy projects</strong>; details on how to view the variables in a tbl, and how to filter and subset prior to collecting data into a dataframe can be found in Chapter <a href="accessingData.html#accessSQL">3.5.6</a>. We then create receiver latitude and longitude variables (‘recvLat’, ‘recvLon’, ‘recvAlt’) based on the coordinates recorded by the receiver GPS (‘gpsLat’, ‘gpsLon’, ‘gpdAlt’), and where those are not available, infilled with coordinates from the receiver deployment metadata (‘recvDeployLat’, ‘recvDeployLon’, ‘recvDeployAlt’). We use the ‘collect()’ and ‘as.data.frame()’ statements to transform the dataframe into a ‘flat’ file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format. Finally, we create ‘receiver names’ from the latitude and longitude variables for those receivers in the database that do not have these values filled in.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">proj.num &lt;-<span class="st"> </span><span class="dv">176</span>
 
 <span class="co"># Load detection data, select variables, create latitude variables, and transform to </span>
@@ -404,7 +407,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <pre><code>## # A tibble: 18 x 3
 ## # Groups:   motusTagID [18]
 ##    motusTagID `FALSE` `TRUE`
-##  *      &lt;int&gt;   &lt;int&gt;  &lt;int&gt;
+##         &lt;int&gt;   &lt;int&gt;  &lt;int&gt;
 ##  1      16011     125      2
 ##  2      16035     454      2
 ##  3      16036     106     12
@@ -479,8 +482,8 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
 ## # Groups:   recvDeployName, month(ts) [?]
 ##   recvDeployName     `month(ts)` runLen     n n.tags
 ##   &lt;chr&gt;                    &lt;dbl&gt;  &lt;int&gt; &lt;int&gt;  &lt;int&gt;
-## 1 Sable West Light 2        1.00      3     3      1
-## 2 Swallowtail              12.0       3     6      2</code></pre>
+## 1 Sable West Light 2           1      3     3      1
+## 2 Swallowtail                 12      3     6      2</code></pre>
 <p>These detections were at sites around the Canadian Maritimes (Sable Island, Nova Scotia; Grand Manan, New Brunswick) and were run lengths of 3. These are indicators of likely false positives. We’ll now start a tally of the particular runs involved, so that we can collate them in to a filter later.</p>
 <p>If you are interested, you can re-run the code above, but on the full data frame (df.alltags) containing run lengths of 2. You will see that there are additional false positive detections at these sites, that are already eliminated by filtering on runLen &gt; 2. These additional detections provide further evidence that these sites experienced some radio noise during these particular months, resulting in some false positive detections.</p>
 <p>You may also be interested more generally in exploring which data have only short run lengths. For example, the following code shows the maximum run length at all sites by month (for those runs with runLen &gt; 2).</p>
@@ -490,17 +493,17 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
 <pre><code>## # A tibble: 49 x 9
 ## # Groups:   recvDeployName [49]
 ##    recvDeployName            `1`   `3`   `4`   `5`   `8`   `9`  `10`  `12`
-##  * &lt;chr&gt;                   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 Assateague State Park      NA    NA    NA NA       NA  6.00 NA       NA
-##  2 BennettMeadow              NA    NA    NA NA       NA NA    11.0     NA
-##  3 Binbrook_Conservation_…    NA    NA    NA  3.00    NA NA    NA       NA
-##  4 BISE                       NA    NA    NA NA       NA NA     6.00    NA
-##  5 Bombay Hook                NA    NA    NA NA       NA 53.0  NA       NA
-##  6 Brier2                     NA    NA    NA NA       NA 29.0  NA       NA
-##  7 BSC HQ                     NA    NA    NA 21.0     NA NA    NA       NA
-##  8 BULL                       NA    NA    NA NA       NA 38.0   5.00    NA
-##  9 Comeau (Marshalltown)      NA    NA    NA NA       NA  4.00 NA       NA
-## 10 CONY                       NA    NA    NA NA       NA NA     7.00    NA
+##    &lt;chr&gt;                   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Assateague State Park      NA    NA    NA    NA    NA     6    NA    NA
+##  2 BennettMeadow              NA    NA    NA    NA    NA    NA    11    NA
+##  3 Binbrook_Conservation_…    NA    NA    NA     3    NA    NA    NA    NA
+##  4 BISE                       NA    NA    NA    NA    NA    NA     6    NA
+##  5 Bombay Hook                NA    NA    NA    NA    NA    53    NA    NA
+##  6 Brier2                     NA    NA    NA    NA    NA    29    NA    NA
+##  7 BSC HQ                     NA    NA    NA    21    NA    NA    NA    NA
+##  8 BULL                       NA    NA    NA    NA    NA    38     5    NA
+##  9 Comeau (Marshalltown)      NA    NA    NA    NA    NA     4    NA    NA
+## 10 CONY                       NA    NA    NA    NA    NA    NA     7    NA
 ## # ... with 39 more rows</code></pre>
 <p>Alternatively, you can produce a list of sites where the maximum run length of detections was never greater than (say) 4, which may sometimes (but not always!) indicate they are simply false detections.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">month =</span> <span class="kw">month</span>(ts)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(recvDeployName, 
@@ -509,19 +512,19 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
 <pre><code>## # A tibble: 12 x 8
 ## # Groups:   recvDeployName [12]
 ##    recvDeployName               `1`   `3`   `4`   `5`   `9`  `10`  `12`
-##  * &lt;chr&gt;                      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 Binbrook_Conservation_Area NA    NA    NA     3.00 NA    NA    NA   
-##  2 Comeau (Marshalltown)      NA    NA    NA    NA     4.00 NA    NA   
-##  3 Koffler                    NA    NA     3.00 NA    NA    NA    NA   
-##  4 LLICALDAD                  NA     4.00 NA    NA    NA    NA    NA   
-##  5 MountToby                  NA    NA    NA    NA    NA     3.00 NA   
-##  6 NP mobile                  NA    NA    NA    NA     3.00 NA    NA   
-##  7 Old Cut                    NA    NA     4.00 NA    NA    NA    NA   
-##  8 OSCT                       NA    NA    NA    NA    NA     3.00 NA   
-##  9 Quempillen (Chile)         NA     3.00 NA    NA    NA    NA    NA   
-## 10 Sable West Light 2          3.00 NA    NA    NA    NA    NA    NA   
-## 11 Swallowtail                NA    NA    NA    NA    NA    NA     3.00
-## 12 TRUS                       NA    NA    NA    NA    NA     4.00 NA</code></pre>
+##    &lt;chr&gt;                      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Binbrook_Conservation_Area    NA    NA    NA     3    NA    NA    NA
+##  2 Comeau (Marshalltown)         NA    NA    NA    NA     4    NA    NA
+##  3 Koffler                       NA    NA     3    NA    NA    NA    NA
+##  4 LLICALDAD                     NA     4    NA    NA    NA    NA    NA
+##  5 MountToby                     NA    NA    NA    NA    NA     3    NA
+##  6 NP mobile                     NA    NA    NA    NA     3    NA    NA
+##  7 Old Cut                       NA    NA     4    NA    NA    NA    NA
+##  8 OSCT                          NA    NA    NA    NA    NA     3    NA
+##  9 Quempillen (Chile)            NA     3    NA    NA    NA    NA    NA
+## 10 Sable West Light 2             3    NA    NA    NA    NA    NA    NA
+## 11 Swallowtail                   NA    NA    NA    NA    NA    NA     3
+## 12 TRUS                          NA    NA    NA    NA    NA     4    NA</code></pre>
 <p>It is impossible to go through every possible issue that you may encounter here. Users are strongly encouraged to explore their data fully, and make reasoned decisions on which detections are unlikely or indeterminate. Through the rest of this chapter we will show you how to collect these runs, and apply them to your data prior to analysis.</p>
 <p>To start, we’ll create a data frame that contains the motusTagIDs and runIDs for the false positives identified above.</p>
 <p>We will then re-create the plot With the newly filtered data.</p>
@@ -760,7 +763,7 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
 <pre><code>## # A tibble: 1 x 7
 ##   start   end    date                `rate(m/s)`   dist total.time bearing
 ##   &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;                    &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
-## 1 Netiti… MDR_4… 2015-09-02 04:18:42        17.1 1.21e⁶      70879     128</code></pre>
+## 1 Netiti… MDR_4… 2015-09-02 04:18:42        17.1 1.21e6      70879    128.</code></pre>
 <p>These detections are &gt;1200 km distant from one another, but the flight speed (17 m/s) is consistent with a white-rumped Sandpiper. Given that the Gray-cheeked Thrush tag was near the end of its expected lifetime, we can reasonably claim these detections for our project, and remove the ambiguous detections associated with motusTagID 17021.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.block.<span class="dv">6</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">106</span>, 
     motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">17021</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -807,8 +810,8 @@ df.<span class="fl">56.</span>tmp &lt;-<span class="st"> </span><span class="kw"
 <pre><code>## # A tibble: 2 x 7
 ##   start   end    date                `rate(m/s)`   dist total.time bearing
 ##   &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;                    &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
-## 1 Piskwa… Washk… 2016-10-09 22:49:59        20.3 7.63e⁴       3767     137
-## 2 Washka… SHNJ_… 2016-10-10 00:00:42        24.3 1.27e⁶      52386     157</code></pre>
+## 1 Piskwa… Washk… 2016-10-09 22:49:59        20.3 7.63e4       3767    137.
+## 2 Washka… SHNJ_… 2016-10-10 00:00:42        24.3 1.27e6      52386    157.</code></pre>
 <p>The bird made a 14.5 hour flight between Washkaugou and SHNJ at a rate of 24 m/s, which is plausible. The researchers involved may have other data to support or refute the inference (e.g. an actual sighting of the Red Knot still in Niapiskau after this flight was recorded) but it seems likely that while one tag remained at sites around longitude -65, another tag made the above migratory flights. We can make another more detailed plot of signal strength to examine these potential migratory flights more closely:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.<span class="fl">56.</span>tmp &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">56</span>, 
     recvLon <span class="op">&lt;</span><span class="st"> </span><span class="op">-</span><span class="dv">70</span>)
@@ -911,10 +914,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",

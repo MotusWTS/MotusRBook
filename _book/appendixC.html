@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Motus R Book</title>
   <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Motus R Book" />
   <meta property="og:type" content="book" />
@@ -120,7 +120,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.5.1" data-path="accessingData.html"><a href="accessingData.html#downloadData"><i class="fa fa-check"></i><b>3.5.1</b> Download data for a project for the <em>first time</em></a></li>
 <li class="chapter" data-level="3.5.2" data-path="accessingData.html"><a href="accessingData.html#userAuthentication"><i class="fa fa-check"></i><b>3.5.2</b> User Authentication</a></li>
 <li class="chapter" data-level="3.5.3" data-path="accessingData.html"><a href="accessingData.html#download-data-for-a-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.5.3</b> Download data for a receiver for the <em>first time</em></a></li>
-<li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.4</b> Accessing downloaded detection data</a></li>
+<li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloading-multiple-receivers-at-the-same-time"><i class="fa fa-check"></i><b>3.5.4</b> Downloading multiple receivers at the same time</a></li>
+<li class="chapter" data-level="3.5.5" data-path="accessingData.html"><a href="accessingData.html#updating-all-.motus-files-within-a-directory"><i class="fa fa-check"></i><b>3.5.5</b> Updating all .motus files within a directory</a></li>
+<li class="chapter" data-level="3.5.6" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.6</b> Accessing downloaded detection data</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.6</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
 <li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.7</b> Update and/or open an existing database</a></li>
@@ -190,12 +192,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="B" data-path="appendixB.html"><a href="appendixB.html"><i class="fa fa-check"></i><b>B</b> Appendix - Troubleshooting</a><ul>
 <li class="chapter" data-level="B.1" data-path="appendixB.html"><a href="appendixB.html#motusLogout"><i class="fa fa-check"></i><b>B.1</b> Logging out of motus</a></li>
 <li class="chapter" data-level="B.2" data-path="appendixB.html"><a href="appendixB.html#resumeDownload"><i class="fa fa-check"></i><b>B.2</b> Resume data download</a></li>
-<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#common-error-messages-and-solutions"><i class="fa fa-check"></i><b>B.3</b> Common error messages and solutions:</a><ul>
-<li class="chapter" data-level="B.3.1" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.3.1</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
-<li class="chapter" data-level="B.3.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.3.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
-<li class="chapter" data-level="B.3.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.3.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
-<li class="chapter" data-level="B.3.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.3.4</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
-<li class="chapter" data-level="B.3.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.3.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#googleMapsKey"><i class="fa fa-check"></i><b>B.3</b> Google Maps</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixB.html"><a href="appendixB.html#common-error-messages-and-solutions"><i class="fa fa-check"></i><b>B.4</b> Common error messages and solutions:</a><ul>
+<li class="chapter" data-level="B.4.1" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.4.1</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
+<li class="chapter" data-level="B.4.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.4.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
+<li class="chapter" data-level="B.4.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.4.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
+<li class="chapter" data-level="B.4.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.4.4</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
+<li class="chapter" data-level="B.4.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.4.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - The Motus R Package</a><ul>
@@ -543,9 +546,9 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotRouteMap</span>(sql.motus, <span class="dt">maptype =</span> <span class="st">&quot;terrain&quot;</span>, <span class="dt">latCentre =</span> <span class="dv">44</span>, 
     <span class="dt">lonCentre =</span> <span class="op">-</span><span class="dv">70</span>, <span class="dt">zoom =</span> <span class="dv">5</span>, <span class="dt">recvStart =</span> <span class="st">&quot;2016-01-01&quot;</span>, 
     <span class="dt">recvEnd =</span> <span class="st">&quot;2016-12-31&quot;</span>)</code></pre></div>
-<pre><code>## Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=44,-70&amp;zoom=5&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;language=en-EN&amp;sensor=false</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/staticmap?center=44,-70&amp;zoom=5&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;language=en-EN&amp;key=xxx</code></pre>
 <pre><code>## Warning: Removed 120 rows containing missing values (geom_point).</code></pre>
-<pre><code>## Warning: Removed 685 rows containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 699 rows containing missing values (geom_path).</code></pre>
 <p><img src="MotusRBook_files/figure-html/plotRouteMap-1.png" width="672" /></p>
 </div>
 </div>
@@ -746,11 +749,11 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <p><img src="MotusRBook_files/figure-html/siteSum-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(site_summary)</code></pre></div>
 <pre><code>## # A tibble: 3 x 6
-##   recvDeployName  first_ts            last_ts             tot_ts  num.tags
-##   &lt;fct&gt;           &lt;dttm&gt;              &lt;dttm&gt;              &lt;time&gt;     &lt;int&gt;
-## 1 Niapiskau_50.2… 2016-10-01 23:47:57 2016-10-27 00:03:21 36015.…        6
-## 2 Washkaugou_51.… 2016-10-09 23:52:45 2016-10-10 00:00:42 7.9468…        2
-## 3 Netitishi_51.3… 2015-08-14 17:53:49 2015-09-08 01:10:13 34996.…        7
+##   recvDeployName first_ts            last_ts             tot_ts num.tags
+##   &lt;fct&gt;          &lt;dttm&gt;              &lt;dttm&gt;              &lt;time&gt;    &lt;int&gt;
+## 1 Niapiskau_50.… 2016-10-01 23:47:57 2016-10-27 00:03:21 36015…        6
+## 2 Washkaugou_51… 2016-10-09 23:52:45 2016-10-10 00:00:42 &quot;    …        2
+## 3 Netitishi_51.… 2015-08-14 17:53:49 2015-09-08 01:10:13 34996…        7
 ## # ... with 1 more variable: num.det &lt;int&gt;</code></pre>
 </div>
 </div>
@@ -814,14 +817,14 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <span class="kw">head</span>(transitions)</code></pre></div>
 <pre><code>## # A tibble: 6 x 14
 ## # Groups:   motusTagID, tagDeployID [1]
-##   motusTagID tagDeployID ts.x                lat.x lon.x recvDeployName.x 
-##        &lt;int&gt;       &lt;int&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;            
-## 1      16037        1825 2015-08-17 17:02:39  NA    NA   NP mobile_NA, NA 
-## 2      16037        1825 2015-08-28 16:40:18  51.5 -80.4 North Bluff_51.5…
-## 3      16037        1825 2015-09-08 01:10:13  51.3 -80.1 Netitishi_51.3, …
-## 4      16037        1825 2015-09-08 18:37:16  44.6 -65.8 Comeau (Marshall…
-## 5      16037        1825 2015-09-13 19:46:27  39.0 -74.8 NWW_39, -74.8    
-## 6      16037        1825 2015-09-14 15:56:49  37.1 -76.0 BULL_37.1, -76   
+##   motusTagID tagDeployID ts.x                lat.x lon.x recvDeployName.x
+##        &lt;int&gt;       &lt;int&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;           
+## 1      16037        1825 2015-08-17 17:02:39  NA    NA   NP mobile_NA, NA
+## 2      16037        1825 2015-08-28 16:40:18  51.5 -80.4 North Bluff_51.…
+## 3      16037        1825 2015-09-08 01:10:13  51.3 -80.1 Netitishi_51.3,…
+## 4      16037        1825 2015-09-08 18:37:16  44.6 -65.8 Comeau (Marshal…
+## 5      16037        1825 2015-09-13 19:46:27  39.0 -74.8 NWW_39, -74.8   
+## 6      16037        1825 2015-09-14 15:56:49  37.1 -76.0 BULL_37.1, -76  
 ## # ... with 8 more variables: ts.y &lt;dttm&gt;, lat.y &lt;dbl&gt;, lon.y &lt;dbl&gt;,
 ## #   recvDeployName.y &lt;chr&gt;, tot_ts &lt;time&gt;, dist &lt;dbl&gt;, rate &lt;dbl&gt;,
 ## #   bearing &lt;dbl&gt;</code></pre>
@@ -1045,10 +1048,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
