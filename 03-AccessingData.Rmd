@@ -209,7 +209,7 @@ You can also create a list of receivers you'd like to download if you don't want
 ```{r tagmeMultipleRecvs, eval = FALSE}
 
 # create list of receivers you'd like to download
-df.serno <- c("SG-FC74RPI3EE3D", "SG-5016BBBK0DC0"))
+df.serno <- c("SG-AB12RPI3CD34", "SG-1234BBBK4321"))
 
 # loop through each receiver (may take a while!), and save to the working directory
 for (k in 1:length(df.serno)) {
