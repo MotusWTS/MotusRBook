@@ -79,7 +79,7 @@ Before we begin working with data, we need to load the required packages for thi
 ```{r loadPackages, warning = FALSE, message = FALSE}
 
 # load required 'motus' package from github
-require(motus)
+library(motus)
 
 ```
 

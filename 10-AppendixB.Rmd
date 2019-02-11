@@ -65,7 +65,7 @@ To correct any warnings, you should follow these steps:
 
 1. download the latest versions of the motusClient and then the motus package (refer to Chapter \@ref(loadingPackages)).
 2. terminate and restart your R session.
-3. load the motus library using 'require(Motus)' in your R console.
+3. load the motus library using 'library(motus)' in your R console.
 4. load your sqlite file. Look for notes on the console indicating that your database is being updated.
 5. check the version again.
 

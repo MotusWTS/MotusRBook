@@ -6,7 +6,7 @@
 
 library(knitr)
 opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
-require(pander)
+library(pander)
 ```
 
 The following variables are included in each 'alltags' view in the SQLite file:
