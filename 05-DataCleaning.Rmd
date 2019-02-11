@@ -698,7 +698,7 @@ df.alltags.sub <- readRDS("./data/dfAlltagsSub.rds")
 
 As an alternative to saving your data as an RDS file, the Motus R package offers functionalities to save your filters directly within your .motus file. Once they are saved in your database, you can do the type of left_join() as above without having to rely on dataframes or an RDS file to store your data. To learn more about the functions available to work with Motus filters, refer to Appendix D for more details. 
 
-```{r saveFilter, eval=FALSE}
+```{r saveFilter, eval=TRUE}
 
 # combine our df.block data frames into a single dataframe, and add probability = 0 for filtered records.  
 df.block.all <- bind_rows(df.block.0, df.block.1, df.block.2, df.block.3, 
