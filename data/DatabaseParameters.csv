@@ -2,7 +2,7 @@ Field,Description
 hitID,unique Motus ID for this tag detection
 runID,unique Motus ID for the run this detection belongs to
 batchID,unique Motus ID for the processing batch this detection came from
-ts,"timestamp, in seconds since 1 Jan, 1970 GMT; precision: 0.1 ms (SG); 2.5 ms (Lotek). "
+ts,"timestamp, in seconds since 1 Jan, 1970 UTC; precision: 0.1 ms (SG); 2.5 ms (Lotek). "
 sig,"signal strength in ""native units""; for SG: dB (max) (logarithmic, 0 = max possible, -10 = 0.1 * max, etc.); for Lotek: raw value (0...255)"
 sigsd,std. dev. in signal strength among pulses in this burst. SG Only; NA for Lotek
 noise,"estimate of background radio noise when tag detected, in dB (max) for SG; NA for Lotek"

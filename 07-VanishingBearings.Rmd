@@ -99,8 +99,8 @@ library(ggplot2)
 library(jpeg)
 # Oct 16, 2018: Note that the development version must be used as described in Chapter 2
 library(ggmap)
-#Make sure working on GMT 
-Sys.setenv(TZ = "GMT")
+#Make sure working on UTC 
+Sys.setenv(TZ = "UTC")
 
 ```
 
@@ -153,7 +153,7 @@ p1 <- ggplot(subset(df.vanish, motusTagID == 16823 & ts > "2015-05-30 00:00:00")
 p1 
 ```
 
-We can see the typical detection pattern of a bird departing from a site, shown by a decrease in movement (beginning to roost) at around 00:25 GMT, followed by an increase in activity and departure from the site later in the night after 03:00 GMT. Soon after leaving the site, it gets detected by five other stations further north. Because this bird was detected before and during departure, we can assume it has departed from somewhat close to the Old Cut station. 
+We can see the typical detection pattern of a bird departing from a site, shown by a decrease in movement (beginning to roost) at around 00:25 UTC, followed by an increase in activity and departure from the site later in the night after 03:00 UTC. Soon after leaving the site, it gets detected by five other stations further north. Because this bird was detected before and during departure, we can assume it has departed from somewhat close to the Old Cut station. 
 
 With your own data, look at plots like these for each of your tagged individuals, and for the purpose of vanishing bearings, remove any individuals that don't have a clear departure. 
 

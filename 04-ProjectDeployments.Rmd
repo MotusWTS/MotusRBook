@@ -23,8 +23,8 @@ library(tidyverse)
 library(tidyr)
 library(motus)
 
-# Set the system environment time zone to GMT (to ensure that you are always working in GMT)
-Sys.setenv(TZ="GMT")
+# Set the system environment time zone to UTC (to ensure that you are always working in UTC)
+Sys.setenv(TZ="UTC")
 
 ```
 

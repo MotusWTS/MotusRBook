@@ -32,7 +32,7 @@ Follow the instructions in Chapter \@ref(loadingPackages) to install the followi
 
 ```{r loadpackages.5, message = FALSE, warning = FALSE}
 
-Sys.setenv(tz="GMT")
+Sys.setenv(tz="UTC")
 
 #library(devtools)
 library(motus)

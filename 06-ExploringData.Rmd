@@ -25,7 +25,7 @@ library(ggmap)
 
 ```{r setTimeZone2 }
 
-Sys.setenv(TZ="GMT")
+Sys.setenv(TZ="UTC")
 
 ```
 

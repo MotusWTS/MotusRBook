@@ -85,11 +85,11 @@ library(motus)
 
 ## Set system environment
 
-Set the system environment time zone to Greenwich Mean Time (GMT), to ensure that you are always working in GMT. This is a very important step, and should be part of every working session. If you fail to do this, then two problems can arise. Times are stored in the Motus database in GMT, and if you do not keep your environment in GMT, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.
+Set the system environment time zone to Greenwich Mean Time (UTC), to ensure that you are always working in UTC. This is a very important step, and should be part of every working session. If you fail to do this, then two problems can arise. Times are stored in the Motus database in UTC, and if you do not keep your environment in UTC, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.
 
 ```{r setTimeZone1}
 
-Sys.setenv(TZ="GMT")
+Sys.setenv(TZ="UTC")
 
 ```
 
@@ -314,7 +314,7 @@ df.alltags <- tbl.alltags %>%
                 as.data.frame() %>%     # for all fields in the df (data frame)
                 mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))
 
-# the tz = "UTC" is not necessary here, provided you have set your system time to UTC/GMT
+# the tz = "UTC" is not necessary here, provided you have set your system time to UTC
 # ... but it serves as a useful reminder!
 
 ```
