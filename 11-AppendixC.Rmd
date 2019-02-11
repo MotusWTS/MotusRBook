@@ -156,8 +156,7 @@ Plot routemap of all detection data, with "terrain" maptype, and receivers activ
 ```{r, plotRouteMap, eval = TRUE}
 
 plotRouteMap(sql.motus, 
-             maptype = "terrain", 
-             latCentre = 44, lonCentre = -70, zoom = 5, 
+             maptype = "terrain",
              recvStart = "2016-01-01", recvEnd = "2016-12-31")
 
 ```
