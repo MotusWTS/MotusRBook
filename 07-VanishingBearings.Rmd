@@ -135,12 +135,10 @@ By selecting only clear departures, we make sure that the bird departed from nea
 
 ```{r vanishPlotLatvsSIG}
 
-p1 <- ggplot(df.vanish, aes(ts, recvLat, colour= as.factor(recvSiteName))) + 
+ggplot(data = df.vanish, aes(x = ts, y = recvLat, colour = as.factor(recvSiteName))) + 
   geom_point(pch = 21) +
-  facet_wrap(~motusTagID, scales = "free", ncol = 1) +
+  facet_wrap(~ motusTagID, scales = "free", ncol = 1) +
   theme_bw()
-
-p1 
 ```
 
 We also make sure that the bird was being detected by several antennas at once during departure; if detections are on only one antenna, the vanishing bearing will simply be the direction of the lone antenna with detections. We plot signal strength by time for a subset of the data, to show the last few hours of detections of the bird at Old Cut. Let's try this with tag # 16823 from our sample data:
@@ -148,12 +146,12 @@ We also make sure that the bird was being detected by several antennas at once d
 
 ```{r vanishPlotTSvsSIG}
 
-p1 <- ggplot(subset(df.vanish, motusTagID == 16823 & ts > "2015-05-30 00:00:00"), aes(ts, sig, colour= as.factor(port))) + 
+ggplot(data = filter(df.vanish, motusTagID == 16823, ts > "2015-05-30 00:00:00"), 
+       aes(x = ts, y = sig, colour = as.factor(port))) + 
+  theme_bw() + 
   geom_point(pch = 21) +
-  facet_grid(recvSiteName ~ .) +
-  theme_bw()
-
-p1 
+  facet_grid(recvSiteName ~ .)
+  
 ```
 
 We can see the typical detection pattern of a bird departing from a site, shown by a decrease in movement (beginning to roost) at around 00:25 UTC, followed by an increase in activity and departure from the site later in the night after 03:00 UTC. Soon after leaving the site, it gets detected by five other stations further north. Because this bird was detected before and during departure, we can assume it has departed from somewhat close to the Old Cut station. 
@@ -168,13 +166,11 @@ Continuing with tag 16823, let's find the departure time.
 
 ```{r vanishFindDepTime}
 
-p2 <- ggplot(subset(df.vanish, motusTagID == 16823), aes(ts, sig, colour= as.factor(antBearing))) + 
+ggplot(data = filter(df.vanish, motusTagID == 16823), 
+       aes(x = ts, y = sig, colour= as.factor(antBearing))) + 
+  theme_bw() + 
   geom_point() +
-  facet_grid(recvSiteName~.) +
-  theme_bw()
-
-p2
-
+  facet_grid(recvSiteName ~ .)
 ```
 
 We can see the complete set of detections of tag 16823 for Old Cut and other stations this bird was detected at post-departure. 
@@ -183,13 +179,13 @@ We then subset the plot in order to zoom in to the last few minutes of detection
 
 ```{r vanishPlotTSvsSIG2}
 
-p3 <- ggplot(subset(df.vanish, motusTagID == 16823 & ts > "2015-05-30 03:03:00" & ts < "2015-05-30 03:10:00"), 
-             aes(ts, sig, colour= as.factor(antBearing))) + 
-  geom_point() +
-  #facet_grid(recvSiteName~.) +
-  theme_bw()
-
-p3
+ggplot(data = filter(df.vanish, 
+                     motusTagID == 16823,  
+                     ts > "2015-05-30 03:03:00",  
+                     ts < "2015-05-30 03:10:00"), 
+       aes(x = ts, y = sig, colour= as.factor(antBearing))) + 
+  theme_bw() + 
+  geom_point()
 ```
 
 In this case, we can see an increase in signal strength beginning at about 3:04 for the 90 and 260 degree antennas at Old Cut. These reach a peak in signal strength at about 3:04:59, after which signal strength declines. This suggests that the bird was likely south of the station when it began it's departure - signal strength increased and peaked as it passed through the antenna beams, and then declined again as the bird moved away (north) from the Old Cut station. We choose the peak signal strength, i.e., 3:04:59 as the departure time for this bird, to exclude those detections where the bird was likely moving towards the station; we would not want the 'approaching' station signals to contribute to the vanishing bearing, because it assumes the bird is moving radially away from the station. 
@@ -330,26 +326,32 @@ arr.sc <- 0.03
 rad <- function(x) {x * pi/180}
 
 ## Now we make the map
-## Oct 16 2018: note that if you haven't already registered the google key for your current session you will need to:
+## Oct 16 2018: note that if you haven't already registered the google key for
+## your current session you will need to:
 ## ggmap::register_google(key = "Your key here")
-out.map <- ggmap(map.OC) +
-    geom_point(data = df.stations, aes(recvLon,recvLat), size=1, colour = "yellow") +
+
+ggmap(map.OC) +
+    geom_point(data = df.stations, aes(x = recvLon, y = recvLat), size = 1, 
+               colour = "yellow") +
     # Add antenna bearings
-    geom_segment(data=df.stations, aes(x = recvLon, xend= recvLon + (sin(rad(antBearing))*arr.sc), 
-                                         y = recvLat, yend = recvLat + (cos(rad(antBearing))*arr.sc)), colour= "yellow") +  
-    
+    geom_segment(data = df.stations, 
+                 aes(x = recvLon, xend = recvLon + (sin(rad(antBearing))*arr.sc), 
+                     y = recvLat, yend = recvLat + (cos(rad(antBearing))*arr.sc)), 
+                 colour = "yellow") +  
+  
     # add vanishing bearings
     geom_segment(data = filter(df.vanishBearing, motusTagID == tagID), 
-                 aes( x = recvLon, xend= recvLon + (sin(rad(vanish.bearing))*arr.sc),
-                      y = recvLat, yend = recvLat + (cos(rad(vanish.bearing))*arr.sc), colour = motusTagID)) +
+                 aes(x = recvLon, xend = recvLon + (sin(rad(vanish.bearing))*arr.sc),
+                     y = recvLat, yend = recvLat + (cos(rad(vanish.bearing))*arr.sc), 
+                     colour = motusTagID)) +
   
     # Add scale bar  
     geom_segment(data = sbar,
                  aes(x = lon.start, xend = lon.end,
                      y = lat.start, yend = lat.end), 
                  col = "white",
-                 arrow=arrow(angle = 90, length = unit(0.1, "cm"),
-                             ends = "both", type = "open")) +
+                 arrow = arrow(angle = 90, length = unit(0.1, "cm"),
+                               ends = "both", type = "open")) +
     geom_text(data = sbar,
               aes(x = (lon.start + lon.end)/2,
                   y = lat.start + 0.025*(bb$ur.lat - bb$ll.lat),
@@ -357,11 +359,7 @@ out.map <- ggmap(map.OC) +
               hjust = 0.5,
               vjust = 0,
               size = 8/ptspermm, col = "white")  +
-    xlab("Longitude")+
-    ylab("Latitude")
-
-out.map
-
+    labs(x = "Longitude", y = "Latitude")
 ```
 
 Lengths of the yellow and red lines do not represent antenna range or exact path of the bird. For this departure, we have detections on two other stations which corroborate the vanishing bearing. 

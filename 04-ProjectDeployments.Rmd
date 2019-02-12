@@ -192,19 +192,17 @@ ymin <- min(df.tagDeps$latitude, na.rm = TRUE) - 5
 ymax <- max(df.tagDeps$latitude, na.rm = TRUE) + 5
                 
 # map using ggplot
-ggplot(na.lakes, aes(long, lat)) + 
-  geom_polygon(
-    data = na.map, 
-    aes(long, lat, group=group), colour = "grey", fill="grey98") + 
-  geom_polygon(
-    aes(group = group), colour = "grey", fill = "white") +
-  coord_map(projection="mercator", 
+ggplot(data = na.lakes, aes(x = long, y = lat)) + 
+  geom_polygon(data = na.map, aes(long, lat, group = group), 
+               colour = "grey", fill="grey98") + 
+  geom_polygon(aes(group = group), colour = "grey", fill = "white") +
+  coord_map(projection = "mercator", 
             xlim = c(xmin, xmax), 
             ylim = c(ymin, ymax)) +
-  xlab("") + ylab("") + 
+  labs(x = "", y = "") + 
   theme_bw() + 
   geom_point(data = filter(df.tagDeps, projectID == 176), 
-             aes(longitude, latitude), cex = 2, pch = 1, colour = "red")
+             aes(longitude, latitude), size = 2, shape = 1, colour = "red")
 
 ```
 
@@ -337,34 +335,30 @@ df.projRecvs.long <- df.projRecvs %>%
   # fake end date:
   mutate(ts = if_else(is.na(ts), max(ts, na.rm = TRUE) + duration(1, "month"), ts)) 
 
-ggplot(df.projRecvs.long, 
-       aes(y = as.factor(deviceID), x = ts, colour = as.factor(deployID))) +
-  geom_line(lwd=3) + 
-  
+ggplot(data = df.projRecvs.long, 
+       aes(x = ts, y = as.factor(deviceID), colour = as.factor(deployID))) +
+  theme(legend.position = "none") +
+  geom_line(lwd = 3) + 
   # instead, center to the right
-  geom_text(data=filter(df.projRecvs.long, when == "tsStart"), 
-            aes(label=deployID), hjust="left", nudge_y = 0.2, size=3, angle = 45) +
+  geom_text(data = filter(df.projRecvs.long, when == "tsStart"), 
+            aes(label = deployID), hjust = "left", nudge_y = 0.2, size = 3, angle = 45) +
   theme_bw() +
-  ylab("Receiver ID") + 
-  xlab("Year") + 
-  theme(legend.position="none")
+  labs(x = "Year", y = "Receiver ID")
 
 ```
 If you want more detail for a given year (or all years) you can either subset and re-plot, or use the day of year on the x-axis, and facet_wrap by year. 
 
 ```{r}
-ggplot(df.projRecvs.long, 
-       aes(y = as.factor(deviceID), x = yday(ts), colour = as.factor(deployID))) +
-  geom_line(lwd=3) + 
-  
-  # center labels to the left
-  geom_text(data=filter(df.projRecvs.long, when == "tsStart"), 
-            aes(label=deployID), hjust="left", nudge_y = 0.4, size=3) +
+ggplot(data = df.projRecvs.long, 
+       aes(x = yday(ts), y = as.factor(deviceID), colour = as.factor(deployID))) +
   theme_bw() +
-  ylab("Receiver ID") + 
-  xlab("Day of year") + 
-  theme(legend.position="none") + 
-  facet_grid(year(ts) ~ ., scales="free")
+  theme(legend.position = "none") + 
+  geom_line(lwd = 3) + 
+  # center labels to the left
+  geom_text(data = filter(df.projRecvs.long, when == "tsStart"), 
+            aes(label = deployID), hjust = "left", nudge_y = 0.4, size = 3) +
+  labs(x = "Day of year", y = "Receiver ID") +
+  facet_grid(year(ts) ~ ., scales = "free")
   
 ```
 
@@ -421,16 +415,16 @@ ymin <- -60 #min(df.recvDeps$longitude, na.rm = TRUE) - 2
 ymax <- max(df.recvDeps$latitude, na.rm = TRUE) + 2
                 
 # map
-ggplot(na.lakes, aes(long, lat))+ 
-  geom_polygon(data = na.map, aes(long, lat, group=group), 
-               colour = "grey", fill="grey98") +
-  geom_polygon(aes(group = group), colour = "grey", fill = "white")+
-  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
-  xlab("") + ylab("") + 
+ggplot(data = na.lakes, aes(x = long, y = lat)) + 
   theme_bw() + 
+  geom_polygon(data = na.map, aes(long, lat, group = group), 
+               colour = "grey", fill = "grey98") +
+  geom_polygon(aes(group = group), colour = "grey", fill = "white") +
+  coord_map(projection = "mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
+  labs(x = "", y = "") + 
   geom_point(data = df.recvDeps, 
              aes(longitude, latitude, colour = as.logical(projectID == 176)), 
-             cex = 0.8, pch = 4)+
+             size = 0.8, shape = 4) +
   scale_colour_manual(values = c("grey30", "red"), name = "Project 176 Deployment") 
 
 ```  
@@ -453,19 +447,18 @@ ymin <- min(df.projRecvs$latitude, na.rm = TRUE) - 1
 ymax <- max(df.projRecvs$latitude, na.rm = TRUE) + 1
                 
 # map
-ggplot(na.lakes, aes(long, lat))+ 
-  geom_polygon(data = na.map, 
-               aes(long, lat, group=group), colour = "grey", fill="grey98") +
-  geom_polygon(aes(group = group), colour = "grey", fill = "white") +
-  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
-#  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(50.154, 52.875)) +
-  xlab("") + ylab("") + 
+ggplot(data = na.lakes, aes(x = long, y = lat))+ 
   theme_bw() + 
+  geom_polygon(data = na.map, aes(long, lat, group = group), 
+               colour = "grey", fill = "grey98") +
+  geom_polygon(aes(group = group), colour = "grey", fill = "white") +
+  coord_map(projection = "mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
+  labs(x = "", y = "") +
   geom_point(data = filter(df.projRecvs, 
-                            year(tsStart) == 2016, 
-                            !is.na(latitude)),  # remove mobile receivers
-             aes(longitude, latitude, colour = as.factor(deviceID)), cex = 2, pch = 1)+
-  scale_colour_discrete(name  =  "Receiver ID") 
+                           year(tsStart) == 2016, 
+                           !is.na(latitude)),  # remove mobile receivers
+             aes(longitude, latitude, colour = as.factor(deviceID)), size = 2, shape = 1)+
+  scale_colour_discrete(name = "Receiver ID") 
 
 ```
 

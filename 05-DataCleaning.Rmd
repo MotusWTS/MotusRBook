@@ -279,12 +279,13 @@ df.alltags.path <- fun.getpath(filter(df.alltags.sub,
                                                         16037, 16038, 16039), 
                                       !(runID %in% df.block.1$runID)))
 
-p <- ggplot(data = df.alltags.path, aes(ts.h, recvLat)) 
-p + geom_point() + 
-  geom_path() + 
+ggplot(data = df.alltags.path, aes(x = ts.h, y = recvLat)) +
   theme_bw() +
-  facet_wrap(~motusTagID, scales = "free", ncol=2) + 
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) +
+  geom_point() + 
+  geom_path() + 
+  facet_wrap(~ motusTagID, scales = "free", ncol = 2)
+  
 
 ```
 
@@ -343,12 +344,13 @@ ambigTags.2 <- filter(df.alltags.sub) %>%
 df.alltags.path <- left_join(df.alltags.path, ambigTags.2, by = "motusTagID") %>%
   arrange(ts.h)
 
-p <- ggplot(data = df.alltags.path, aes(ts.h, recvLat, group = Ambiguous, colour=Ambiguous)) 
-p + geom_point() + 
-  geom_path() + 
+ggplot(data = df.alltags.path, 
+       aes(x = ts.h, y = recvLat, group = Ambiguous, colour = Ambiguous)) +
   theme_bw() +
-  facet_wrap(~newID, scales = "free", ncol=2) + 
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) + 
+  geom_point() + 
+  geom_path() + 
+  facet_wrap(~ newID, scales = "free", ncol = 2)
 ```
 
 Let's deal with the easy ones first. 
@@ -390,12 +392,15 @@ df.alltags.sub %>%
 Here we have a similar situation, but one that is a bit more complex. Two identical tags were deployed at the same location, shortly after one another. Let's examine a simple plot. 
 
 ```{r ambig134b}
-filter(df.alltags.sub, motusTagID %in% c(22905, 23319), month(ts) == 10) %>%
-  ggplot(aes(ts, sig, group=recvDeployName, colour=recvDeployName)) + 
-   geom_point() + 
-   theme_bw() +
-   xlab("Time") + ylab("Signal strength") +
-   facet_grid(recvLon~.)
+
+ggplot(data = filter(df.alltags.sub, 
+                     motusTagID %in% c(22905, 23319), 
+                     month(ts) == 10),
+       aes(x = ts, y = sig, group = recvDeployName, colour = recvDeployName)) + 
+  geom_point() + 
+  theme_bw() +
+  labs(x = "Time", y = "Signal strength") +
+  facet_grid(recvLon ~ .)
 ```
 
 It appears that these are overlapping detections, at two sites in proximity to one another. Additional information from the field researchers may enable us to disentangle them, but it is not clear from the data.
@@ -445,13 +450,12 @@ And plot the ambiguous detections.
 ```{r ambig171b}
 df.ambig.171 <- filter(df.alltags.sub, ambigID == -171)
 
-p <- ggplot(data=df.ambig.171, aes(ts, sig, colour=as.factor(port)))
-p + 
-  geom_point() + 
-  geom_smooth(method="loess", se=FALSE) + 
+ggplot(data = df.ambig.171, aes(x = ts, y = sig, colour = as.factor(port))) +
   theme_bw() +
-  facet_wrap(as_date(ts) ~ recvDeployName, scales = "free_x") +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) + 
+  geom_point() + 
+  geom_smooth(method = "loess", se = FALSE) + 
+  facet_wrap(as_date(ts) ~ recvDeployName, scales = "free_x")
 ```
 
 We see that there are a large number of ambiguous detections on 10 May 2017 at Old Cut (Long Point, Lake Erie, Ontario), consistent with a bird 'hanging around'. These are almost certainly detections of motusTagID '24303' which was deployed at Old Cut on 10 May 2017. Subsequent detections on the 18th of May are near Old Cut (Bird Studies Canada HQ, Port Rowan, Ontario), and then a location to the North of Old Cut (Hagersville, Ontario). These detections are consistent with a bird departing on migration. Note in particular the pattern in the latter two panels of increasing then decreasing signal strength which indicates a bird is flying through the beam of an antenna.
@@ -492,10 +496,8 @@ df.ambig.114 <- df.alltags.sub %>%
   filter(ambigID == -114) %>%
   mutate(LatLonStationName = paste(recvLat, recvLon, recvDeployName, sep=": "))
 
-p <- ggplot(data = df.ambig.114, 
-            aes(ts, sig, colour=LatLonStationName)) 
-
-p + geom_point() + 
+ggplot(data = df.ambig.114, aes(x = ts, y = sig, colour = LatLonStationName)) +
+  geom_point() + 
   theme_bw() 
 
 ```
@@ -533,12 +535,13 @@ We plot the ambiguous detections to examine the period of overlap.
 
 df.ambig.106 <- filter(df.alltags.sub, ambigID == -106)
 
-p <- ggplot(data=df.ambig.106, aes(ts, sig, colour=paste(recvLat, recvLon, recvDeployName, sep=": ")))
-
-p + geom_point() + 
-  scale_colour_discrete(name="Lat/Lon and\nStation Name") +
+ggplot(data = df.ambig.106, 
+       aes(x = ts, y = sig, 
+           colour = paste(recvLat, recvLon, recvDeployName, sep = ": "))) +
   theme_bw() +
-  facet_wrap(~as_date(ts), scales = "free_x")
+  geom_point() + 
+  scale_colour_discrete(name = "Lat/Lon and\nStation Name") +
+  facet_wrap(~ as_date(ts), scales = "free_x")
 
 ```
 
@@ -589,10 +592,11 @@ df.ambig.56 <- df.alltags.sub %>%
   filter(ambigID == -56) %>%
   mutate(sig = ifelse(sig > 0, sig * -1, sig))
 
-p <- ggplot(data=df.ambig.56, 
-            aes(recvLon, ts, colour=paste(recvLat, recvLon, recvDeployName, sep=": ")))
-p + geom_point() + 
+ggplot(data = df.ambig.56, 
+       aes(x = recvLon, y = ts, 
+           colour = paste(recvLat, recvLon, recvDeployName, sep=": "))) +
   theme_bw() +
+  geom_point() + 
   scale_colour_discrete(name="Lat/Lon and\nStation Name") 
 ```
 
@@ -602,13 +606,15 @@ We can see from the plot that a tag is detected consistently near longitude -65,
 
 ts.begin <- ymd_hms("2016-10-06 00:00:00")
 ts.end <- ymd_hms("2016-10-12 23:00:00")
-p <- ggplot(data=filter(df.ambig.56, 
-                        ts > ts.begin, 
-                        ts < ts.end),
-            aes(ts, recvLon, colour=paste(recvLat, recvLon, recvDeployName, sep=": ")))
-p + geom_point() + 
+
+ggplot(data = filter(df.ambig.56, 
+                     ts > ts.begin, 
+                     ts < ts.end),
+       aes(x = ts, y = recvLon, 
+           colour = paste(recvLat, recvLon, recvDeployName, sep = ": "))) +
   theme_bw() +
-  scale_colour_discrete(name="Lat/Lon and\nStation Name") 
+  geom_point() + 
+  scale_colour_discrete(name = "Lat/Lon and\nStation Name") 
 
 ```
 
@@ -635,11 +641,13 @@ The bird made a 14.5 hour flight between Washkaugou and SHNJ at a rate of 24 m/s
 
 df.56.tmp <- filter(df.alltags.sub, ambigID == -56, recvLon < -70)
 
-p <- ggplot(data=df.56.tmp, aes(ts, sig, colour=paste(recvLat, recvLon, recvDeployName, sep=": ")))
-p + geom_point() + 
+ggplot(data = df.56.tmp, 
+       aes(x = ts, y = sig, 
+           colour = paste(recvLat, recvLon, recvDeployName, sep = ": "))) + 
   theme_bw() +
-  scale_colour_discrete(name="Lat/Lon and\nStation Name") + 
-  facet_wrap(~as_date(ts), scales = "free_x")
+  geom_point() + 
+  scale_colour_discrete(name = "Lat/Lon and\nStation Name") + 
+  facet_wrap(~ as_date(ts), scales = "free_x")
 
 ```
 

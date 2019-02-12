@@ -198,20 +198,21 @@ df.alltags.sub.2 <- df.alltags.sub %>%
          recvLat, recvLon, recvDeployName, antBearing, speciesEN, year, doy, hour) %>% 
   distinct()
 
-p <- ggplot(data = df.alltags.sub.2, aes(hour, as.factor(motusTagID))) 
-p + geom_point() + 
-  ylab("MotusTagID") + xlab("Time (rounded to hour)") + 
-  theme_bw()
+ggplot(data = df.alltags.sub.2, aes(x = hour, y = as.factor(motusTagID))) +
+  theme_bw() +
+  geom_point() + 
+  labs(x = "Time (rounded to hour)", y = "MotusTagID")
+  
 ```
 Let's focus only on tags deployed in 2016, and we can colour the tags by species:
 
 ```{r hourlyPlotSpecies}
-p <- ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016), 
-       aes(hour, as.factor(motusTagID), col = speciesEN)) 
-p + geom_point() +
-  ylab("MotusTagID") + xlab("Time (rounded to hour)") +
-  scale_colour_discrete(name = "Species") +
-  theme_bw()
+ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016), 
+       aes(x = hour, y = as.factor(motusTagID), colour = speciesEN)) +
+  theme_bw() + 
+  geom_point() +
+  labs(x = "Time (rounded to hour)", y = "MotusTagID") +
+  scale_colour_discrete(name = "Species")
 ```
 We can see how tags moved latitudinally by first ordering by hour, and colouring by motusTagID:
 
@@ -219,25 +220,27 @@ We can see how tags moved latitudinally by first ordering by hour, and colouring
 
 df.alltags.sub.2 <- arrange(df.alltags.sub.2, hour)
 
-p <- ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016), 
-       aes(hour, recvLat, col = as.factor(motusTagID), group = as.factor(motusTagID)))
-p +  geom_point() +
+ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016), 
+       aes(x = hour, y = recvLat, col = as.factor(motusTagID), 
+           group = as.factor(motusTagID))) + 
+  theme_bw() + 
+  geom_point() +
   geom_path() +
-  theme_bw() + xlab("Time (rounded to hour)") + ylab ("Receiver latitude") +
+  labs(x = "Time (rounded to hour)", y = "Receiver latitude") +
   scale_colour_discrete(name = "MotusTagID")
 ```
 Now lets look at more detailed plots of signal variation. We use the full df.alltags.sub dataframe so that we can get signal strength for each detection of a specific tag. Let's examine fall 2016 detections of tag 22897 at Niapiskau; we facet the plot by deployment name, ordered by decreasing latitude:
 
 ```{r plot22897}
 
-p <- ggplot(filter(df.alltags.sub, 
-                   motusTagID == 22897, 
-                   recvDeployName == "Niapiskau"), 
-       aes(ts, sig)) 
-p +  theme_bw() + 
+ggplot(data = filter(df.alltags.sub, 
+                     motusTagID == 22897, 
+                     recvDeployName == "Niapiskau"), 
+       aes(x = ts, y = sig)) +
+  theme_bw() + 
   geom_point() + 
-  xlab("Time") + ylab("Signal strength") +
-  facet_grid(recvDeployName~.)
+  labs(x = "Time", y = "Signal strength") +
+  facet_grid(recvDeployName ~ .)
 
 ```
 
@@ -247,16 +250,16 @@ We use the sunRiseSet function available in the motus R package (see \@ref(sunRi
 # add sunrise and sunset times to the dataframe
 df.alltags.sub <- sunRiseSet(df.alltags.sub, lat = "recvLat", lon = "recvLon") 
 
-p <- ggplot(filter(df.alltags.sub, motusTagID == 22897 & 
-                     ts > ymd("2016-10-11") & ts < ymd("2016-10-17") & 
+ggplot(data = filter(df.alltags.sub, motusTagID == 22897,
+                     ts > ymd("2016-10-11"),
+                     ts < ymd("2016-10-17"),
                      recvDeployName == "Niapiskau"), 
-            aes(ts, sig))
-
-p + theme_bw() + 
+       aes(x = ts, y = sig)) +
+  theme_bw() + 
   geom_point() + 
-  xlab("Time of year") + ylab("Signal strength") +
-  geom_vline(xintercept = df.alltags.sub$sunrise, col = "orange") + 
-  geom_vline(xintercept = df.alltags.sub$sunset, col = "blue")
+  labs(x = "Time of year", y = "Signal strength") +
+  geom_vline(aes(xintercept = sunrise), col = "orange") + 
+  geom_vline(aes(xintercept = sunset), col = "blue")
 
 ```
 We can see that during this period, the tag was most often detected during the day, suggesting it may be actively foraging in this area during this time.  
@@ -267,26 +270,27 @@ The same plots can provide valuable movement information when the receivers are 
 df.alltags.sub <- mutate(df.alltags.sub, 
                          recvDeployName = reorder(recvDeployName, recvLat))
 
-p <- ggplot(filter(df.alltags.sub, motusTagID == 16039 & 
+ggplot(data = filter(df.alltags.sub, 
+                     motusTagID == 16039,
                      ts < ymd("2015-10-01")), 
-       aes(ts, recvDeployName))
-
-p + theme_bw() + 
+       aes(x = ts, y = recvDeployName)) +
+  theme_bw() + 
   geom_point() + 
-  xlab("Time of year") + ylab("Receiver name (ordered by latitude)")
+  labs(x = "Time of year", y = "Receiver name (ordered by latitude)")
 ```
 
 We zoom in on a section of this plot and look at antenna bearings to see directional movement past stations:
 
 ```{r plot2}
-p <- ggplot(filter(df.alltags.sub, motusTagID == 16039, 
-                   ts > ymd("2015-09-14"), ts < ymd("2015-10-01")), 
-            aes(ts, sig, col = as.factor(antBearing))) 
-p + theme_bw() + 
+ggplot(data = filter(df.alltags.sub, motusTagID == 16039, 
+                     ts > ymd("2015-09-14"), 
+                     ts < ymd("2015-10-01")), 
+       aes(x = ts, y = sig, col = as.factor(antBearing))) +
+  theme_bw() + 
   geom_point() + 
-  xlab("Time of day") + ylab("Signal strength") +
+  labs(x = "Time of day", y = "Signal strength") +
   scale_color_discrete(name = "Antenna bearing") +
-  facet_grid(recvDeployName~.)
+  facet_grid(recvDeployName ~ .)
 ```
 
 This plot shows the typical flyby pattern of a migrating animal, with signal strength increasing and then decreasing as the tag moves through the beams of the antennas.
@@ -346,19 +350,20 @@ gmap <-  get_map(location = c(lon = -75, lat = 40), # lon/lat to centre map over
                  source = "google",
                  zoom = 4) # zoom, must be a whole number
 
-# just use the tags that we have examined carefully and filtered (in the previous chapter)
-df.tmp <- filter(df.alltags.path, 
-                           motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039))
-df.tmp <- arrange(df.tmp, ts.h) # arange by hour
-df.tmp <- as.data.frame(df.tmp)
+# just use the tags that we have examined carefully and filtered (in the
+# previous chapter)
+df.tmp <- df.alltags.path %>%
+  filter(motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039)) %>%
+  arrange(ts.h) # arange by hour
+  as.data.frame()
 
-p <- ggmap(gmap)
-p + geom_point(data=df.tmp, 
-               aes(recvLon, recvLat), pch=21, colour = "black", fill = "yellow") +
-  geom_path(data=df.tmp, 
-            aes(recvLon, recvLat, group=motusTagID, col = as.factor(motusTagID))) +
+ggmap(gmap) +
   theme_bw() + 
-  scale_color_discrete(name="MotusTagID")
+  geom_point(data = df.tmp, aes(x = recvLon, y = recvLat), 
+             shape = 21, colour = "black", fill = "yellow") +
+  geom_path(data = df.tmp, 
+            aes(x = recvLon, y = recvLat, group = motusTagID, col = as.factor(motusTagID))) +
+  scale_color_discrete(name = "MotusTagID")
 
 ```
 
@@ -366,23 +371,24 @@ p + geom_point(data=df.tmp,
 
 ggmap::register_google(key = "Your Key here")
 
-gmap <-  get_map(location = c(lon = -75, lat = 40), # lon/lat to centre map over
-                 maptype = "satellite", # select maptype
-                 source = "google",
-                 zoom = 4) # zoom, must be a whole number
+gmap <- get_map(location = c(lon = -75, lat = 40), # lon/lat to centre map over
+                maptype = "satellite", # select maptype
+                source = "google",
+                zoom = 4) # zoom, must be a whole number
 
-# just use the tags that we have examined carefully and filtered (in the previous chapter)
-df.tmp <- filter(df.alltags.path, 
-                           motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039))
-df.tmp <- arrange(df.tmp, ts.h) # arange by hour
-df.tmp <- as.data.frame(df.tmp)
+# just use the tags that we have examined carefully and filtered (in the
+# previous chapter)
+df.tmp <- df.alltags.path %>%
+  filter(motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039)) %>%
+  arrange(ts.h) %>% # arange by hour
+  as.data.frame()
 
-p <- ggmap(gmap)
-p + geom_point(data=df.tmp, 
-               aes(recvLon, recvLat), pch=21, colour = "black", fill = "yellow") +
-  geom_path(data=df.tmp, 
-            aes(recvLon, recvLat, group=motusTagID, col = as.factor(motusTagID))) +
+ggmap(gmap) +
   theme_bw() + 
+  geom_point(data = df.tmp, aes(recvLon, recvLat), 
+             shape = 21, colour = "black", fill = "yellow") +
+  geom_path(data = df.tmp, 
+            aes(recvLon, recvLat, group = motusTagID, col = as.factor(motusTagID))) +
   scale_color_discrete(name="MotusTagID")
 
 ```
@@ -419,12 +425,17 @@ df.recvDeps$active <- lubridate::int_overlaps(siteOp, dateRange)
 # receivers with detections as yellow remember to register your google key if
 # you haven't already!
 # ggmap::register_google(key = "Your key here")
-p <- ggmap(gmap)
-p + geom_point(data = subset(df.recvDeps, active == TRUE), ggplot2::aes(longitude, latitude), pch=21, colour = "black", fill = "red") +
-  geom_point(data=df.tmp, aes(recvLon, recvLat), pch=21, colour = "black", fill = "yellow") +
-  geom_path(data=df.tmp, aes(recvLon, recvLat, group=motusTagID, col = as.factor(motusTagID))) +
+ggmap(gmap) +
   theme_bw() + 
-  scale_color_discrete(name="MotusTagID")
+  geom_point(data = subset(df.recvDeps, active == TRUE), 
+             ggplot2::aes(x = longitude, y = latitude), 
+             shape = 21, colour = "black", fill = "red") +
+  geom_point(data = df.tmp, aes(x = recvLon, y = recvLat), 
+             shape = 21, colour = "black", fill = "yellow") +
+  geom_path(data = df.tmp, 
+            aes(x = recvLon, y = recvLat, group = motusTagID, 
+                col = as.factor(motusTagID))) +
+  scale_color_discrete(name = "MotusTagID")
 ```
 
 ### Creating simple outline maps {#outlineMaps}
@@ -455,16 +466,18 @@ ymin <- min(df.tmp$recvLat, na.rm = TRUE) - 1
 ymax <- max(df.tmp$recvLat, na.rm = TRUE) + 1
                 
 # map
-ggplot(na.lakes, aes(long, lat))+ 
-  geom_polygon(data = na.map, aes(long, lat, group=group), colour = "grey", fill="grey98")+
-  geom_polygon(aes(group = group), colour = "grey", fill = "white")+
-  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
-  xlab("") + ylab("") + 
+ggplot(data = na.lakes, aes(x = long, y = lat))+ 
   theme_bw() + 
+  geom_polygon(data = na.map, aes(x = long, y = lat, group = group), 
+               colour = "grey", fill = "grey98") +
+  geom_polygon(aes(group = group), colour = "grey", fill = "white") +
+  coord_map(projection = "mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
+  labs(x = "", y = "") +
   geom_path(data = df.tmp, 
-           aes(recvLon, recvLat, group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
+           aes(x = recvLon, y = recvLat, 
+               group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
   geom_point(data = df.tmp, 
-             aes(tagDeployLon, tagDeployLat), colour = "black", shape = 4) +
+             aes(x = tagDeployLon, y = tagDeployLat), colour = "black", shape = 4) +
   scale_colour_discrete("motusTagID") 
 ```
 
