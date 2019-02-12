@@ -3,14 +3,15 @@
 ```{r tidyr10, echo = FALSE, message = FALSE, warning = FALSE}
 
 library(knitr)
-opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = FALSE)
 
 ```
 
 The motus R package offers functions that work with .motus data to do common computations, summaries and plots. This appendix outlines these functions and provides examples on function use. Many of these functions work with both tbl and data.frame formats, however some require the data to be in sql format as specified below. Detailed instructions on accessing and formatting data are available in Chapter \@ref(accessingData). The examples throughout this chapter work with the sample data which can be accessed and converted to various formats through the following code:
 
 ```{r appendixBSample, eval = FALSE}
-# download and access sample data in sql format, username: motus.sample, password: motus.sample
+# download and access sample data in sql format
+# username: motus.sample, password: motus.sample
 sql.motus <- tagme(176, new = TRUE, update = TRUE, dir = "./data")
 
 # extract "alltags"" table from sql file "sql.motus"

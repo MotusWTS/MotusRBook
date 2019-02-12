@@ -3,7 +3,7 @@
 ```{r tidyr4, echo = FALSE, message = FALSE, warning = FALSE}
 
 library(knitr)
-opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = FALSE)
 
 ```
 
