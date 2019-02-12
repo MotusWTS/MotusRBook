@@ -77,11 +77,19 @@ checkVersion(sql)
 
 ### I get an error "Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file" when attempting to run tagme()
 If you get this message, it's likely that you're attempting a new download or update to a non-existant directory.  The directory is specified in the **dir = ""** command of the tagme() function. If the directory is not specified, files will be saved to your working directory. Use getwd() to determine your current working directory. Use setwd() to set a new working directory. To specify a location to save files from your working directory use "./" followed by the file path.
+
 ```{r setWorkingDirectory, eval = FALSE}
 getwd() # show working directory, in this case it's "C:/Documents"
-tagme(proj.num, new = TRUE, update = TRUE) # downloads data to your working directory
-tagme(proj.num, new = TRUE, update = TRUE, dir = "./data/") # downloads data to the data folder within your working directory ie. the file path C:/Documents/data
-tagme(proj.num, new = TRUE, update = TRUE, dir = "C:/Downloads") # downloads data to the file path C:/Downloads
+
+# downloads data to your working directory
+tagme(proj.num, new = TRUE, update = TRUE)
+
+# downloads data to the data folder within your working directory
+# ie. the file path C:/Documents/data
+tagme(proj.num, new = TRUE, update = TRUE, dir = "./data/") 
+
+# downloads data to the file path C:/Downloads
+tagme(proj.num, new = TRUE, update = TRUE, dir = "C:/Downloads") 
 ```
 
 Of course, there is always the possibility that the book contains errors! If this does not work, please contact motus@birdscanada.org.

@@ -57,7 +57,8 @@ createRunsFilter(sql.motus, "myfilter", motusProjID = 176)
 
 # OR add project and description, possibly updating any previous version called myfilter.
 
-createRunsFilter(sql.motus, "myfilter", motusProjID = 176, descr = "assign probability of 0 to false positives", update=TRUE)
+createRunsFilter(sql.motus, "myfilter", motusProjID = 176, 
+                 descr = "assign probability of 0 to false positives", update = TRUE)
 
 ```
 
@@ -82,12 +83,12 @@ tbl.filt2 <- getRunsFilters(sql.motus, "myfilter2")
 
 # filter records from df that are in tbl.filt
 df <- left_join(df, tbl.filt, by = c("runID", "motusTagID")) %>%
-  mutate(probability = ifelse(is.na(probability), 1, probability)) %>%
+  mutate(probability = if_else(is.na(probability), 1, probability)) %>%
   filter(probability > 0)
 
 # you can apply a second filter, tbl.filt2, to the result of the previous filter
 df <- left_join(df, tbl.filt2, by = c("runID", "motusTagID")) %>%
-  mutate(probability = ifelse(is.na(probability), 1, probability)) %>%
+  mutate(probability = if_else(is.na(probability), 1, probability)) %>%
   filter(probability > 0)
 
 ```
@@ -111,13 +112,17 @@ Writes to the local database (SQLite file) the content of a dataframe containing
 
 ```{r writeRunsFilter, eval = FALSE}
 
-# write a dataframe containing filter records (runID, motusTagID and probability) to “myfilter”
+# write a dataframe containing filter records (runID, motusTagID and
+# probability) to “myfilter”
 writeRunsFilter(src = sql.motus, filterName = "myfilter", df = filter.df)
 
-# write a dataframe containing filter records (runID, motusTagID and probability) to “myfilter”, overwriting a previous version entirely
+# write a dataframe containing filter records (runID, motusTagID and
+# probability) to “myfilter”, overwriting a previous version entirely
 writeRunsFilter(src = sql.motus, fileName = "myfilter", df = filter.df, delete = TRUE)
 
-# write a dataframe containing filter records (runID, motusTagID and probability) to "myfilter", but only append new records, leaving previously created ones intact
+# write a dataframe containing filter records (runID, motusTagID and
+# probability) to "myfilter", but only append new records, leaving previously
+# created ones intact
 writeRunsFilter(src = sql.motus, "myfilter", df = filter.df, overwrite = FALSE)
 
 ```

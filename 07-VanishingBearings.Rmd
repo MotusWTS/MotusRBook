@@ -111,11 +111,14 @@ The sample data used in this chapter includes the detections of three Magnolia W
 The sample data are included in the motusData R package as the "vanishBearing.rda" file. In order to access these data, you will need to first install the motusData package following the instructions in  section \@ref(loadingPackages), *prior* to running the code in this chapter: 
 
 ```{r vanishLoadData, warning = FALSE, message = FALSE}
+# load the motusData package, which contains the sample data for this chapter
+library(motusData) 
 
-library(motusData) # load the motusData package, which contains the sample data for this chapter
+# Load the sample data we provided from 3 individual warblers departing Old Cut
+# during the Spring of 2015.
 
-## Load the sample data we provided from 3 individual warblers departing Old Cut during the Spring of 2015
-## We also do a couple manipulations here, to reorder the levels of the recvSiteName factor, and order the data by ts
+# We also do a couple manipulations here, to reorder the levels of the
+# recvSiteName factor, and order the data by ts.
 
 df.vanish <- vanishBearing %>%
   mutate(recvSiteName = reorder(recvSiteName, recvLat),
@@ -196,10 +199,10 @@ We create a dataframe with the departure times of each bird and their motusTagID
 ```{r vanishCreateDepartureTable}
 
 ## create dataframe and assign column names
-dep.16823 <- as.data.frame(cbind(16823,"2015-05-30 03:04:59"))
+dep.16823 <- as.data.frame(cbind(16823, "2015-05-30 03:04:59"))
 
 ## create dataframes for the other two tags:
-dep.16867 <- as.data.frame(cbind(16867,"2015-05-29 01:56:00"))
+dep.16867 <- as.data.frame(cbind(16867, "2015-05-29 01:56:00"))
 dep.16791 <- as.data.frame(cbind(16791, "2015-05-08 02:41:40"))
 
 ## put them all together
@@ -211,8 +214,8 @@ df.departTime <- mutate(df.departTime, ts_depart = ymd_hms(ts_depart))
 
 df.departTime
 
-## optionally, save to .RDS file to preserve time structure (you could save to .csv, but time structure will not be preserved)
-## not run here:
+## optionally, save to .RDS file to preserve time structure (you could save to
+## .csv, but time structure will not be preserved) not run here:
 
 # saveRDS(df.departTime, file = "./data/departureTimes.RDS")
 
@@ -235,21 +238,31 @@ We then calculate a weighted mean of departure angle across the entire departure
 
 ## Merge sample data with departure times, subset data, and calculate vanishing bearing
 
-## Note that we use the recvSiteName to specify the departure station of interest. Depending on whether the station has moved or changed names with deployments, recvDeployID might be more appropriate.
+## Note that we use the recvSiteName to specify the departure station of
+## interest. Depending on whether the station has moved or changed names with
+## deployments, recvDeployID might be more appropriate.
 
 depart.station <- "Old Cut"
-min.sig <- -78.0691 # normally max and min sig would be taken from the complete raw data for a station
+min.sig <- -78.0691 # normally max/min sig comes from the complete raw data for a station
 max.sig <- -17.8707
 
-df.vanishBearing <- right_join(df.vanish, df.departTime, by = "motusTagID") %>% # in this case, right join should drop any individuals that don't have departure times in df.departTime
+# in this case, right join should drop any individuals that don't have departure
+# times in df.departTime
+df.vanishBearing <- right_join(df.vanish, df.departTime, by = "motusTagID") %>%
   filter(ts >= ts_depart,
          recvSiteName == depart.station) %>%
   distinct() %>%
   mutate(sig.norm = (sig - (min.sig))/((max.sig)-(min.sig)), 
-         circ.bear = circular(antBearing, type = c("angles"), units = c("degrees"), rotation = c("clock"))) %>% 
+         circ.bear = circular(antBearing, 
+                              type = c("angles"), 
+                              units = c("degrees"), 
+                              rotation = c("clock"))) %>% 
   group_by(motusTagID, recvSiteName, recvLat, recvLon) %>% 
-  summarise(vanish.bearing = weighted.mean(circ.bear, sig.norm, na.rm=FALSE, 
-                                           control.circular=list(type = "angles", units = "degrees", template = "none", rotation = "clock")),
+  summarise(vanish.bearing = weighted.mean(circ.bear, sig.norm, na.rm = FALSE, 
+                                           control.circular = list(type = "angles", 
+                                                                   units = "degrees", 
+                                                                   template = "none", 
+                                                                   rotation = "clock")),
             minutes.used = as.duration(min(ts) %--% max(ts))) %>%
   as.data.frame()
 
@@ -259,7 +272,8 @@ The resulting 'df.vanish' dataframe contains the motusTagID, the vanishing beari
 
 ```{r plotCircular}
 
-plot.circular(df.vanishBearing$vanish.bearing, zero = pi/2) # if you have many bearings/points, can use stack = TRUE
+# if you have many bearings/points, can use stack = TRUE
+plot.circular(df.vanishBearing$vanish.bearing, zero = pi/2)
 arrows.circular(mean(df.vanishBearing$vanish.bearing), zero = pi/2)
 
 ```
@@ -284,10 +298,10 @@ Then, create a map with a specified map centre, maptype (“terrain”, “roadm
 
 ## First we obtain a map of our location of interest, in this case Old Cut
 map.OC <-  get_map(location = c(lon = -80.399334, lat = 42.582185),
-                        maptype = "satellite",
-                        source = "google",
-                        zoom = 11,
-                        color="color")
+                   maptype = "satellite",
+                   source = "google",
+                   zoom = 11,
+                   color="color")
 
 ## Do the following to make a scale bar
 bb <- attr(map.OC,"bb")
@@ -295,6 +309,7 @@ sbar <- data.frame(lon.start = c(bb$ll.lon + 0.1*(bb$ur.lon - bb$ll.lon)),
                    lon.end = c(bb$ll.lon + 0.25*(bb$ur.lon - bb$ll.lon)),
                    lat.start = c(bb$ll.lat + 0.1*(bb$ur.lat - bb$ll.lat)),
                    lat.end = c(bb$ll.lat + 0.1*(bb$ur.lat - bb$ll.lat)))
+
 sbar$distance <- geosphere::distVincentyEllipsoid(c(sbar$lon.start,sbar$lat.start),
                                                   c(sbar$lon.end,sbar$lat.end))
 scalebar.length <- 10
@@ -303,13 +318,15 @@ sbar$lon.end <- sbar$lon.start +
 ptspermm <- 2.83464567  # need this because geom_text uses mm, and themes use pts.
 
 ## To map antenna bearings:
-## Create a station dataframe with antenna bearings for all antennas with detections for the tag of interest
+## Create a station dataframe with antenna bearings for all antennas with
+## detections for the tag of interest
 df.stations <- df.vanish %>%
   filter(motusTagID == tagID) %>%
   select(recvSiteName, antBearing, port, recvLon, recvLat) %>%
   distinct()
 
-arr.sc <- 0.03 # determines length of the vectors for antenna bearings and vanishing bearing lines
+# determines length of the vectors for antenna bearings and vanishing bearing lines
+arr.sc <- 0.03 
 rad <- function(x) {x * pi/180}
 
 ## Now we make the map

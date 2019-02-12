@@ -24,8 +24,8 @@ df.alltags <- tbl.alltags %>%
 
 ```
 ```{r appendixBSample2, echo=FALSE, eval = TRUE}
-
-sql.motus <- tagme(176, new = FALSE, update = FALSE, dir = "./data") # download and access sample data in sql format, username: motus.sample, password: motus.sample
+# download and access sample data in sql format, username: motus.sample, password: motus.sample
+sql.motus <- tagme(176, new = FALSE, update = FALSE, dir = "./data") 
 
 tbl.alltags <- tbl(sql.motus, "alltags") # extract "alltags"" table from sql file "sql.motus"
 df.alltags <- tbl.alltags %>% 
@@ -198,7 +198,8 @@ Plot signal strength vs time for all tags detected at a specified site, coloured
 Plot select tags for site Piskwamish 
 ```{r, plotSiteSig, eval = TRUE}
 
-plotSiteSig(filter(df.alltags, motusTagID %in% c(16037, 16039, 16035)), recvDeployName = "Netitishi")
+plotSiteSig(filter(df.alltags, motusTagID %in% c(16037, 16039, 16035)), 
+            recvDeployName = "Netitishi")
 
 ```
 
@@ -264,7 +265,9 @@ Create site summaries for select sites with time in minutes
 ```{r, siteSum, eval = TRUE}
 
 site_summary <- siteSum(filter(df.alltags, 
-                               recvDeployName %in% c("Niapiskau", "Netitishi", "Old Cur", "Washkaugou")), units = "mins")
+                               recvDeployName %in% c("Niapiskau", "Netitishi", 
+                                                     "Old Cur", "Washkaugou")), 
+                        units = "mins")
 
 head(site_summary)
 
@@ -351,7 +354,8 @@ Creates a summary for each tag of it's first and last detection time at each sit
 Create tag summaries for only select tags with time in default hours with data.frame df.alltags
 ```{r, tagSumSite, eval = TRUE}
 
-tag_site_summary <- tagSumSite(filter(df.alltags, motusTagID %in% c(16047, 16037, 16039)))
+tag_site_summary <- tagSumSite(filter(df.alltags, 
+                                      motusTagID %in% c(16047, 16037, 16039)))
 head(tag_site_summary)
 
 ```

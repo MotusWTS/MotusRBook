@@ -24,7 +24,7 @@ library(tidyr)
 library(motus)
 
 # Set the system environment time zone to UTC (to ensure that you are always working in UTC)
-Sys.setenv(TZ="UTC")
+Sys.setenv(TZ = "UTC")
 
 ```
 
@@ -70,9 +70,9 @@ Now that we have complete tag metadata for our project, we can check the number 
 
 tbl.tags <- tbl(sql.motus, "tags") 
 df.tags <- tbl.tags %>%
-                filter(projectID == proj.num) %>%
-                collect() %>%
-                as.data.frame()
+  filter(projectID == proj.num) %>%
+  collect() %>%
+  as.data.frame()
 
 ```
 
@@ -97,12 +97,13 @@ The tag deployment metadata table ('tagDeps') in the .motus file is required to 
 ```{r importTagMeta.4, message = FALSE, warning = FALSE}
 
 tbl.tagDeps <- tbl(sql.motus, "tagDeps") 
+
 df.tagDeps <- tbl.tagDeps %>%
-                filter(projectID == proj.num) %>%
-                collect() %>%
-                as.data.frame() %>% # once in df format, can format dates with lubridate
-                mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
-                       tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01")) 
+  filter(projectID == proj.num) %>%
+  collect() %>%
+  as.data.frame() %>% # once in df format, can format dates with lubridate
+  mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
+         tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01")) 
 
 anti_join(df.tags, df.tagDeps, by = "tagID") 
 
@@ -158,7 +159,7 @@ Load base map files from the rworldmap package:
 ```{r loadMapsRecv1DUP, eval = FALSE, message = FALSE, warning = FALSE}
 
 na.lakes <- map_data(map = "lakes")
-na.lakes <- mutate(na.lakes, long = long- 360)
+na.lakes <- mutate(na.lakes, long = long - 360)
 
 # Include all of the Americas to begin
 na.map <- map_data(map = "world2")
@@ -166,7 +167,14 @@ na.map <- filter(na.map, region %in% c("Canada", "USA"))
                                
 na.map <- mutate(na.map, long = long- 360)
                 
-# Others countries in the Americas that you may want to plot, depending on your location: "Mexico", "lakes","Belize", "Costa Rica", "Panama", "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay"
+# Others countries in the Americas that you may want to plot, depending on your
+# location: "Mexico", "lakes","Belize", "Costa Rica", "Panama", "Guatemala",
+# "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador",
+# "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica",
+# "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos
+# Islands", "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica",
+# "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile",
+# "Argentina", "Uruguay"
 
 ```
 
@@ -176,7 +184,8 @@ Map the location of tag deployments for the sample data:
 
 ```{r mapRecvs1, eval = FALSE, message = FALSE, warning = FALSE}
 
-# set limits to map based on locations of detections, ensuring they include the deployment locations
+# set limits to map based on locations of detections, ensuring they include the
+# deployment locations
 xmin <- -100 #min(df.tagDeps$longitude, na.rm = TRUE) - 5
 xmax <- max(df.tagDeps$longitude, na.rm = TRUE) + 5
 ymin <- min(df.tagDeps$latitude, na.rm = TRUE) - 5
@@ -216,8 +225,8 @@ As a first step, use summary(df.tagDeps) to get an idea of the range of each var
 ```{r summaryTagMeta}
 
 df.tagDeps %>%
-      select(tagID, projectID, tsStart, tsEnd, speciesID, latitude, longitude) %>%
-      summary()
+  select(tagID, projectID, tsStart, tsEnd, speciesID, latitude, longitude) %>%
+  summary()
 
 ```
 
@@ -237,9 +246,9 @@ sp.list <- unique(df.tagDeps$speciesID)
 # Species metadata
 tbl.species <- tbl(sql.motus, "species") 
 tbl.species %>%
-    filter(id %in% sp.list) %>%
-    collect() %>%
-    as.data.frame()
+  filter(id %in% sp.list) %>%
+  collect() %>%
+  as.data.frame()
 
 ```
 
@@ -284,12 +293,13 @@ To see which (if any) receiver deployments are registered to your project, impor
 ```{r projectDeps}
 
 tbl.recvDeps <- tbl(sql.motus, "recvDeps") 
+
 df.projRecvs <- tbl.recvDeps %>%
-                filter(projectID == proj.num) %>%
-                collect() %>%
-                as.data.frame() %>%
-                mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
-                       tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01"))
+  filter(projectID == proj.num) %>%
+  collect() %>%
+  as.data.frame() %>%
+  mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
+         tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01"))
 
 summary(df.projRecvs)
 
@@ -321,9 +331,11 @@ The timing of deployments can be displayed graphically; horizontal line(s) in th
 
 # put data in long format to simplify plotting (or use geom_segment)
 
-df.projRecvs.long <- select(df.projRecvs, deviceID, deployID, tsStart, tsEnd) %>% 
+df.projRecvs.long <- df.projRecvs %>%
+  select(deviceID, deployID, tsStart, tsEnd) %>% 
   tidyr::gather(when, ts, c(tsStart, tsEnd)) %>%
-  mutate(ts = if_else(is.na(ts), max(ts, na.rm = TRUE) + duration(1, "month"), ts)) # fake end date 
+  # fake end date:
+  mutate(ts = if_else(is.na(ts), max(ts, na.rm = TRUE) + duration(1, "month"), ts)) 
 
 ggplot(df.projRecvs.long, 
        aes(y = as.factor(deviceID), x = ts, colour = as.factor(deployID))) +
@@ -364,10 +376,10 @@ Maps provide better spatial context than simple plots; the following steps plot 
 ```{r loadRecvDeps, message = FALSE, warning = FALSE}
 
 df.recvDeps <- tbl.recvDeps %>%
-                collect() %>%
-                as.data.frame() %>%
-                mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
-                       tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01"))
+  collect() %>%
+  as.data.frame() %>%
+  mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
+         tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01"))
 
 ```
 
@@ -376,18 +388,23 @@ df.recvDeps <- tbl.recvDeps %>%
 ```{r loadMapsRecv2, eval = FALSE, message = FALSE, warning = FALSE}
 
 na.lakes <- map_data(map = "lakes")
-na.lakes <- mutate(na.lakes, long = long- 360)
+na.lakes <- mutate(na.lakes, long = long - 360)
 
 # Include all of the Americas to begin
 na.map <- map_data(map = "world2")
-na.map <- filter(na.map, region %in% c("Canada", "USA", "Mexico", "lakes", "Belize", "Costa Rica", "Panama", 
-             "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", 
-             "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", 
-             "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", 
-             "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", 
-             "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", 
-             "Chile", "Argentina", "Uruguay", "Paraguay")) %>%
-  mutate(long = long- 360)
+na.map <- filter(na.map, 
+                 region %in% c("Canada", "USA", "Mexico", "lakes", "Belize", 
+                               "Costa Rica", "Panama", "Guatemala", "Honduras", 
+                               "Nicaragua", "El Salvador", "Colombia", "Venezuela", 
+                               "Ecuador", "Peru", "Brazil", "Guyana","Suriname", 
+                               "Bolivia", "French Guiana", "Jamaica", "Cuba", 
+                               "Haiti", "Dominican Republic", "The Bahamas", 
+                               "Turks and Caicos Islands", "Puerto Rico", 
+                               "British Virgin Islands", "Montserrat", "Dominica", 
+                               "Saint Lucia", "Barbados", "Grenada", 
+                               "Trinidad and Tobago", "Chile", "Argentina", 
+                               "Uruguay", "Paraguay")) %>%
+  mutate(long = long - 360)
                 
 ```
 
@@ -471,14 +488,16 @@ In this section, the focus is on metadata for receivers registered to a particul
 # antenna metadata for ALL Motus antenna deployments; 
 # to simplify, keep only the variables of interest.
 tbl.antDeps <- tbl(sql.motus, "antDeps") 
+
 df.antDeps <- tbl.antDeps %>%
-                select(deployID, port, antennaType, bearing, heightMeters) %>%
-                collect() %>%
-                as.data.frame()
+  select(deployID, port, antennaType, bearing, heightMeters) %>%
+  collect() %>%
+  as.data.frame()
 
 # receiver deployments; select variables of interest
 df.recvDeps <- df.recvDeps %>%
-                    select(deployID, receiverType, deviceID, name, latitude, longitude, isMobile, tsStart, tsEnd, projectID, elevation) 
+  select(deployID, receiverType, deviceID, name, latitude, longitude, 
+         isMobile, tsStart, tsEnd, projectID, elevation) 
 
 df.stationDeps <- left_join(df.recvDeps, df.antDeps, by = "deployID")
 
@@ -509,8 +528,8 @@ Elevation is missing from 74 of 91 records, but elevation is not a required fiel
 Antenna bearing is missing from 18 of 91 records, and height of the antenna(s) is missing for 4 of 91 records.  Subset the records with missing antenna bearing to see if these can be fixed:
 
 ```{r antennaBearing}
-
-filter(df.stationDeps, is.na(bearing)) %>%
+df.stationDeps %>%
+  filter(is.na(bearing)) %>%
   select(-elevation, -deviceID, -tsEnd)
 
 ```

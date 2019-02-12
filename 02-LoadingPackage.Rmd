@@ -39,7 +39,8 @@ install_github("MotusWTS/motus")
 # install motusClient for data download
 install_github("MotusWTS/motusClient")
 
-# install motusData package which contains sample datasets, e.g., vanishBearing used in Chapter 7
+# install motusData package which contains sample datasets, e.g., vanishBearing
+# used in Chapter 7
 install_github("MotusWTS/motusData")
 
 library(motus)
@@ -74,9 +75,10 @@ library(tidyr)
 install.packages("rworldmap")
 library(rworldmap)
 
-# Oct 16, 2018: due to recent updates, the development version of ggmap must be used.
-# Ensure that packages are updated prior to installing 
-# (see https://groups.google.com/forum/#!topic/motus-wts/UxqFIO6Pcmo and https://github.com/dkahle/ggmap/issues/51)
+# Oct 16, 2018: due to recent updates, the development version of ggmap must be
+# used. Ensure that packages are updated prior to installing (see
+# https://groups.google.com/forum/#!topic/motus-wts/UxqFIO6Pcmo and
+# https://github.com/dkahle/ggmap/issues/51)
 devtools::install_github("dkahle/ggmap", ref = "tidyup", dependencies = TRUE)
 library(ggmap)
 ```

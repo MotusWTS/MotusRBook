@@ -89,7 +89,7 @@ Set the system environment time zone to Greenwich Mean Time (UTC), to ensure tha
 
 ```{r setTimeZone1}
 
-Sys.setenv(TZ="UTC")
+Sys.setenv(TZ = "UTC")
 
 ```
 
@@ -121,18 +121,25 @@ Note that when downloading data from the Motus server for the **first time**, yo
 
 ```{r tagme0, eval = FALSE}
 
-# lets start by determining what our working directory is so we know where our file will be saved
-# you can change the working directory with setwd()
+# lets start by determining what our working directory is so we know where our
+# file will be saved you can change the working directory with setwd()
 getwd()
-# specify the project number you wish to download detections for, in this case the sample data project;
+
+# specify the project number you wish to download detections for, in this case
+# the sample data project;
 proj.num <- 176
-# As this is the first time you are downloading data for project 176, set new = TRUE and update = TRUE.
-# This will create a .motus file in your current working directory, which was shown above using getwd()
-# This will also create an SQL obect in your R environment called "sql.motus"
+
+# As this is the first time you are downloading data for project 176, set new =
+# TRUE and update = TRUE. This will create a .motus file in your current working
+# directory, which was shown above using getwd() This will also create an SQL
+# obect in your R environment called "sql.motus"
 sql.motus <- tagme(projRecv = proj.num, new = TRUE, update = TRUE)
-# OR you can specify a different location to save the data by entering your preferred filepath.
-# In this example we save to our data folder using the dir parameter:
-sql.motus <- tagme(projRecv = proj.num, new = TRUE, update = TRUE, dir = "C:/Users/guest/Documents/data/")
+
+# OR you can specify a different location to save the data by entering your
+# preferred filepath. In this example we save to our data folder using the dir
+# parameter:
+sql.motus <- tagme(projRecv = proj.num, new = TRUE, update = TRUE, 
+                   dir = "C:/Users/guest/Documents/data/")
 
 ```
 
@@ -170,7 +177,7 @@ We could also download data by receiver through the same process as described ab
 
 ```{r tagmeRecv, eval = FALSE}
 
-proj.num = "SG-123BBBK1234"
+proj.num <- "SG-123BBBK1234"
 sql.motus <- tagme(projRecv = proj.num, new = TRUE, update = TRUE)
 
 ```
@@ -181,15 +188,19 @@ Users may wish to work directly with the .motus SQLite file. However, since many
 
 ### Downloading multiple receivers at the same time
 If you have a large number of receivers in your project, and wish to get receiver specific data for each one, rather than downloading them one by one as above, we can download them with a simple loop. Note that since the sample project doesn't have any receivers associated with it, this script will not result in a download but you can try it with your own project if you have receivers.
+
 ```{r tagmeAllRecvs, eval = FALSE}
 
 # specify the project whose receivers you wish to download:
-proj.num = 176
+proj.num <- 176
+
 # get a copy of the metadata only
-sql.motus <- tagme(proj.num, new = TRUE, update = FALSE, dir = "C:/Users/guest/Documents/data/")
+sql.motus <- tagme(proj.num, new = TRUE, update = FALSE, 
+                   dir = "C:/Users/guest/Documents/data/")
 metadata(sql.motus, proj.num)
 tbl.recvDeps <- tbl(sql.motus, "recvDeps")
-df.serno = tbl.recvDeps %>% 
+
+df.serno <- tbl.recvDeps %>% 
   filter(projectID == proj.num) %>% 
   select(serno) %>% 
   distinct() %>% 
@@ -197,11 +208,12 @@ df.serno = tbl.recvDeps %>%
 
 # loop through each receiver (may take a while!)
 for (row in 1:nrow(df.serno)) {
-  tagme(df.serno[row, "serno"], dir="C:/Users/guest/Documents/data/", new=TRUE, update=TRUE)
+  tagme(df.serno[row, "serno"], dir = "C:/Users/guest/Documents/data/", 
+        new = TRUE, update = TRUE)
 }
 
-# Note you can remove the dir call if you want to save it to your working directory, just make
-# sure that you use the same directory in both calls
+# Note you can remove the dir call if you want to save it to your working
+# directory, just make sure that you use the same directory in both calls
 
 ```
 
@@ -213,12 +225,13 @@ df.serno <- c("SG-AB12RPI3CD34", "SG-1234BBBK4321"))
 
 # loop through each receiver (may take a while!), and save to the working directory
 for (k in 1:length(df.serno)) {
-  tagme(df.serno[k], new=TRUE, update=TRUE)
+  tagme(df.serno[k], new = TRUE, update = TRUE)
 }
 
 # loop through each receiver (may take a while!), and save to a specified directory
 for (k in 1:length(df.serno)) {
-  tagme(df.serno[k], dir="/Users/zoecrysler/Downloads/", new=TRUE, update=TRUE)
+  tagme(df.serno[k], dir = "/Users/zoecrysler/Downloads/", 
+        new = TRUE, update = TRUE)
 }
 ```
 
@@ -310,13 +323,12 @@ Note that the format of the time stamp (ts) field is numeric and represents seco
 ```{r collect_TimeStamp, eval = FALSE}
 
 df.alltags <- tbl.alltags %>% 
-                collect() %>% 
-                as.data.frame() %>%     # for all fields in the df (data frame)
-                mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))
+  collect() %>% 
+  as.data.frame() %>%     # for all fields in the df (data frame)
+  mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))
 
 # the tz = "UTC" is not necessary here, provided you have set your system time to UTC
 # ... but it serves as a useful reminder!
-
 ```
 
 Note that time stamps can only be manipulated in this way *after* collecting the data into a flat dataframe.
@@ -327,8 +339,10 @@ If you want to load only part of your entire virtual table (e.g. certain fields,
 
 ```{r collect1, eval = FALSE}
 
-# to grab a subset of variables, in this case a unique list of Motus tag IDs at each receiver and antenna.
-df.alltagsSub <- select(tbl.alltags, recv, port, motusTagID) %>%
+# to grab a subset of variables, in this case a unique list of Motus tag IDs at
+# each receiver and antenna.
+df.alltagsSub <- tbl.alltags %>%
+  select(recv, port, motusTagID) %>%
   distinct() %>% 
   collect() %>% 
   as.data.frame() 
@@ -339,10 +353,11 @@ df.alltagsSub <- select(tbl.alltags, recv, port, motusTagID) %>%
 
 ```{r collect2, eval = FALSE}
 # filter to include only motusTagIDs 16011, 23316
-df.alltagsSub <- filter(tbl.alltags, motusTagID %in% c(16011, 23316)) %>% 
-                  collect() %>% 
-                  as.data.frame() %>%    
-                  mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))    
+df.alltagsSub <- tbl.alltags %>%
+  filter(motusTagID %in% c(16011, 23316)) %>% 
+  collect() %>% 
+  as.data.frame() %>%    
+  mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))    
 
 ```
 
@@ -351,13 +366,15 @@ df.alltagsSub <- filter(tbl.alltags, motusTagID %in% c(16011, 23316)) %>%
 ```{r collect3, eval = FALSE}
 
 # filter to only Red Knot (using speciesID)
-df.4670 <- filter(tbl.alltags, speciesID == 4670) %>%  
+df.4670 <- tbl.alltags %>%
+  filter(speciesID == 4670) %>%  
   collect() %>% 
   as.data.frame() %>%    
   mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))  
 
 # filter to only Red Knot (using English name)
-df.redKnot <- filter(tbl.alltags, speciesEN == "Red Knot") %>%   
+df.redKnot <- tbl.alltags %>%
+  filter(speciesEN == "Red Knot") %>%   
   collect() %>% 
   as.data.frame() %>%    
   mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))    
@@ -402,8 +419,8 @@ write.csv(df.alltags, "./data/df.alltags.CSV")
 As you or other users upload data to our server, you may have additional tag detections that weren't present in your initial data download. Since the .motus file is a SQLite database, you can update your existing file with any newly available data, rather than doing a complete new download of the entire database. To open and update a detections database that already exists (has been downloaded previously), we use the tagme() function but set new = FALSE:
 
 ```{r tagme3, eval = FALSE}
-
-sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = TRUE, dir = "./data/") # use dir = to specify a directory
+# use dir = to specify a directory
+sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = TRUE, dir = "./data/") 
 
 ```
 
@@ -411,7 +428,8 @@ If you are working offline, and simply want to open an already downloaded databa
 
 ```{r tagme3.1, eval = FALSE}
 
-sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = FALSE) # use dir = to specify a directory
+# use dir = to specify a directory
+sql.motus <- tagme(projRecv = proj.num, new = FALSE, update = FALSE)
 
 ```
 
@@ -506,7 +524,7 @@ sql.motus <- tagme(176, update = TRUE, dir = "./data")
 tbl.alltags <- tbl(sql.motus, "alltags")  
 df.alltags <- tbl.alltags %>%
                 collect() %>%
-                as.data.frame() %>%   # dataframe ("flat") object of alltags table
+                as.data.frame() %>% # dataframe ("flat") object of alltags table
                 mutate(ts = as_datetime(ts, tz = "UTC", origin = "1970-01-01"))              
 
 ```
@@ -518,12 +536,16 @@ Throughout the book we will predominantly be working with the 'alltags' table in
 ```{r summaryDownload, eval = FALSE}
 # set proj.num to 176 for sample data
 proj.num <- 176
-# download and load detection data from the sample project and save in data folder
-# login and password for sample data is "motus.sample"
-# if you are accessing already-downloaded data, use new = FALSE; if you don't want to update your data, also set update = FALSE
+
+# - download and load detection data from the sample project and save in data folder
+# - login and password for sample data is "motus.sample"
+# - if you are accessing already-downloaded data, use new = FALSE; if you don't
+#   want to update your data, also set update = FALSE
 sql.motus <- tagme(proj.num, new = TRUE, update = TRUE, dir = "./data/")
+
 # access the "alltags" table within the SQLite file
 tbl.alltags <- tbl(sql.motus, "alltags")
+
 # convert "tbl.alltags" to a flat dataframe and change numeric time to a datetime object
 df.alltags <- tbl.alltags %>%
               collect() %>%
@@ -543,7 +565,8 @@ We caution that producing a flat file using the full suite of fields can use a l
 To read in a saved RDS file you can run:
 
 ```{r readRDS1, eval = FALSE}
-df.alltags.saved <- readRDS("./data/df.alltags.rds") # reads in your file "df.alltags.rds" saved in the data folder
+# reads in your file "df.alltags.rds" saved in the data folder
+df.alltags.saved <- readRDS("./data/df.alltags.rds") 
 ```
 
 In the next chapter we will check for missing metadata.

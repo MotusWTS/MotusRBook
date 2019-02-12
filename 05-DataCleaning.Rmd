@@ -32,7 +32,7 @@ Follow the instructions in Chapter \@ref(loadingPackages) to install the followi
 
 ```{r loadpackages.5, message = FALSE, warning = FALSE}
 
-Sys.setenv(tz="UTC")
+Sys.setenv(tz = "UTC")
 
 #library(devtools)
 library(motus)
@@ -52,10 +52,10 @@ When accessing the alltags table, we remove some unnecessary variables to reduce
 
 proj.num <- 176
 
-# Load detection data, select variables, create latitude variables, and transform to 
-# flat file. We also fix up some sites that are missing receiver deployment data, or 
-# do not have names. As more users explore (and fix!) their metadata, these missing 
-# values should begin to disappear.
+# Load detection data, select variables, create latitude variables, and
+# transform to flat file. We also fix up some sites that are missing receiver
+# deployment data, or do not have names. As more users explore (and fix!) their
+# metadata, these missing values should begin to disappear.
 sql.motus <- tagme(proj.num, update = TRUE, dir = "./data/")
 tbl.alltags <- tbl(sql.motus, "alltags")
 
@@ -153,11 +153,10 @@ Although some of these may be valid detections, we have found it simpler to just
 
 ```{r filterRunLen2}
 
-df.alltags.sub <- filter(df.alltags, 
-                         runLen > 2)
+df.alltags.sub <- filter(df.alltags, runLen > 2)
 
-df.block.0 <- filter(df.alltags, 
-                     runLen == 2) %>% 
+df.block.0 <- df.alltags %>% 
+  filter(runLen == 2) %>% 
   select(motusTagID, runID) %>%
   distinct()
 
@@ -168,9 +167,10 @@ An initial view of the data is best achieved by plotting. We will show you later
 Note that we need to remove about 150 detections, because there is no geographic data associated with the receiver metadata, and so no way to determine the location of those detections. Do a simple check to see if these receivers belong to you, and if so, please **fix the metadata online**! 
 
 ```{r check for missing lat/lon}
-
-filter(df.alltags.sub, is.na(recvLat)) %>%
-  select(recvLat, recvLon, recvDeployName, recvDeployID, recv, recvProjID, recvProjName) %>%
+df.alltags.sub %>%
+  filter(is.na(recvLat)) %>%
+  select(recvLat, recvLon, recvDeployName, recvDeployID, recv, 
+         recvProjID, recvProjName) %>%
   distinct()
 
 ```
@@ -185,9 +185,8 @@ filter(df.alltags.sub, is.na(recvLat)) %>%
 # mutate(ts.h = plyr::round_any(ts, 3600) function call. 
 # Other options are to just use date (e.g date = as_date(ts))
 
-# 
-fun.getpath <- function(df) 
-  {
+
+fun.getpath <- function(df) {
   df %>%
     filter(tagProjID == proj.num, # keep only tags registered to the sample project
            !is.na(recvLat) | !(recvLat == 0)) %>% # drops data without lon/lat
@@ -196,7 +195,7 @@ fun.getpath <- function(df)
     #summarizing by runID to get max run length and mean time stamp:
     summarize(max.runLen = max(runLen), ts.h = mean(ts)) %>% 
     arrange(motusTagID, ts.h)
-  } # end of function call
+} # end of function call
 
 df.alltags.path <- fun.getpath(df.alltags.sub)
                     
@@ -206,23 +205,24 @@ We would initially plot a subset of tags by either latitude or longitude, to get
 
 ```{r plot1.5}
 
-p <- ggplot(data = filter(df.alltags.path, 
-                          motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039)), 
-            aes(ts.h, recvLat)) 
-p + geom_point() + 
-  geom_path() + 
+ggplot(data = filter(df.alltags.path, 
+                     motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039)), 
+       aes(x = ts.h, y = recvLat)) +
   theme_bw() +
-  facet_wrap(~motusTagID, scales = "free", ncol=2) + 
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) + 
+  geom_point() + 
+  geom_path() +
+  facet_wrap(~ motusTagID, scales = "free", ncol = 2)
+  
 
 ```
 
 It is immediately apparent that there may be an issue with some tags showing up around 44 degrees during in the winter, which is possible but unlikely for the sample project's shorebirds. Let's examine these tags in more detail by examining the runs in the data frame that are associated with detections in December and January.
 
 ```{r examineRuns}
-
-filter(df.alltags.sub, month(ts) %in% c(12, 1),
-       motusTagID %in% c(16036, 16038, 16039)) %>% 
+df.alltags.sub %>%
+  filter(month(ts) %in% c(12, 1),
+         motusTagID %in% c(16036, 16038, 16039)) %>% 
   group_by(recvDeployName, month(ts), runLen) %>%
   summarize(n = length(ts), 
             n.tags = length(unique(motusTagID)))
@@ -241,7 +241,7 @@ df.alltags.sub %>%
   mutate(month = month(ts)) %>%
   group_by(recvDeployName, month) %>%
   summarize(max.rl = max(runLen)) %>%
-  spread(key=month, value=max.rl)
+  spread(key = month, value = max.rl)
 
 ```
 
@@ -254,7 +254,7 @@ df.alltags.sub %>%
   group_by(recvDeployName, month) %>%
   summarize(max.rl = max(runLen)) %>%
   filter(max.rl < 5) %>%
-  spread(key=month, value=max.rl)
+  spread(key = month, value = max.rl)
 
 ```
 
@@ -267,14 +267,16 @@ We will then re-create the plot With the newly filtered data.
 ```{r createRunsFilter1}
 
 # create the filter
-df.block.1 <- filter(df.alltags.sub, month(ts) %in% c(12, 1),
-                     motusTagID %in% c(16036, 16038, 16039)) %>%
+df.block.1 <- df.alltags.sub %>%
+  filter(month(ts) %in% c(12, 1),
+         motusTagID %in% c(16036, 16038, 16039)) %>%
   select(motusTagID, runID) %>%
   distinct()
 
 # use the function we created earlier to make a new 'path' data frame for plotting
 df.alltags.path <- fun.getpath(filter(df.alltags.sub, 
-                                      motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039), 
+                                      motusTagID %in% c(16011, 16035, 16036, 
+                                                        16037, 16038, 16039), 
                                       !(runID %in% df.block.1$runID)))
 
 p <- ggplot(data = df.alltags.path, aes(ts.h, recvLat)) 
@@ -310,7 +312,8 @@ Let's get a vector of these, and do some plots to see where there may be issues.
 
 ```{r examineAmbigs}
 
-df.ambigTags <- select(df.alltags.sub, ambigID, motusTagID) %>%
+df.ambigTags <- df.alltags.sub %>%
+  select(ambigID, motusTagID) %>%
   filter(!is.na(ambigID)) %>%
   distinct() 
 
@@ -325,8 +328,8 @@ df.alltags.path <- fun.getpath(filter(df.alltags.sub,
   # create a boolean variable for ambiguous detections:
   mutate(Ambiguous = !(is.na(ambigID))) 
 
-# to put all ambiguous tags from the same project on the same plot together, we need to create
-# a new 'ambig tag' variable we call 'newID. 
+# to put all ambiguous tags from the same project on the same plot together, we
+# need to create a new 'ambig tag' variable we call 'newID.
 
 ambigTags.2 <- filter(df.alltags.sub) %>%
   select(ambigID, motusTagID) %>%
@@ -334,10 +337,10 @@ ambigTags.2 <- filter(df.alltags.sub) %>%
   distinct() %>%
   group_by(ambigID) %>%
   summarize(newID = paste(unique(ambigID), toString(motusTagID), sep = ": ")) %>%
-  left_join(df.ambigTags, by="ambigID")
+  left_join(df.ambigTags, by = "ambigID")
 
 # and merge that with df.alltags.path
-df.alltags.path <- left_join(df.alltags.path, ambigTags.2, by="motusTagID") %>%
+df.alltags.path <- left_join(df.alltags.path, ambigTags.2, by = "motusTagID") %>%
   arrange(ts.h)
 
 p <- ggplot(data = df.alltags.path, aes(ts.h, recvLat, group = Ambiguous, colour=Ambiguous)) 
@@ -353,7 +356,8 @@ Let's deal with the easy ones first.
 **ambigID -337: motusTagIDs 10811 and 16011**
 
 ```{r ambig337a}
-filter(df.alltags.sub, ambigID == -337) %>%
+df.alltags.sub %>%
+  filter(ambigID == -337) %>%
   group_by(motusTagID, tagDeployStart, tagDeployEnd, tagDeployLat, tagDeployLon) %>%
   tally()
 ```
@@ -366,9 +370,9 @@ We'll create another data frame to keep track of these runs.
 ```{r ambig337b}
 # we want the detections associated with the motusTagID that we want to 
 # ultimately REMOVE from the data frame 
-df.block.2 <- filter(df.alltags.sub, 
-                     ambigID == -337,
-                     motusTagID == 10811) %>% 
+df.block.2 <- df.alltags.sub %>%
+  filter(ambigID == -337,
+         motusTagID == 10811) %>% 
   select(motusTagID, runID) %>%
   distinct()
 ```
@@ -376,8 +380,10 @@ df.block.2 <- filter(df.alltags.sub,
 **ambigID -134: motusTagIDs 22905 and 23319**
 
 ```{r ambig134a}
-filter(df.alltags.sub, ambigID == -134) %>%
-  group_by(motusTagID, tagDeployStart, tagDeployEnd, tagDeployLat, tagDeployLon, month(ts)) %>%
+df.alltags.sub %>%
+  filter(ambigID == -134) %>%
+  group_by(motusTagID, tagDeployStart, tagDeployEnd, 
+           tagDeployLat, tagDeployLon, month(ts)) %>%
   tally()
 ```
 
@@ -399,7 +405,9 @@ We also examine the non-ambiguous detections of tag -134 that occur in mid-April
 We see from the following filter that there are two separate runs of length 3 each, separated by 3 days. If we inspect the rest of this batch (that is, if we also look at run lengths of 2 from the original data frame) ... 
 
 ```{r ambig134c}
-filter(df.alltags, batchID == 79646) %>% select(runLen, recvDeployName) %>%
+df.alltags %>%
+filter(batchID == 79646) %>% 
+  select(runLen, recvDeployName) %>%
   group_by(runLen, recvDeployName) %>%
   tally()
 ```
@@ -410,8 +418,8 @@ filter(df.alltags, batchID == 79646) %>% select(runLen, recvDeployName) %>%
 # we want the detections associated with the motusTagID that we want to 
 # ultimately REMOVE from the data frame 
 
-df.block.3 <- filter(df.alltags.sub, 
-                     ambigID == -134) %>% 
+df.block.3 <- df.alltags.sub %>%
+  filter(ambigID == -134) %>% 
   select(motusTagID, runID) %>%
   distinct()
 ```
@@ -423,10 +431,11 @@ The ambiguous detections for this tag, which occur in the Great Lakes region, co
 First, find the deployment dates and locations for each tag. 
 
 ```{r ambig171a}
-filter(df.alltags, ambigID == -171) %>% 
+df.alltags %>%
+  filter(ambigID == -171) %>% 
   filter(!is.na(tagDeployStart)) %>%
-  select(motusTagID, tagProjID, start=tagDeployStart, end=tagDeployEnd, 
-         lat=tagDeployLat, lon=tagDeployLon, species=speciesEN) %>%
+  select(motusTagID, tagProjID, start = tagDeployStart, end = tagDeployEnd, 
+         lat = tagDeployLat, lon = tagDeployLon, species = speciesEN) %>%
   distinct() %>%
   arrange(start)
 ```
@@ -453,8 +462,8 @@ These detections belong to another project, so we simply remove all detections o
 # we want the detections associated with the motusTagID that we want to 
 # ultimately REMOVE from the data frame 
 
-df.block.4 <- filter(df.alltags.sub, 
-                     ambigID == -171) %>% 
+df.block.4 <- df.alltags.sub %>%
+  filter(ambigID == -171) %>% 
   select(motusTagID, runID) %>%
   distinct()
 ```
@@ -465,10 +474,11 @@ Next we look at the ambiguities for ambiguous tag -114.
 
 ```{r ambig114a}
 
-filter(df.alltags, ambigID == -114) %>% 
+df.alltags %>%
+  filter(ambigID == -114) %>% 
   filter(!is.na(tagDeployStart)) %>%
-  select(motusTagID, tagProjID, start=tagDeployStart, end=tagDeployEnd, 
-         lat=tagDeployLat, lon=tagDeployLon, species=speciesEN) %>%
+  select(motusTagID, tagProjID, start = tagDeployStart, end = tagDeployEnd, 
+         lat = tagDeployLat, lon = tagDeployLon, species = speciesEN) %>%
   distinct() %>%
   arrange(start)
 
@@ -478,7 +488,8 @@ We again subset these and plot them. An initial plot suggested that all of the d
 
 ```{r ambig114b}
 
-df.ambig.114 <- filter(df.alltags.sub, ambigID == -114) %>%
+df.ambig.114 <- df.alltags.sub %>%
+  filter(ambigID == -114) %>%
   mutate(LatLonStationName = paste(recvLat, recvLon, recvDeployName, sep=": "))
 
 p <- ggplot(data = df.ambig.114, 
@@ -493,8 +504,8 @@ Notice that the detections are consistent with a migratory departure from the Lo
 
 ```{r ambig114c}
 
-df.block.5 <- filter(df.alltags.sub, 
-                     ambigID == -114) %>% 
+df.block.5 <- df.alltags.sub %>%
+  filter(ambigID == -114) %>% 
   select(motusTagID, runID) %>%
   distinct()
 
@@ -506,10 +517,11 @@ These two tags pose an interesting problem. There is only a short period of over
 
 ```{r ambig106a}
 
-filter(df.alltags, ambigID == -106) %>% 
+df.alltags %>%
+  filter(ambigID == -106) %>% 
   filter(!is.na(tagDeployStart)) %>%
-  select(motusTagID, tagProjID, start=tagDeployStart, end=tagDeployEnd, 
-         lat=tagDeployLat, lon=tagDeployLon, species=speciesEN) %>%
+  select(motusTagID, tagProjID, start = tagDeployStart, end = tagDeployEnd, 
+         lat = tagDeployLat, lon = tagDeployLon, species = speciesEN) %>%
   distinct() %>%
   arrange(start)
 
@@ -533,21 +545,22 @@ p + geom_point() +
 Both sets of detections are long run lengths, and look valid (increasing then decreasing signal strength). They are about a day apart, and so it is possible they represent two different birds, or the departure flight of the white-rumped sandpiper from its staging ground. Let's use the siteTrans function (in the motus package, see section \@ref(siteTrans)) to examine the flight from Netitishi to MDR/Seal (in the Gulf of Maine)
 
 ```{r ambig106c}
-df.ambig.106 %>% filter(motusTagID == 17021) %>% # just pick one of the two ambiguous IDs
-siteTrans(latCoord = "recvLat", lonCoord = "recvLon") %>%
+df.ambig.106 %>% 
+  filter(motusTagID == 17021) %>% # just pick one of the two ambiguous IDs
+  siteTrans(latCoord = "recvLat", lonCoord = "recvLon") %>%
   ungroup() %>%
   filter(rate < 60) %>% # remove the simultaneous detections from Seal and MDR
   mutate(total.time = as.numeric(round(seconds_to_period(tot_ts)))) %>%
-  select(start=recvDeployName.x, end=recvDeployName.y, date=ts.x, "rate(m/s)" = rate, 
+  select(start = recvDeployName.x, end = recvDeployName.y, 
+         date = ts.x, `rate(m/s)` = rate, 
          dist, total.time = total.time, bearing)
 ```
 
 These detections are >1200 km distant from one another, but the flight speed (17 m/s) is consistent with a white-rumped Sandpiper. Given that the Gray-cheeked Thrush tag was near the end of its expected lifetime, we can reasonably claim these detections for our project, and remove the ambiguous detections associated with motusTagID 17021. 
 
 ```{r ambig106d}
-df.block.6 <- filter(df.alltags.sub, 
-                     ambigID == -106, 
-                     motusTagID == 17021) %>% 
+df.block.6 <- df.alltags.sub %>%
+  filter(ambigID == -106, motusTagID == 17021) %>% 
   select(motusTagID, runID) %>%
   distinct()
 ```
@@ -558,10 +571,11 @@ These two tags were also both deployed by the same project.
 
 ```{r ambig56a}
 
-filter(df.alltags, ambigID == -56) %>% 
+df.alltags %>%
+  filter(ambigID == -56) %>% 
   filter(!is.na(tagDeployStart)) %>%
-  select(motusTagID, tagProjID, start=tagDeployStart, end=tagDeployEnd, 
-         lat=tagDeployLat, lon=tagDeployLon, species=speciesEN) %>%
+  select(motusTagID, tagProjID, start = tagDeployStart, end = tagDeployEnd, 
+         lat = tagDeployLat, lon = tagDeployLon, species = speciesEN) %>%
   distinct() %>%
   arrange(start)
 
@@ -571,7 +585,8 @@ Tag 23316 was deployed by the James Bay Shorebird Project (sample project) about
 
 ```{r ambig56b}
 
-df.ambig.56 <- filter(df.alltags.sub, ambigID == -56) %>%
+df.ambig.56 <- df.alltags.sub %>%
+  filter(ambigID == -56) %>%
   mutate(sig = ifelse(sig > 0, sig * -1, sig))
 
 p <- ggplot(data=df.ambig.56, 
@@ -580,6 +595,7 @@ p + geom_point() +
   theme_bw() +
   scale_colour_discrete(name="Lat/Lon and\nStation Name") 
 ```
+
 We can see from the plot that a tag is detected consistently near longitude -65, which is near the deployment location for motusTagID 23316 and after it's deployment start date, it was also present at -65 during and after detections far to the west. It's likely all the detections at -65 belong to motusTagID 23316, but it is also clear that anything informative about this ambiguity occurs between about 9-11 October, so let's zoom in on that part of the data set. 
 
 ```{r ambig56c}
@@ -606,9 +622,9 @@ siteTrans(df.56.tmp, latCoord = "recvLat", lonCoord = "recvLon") %>%
   ungroup() %>%
   filter(rate < 60) %>% # get rid of simultaneous detections
   mutate(total.time = as.numeric(round(seconds_to_period(tot_ts)))) %>%
-  select(start=recvDeployName.x, 
-         end=recvDeployName.y, 
-         date=ts.x, "rate(m/s)" = rate, 
+  select(start = recvDeployName.x, 
+         end = recvDeployName.y, 
+         date = ts.x, `rate(m/s)` = rate, 
          dist, total.time = total.time, bearing)
 
 ```
@@ -633,21 +649,21 @@ To address this problem, we need to create two filters - one that excludes ambig
 
 ```{r ambigDetectionsFor56}
 
-# tag 23316 was only ever at "Grand-Ile", "Niapiskau", and tag 22867 was never detected 
-# at those sites. So we exclude all detections not at "Grand-Ile", "Niapiskau" for motusTag
-# 23316, and do the opposite for tag 22867. 
+# tag 23316 was only ever at "Grand-Ile", "Niapiskau", and tag 22867 was never
+# detected at those sites. So we exclude all detections not at "Grand-Ile",
+# "Niapiskau" for motusTag 23316, and do the opposite for tag 22867.
 
-df.block.7 <- filter(df.alltags.sub, 
-                     ambigID == -56, 
-                     motusTagID == 23316, 
-                     !(recvDeployName %in% c("Grand-Ile", "Niapiskau"))) %>% 
+df.block.7 <- df.alltags.sub %>%
+  filter(ambigID == -56, 
+         motusTagID == 23316, 
+         !(recvDeployName %in% c("Grand-Ile", "Niapiskau"))) %>% 
   select(motusTagID, runID) %>%
   distinct()
 
-df.block.8 <- filter(df.alltags.sub, 
-                     ambigID == -56, 
-                     motusTagID == 22867, 
-                     recvDeployName %in% c("Grand-Ile", "Niapiskau")) %>% 
+df.block.8 <- df.alltags.sub %>%
+  filter(ambigID == -56, 
+         motusTagID == 22867, 
+         recvDeployName %in% c("Grand-Ile", "Niapiskau")) %>% 
   select(motusTagID, runID) %>%
   distinct()
 
@@ -665,9 +681,11 @@ To filter the data, we can simply join the df.block data frames back to the orig
 
 ```{r filterToRDS, message = FALSE, warning = FALSE}
 
-# combine our df.block data frames into a single dataframe, and add probability = 0 for filtered records. 
+# combine our df.block data frames into a single dataframe, and add probability
+# = 0 for filtered records.
 df.block.all <- bind_rows(df.block.0, df.block.1, df.block.2, df.block.3,
-                          df.block.4, df.block.5, df.block.6, df.block.7, df.block.8) %>%
+                          df.block.4, df.block.5, df.block.6, df.block.7, 
+                          df.block.8) %>%
                 mutate(probability = 0)
 
  
@@ -698,19 +716,22 @@ df.alltags.sub <- readRDS("./data/dfAlltagsSub.rds")
 
 As an alternative to saving your data as an RDS file, the Motus R package offers functionalities to save your filters directly within your .motus file. Once they are saved in your database, you can do the type of left_join() as above without having to rely on dataframes or an RDS file to store your data. To learn more about the functions available to work with Motus filters, refer to Appendix D for more details. 
 
-```{r saveFilter, eval=TRUE}
+```{r saveFilter, eval = !getRunsFilterID(sql.motus, "filtAmbigFalsePos")}
 
-# combine our df.block data frames into a single dataframe, and add probability = 0 for filtered records.  
+# combine our df.block data frames into a single dataframe, and add 
+# probability = 0 for filtered records.
 df.block.all <- bind_rows(df.block.0, df.block.1, df.block.2, df.block.3, 
-                          df.block.4, df.block.5, df.block.6, df.block.7, df.block.8) %>%
+                          df.block.4, df.block.5, df.block.6, df.block.7, 
+                          df.block.8) %>%
   mutate(probability = 0)
 
 # create a new filter with name filtAmbigFalsePos and populate it with df.block.all
-tbl.filter = writeRunsFilter(sql.motus, "filtAmbigFalsePos", df = df.block.all, delete=TRUE)
+tbl.filter <- writeRunsFilter(sql.motus, "filtAmbigFalsePos", 
+                              df = df.block.all, delete = TRUE)
 
 # obtain a table object where the filtered records from tbl.filter.1 have been removed
 tbl.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID")) %>%
-  mutate(probability = ifelse(is.na(probability), 1, probability)) %>%
+  mutate(probability = if_else(is.na(probability), 1, probability)) %>%
   filter(probability > 0)
 
 ```
