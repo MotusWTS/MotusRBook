@@ -17,6 +17,7 @@ Follow the instructions in Chapter \@ref(loadingPackages) to install the followi
 
 library(motus)
 library(tidyverse)
+# Oct 16, 2018: Note that the development version must be used as described in Chapter 2
 library(ggmap)
 
 ```
@@ -41,7 +42,7 @@ df.alltags.sub <- readRDS("./data/dfAlltagsSub.rds") # change dir to local direc
 
 ```
 
-Or, if you've applied a custom filter to your .motus file, you can load the previously downloaded sample .motus data (see Chapter \@ref(accessingData) and clean it now. Currently the main benefit of using the custom filter is that you apply the filter to the .motus file, which allows you more flexibility in applying dplyr functions to manage and filter the data (e.g., you can select different variables to include in the data than we included in the RDS file in Chapter \@ref(dataCleaning). This approach also allows you to more readily integrate new data added to your database with the tagme function. Because we are selecting the same variables and filtering the same records, the following gives you the same dataset as the readRDS statement above:
+Or, if you've applied a custom filter to your .motus file, you can load the previously downloaded sample .motus data (see Chapter \@ref(accessingData)) and clean it now. Currently the main benefit of using the custom filter is that you apply the filter to the .motus file, which allows you more flexibility in applying dplyr functions to manage and filter the data (e.g., you can select different variables to include in the data than we included in the RDS file in Chapter \@ref(dataCleaning)). This approach also allows you to more readily integrate new data added to your database with the tagme function. Because we are selecting the same variables and filtering the same records, the following gives you the same dataset as the readRDS statement above:
 
 ```{r importData, eval = FALSE}
 
@@ -343,7 +344,35 @@ Mapping with Google Maps can be a fast way to view flight paths and allows you t
 
 The first step is to create a map with a specified map centre, maptype ("terrain", "roadmap", "satellite", or "hybrid"), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale).  We then add points for receivers and lines connecting consecutive detections by motusTagID. We can also add points for all receivers that were active during a certain time period if we have already downloaded all metadata.
 
-```{r googleMap, warning = FALSE, message = FALSE, fig.width=10, fig.height=10}
+**Important Note** As of October 16, 2018 recent updates require the use of a Google key to access google maps. Full instructions are available in Appendix B in section \@ref(googleMapsKey). Once you have your access key, you'll need to provide it with the call register_google(), **each time you start a new R session you will be required to enter your key.**
+```{r googleKey, eval = TRUE, echo = FALSE}
+# IMPORTANT! Your personal key has to be entered here, I recommend regenerating your personal key AFTER building the book, rendering this key useless. You could also build the book with your key, push changes, then delete it and push changes again WITHOUT building. However it will still be saved in old versions of the book on Git so I still recommend regenerating your own key after.
+ggmap::register_google(key = "Your Key Here")
+
+gmap <-  get_map(location = c(lon = -75, lat = 40), # lon/lat to centre map over
+                 maptype = "satellite", # select maptype
+                 source = "google",
+                 zoom = 4) # zoom, must be a whole number
+
+# just use the tags that we have examined carefully and filtered (in the previous chapter)
+df.tmp <- filter(df.alltags.path, 
+                           motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039))
+df.tmp <- arrange(df.tmp, ts.h) # arange by hour
+df.tmp <- as.data.frame(df.tmp)
+
+p <- ggmap(gmap)
+p + geom_point(data=df.tmp, 
+               aes(recvLon, recvLat), pch=21, colour = "black", fill = "yellow") +
+  geom_path(data=df.tmp, 
+            aes(recvLon, recvLat, group=motusTagID, col = as.factor(motusTagID))) +
+  theme_bw() + 
+  scale_color_discrete(name="MotusTagID")
+
+```
+
+```{r googleMap, eval = FALSE, warning = FALSE, message = FALSE, fig.width=10, fig.height=10}
+
+ggmap::register_google(key = "Your Key here")
 
 gmap <-  get_map(location = c(lon = -75, lat = 40), # lon/lat to centre map over
                  maptype = "satellite", # select maptype
@@ -389,6 +418,8 @@ dateRange <- lubridate::interval(as.POSIXct("2015-08-01"), as.POSIXct("2016-01-0
 df.recvDeps$active <- lubridate::int_overlaps(siteOp, dateRange) 
 
 # create map with receivers active during specified date range as red, and receivers with detections as yellow
+# remember to register your google key if you haven't already!
+# ggmap::register_google(key = "Your key here")
 p <- ggmap(gmap)
 p + geom_point(data = subset(df.recvDeps, active == TRUE), ggplot2::aes(longitude, latitude), pch=21, colour = "black", fill = "red") +
   geom_point(data=df.tmp, aes(recvLon, recvLat), pch=21, colour = "black", fill = "yellow") +
@@ -442,5 +473,5 @@ ggplot(na.lakes, aes(long, lat))+
 knitr::include_graphics("images/mapDetections.png")
 ```
 
-The functions above provide examples for you how can begin exploring your data and are by no means exhaustive. The next chapter will cover some common errors and troubleshooting you may encounter while trying to download and use the .motus sql files.
+The functions above provide examples of how you can begin exploring your data and are by no means exhaustive. The next chapter will cover some common errors and troubleshooting you may encounter while trying to download and use the .motus sql files.
 
