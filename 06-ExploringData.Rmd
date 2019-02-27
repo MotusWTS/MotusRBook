@@ -57,10 +57,10 @@ tbl.filter <- getRunsFilters(sql.motus, "filtAmbigFalsePos")
 # filter and convert the table into a dataframe, with a few modications
 df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID")) %>%
   mutate(probability = ifelse(is.na(probability), 1, probability),
-         recvLat = if_else((is.na(gpsLat)|gpsLat == 0), 
+         recvLat = if_else((is.na(gpsLat)|gpsLat == 0|gpsLat == 999), 
                            recvDeployLat, 
                            gpsLat),
-         recvLon = if_else((is.na(gpsLon)|gpsLon == 0), 
+         recvLon = if_else((is.na(gpsLon)|gpsLon == 0|gpsLon == 999), 
                            recvDeployLon, 
                            gpsLon),
          recvAlt = if_else(is.na(gpsAlt), 
@@ -75,7 +75,10 @@ df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID
   as.data.frame() %>%
   mutate(ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
          tagDeployStart = as_datetime(tagDeployStart),
-         tagDeployEnd = as_datetime(tagDeployEnd))
+         tagDeployEnd = as_datetime(tagDeployEnd),
+         recvDeployName = if_else(is.na(recvDeployName), 
+                                  paste(recvLat, recvLon, sep=":"), 
+                                  recvDeployName))
 
 ```
 ```{r importDataDUPLICATE, echo = FALSE}
@@ -90,8 +93,8 @@ tbl.filter = getRunsFilters(sql.motus, "filtAmbigFalsePos")
 # filter and convert the table into a dataframe, with a few modications
 df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID")) %>%
   mutate(probability = ifelse(is.na(probability), 1, probability),
-         recvLat = if_else((is.na(gpsLat)|gpsLat == 0), recvDeployLat, gpsLat),
-                             recvLon = if_else((is.na(gpsLon)|gpsLon == 0), recvDeployLon, gpsLon),
+         recvLat = if_else((is.na(gpsLat)|gpsLat == 0|gpsLat == 999), recvDeployLat, gpsLat),
+                             recvLon = if_else((is.na(gpsLon)|gpsLon == 0|gpsLon == 999), recvDeployLon, gpsLon),
                              recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
   filter(probability > 0) %>%
   select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, -mfg, -nomFreq,
@@ -102,7 +105,10 @@ df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID
   as.data.frame() %>%
   mutate(ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
          tagDeployStart = as_datetime(tagDeployStart),
-         tagDeployEnd = as_datetime(tagDeployEnd))
+         tagDeployEnd = as_datetime(tagDeployEnd),
+         recvDeployName = if_else(is.na(recvDeployName), 
+                                  paste(recvLat, recvLon, sep=":"), 
+                                  recvDeployName))
 ```
 
 **Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues.** Details on filtering the tbl prior to collecting as a dataframe are available in section \@ref(convertToFlat).  
