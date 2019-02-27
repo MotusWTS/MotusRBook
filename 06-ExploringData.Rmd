@@ -17,7 +17,6 @@ Follow the instructions in Chapter \@ref(loadingPackages) to install the followi
 
 library(motus)
 library(tidyverse)
-# Oct 16, 2018: Note that the development version must be used as described in Chapter 2
 library(ggmap)
 
 ```
@@ -340,27 +339,26 @@ df.alltags.sub.path <- df.alltags.sub %>%
 df.alltags.path <- fun.getpath(df.alltags.sub.path)
 ```
 
-### Mapping with Google Maps {#googleMaps}
+### Mapping with the `ggmap` package {#ggmaps}
 
-Mapping with Google Maps can be a fast way to view flight paths and allows you to select from multiple base layers.  
+Mapping with `ggmap` can be a fast way to view flight paths and allows you to select from multiple base layers.  
 
-The first step is to create a map with a specified map centre, maptype ("terrain", "roadmap", "satellite", or "hybrid"), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale).  We then add points for receivers and lines connecting consecutive detections by motusTagID. We can also add points for all receivers that were active during a certain time period if we have already downloaded all metadata.
+There are several ways to use the `ggmap` package. One is with Google Maps, which, as of October 16, 2018, requires a Google Maps API key (see Appendix B section \@ref(googleMapsKey) for more details). An alternative method is to use an open source of map tiles, such as Stamen Map tiles, which do not require an API key. The following example uses Stamen Map tiles.
 
-**Important Note** As of October 16, 2018 recent updates require the use of a Google key to access google maps. Full instructions are available in Appendix B in section \@ref(googleMapsKey). Once you have your access key, you'll need to provide it with the call register_google(), **each time you start a new R session you will be required to enter your key.**
-```{r googleKey, eval = TRUE, echo = FALSE}
-# IMPORTANT! Your personal key has to be entered here, I recommend regenerating your personal key AFTER building the book, rendering this key useless. You could also build the book with your key, push changes, then delete it and push changes again WITHOUT building. However it will still be saved in old versions of the book on Git so I still recommend regenerating your own key after.
-ggmap::register_google(key = "Your Key Here")
+The first step is to create a map with a specified map are, maptype ("terrain", "toner", or "watercolor", among others), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale. For stamen maps this represents the level of detail you want).  We then add points for receivers and lines connecting consecutive detections by motusTagID. We can also add points for all receivers that were active during a certain time period if we have already downloaded all metadata.
 
-gmap <-  get_map(location = c(lon = -75, lat = 40), # lon/lat to centre map over
-                 maptype = "satellite", # select maptype
-                 source = "google",
-                 zoom = 4) # zoom, must be a whole number
+
+```{r ggmap, message = FALSE}
+
+gmap <-  get_stamenmap(bbox = c(left = -90, right = -57, bottom = 35, top = 55),
+                       maptype = "terrain-background", # select maptype
+                       zoom = 6) # zoom, must be a whole number
 
 # just use the tags that we have examined carefully and filtered (in the
 # previous chapter)
 df.tmp <- df.alltags.path %>%
   filter(motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039)) %>%
-  arrange(ts.h) # arange by hour
+  arrange(ts.h)  %>% # arange by hour
   as.data.frame()
 
 ggmap(gmap) +
@@ -370,38 +368,11 @@ ggmap(gmap) +
   geom_path(data = df.tmp, 
             aes(x = recvLon, y = recvLat, group = motusTagID, col = as.factor(motusTagID))) +
   scale_color_discrete(name = "MotusTagID")
-
 ```
 
-```{r googleMap, eval = FALSE, warning = FALSE, message = FALSE, fig.width=10, fig.height=10}
+We make the same plot, with additional points for all receivers that were active during a specified time (concentrating on our area of interest):
 
-ggmap::register_google(key = "Your Key here")
-
-gmap <- get_map(location = c(lon = -75, lat = 40), # lon/lat to centre map over
-                maptype = "satellite", # select maptype
-                source = "google",
-                zoom = 4) # zoom, must be a whole number
-
-# just use the tags that we have examined carefully and filtered (in the
-# previous chapter)
-df.tmp <- df.alltags.path %>%
-  filter(motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039)) %>%
-  arrange(ts.h) %>% # arange by hour
-  as.data.frame()
-
-ggmap(gmap) +
-  theme_bw() + 
-  geom_point(data = df.tmp, aes(recvLon, recvLat), 
-             shape = 21, colour = "black", fill = "yellow") +
-  geom_path(data = df.tmp, 
-            aes(recvLon, recvLat, group = motusTagID, col = as.factor(motusTagID))) +
-  scale_color_discrete(name="MotusTagID")
-
-```
-
-We make the same plot, with additional points for all receivers that were active during a specified time:
-
-```{r googleMapRecvs, warning = FALSE, message = FALSE, fig.width=10, fig.height=10}
+```{r ggmapRecvs, warning = FALSE, message = FALSE, fig.width=10, fig.height=10}
 
 # get receiver metadata
 tbl.recvDeps <- tbl(sql.motus, "recvDeps")
@@ -428,9 +399,7 @@ dateRange <- lubridate::interval(as.POSIXct("2015-08-01"), as.POSIXct("2016-01-0
 df.recvDeps$active <- lubridate::int_overlaps(siteOp, dateRange) 
 
 # create map with receivers active during specified date range as red, and
-# receivers with detections as yellow remember to register your google key if
-# you haven't already!
-# ggmap::register_google(key = "Your key here")
+# receivers with detections as yellow
 ggmap(gmap) +
   theme_bw() + 
   geom_point(data = subset(df.recvDeps, active == TRUE), 

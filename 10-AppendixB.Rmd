@@ -25,7 +25,8 @@ tagme(project.num, update = TRUE, dir = ...)
 ```
 
 ## Google Maps {#googleMapsKey}
-As of October 16, 2018 recent updates require the use of a Google key to access google maps. To obtain an access key, you must be a registered Google user with **up to date billing information**, however you do not have to pay for the service. To obtain a key:  
+As of October 16, 2018 recent updates require the use of a Google key to access google maps. To obtain an access key, you must be a registered Google user with **up to date billing information**, however you do not have to pay for the service (for the first little while at least). To obtain a key:  
+
 1. login to the [Google Cloud Platform](https://cloud.google.com/console/google/maps-apis/overview).  
 2. If you do not already have a project then create one.  
 3. Check that you have current billing information - you will not be charged but it must be present and up to date.  
@@ -35,6 +36,8 @@ As of October 16, 2018 recent updates require the use of a Google key to access 
 Full details are listed under "Detailed Guide" [here](https://developers.google.com/maps/documentation/javascript/get-api-key). Note that you may have to enable Google Maps Static API. For troubleshooting see [here](https://groups.google.com/forum/#!topic/motus-wts/UxqFIO6Pcmo) and [here](https://groups.google.com/forum/#!topic/motus-wts/UxqFIO6Pcmo and https://github.com/dkahle/ggmap/issues/51).
 
 Once you have your access key, you'll need to provide it with the call register_google(), **each time you start a new R session you will be required to enter your key.**
+
+Then you can create Google maps with the `ggmap` package using the `get_googlemap()` function and specifying the lat/lon center of your map (as opposed to bounding box as with stamen maps).
 
 ## Common error messages and solutions:
 

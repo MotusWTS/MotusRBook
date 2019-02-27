@@ -142,12 +142,12 @@ plotDailySiteSum(df.alltags, recvDeployName = "Longridge")
 
 ## plotRouteMap {#plotRouteMap}
 ### Description
-Google map of routes of Motus tag detections coloured by motusTagID.  User defines a date range to show points for receivers that were operational at some point during specified date range.
+`ggmap` map of routes of Motus tag detections coloured by motusTagID.  User defines a date range to show points for receivers that were operational at some point during specified date range.
 ### Dependencies
 **data** a .motus sql file  
-**maptype** google map type to display, can be: "terrain" , "roadmap", "satellite", or "hybrid"  
-**latCentre** latitude to centre map around  
-**lonCentre** longitude to centre map around  
+**maptype** map type to display, can be: "terrain" , "terrain-background", "toner", "watercolor", etc.
+**lat** top and bottom latitude bounds. If NULL (default) this is calculated from the data
+**lon**  left and right longitude bounds. If NULL (default) this is calculated from the data
 **zoom** integer for zoom 3-21, 3 being continent level, 10 being city-scale  
 **recvStart** start date for date range of active receivers  
 **recvEnd** end date for date range of active receivers  

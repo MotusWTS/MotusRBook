@@ -97,8 +97,8 @@ library(tidyr)
 library(motus)
 library(ggplot2)
 library(jpeg)
-# Oct 16, 2018: Note that the development version must be used as described in Chapter 2
 library(ggmap)
+
 #Make sure working on UTC 
 Sys.setenv(TZ = "UTC")
 
@@ -276,9 +276,7 @@ arrows.circular(mean(df.vanishBearing$vanish.bearing), zero = pi/2)
 
 ### Plot the vanishing bearings on a map
 
-Mapping your vanishing bearing(s) with google maps can also be a great way to visualize the departure direction of your bird(s). Here we use Google Maps to show the stations and orientations of antennas that detected the bird during departure, along with the orientation of the vanishing bearing.
-
-**Important Note** As of October 16, 2018 recent updates require the use of a Google key to access google maps. Full instructions are available in Appendix B in section \@ref(googleMapsKey). Once you have your access key, you'll need to provide it with the call register_google(), **each time you start a new R session you will be required to enter your key.**
+Mapping your vanishing bearing(s) with `ggmap` can also be a great way to visualize the departure direction of your bird(s). Here we use Stamen maps to show the stations and orientations of antennas that detected the bird during departure, along with the orientation of the vanishing bearing. For information on using `ggmap` to create Google Maps, see Appendix B in section \@ref(googleMapsKey).
 
 First, pick a tag to map:
 
@@ -293,11 +291,10 @@ Then, create a map with a specified map centre, maptype (“terrain”, “roadm
 ```{r vanishMapping, warning = FALSE, message = FALSE}
 
 ## First we obtain a map of our location of interest, in this case Old Cut
-map.OC <-  get_map(location = c(lon = -80.399334, lat = 42.582185),
-                   maptype = "satellite",
-                   source = "google",
-                   zoom = 11,
-                   color="color")
+map.OC <-  get_stamenmap(bbox = c(left = -80.6, right = -80.2, bottom = 42.5, top = 42.75),
+                   maptype = "terrain-background",
+                   zoom = 12,
+                   color = "color")
 
 ## Do the following to make a scale bar
 bb <- attr(map.OC,"bb")
@@ -326,18 +323,15 @@ arr.sc <- 0.03
 rad <- function(x) {x * pi/180}
 
 ## Now we make the map
-## Oct 16 2018: note that if you haven't already registered the google key for
-## your current session you will need to:
-## ggmap::register_google(key = "Your key here")
 
 ggmap(map.OC) +
     geom_point(data = df.stations, aes(x = recvLon, y = recvLat), size = 1, 
-               colour = "yellow") +
+               colour = "goldenrod") +
     # Add antenna bearings
     geom_segment(data = df.stations, 
                  aes(x = recvLon, xend = recvLon + (sin(rad(antBearing))*arr.sc), 
                      y = recvLat, yend = recvLat + (cos(rad(antBearing))*arr.sc)), 
-                 colour = "yellow") +  
+                 colour = "goldenrod") +  
   
     # add vanishing bearings
     geom_segment(data = filter(df.vanishBearing, motusTagID == tagID), 
@@ -349,7 +343,7 @@ ggmap(map.OC) +
     geom_segment(data = sbar,
                  aes(x = lon.start, xend = lon.end,
                      y = lat.start, yend = lat.end), 
-                 col = "white",
+                 col = "black",
                  arrow = arrow(angle = 90, length = unit(0.1, "cm"),
                                ends = "both", type = "open")) +
     geom_text(data = sbar,
@@ -358,7 +352,7 @@ ggmap(map.OC) +
                   label = paste(format(scalebar.length), 'km')),
               hjust = 0.5,
               vjust = 0,
-              size = 8/ptspermm, col = "white")  +
+              size = 8/ptspermm, col = "black")  +
     labs(x = "Longitude", y = "Latitude")
 ```
 
