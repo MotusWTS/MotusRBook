@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Motus R Book</title>
-  <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+  <title>B Appendix - Troubleshooting | Motus R Book</title>
+  <meta name="description" content="B Appendix - Troubleshooting | Motus R Book">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Motus R Book" />
+  <meta property="og:title" content="B Appendix - Troubleshooting | Motus R Book" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="BSC_Motus_Logo.png" />
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Motus R Book" />
+  <meta name="twitter:title" content="B Appendix - Troubleshooting | Motus R Book" />
   
   
   <meta name="twitter:image" content="BSC_Motus_Logo.png" />
@@ -35,6 +35,7 @@
 <link rel="next" href="appendixC.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -49,41 +50,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -105,31 +132,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#whatBookCovers"><i class="fa fa-check"></i><b>1.1</b> What this book does not cover</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.2</b> Prerequisites</a></li>
-<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#sampleData"><i class="fa fa-check"></i><b>1.3</b> Sample dataset</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#sampleData"><i class="fa fa-check"></i><b>1.3</b> Sample datasets</a></li>
 <li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="loadingPackages.html"><a href="loadingPackages.html"><i class="fa fa-check"></i><b>2</b> Loading R Packages</a><ul>
 <li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.1</b> Internal data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="accessingData.html"><a href="accessingData.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
-<li class="chapter" data-level="3.1" data-path="accessingData.html"><a href="accessingData.html#databaseTypes"><i class="fa fa-check"></i><b>3.1</b> Database types</a></li>
-<li class="chapter" data-level="3.2" data-path="accessingData.html"><a href="accessingData.html#loadPackages"><i class="fa fa-check"></i><b>3.2</b> Load relevant R packages</a></li>
-<li class="chapter" data-level="3.3" data-path="accessingData.html"><a href="accessingData.html#set-system-environment"><i class="fa fa-check"></i><b>3.3</b> Set system environment</a></li>
-<li class="chapter" data-level="3.4" data-path="accessingData.html"><a href="accessingData.html#importDetections"><i class="fa fa-check"></i><b>3.4</b> Importing tag detections</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="accessingData.html"><a href="accessingData.html#download-data-for-a-project-or-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.4.1</b> Download data for a project or receiver for the <em>first time</em></a></li>
-<li class="chapter" data-level="3.4.2" data-path="accessingData.html"><a href="accessingData.html#userAuthentication"><i class="fa fa-check"></i><b>3.4.2</b> User Authentication</a></li>
-<li class="chapter" data-level="3.4.3" data-path="accessingData.html"><a href="accessingData.html#logout"><i class="fa fa-check"></i><b>3.4.3</b> Logging out</a></li>
-<li class="chapter" data-level="3.4.4" data-path="accessingData.html"><a href="accessingData.html#downloadData"><i class="fa fa-check"></i><b>3.4.4</b> Downloading detection data</a></li>
-<li class="chapter" data-level="3.4.5" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.4.5</b> Update and open a local tag database</a></li>
-<li class="chapter" data-level="3.4.6" data-path="accessingData.html"><a href="accessingData.html#tellme"><i class="fa fa-check"></i><b>3.4.6</b> Check if new data are available</a></li>
-<li class="chapter" data-level="3.4.7" data-path="accessingData.html"><a href="accessingData.html#forceMeta"><i class="fa fa-check"></i><b>3.4.7</b> Force an update/re-import of tag and receiver deployment metadata</a></li>
-<li class="chapter" data-level="3.4.8" data-path="accessingData.html"><a href="accessingData.html#metadata"><i class="fa fa-check"></i><b>3.4.8</b> Import full tag and receiver metadata</a></li>
+<li class="chapter" data-level="3.1" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.1</b> Data structure</a></li>
+<li class="chapter" data-level="3.2" data-path="accessingData.html"><a href="accessingData.html#databaseTypes"><i class="fa fa-check"></i><b>3.2</b> Database types</a></li>
+<li class="chapter" data-level="3.3" data-path="accessingData.html"><a href="accessingData.html#loadPackages"><i class="fa fa-check"></i><b>3.3</b> Load relevant R packages</a></li>
+<li class="chapter" data-level="3.4" data-path="accessingData.html"><a href="accessingData.html#set-system-environment"><i class="fa fa-check"></i><b>3.4</b> Set system environment</a></li>
+<li class="chapter" data-level="3.5" data-path="accessingData.html"><a href="accessingData.html#importDetections"><i class="fa fa-check"></i><b>3.5</b> Downloading tag detections</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="accessingData.html"><a href="accessingData.html#downloadData"><i class="fa fa-check"></i><b>3.5.1</b> Download data for a project for the <em>first time</em></a></li>
+<li class="chapter" data-level="3.5.2" data-path="accessingData.html"><a href="accessingData.html#userAuthentication"><i class="fa fa-check"></i><b>3.5.2</b> User Authentication</a></li>
+<li class="chapter" data-level="3.5.3" data-path="accessingData.html"><a href="accessingData.html#download-data-for-a-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.5.3</b> Download data for a receiver for the <em>first time</em></a></li>
+<li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloading-multiple-receivers-at-the-same-time"><i class="fa fa-check"></i><b>3.5.4</b> Downloading multiple receivers at the same time</a></li>
+<li class="chapter" data-level="3.5.5" data-path="accessingData.html"><a href="accessingData.html#updating-all-.motus-files-within-a-directory"><i class="fa fa-check"></i><b>3.5.5</b> Updating all .motus files within a directory</a></li>
+<li class="chapter" data-level="3.5.6" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.6</b> Accessing downloaded detection data</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.5</b> Data structure</a></li>
-<li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#ensure-that-you-have-the-correct-database-version-checkversion"><i class="fa fa-check"></i><b>3.6</b> Ensure that you have the correct database version {checkVersion}</a></li>
-<li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.7</b> Convert a SQLITE table to a flat dataframe</a></li>
-<li class="chapter" data-level="3.8" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.8</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
-<li class="chapter" data-level="3.9" data-path="accessingData.html"><a href="accessingData.html#r-object-naming-convention"><i class="fa fa-check"></i><b>3.9</b> R object naming convention</a></li>
+<li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.6</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
+<li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.7</b> Update and/or open an existing database</a></li>
+<li class="chapter" data-level="3.8" data-path="accessingData.html"><a href="accessingData.html#tellme"><i class="fa fa-check"></i><b>3.8</b> Check if new data are available</a></li>
+<li class="chapter" data-level="3.9" data-path="accessingData.html"><a href="accessingData.html#forceMeta"><i class="fa fa-check"></i><b>3.9</b> Force an update/re-import of tag and receiver deployment metadata</a></li>
+<li class="chapter" data-level="3.10" data-path="accessingData.html"><a href="accessingData.html#metadata"><i class="fa fa-check"></i><b>3.10</b> Import full tag and receiver metadata</a></li>
+<li class="chapter" data-level="3.11" data-path="accessingData.html"><a href="accessingData.html#checkVersion"><i class="fa fa-check"></i><b>3.11</b> Ensure that you have the correct database version</a></li>
+<li class="chapter" data-level="3.12" data-path="accessingData.html"><a href="accessingData.html#r-object-naming-convention"><i class="fa fa-check"></i><b>3.12</b> R object naming convention</a></li>
+<li class="chapter" data-level="3.13" data-path="accessingData.html"><a href="accessingData.html#importSummary"><i class="fa fa-check"></i><b>3.13</b> Summary: download, access, and export data</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="deployments.html"><a href="deployments.html"><i class="fa fa-check"></i><b>4</b> Tag and Receiver Deployments</a><ul>
 <li class="chapter" data-level="4.1" data-path="deployments.html"><a href="deployments.html#load-relevant-r-packages-and-set-working-environment"><i class="fa fa-check"></i><b>4.1</b> Load relevant R packages and set working environment</a></li>
@@ -151,7 +180,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="dataCleaning.html"><a href="dataCleaning.html"><i class="fa fa-check"></i><b>5</b> Data Cleaning</a><ul>
-<li class="chapter" data-level="5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#load-required-packages"><i class="fa fa-check"></i><b>5.1</b> Load required packages</a></li>
+<li class="chapter" data-level="5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#loadDetectionsCleaning"><i class="fa fa-check"></i><b>5.1</b> Load required packages</a></li>
 <li class="chapter" data-level="5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#load-detections-data"><i class="fa fa-check"></i><b>5.2</b> Load detections data</a></li>
 <li class="chapter" data-level="5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.3</b> Preliminary data checks</a><ul>
 <li class="chapter" data-level="5.3.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.3.1</b> Summarize tag detections</a></li>
@@ -164,29 +193,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
-<li class="chapter" data-level="6.1" data-path="exploreData.html"><a href="exploreData.html#load-required-packages-1"><i class="fa fa-check"></i><b>6.1</b> Load required packages</a></li>
+<li class="chapter" data-level="6.1" data-path="exploreData.html"><a href="exploreData.html#load-required-packages"><i class="fa fa-check"></i><b>6.1</b> Load required packages</a></li>
 <li class="chapter" data-level="6.2" data-path="exploreData.html"><a href="exploreData.html#load-data"><i class="fa fa-check"></i><b>6.2</b> Load data</a></li>
 <li class="chapter" data-level="6.3" data-path="exploreData.html"><a href="exploreData.html#dataSummaries"><i class="fa fa-check"></i><b>6.3</b> Summarizing your data</a></li>
 <li class="chapter" data-level="6.4" data-path="exploreData.html"><a href="exploreData.html#dataPlotting"><i class="fa fa-check"></i><b>6.4</b> Plotting your data</a></li>
 <li class="chapter" data-level="6.5" data-path="exploreData.html"><a href="exploreData.html#mappingData"><i class="fa fa-check"></i><b>6.5</b> Mapping your data</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="exploreData.html"><a href="exploreData.html#googleMaps"><i class="fa fa-check"></i><b>6.5.1</b> Mapping with Google Maps</a></li>
+<li class="chapter" data-level="6.5.1" data-path="exploreData.html"><a href="exploreData.html#ggmaps"><i class="fa fa-check"></i><b>6.5.1</b> Mapping with the <code>ggmap</code> package</a></li>
 <li class="chapter" data-level="6.5.2" data-path="exploreData.html"><a href="exploreData.html#outlineMaps"><i class="fa fa-check"></i><b>6.5.2</b> Creating simple outline maps</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="vanishingBearings.html"><a href="vanishingBearings.html"><i class="fa fa-check"></i><b>7</b> Vanishing bearings</a><ul>
+<li class="chapter" data-level="7.1" data-path="vanishingBearings.html"><a href="vanishingBearings.html#thingsToBeAwareOf"><i class="fa fa-check"></i><b>7.1</b> Things to be aware of</a></li>
+<li class="chapter" data-level="7.2" data-path="vanishingBearings.html"><a href="vanishingBearings.html#estimateBearings"><i class="fa fa-check"></i><b>7.2</b> Estimate vanishing bearings: step-by-step</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="vanishingBearings.html"><a href="vanishingBearings.html#loadPackages7"><i class="fa fa-check"></i><b>7.2.1</b> Load the required packages</a></li>
+<li class="chapter" data-level="7.2.2" data-path="vanishingBearings.html"><a href="vanishingBearings.html#vanishingSample"><i class="fa fa-check"></i><b>7.2.2</b> Load the sample data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="vanishingBearings.html"><a href="vanishingBearings.html#select-individuals-that-show-clear-departure-detections"><i class="fa fa-check"></i><b>7.2.3</b> Select individuals that show clear departure detections</a></li>
+<li class="chapter" data-level="7.2.4" data-path="vanishingBearings.html"><a href="vanishingBearings.html#obtain-departure-times"><i class="fa fa-check"></i><b>7.2.4</b> Obtain departure times</a></li>
+<li class="chapter" data-level="7.2.5" data-path="vanishingBearings.html"><a href="vanishingBearings.html#calculate-vanishing-bearings-for-individuals-with-departure-times."><i class="fa fa-check"></i><b>7.2.5</b> Calculate vanishing bearings for individuals with departure times.</a></li>
+<li class="chapter" data-level="7.2.6" data-path="vanishingBearings.html"><a href="vanishingBearings.html#plot-the-vanishing-bearings-on-a-map"><i class="fa fa-check"></i><b>7.2.6</b> Plot the vanishing bearings on a map</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="vanishingBearings.html"><a href="vanishingBearings.html#vanishingLitCited"><i class="fa fa-check"></i><b>7.3</b> Literature Cited</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="advancedModelling.html"><a href="advancedModelling.html"><i class="fa fa-check"></i><b>8</b> Advanced modelling and analysis</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="appendixA.html"><a href="appendixA.html"><i class="fa fa-check"></i><b>A</b> Appendix - alltags structure</a></li>
 <li class="chapter" data-level="B" data-path="appendixB.html"><a href="appendixB.html"><i class="fa fa-check"></i><b>B</b> Appendix - Troubleshooting</a><ul>
 <li class="chapter" data-level="B.1" data-path="appendixB.html"><a href="appendixB.html#motusLogout"><i class="fa fa-check"></i><b>B.1</b> Logging out of motus</a></li>
 <li class="chapter" data-level="B.2" data-path="appendixB.html"><a href="appendixB.html#resumeDownload"><i class="fa fa-check"></i><b>B.2</b> Resume data download</a></li>
-<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#common-error-messages-and-solutions"><i class="fa fa-check"></i><b>B.3</b> Common error messages and solutions:</a><ul>
-<li class="chapter" data-level="B.3.1" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.3.1</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
-<li class="chapter" data-level="B.3.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.3.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
-<li class="chapter" data-level="B.3.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.3.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
-<li class="chapter" data-level="B.3.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.3.4</b> I get an error Object ‘xxxx’ not found, referring to a table or field name, or some of your examples in the book do not work.</a></li>
-<li class="chapter" data-level="B.3.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.3.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
-<li class="chapter" data-level="B.3.6" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.3.6</b> I see GPS coordinates of “0” or “999”</a></li>
-<li class="chapter" data-level="B.3.7" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.3.7</b> I see port with a value of -1</a></li>
-<li class="chapter" data-level="B.3.8" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.3.8</b> I get the error “Error in rsqlite_fetch(<a href="mailto:res@ptr">res@ptr</a>, n = n) : database disk image is malformed”</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#googleMapsKey"><i class="fa fa-check"></i><b>B.3</b> Google Maps</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixB.html"><a href="appendixB.html#common-error-messages-and-solutions"><i class="fa fa-check"></i><b>B.4</b> Common error messages and solutions:</a><ul>
+<li class="chapter" data-level="B.4.1" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.4.1</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
+<li class="chapter" data-level="B.4.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.4.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
+<li class="chapter" data-level="B.4.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.4.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
+<li class="chapter" data-level="B.4.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.4.4</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
+<li class="chapter" data-level="B.4.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.4.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
+<li class="chapter" data-level="B.4.6" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.4.6</b> I see GPS coordinates of “0” or “999”</a></li>
+<li class="chapter" data-level="B.4.7" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.4.7</b> I see port with a value of -1</a></li>
+<li class="chapter" data-level="B.4.8" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.4.8</b> I get the error “Error in rsqlite_fetch(<span>res@ptr</span>, n = n) : database disk image is malformed”</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - The Motus R Package</a><ul>
@@ -312,75 +355,100 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="appendixB" class="section level1">
 <h1><span class="header-section-number">B</span> Appendix - Troubleshooting</h1>
 <p>As a first step, always ensure you are using the latest version of the motus package (see section @ref(checkVersion.B)), and you have all required packages installed, loaded, and up to date (see Chapter <a href="loadingPackages.html#loadingPackages">2</a>).</p>
-<p>While attempting to download data with the motus package, you may encounter errors, many of which are likely due to an interrupted connection. <strong>Always ensure you are connected to the internet when using the tagme() function with ‘update = TRUE’</strong>. Most issues can be solved by either logging out of the motus package, or by restarting R and resuming the download using tagme(). If errors persist and you are unable to download your data, the server may be temporarily offline. Please contact Motus with any concerns at <a href="mailto:motus@birdscanada.org">motus@birdscanada.org</a>.</p>
+<p>While attempting to download data with the motus package, you may encounter errors, many of which are likely due to an interrupted connection. <strong>Always ensure you are connected to the internet when using the tagme() function with ‘update = TRUE’</strong>. Most issues can be solved by either logging out of the motus package, or by restarting R and resuming the download using tagme(). If errors persist and you are unable to download your data, the server may be temporarily offline. Please contact Motus with any concerns at <a href="mailto:motus@birdscanada.org" class="email">motus@birdscanada.org</a>.</p>
 <div id="motusLogout" class="section level2">
 <h2><span class="header-section-number">B.1</span> Logging out of motus</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">motusLogout</span>()</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">motusLogout</span>()</code></pre>
 </div>
 <div id="resumeDownload" class="section level2">
 <h2><span class="header-section-number">B.2</span> Resume data download</h2>
 <p>To resume your data download, run tagme() again, but do not include ‘new = TRUE’:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tagme</span>(project.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> ...)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tagme</span>(project.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> ...)</code></pre>
+</div>
+<div id="googleMapsKey" class="section level2">
+<h2><span class="header-section-number">B.3</span> Google Maps</h2>
+<p>As of October 16, 2018 recent updates require the use of a Google key to access google maps. To obtain an access key, you must be a registered Google user with <strong>up to date billing information</strong>, however you do not have to pay for the service (for the first little while at least). To obtain a key:</p>
+<ol style="list-style-type: decimal">
+<li>login to the <a href="https://cloud.google.com/console/google/maps-apis/overview">Google Cloud Platform</a>.<br />
+</li>
+<li>If you do not already have a project then create one.<br />
+</li>
+<li>Check that you have current billing information - you will not be charged but it must be present and up to date.<br />
+</li>
+<li>Under the navigation menu on the left, click APIs &amp; Services &gt; Credentials, then click Create credentials &gt; API key.<br />
+</li>
+<li>You may need to enable Google Maps Static API. You can do this through the navigation menu in the upper left corner, and selecting APIs &amp; Services &gt; library, choosing “Google Maps Static API” and clicking “Enable”.</li>
+</ol>
+<p>Full details are listed under “Detailed Guide” <a href="https://developers.google.com/maps/documentation/javascript/get-api-key">here</a>. Note that you may have to enable Google Maps Static API. For troubleshooting see <a href="https://groups.google.com/forum/#!topic/motus-wts/UxqFIO6Pcmo">here</a> and <a href="https://groups.google.com/forum/#!topic/motus-wts/UxqFIO6Pcmo%20and%20https://github.com/dkahle/ggmap/issues/51">here</a>.</p>
+<p>Once you have your access key, you’ll need to provide it with the call register_google(), <strong>each time you start a new R session you will be required to enter your key.</strong></p>
+<p>Then you can create Google maps with the <code>ggmap</code> package using the <code>get_googlemap()</code> function and specifying the lat/lon center of your map (as opposed to bounding box as with stamen maps).</p>
 </div>
 <div id="common-error-messages-and-solutions" class="section level2">
-<h2><span class="header-section-number">B.3</span> Common error messages and solutions:</h2>
+<h2><span class="header-section-number">B.4</span> Common error messages and solutions:</h2>
 <div id="i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme" class="section level3">
-<h3><span class="header-section-number">B.3.1</span> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</h3>
+<h3><span class="header-section-number">B.4.1</span> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</h3>
 <p>If this occurs after data download has finished, this message can be ignored. If it occurs during an active download, the connection will usually be maintained and the download will continue. However if the download stops, simply run tagme() again. If that does not work, we suggest logging out of the motus package or restarting R (see sections <a href="appendixB.html#motusLogout">B.1</a> and <a href="appendixB.html#resumeDownload">B.2</a>).</p>
 </div>
 <div id="i-get-an-internal-server-error-message-when-using-tagme-update-true" class="section level3">
-<h3><span class="header-section-number">B.3.2</span> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</h3>
+<h3><span class="header-section-number">B.4.2</span> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</h3>
 <p>If you get this message while updating your .motus file, use tagme() again to continue the download.</p>
 </div>
 <div id="i-get-an-error-forbidden-message-when-using-tagme" class="section level3">
-<h3><span class="header-section-number">B.3.3</span> I get an “Error: Forbidden” message when using tagme()</h3>
+<h3><span class="header-section-number">B.4.3</span> I get an “Error: Forbidden” message when using tagme()</h3>
 <p>This error may occur if you are attempting to download multiple projects simultaneously from the same user account. If you get this error, please logout of the motus package, and try tagme() again (see sections <a href="appendixB.html#motusLogout">B.1</a> and <a href="appendixB.html#resumeDownload">B.2</a>).</p>
 </div>
 <div id="i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work." class="section level3">
-<h3><span class="header-section-number">B.3.4</span> I get an error Object ‘xxxx’ not found, referring to a table or field name, or some of your examples in the book do not work.</h3>
+<h3><span class="header-section-number">B.4.4</span> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</h3>
 <p>Be sure to start the steps from the top of the chapter and run them in sequential order. Another possibility is that your .motus database hasn’t been updated to support the latest version of the motusClient or the motus package. If the checkVersion function returns a warning, this may indicate that the internal function used to update your database has not been triggered by tagme(). This can happen, for example, if you load the motusClient package without also loading the motus package. Loading the motus package will also load motusClient, so you should only ever need load motus into your R library.</p>
 <p>To ensure that your .motus file is up-to-date with the motus package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir =</span> ...)
-<span class="kw">checkVersion</span>(sql.motus)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)
+<span class="kw">checkVersion</span>(sql.motus)</code></pre>
 <p>To correct any warnings, you should follow these steps:</p>
 <ol style="list-style-type: decimal">
 <li>download the latest versions of the motusClient and then the motus package (refer to Chapter <a href="loadingPackages.html#loadingPackages">2</a>).</li>
 <li>terminate and restart your R session.</li>
-<li>load the motus library using ‘require(Motus)’ in your R console.</li>
+<li>load the motus library using ‘library(motus)’ in your R console.</li>
 <li>load your sqlite file. Look for notes on the console indicating that your database is being updated.</li>
 <li>check the version again.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(motus)
-sql &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir =</span> ...)
-<span class="kw">checkVersion</span>(sql)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(motus)
+sql &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)
+<span class="kw">checkVersion</span>(sql)</code></pre>
 </div>
 <div id="i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme" class="section level3">
-<h3><span class="header-section-number">B.3.5</span> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</h3>
-<p>If you get this message, it’s likely that you’re attempting a new download or update to a non-existant directory. The directory is specified in the <strong>dir = “”</strong> command of the tagme() function. If the directory is not specified, files will be saved to your working directory. Use getwd() to determine your current working directory. Use setwd() to set a new working directory. To specify a location to save files from your working directory use “./” followed by the file path.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>()  <span class="co"># show working directory, in this case it&#39;s &#39;C:/Documents&#39;</span>
-<span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)  <span class="co"># downloads data to your working directory</span>
-<span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)  <span class="co"># downloads data to the data folder within your working directory ie. the file path C:/Documents/data</span>
-<span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;C:/Downloads&quot;</span>)  <span class="co"># downloads data to the file path C:/Downloads</span></code></pre></div>
+<h3><span class="header-section-number">B.4.5</span> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</h3>
+<p>If you get this message, it’s likely that you’re attempting a new download or update to a non-existant directory. The directory is specified in the **dir = &quot;“** command of the tagme() function. If the directory is not specified, files will be saved to your working directory. Use getwd() to determine your current working directory. Use setwd() to set a new working directory. To specify a location to save files from your working directory use”./&quot; followed by the file path.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>() <span class="co"># show working directory, in this case it&#39;s &quot;C:/Documents&quot;</span>
+
+<span class="co"># downloads data to your working directory</span>
+<span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)
+
+<span class="co"># downloads data to the data folder within your working directory</span>
+<span class="co"># ie. the file path C:/Documents/data</span>
+<span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>) 
+
+<span class="co"># downloads data to the file path C:/Downloads</span>
+<span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;C:/Downloads&quot;</span>) </code></pre>
 </div>
 <div id="i-see-gps-coordinates-of-0-or-999" class="section level3">
-<h3><span class="header-section-number">B.3.6</span> I see GPS coordinates of “0” or “999”</h3>
+<h3><span class="header-section-number">B.4.6</span> I see GPS coordinates of “0” or “999”</h3>
 <p>These values are recorded from the GPS unit in the field. Values like these should be ignored, you can replace these with “NA”, or insert the recvDeployLat/recvDeplOyLon values which are taken from receiver deployment metadata entered by users.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## to replace gpsLat/gpsLon values of NA, 0, or 999 with that of receiver deployment metadata in the alltags table, and read into a data.frame
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## to replace gpsLat/gpsLon values of NA, 0, or 999 with that of receiver deployment metadata in the alltags table, and read into a data.frame</span>
 df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">recvLat =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLat)<span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), 
                            recvDeployLat, gpsLat), 
          <span class="dt">recvLon =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLon)<span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), 
                            recvDeployLon, gpsLon)
-  <span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</code></pre></div>
+  <span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</code></pre>
 </div>
 <div id="i-see-port-with-a-value-of--1" class="section level3">
-<h3><span class="header-section-number">B.3.7</span> I see port with a value of -1</h3>
+<h3><span class="header-section-number">B.4.7</span> I see port with a value of -1</h3>
 <p>Port “-1” represents the “A1+A2+A3+A4” compound antenna which is sometimes reported in Lotek .DTA file detections. This likely means the receiver has combined the signal from 4 antennas to detect the tag.</p>
 </div>
 <div id="i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed" class="section level3">
-<h3><span class="header-section-number">B.3.8</span> I get the error “Error in rsqlite_fetch(<a href="mailto:res@ptr">res@ptr</a>, n = n) : database disk image is malformed”</h3>
+<h3><span class="header-section-number">B.4.8</span> I get the error “Error in rsqlite_fetch(<a href="mailto:res@ptr" class="email">res@ptr</a>, n = n) : database disk image is malformed”</h3>
 <p>This is likely due to corrupt files which can occur during download. The easiest solution is to delete your current .motus file and download from scratch.</p>
-<p>Of course, there is always the possibility that the book contains errors! If this does not work, please contact <a href="mailto:motus@birdscanada.org">motus@birdscanada.org</a>.</p>
+<p>Of course, there is always the possibility that the book contains errors! If this does not work, please contact <a href="mailto:motus@birdscanada.org" class="email">motus@birdscanada.org</a>.</p>
 
 </div>
 </div>
@@ -409,10 +477,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -420,6 +489,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },

@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Motus R Book</title>
-  <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+  <title>5 Data Cleaning | Motus R Book</title>
+  <meta name="description" content="5 Data Cleaning | Motus R Book">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Motus R Book" />
+  <meta property="og:title" content="5 Data Cleaning | Motus R Book" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="BSC_Motus_Logo.png" />
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Motus R Book" />
+  <meta name="twitter:title" content="5 Data Cleaning | Motus R Book" />
   
   
   <meta name="twitter:image" content="BSC_Motus_Logo.png" />
@@ -35,6 +35,7 @@
 <link rel="next" href="exploreData.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -49,41 +50,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -105,31 +132,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#whatBookCovers"><i class="fa fa-check"></i><b>1.1</b> What this book does not cover</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.2</b> Prerequisites</a></li>
-<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#sampleData"><i class="fa fa-check"></i><b>1.3</b> Sample dataset</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#sampleData"><i class="fa fa-check"></i><b>1.3</b> Sample datasets</a></li>
 <li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="loadingPackages.html"><a href="loadingPackages.html"><i class="fa fa-check"></i><b>2</b> Loading R Packages</a><ul>
 <li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.1</b> Internal data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="accessingData.html"><a href="accessingData.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
-<li class="chapter" data-level="3.1" data-path="accessingData.html"><a href="accessingData.html#databaseTypes"><i class="fa fa-check"></i><b>3.1</b> Database types</a></li>
-<li class="chapter" data-level="3.2" data-path="accessingData.html"><a href="accessingData.html#loadPackages"><i class="fa fa-check"></i><b>3.2</b> Load relevant R packages</a></li>
-<li class="chapter" data-level="3.3" data-path="accessingData.html"><a href="accessingData.html#set-system-environment"><i class="fa fa-check"></i><b>3.3</b> Set system environment</a></li>
-<li class="chapter" data-level="3.4" data-path="accessingData.html"><a href="accessingData.html#importDetections"><i class="fa fa-check"></i><b>3.4</b> Importing tag detections</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="accessingData.html"><a href="accessingData.html#download-data-for-a-project-or-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.4.1</b> Download data for a project or receiver for the <em>first time</em></a></li>
-<li class="chapter" data-level="3.4.2" data-path="accessingData.html"><a href="accessingData.html#userAuthentication"><i class="fa fa-check"></i><b>3.4.2</b> User Authentication</a></li>
-<li class="chapter" data-level="3.4.3" data-path="accessingData.html"><a href="accessingData.html#logout"><i class="fa fa-check"></i><b>3.4.3</b> Logging out</a></li>
-<li class="chapter" data-level="3.4.4" data-path="accessingData.html"><a href="accessingData.html#downloadData"><i class="fa fa-check"></i><b>3.4.4</b> Downloading detection data</a></li>
-<li class="chapter" data-level="3.4.5" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.4.5</b> Update and open a local tag database</a></li>
-<li class="chapter" data-level="3.4.6" data-path="accessingData.html"><a href="accessingData.html#tellme"><i class="fa fa-check"></i><b>3.4.6</b> Check if new data are available</a></li>
-<li class="chapter" data-level="3.4.7" data-path="accessingData.html"><a href="accessingData.html#forceMeta"><i class="fa fa-check"></i><b>3.4.7</b> Force an update/re-import of tag and receiver deployment metadata</a></li>
-<li class="chapter" data-level="3.4.8" data-path="accessingData.html"><a href="accessingData.html#metadata"><i class="fa fa-check"></i><b>3.4.8</b> Import full tag and receiver metadata</a></li>
+<li class="chapter" data-level="3.1" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.1</b> Data structure</a></li>
+<li class="chapter" data-level="3.2" data-path="accessingData.html"><a href="accessingData.html#databaseTypes"><i class="fa fa-check"></i><b>3.2</b> Database types</a></li>
+<li class="chapter" data-level="3.3" data-path="accessingData.html"><a href="accessingData.html#loadPackages"><i class="fa fa-check"></i><b>3.3</b> Load relevant R packages</a></li>
+<li class="chapter" data-level="3.4" data-path="accessingData.html"><a href="accessingData.html#set-system-environment"><i class="fa fa-check"></i><b>3.4</b> Set system environment</a></li>
+<li class="chapter" data-level="3.5" data-path="accessingData.html"><a href="accessingData.html#importDetections"><i class="fa fa-check"></i><b>3.5</b> Downloading tag detections</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="accessingData.html"><a href="accessingData.html#downloadData"><i class="fa fa-check"></i><b>3.5.1</b> Download data for a project for the <em>first time</em></a></li>
+<li class="chapter" data-level="3.5.2" data-path="accessingData.html"><a href="accessingData.html#userAuthentication"><i class="fa fa-check"></i><b>3.5.2</b> User Authentication</a></li>
+<li class="chapter" data-level="3.5.3" data-path="accessingData.html"><a href="accessingData.html#download-data-for-a-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.5.3</b> Download data for a receiver for the <em>first time</em></a></li>
+<li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloading-multiple-receivers-at-the-same-time"><i class="fa fa-check"></i><b>3.5.4</b> Downloading multiple receivers at the same time</a></li>
+<li class="chapter" data-level="3.5.5" data-path="accessingData.html"><a href="accessingData.html#updating-all-.motus-files-within-a-directory"><i class="fa fa-check"></i><b>3.5.5</b> Updating all .motus files within a directory</a></li>
+<li class="chapter" data-level="3.5.6" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.6</b> Accessing downloaded detection data</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.5</b> Data structure</a></li>
-<li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#ensure-that-you-have-the-correct-database-version-checkversion"><i class="fa fa-check"></i><b>3.6</b> Ensure that you have the correct database version {checkVersion}</a></li>
-<li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.7</b> Convert a SQLITE table to a flat dataframe</a></li>
-<li class="chapter" data-level="3.8" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.8</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
-<li class="chapter" data-level="3.9" data-path="accessingData.html"><a href="accessingData.html#r-object-naming-convention"><i class="fa fa-check"></i><b>3.9</b> R object naming convention</a></li>
+<li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.6</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
+<li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.7</b> Update and/or open an existing database</a></li>
+<li class="chapter" data-level="3.8" data-path="accessingData.html"><a href="accessingData.html#tellme"><i class="fa fa-check"></i><b>3.8</b> Check if new data are available</a></li>
+<li class="chapter" data-level="3.9" data-path="accessingData.html"><a href="accessingData.html#forceMeta"><i class="fa fa-check"></i><b>3.9</b> Force an update/re-import of tag and receiver deployment metadata</a></li>
+<li class="chapter" data-level="3.10" data-path="accessingData.html"><a href="accessingData.html#metadata"><i class="fa fa-check"></i><b>3.10</b> Import full tag and receiver metadata</a></li>
+<li class="chapter" data-level="3.11" data-path="accessingData.html"><a href="accessingData.html#checkVersion"><i class="fa fa-check"></i><b>3.11</b> Ensure that you have the correct database version</a></li>
+<li class="chapter" data-level="3.12" data-path="accessingData.html"><a href="accessingData.html#r-object-naming-convention"><i class="fa fa-check"></i><b>3.12</b> R object naming convention</a></li>
+<li class="chapter" data-level="3.13" data-path="accessingData.html"><a href="accessingData.html#importSummary"><i class="fa fa-check"></i><b>3.13</b> Summary: download, access, and export data</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="deployments.html"><a href="deployments.html"><i class="fa fa-check"></i><b>4</b> Tag and Receiver Deployments</a><ul>
 <li class="chapter" data-level="4.1" data-path="deployments.html"><a href="deployments.html#load-relevant-r-packages-and-set-working-environment"><i class="fa fa-check"></i><b>4.1</b> Load relevant R packages and set working environment</a></li>
@@ -151,7 +180,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="dataCleaning.html"><a href="dataCleaning.html"><i class="fa fa-check"></i><b>5</b> Data Cleaning</a><ul>
-<li class="chapter" data-level="5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#load-required-packages"><i class="fa fa-check"></i><b>5.1</b> Load required packages</a></li>
+<li class="chapter" data-level="5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#loadDetectionsCleaning"><i class="fa fa-check"></i><b>5.1</b> Load required packages</a></li>
 <li class="chapter" data-level="5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#load-detections-data"><i class="fa fa-check"></i><b>5.2</b> Load detections data</a></li>
 <li class="chapter" data-level="5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.3</b> Preliminary data checks</a><ul>
 <li class="chapter" data-level="5.3.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.3.1</b> Summarize tag detections</a></li>
@@ -164,29 +193,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
-<li class="chapter" data-level="6.1" data-path="exploreData.html"><a href="exploreData.html#load-required-packages-1"><i class="fa fa-check"></i><b>6.1</b> Load required packages</a></li>
+<li class="chapter" data-level="6.1" data-path="exploreData.html"><a href="exploreData.html#load-required-packages"><i class="fa fa-check"></i><b>6.1</b> Load required packages</a></li>
 <li class="chapter" data-level="6.2" data-path="exploreData.html"><a href="exploreData.html#load-data"><i class="fa fa-check"></i><b>6.2</b> Load data</a></li>
 <li class="chapter" data-level="6.3" data-path="exploreData.html"><a href="exploreData.html#dataSummaries"><i class="fa fa-check"></i><b>6.3</b> Summarizing your data</a></li>
 <li class="chapter" data-level="6.4" data-path="exploreData.html"><a href="exploreData.html#dataPlotting"><i class="fa fa-check"></i><b>6.4</b> Plotting your data</a></li>
 <li class="chapter" data-level="6.5" data-path="exploreData.html"><a href="exploreData.html#mappingData"><i class="fa fa-check"></i><b>6.5</b> Mapping your data</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="exploreData.html"><a href="exploreData.html#googleMaps"><i class="fa fa-check"></i><b>6.5.1</b> Mapping with Google Maps</a></li>
+<li class="chapter" data-level="6.5.1" data-path="exploreData.html"><a href="exploreData.html#ggmaps"><i class="fa fa-check"></i><b>6.5.1</b> Mapping with the <code>ggmap</code> package</a></li>
 <li class="chapter" data-level="6.5.2" data-path="exploreData.html"><a href="exploreData.html#outlineMaps"><i class="fa fa-check"></i><b>6.5.2</b> Creating simple outline maps</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="vanishingBearings.html"><a href="vanishingBearings.html"><i class="fa fa-check"></i><b>7</b> Vanishing bearings</a><ul>
+<li class="chapter" data-level="7.1" data-path="vanishingBearings.html"><a href="vanishingBearings.html#thingsToBeAwareOf"><i class="fa fa-check"></i><b>7.1</b> Things to be aware of</a></li>
+<li class="chapter" data-level="7.2" data-path="vanishingBearings.html"><a href="vanishingBearings.html#estimateBearings"><i class="fa fa-check"></i><b>7.2</b> Estimate vanishing bearings: step-by-step</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="vanishingBearings.html"><a href="vanishingBearings.html#loadPackages7"><i class="fa fa-check"></i><b>7.2.1</b> Load the required packages</a></li>
+<li class="chapter" data-level="7.2.2" data-path="vanishingBearings.html"><a href="vanishingBearings.html#vanishingSample"><i class="fa fa-check"></i><b>7.2.2</b> Load the sample data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="vanishingBearings.html"><a href="vanishingBearings.html#select-individuals-that-show-clear-departure-detections"><i class="fa fa-check"></i><b>7.2.3</b> Select individuals that show clear departure detections</a></li>
+<li class="chapter" data-level="7.2.4" data-path="vanishingBearings.html"><a href="vanishingBearings.html#obtain-departure-times"><i class="fa fa-check"></i><b>7.2.4</b> Obtain departure times</a></li>
+<li class="chapter" data-level="7.2.5" data-path="vanishingBearings.html"><a href="vanishingBearings.html#calculate-vanishing-bearings-for-individuals-with-departure-times."><i class="fa fa-check"></i><b>7.2.5</b> Calculate vanishing bearings for individuals with departure times.</a></li>
+<li class="chapter" data-level="7.2.6" data-path="vanishingBearings.html"><a href="vanishingBearings.html#plot-the-vanishing-bearings-on-a-map"><i class="fa fa-check"></i><b>7.2.6</b> Plot the vanishing bearings on a map</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="vanishingBearings.html"><a href="vanishingBearings.html#vanishingLitCited"><i class="fa fa-check"></i><b>7.3</b> Literature Cited</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="advancedModelling.html"><a href="advancedModelling.html"><i class="fa fa-check"></i><b>8</b> Advanced modelling and analysis</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="appendixA.html"><a href="appendixA.html"><i class="fa fa-check"></i><b>A</b> Appendix - alltags structure</a></li>
 <li class="chapter" data-level="B" data-path="appendixB.html"><a href="appendixB.html"><i class="fa fa-check"></i><b>B</b> Appendix - Troubleshooting</a><ul>
 <li class="chapter" data-level="B.1" data-path="appendixB.html"><a href="appendixB.html#motusLogout"><i class="fa fa-check"></i><b>B.1</b> Logging out of motus</a></li>
 <li class="chapter" data-level="B.2" data-path="appendixB.html"><a href="appendixB.html#resumeDownload"><i class="fa fa-check"></i><b>B.2</b> Resume data download</a></li>
-<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#common-error-messages-and-solutions"><i class="fa fa-check"></i><b>B.3</b> Common error messages and solutions:</a><ul>
-<li class="chapter" data-level="B.3.1" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.3.1</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
-<li class="chapter" data-level="B.3.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.3.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
-<li class="chapter" data-level="B.3.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.3.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
-<li class="chapter" data-level="B.3.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.3.4</b> I get an error Object ‘xxxx’ not found, referring to a table or field name, or some of your examples in the book do not work.</a></li>
-<li class="chapter" data-level="B.3.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.3.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
-<li class="chapter" data-level="B.3.6" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.3.6</b> I see GPS coordinates of “0” or “999”</a></li>
-<li class="chapter" data-level="B.3.7" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.3.7</b> I see port with a value of -1</a></li>
-<li class="chapter" data-level="B.3.8" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.3.8</b> I get the error “Error in rsqlite_fetch(<a href="mailto:res@ptr">res@ptr</a>, n = n) : database disk image is malformed”</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#googleMapsKey"><i class="fa fa-check"></i><b>B.3</b> Google Maps</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixB.html"><a href="appendixB.html#common-error-messages-and-solutions"><i class="fa fa-check"></i><b>B.4</b> Common error messages and solutions:</a><ul>
+<li class="chapter" data-level="B.4.1" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.4.1</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
+<li class="chapter" data-level="B.4.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.4.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
+<li class="chapter" data-level="B.4.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.4.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
+<li class="chapter" data-level="B.4.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.4.4</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
+<li class="chapter" data-level="B.4.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.4.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
+<li class="chapter" data-level="B.4.6" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.4.6</b> I see GPS coordinates of “0” or “999”</a></li>
+<li class="chapter" data-level="B.4.7" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.4.7</b> I see port with a value of -1</a></li>
+<li class="chapter" data-level="B.4.8" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.4.8</b> I get the error “Error in rsqlite_fetch(<span>res@ptr</span>, n = n) : database disk image is malformed”</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - The Motus R Package</a><ul>
@@ -322,29 +365,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><p>Provide a workflow for examining individual tags, and determine if runs in those tags are errors.</p></li>
 <li><p>Filter errors from your data.</p></li>
 </ol>
-<div id="load-required-packages" class="section level2">
+<div id="loadDetectionsCleaning" class="section level2">
 <h2><span class="header-section-number">5.1</span> Load required packages</h2>
 <p>Follow the instructions in Chapter <a href="loadingPackages.html#loadingPackages">2</a> to install the following packages before loading, if they are not already installed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.setenv</span>(<span class="dt">tz =</span> <span class="st">&quot;GMT&quot;</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.setenv</span>(<span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>)
 
-<span class="co"># library(devtools)</span>
+<span class="co">#library(devtools)</span>
 <span class="kw">library</span>(motus)
 <span class="kw">library</span>(tidyverse)
 <span class="kw">library</span>(lubridate)
-<span class="co"># library(rworldmap) # for mapping</span></code></pre></div>
+<span class="co">#library(rworldmap) # for mapping</span></code></pre>
 </div>
 <div id="load-detections-data" class="section level2">
 <h2><span class="header-section-number">5.2</span> Load detections data</h2>
 <p>Recall from Chapter <a href="accessingData.html#accessingData">3</a> that when accessing the sample database, you will need to input ‘motus.sample’ in the R console as both username and password when prompted by the tagme() user authentication process. This section assumes you have already completed the initial sample data download.</p>
-<p>When accessing the alltags table, we remove some unnecessary variables to reduce the overall size of the data set and make it easier to work with. <strong>This is particularly important for large, unwieldy projects</strong>; details on how to view the variables in a tbl, and how to filter and subset prior to collecting data into a dataframe can be found in Chapter <a href="accessingData.html#convertToFlat">3.7</a>. We then create receiver latitude and longitude variables (‘recvLat’, ‘recvLon’, ‘recvAlt’) based on the coordinates recorded by the receiver GPS (‘gpsLat’, ‘gpsLon’, ‘gpsAlt’), and where those are not available, infilled with coordinates from the receiver deployment metadata (‘recvDeployLat’, ‘recvDeployLon’, ‘recvDeployAlt’). Missing gps coordinates may appear as NA if they are missing, or as “0” or “999” if there was a problem with the unit recording.<br />
+<p>When accessing the alltags table, we remove some unnecessary variables to reduce the overall size of the data set and make it easier to work with. <strong>This is particularly important for large, unwieldy projects</strong>; details on how to view the variables in a tbl, and how to filter and subset prior to collecting data into a dataframe can be found in Chapter <a href="#convertToFlat"><strong>??</strong></a>. We then create receiver latitude and longitude variables (‘recvLat’, ‘recvLon’, ‘recvAlt’) based on the coordinates recorded by the receiver GPS (‘gpsLat’, ‘gpsLon’, ‘gpsAlt’), and where those are not available, infilled with coordinates from the receiver deployment metadata (‘recvDeployLat’, ‘recvDeployLon’, ‘recvDeployAlt’). Missing gps coordinates may appear as NA if they are missing, or as “0” or “999” if there was a problem with the unit recording.<br />
 We can also add a rounded recvLat and recvLon to the recvDeployName as sometimes if there is missing metadata (ie. a missing receiver deployment spanning some of your detections), you will get NAs which can lead to problems later on.<br />
 We use the ‘collect()’ and ‘as.data.frame()’ statements to transform the dataframe into a ‘flat’ file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format. Finally, we create ‘receiver names’ from the latitude and longitude variables for those receivers in the database that do not have these values filled in.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">proj.num &lt;-<span class="st"> </span><span class="dv">176</span>
+<pre class="sourceCode r"><code class="sourceCode r">proj.num &lt;-<span class="st"> </span><span class="dv">176</span>
 
-<span class="co"># Load detection data, select variables, create latitude variables, and transform to </span>
-<span class="co"># flat file. We also fix up some sites that are missing receiver deployment data, or </span>
-<span class="co"># do not have names. As more users explore (and fix!) their metadata, these missing </span>
-<span class="co"># values should begin to disappear.</span>
+<span class="co"># Load detection data, select variables, create latitude variables, and</span>
+<span class="co"># transform to flat file. We also fix up some sites that are missing receiver</span>
+<span class="co"># deployment data, or do not have names. As more users explore (and fix!) their</span>
+<span class="co"># metadata, these missing values should begin to disappear.</span>
 sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)
 tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)
 
@@ -372,7 +415,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 
 <span class="co"># Note that in the select statement, you can just select the variables you need</span>
 <span class="co"># e.g.: select(runID, ts, sig, freqsd, motusTagID, ambigID, runLen, tagProjID, </span>
-<span class="co">#              tagDeployStart, tagDeployEnd, etc.)</span></code></pre></div>
+<span class="co">#              tagDeployStart, tagDeployEnd, etc.)</span></code></pre>
 </div>
 <div id="preliminary-data-checks" class="section level2">
 <h2><span class="header-section-number">5.3</span> Preliminary data checks</h2>
@@ -388,16 +431,16 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <p>Before going further, <strong>please check whether any of your tags were deployed more than once</strong>, as described in section <a href="deployments.html#checkNumberTagDeployments">4.3.4</a>. If so, you will need to use ‘tagDeployID’ or a combination of ‘motusTagID’ and ‘tagDeployID’ to uniquely define detections associated with a tag deployment (either will do, but combining the two fields will let you know which tagID is associated with each deployment).</p>
 <p>In the sample data, all tags were deployed only once, and so we use the ‘motusTagID’ as a unique identifier for a tag deployment in all R code throughout the book.</p>
 <p>Using the following code, we see there are detections for 18 tags deployed by the sample project, and that many have run lengths of 2 (TRUE):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># subset to include only tags registered to project</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rl.gt.2 =</span> runLen <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(motusTagID, rl.gt.<span class="dv">2</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(motusTagID, rl.gt<span class="fl">.2</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> rl.gt.<span class="dv">2</span>, <span class="dt">value=</span>n)</code></pre></div>
+<span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> rl.gt<span class="fl">.2</span>, <span class="dt">value=</span>n)</code></pre>
 <pre><code>## # A tibble: 18 x 3
 ## # Groups:   motusTagID [18]
 ##    motusTagID `FALSE` `TRUE`
-##  *      &lt;int&gt;   &lt;int&gt;  &lt;int&gt;
+##         &lt;int&gt;   &lt;int&gt;  &lt;int&gt;
 ##  1      16011     125      2
 ##  2      16035     454      2
 ##  3      16036     106     12
@@ -417,15 +460,19 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 ## 17      23316    5518    216
 ## 18      23319   22471    288</code></pre>
 <p>Although some of these may be valid detections, we have found it simpler to just remove them from our analysis, and possibly revisit them at a later stage. We therefore filter on runLen (&gt; 2) for most subsequent operations. We save these in a block to add to our other filters later.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags, runLen <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>)
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags, runLen <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>)
 
-df.block.<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags, runLen <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(motusTagID, 
-    runID) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>()</code></pre></div>
+df.block<span class="fl">.0</span> &lt;-<span class="st"> </span>df.alltags <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(runLen <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>()</code></pre>
 <p>An initial view of the data is best achieved by plotting. We will show you later how to plot detections on a map, but we prefer a simpler approach first; plotting detections through time by both latitude and longitude. First however, we should simplify the data. If we don’t, we risk trying to plot thousands or millions of points on a plot (which can take a long time). We’ll do this by creating a little function here, since we will use this operation again in future steps.</p>
 <p>Note that we need to remove about 150 detections, because there is no geographic data associated with the receiver metadata, and so no way to determine the location of those detections. Do a simple check to see if these receivers belong to you, and if so, please <strong>fix the metadata online</strong>!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(df.alltags.sub, <span class="kw">is.na</span>(recvLat)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(recvLat, 
-    recvLon, recvDeployName, recvDeployID, recv, recvProjID, 
-    recvProjName) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>()</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">is.na</span>(recvLat)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(recvLat, recvLon, recvDeployName, recvDeployID, recv, 
+         recvProjID, recvProjName) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>()</code></pre>
 <pre><code>##   recvLat recvLon recvDeployName recvDeployID            recv recvProjID
 ## 1      NA      NA      NP mobile         3813       Lotek-280        176
 ## 2      NA      NA          NA:NA           NA SG-1415BBBK0382         NA
@@ -435,15 +482,14 @@ df.block.<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw
 ## 2         &lt;NA&gt;
 ## 3         &lt;NA&gt;</code></pre>
 <p><strong>Simplify the data for plotting</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># simplify the data by summarizing by the runID. </span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># simplify the data by summarizing by the runID. </span>
 <span class="co"># If you want to summarize at a finer/coarser scale, you can also create other groups.  </span>
 <span class="co"># The simplest alternative is a rounded timestamp variable; for example by using </span>
 <span class="co"># mutate(ts.h = plyr::round_any(ts, 3600) function call. </span>
 <span class="co"># Other options are to just use date (e.g date = as_date(ts))</span>
 
-<span class="co"># </span>
-fun.getpath &lt;-<span class="st"> </span><span class="cf">function</span>(df) 
-  {
+
+fun.getpath &lt;-<span class="st"> </span><span class="cf">function</span>(df) {
   df <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num, <span class="co"># keep only tags registered to the sample project</span>
            <span class="op">!</span><span class="kw">is.na</span>(recvLat) <span class="op">|</span><span class="st"> </span><span class="op">!</span>(recvLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># drops data without lon/lat</span>
@@ -452,87 +498,100 @@ fun.getpath &lt;-<span class="st"> </span><span class="cf">function</span>(df)
 <span class="st">    </span><span class="co">#summarizing by runID to get max run length and mean time stamp:</span>
 <span class="st">    </span><span class="kw">summarize</span>(<span class="dt">max.runLen =</span> <span class="kw">max</span>(runLen), <span class="dt">ts.h =</span> <span class="kw">mean</span>(ts)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">arrange</span>(motusTagID, ts.h)
-  } <span class="co"># end of function call</span>
+} <span class="co"># end of function call</span>
 
-df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(df.alltags.sub)</code></pre></div>
+df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(df.alltags.sub)</code></pre>
 <p>We would initially plot a subset of tags by either latitude or longitude, to get an overview of where there might be issues. Here, to simplify the example, we plot only six tags. We avoid examining the ambiguous tags for now.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.path, motusTagID <span class="op">%in%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">c</span>(<span class="dv">16011</span>, <span class="dv">16035</span>, <span class="dv">16036</span>, <span class="dv">16037</span>, <span class="dv">16038</span>, <span class="dv">16039</span>)), <span class="kw">aes</span>(ts.h, 
-    recvLat))
-p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_path</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>motusTagID, 
-    <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">ncol =</span> <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, 
-    <span class="dt">vjust =</span> <span class="dv">1</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.path, 
+                     motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16011</span>, <span class="dv">16035</span>, <span class="dv">16036</span>, <span class="dv">16037</span>, <span class="dv">16038</span>, <span class="dv">16039</span>)), 
+       <span class="kw">aes</span>(<span class="dt">x =</span> ts.h, <span class="dt">y =</span> recvLat)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">vjust =</span> <span class="dv">1</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>motusTagID, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/plot1.5-1.png" width="672" /></p>
 <p>It is immediately apparent that there may be an issue with some tags showing up around 44 degrees during in the winter, which is possible but unlikely for the sample project’s shorebirds. Let’s examine these tags in more detail by examining the runs in the data frame that are associated with detections in December and January.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(df.alltags.sub, <span class="kw">month</span>(ts) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">1</span>), motusTagID <span class="op">%in%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">c</span>(<span class="dv">16036</span>, <span class="dv">16038</span>, <span class="dv">16039</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(recvDeployName, 
-    <span class="kw">month</span>(ts), runLen) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">length</span>(ts), 
-    <span class="dt">n.tags =</span> <span class="kw">length</span>(<span class="kw">unique</span>(motusTagID)))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">month</span>(ts) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">1</span>),
+         motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16036</span>, <span class="dv">16038</span>, <span class="dv">16039</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(recvDeployName, <span class="kw">month</span>(ts), runLen) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">length</span>(ts), 
+            <span class="dt">n.tags =</span> <span class="kw">length</span>(<span class="kw">unique</span>(motusTagID)))</code></pre>
 <pre><code>## # A tibble: 2 x 5
 ## # Groups:   recvDeployName, month(ts) [?]
 ##   recvDeployName     `month(ts)` runLen     n n.tags
 ##   &lt;chr&gt;                    &lt;dbl&gt;  &lt;int&gt; &lt;int&gt;  &lt;int&gt;
-## 1 Sable West Light 2        1.00      3     3      1
-## 2 Swallowtail              12.0       3     6      2</code></pre>
+## 1 Sable West Light 2           1      3     3      1
+## 2 Swallowtail                 12      3     6      2</code></pre>
 <p>These detections were at sites around the Canadian Maritimes (Sable Island, Nova Scotia; Grand Manan, New Brunswick) and were run lengths of 3. These are indicators of likely false positives. We’ll now start a tally of the particular runs involved, so that we can collate them in to a filter later.</p>
 <p>If you are interested, you can re-run the code above, but on the full data frame (df.alltags) containing run lengths of 2. You will see that there are additional false positive detections at these sites, that are already eliminated by filtering on runLen &gt; 2. These additional detections provide further evidence that these sites experienced some radio noise during these particular months, resulting in some false positive detections.</p>
 <p>You may also be interested more generally in exploring which data have only short run lengths. For example, the following code shows the maximum run length at all sites by month (for those runs with runLen &gt; 2).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">month =</span> <span class="kw">month</span>(ts)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(recvDeployName, 
-    month) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">max.rl =</span> <span class="kw">max</span>(runLen)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">spread</span>(<span class="dt">key =</span> month, <span class="dt">value =</span> max.rl)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">month =</span> <span class="kw">month</span>(ts)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(recvDeployName, month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">max.rl =</span> <span class="kw">max</span>(runLen)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> month, <span class="dt">value =</span> max.rl)</code></pre>
 <pre><code>## # A tibble: 49 x 9
 ## # Groups:   recvDeployName [49]
-##    recvDeployName            `1`   `3`   `4`   `5`   `8`   `9`  `10`  `12`
-##  * &lt;chr&gt;                   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 Assateague State Park      NA    NA    NA NA       NA  6.00 NA       NA
-##  2 BennettMeadow              NA    NA    NA NA       NA NA    11.0     NA
-##  3 Binbrook_Conservation_…    NA    NA    NA  3.00    NA NA    NA       NA
-##  4 BISE                       NA    NA    NA NA       NA NA     6.00    NA
-##  5 Bombay Hook                NA    NA    NA NA       NA 53.0  NA       NA
-##  6 Brier2                     NA    NA    NA NA       NA 29.0  NA       NA
-##  7 BSC HQ                     NA    NA    NA 21.0     NA NA    NA       NA
-##  8 BULL                       NA    NA    NA NA       NA 38.0   5.00    NA
-##  9 Comeau (Marshalltown)      NA    NA    NA NA       NA  4.00 NA       NA
-## 10 CONY                       NA    NA    NA NA       NA NA     7.00    NA
-## # ... with 39 more rows</code></pre>
+##    recvDeployName             `1`   `3`   `4`   `5`   `8`   `9`  `10`  `12`
+##    &lt;chr&gt;                    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Assateague State Park       NA    NA    NA    NA    NA     6    NA    NA
+##  2 BennettMeadow               NA    NA    NA    NA    NA    NA    11    NA
+##  3 Binbrook_Conservation_A…    NA    NA    NA     3    NA    NA    NA    NA
+##  4 BISE                        NA    NA    NA    NA    NA    NA     6    NA
+##  5 Bombay Hook                 NA    NA    NA    NA    NA    53    NA    NA
+##  6 Brier2                      NA    NA    NA    NA    NA    29    NA    NA
+##  7 BSC HQ                      NA    NA    NA    21    NA    NA    NA    NA
+##  8 BULL                        NA    NA    NA    NA    NA    38     5    NA
+##  9 Comeau (Marshalltown)       NA    NA    NA    NA    NA     4    NA    NA
+## 10 CONY                        NA    NA    NA    NA    NA    NA     7    NA
+## # … with 39 more rows</code></pre>
 <p>Alternatively, you can produce a list of sites where the maximum run length of detections was never greater than (say) 4, which may sometimes (but not always!) indicate they are simply false detections.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">month =</span> <span class="kw">month</span>(ts)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(recvDeployName, 
-    month) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">max.rl =</span> <span class="kw">max</span>(runLen)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">filter</span>(max.rl <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>(<span class="dt">key =</span> month, <span class="dt">value =</span> max.rl)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">month =</span> <span class="kw">month</span>(ts)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(recvDeployName, month) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">max.rl =</span> <span class="kw">max</span>(runLen)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(max.rl <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> month, <span class="dt">value =</span> max.rl)</code></pre>
 <pre><code>## # A tibble: 12 x 8
 ## # Groups:   recvDeployName [12]
 ##    recvDeployName               `1`   `3`   `4`   `5`   `9`  `10`  `12`
-##  * &lt;chr&gt;                      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 Binbrook_Conservation_Area NA    NA    NA     3.00 NA    NA    NA   
-##  2 Comeau (Marshalltown)      NA    NA    NA    NA     4.00 NA    NA   
-##  3 Koffler                    NA    NA     3.00 NA    NA    NA    NA   
-##  4 LLICALDAD                  NA     4.00 NA    NA    NA    NA    NA   
-##  5 MountToby                  NA    NA    NA    NA    NA     3.00 NA   
-##  6 NP mobile                  NA    NA    NA    NA     3.00 NA    NA   
-##  7 Old Cut                    NA    NA     4.00 NA    NA    NA    NA   
-##  8 OSCT                       NA    NA    NA    NA    NA     3.00 NA   
-##  9 Quempillen (Chile)         NA     3.00 NA    NA    NA    NA    NA   
-## 10 Sable West Light 2          3.00 NA    NA    NA    NA    NA    NA   
-## 11 Swallowtail                NA    NA    NA    NA    NA    NA     3.00
-## 12 TRUS                       NA    NA    NA    NA    NA     4.00 NA</code></pre>
+##    &lt;chr&gt;                      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Binbrook_Conservation_Area    NA    NA    NA     3    NA    NA    NA
+##  2 Comeau (Marshalltown)         NA    NA    NA    NA     4    NA    NA
+##  3 Koffler                       NA    NA     3    NA    NA    NA    NA
+##  4 LLICALDAD                     NA     4    NA    NA    NA    NA    NA
+##  5 MountToby                     NA    NA    NA    NA    NA     3    NA
+##  6 NP mobile                     NA    NA    NA    NA     3    NA    NA
+##  7 Old Cut                       NA    NA     4    NA    NA    NA    NA
+##  8 OSCT                          NA    NA    NA    NA    NA     3    NA
+##  9 Quempillen (Chile)            NA     3    NA    NA    NA    NA    NA
+## 10 Sable West Light 2             3    NA    NA    NA    NA    NA    NA
+## 11 Swallowtail                   NA    NA    NA    NA    NA    NA     3
+## 12 TRUS                          NA    NA    NA    NA    NA     4    NA</code></pre>
 <p>It is impossible to go through every possible issue that you may encounter here. Users are strongly encouraged to explore their data fully, and make reasoned decisions on which detections are unlikely or indeterminate. Through the rest of this chapter we will show you how to collect these runs, and apply them to your data prior to analysis.</p>
 <p>To start, we’ll create a data frame that contains the motusTagIDs and runIDs for the false positives identified above.</p>
 <p>We will then re-create the plot With the newly filtered data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create the filter</span>
-df.block.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, <span class="kw">month</span>(ts) <span class="op">%in%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">1</span>), motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16036</span>, <span class="dv">16038</span>, <span class="dv">16039</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>()
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create the filter</span>
+df.block<span class="fl">.1</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">month</span>(ts) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">1</span>),
+         motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16036</span>, <span class="dv">16038</span>, <span class="dv">16039</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>()
 
-<span class="co"># use the function we created earlier to make a new</span>
-<span class="co"># &#39;path&#39; data frame for plotting</span>
+<span class="co"># use the function we created earlier to make a new &#39;path&#39; data frame for plotting</span>
 df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(<span class="kw">filter</span>(df.alltags.sub, 
-    motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16011</span>, <span class="dv">16035</span>, <span class="dv">16036</span>, <span class="dv">16037</span>, <span class="dv">16038</span>, 
-        <span class="dv">16039</span>), <span class="op">!</span>(runID <span class="op">%in%</span><span class="st"> </span>df.block.<span class="dv">1</span><span class="op">$</span>runID)))
+                                      motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16011</span>, <span class="dv">16035</span>, <span class="dv">16036</span>, 
+                                                        <span class="dv">16037</span>, <span class="dv">16038</span>, <span class="dv">16039</span>), 
+                                      <span class="op">!</span>(runID <span class="op">%in%</span><span class="st"> </span>df.block<span class="fl">.1</span><span class="op">$</span>runID)))
 
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> df.alltags.path, <span class="kw">aes</span>(ts.h, recvLat))
-p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_path</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>motusTagID, 
-    <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">ncol =</span> <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, 
-    <span class="dt">vjust =</span> <span class="dv">1</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</code></pre></div>
+<span class="kw">ggplot</span>(<span class="dt">data =</span> df.alltags.path, <span class="kw">aes</span>(<span class="dt">x =</span> ts.h, <span class="dt">y =</span> recvLat)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">vjust =</span> <span class="dv">1</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>motusTagID, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/createRunsFilter1-1.png" width="672" /></p>
 <p>We can see that most of the remaining detections now appear to make more sense, with tags 16035, 16037 and 16039 having been detected during migration, in what appears to be a reasonable latitudinal progression with time, and the other three tags which were not detected very far away from their deployment location.</p>
 <p>The reader is encouraged to explore the rest of the tags within this group, to determine if there are additional false positives.</p>
@@ -543,7 +602,7 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
 <p>Before we go further, we need to check to see if any tags have ambiguous detections. If there are, we will need to explore them, and create additional filters to remove detections from our database.</p>
 <p><strong>Are any of your tags associated with ambiguous detections?</strong></p>
 <p>The ‘clarify()’ function in the motusClient R package provides a summary of ambiguities in the detections data. Each ambigID refers to a selection of detections that could belong to one or more (up to 6) motusTagIDs, which are listed in the id1 to id6 fields:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">clarify</span>(sql.motus)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">clarify</span>(sql.motus)</code></pre>
 <pre><code>##   ambigID numHits   id1                              fullID1   id2
 ## 1     -56    5734 22867 SampleData#272.1:5.3@166.38(M.22867) 23316
 ## 2    -106     279 17021        Selva#172:6.1@166.38(M.17021) 17357
@@ -574,60 +633,69 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
 ## 6         NA      NA    NA</code></pre>
 <p>We can see that there are six tags with ambiguous detections within this data set. Detections associated with five of the six ambigIDs could belong to one of two tags, and detections associated with one ambigID (-171) could belong to one of three tags. The fullID fields list the project names associated with the duplicate tags (e.g., “SampleData”, “Selva”, “Niles”), along with features of the tags (manufacturer tag ID, burst, and transmit frequency).</p>
 <p>Let’s get a vector of these, and do some plots to see where there may be issues.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.ambigTags &lt;-<span class="st"> </span><span class="kw">select</span>(df.alltags.sub, ambigID, motusTagID) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(ambigID)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>()</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">df.ambigTags &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(ambigID, motusTagID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(ambigID)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>() </code></pre>
 <p>Using our getpath function, we’ll create paths and then plot these detections. We’ll add some information to the plot, showing where (in time) the tags are actually ambiguous. We can then inspect the overall plots (or portions of them) to determine if we can contextually unambiguously assign a detection of an ambiguous tag to a single deployment.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(<span class="kw">filter</span>(df.alltags.sub, 
-    motusTagID <span class="op">%in%</span><span class="st"> </span>df.ambigTags<span class="op">$</span>motusTagID, tagProjID <span class="op">==</span><span class="st"> </span>
-<span class="st">        </span>proj.num)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># create a boolean variable for ambiguous</span>
-<span class="co"># detections:</span>
-<span class="kw">mutate</span>(<span class="dt">Ambiguous =</span> <span class="op">!</span>(<span class="kw">is.na</span>(ambigID)))
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(<span class="kw">filter</span>(df.alltags.sub, 
+                                      motusTagID <span class="op">%in%</span><span class="st"> </span>df.ambigTags<span class="op">$</span>motusTagID, 
+                                      tagProjID <span class="op">==</span><span class="st"> </span>proj.num)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># create a boolean variable for ambiguous detections:</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Ambiguous =</span> <span class="op">!</span>(<span class="kw">is.na</span>(ambigID))) 
 
-<span class="co"># to put all ambiguous tags from the same project</span>
-<span class="co"># on the same plot together, we need to create a</span>
-<span class="co"># new &#39;ambig tag&#39; variable we call &#39;newID.</span>
+<span class="co"># to put all ambiguous tags from the same project on the same plot together, we</span>
+<span class="co"># need to create a new &#39;ambig tag&#39; variable we call &#39;newID.</span>
 
-ambigTags.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(ambigID, 
-    motusTagID) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(ambigID)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">group_by</span>(ambigID) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">newID =</span> <span class="kw">paste</span>(<span class="kw">unique</span>(ambigID), 
-    <span class="kw">toString</span>(motusTagID), <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(df.ambigTags, 
-    <span class="dt">by =</span> <span class="st">&quot;ambigID&quot;</span>)
+ambigTags<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(ambigID, motusTagID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(ambigID)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(ambigID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">newID =</span> <span class="kw">paste</span>(<span class="kw">unique</span>(ambigID), <span class="kw">toString</span>(motusTagID), <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(df.ambigTags, <span class="dt">by =</span> <span class="st">&quot;ambigID&quot;</span>)
 
 <span class="co"># and merge that with df.alltags.path</span>
-df.alltags.path &lt;-<span class="st"> </span><span class="kw">left_join</span>(df.alltags.path, ambigTags.<span class="dv">2</span>, 
-    <span class="dt">by =</span> <span class="st">&quot;motusTagID&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(ts.h)
+df.alltags.path &lt;-<span class="st"> </span><span class="kw">left_join</span>(df.alltags.path, ambigTags<span class="fl">.2</span>, <span class="dt">by =</span> <span class="st">&quot;motusTagID&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(ts.h)
 
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> df.alltags.path, <span class="kw">aes</span>(ts.h, recvLat, 
-    <span class="dt">group =</span> Ambiguous, <span class="dt">colour =</span> Ambiguous))
-p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_path</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>newID, 
-    <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">ncol =</span> <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, 
-    <span class="dt">vjust =</span> <span class="dv">1</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</code></pre></div>
+<span class="kw">ggplot</span>(<span class="dt">data =</span> df.alltags.path, 
+       <span class="kw">aes</span>(<span class="dt">x =</span> ts.h, <span class="dt">y =</span> recvLat, <span class="dt">group =</span> Ambiguous, <span class="dt">colour =</span> Ambiguous)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">vjust =</span> <span class="dv">1</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>newID, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/plotAmbigs-1.png" width="672" /></p>
 <p>Let’s deal with the easy ones first.</p>
 <p><strong>ambigID -337: motusTagIDs 10811 and 16011</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">337</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(motusTagID, 
-    tagDeployStart, tagDeployEnd, tagDeployLat, tagDeployLon) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">tally</span>()</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-337</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(motusTagID, tagDeployStart, tagDeployEnd, tagDeployLat, tagDeployLon) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre>
 <pre><code>## # A tibble: 2 x 6
 ## # Groups:   motusTagID, tagDeployStart, tagDeployEnd, tagDeployLat [?]
 ##   motusTagID tagDeployStart      tagDeployEnd        tagDeployLat
 ##        &lt;int&gt; &lt;dttm&gt;              &lt;dttm&gt;                     &lt;dbl&gt;
 ## 1      10811 2014-10-28 07:00:00 2015-08-03 07:00:00         39.1
 ## 2      16011 2015-08-02 11:39:59 2015-12-17 11:39:59         51.5
-## # ... with 2 more variables: tagDeployLon &lt;dbl&gt;, n &lt;int&gt;</code></pre>
+## # … with 2 more variables: tagDeployLon &lt;dbl&gt;, n &lt;int&gt;</code></pre>
 <p>We can see from the plot that ambiguous tag -337 is ambiguous only at the beginning of the deployment.</p>
 <p>We can see from the summary of the tag deployment data that there were only 4 detections, at the exact latitude of deployment of tag 16011, and just before the non-ambiguous detections of motusTagID 16011. So the issue here is simply that the tail end of the deployment of tag 10811 slightly overlaps with the deployment of tag 16011. We can confidently claim these detections as belonging to motusTagID 16011, and remove the ambiguous detections assigned to the other tag.</p>
 <p>We’ll create another data frame to keep track of these runs.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># we want the detections associated with the</span>
-<span class="co"># motusTagID that we want to ultimately REMOVE from</span>
-<span class="co"># the data frame</span>
-df.block.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">337</span>, 
-    motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">10811</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">distinct</span>()</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># we want the detections associated with the motusTagID that we want to </span>
+<span class="co"># ultimately REMOVE from the data frame </span>
+df.block<span class="fl">.2</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-337</span>,
+         motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">10811</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>()</code></pre>
 <p><strong>ambigID -134: motusTagIDs 22905 and 23319</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">134</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(motusTagID, 
-    tagDeployStart, tagDeployEnd, tagDeployLat, tagDeployLon, 
-    <span class="kw">month</span>(ts)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tally</span>()</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-134</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(motusTagID, tagDeployStart, tagDeployEnd, 
+           tagDeployLat, tagDeployLon, <span class="kw">month</span>(ts)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre>
 <pre><code>## # A tibble: 4 x 7
 ## # Groups:   motusTagID, tagDeployStart, tagDeployEnd, tagDeployLat,
 ## #   tagDeployLon [?]
@@ -637,21 +705,25 @@ df.block.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw
 ## 2      22905 2016-10-01 16:00:00 2017-06-12 16:00:00         50.2
 ## 3      23319 2016-10-15 16:00:00 2017-06-26 16:00:00         50.2
 ## 4      23319 2016-10-15 16:00:00 2017-06-26 16:00:00         50.2
-## # ... with 3 more variables: tagDeployLon &lt;dbl&gt;, `month(ts)` &lt;dbl&gt;,
-## #   n &lt;int&gt;</code></pre>
+## # … with 3 more variables: tagDeployLon &lt;dbl&gt;, `month(ts)` &lt;dbl&gt;, n &lt;int&gt;</code></pre>
 <p>Here we have a similar situation, but one that is a bit more complex. Two identical tags were deployed at the same location, shortly after one another. Let’s examine a simple plot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">22905</span>, <span class="dv">23319</span>), 
-    <span class="kw">month</span>(ts) <span class="op">==</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(ts, sig, <span class="dt">group =</span> recvDeployName, 
-    <span class="dt">colour =</span> recvDeployName)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Time&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(recvLon <span class="op">~</span><span class="st"> </span>
-<span class="st">    </span>.)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, 
+                     motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">22905</span>, <span class="dv">23319</span>), 
+                     <span class="kw">month</span>(ts) <span class="op">==</span><span class="st"> </span><span class="dv">10</span>),
+       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">group =</span> recvDeployName, <span class="dt">colour =</span> recvDeployName)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(recvLon <span class="op">~</span><span class="st"> </span>.)</code></pre>
 <p><img src="MotusRBook_files/figure-html/ambig134b-1.png" width="672" /></p>
 <p>It appears that these are overlapping detections, at two sites in proximity to one another. Additional information from the field researchers may enable us to disentangle them, but it is not clear from the data.</p>
 <p>We also examine the non-ambiguous detections of tag -134 that occur in mid-April. These are very early for a Red Knot to be flying through southern Ontario, so should be questioned.</p>
 <p>We see from the following filter that there are two separate runs of length 3 each, separated by 3 days. If we inspect the rest of this batch (that is, if we also look at run lengths of 2 from the original data frame) …</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(df.alltags, batchID <span class="op">==</span><span class="st"> </span><span class="dv">79646</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(runLen, 
-    recvDeployName) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(runLen, recvDeployName) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">tally</span>()</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags <span class="op">%&gt;%</span>
+<span class="kw">filter</span>(batchID <span class="op">==</span><span class="st"> </span><span class="dv">79646</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(runLen, recvDeployName) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(runLen, recvDeployName) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>()</code></pre>
 <pre><code>## # A tibble: 2 x 3
 ## # Groups:   runLen [?]
 ##   runLen recvDeployName     n
@@ -659,19 +731,23 @@ df.block.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw
 ## 1      2 Koffler          110
 ## 2      3 Koffler           12</code></pre>
 <p>… we can see that there are many false positives at this tower around the same time (within the same batch) and so the run lengths of 3 are likely false positives. We will therefore remove all detections of this ambiguous tag from the database.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># we want the detections associated with the</span>
-<span class="co"># motusTagID that we want to ultimately REMOVE from</span>
-<span class="co"># the data frame</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># we want the detections associated with the motusTagID that we want to </span>
+<span class="co"># ultimately REMOVE from the data frame </span>
 
-df.block.<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">134</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>()</code></pre></div>
+df.block<span class="fl">.3</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-134</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>()</code></pre>
 <p><strong>ambigID -171: motusTagIDs 22778, 22902 and 22403</strong></p>
 <p>The ambiguous detections for this tag, which occur in the Great Lakes region, could also belong to motusTagID 22778 from the RBrownAMWO project or motusTagID 24303 from the Neonics project. Let’s take a closer look at these detections.</p>
 <p>First, find the deployment dates and locations for each tag.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(df.alltags, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">171</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(tagDeployStart)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">select</span>(motusTagID, tagProjID, <span class="dt">start =</span> tagDeployStart, 
-        <span class="dt">end =</span> tagDeployEnd, <span class="dt">lat =</span> tagDeployLat, <span class="dt">lon =</span> tagDeployLon, 
-        <span class="dt">species =</span> speciesEN) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(start)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-171</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(tagDeployStart)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(motusTagID, tagProjID, <span class="dt">start =</span> tagDeployStart, <span class="dt">end =</span> tagDeployEnd, 
+         <span class="dt">lat =</span> tagDeployLat, <span class="dt">lon =</span> tagDeployLon, <span class="dt">species =</span> speciesEN) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(start)</code></pre>
 <pre><code>##   motusTagID tagProjID               start                 end      lat
 ## 1      22902       176 2016-10-01 16:00:00 2017-06-12 16:00:00 50.19278
 ## 2      22778        82 2016-10-21 00:00:00 2018-09-09 00:00:00 45.13535
@@ -681,28 +757,33 @@ df.block.<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw
 ## 2 -67.29323     American Woodcock
 ## 3 -80.46900 White-crowned Sparrow</code></pre>
 <p>And plot the ambiguous detections.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.ambig.<span class="dv">171</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">171</span>)
+<pre class="sourceCode r"><code class="sourceCode r">df.ambig<span class="fl">.171</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-171</span>)
 
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> df.ambig.<span class="dv">171</span>, <span class="kw">aes</span>(ts, sig, <span class="dt">colour =</span> <span class="kw">as.factor</span>(port)))
-p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="kw">as_date</span>(ts) <span class="op">~</span><span class="st"> </span>recvDeployName, 
-    <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, 
-    <span class="dt">vjust =</span> <span class="dv">1</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</code></pre></div>
+<span class="kw">ggplot</span>(<span class="dt">data =</span> df.ambig<span class="fl">.171</span>, <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour =</span> <span class="kw">as.factor</span>(port))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">vjust =</span> <span class="dv">1</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">as_date</span>(ts) <span class="op">~</span><span class="st"> </span>recvDeployName, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/ambig171b-1.png" width="672" /></p>
 <p>We see that there are a large number of ambiguous detections on 10 May 2017 at Old Cut (Long Point, Lake Erie, Ontario), consistent with a bird ‘hanging around’. These are almost certainly detections of motusTagID ‘24303’ which was deployed at Old Cut on 10 May 2017. Subsequent detections on the 18th of May are near Old Cut (Bird Studies Canada HQ, Port Rowan, Ontario), and then a location to the North of Old Cut (Hagersville, Ontario). These detections are consistent with a bird departing on migration. Note in particular the pattern in the latter two panels of increasing then decreasing signal strength which indicates a bird is flying through the beam of an antenna.</p>
 <p>These detections belong to another project, so we simply remove all detections of that ambiguous tag from our database.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># we want the detections associated with the</span>
-<span class="co"># motusTagID that we want to ultimately REMOVE from</span>
-<span class="co"># the data frame</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># we want the detections associated with the motusTagID that we want to </span>
+<span class="co"># ultimately REMOVE from the data frame </span>
 
-df.block.<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">171</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>()</code></pre></div>
+df.block<span class="fl">.4</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-171</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>()</code></pre>
 <p><strong>ambigID -114: motusTagIDs 22897 and 24298</strong></p>
 <p>Next we look at the ambiguities for ambiguous tag -114.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(df.alltags, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">114</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(tagDeployStart)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">select</span>(motusTagID, tagProjID, <span class="dt">start =</span> tagDeployStart, 
-        <span class="dt">end =</span> tagDeployEnd, <span class="dt">lat =</span> tagDeployLat, <span class="dt">lon =</span> tagDeployLon, 
-        <span class="dt">species =</span> speciesEN) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(start)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-114</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(tagDeployStart)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(motusTagID, tagProjID, <span class="dt">start =</span> tagDeployStart, <span class="dt">end =</span> tagDeployEnd, 
+         <span class="dt">lat =</span> tagDeployLat, <span class="dt">lon =</span> tagDeployLon, <span class="dt">species =</span> speciesEN) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(start)</code></pre>
 <pre><code>##   motusTagID tagProjID               start                 end      lat
 ## 1      22897       176 2016-10-01 16:00:00 2017-06-12 16:00:00 50.19278
 ## 2      24298       146 2017-05-10 03:00:00 2017-06-30 03:00:00 42.60690
@@ -710,23 +791,28 @@ df.block.<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw
 ## 1 -63.74528              Red Knot
 ## 2 -80.46900 White-crowned Sparrow</code></pre>
 <p>We again subset these and plot them. An initial plot suggested that all of the detections are of a migratory flight, so we construct a somewhat different plot from the one above, that emphasizes this behaviour better.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.ambig.<span class="dv">114</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">114</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">LatLonStationName =</span> <span class="kw">paste</span>(recvLat, recvLon, 
-        recvDeployName, <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>))
+<pre class="sourceCode r"><code class="sourceCode r">df.ambig<span class="fl">.114</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-114</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">LatLonStationName =</span> <span class="kw">paste</span>(recvLat, recvLon, recvDeployName, <span class="dt">sep=</span><span class="st">&quot;: &quot;</span>))
 
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> df.ambig.<span class="dv">114</span>, <span class="kw">aes</span>(ts, sig, <span class="dt">colour =</span> LatLonStationName))
-
-p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
+<span class="kw">ggplot</span>(<span class="dt">data =</span> df.ambig<span class="fl">.114</span>, <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour =</span> LatLonStationName)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme_bw</span>() </code></pre>
 <p><img src="MotusRBook_files/figure-html/ambig114b-1.png" width="672" /></p>
 <p>Notice that the detections are consistent with a migratory departure from the Long Point area (Old Cut Field Station, Lake Erie, Ontario) about a week after the ambiguous tag 24298 was deployed at the same location. This again suggests that these ambiguous detections can be removed from our data because they belong to another project.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.block.<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">114</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>()</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">df.block<span class="fl">.5</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-114</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>()</code></pre>
 <p><strong>ambigID -106: motusTagIDs 17021 and 17357</strong></p>
 <p>These two tags pose an interesting problem. There is only a short period of overlap, between mid August 2015 and mid September. One individual is a Grey-cheeked Thrush, tagged in Colombia, the other a White-rumped Sandpiper, associated with the sample project.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(df.alltags, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">106</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(tagDeployStart)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">select</span>(motusTagID, tagProjID, <span class="dt">start =</span> tagDeployStart, 
-        <span class="dt">end =</span> tagDeployEnd, <span class="dt">lat =</span> tagDeployLat, <span class="dt">lon =</span> tagDeployLon, 
-        <span class="dt">species =</span> speciesEN) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(start)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-106</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(tagDeployStart)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(motusTagID, tagProjID, <span class="dt">start =</span> tagDeployStart, <span class="dt">end =</span> tagDeployEnd, 
+         <span class="dt">lat =</span> tagDeployLat, <span class="dt">lon =</span> tagDeployLon, <span class="dt">species =</span> speciesEN) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(start)</code></pre>
 <pre><code>##   motusTagID tagProjID               start                 end      lat
 ## 1      17021        57 2015-04-30 05:00:00 2015-09-14 05:00:00 11.12265
 ## 2      17357       176 2015-08-11 07:20:00 2015-12-26 07:20:00 51.48390
@@ -734,36 +820,44 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
 ## 1 -74.08735    Gray-cheeked Thrush
 ## 2 -80.45000 White-rumped Sandpiper</code></pre>
 <p>We plot the ambiguous detections to examine the period of overlap.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.ambig.<span class="dv">106</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">106</span>)
+<pre class="sourceCode r"><code class="sourceCode r">df.ambig<span class="fl">.106</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-106</span>)
 
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> df.ambig.<span class="dv">106</span>, <span class="kw">aes</span>(ts, sig, <span class="dt">colour =</span> <span class="kw">paste</span>(recvLat, 
-    recvLon, recvDeployName, <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>)))
-
-p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Lat/Lon and</span><span class="ch">\n</span><span class="st">Station Name&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="kw">as_date</span>(ts), <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</code></pre></div>
+<span class="kw">ggplot</span>(<span class="dt">data =</span> df.ambig<span class="fl">.106</span>, 
+       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, 
+           <span class="dt">colour =</span> <span class="kw">paste</span>(recvLat, recvLon, recvDeployName, <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Lat/Lon and</span><span class="ch">\n</span><span class="st">Station Name&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span><span class="kw">as_date</span>(ts), <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/ambig106b-1.png" width="672" /></p>
 <p>Both sets of detections are long run lengths, and look valid (increasing then decreasing signal strength). They are about a day apart, and so it is possible they represent two different birds, or the departure flight of the white-rumped sandpiper from its staging ground. Let’s use the siteTrans function (in the motus package, see section <a href="appendixC.html#siteTrans">C.13</a>) to examine the flight from Netitishi to MDR/Seal (in the Gulf of Maine)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.ambig.<span class="dv">106</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">17021</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># just pick one of the two ambiguous IDs</span>
-<span class="kw">siteTrans</span>(<span class="dt">latCoord =</span> <span class="st">&quot;recvLat&quot;</span>, <span class="dt">lonCoord =</span> <span class="st">&quot;recvLon&quot;</span>) <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r">df.ambig<span class="fl">.106</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">17021</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># just pick one of the two ambiguous IDs</span>
+<span class="st">  </span><span class="kw">siteTrans</span>(<span class="dt">latCoord =</span> <span class="st">&quot;recvLat&quot;</span>, <span class="dt">lonCoord =</span> <span class="st">&quot;recvLon&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(rate <span class="op">&lt;</span><span class="st"> </span><span class="dv">60</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># remove the simultaneous detections from Seal and MDR</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total.time =</span> <span class="kw">as.numeric</span>(<span class="kw">round</span>(<span class="kw">seconds_to_period</span>(tot_ts)))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="dt">start=</span>recvDeployName.x, <span class="dt">end=</span>recvDeployName.y, <span class="dt">date=</span>ts.x, <span class="st">&quot;rate(m/s)&quot;</span> =<span class="st"> </span>rate, 
-         dist, <span class="dt">total.time =</span> total.time, bearing)</code></pre></div>
+<span class="st">  </span><span class="kw">select</span>(<span class="dt">start =</span> recvDeployName.x, <span class="dt">end =</span> recvDeployName.y, 
+         <span class="dt">date =</span> ts.x, <span class="st">`</span><span class="dt">rate(m/s)</span><span class="st">`</span> =<span class="st"> </span>rate, 
+         dist, <span class="dt">total.time =</span> total.time, bearing)</code></pre>
 <pre><code>## # A tibble: 1 x 7
-##   start   end    date                `rate(m/s)`   dist total.time bearing
-##   &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;                    &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
-## 1 Netiti… MDR_4… 2015-09-02 04:18:42        17.1 1.21e⁶      70879     128</code></pre>
+##   start    end    date                `rate(m/s)`   dist total.time bearing
+##   &lt;chr&gt;    &lt;chr&gt;  &lt;dttm&gt;                    &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Netitis… MDR_4… 2015-09-02 04:18:42        17.1 1.21e6      70879    128.</code></pre>
 <p>These detections are &gt;1200 km distant from one another, but the flight speed (17 m/s) is consistent with a white-rumped Sandpiper. Given that the Gray-cheeked Thrush tag was near the end of its expected lifetime, we can reasonably claim these detections for our project, and remove the ambiguous detections associated with motusTagID 17021.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.block.<span class="dv">6</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">106</span>, 
-    motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">17021</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">distinct</span>()</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">df.block<span class="fl">.6</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-106</span>, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">17021</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>()</code></pre>
 <p><strong>ambigID -56: motusTagIDs 22867 and 23316</strong></p>
 <p>These two tags were also both deployed by the same project.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(df.alltags, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">56</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(tagDeployStart)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">select</span>(motusTagID, tagProjID, <span class="dt">start =</span> tagDeployStart, 
-        <span class="dt">end =</span> tagDeployEnd, <span class="dt">lat =</span> tagDeployLat, <span class="dt">lon =</span> tagDeployLon, 
-        <span class="dt">species =</span> speciesEN) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(start)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-56</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(tagDeployStart)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(motusTagID, tagProjID, <span class="dt">start =</span> tagDeployStart, <span class="dt">end =</span> tagDeployEnd, 
+         <span class="dt">lat =</span> tagDeployLat, <span class="dt">lon =</span> tagDeployLon, <span class="dt">species =</span> speciesEN) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(start)</code></pre>
 <pre><code>##   motusTagID tagProjID               start                 end      lat
 ## 1      22867       176 2016-09-06 15:35:00 2017-05-18 15:35:00 51.79861
 ## 2      23316       176 2016-10-02 16:00:00 2017-06-13 16:00:00 50.19278
@@ -771,63 +865,77 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point<
 ## 1 -80.69139 Pectoral Sandpiper
 ## 2 -63.74528           Red Knot</code></pre>
 <p>Tag 23316 was deployed by the James Bay Shorebird Project (sample project) about three weeks after tag 22867, which was deployed from a location far to the west.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.ambig.<span class="dv">56</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">56</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">sig =</span> <span class="kw">ifelse</span>(sig <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, sig <span class="op">*</span><span class="st"> </span><span class="op">-</span><span class="dv">1</span>, sig))
+<pre class="sourceCode r"><code class="sourceCode r">df.ambig<span class="fl">.56</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-56</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sig =</span> <span class="kw">ifelse</span>(sig <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, sig <span class="op">*</span><span class="st"> </span><span class="dv">-1</span>, sig))
 
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> df.ambig.<span class="dv">56</span>, <span class="kw">aes</span>(recvLon, ts, <span class="dt">colour =</span> <span class="kw">paste</span>(recvLat, 
-    recvLon, recvDeployName, <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>)))
-p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Lat/Lon and</span><span class="ch">\n</span><span class="st">Station Name&quot;</span>)</code></pre></div>
-<p><img src="MotusRBook_files/figure-html/ambig56b-1.png" width="672" /> We can see from the plot that a tag is detected consistently near longitude -65, which is near the deployment location for motusTagID 23316 and after it’s deployment start date, it was also present at -65 during and after detections far to the west. It’s likely all the detections at -65 belong to motusTagID 23316, but it is also clear that anything informative about this ambiguity occurs between about 9-11 October, so let’s zoom in on that part of the data set.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ts.begin &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&quot;2016-10-06 00:00:00&quot;</span>)
+<span class="kw">ggplot</span>(<span class="dt">data =</span> df.ambig<span class="fl">.56</span>, 
+       <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> ts, 
+           <span class="dt">colour =</span> <span class="kw">paste</span>(recvLat, recvLon, recvDeployName, <span class="dt">sep=</span><span class="st">&quot;: &quot;</span>))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name=</span><span class="st">&quot;Lat/Lon and</span><span class="ch">\n</span><span class="st">Station Name&quot;</span>) </code></pre>
+<p><img src="MotusRBook_files/figure-html/ambig56b-1.png" width="672" /></p>
+<p>We can see from the plot that a tag is detected consistently near longitude -65, which is near the deployment location for motusTagID 23316 and after it’s deployment start date, it was also present at -65 during and after detections far to the west. It’s likely all the detections at -65 belong to motusTagID 23316, but it is also clear that anything informative about this ambiguity occurs between about 9-11 October, so let’s zoom in on that part of the data set.</p>
+<pre class="sourceCode r"><code class="sourceCode r">ts.begin &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&quot;2016-10-06 00:00:00&quot;</span>)
 ts.end &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&quot;2016-10-12 23:00:00&quot;</span>)
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.ambig.<span class="dv">56</span>, ts <span class="op">&gt;</span><span class="st"> </span>ts.begin, 
-    ts <span class="op">&lt;</span><span class="st"> </span>ts.end), <span class="kw">aes</span>(ts, recvLon, <span class="dt">colour =</span> <span class="kw">paste</span>(recvLat, 
-    recvLon, recvDeployName, <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>)))
-p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Lat/Lon and</span><span class="ch">\n</span><span class="st">Station Name&quot;</span>)</code></pre></div>
+
+<span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.ambig<span class="fl">.56</span>, 
+                     ts <span class="op">&gt;</span><span class="st"> </span>ts.begin, 
+                     ts <span class="op">&lt;</span><span class="st"> </span>ts.end),
+       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> recvLon, 
+           <span class="dt">colour =</span> <span class="kw">paste</span>(recvLat, recvLon, recvDeployName, <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Lat/Lon and</span><span class="ch">\n</span><span class="st">Station Name&quot;</span>) </code></pre>
 <p><img src="MotusRBook_files/figure-html/ambig56c-1.png" width="672" /></p>
 <p>We can see that the ambiguous tag was detected consistently at Niapiskau and Grand Ile before and after the period when it was also detected to the north and west (at Washkaugou and Piskwamish) and then to the south (NBNJ, SHNJ, and CONY). We can look at this transition by filtering out the portion of the data not near Niapiskau, and again using the siteTrans function from the motus package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># other tag is a duplicate</span>
-df.<span class="fl">56.</span>tmp &lt;-<span class="st"> </span><span class="kw">filter</span>(df.ambig.<span class="dv">56</span>, <span class="op">!</span>(recvLat <span class="op">==</span><span class="st"> </span><span class="fl">50.2</span>), motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22867</span>) 
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># other tag is a duplicate</span>
+df.<span class="fl">56.</span>tmp &lt;-<span class="st"> </span><span class="kw">filter</span>(df.ambig<span class="fl">.56</span>, <span class="op">!</span>(recvLat <span class="op">==</span><span class="st"> </span><span class="fl">50.2</span>), motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22867</span>) 
 
 <span class="kw">siteTrans</span>(df.<span class="fl">56.</span>tmp, <span class="dt">latCoord =</span> <span class="st">&quot;recvLat&quot;</span>, <span class="dt">lonCoord =</span> <span class="st">&quot;recvLon&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(rate <span class="op">&lt;</span><span class="st"> </span><span class="dv">60</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># get rid of simultaneous detections</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total.time =</span> <span class="kw">as.numeric</span>(<span class="kw">round</span>(<span class="kw">seconds_to_period</span>(tot_ts)))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="dt">start=</span>recvDeployName.x, 
-         <span class="dt">end=</span>recvDeployName.y, 
-         <span class="dt">date=</span>ts.x, <span class="st">&quot;rate(m/s)&quot;</span> =<span class="st"> </span>rate, 
-         dist, <span class="dt">total.time =</span> total.time, bearing)</code></pre></div>
+<span class="st">  </span><span class="kw">select</span>(<span class="dt">start =</span> recvDeployName.x, 
+         <span class="dt">end =</span> recvDeployName.y, 
+         <span class="dt">date =</span> ts.x, <span class="st">`</span><span class="dt">rate(m/s)</span><span class="st">`</span> =<span class="st"> </span>rate, 
+         dist, <span class="dt">total.time =</span> total.time, bearing)</code></pre>
 <pre><code>## # A tibble: 2 x 7
-##   start   end    date                `rate(m/s)`   dist total.time bearing
-##   &lt;chr&gt;   &lt;chr&gt;  &lt;dttm&gt;                    &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
-## 1 Piskwa… Washk… 2016-10-09 22:49:59        20.3 7.63e⁴       3767     137
-## 2 Washka… SHNJ_… 2016-10-10 00:00:42        24.3 1.27e⁶      52386     157</code></pre>
+##   start   end     date                `rate(m/s)`   dist total.time bearing
+##   &lt;chr&gt;   &lt;chr&gt;   &lt;dttm&gt;                    &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Piskwa… Washka… 2016-10-09 22:49:59        20.3 7.63e4       3767    137.
+## 2 Washka… SHNJ_4… 2016-10-10 00:00:42        24.3 1.27e6      52386    157.</code></pre>
 <p>The bird made a 14.5 hour flight between Washkaugou and SHNJ at a rate of 24 m/s, which is plausible. The researchers involved may have other data to support or refute the inference (e.g. an actual sighting of the Red Knot still in Niapiskau after this flight was recorded) but it seems likely that while one tag remained at sites around longitude -65, another tag made the above migratory flights. We can make another more detailed plot of signal strength to examine these potential migratory flights more closely:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.<span class="fl">56.</span>tmp &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">56</span>, 
-    recvLon <span class="op">&lt;</span><span class="st"> </span><span class="op">-</span><span class="dv">70</span>)
+<pre class="sourceCode r"><code class="sourceCode r">df.<span class="fl">56.</span>tmp &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-56</span>, recvLon <span class="op">&lt;</span><span class="st"> </span><span class="dv">-70</span>)
 
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> df.<span class="fl">56.</span>tmp, <span class="kw">aes</span>(ts, sig, <span class="dt">colour =</span> <span class="kw">paste</span>(recvLat, 
-    recvLon, recvDeployName, <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>)))
-p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Lat/Lon and</span><span class="ch">\n</span><span class="st">Station Name&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="kw">as_date</span>(ts), <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</code></pre></div>
+<span class="kw">ggplot</span>(<span class="dt">data =</span> df.<span class="fl">56.</span>tmp, 
+       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, 
+           <span class="dt">colour =</span> <span class="kw">paste</span>(recvLat, recvLon, recvDeployName, <span class="dt">sep =</span> <span class="st">&quot;: &quot;</span>))) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Lat/Lon and</span><span class="ch">\n</span><span class="st">Station Name&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span><span class="kw">as_date</span>(ts), <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/ambig56e-1.png" width="672" /></p>
 <p>These look like typical fly-by patterns of increasing and then decreasing signal strength. This, coupled with overall detection patterns and knowledge of the species, leads us to believe that the ambiguous detections can be reasonably divided between the two individuals; one detected consistently around longitude -65 (23316), and the other migrating SW during the same period (22867).</p>
 <p>To address this problem, we need to create two filters - one that excludes ambiguous detections of tag 22867, and one that excludes some detections of 23316. In this instance, we can do this most easily by filtering on motusTagID and recvDeployName.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tag 23316 was only ever at &#39;Grand-Ile&#39;,</span>
-<span class="co"># &#39;Niapiskau&#39;, and tag 22867 was never detected at</span>
-<span class="co"># those sites. So we exclude all detections not at</span>
-<span class="co"># &#39;Grand-Ile&#39;, &#39;Niapiskau&#39; for motusTag 23316, and</span>
-<span class="co"># do the opposite for tag 22867.</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tag 23316 was only ever at &quot;Grand-Ile&quot;, &quot;Niapiskau&quot;, and tag 22867 was never</span>
+<span class="co"># detected at those sites. So we exclude all detections not at &quot;Grand-Ile&quot;,</span>
+<span class="co"># &quot;Niapiskau&quot; for motusTag 23316, and do the opposite for tag 22867.</span>
 
-df.block.<span class="dv">7</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">56</span>, 
-    motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">23316</span>, <span class="op">!</span>(recvDeployName <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Grand-Ile&quot;</span>, 
-        <span class="st">&quot;Niapiskau&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">distinct</span>()
+df.block<span class="fl">.7</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-56</span>, 
+         motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">23316</span>, 
+         <span class="op">!</span>(recvDeployName <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Grand-Ile&quot;</span>, <span class="st">&quot;Niapiskau&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>()
 
-df.block.<span class="dv">8</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, ambigID <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="dv">56</span>, 
-    motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22867</span>, recvDeployName <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Grand-Ile&quot;</span>, 
-        <span class="st">&quot;Niapiskau&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">distinct</span>()</code></pre></div>
+df.block<span class="fl">.8</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(ambigID <span class="op">==</span><span class="st"> </span><span class="dv">-56</span>, 
+         motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22867</span>, 
+         recvDeployName <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Grand-Ile&quot;</span>, <span class="st">&quot;Niapiskau&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>()</code></pre>
 </div>
 <div id="checking-validity-of-run-lengths-of-2" class="section level2">
 <h2><span class="header-section-number">5.5</span> Checking validity of run lengths of 2</h2>
@@ -838,44 +946,41 @@ df.block.<span class="dv">8</span> &lt;-<span class="st"> </span><span class="kw
 <div id="filter-and-save-to-rds" class="section level3">
 <h3><span class="header-section-number">5.6.1</span> Filter and save to RDS</h3>
 <p>To filter the data, we can simply join the df.block data frames back to the original data using a left_join(), and filter those from the data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine our df.block data frames into a single</span>
-<span class="co"># dataframe, and add probability = 0 for filtered</span>
-<span class="co"># records.</span>
-df.block.all &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(df.block.<span class="dv">0</span>, df.block.<span class="dv">1</span>, df.block.<span class="dv">2</span>, 
-    df.block.<span class="dv">3</span>, df.block.<span class="dv">4</span>, df.block.<span class="dv">5</span>, df.block.<span class="dv">6</span>, 
-    df.block.<span class="dv">7</span>, df.block.<span class="dv">8</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="dv">0</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine our df.block data frames into a single dataframe, and add probability</span>
+<span class="co"># = 0 for filtered records.</span>
+df.block.all &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(df.block<span class="fl">.0</span>, df.block<span class="fl">.1</span>, df.block<span class="fl">.2</span>, df.block<span class="fl">.3</span>,
+                          df.block<span class="fl">.4</span>, df.block<span class="fl">.5</span>, df.block<span class="fl">.6</span>, df.block<span class="fl">.7</span>, 
+                          df.block<span class="fl">.8</span>) <span class="op">%&gt;%</span>
+<span class="st">                </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="dv">0</span>)
 
-
-df.alltags.sub &lt;-<span class="st"> </span><span class="kw">left_join</span>(df.alltags, df.block.all, 
-    <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># assign a probability of 1 to the records that</span>
-<span class="co"># will not be filtered</span>
-<span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, 
-    probability)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre></div>
-<p>Now save the local data frame as an RDS file, for use in the next chapter. Recall from Section <a href="accessingData.html#exportDetections">3.8</a> that the RDS format preserves the R data structure, including time stamps. The other benefit of saving to RDS is that you have the output from a given workflow saved as a flat file, which you can access again with a simple readRDS statement.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">saveRDS</span>(df.alltags.sub, <span class="dt">file =</span> <span class="st">&quot;./data/dfAlltagsSub.rds&quot;</span>)</code></pre></div>
+ 
+df.alltags.sub &lt;-<span class="st"> </span><span class="kw">left_join</span>(df.alltags, df.block.all, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># assign a probability of 1 to the records that will not be filtered</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre>
+<p>Now save the local data frame as an RDS file, for use in the next chapter. Recall from Section <a href="accessingData.html#exportDetections">3.6</a> that the RDS format preserves the R data structure, including time stamps. The other benefit of saving to RDS is that you have the output from a given workflow saved as a flat file, which you can access again with a simple readRDS statement.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">saveRDS</span>(df.alltags.sub, <span class="dt">file =</span> <span class="st">&quot;./data/dfAlltagsSub.rds&quot;</span>)</code></pre>
 <p>And to read the data in again:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/dfAlltagsSub.rds&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/dfAlltagsSub.rds&quot;</span>)</code></pre>
 </div>
 <div id="save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data" class="section level3">
 <h3><span class="header-section-number">5.6.2</span> Save a custom filter in the motus database, and apply it to the data</h3>
 <p>As an alternative to saving your data as an RDS file, the Motus R package offers functionalities to save your filters directly within your .motus file. Once they are saved in your database, you can do the type of left_join() as above without having to rely on dataframes or an RDS file to store your data. To learn more about the functions available to work with Motus filters, refer to Appendix D for more details.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine our df.block data frames into a single</span>
-<span class="co"># dataframe, and add probability = 0 for filtered</span>
-<span class="co"># records.</span>
-df.block.all &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(df.block.<span class="dv">0</span>, df.block.<span class="dv">1</span>, df.block.<span class="dv">2</span>, 
-    df.block.<span class="dv">3</span>, df.block.<span class="dv">4</span>, df.block.<span class="dv">5</span>, df.block.<span class="dv">6</span>, 
-    df.block.<span class="dv">7</span>, df.block.<span class="dv">8</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="dv">0</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine our df.block data frames into a single dataframe, and add </span>
+<span class="co"># probability = 0 for filtered records.</span>
+df.block.all &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(df.block<span class="fl">.0</span>, df.block<span class="fl">.1</span>, df.block<span class="fl">.2</span>, df.block<span class="fl">.3</span>, 
+                          df.block<span class="fl">.4</span>, df.block<span class="fl">.5</span>, df.block<span class="fl">.6</span>, df.block<span class="fl">.7</span>, 
+                          df.block<span class="fl">.8</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="dv">0</span>)
 
-<span class="co"># create a new filter with name filtAmbigFalsePos</span>
-<span class="co"># and populate it with df.block.all</span>
-tbl.filter =<span class="st"> </span><span class="kw">writeRunsFilter</span>(sql.motus, <span class="st">&quot;filtAmbigFalsePos&quot;</span>, 
-    <span class="dt">df =</span> df.block.all, <span class="dt">delete =</span> <span class="ot">TRUE</span>)
+<span class="co"># create a new filter with name filtAmbigFalsePos and populate it with df.block.all</span>
+tbl.filter &lt;-<span class="st"> </span><span class="kw">writeRunsFilter</span>(sql.motus, <span class="st">&quot;filtAmbigFalsePos&quot;</span>, 
+                              <span class="dt">df =</span> df.block.all, <span class="dt">delete =</span> <span class="ot">TRUE</span>)
 
-<span class="co"># obtain a table object where the filtered records</span>
-<span class="co"># from tbl.filter.1 have been removed</span>
-tbl.alltags.sub &lt;-<span class="st"> </span><span class="kw">left_join</span>(tbl.alltags, tbl.filter, 
-    <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), 
-    <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre></div>
+<span class="co"># obtain a table object where the filtered records from tbl.filter.1 have been removed</span>
+tbl.alltags.sub &lt;-<span class="st"> </span><span class="kw">left_join</span>(tbl.alltags, tbl.filter, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre>
 
 </div>
 </div>
@@ -904,10 +1009,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -915,6 +1021,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },

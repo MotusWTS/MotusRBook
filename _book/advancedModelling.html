@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Motus R Book</title>
-  <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <title>8 Advanced modelling and analysis | Motus R Book</title>
+  <meta name="description" content="8 Advanced modelling and analysis | Motus R Book">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Motus R Book" />
+  <meta property="og:title" content="8 Advanced modelling and analysis | Motus R Book" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="BSC_Motus_Logo.png" />
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Motus R Book" />
+  <meta name="twitter:title" content="8 Advanced modelling and analysis | Motus R Book" />
   
   
   <meta name="twitter:image" content="BSC_Motus_Logo.png" />
@@ -35,6 +35,7 @@
 <link rel="next" href="appendixA.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -49,41 +50,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -171,7 +198,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.3" data-path="exploreData.html"><a href="exploreData.html#dataSummaries"><i class="fa fa-check"></i><b>6.3</b> Summarizing your data</a></li>
 <li class="chapter" data-level="6.4" data-path="exploreData.html"><a href="exploreData.html#dataPlotting"><i class="fa fa-check"></i><b>6.4</b> Plotting your data</a></li>
 <li class="chapter" data-level="6.5" data-path="exploreData.html"><a href="exploreData.html#mappingData"><i class="fa fa-check"></i><b>6.5</b> Mapping your data</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="exploreData.html"><a href="exploreData.html#googleMaps"><i class="fa fa-check"></i><b>6.5.1</b> Mapping with Google Maps</a></li>
+<li class="chapter" data-level="6.5.1" data-path="exploreData.html"><a href="exploreData.html#ggmaps"><i class="fa fa-check"></i><b>6.5.1</b> Mapping with the <code>ggmap</code> package</a></li>
 <li class="chapter" data-level="6.5.2" data-path="exploreData.html"><a href="exploreData.html#outlineMaps"><i class="fa fa-check"></i><b>6.5.2</b> Creating simple outline maps</a></li>
 </ul></li>
 </ul></li>
@@ -200,6 +227,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="B.4.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.4.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
 <li class="chapter" data-level="B.4.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.4.4</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
 <li class="chapter" data-level="B.4.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.4.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
+<li class="chapter" data-level="B.4.6" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.4.6</b> I see GPS coordinates of “0” or “999”</a></li>
+<li class="chapter" data-level="B.4.7" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.4.7</b> I see port with a value of -1</a></li>
+<li class="chapter" data-level="B.4.8" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.4.8</b> I get the error “Error in rsqlite_fetch(<span>res@ptr</span>, n = n) : database disk image is malformed”</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - The Motus R Package</a><ul>
@@ -325,9 +355,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="advancedModelling" class="section level1">
 <h1><span class="header-section-number">8</span> Advanced modelling and analysis</h1>
 <p>Numerous investigators have been developing more advanced tools for analyzing movement and behavioural data using Motus such as triangulation, position error and probability of detection, state-space movement modelling, and calculation of tag life histories (stopover duration, movement between subsequent sites, etc.). Aspects of some of these processes have been touched on in previous chapters. For investigators wishing to delve more into these subjects in more detail see:</p>
-<p><a href="https://doi.org/10.1016/j.ecolmodel.2018.08.006">Baldwin, Justin W., Katie Leap, John T. Finn, and Jennifer R. Smetzer. “Bayesian State-Space Models Reveal Unobserved off-Shore Nocturnal Migration from Motus Data.” Ecological Modelling 386 (October 24, 2018): 38–46.</a> Researchers propose new biologically informed Bayesian state-space models for animal movement in JAGS that include informed assumptions about behaviour. Building from the bsam package in R a simple localization routine predicts bird location and spatial uncertainty.</p>
-<p><a href="http://scholarworks.umass.edu/masters_theses_2/565">Baldwin, Justin. “Modelling Bird Migration with Motus Data and Bayesian State-Space Models.” University of Massachusetts Amherst, 2017.</a> New biologically informed Bayesian state-space models are proposed for animal movements in JAGS that include informed assumptions about behaviour. The models are evaluated using a simulation study, and are then applied by employing a localization routine on a Motus data set to estimate unobserved locations and behaviours.</p>
-<p><a href="https://arxiv.org/pdf/1805.11171.pdf">Janaswamy, Ramakrishna, Pamela H. Loring, and James D. McLaren. “A State Space Technique for Wildlife Position Estimation Using Non-Simultaneous Signal Strength Measurements.” ArXiv.org, May 28, 2018.</a> Combining a movement model to ensure biologically-consistent trajectories in three-dimensions, and an observation model to account for the effect of range, altitude, and bearing angle on the received signal strength, this novel state-space technique can estimate the location of airborne movements of VHF tags within the Motus array.</p>
+<p><a href="https://doi.org/10.1016/j.ecolmodel.2018.08.006">Baldwin, Justin W., Katie Leap, John T. Finn, and Jennifer R. Smetzer. “Bayesian State-Space Models Reveal Unobserved off-Shore Nocturnal Migration from Motus Data.” Ecological Modelling 386 (October 24, 2018): 38–46.</a>
+Researchers propose new biologically informed Bayesian state-space models for animal movement in JAGS that include informed assumptions about behaviour. Building from the bsam package in R a simple localization routine predicts bird location and spatial uncertainty.</p>
+<p><a href="http://scholarworks.umass.edu/masters_theses_2/565">Baldwin, Justin. “Modelling Bird Migration with Motus Data and Bayesian State-Space Models.” University of Massachusetts Amherst, 2017.</a>
+New biologically informed Bayesian state-space models are proposed for animal movements in JAGS that include informed assumptions about behaviour. The models are evaluated using a simulation study, and are then applied by employing a localization routine on a Motus data set to estimate unobserved locations and behaviours.</p>
+<p><a href="https://arxiv.org/pdf/1805.11171.pdf">Janaswamy, Ramakrishna, Pamela H. Loring, and James D. McLaren. “A State Space Technique for Wildlife Position Estimation Using Non-Simultaneous Signal Strength Measurements.” ArXiv.org, May 28, 2018.</a>
+Combining a movement model to ensure biologically-consistent trajectories in three-dimensions, and an observation model to account for the effect of range, altitude, and bearing angle on the received signal strength, this novel state-space technique can estimate the location of airborne movements of VHF tags within the Motus array.</p>
 <p>As more advanced analysis and modelling tools become available they will be posted here.</p>
 <p>We strongly encourage participants to offer sample scripts and functions that can be integrated into this book.</p>
 
@@ -361,7 +394,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -371,6 +404,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },

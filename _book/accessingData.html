@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Motus R Book</title>
-  <meta name="description" content="Motus R Book">
-  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+  <title>3 Accessing and understanding detections data | Motus R Book</title>
+  <meta name="description" content="3 Accessing and understanding detections data | Motus R Book">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Motus R Book" />
+  <meta property="og:title" content="3 Accessing and understanding detections data | Motus R Book" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="BSC_Motus_Logo.png" />
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Motus R Book" />
+  <meta name="twitter:title" content="3 Accessing and understanding detections data | Motus R Book" />
   
   
   <meta name="twitter:image" content="BSC_Motus_Logo.png" />
@@ -35,6 +35,7 @@
 <link rel="next" href="deployments.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -49,41 +50,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -105,31 +132,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#whatBookCovers"><i class="fa fa-check"></i><b>1.1</b> What this book does not cover</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.2</b> Prerequisites</a></li>
-<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#sampleData"><i class="fa fa-check"></i><b>1.3</b> Sample dataset</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#sampleData"><i class="fa fa-check"></i><b>1.3</b> Sample datasets</a></li>
 <li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="loadingPackages.html"><a href="loadingPackages.html"><i class="fa fa-check"></i><b>2</b> Loading R Packages</a><ul>
 <li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.1</b> Internal data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="accessingData.html"><a href="accessingData.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
-<li class="chapter" data-level="3.1" data-path="accessingData.html"><a href="accessingData.html#databaseTypes"><i class="fa fa-check"></i><b>3.1</b> Database types</a></li>
-<li class="chapter" data-level="3.2" data-path="accessingData.html"><a href="accessingData.html#loadPackages"><i class="fa fa-check"></i><b>3.2</b> Load relevant R packages</a></li>
-<li class="chapter" data-level="3.3" data-path="accessingData.html"><a href="accessingData.html#set-system-environment"><i class="fa fa-check"></i><b>3.3</b> Set system environment</a></li>
-<li class="chapter" data-level="3.4" data-path="accessingData.html"><a href="accessingData.html#importDetections"><i class="fa fa-check"></i><b>3.4</b> Importing tag detections</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="accessingData.html"><a href="accessingData.html#download-data-for-a-project-or-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.4.1</b> Download data for a project or receiver for the <em>first time</em></a></li>
-<li class="chapter" data-level="3.4.2" data-path="accessingData.html"><a href="accessingData.html#userAuthentication"><i class="fa fa-check"></i><b>3.4.2</b> User Authentication</a></li>
-<li class="chapter" data-level="3.4.3" data-path="accessingData.html"><a href="accessingData.html#logout"><i class="fa fa-check"></i><b>3.4.3</b> Logging out</a></li>
-<li class="chapter" data-level="3.4.4" data-path="accessingData.html"><a href="accessingData.html#downloadData"><i class="fa fa-check"></i><b>3.4.4</b> Downloading detection data</a></li>
-<li class="chapter" data-level="3.4.5" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.4.5</b> Update and open a local tag database</a></li>
-<li class="chapter" data-level="3.4.6" data-path="accessingData.html"><a href="accessingData.html#tellme"><i class="fa fa-check"></i><b>3.4.6</b> Check if new data are available</a></li>
-<li class="chapter" data-level="3.4.7" data-path="accessingData.html"><a href="accessingData.html#forceMeta"><i class="fa fa-check"></i><b>3.4.7</b> Force an update/re-import of tag and receiver deployment metadata</a></li>
-<li class="chapter" data-level="3.4.8" data-path="accessingData.html"><a href="accessingData.html#metadata"><i class="fa fa-check"></i><b>3.4.8</b> Import full tag and receiver metadata</a></li>
+<li class="chapter" data-level="3.1" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.1</b> Data structure</a></li>
+<li class="chapter" data-level="3.2" data-path="accessingData.html"><a href="accessingData.html#databaseTypes"><i class="fa fa-check"></i><b>3.2</b> Database types</a></li>
+<li class="chapter" data-level="3.3" data-path="accessingData.html"><a href="accessingData.html#loadPackages"><i class="fa fa-check"></i><b>3.3</b> Load relevant R packages</a></li>
+<li class="chapter" data-level="3.4" data-path="accessingData.html"><a href="accessingData.html#set-system-environment"><i class="fa fa-check"></i><b>3.4</b> Set system environment</a></li>
+<li class="chapter" data-level="3.5" data-path="accessingData.html"><a href="accessingData.html#importDetections"><i class="fa fa-check"></i><b>3.5</b> Downloading tag detections</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="accessingData.html"><a href="accessingData.html#downloadData"><i class="fa fa-check"></i><b>3.5.1</b> Download data for a project for the <em>first time</em></a></li>
+<li class="chapter" data-level="3.5.2" data-path="accessingData.html"><a href="accessingData.html#userAuthentication"><i class="fa fa-check"></i><b>3.5.2</b> User Authentication</a></li>
+<li class="chapter" data-level="3.5.3" data-path="accessingData.html"><a href="accessingData.html#download-data-for-a-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.5.3</b> Download data for a receiver for the <em>first time</em></a></li>
+<li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloading-multiple-receivers-at-the-same-time"><i class="fa fa-check"></i><b>3.5.4</b> Downloading multiple receivers at the same time</a></li>
+<li class="chapter" data-level="3.5.5" data-path="accessingData.html"><a href="accessingData.html#updating-all-.motus-files-within-a-directory"><i class="fa fa-check"></i><b>3.5.5</b> Updating all .motus files within a directory</a></li>
+<li class="chapter" data-level="3.5.6" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.6</b> Accessing downloaded detection data</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.5</b> Data structure</a></li>
-<li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#ensure-that-you-have-the-correct-database-version-checkversion"><i class="fa fa-check"></i><b>3.6</b> Ensure that you have the correct database version {checkVersion}</a></li>
-<li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.7</b> Convert a SQLITE table to a flat dataframe</a></li>
-<li class="chapter" data-level="3.8" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.8</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
-<li class="chapter" data-level="3.9" data-path="accessingData.html"><a href="accessingData.html#r-object-naming-convention"><i class="fa fa-check"></i><b>3.9</b> R object naming convention</a></li>
+<li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.6</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
+<li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.7</b> Update and/or open an existing database</a></li>
+<li class="chapter" data-level="3.8" data-path="accessingData.html"><a href="accessingData.html#tellme"><i class="fa fa-check"></i><b>3.8</b> Check if new data are available</a></li>
+<li class="chapter" data-level="3.9" data-path="accessingData.html"><a href="accessingData.html#forceMeta"><i class="fa fa-check"></i><b>3.9</b> Force an update/re-import of tag and receiver deployment metadata</a></li>
+<li class="chapter" data-level="3.10" data-path="accessingData.html"><a href="accessingData.html#metadata"><i class="fa fa-check"></i><b>3.10</b> Import full tag and receiver metadata</a></li>
+<li class="chapter" data-level="3.11" data-path="accessingData.html"><a href="accessingData.html#checkVersion"><i class="fa fa-check"></i><b>3.11</b> Ensure that you have the correct database version</a></li>
+<li class="chapter" data-level="3.12" data-path="accessingData.html"><a href="accessingData.html#r-object-naming-convention"><i class="fa fa-check"></i><b>3.12</b> R object naming convention</a></li>
+<li class="chapter" data-level="3.13" data-path="accessingData.html"><a href="accessingData.html#importSummary"><i class="fa fa-check"></i><b>3.13</b> Summary: download, access, and export data</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="deployments.html"><a href="deployments.html"><i class="fa fa-check"></i><b>4</b> Tag and Receiver Deployments</a><ul>
 <li class="chapter" data-level="4.1" data-path="deployments.html"><a href="deployments.html#load-relevant-r-packages-and-set-working-environment"><i class="fa fa-check"></i><b>4.1</b> Load relevant R packages and set working environment</a></li>
@@ -151,7 +180,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="dataCleaning.html"><a href="dataCleaning.html"><i class="fa fa-check"></i><b>5</b> Data Cleaning</a><ul>
-<li class="chapter" data-level="5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#load-required-packages"><i class="fa fa-check"></i><b>5.1</b> Load required packages</a></li>
+<li class="chapter" data-level="5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#loadDetectionsCleaning"><i class="fa fa-check"></i><b>5.1</b> Load required packages</a></li>
 <li class="chapter" data-level="5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#load-detections-data"><i class="fa fa-check"></i><b>5.2</b> Load detections data</a></li>
 <li class="chapter" data-level="5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.3</b> Preliminary data checks</a><ul>
 <li class="chapter" data-level="5.3.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.3.1</b> Summarize tag detections</a></li>
@@ -164,29 +193,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
-<li class="chapter" data-level="6.1" data-path="exploreData.html"><a href="exploreData.html#load-required-packages-1"><i class="fa fa-check"></i><b>6.1</b> Load required packages</a></li>
+<li class="chapter" data-level="6.1" data-path="exploreData.html"><a href="exploreData.html#load-required-packages"><i class="fa fa-check"></i><b>6.1</b> Load required packages</a></li>
 <li class="chapter" data-level="6.2" data-path="exploreData.html"><a href="exploreData.html#load-data"><i class="fa fa-check"></i><b>6.2</b> Load data</a></li>
 <li class="chapter" data-level="6.3" data-path="exploreData.html"><a href="exploreData.html#dataSummaries"><i class="fa fa-check"></i><b>6.3</b> Summarizing your data</a></li>
 <li class="chapter" data-level="6.4" data-path="exploreData.html"><a href="exploreData.html#dataPlotting"><i class="fa fa-check"></i><b>6.4</b> Plotting your data</a></li>
 <li class="chapter" data-level="6.5" data-path="exploreData.html"><a href="exploreData.html#mappingData"><i class="fa fa-check"></i><b>6.5</b> Mapping your data</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="exploreData.html"><a href="exploreData.html#googleMaps"><i class="fa fa-check"></i><b>6.5.1</b> Mapping with Google Maps</a></li>
+<li class="chapter" data-level="6.5.1" data-path="exploreData.html"><a href="exploreData.html#ggmaps"><i class="fa fa-check"></i><b>6.5.1</b> Mapping with the <code>ggmap</code> package</a></li>
 <li class="chapter" data-level="6.5.2" data-path="exploreData.html"><a href="exploreData.html#outlineMaps"><i class="fa fa-check"></i><b>6.5.2</b> Creating simple outline maps</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="vanishingBearings.html"><a href="vanishingBearings.html"><i class="fa fa-check"></i><b>7</b> Vanishing bearings</a><ul>
+<li class="chapter" data-level="7.1" data-path="vanishingBearings.html"><a href="vanishingBearings.html#thingsToBeAwareOf"><i class="fa fa-check"></i><b>7.1</b> Things to be aware of</a></li>
+<li class="chapter" data-level="7.2" data-path="vanishingBearings.html"><a href="vanishingBearings.html#estimateBearings"><i class="fa fa-check"></i><b>7.2</b> Estimate vanishing bearings: step-by-step</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="vanishingBearings.html"><a href="vanishingBearings.html#loadPackages7"><i class="fa fa-check"></i><b>7.2.1</b> Load the required packages</a></li>
+<li class="chapter" data-level="7.2.2" data-path="vanishingBearings.html"><a href="vanishingBearings.html#vanishingSample"><i class="fa fa-check"></i><b>7.2.2</b> Load the sample data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="vanishingBearings.html"><a href="vanishingBearings.html#select-individuals-that-show-clear-departure-detections"><i class="fa fa-check"></i><b>7.2.3</b> Select individuals that show clear departure detections</a></li>
+<li class="chapter" data-level="7.2.4" data-path="vanishingBearings.html"><a href="vanishingBearings.html#obtain-departure-times"><i class="fa fa-check"></i><b>7.2.4</b> Obtain departure times</a></li>
+<li class="chapter" data-level="7.2.5" data-path="vanishingBearings.html"><a href="vanishingBearings.html#calculate-vanishing-bearings-for-individuals-with-departure-times."><i class="fa fa-check"></i><b>7.2.5</b> Calculate vanishing bearings for individuals with departure times.</a></li>
+<li class="chapter" data-level="7.2.6" data-path="vanishingBearings.html"><a href="vanishingBearings.html#plot-the-vanishing-bearings-on-a-map"><i class="fa fa-check"></i><b>7.2.6</b> Plot the vanishing bearings on a map</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="vanishingBearings.html"><a href="vanishingBearings.html#vanishingLitCited"><i class="fa fa-check"></i><b>7.3</b> Literature Cited</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="advancedModelling.html"><a href="advancedModelling.html"><i class="fa fa-check"></i><b>8</b> Advanced modelling and analysis</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="appendixA.html"><a href="appendixA.html"><i class="fa fa-check"></i><b>A</b> Appendix - alltags structure</a></li>
 <li class="chapter" data-level="B" data-path="appendixB.html"><a href="appendixB.html"><i class="fa fa-check"></i><b>B</b> Appendix - Troubleshooting</a><ul>
 <li class="chapter" data-level="B.1" data-path="appendixB.html"><a href="appendixB.html#motusLogout"><i class="fa fa-check"></i><b>B.1</b> Logging out of motus</a></li>
 <li class="chapter" data-level="B.2" data-path="appendixB.html"><a href="appendixB.html#resumeDownload"><i class="fa fa-check"></i><b>B.2</b> Resume data download</a></li>
-<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#common-error-messages-and-solutions"><i class="fa fa-check"></i><b>B.3</b> Common error messages and solutions:</a><ul>
-<li class="chapter" data-level="B.3.1" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.3.1</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
-<li class="chapter" data-level="B.3.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.3.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
-<li class="chapter" data-level="B.3.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.3.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
-<li class="chapter" data-level="B.3.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.3.4</b> I get an error Object ‘xxxx’ not found, referring to a table or field name, or some of your examples in the book do not work.</a></li>
-<li class="chapter" data-level="B.3.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.3.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
-<li class="chapter" data-level="B.3.6" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.3.6</b> I see GPS coordinates of “0” or “999”</a></li>
-<li class="chapter" data-level="B.3.7" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.3.7</b> I see port with a value of -1</a></li>
-<li class="chapter" data-level="B.3.8" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.3.8</b> I get the error “Error in rsqlite_fetch(<a href="mailto:res@ptr">res@ptr</a>, n = n) : database disk image is malformed”</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#googleMapsKey"><i class="fa fa-check"></i><b>B.3</b> Google Maps</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixB.html"><a href="appendixB.html#common-error-messages-and-solutions"><i class="fa fa-check"></i><b>B.4</b> Common error messages and solutions:</a><ul>
+<li class="chapter" data-level="B.4.1" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.4.1</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
+<li class="chapter" data-level="B.4.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.4.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
+<li class="chapter" data-level="B.4.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.4.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
+<li class="chapter" data-level="B.4.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.4.4</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
+<li class="chapter" data-level="B.4.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.4.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
+<li class="chapter" data-level="B.4.6" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.4.6</b> I see GPS coordinates of “0” or “999”</a></li>
+<li class="chapter" data-level="B.4.7" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.4.7</b> I see port with a value of -1</a></li>
+<li class="chapter" data-level="B.4.8" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.4.8</b> I get the error “Error in rsqlite_fetch(<span>res@ptr</span>, n = n) : database disk image is malformed”</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - The Motus R Package</a><ul>
@@ -312,9 +355,48 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="accessingData" class="section level1">
 <h1><span class="header-section-number">3</span> Accessing and understanding detections data</h1>
 <p><strong>Before downloading your detection data, please ensure that you have no pending metadata issues through the online <a href="https://motus.org/data/issues">Data Issues page</a></strong></p>
+<p>This chapter will begin with an introduction to the structure of the detections database, followed by instructions on how to download and access the data. At the end, a summary section that includes a script to download, select variables, clean data, and export is provided (see <a href="accessingData.html#importSummary">3.13</a>)</p>
+<div id="databaseStructure" class="section level2">
+<h2><span class="header-section-number">3.1</span> Data structure</h2>
+<p>Each tag detection database is stored as an SQLite (‘dplyr::src_sqlite’) file with the extension ‘.motus’. The sqlite format was chosen because:</p>
+<ol style="list-style-type: decimal">
+<li>it is <strong>flexible</strong>, allowing for many data formats.</li>
+<li>it is <strong>accessible</strong> from many software platforms (not just R).</li>
+<li>it is <strong>appendable</strong>: the database can be created and updated on disk without having to read in and resave the entire contents. This will save time and computer memory when searching to see if any new detections are available for your project or receiver.</li>
+</ol>
+<p>The .motus file contains a series of interrelated tables where data are stored in a condensed format to save memory. The following tables are included in your .motus file;</p>
+<ol style="list-style-type: decimal">
+<li><strong>antDeps</strong>: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.</li>
+<li><strong>batchRuns</strong>: metadata for runIDs and associated batchIDs</li>
+<li><strong>batches</strong>: detection data for a given receiver and boot number.</li>
+<li><strong>filters</strong>: metadata related to user created filters associated with the specified receiver.<br />
+</li>
+<li><strong>gps</strong>: metadata related to Geographic Positioning System (GPS) position of receiver.</li>
+<li><strong>hits</strong>: detection data at the level of individual hits.</li>
+<li><strong>meta</strong>: metadata related to the project and datatype (tags vs. receivers) that are included in the .motus file</li>
+<li><strong>projAmbig</strong>: metadata related to what projects have ambiguous tag detections</li>
+<li><strong>projBatch</strong>: metadata for the number of detections contained in each batch</li>
+<li><strong>projs</strong>: metadata related to projects, e.g., project name, principal investigator.</li>
+<li><strong>recvDeps</strong>: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.</li>
+<li><strong>recvs</strong>: metadata related to receiver serial number and associated Motus deviceID</li>
+<li><strong>runs</strong>: detection data associated with a run (continuous detections of a unique tag on a given receiver).</li>
+<li><strong>runsFilters</strong>: a list of runIDs associated with user created filters and assigned probabilities.<br />
+</li>
+<li><strong>species</strong>: metadata related to species, e.g., unique identifier, scientific name, common name.</li>
+<li><strong>tagAmbig</strong>: metadata related to ambiguous tags, e.g., ambigID and associated motusTagID</li>
+<li><strong>tagDeps</strong>: metadata related to tag deployments, e.g., deployment date, location, and species.</li>
+<li><strong>tags</strong>: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).</li>
+</ol>
+<p>In addition to these tables, there are also ‘virtual’ tables or ‘views’, which have been created through queries that merge data from the various tables into a single convenient ‘view’ that contains all of the fields you are likely to need. The following views are currently included in each .motus file:</p>
+<ol style="list-style-type: decimal">
+<li><strong>allambigs</strong>: lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.</li>
+<li><strong>alltags</strong>: provides the full detection data for all tags, and all ambiguous (duplicate) tags, associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID.</li>
+</ol>
+<p>Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be used to filter and summarize the .motus database, without needing to first save the data as a <em>flat</em> file (a typical two-dimensional dataframe). The SQL format is very advantageous when you have a large file – the queries using SQL will be substantially faster than those done on a flat dataframe.</p>
+</div>
 <div id="databaseTypes" class="section level2">
-<h2><span class="header-section-number">3.1</span> Database types</h2>
-<p>There are two types of tag databases:</p>
+<h2><span class="header-section-number">3.2</span> Database types</h2>
+<p>There are two types of tag detection databases available for download:</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>receiver database</strong>: includes all detections of any registered tags from a single receiver. A receiver database has a name like SG-1234BBBK5678.motus, where the name is the serial number of the receiver.</p></li>
 <li><p><strong>project database</strong>: includes all detections of your registered tags from across the Motus network. A tag project database has a name like project-123.motus, where the number is the Motus project ID.</p></li>
@@ -326,65 +408,256 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 </div>
 <div id="loadPackages" class="section level2">
-<h2><span class="header-section-number">3.2</span> Load relevant R packages</h2>
-<p>Before we begin working with data, we need to load the required packages for this chapter. If you have not yet installed these packages (from github and CRAN) then please return to Chapter <a href="loadingPackages.html#loadingPackages">2</a> and do so.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># required &#39;motus&#39; package from github</span>
-<span class="kw">require</span>(motus)</code></pre></div>
+<h2><span class="header-section-number">3.3</span> Load relevant R packages</h2>
+<p>Before we begin working with data, we need to load the required packages for this chapter. If you have not yet <em>installed</em> these packages (from github and CRAN) then please return to Chapter <a href="loadingPackages.html#loadingPackages">2</a> and do so.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load required &#39;motus&#39; package from github</span>
+<span class="kw">library</span>(motus)</code></pre>
 </div>
 <div id="set-system-environment" class="section level2">
-<h2><span class="header-section-number">3.3</span> Set system environment</h2>
-<p>Set the system environment time zone to Greenwich Mean Time (GMT), to ensure that you are always working in GMT. This is a very important step, and should be part of every working session. If you fail to do this, then two problems can arise. Times are stored in the Motus database in GMT, and if you do not keep your environment in GMT, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;GMT&quot;</span>)</code></pre></div>
+<h2><span class="header-section-number">3.4</span> Set system environment</h2>
+<p>Set the system environment time zone to Greenwich Mean Time (UTC), to ensure that you are always working in UTC. This is a very important step, and should be part of every working session. If you fail to do this, then two problems can arise. Times are stored in the Motus database in UTC, and if you do not keep your environment in UTC, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</code></pre>
 </div>
 <div id="importDetections" class="section level2">
-<h2><span class="header-section-number">3.4</span> Importing tag detections</h2>
+<h2><span class="header-section-number">3.5</span> Downloading tag detections</h2>
 <p>To import tag detections for your project or receiver, you need a numerical project id or character scalar receiver serial number.</p>
-<p>The success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators. After downloading your data from the Motus server, users are encouraged to check for updated detection data and metadata each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.</p>
-<div id="download-data-for-a-project-or-receiver-for-the-first-time" class="section level3">
-<h3><span class="header-section-number">3.4.1</span> Download data for a project or receiver for the <em>first time</em></h3>
-<p>When downloading data from the Motus server for the first time, you must specify ‘new = TRUE’ and ‘update = TRUE’. Unless the directory that you want your data saved in is stated explicitly within the function call, data will be downloaded to the current working directory.</p>
+<p>The success of the Motus network is dependent on the timely upload of detection data from receivers, and on the maintenance of accurate and up to date tag and receiver metadata by collaborators. After downloading your data from the Motus server, users are encouraged to check for updated detection data (see sections <a href="accessingData.html#tagmeUpdate">3.7</a> and <a href="accessingData.html#tellme">3.8</a>) and metadata (see section <a href="accessingData.html#forceMeta">3.9</a>) each time they run an analysis, because collaborators can add detection data and metadata at any time, and these could influence the completeness of your own detections data.</p>
+<p>Be warned that large datasets can take some time (sometimes a few hours) to download from the Motus server when downloading for the first time. After the initial download, loading a .motus file into R and updating for any new data will be near instantaneous.</p>
+<div id="downloadData" class="section level3">
+<h3><span class="header-section-number">3.5.1</span> Download data for a project for the <em>first time</em></h3>
+<p>All data downloads are completed using the tagme() function in the motus R package. This function will save an SQLite database to your computer with the extension “.motus”; further details on data structure are in section <a href="accessingData.html#databaseStructure">3.1</a>. The following parameters are available for the tagme() function:</p>
+<ul>
+<li><strong>projRecv</strong>: integer project number OR a character scalar receiver serial number.</li>
+<li><strong>new</strong>: if set to “TRUE”, it will create a new empty .motus file in your local directory. Do not use this parameter or set it to “FALSE” if you already have a .motus file.</li>
+<li><strong>update</strong>: if set to “TRUE”, will download all available data to your existing .motus file. Must be set to “TRUE” on your first data download and any subsequent downloads if you wish to check for new data. Set to “FALSE” if you do not wish to check for new data (e.g., if working offline).</li>
+<li><strong>dir</strong>: Your .motus data is automatically saved to your working directory, unless you specify a different location using this parameter.</li>
+<li><strong>forceMeta</strong>: if set to “TRUE”, it will force an update of metadata to an existing .motus file.</li>
+</ul>
+<p>Throughout this book we use sample data (see section <a href="introduction.html#sampleData">1.3</a>) which has been assigned to project 176.</p>
+<p>Let’s get started by downloading data by project - this will include all detections of your tags on any receiver.</p>
+<p>Note that when downloading data from the Motus server for the <strong>first time</strong>, you must specify ‘new = TRUE’ and ‘update = TRUE’. You will also be prompted to login (see <a href="accessingData.html#userAuthentication">3.5.2</a> below).</p>
+<p><strong>Unless the directory that you want your data saved in is stated explicitly within the function call, data will be downloaded to the current working directory.</strong></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># lets start by determining what our working directory is so we know where our</span>
+<span class="co"># file will be saved you can change the working directory with setwd()</span>
+<span class="kw">getwd</span>()
+
+<span class="co"># specify the project number you wish to download detections for, in this case</span>
+<span class="co"># the sample data project;</span>
+proj.num &lt;-<span class="st"> </span><span class="dv">176</span>
+
+<span class="co"># As this is the first time you are downloading data for project 176, set new =</span>
+<span class="co"># TRUE and update = TRUE. This will create a .motus file in your current working</span>
+<span class="co"># directory, which was shown above using getwd() This will also create an SQL</span>
+<span class="co"># obect in your R environment called &quot;sql.motus&quot;</span>
+sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)
+
+<span class="co"># OR you can specify a different location to save the data by entering your</span>
+<span class="co"># preferred filepath. In this example we save to our data folder using the dir</span>
+<span class="co"># parameter:</span>
+sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, 
+                   <span class="dt">dir =</span> <span class="st">&quot;C:/Users/guest/Documents/data/&quot;</span>)</code></pre>
+<p>Using tagme() as shown above will download a file to your working or specified directory called “project-176.motus” for the sample data (the number in the file name corresponds to the project number). The progress of the download process should print on the console; if you are not seeing it, try scrolling down your screen while tagme is running.</p>
+<p>In the event that your connection to the Motus server fails prior to a complete download (e.g., due to a poor internet connection), use ‘tagme(proj.num, update = TRUE)’ to continue the download from where it left off, ensuring to specify a directory if it is saved outside the working directory.</p>
 </div>
 <div id="userAuthentication" class="section level3">
-<h3><span class="header-section-number">3.4.2</span> User Authentication</h3>
-<p>Note that the first time you call a function using the Motus R package, you will be asked to enter your motus.org username and password in the R console to authenticate your access to project data. This will only happen once per R session. If you do not have a Motus username and password, you can sign up at <a href="https://motus.org/data/user/new" class="uri">https://motus.org/data/user/new</a>. Permission to access project data will then be granted by Motus staff or the project principal investigator.</p>
-<p>Throughout this book we will use sample data (see section <a href="introduction.html#sampleData">1.3</a>) which has been assigned to project 176. When accessing this data you will need to login using username and password ‘motus.sample’ in the R console when prompted by the tagme() function (see section <a href="accessingData.html#downloadData">3.4.4</a>). It will look like this:</p>
-<p><img src="images/SampleLogin.PNG" width="244" style="display: block; margin: auto;" /></p>
+<h3><span class="header-section-number">3.5.2</span> User Authentication</h3>
+<div id="login" class="section level4">
+<h4><span class="header-section-number">3.5.2.1</span> Login</h4>
+<p>The first time you call a function using the Motus R package, you will be asked to enter your motus.org username and password in the R console to authenticate your access to project data. This will only happen once per R session. If you do not have a Motus username and password, you can sign up at <a href="https://motus.org/data/user/new" class="uri">https://motus.org/data/user/new</a>. Permission to access project data will then be granted by Motus staff or the project principal investigator.</p>
+<p>Throughout this book we use sample data (see section <a href="introduction.html#sampleData">1.3</a>) which has been assigned to project 176. When accessing this data you will need to login using username and password ‘motus.sample’ in the R console when prompted by the tagme() function (see section <a href="accessingData.html#downloadData">3.5.1</a>). It will look like this:</p>
+<p><img src="images/SampleLogin.png" style="display: block; margin: auto;" /></p>
+<p>To download data for one of your own projects, you simply need to change the project number to that of your own project in the tagme() call, and enter your own Motus login/password in the R console when prompted. If you are already logged in as the sample data user, you will need to first logout to download your own data (see <a href="accessingData.html#logout">3.5.2.2</a>).</p>
 </div>
-<div id="logout" class="section level3">
-<h3><span class="header-section-number">3.4.3</span> Logging out</h3>
+<div id="logout" class="section level4">
+<h4><span class="header-section-number">3.5.2.2</span> Logging out</h4>
 <p>Once you are logged in under one user account, you will not be able to access data from another account. If you need to logout of the current account to access other data, you can run the code below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">motusLogout</span>()</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">motusLogout</span>()</code></pre>
 </div>
-<div id="downloadData" class="section level3">
-<h3><span class="header-section-number">3.4.4</span> Downloading detection data</h3>
-<p>Let’s get started. Note that there are no receivers registered to sample project 176, so the second call (by receiver) will not find any data. You can, however, replace the receiver serial number with one registered to your project if you are logged in under your own credentials (ie. not motus.sample account, see section <a href="accessingData.html#logout">3.4.3</a>).</p>
-<p><strong>All downloads will be saved to your working directory, unless otherwise specified in the tagme call as detailed below.</strong></p>
-<p>Be warned that large datasets can take some time (sometimes a few hours) to download from the Motus server when downloading for the first time (‘new = TRUE’ in the tagme function call). After the initial download, loading a .motus file into R using ‘tagme(proj.num, update = TRUE)’ will be near instantaneous. The download process should print its progress on the console; if you are not seeing it, try scrolling down your screen while tagme is running.</p>
-<p>In the event that your connection to the Motus server fails prior to the download completing (e.g., due to poor internet connection), use ‘tagme(proj.num, update = TRUE)’ to continue the download from where it left off, ensuring to specify a directory if it is saved outside the working directory.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>()  <span class="co"># show working directory; use setwd() to change it.</span>
-proj.num &lt;-<span class="st"> </span><span class="dv">176</span>  <span class="co"># 176 for the sample data, or insert your project number</span>
+</div>
+<div id="download-data-for-a-receiver-for-the-first-time" class="section level3">
+<h3><span class="header-section-number">3.5.3</span> Download data for a receiver for the <em>first time</em></h3>
+<p>We could also download data by receiver through the same process as described above. This will provide you with all detections of any tags on the specified receiver. As there are no receivers registered to sample project 176, <strong>this call will not work</strong>. If you have a receiver registered to your own project, replace the receiver serial number in the tagme call below with the serial number for your own receiver, ensuring that you are logged in using your own credentials (see section <a href="accessingData.html#logout">3.5.2.2</a>).</p>
+<pre class="sourceCode r"><code class="sourceCode r">proj.num &lt;-<span class="st"> &quot;SG-123BBBK1234&quot;</span>
+sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</code></pre>
+<p>This will download a file to your working directory named ‘SG-123BBBK1234.motus’.</p>
+<p>Users may wish to work directly with the .motus SQLite file. However, since many users are more familiar with a ‘flat’ dataframe format, instructions to view the the data as a flat dataframe within R, and on how to export the flat file to .csv or .rds format, are included below. Throughout the majority of this book, we use a flat dataframe format.</p>
+</div>
+<div id="downloading-multiple-receivers-at-the-same-time" class="section level3">
+<h3><span class="header-section-number">3.5.4</span> Downloading multiple receivers at the same time</h3>
+<p>If you have a large number of receivers in your project, and wish to get receiver specific data for each one, rather than downloading them one by one as above, we can download them with a simple loop. Note that since the sample project doesn’t have any receivers associated with it, this script will not result in a download but you can try it with your own project if you have receivers.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># specify the project whose receivers you wish to download:</span>
+proj.num &lt;-<span class="st"> </span><span class="dv">176</span>
 
-sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, 
-    <span class="dt">update =</span> <span class="ot">TRUE</span>)  <span class="co"># for project tag database</span>
-sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> <span class="st">&quot;SG-123BBBK1234&quot;</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, 
-    <span class="dt">new =</span> <span class="ot">TRUE</span>)  <span class="co"># for receiver tag database</span></code></pre></div>
-<p>If you don’t want to use the working directory, specify a directory to create and open a local tag database using ‘dir =’:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, 
-    <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</code></pre></div>
-<p>The tagme() function will write a copy of your tag database to the working or specified folder, stored as an SQLite file with the extension ‘.motus’.</p>
+<span class="co"># get a copy of the metadata only</span>
+sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">FALSE</span>, 
+                   <span class="dt">dir =</span> <span class="st">&quot;C:/Users/guest/Documents/data/&quot;</span>)
+<span class="kw">metadata</span>(sql.motus, proj.num)
+tbl.recvDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;recvDeps&quot;</span>)
+
+df.serno &lt;-<span class="st"> </span>tbl.recvDeps <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(projectID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(serno) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()
+
+<span class="co"># loop through each receiver (may take a while!)</span>
+<span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df.serno)) {
+  <span class="kw">tagme</span>(df.serno[row, <span class="st">&quot;serno&quot;</span>], <span class="dt">dir =</span> <span class="st">&quot;C:/Users/guest/Documents/data/&quot;</span>, 
+        <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)
+}
+
+<span class="co"># Note you can remove the dir call if you want to save it to your working</span>
+<span class="co"># directory, just make sure that you use the same directory in both calls</span></code></pre>
+<p>You can also create a list of receivers you’d like to download if you don’t want to download project-wide receivers:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create list of receivers you&#39;d like to download</span>
+df.serno &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SG-AB12RPI3CD34&quot;</span>, <span class="st">&quot;SG-1234BBBK4321&quot;</span>)<span class="er">)</span>
+
+<span class="co"># loop through each receiver (may take a while!), and save to the working directory</span>
+<span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(df.serno)) {
+  <span class="kw">tagme</span>(df.serno[k], <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)
+}
+
+<span class="co"># loop through each receiver (may take a while!), and save to a specified directory</span>
+<span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(df.serno)) {
+  <span class="kw">tagme</span>(df.serno[k], <span class="dt">dir =</span> <span class="st">&quot;/Users/zoecrysler/Downloads/&quot;</span>, 
+        <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)
+}</code></pre>
 </div>
-<div id="tagmeUpdate" class="section level3">
-<h3><span class="header-section-number">3.4.5</span> Update and open a local tag database</h3>
-<p>To open and update a detections database that already exists (has been downloaded previously):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">FALSE</span>, 
-    <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)  <span class="co"># use dir = to specify a directory</span></code></pre></div>
-<p>If you are working offline, and want to load an already downloaded database without connecting to the server, use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">update =</span> <span class="ot">FALSE</span>, 
-    <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</code></pre></div>
+<div id="updating-all-.motus-files-within-a-directory" class="section level3">
+<h3><span class="header-section-number">3.5.5</span> Updating all .motus files within a directory</h3>
+<p>Once you have .motus files, you can also update them all by simply calling the tagme() function but leaving all arguments blank, apart from the directory:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># If you have them saved your working directory:</span>
+<span class="kw">tagme</span>()
+
+<span class="co"># If you have them saved in a different directory:</span>
+<span class="kw">tagme</span>(<span class="dt">dir =</span> <span class="st">&quot;C:/Users/guest/Documents/data/&quot;</span>)</code></pre>
 </div>
-<div id="tellme" class="section level3">
-<h3><span class="header-section-number">3.4.6</span> Check if new data are available</h3>
-<p>To check if new data are available without downloading the data, you can use the tellme() function, which returns a list with:</p>
+<div id="accessSQL" class="section level3">
+<h3><span class="header-section-number">3.5.6</span> Accessing downloaded detection data</h3>
+<p>Now that we’ve downloaded our data as an SQLite database and loaded it into an R object called ‘sql.motus’, we want to access the tables stored within. Detailed descriptions of all the tables stored in the .motus file can be found in section <a href="accessingData.html#databaseStructure">3.1</a>.</p>
+<p>You can also view the list of tables, and variables contained within those tables, using the code below:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># specify the filepath where your .motus file is saved, and the file name.</span>
+file.name &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">SQLite</span>(), <span class="st">&quot;./data/project-176.motus&quot;</span>) 
+
+<span class="co"># get a list of tables in the .motus file specified above.</span>
+<span class="kw">dbListTables</span>(file.name) 
+
+<span class="co"># get a list of variables in the &quot;species&quot; table in the .motus file.</span>
+<span class="kw">dbListFields</span>(file.name, <span class="st">&quot;species&quot;</span>) </code></pre>
+<p>The <em>virtual</em> table ‘alltags’ contains the detection data, along with all metadata variables that most users will ever need from the various underlying .motus tables. We access the tables using the tbl() function from the dplyr package which we installed in Chapter 2:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this retrieves the &quot;alltags&quot; table from the &quot;sql.motus&quot; SQLite file we read in earlier</span>
+tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>) <span class="co"># virtual table</span></code></pre>
+<p>We now have a new ‘tbl.alltags’ object in R. The underlying structure of these tables is a list of length 2:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(tbl.alltags)</code></pre>
+<p>The first part of the list, ‘src’, is a list that provides details of the SQLiteConnection, including the directory where the database is stored. The second part is a list that includes the underlying table. Thus, the R object ‘alltags’ is a <em>virtual</em> table that stores the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and functions within the dplyr package can be used to manipulate and summarize the tables before collecting the results into a typical ‘flat’ format dataframe.</p>
+<p>If you want to use familiar functions to get access to components of the underlying data frame, then use the ‘collect’ function. For example, to look at the names of the variables in the alltags table:</p>
+<pre class="sourceCode r"><code class="sourceCode r">tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">names</span>() <span class="co"># list the variable names in the table</span></code></pre>
+<pre><code>##  [1] &quot;hitID&quot;             &quot;runID&quot;             &quot;batchID&quot;          
+##  [4] &quot;ts&quot;                &quot;sig&quot;               &quot;sigsd&quot;            
+##  [7] &quot;noise&quot;             &quot;freq&quot;              &quot;freqsd&quot;           
+## [10] &quot;slop&quot;              &quot;burstSlop&quot;         &quot;done&quot;             
+## [13] &quot;motusTagID&quot;        &quot;ambigID&quot;           &quot;port&quot;             
+## [16] &quot;runLen&quot;            &quot;bootnum&quot;           &quot;tagProjID&quot;        
+## [19] &quot;mfgID&quot;             &quot;tagType&quot;           &quot;codeSet&quot;          
+## [22] &quot;mfg&quot;               &quot;tagModel&quot;          &quot;tagLifespan&quot;      
+## [25] &quot;nomFreq&quot;           &quot;tagBI&quot;             &quot;pulseLen&quot;         
+## [28] &quot;tagDeployID&quot;       &quot;speciesID&quot;         &quot;markerNumber&quot;     
+## [31] &quot;markerType&quot;        &quot;tagDeployStart&quot;    &quot;tagDeployEnd&quot;     
+## [34] &quot;tagDeployLat&quot;      &quot;tagDeployLon&quot;      &quot;tagDeployAlt&quot;     
+## [37] &quot;tagDeployComments&quot; &quot;fullID&quot;            &quot;deviceID&quot;         
+## [40] &quot;recvDeployID&quot;      &quot;recvDeployLat&quot;     &quot;recvDeployLon&quot;    
+## [43] &quot;recvDeployAlt&quot;     &quot;recv&quot;              &quot;recvDeployName&quot;   
+## [46] &quot;recvSiteName&quot;      &quot;isRecvMobile&quot;      &quot;recvProjID&quot;       
+## [49] &quot;antType&quot;           &quot;antBearing&quot;        &quot;antHeight&quot;        
+## [52] &quot;speciesEN&quot;         &quot;speciesFR&quot;         &quot;speciesSci&quot;       
+## [55] &quot;speciesGroup&quot;      &quot;tagProjName&quot;       &quot;recvProjName&quot;     
+## [58] &quot;gpsLat&quot;            &quot;gpsLon&quot;            &quot;gpsAlt&quot;</code></pre>
+<p>To convert the ‘alltags’ view or other table in the .motus file into a typical ‘flat’ format, i.e., with every record for each field filled in, use the ‘collect()’ and ‘as.data.frame()’ functions. The output can then be further manipulated, or used to generate a RDS file of your data for archiving or export.</p>
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as.data.frame</span>()</code></pre>
+<p>Now we have a flat dataframe of the alltags table called ‘df.alltags’. We can look at some metrics of the file:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(df.alltags)     <span class="co"># field names</span>
+<span class="kw">str</span>(df.alltags)       <span class="co"># structure of your data fields</span>
+<span class="kw">head</span>(df.alltags)      <span class="co"># prints the first 6 rows of your df to the console</span>
+<span class="kw">summary</span>(df.alltags)   <span class="co"># summary of each column in your df</span></code></pre>
+<p>Note that the format of the time stamp (ts) field is numeric and represents seconds since January 1 1970. We recommend that when you transform your tables into flat dataframes, that you format the time stamp using the lubridate package at that time, e.g.:</p>
+<pre class="sourceCode r"><code class="sourceCode r">df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">     </span><span class="co"># for all fields in the df (data frame)</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))
+
+<span class="co"># the tz = &quot;UTC&quot; is not necessary here, provided you have set your system time to UTC</span>
+<span class="co"># ... but it serves as a useful reminder!</span></code></pre>
+<p>Note that time stamps can only be manipulated in this way <em>after</em> collecting the data into a flat dataframe.</p>
+<p>If you want to load only part of your entire virtual table (e.g. certain fields, certain tags, or all tags from a specified project or species), you can use dplyr functions to filter the data before collecting into a dataframe. Some examples are below:</p>
+<ol style="list-style-type: decimal">
+<li>To select certain variables:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># to grab a subset of variables, in this case a unique list of Motus tag IDs at</span>
+<span class="co"># each receiver and antenna.</span>
+df.alltagsSub &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(recv, port, motusTagID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as.data.frame</span>() </code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>To select certain tag IDs:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># filter to include only motusTagIDs 16011, 23316</span>
+df.alltagsSub &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16011</span>, <span class="dv">23316</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">    </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))    </code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>To select a specified species:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># filter to only Red Knot (using speciesID)</span>
+df<span class="fl">.4670</span> &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(speciesID <span class="op">==</span><span class="st"> </span><span class="dv">4670</span>) <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">    </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))  
+
+<span class="co"># filter to only Red Knot (using English name)</span>
+df.redKnot &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(speciesEN <span class="op">==</span><span class="st"> &quot;Red Knot&quot;</span>) <span class="op">%&gt;%</span><span class="st">   </span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">    </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))    </code></pre>
+<p>Using dplyr(), your virtual table can also be summarized before converting to a flat file. For example, to find the number of different detections for each tag at each receiver:</p>
+<pre class="sourceCode r"><code class="sourceCode r">df.detectSum &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(motusTagID, recv) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tally</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">as.data.frame</span>() </code></pre>
+<p>In later chapter(s) we will show you additional ways of summarizing and working with your data.</p>
+</div>
+</div>
+<div id="exportDetections" class="section level2">
+<h2><span class="header-section-number">3.6</span> Export your ‘flat’ dataframe to CSV or RDS file</h2>
+<p>A good workflow is to create a script that deals with all your data issues (as described in later chapters), and then saves the resulting dataframe for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. We use an .rds file, which preserves all of the associated R data structures (such as time stamps).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># save the df.alltags file as an RDS file in your data folder</span>
+<span class="kw">saveRDS</span>(df.alltags, <span class="st">&quot;./data/df.alltags.RDS&quot;</span>)  </code></pre>
+<p>Some users may also want to export the flat dataframe into a .csv file for analysis in other programs. This can easily be done with the following code. Note that it <strong>does not</strong> preserve time stamps:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># save the df.alltags file as a .csv file in your data folder</span>
+<span class="kw">write.csv</span>(df.alltags, <span class="st">&quot;./data/df.alltags.CSV&quot;</span>)</code></pre>
+</div>
+<div id="tagmeUpdate" class="section level2">
+<h2><span class="header-section-number">3.7</span> Update and/or open an existing database</h2>
+<p>As you or other users upload data to our server, you may have additional tag detections that weren’t present in your initial data download. Since the .motus file is a SQLite database, you can update your existing file with any newly available data, rather than doing a complete new download of the entire database. To open and update a detections database that already exists (has been downloaded previously), we use the tagme() function but set new = FALSE:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use dir = to specify a directory</span>
+sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">FALSE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>) </code></pre>
+<p>If you are working offline, and simply want to open an already downloaded database without connecting to the server to update, use new = FALSE and update = FALSE:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use dir = to specify a directory</span>
+sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">FALSE</span>, <span class="dt">update =</span> <span class="ot">FALSE</span>)</code></pre>
+</div>
+<div id="tellme" class="section level2">
+<h2><span class="header-section-number">3.8</span> Check if new data are available</h2>
+<p>To check if new data are available for your project or receiver without downloading the data, you can use the tellme() function, which returns a list with:</p>
 <ul>
 <li><strong>numHits</strong>: number of new tag detections.</li>
 <li><strong>numBytes</strong>: approximate uncompressed size of data transfer required, in megabytes.</li>
@@ -393,189 +666,84 @@ sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span clas
 <li><strong>numGPS</strong>: number of GPS records of new data.</li>
 </ul>
 <p>The following assumes that a local copy of the database already exists:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num)  <span class="co"># If db is in the working directory</span>
-<span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)  <span class="co"># To specify a different directory</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num)                    <span class="co"># If db is in the working directory</span>
+<span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)   <span class="co"># To specify a different directory</span></code></pre>
 <p>To check how much data is available for a project but you <em>do not</em> have a database for it, use the ‘new’ parameter:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>)</code></pre>
 </div>
-<div id="forceMeta" class="section level3">
-<h3><span class="header-section-number">3.4.7</span> Force an update/re-import of tag and receiver deployment metadata</h3>
-<p>Tag and receiver metadata are automatically merged with tag detections when data are downloaded. However, if you want to force a re-import of the metadata when updating a database, you can run:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">forceMeta =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div id="forceMeta" class="section level2">
+<h2><span class="header-section-number">3.9</span> Force an update/re-import of tag and receiver deployment metadata</h2>
+<p>Tag and receiver metadata are automatically merged with tag detections when data are downloaded. However, if metadata have been updated since your initial download, you can force re-import of the metadata when updating a database by running:</p>
+<pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">forceMeta =</span> <span class="ot">TRUE</span>)</code></pre>
 </div>
-<div id="metadata" class="section level3">
-<h3><span class="header-section-number">3.4.8</span> Import full tag and receiver metadata</h3>
+<div id="metadata" class="section level2">
+<h2><span class="header-section-number">3.10</span> Import full tag and receiver metadata</h2>
 <p>When you use tagme() to download or update your .motus file, you are provided with the metadata for:</p>
 <ol style="list-style-type: decimal">
 <li>any tags registered to your project which have detections;</li>
 <li>tags from other projects which are associated with ambiguous detections (see Chapter <a href="dataCleaning.html#dataCleaning">5</a>) in your data;</li>
-<li>receivers that your tags, plus ambiguous tags, were detected on.</li>
+<li>receivers that your tags and any ambiguous tags were detected on.</li>
 </ol>
-<p>In many instances, you will want access to the full metadata for all tags and receivers across the network, e.g., to determine how many of your deployed tags were not detected, or to plot the location of stations with and without detections. The metadata() function can be used to add the complete Motus metadata to your saved .motus file. The metadata function only needs to be run once, but we suggest that you re-import the metadata occasionally to ensure that you have the most recent and up-to-date information.</p>
+<p>In many instances, you will want access to the full metadata for all tags and receivers across the network, e.g., to determine how many of your deployed tags were not detected, or to plot the location of stations with and without detections. The metadata() function can be used to add the complete Motus metadata to your .motus file. The metadata function only needs to be run once, but we suggest that you re-import the metadata occasionally to ensure that you have the most recent and up-to-date information.</p>
 <p>Running the metadata function as follows will add the appropriate metadata from across the network (all tags and all receivers) to the ‘recvDeps’ and ‘tagDeps’ tables in your .motus file:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># access all tag and receiver metadata for all</span>
-<span class="co"># projects in the network.</span>
-<span class="kw">metadata</span>(sql.motus)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># access all tag and receiver metadata for all projects in the network.</span>
+<span class="kw">metadata</span>(sql.motus) </code></pre>
 <p>Alternatively, you can load metadata for a specific project(s) using:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># access tag and receiver metadata associated with</span>
-<span class="co"># project 176</span>
-<span class="kw">metadata</span>(sql.motus, <span class="dt">projectIDs =</span> <span class="dv">176</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># access tag and receiver metadata associated with project 176</span>
+<span class="kw">metadata</span>(sql.motus, <span class="dt">projectIDs =</span> <span class="dv">176</span>) 
 
-<span class="co"># access tag and receiver metadata associated with</span>
-<span class="co"># projects 176 and 1</span>
-<span class="kw">metadata</span>(sql.motus, <span class="dt">projectIDs =</span> <span class="kw">c</span>(<span class="dv">176</span>, <span class="dv">1</span>))</code></pre></div>
+<span class="co"># access tag and receiver metadata associated with projects 176 and 1</span>
+<span class="kw">metadata</span>(sql.motus, <span class="dt">projectIDs =</span> <span class="kw">c</span>(<span class="dv">176</span>, <span class="dv">1</span>)) </code></pre>
 </div>
-</div>
-<div id="databaseStructure" class="section level2">
-<h2><span class="header-section-number">3.5</span> Data structure</h2>
-<p>Each tag database is stored as an SQLite (‘dplyr::src_sqlite’) file with the extension ‘.motus’. The sqlite format was chosen because:</p>
-<ol style="list-style-type: decimal">
-<li>it is flexible, allowing for many data formats.</li>
-<li>it is accessible from many software platforms (not just R).</li>
-<li>it is <strong>appendable</strong>: the database can be created and updated on disk without having to read in and resave the entire contents. This will save time and computer memory when searching to see if any new detections are available for your project or receiver.</li>
-</ol>
-<p>The .motus file contains a series of interrelated tables where data are stored in a condensed format to save memory. The following tables are included in the .motus file;</p>
-<ol style="list-style-type: decimal">
-<li>antDeps: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.</li>
-<li>batchRuns: metadata for runIDs and associated batchIDs</li>
-<li>batches: detection data for a given receiver and boot number.</li>
-<li>filters: metadata related to user created filters associated with the specified receiver.<br />
-</li>
-<li>gps: metadata related to Geographic Positioning System (GPS) position of receiver.</li>
-<li>hits: detection data at the level of individual hits.</li>
-<li>meta: metadata related to the project and datatype (tags vs. receivers) that are included in the .motus file</li>
-<li>projAmbig: metadata related to what projects have ambiguous tag detections</li>
-<li>projBatch: metadata for the number of detections contained in each batch</li>
-<li>projs: metadata related to projects, e.g., project name, principal investigator.</li>
-<li>recvDeps: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.</li>
-<li>recvs: metadata related to receiver serial number and associated Motus deviceID</li>
-<li>runs: detection data associated with a run (continuous detections of a unique tag on a given receiver).</li>
-<li>runsFilters: a list of runIDs associated with user created filters and assigned probabilities.<br />
-</li>
-<li>species: metadata related to species, e.g., unique identifier, scientific name, common name.</li>
-<li>tagAmbig: metadata related to ambiguous tags, e.g., ambigID and associated motusTagID</li>
-<li>tagDeps: metadata related to tag deployments, e.g., deployment date, location, and species.</li>
-<li>tags: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).</li>
-</ol>
-<p>You can view the list of tables, and variables contained within those tables using the code below:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># specify the location and project file name.</span>
-file.name &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">SQLite</span>(), <span class="st">&quot;./data/project-176.motus&quot;</span>)
-
-<span class="co"># get a list of tables in the .motus file specified</span>
-<span class="co"># above.</span>
-<span class="kw">dbListTables</span>(file.name)
-
-<span class="co"># get a list of variables in the &#39;species&#39; table in</span>
-<span class="co"># the .motus file.</span>
-<span class="kw">dbListFields</span>(file.name, <span class="st">&quot;species&quot;</span>)</code></pre></div>
-<p>In addition to these tables, there are also ‘virtual’ tables or ‘views’, which have been created through queries that merge data from the various tables into a single convenient ‘view’ that contains all of the fields you are likely to need. The following views are currently included in each .motus file:</p>
-<ol style="list-style-type: decimal">
-<li>allambigs: lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.</li>
-<li>alltags: provides the full detection data for all tags, and all ambiguous (duplicate) tags, associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID.</li>
-</ol>
-<p>Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be used to filter and summarize the .motus database, without needing to first save the data as a <em>flat</em> file (a typical two-dimensional dataframe). The SQL format is very advantageous when you have a large file – the queries using SQL will be substantially faster than those done on a flat dataframe.</p>
-<p>Each table and view in the .motus file can be accessed using the tbl() function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># get the tag deployment metadata table for the</span>
-<span class="co"># current project</span>
-tbl.tagDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;tagDeps&quot;</span>)</code></pre></div>
-<p>The underlying structure of these tables is a list of length 2:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(tbl.tagDeps)</code></pre></div>
-<p>The first part of the list, ‘src’, is a list that provides details of the SQLiteConnection, including where the database is stored. The second part is a list that includes the underlying table. Thus, the R object ‘tagDeps’ is a <em>virtual</em> table that stores the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and functions within the dplyr package can be used to manipulate and summarize the tables before collecting the results into a typical “flat” format dataframe.</p>
-<p>If you want to use familiar functions to get access to components of the underlying data frame, then use the ‘collect’ function. For example, to look at the names of the variables in tagDeps:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tbl.tagDeps <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">names</span>()  <span class="co"># list the variable names in the table</span></code></pre></div>
-<pre><code>##  [1] &quot;deployID&quot;     &quot;tagID&quot;        &quot;projectID&quot;    &quot;status&quot;      
-##  [5] &quot;tsStart&quot;      &quot;tsEnd&quot;        &quot;deferSec&quot;     &quot;speciesID&quot;   
-##  [9] &quot;bandNumber&quot;   &quot;markerNumber&quot; &quot;markerType&quot;   &quot;latitude&quot;    
-## [13] &quot;longitude&quot;    &quot;elevation&quot;    &quot;comments&quot;     &quot;id&quot;          
-## [17] &quot;bi&quot;           &quot;tsStartCode&quot;  &quot;tsEndCode&quot;    &quot;fullID&quot;</code></pre>
-<p>The <em>virtual</em> table ‘alltags’ contains the detection data, along with all metadata variables that most users will ever need from the various underlying .motus tables. It too is accessed using the dplyr tbl() function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)  <span class="co"># virtual table</span></code></pre></div>
-<p>The following table lists the variables available in the ‘alltags’ view, a full description of each field is available in Appendix A.</p>
-</div>
-<div id="ensure-that-you-have-the-correct-database-version-checkversion" class="section level2">
-<h2><span class="header-section-number">3.6</span> Ensure that you have the correct database version {checkVersion}</h2>
-<p>When you call the tagme function to load the sqlite database, there is a process that will verify that your database has the version matching the most current version of the motus package and store the version in a new table called admInfo. Over time, changes will be made that require adding new tables, views or fields to the database. If you do not have the correct version, some of the examples contained in this book may not work. The following call will check that your database has been updated to the version matching the current version of the motus package. If you do not have the most current version, see Chapter <a href="loadingPackages.html#loadingPackages">2</a> for instructions on updating motus and motusClient. Refer to Appendix B if this call returns a warning.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">checkVersion</span>(sql.motus)</code></pre></div>
-</div>
-<div id="convertToFlat" class="section level2">
-<h2><span class="header-section-number">3.7</span> Convert a SQLITE table to a flat dataframe</h2>
-<p>To convert the ‘alltags’ view or other table in the .motus file into a typical ‘flat’ format, i.e., with every record for each field filled in, use the ‘collect()’ and ‘as.data.frame()’ functions. The output can then be further manipulated, or used to generate a RDS file of your data for archiving or export.</p>
-<p>We suggest the following workflow. Prepare a script that downloads/updates your data, filters out the necessary variables, and that does any initial cleaning, and then save the resulting data as an RDS file. We suggest using RDS instead of CSV, because the RDS format preserves the underlying structure of the data (e.g. POSIX times stay as POSIX times). If you want to export your data to another program, then a CSV format might be preferred.</p>
-<p>We caution that producing a flat file using the full suite of fields can use a lot of memory, and can slow R down considerably when dealing with large datasets. For some combinations of data sets and computers, it may be impossible to directly use data frames in R. If that is the case, then this is the point in your workflow where you should carefully consider the information you need from within your data set (for example, how it is aggregated) and simplify it. You can always return to this script, creating a new RDS file with different variables, or aggregated at a different scale.</p>
-<p>We elaborate on this idea in the following sections.</p>
-<p>Make a data frame …</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()  <span class="co"># for all fields in the df</span></code></pre></div>
-<p>… and take a quick look at the resulting file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(df.alltags)  <span class="co"># field names</span>
-<span class="kw">str</span>(df.alltags)  <span class="co"># Look at the structure of your data fields</span>
-<span class="kw">head</span>(df.alltags)  <span class="co"># Look at first 6 rows of your df</span>
-<span class="kw">summary</span>(df.alltags)  <span class="co"># summary of each column in your df</span></code></pre></div>
-<p>Note that the format of the time stamp (ts) field is numeric and represents seconds since January 1 1970. We recommend that when you transform your tables into flat dataframes, that you format the time stamp using the lubridate package at that time, e.g.:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">                </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">                </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">     </span><span class="co"># for all fields in the df (data frame)</span>
-<span class="st">                </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))
-
-<span class="co"># the tz = &quot;UTC&quot; is not necessary here, provided you have set your system time to UTC/GMT</span>
-<span class="co"># ... but it serves as a useful reminder!</span></code></pre></div>
-<p>If you want to load only part of your entire virtual table (e.g. certain fields, certain tags, or all tags from a specified project or species), you can use dplyr functions to filter the data before collecting into a dataframe. Some examples are below:</p>
-<ol style="list-style-type: decimal">
-<li>To select certain variables:</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># to grab a subset of variables, in this case a</span>
-<span class="co"># unique list of Motus tag IDs at each receiver and</span>
-<span class="co"># antenna.</span>
-df.alltagsSub &lt;-<span class="st"> </span><span class="kw">select</span>(tbl.alltags, recv, port, motusTagID) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>To select certain tag IDs:</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># filter to include only motusTagIDs 16011, 23316</span>
-df.alltagsSub &lt;-<span class="st"> </span><span class="kw">filter</span>(tbl.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">c</span>(<span class="dv">16011</span>, <span class="dv">23316</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))</code></pre></div>
-<ol start="3" style="list-style-type: decimal">
-<li>To select a specified species:</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># filter to only Red Knot (using speciesID)</span>
-df.<span class="dv">4670</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(tbl.alltags, speciesID <span class="op">==</span><span class="st"> </span><span class="dv">4670</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, 
-    <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))
-
-<span class="co"># filter to only Red Knot (using English name)</span>
-df.redKnot &lt;-<span class="st"> </span><span class="kw">filter</span>(tbl.alltags, speciesEN <span class="op">==</span><span class="st"> &quot;Red Knot&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, 
-    <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))</code></pre></div>
-<p>Using dplyr(), your virtual table can also be summarized before converting to a flat file. For example, to find the number of different detections for each tag at each receiver:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.detectSum &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(motusTagID, 
-    recv) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tally</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</code></pre></div>
-<p>In later chapter(s) we will show you additional ways of summarizing and working with your data.</p>
-</div>
-<div id="exportDetections" class="section level2">
-<h2><span class="header-section-number">3.8</span> Export your ‘flat’ dataframe to CSV or RDS file</h2>
-<p>We re-iterated that a good workflow is to create a script that deals with all of your data issues, then saves a dataframe (or workspace) for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. We use an RDS file, which preserves all of the associated R data structures (such as time stamps).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># save an RDS file</span>
-
-<span class="kw">saveRDS</span>(df.alltags, <span class="st">&quot;./data/df.alltags.RDS&quot;</span>)
-
-<span class="co"># or save as CSV file, which does not preserve time</span>
-<span class="co"># stamps, but can be read more easily by other</span>
-<span class="co"># programs.</span>
-
-<span class="kw">write_csv</span>(df.alltags, <span class="st">&quot;./data/df.alltags.CSV&quot;</span>)</code></pre></div>
+<div id="checkVersion" class="section level2">
+<h2><span class="header-section-number">3.11</span> Ensure that you have the correct database version</h2>
+<p>When you call the tagme function to load the sqlite database, the version of the R package used to download the data is stored in an admInfo table. Over time, changes will be made to the functionality of the R package that may require adding new tables, views or fields to the database. If your version of the database does not match the version of the R package, some of the examples contained in this book may not work. The following call will check that your database has been updated to the version matching the current version of the motus R package. If your database does not match the most current version of the R package, see Chapter <a href="loadingPackages.html#loadingPackages">2</a> for instructions on updating the motus and motusClient R packages, and then use tagme() with update = TRUE to update your database to the correct format. Refer to Appendix B if the checkVersion() call returns a warning.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">checkVersion</span>(sql.motus)</code></pre>
 </div>
 <div id="r-object-naming-convention" class="section level2">
-<h2><span class="header-section-number">3.9</span> R object naming convention</h2>
-<p>Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with ‘sql.’, virtual table objects will be prefixed with ‘tbl.’, and dataframe objects will be prefixed with ‘df.’; the rest of the name will include the name of the .motus table that the data originates from. Throughout the rest of the book we will be relying on and referencing the naming formats below; please ensure that you are familiar with these before continuing to the next chapter. The following code assumes you have already downloaded the sample data and do not need to update it; if you have not, see section <a href="accessingData.html#downloadData">3.4.4</a> for instructions on initial download:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SQLite R object, which links to the .motus file:</span>
+<h2><span class="header-section-number">3.12</span> R object naming convention</h2>
+<p>Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with ‘sql.’, virtual table objects will be prefixed with ‘tbl.’, and dataframe objects will be prefixed with ‘df.’; the rest of the name will include the name of the .motus table that the data originates from. Throughout the rest of the book we will be relying on and referencing the naming formats below; please ensure that you are familiar with these before continuing to the next chapter. The following code assumes you have already downloaded the sample data and do not need to update it; if you have not downloaded the data, see section <a href="accessingData.html#downloadData">3.5.1</a> for instructions on initial download:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># SQLite R object, which links to the .motus file:</span>
 sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)  
 
 <span class="co"># virtual table object of the alltags table in the sample.motus file:</span>
 tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)  
 df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span>
 <span class="st">                </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
-<span class="st">                </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">   </span><span class="co"># dataframe (&quot;flat&quot;) object of alltags table</span>
-<span class="st">                </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))              </code></pre></div>
+<span class="st">                </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># dataframe (&quot;flat&quot;) object of alltags table</span>
+<span class="st">                </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))              </code></pre>
+</div>
+<div id="importSummary" class="section level2">
+<h2><span class="header-section-number">3.13</span> Summary: download, access, and export data</h2>
+<p>Throughout the book we will predominantly be working with the ‘alltags’ table in flat format. Although described in detail above, here we include a quick summary of how you download, access, and convert the sample data for use in the rest of the book. In later sections of the book, we include additional recommended modifications and filtering of unnecessary variables, more information is available in section <a href="dataCleaning.html#loadDetectionsCleaning">5.1</a> in Chapter <a href="dataCleaning.html#dataCleaning">5</a>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># set proj.num to 176 for sample data</span>
+proj.num &lt;-<span class="st"> </span><span class="dv">176</span>
+
+<span class="co"># - download and load detection data from the sample project and save in data folder</span>
+<span class="co"># - login and password for sample data is &quot;motus.sample&quot;</span>
+<span class="co"># - if you are accessing already-downloaded data, use new = FALSE; if you don&#39;t</span>
+<span class="co">#   want to update your data, also set update = FALSE</span>
+sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)
+
+<span class="co"># access the &quot;alltags&quot; table within the SQLite file</span>
+tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)
+
+<span class="co"># convert &quot;tbl.alltags&quot; to a flat dataframe and change numeric time to a datetime object</span>
+df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span>
+<span class="st">              </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
+<span class="st">              </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span>
+<span class="st">              </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))</code></pre>
+<p>For your own data we suggest creating a script with the following workflow:</p>
+<ol style="list-style-type: decimal">
+<li>download and/or update your data</li>
+<li>select variables of interest for the table you are working with (typically ‘alltags’)</li>
+<li>include any initial cleaning</li>
+<li>save the resulting data as an .rds file as described in section <a href="accessingData.html#exportDetections">3.6</a>. We suggest using RDS instead of CSV, because the RDS format preserves the underlying structure of the data (e.g. POSIX times stay as POSIX times). If you want to export your data to another program, then a CSV format might be preferred.</li>
+</ol>
+<p>We caution that producing a flat file using the full suite of fields can use a lot of memory, and can slow R down considerably when dealing with large datasets. For some combinations of data sets and computers, it may be impossible to directly use data frames in R. If that is the case, then this is the point in your workflow where you should carefully consider the information you need from within your data set (for example, how it is aggregated) and simplify it. You can always return to this script and creating a new RDS file with different variables, or aggregated at a different scale.</p>
+<p>To read in a saved RDS file you can run:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># reads in your file &quot;df.alltags.rds&quot; saved in the data folder</span>
+df.alltags.saved &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/df.alltags.rds&quot;</span>) </code></pre>
 <p>In the next chapter we will check for missing metadata.</p>
 
 </div>
@@ -604,10 +772,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -615,6 +784,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },
