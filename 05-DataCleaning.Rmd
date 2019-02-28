@@ -301,7 +301,7 @@ Before we go further, we need to check to see if any tags have ambiguous detecti
 
 **Are any of your tags associated with ambiguous detections?**
 
-The 'clarify()' function in the motusClient R package provides a summary of ambiguities in the detections data. Each ambigID refers to a selection of detections that could belong to one or more (up to 6) motusTagIDs, which are listed in the id1 to id6 fields:
+The 'clarify()' function in the `motus` R package provides a summary of ambiguities in the detections data. Each ambigID refers to a selection of detections that could belong to one or more (up to 6) motusTagIDs, which are listed in the id1 to id6 fields:
 
 ```{r checkForAmbigs}
 
