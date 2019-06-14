@@ -17,13 +17,14 @@ Third, a tag can appear to be present when two tags are transmitting at the same
 
 The *goal of this chapter* is to provide you with the tools you need to check your data for false detections, and remove them from your data. We do so by providing example workflows that deal with 'false positives' and 'ambiguous tags' in the following steps: 
 
-1) Run a preliminary filter to remove all detections with runLen of 2. A run is a group of consecutive detections of a tag detected on a single antenna at a single receiver. In general, a detection with a run length of 2 (i.e., 2 bursts) has a high probability of being a false positive detection. With the exception of a few 'quiet' stations with little noise, we generally recommend that you filter out all detections with a run length of 2. However, because you will likely lose some true detections in the process, we also recommend that after a full analysis of your data, you return to these detections and examine them individually, to determine (usually contextually) if they can be considered real.
+1) Run a preliminary filter to remove all detections with `runLen` of 2  
+A run is a group of consecutive detections of a tag detected on a single antenna at a single receiver. In general, a detection with a run length of 2 (i.e., 2 bursts) has a high probability of being a false positive detection. With the exception of a few 'quiet' stations with little noise, we generally recommend that you filter out all detections with a run length of 2. However, because you will likely lose some true detections in the process, we also recommend that after a full analysis of your data, you return to these detections and examine them individually, to determine (usually contextually) if they can be considered real.
 
-2) Determine how many of your tag detections may be ambiguous detections. 
+2) Determine how many of your tag detections may be ambiguous detections
 
-3) Provide a workflow for examining individual tags, and determine if runs in those tags are errors. 
+3) Provide a workflow for examining individual tags, and determine if runs in those tags are errors
 
-4) Filter errors from your data.
+4) Filter errors from your data
 
 
 ## Load required packages {#loadDetectionsCleaning}
@@ -34,21 +35,20 @@ Follow the instructions in Chapter \@ref(loadingPackages) to install the followi
 
 Sys.setenv(tz = "UTC")
 
-#library(devtools)
 library(motus)
 library(tidyverse)
 library(lubridate)
-#library(rworldmap) # for mapping
 
 ```
 
 ## Load detections data
 
-Recall from Chapter \@ref(accessingData) that when accessing the sample database, you will need to input 'motus.sample' in the R console as both username and password when prompted by the tagme() user authentication process. This section assumes you have already completed the initial sample data download. 
+Recall from Chapter \@ref(accessingData) that when accessing the sample database, you will need to input 'motus.sample' in the R console as both username and password when prompted by the `tagme()` user authentication process. This section assumes you have already completed the initial sample data download. 
 
-When accessing the alltags table, we remove some unnecessary variables to reduce the overall size of the data set and make it easier to work with. **This is particularly important for large, unwieldy projects**; details on how to view the variables in a tbl, and how to filter and subset prior to collecting data into a dataframe can be found in Chapter \@ref(convertToFlat). We then create receiver latitude and longitude variables ('recvLat', 'recvLon', 'recvAlt') based on the coordinates recorded by the receiver GPS ('gpsLat', 'gpsLon', 'gpsAlt'), and where those are not available, infilled with coordinates from the receiver deployment metadata ('recvDeployLat', 'recvDeployLon', 'recvDeployAlt'). Missing gps coordinates may appear as NA if they are missing, or as "0" or "999" if there was a problem with the unit recording.  
-We can also add a rounded recvLat and recvLon to the recvDeployName as sometimes if there is missing metadata (ie. a missing receiver deployment spanning some of your detections), you will get NAs which can lead to problems later on.  
-We use the 'collect()' and 'as.data.frame()' statements to transform the dataframe into a 'flat' file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format. Finally, we create 'receiver names' from the latitude and longitude variables for those receivers in the database that do not have these values filled in.
+When accessing the `alltags` table, we remove some unnecessary variables to reduce the overall size of the data set and make it easier to work with. **This is particularly important for large, unwieldy projects**; details on how to view the variables in a tbl, and how to filter and subset prior to collecting data into a dataframe can be found in Chapter \@ref(convertToFlat). We then create receiver latitude and longitude variables (`recvLat`, `recvLon`, `recvAlt`) based on the coordinates recorded by the receiver GPS (`gpsLat`, `gpsLon`, `gpsAlt`), and where those are not available, infilled with coordinates from the receiver deployment metadata (`recvDeployLat`, `recvDeployLon`, `recvDeployAlt`). Missing gps coordinates may appear as `NA` if they are missing, or as `0` or `999` if there was a problem with the unit recording.
+
+We can also add a rounded `recvLat` and `recvLon` to the `recvDeployName` as sometimes if there is missing metadata (ie. a missing receiver deployment spanning some of your detections), you will get `NA`s which can lead to problems later on.  
+We use the `collect()` and `as.data.frame()` statements to transform the dataframe into a 'flat' file, and then transform all time stamp variables from seconds since January 1 1970 to datetime (POSIXct) format. Finally, we create 'receiver names' from the latitude and longitude variables for those receivers in the database that do not have these values filled in.
 
 ```{r importData5, eval = FALSE}
 
@@ -134,11 +134,11 @@ First, determine which project tags have detections, and determine how many are 
 
 3) Missing or incorrect tag deployment metadata in the Motus database can result in the data processing algorithm not 'looking' for your tag at the time the tag was deployed, or at all. Please ensure your tag metadata are entered correctly. 
 
-Before going further, **please check whether any of your tags were deployed more than once**, as described in section \@ref(checkNumberTagDeployments). If so, you will need to use 'tagDeployID' or a combination of 'motusTagID' and 'tagDeployID' to uniquely define detections associated with a tag deployment (either will do, but combining the two fields will let you know which tagID is associated with each deployment). 
+Before going further, **please check whether any of your tags were deployed more than once**, as described in section \@ref(checkNumberTagDeployments). If so, you will need to use `tagDeployID` or a combination of `motusTagID` and `tagDeployID` to uniquely define detections associated with a tag deployment (either will do, but combining the two fields will let you know which tagID is associated with each deployment). 
 
-In the sample data, all tags were deployed only once, and so we use the 'motusTagID' as a unique identifier for a tag deployment in all R code throughout the book. 
+In the sample data, all tags were deployed only once, and so we use the `motusTagID` as a unique identifier for a tag deployment in all R code throughout the book. 
 
-Using the following code, we see there are detections for 18 tags deployed by the sample project, and that many have run lengths of 2 (TRUE):
+Using the following code, we see there are detections for 18 tags deployed by the sample project, and that many have run lengths of 2 (the `TRUE` column):
 
 ```{r ntagsDetections}
 
@@ -151,7 +151,7 @@ df.alltags %>%
 
 ```
 
-Although some of these may be valid detections, we have found it simpler to just remove them from our analysis, and possibly revisit them at a later stage. We therefore filter on runLen (> 2) for most  subsequent operations. We save these in a block to add to our other filters later. 
+Although some of these may be valid detections, we have found it simpler to just remove them from our analysis, and possibly revisit them at a later stage. We therefore filter on `runLen` (> 2) for most  subsequent operations. We save these in a block to add to our other filters later. 
 
 ```{r filterRunLen2}
 
@@ -233,9 +233,9 @@ df.alltags.sub %>%
 
 These detections were at sites around the Canadian Maritimes (Sable Island, Nova Scotia; Grand Manan, New Brunswick) and were run lengths of 3. These are indicators of likely false positives. We'll now start a tally of the particular runs involved, so that we can collate them in to a filter later. 
 
-If you are interested, you can re-run the code above, but on the full data frame (df.alltags) containing run lengths of 2. You will see that there are additional false positive detections at these sites, that are already eliminated by filtering on runLen > 2. These additional detections provide further evidence that these sites experienced some radio noise during these particular months, resulting in some false positive detections.
+If you are interested, you can re-run the code above, but on the full data frame (`df.alltags`) containing run lengths of 2. You will see that there are additional false positive detections at these sites, that are already eliminated by filtering on `runLen > 2`. These additional detections provide further evidence that these sites experienced some radio noise during these particular months, resulting in some false positive detections.
 
-You may also be interested more generally in exploring which data have only short run lengths. For example, the following code shows the maximum run length at all sites by month (for those runs with runLen > 2).
+You may also be interested more generally in exploring which data have only short run lengths. For example, the following code shows the maximum run length at all sites by month (for those runs with `runLen > 2`).
 
 ```{r noisySites}
 
@@ -262,7 +262,7 @@ df.alltags.sub %>%
 
 It is impossible to go through every possible issue that you may encounter here. Users are strongly encouraged to explore their data fully, and make reasoned decisions on which detections are unlikely or indeterminate. Through the rest of this chapter we will show you how to collect these runs, and apply them to your data prior to analysis.
 
-To start, we'll create a data frame that contains the motusTagIDs and runIDs for the false positives identified above.
+To start, we'll create a data frame that contains the `motusTagID`s and `runID`s for the false positives identified above.
 
 We will then re-create the plot With the newly filtered data.
 
@@ -301,7 +301,7 @@ Before we go further, we need to check to see if any tags have ambiguous detecti
 
 **Are any of your tags associated with ambiguous detections?**
 
-The 'clarify()' function in the `motus` R package provides a summary of ambiguities in the detections data. Each ambigID refers to a selection of detections that could belong to one or more (up to 6) motusTagIDs, which are listed in the id1 to id6 fields:
+The `clarify()` function in the `motus` R package provides a summary of ambiguities in the detections data. Each `ambigID` refers to a selection of detections that could belong to one or more (up to 6) `motusTagID`s, which are listed in the `id1` to `id6` columns:
 
 ```{r checkForAmbigs}
 
@@ -309,7 +309,7 @@ clarify(sql.motus)
 
 ```
 
-We can see that there are six tags with ambiguous detections within this data set. Detections associated with five of the six ambigIDs could belong to one of two tags, and detections associated with one ambigID (-171) could belong to one of three tags. The fullID fields list the project names associated with the duplicate tags (e.g., "SampleData", "Selva", "Niles"), along with features of the tags (manufacturer tag ID, burst, and transmit frequency).
+We can see that there are six tags with ambiguous detections within this data set. Detections associated with five of the six `ambigID`s could belong to one of two tags, and detections associated with one `ambigID` (`-171`) could belong to one of three tags. The fullID fields list the project names associated with the duplicate tags (e.g., "SampleData", "Selva", "Niles"), along with features of the tags (manufacturer tag ID, burst, and transmit frequency).
 
 Let's get a vector of these, and do some plots to see where there may be issues. 
 
@@ -357,7 +357,7 @@ ggplot(data = df.alltags.path,
 
 Let's deal with the easy ones first. 
 
-**ambigID -337: motusTagIDs 10811 and 16011**
+**ambigID -337: `motusTagID`s 10811 and 16011**
 
 ```{r ambig337a}
 df.alltags.sub %>%
@@ -367,7 +367,7 @@ df.alltags.sub %>%
 ```
 We can see from the plot that ambiguous tag -337 is ambiguous only at the beginning of the deployment.
 
-We can see from the summary of the tag deployment data that there were only 4 detections, at the exact latitude of deployment of tag 16011, and just before the non-ambiguous detections of motusTagID 16011. So the issue here is simply that the tail end of the deployment of tag 10811 slightly overlaps with the deployment of tag 16011. We can confidently claim these detections as belonging to motusTagID 16011, and remove the ambiguous detections assigned to the other tag.
+We can see from the summary of the tag deployment data that there were only 4 detections, at the exact latitude of deployment of tag 16011, and just before the non-ambiguous detections of `motusTagID` 16011. So the issue here is simply that the tail end of the deployment of tag 10811 slightly overlaps with the deployment of tag 16011. We can confidently claim these detections as belonging to motusTagID 16011, and remove the ambiguous detections assigned to the other tag.
 
 We'll create another data frame to keep track of these runs. 
 
@@ -433,7 +433,7 @@ df.block.3 <- df.alltags.sub %>%
 
 **ambigID -171: motusTagIDs 22778, 22902 and 22403**
 
-The ambiguous detections for this tag, which occur in the Great Lakes region, could also belong to motusTagID 22778 from the RBrownAMWO project or motusTagID 24303 from the Neonics project. Let's take a closer look at these detections.
+The ambiguous detections for this tag, which occur in the Great Lakes region, could also belong to `motusTagID` 22778 from the RBrownAMWO project or `motusTagID` 24303 from the Neonics project. Let's take a closer look at these detections.
 
 First, find the deployment dates and locations for each tag. 
 
@@ -547,7 +547,7 @@ ggplot(data = df.ambig.106,
 
 ```
 
-Both sets of detections are long run lengths, and look valid (increasing then decreasing signal strength). They are about a day apart, and so it is possible they represent two different birds, or the departure flight of the white-rumped sandpiper from its staging ground. Let's use the siteTrans function (in the motus package, see section \@ref(siteTrans)) to examine the flight from Netitishi to MDR/Seal (in the Gulf of Maine)
+Both sets of detections are long run lengths, and look valid (increasing then decreasing signal strength). They are about a day apart, and so it is possible they represent two different birds, or the departure flight of the white-rumped sandpiper from its staging ground. Let's use the `siteTrans()` function (in the `motus` package, see section \@ref(siteTrans)) to examine the flight from Netitishi to MDR/Seal (in the Gulf of Maine)
 
 ```{r ambig106c}
 df.ambig.106 %>% 
@@ -561,7 +561,7 @@ df.ambig.106 %>%
          dist, total.time = total.time, bearing)
 ```
 
-These detections are >1200 km distant from one another, but the flight speed (17 m/s) is consistent with a white-rumped Sandpiper. Given that the Gray-cheeked Thrush tag was near the end of its expected lifetime, we can reasonably claim these detections for our project, and remove the ambiguous detections associated with motusTagID 17021. 
+These detections are >1200 km distant from one another, but the flight speed (17 m/s) is consistent with a white-rumped Sandpiper. Given that the Gray-cheeked Thrush tag was near the end of its expected lifetime, we can reasonably claim these detections for our project, and remove the ambiguous detections associated with `motusTagID` 17021. 
 
 ```{r ambig106d}
 df.block.6 <- df.alltags.sub %>%
@@ -602,7 +602,7 @@ ggplot(data = df.ambig.56,
   scale_colour_discrete(name="Lat/Lon and\nStation Name") 
 ```
 
-We can see from the plot that a tag is detected consistently near longitude -65, which is near the deployment location for motusTagID 23316 and after it's deployment start date, it was also present at -65 during and after detections far to the west. It's likely all the detections at -65 belong to motusTagID 23316, but it is also clear that anything informative about this ambiguity occurs between about 9-11 October, so let's zoom in on that part of the data set. 
+We can see from the plot that a tag is detected consistently near longitude -65, which is near the deployment location for `motusTagID` 23316 and after it's deployment start date, it was also present at -65 during and after detections far to the west. It's likely all the detections at -65 belong to `motusTagID` 23316, but it is also clear that anything informative about this ambiguity occurs between about 9-11 October, so let's zoom in on that part of the data set. 
 
 ```{r ambig56c}
 
@@ -655,7 +655,7 @@ ggplot(data = df.56.tmp,
 
 These look like typical fly-by patterns of increasing and then decreasing signal strength.  This, coupled with overall detection patterns and knowledge of the species, leads us to believe that the ambiguous detections can be reasonably divided between the two individuals; one detected consistently around longitude -65 (23316), and the other migrating SW during the same period (22867).
 
-To address this problem, we need to create two filters - one that excludes ambiguous detections of tag 22867, and one that excludes some detections of 23316. In this instance, we can do this most easily by filtering on motusTagID and recvDeployName. 
+To address this problem, we need to create two filters - one that excludes ambiguous detections of tag 22867, and one that excludes some detections of 23316. In this instance, we can do this most easily by filtering on `motusTagID` and `recvDeployName.` 
 
 ```{r ambigDetectionsFor56}
 
@@ -687,7 +687,7 @@ At the beginning of this chapter, we dropped all detections with a run length of
 
 ### Filter and save to RDS
 
-To filter the data, we can simply join the df.block data frames back to the original data using a left_join(), and filter those from the data:
+To filter the data, we can simply join the `df.block` data frames back to the original data using a `left_join()`, and filter those from the data:
 
 ```{r filterToRDS, message = FALSE, warning = FALSE}
 
@@ -706,7 +706,7 @@ df.alltags.sub <- left_join(df.alltags, df.block.all, by = c("runID", "motusTagI
 
 ```
 
-Now save the local data frame as an RDS file, for use in the next chapter. Recall from Section \@ref(exportDetections) that the RDS format preserves the R data structure, including time stamps. The other benefit of saving to RDS is that you have the output from a given workflow saved as a flat file, which you can access again with a simple readRDS statement.
+Now save the local data frame as an RDS file, for use in the next chapter. Recall from Section \@ref(exportDetections) that the RDS format preserves the R data structure, including time stamps. The other benefit of saving to RDS is that you have the output from a given workflow saved as a flat file, which you can access again with a simple `readRDS` statement.
 
 ```{r saveRDS, eval = FALSE}
 
@@ -724,7 +724,7 @@ df.alltags.sub <- readRDS("./data/dfAlltagsSub.rds")
 
 ### Save a custom filter in the motus database, and apply it to the data
 
-As an alternative to saving your data as an RDS file, the Motus R package offers functionalities to save your filters directly within your .motus file. Once they are saved in your database, you can do the type of left_join() as above without having to rely on dataframes or an RDS file to store your data. To learn more about the functions available to work with Motus filters, refer to Appendix D for more details. 
+As an alternative to saving your data as an RDS file, the Motus R package offers functionalities to save your filters directly within your .motus file. Once they are saved in your database, you can do the type of `left_join()` as above without having to rely on dataframes or an RDS file to store your data. To learn more about the functions available to work with Motus filters, refer to Appendix D for more details. 
 
 ```{r saveFilter, eval = !getRunsFilterID(sql.motus, "filtAmbigFalsePos")}
 
