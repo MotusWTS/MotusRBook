@@ -3,6 +3,7 @@
 ## v1.1 (2019-07-26)
 
 - AccessingData automatically downloads up-to-date motus data everytime
+- Add use of activity table and filters
 - Merge in older beta branches
     - Add details regarding GPS tags
 - Tidy up formating
