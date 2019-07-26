@@ -150,6 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloading-multiple-receivers-at-the-same-time"><i class="fa fa-check"></i><b>3.5.4</b> Downloading multiple receivers at the same time</a></li>
 <li class="chapter" data-level="3.5.5" data-path="accessingData.html"><a href="accessingData.html#updating-all-.motus-files-within-a-directory"><i class="fa fa-check"></i><b>3.5.5</b> Updating all .motus files within a directory</a></li>
 <li class="chapter" data-level="3.5.6" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.6</b> Accessing downloaded detection data</a></li>
+<li class="chapter" data-level="3.5.7" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.5.7</b> Converting to flat file</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.6</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
 <li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.7</b> Update and/or open an existing database</a></li>
@@ -182,14 +183,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="dataCleaning.html"><a href="dataCleaning.html"><i class="fa fa-check"></i><b>5</b> Data Cleaning</a><ul>
 <li class="chapter" data-level="5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#loadDetectionsCleaning"><i class="fa fa-check"></i><b>5.1</b> Load required packages</a></li>
 <li class="chapter" data-level="5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#load-detections-data"><i class="fa fa-check"></i><b>5.2</b> Load detections data</a></li>
-<li class="chapter" data-level="5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.3</b> Preliminary data checks</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.3.1</b> Summarize tag detections</a></li>
+<li class="chapter" data-level="5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#assess-tag-detections"><i class="fa fa-check"></i><b>5.3</b> Assess tag detections</a></li>
+<li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-filtering"><i class="fa fa-check"></i><b>5.4</b> Preliminary filtering</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="dataCleaning.html"><a href="dataCleaning.html#understanding-the-motusfilter"><i class="fa fa-check"></i><b>5.4.1</b> Understanding the <code>motusFilter</code></a></li>
+<li class="chapter" data-level="5.4.2" data-path="dataCleaning.html"><a href="dataCleaning.html#how-the-motusfilter-is-generated"><i class="fa fa-check"></i><b>5.4.2</b> How the <code>motusFilter</code> is generated</a></li>
+<li class="chapter" data-level="5.4.3" data-path="dataCleaning.html"><a href="dataCleaning.html#custom-filters-with-the-filterbyactivity-function"><i class="fa fa-check"></i><b>5.4.3</b> Custom filters with the <code>filterByActivity()</code> function</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#ambigs"><i class="fa fa-check"></i><b>5.4</b> Examining ambiguous detections</a></li>
-<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2"><i class="fa fa-check"></i><b>5.5</b> Checking validity of run lengths of 2</a></li>
-<li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.6</b> Filtering the data</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.6.1</b> Filter and save to RDS</a></li>
-<li class="chapter" data-level="5.6.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.6.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
+<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#preparing-the-data"><i class="fa fa-check"></i><b>5.5</b> Preparing the data</a></li>
+<li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.6</b> Preliminary data checks</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.6.1</b> Summarize tag detections</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="dataCleaning.html"><a href="dataCleaning.html#ambigs"><i class="fa fa-check"></i><b>5.7</b> Examining ambiguous detections</a></li>
+<li class="chapter" data-level="5.8" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2"><i class="fa fa-check"></i><b>5.8</b> Checking validity of run lengths of 2</a></li>
+<li class="chapter" data-level="5.9" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.9</b> Filtering the data</a><ul>
+<li class="chapter" data-level="5.9.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.9.1</b> Filter and save to RDS</a></li>
+<li class="chapter" data-level="5.9.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.9.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
@@ -402,7 +410,7 @@ df.alltags.sub &lt;-<span class="st"> </span><span class="kw">left_join</span>(t
          <span class="dt">recvDeployName =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(recvDeployName), 
                                   <span class="kw">paste</span>(recvLat, recvLon, <span class="dt">sep=</span><span class="st">&quot;:&quot;</span>), 
                                   recvDeployName))</code></pre>
-<p><strong>Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues.</strong> Details on filtering the tbl prior to collecting as a dataframe are available in section <a href="#convertToFlat"><strong>??</strong></a>.</p>
+<p><strong>Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues.</strong> Details on filtering the tbl prior to collecting as a dataframe are available in section <a href="accessingData.html#convertToFlat">3.5.7</a>.</p>
 <p>Here we do so by adding a filter to the above command, in this case, only creating a dataframe for <code>motusTagID</code> 16047, but you can decide how to best subset your data based on your need (e.g. by species or year):</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a subset for a single tag, to keep the dataframe small</span>
 df.alltags<span class="fl">.16047</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16047</span>) </code></pre>
@@ -439,20 +447,20 @@ df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">summary</span>()</code></pre>
 <pre><code>##        ts                        motusTagID        runLen      
 ##  Min.   :2015-08-03 06:37:11   Min.   :16011   Min.   :   3.0  
-##  1st Qu.:2016-10-06 10:30:26   1st Qu.:22897   1st Qu.:  25.0  
-##  Median :2016-10-09 21:49:41   Median :22897   Median :  92.0  
-##  Mean   :2016-09-04 20:32:07   Mean   :22247   Mean   : 230.7  
-##  3rd Qu.:2016-10-19 10:41:54   3rd Qu.:22897   3rd Qu.: 286.0  
+##  1st Qu.:2016-10-06 10:29:23   1st Qu.:22897   1st Qu.:  25.0  
+##  Median :2016-10-09 21:48:32   Median :22897   Median :  92.0  
+##  Mean   :2016-09-04 16:56:47   Mean   :22249   Mean   : 230.9  
+##  3rd Qu.:2016-10-19 10:40:02   3rd Qu.:22897   3rd Qu.: 287.0  
 ##  Max.   :2017-04-20 22:33:19   Max.   :23316   Max.   :1371.0  
 ##                                                                
-##   speciesEN          tagDeployLat    tagDeployLon       recvLat      
-##  Length:49076       Min.   :50.19   Min.   :-80.69   Min.   :-42.50  
-##  Class :character   1st Qu.:50.19   1st Qu.:-63.75   1st Qu.: 50.20  
-##  Mode  :character   Median :50.19   Median :-63.75   Median : 50.20  
-##                     Mean   :50.34   Mean   :-65.63   Mean   : 49.97  
-##                     3rd Qu.:50.19   3rd Qu.:-63.75   3rd Qu.: 50.20  
-##                     Max.   :51.80   Max.   :-63.75   Max.   : 51.82  
-##                                                      NA&#39;s   :167     
+##   speciesEN          tagDeployLat    tagDeployLon       recvLat     
+##  Length:49036       Min.   :50.19   Min.   :-80.69   Min.   :37.10  
+##  Class :character   1st Qu.:50.19   1st Qu.:-63.75   1st Qu.:50.20  
+##  Mode  :character   Median :50.19   Median :-63.75   Median :50.20  
+##                     Mean   :50.34   Mean   :-65.62   Mean   :50.05  
+##                     3rd Qu.:50.19   3rd Qu.:-63.75   3rd Qu.:50.20  
+##                     Max.   :51.80   Max.   :-63.75   Max.   :51.82  
+##                                                      NA&#39;s   :167    
 ##     recvLon      
 ##  Min.   :-80.69  
 ##  1st Qu.:-63.75  
