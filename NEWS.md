@@ -1,7 +1,8 @@
 # Motus R Book
 
-## v1.1 (2019-06-14)
+## v1.1 (2019-07-26)
 
+- AccessingData automatically downloads up-to-date motus data everytime
 - Merge in older beta branches
     - Add details regarding GPS tags
 - Tidy up formating
