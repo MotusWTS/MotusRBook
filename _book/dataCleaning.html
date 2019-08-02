@@ -136,7 +136,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="loadingPackages.html"><a href="loadingPackages.html"><i class="fa fa-check"></i><b>2</b> Loading R Packages</a><ul>
-<li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.1</b> Internal data processing</a></li>
+<li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#installing-motus-packages"><i class="fa fa-check"></i><b>2.1</b> Installing Motus packages</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="loadingPackages.html"><a href="loadingPackages.html#troubleshooting-the-installation"><i class="fa fa-check"></i><b>2.1.1</b> Troubleshooting the installation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="loadingPackages.html"><a href="loadingPackages.html#installing-other-packages"><i class="fa fa-check"></i><b>2.2</b> Installing other packages</a></li>
+<li class="chapter" data-level="2.3" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.3</b> Internal data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="accessingData.html"><a href="accessingData.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
 <li class="chapter" data-level="3.1" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.1</b> Data structure</a></li>
@@ -194,7 +198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.6.1</b> Summarize tag detections</a></li>
 </ul></li>
 <li class="chapter" data-level="5.7" data-path="dataCleaning.html"><a href="dataCleaning.html#ambigs"><i class="fa fa-check"></i><b>5.7</b> Examining ambiguous detections</a></li>
-<li class="chapter" data-level="5.8" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2"><i class="fa fa-check"></i><b>5.8</b> Checking validity of run lengths of 2</a></li>
+<li class="chapter" data-level="5.8" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2-or-3"><i class="fa fa-check"></i><b>5.8</b> Checking validity of run lengths of 2 or 3</a></li>
 <li class="chapter" data-level="5.9" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.9</b> Filtering the data</a><ul>
 <li class="chapter" data-level="5.9.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.9.1</b> Filter and save to RDS</a></li>
 <li class="chapter" data-level="5.9.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.9.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
@@ -251,7 +255,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="C.2.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-1"><i class="fa fa-check"></i><b>C.2.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.2.3" data-path="appendixC.html"><a href="appendixC.html#example-1"><i class="fa fa-check"></i><b>C.2.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.3" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsCoor"><i class="fa fa-check"></i><b>C.3</b> <code>plotAllTagsCoord</code></a><ul>
+<li class="chapter" data-level="C.3" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsCoord"><i class="fa fa-check"></i><b>C.3</b> <code>plotAllTagsCoord</code></a><ul>
 <li class="chapter" data-level="C.3.1" data-path="appendixC.html"><a href="appendixC.html#description-2"><i class="fa fa-check"></i><b>C.3.1</b> Description</a></li>
 <li class="chapter" data-level="C.3.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-2"><i class="fa fa-check"></i><b>C.3.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.3.3" data-path="appendixC.html"><a href="appendixC.html#example-2"><i class="fa fa-check"></i><b>C.3.3</b> Example</a></li>
@@ -368,8 +372,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Third, a tag can appear to be present when two tags are transmitting at the same time that by chance produce a signal that looks like a third tag that is not in fact present. Such tags are most common at roosting sites or breeding colonies, where many tags are transmitting simultaneously. We term these ‘Aliased tags’. We do not deal explicitly with Aliased tags in this chapter; we are working on a way to globally identify them and eliminate them from the data. We mention them here because you may encounter situations with what appear to be highly plausible detections that don’t make biological sense. Please contact us if you think you have some of these Aliased tag detections in your database.</p>
 <p>The <em>goal of this chapter</em> is to provide you with the tools you need to check your data for false detections, and remove them from your data. We do so by providing example workflows that deal with ‘false positives’ and ‘ambiguous tags’ in the following steps:</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>Run a preliminary filter to remove all detections with <code>runLen</code> of 2, and detections with intermediate <code>runLen</code>s made during periods of high noise/activity.</strong><br />
-A run is a group of consecutive detections of a tag detected on a single antenna at a single receiver. In general, a detection with a run length of 2 (i.e., 2 bursts) has a high probability of being a false positive detection. With the exception of a few ‘quiet’ stations with little noise, we generally recommend that you filter out all detections with a run length of 2. However, because you will likely lose some true detections in the process, we also recommend that after a full analysis of your data, you return to these detections and examine them individually, to determine (usually contextually) if they can be considered real. Stations that are particularly noisy may also have false detections with longer <code>runLen</code>s.</p></li>
+<li><p><strong>Run a preliminary filter to remove all detections with <code>runLen</code> of 3 or less, and detections with intermediate <code>runLen</code>s made during periods of high noise/activity.</strong><br />
+A run is a group of consecutive detections of a tag detected on a single antenna at a single receiver. In general, a detection with a run length of 2 or 3 (i.e., 2 or 3 bursts) has a high probability of being a false positive detection. With the exception of a few ‘quiet’ stations with little noise, we generally recommend that you filter out all detections with a run length of 3 or less. However, because you will likely lose some true detections in the process, we also recommend that after a full analysis of your data, you return to these detections and examine them individually, to determine (usually contextually) if they can be considered real. Stations that are particularly noisy may also have false detections with longer <code>runLen</code>s.</p></li>
 <li><p><strong>Determine how many of your tag detections may be ambiguous detections</strong></p></li>
 <li><p><strong>Provide a workflow for examining individual tags, and determine if runs in those tags are errors</strong></p></li>
 <li><p><strong>Filter errors from your data</strong></p></li>
@@ -423,35 +427,35 @@ sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, 
 ## 16      22905 26010
 ## 17      23316  5734
 ## 18      23319 22759</code></pre>
-<p>If we break down these counts by run length using the following code we further see that many have run lengths of 2 (the <code>run 2</code> column).</p>
+<p>If we break down these counts by run length using the following code we further see that many have run lengths of 3 (the <code>run 3</code> column).</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># subset to include only tags registered to project</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rl.gt.2 =</span> <span class="kw">if_else</span>(runLen <span class="op">==</span><span class="st"> </span><span class="dv">2</span>, <span class="st">&quot;run 2&quot;</span>, <span class="st">&quot;run &gt; 2&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(motusTagID, rl.gt<span class="fl">.2</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rl.gt.3 =</span> <span class="kw">if_else</span>(runLen <span class="op">==</span><span class="st"> </span><span class="dv">3</span>, <span class="st">&quot;run 3&quot;</span>, <span class="st">&quot;run &gt; 3&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(motusTagID, rl.gt<span class="fl">.3</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> rl.gt<span class="fl">.2</span>, <span class="dt">value =</span> n)</code></pre>
+<span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> rl.gt<span class="fl">.3</span>, <span class="dt">value =</span> n)</code></pre>
 <pre><code>## # A tibble: 18 x 3
 ## # Groups:   motusTagID [18]
-##    motusTagID `run &gt; 2` `run 2`
+##    motusTagID `run &gt; 3` `run 3`
 ##         &lt;int&gt;     &lt;int&gt;   &lt;int&gt;
-##  1      16011       125       2
-##  2      16035       454       2
-##  3      16036       106      12
-##  4      16037      1307      46
-##  5      16038        84      78
-##  6      16039      1098      28
-##  7      16044       289      16
-##  8      16047       773      66
-##  9      16048        84      14
-## 10      16052       133      26
-## 11      17357       277      12
-## 12      19129       568     720
-## 13      22867      5545     222
-## 14      22897     34308     488
-## 15      22902      2815     108
-## 16      22905     25684     326
-## 17      23316      5518     216
-## 18      23319     22471     288</code></pre>
+##  1      16011       118       9
+##  2      16035       441      15
+##  3      16036       115       3
+##  4      16037      1335      18
+##  5      16038       156       6
+##  6      16039      1117       9
+##  7      16044       287      18
+##  8      16047       758      81
+##  9      16048        83      15
+## 10      16052       144      15
+## 11      17357       286       3
+## 12      19129      1189      99
+## 13      22867      5572     195
+## 14      22897     34373     423
+## 15      22902      2854      69
+## 16      22905     25782     228
+## 17      23316      5551     183
+## 18      23319     22567     192</code></pre>
 <p>Although some of these may be valid detections, we have found it simpler to just remove them from our analysis, and possibly revisit them at a later stage. In the next few sections we will explore a series of filters that do just this.</p>
 </div>
 <div id="preliminary-filtering" class="section level2">
@@ -464,8 +468,23 @@ sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, 
 <div id="how-the-motusfilter-is-generated" class="section level3">
 <h3><span class="header-section-number">5.4.2</span> How the <code>motusFilter</code> is generated</h3>
 <p>The <code>motusFilter</code> is based the number of detections of different run lengths at a given site, across all motus projects. Periods with lots of radio interference will typically generate a high number of very short runs that are in reality spurious data. In the presence of a high ratio of runs with length = 2 at a given time, we consider that site as ‘noisy’ and increase the minimum threshold for run lengths that we consider to be valid detections.</p>
-<p>In general, a detection with a run length of 2 or 3 (i.e., 2 or 3 bursts) has a relatively high probability of being a false positive detection. Runs with a length 2 or less are conservatively assigned a <code>motusFilter</code> of 0. For runs greater than length 2, data in the <code>activity</code> table provides a method of assessing the relative amount of background noise at a site which can be used to assess the probability of these runs being true detections. The <code>activity</code> table provides the number of runs of various lengths for each hour (called <code>hourbin</code>) within each batch and for each antenna. A high number of detections within an hour (e.g., &gt;= 100) with a high proportion of short runs (e.g., length 2 &gt;= 85%) are indicative of a noisy environment, more likely to generate false positives. For those periods, we treat the intermediate run lengths (2 &lt; <code>runLen</code> &lt; 5) as invalid (<code>motusFilter</code> = 0). Intermediate run lengths are otherwise considered valid (<code>motusFilter</code> = 1).</p>
+<p>In general, a detection with a run length of 2 or 3 (i.e., 2 or 3 bursts) has a relatively high probability of being a false positive detection. Therefore, runs with a length 3 or less are conservatively assigned a <code>motusFilter</code> of 0. For runs greater than length 3, data in the <code>activity</code> table provides a method of assessing the relative amount of background noise at a site which can be used to assess the probability of these runs being true detections. The <code>activity</code> table provides the number of runs of various lengths for each hour (called <code>hourBin</code>) within each batch and for each antenna. A high number of detections within an hour (e.g., &gt;= 100) with a high proportion of short runs (e.g., length 2 &gt;= 85%) are indicative of a noisy environment, more likely to generate false positives. For those periods, we treat the intermediate run lengths (3 &lt; <code>runLen</code> &lt; 5) as invalid (<code>motusFilter</code> = 0). Intermediate run lengths are otherwise considered valid (<code>motusFilter</code> = 1).</p>
 <p>The <code>motusFilter</code> values in the <code>runs</code> table have been calculated on the basis of the above criteria, which were determined through some empirical examination of data. If you are working with a dataset downloaded through <code>tagme()</code> prior to July 2019 it will not include those values. In those cases, you will either need to download a new copy of the entire dataset for your project or receiver, or to use the <code>filterByActivity()</code> function described below to calculate the missing values.</p>
+<p>To omit runs identified as dubious by <code>motusFilter</code> we can use an anti-join.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Number of rows with runs 3 hits or less</span>
+<span class="kw">filter</span>(<span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>), runLen <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">nrow</span>()</code></pre>
+<pre><code>## [1] 4511</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Identify runs to remove</span>
+to_remove &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;runs&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(runID, motusFilter) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(motusFilter <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)
+
+<span class="co"># Use anti-join to remove those runs from the alltags</span>
+tbl_filtered &lt;-<span class="st"> </span><span class="kw">anti_join</span>(<span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>), to_remove, <span class="dt">by =</span> <span class="st">&quot;runID&quot;</span>)
+
+<span class="co"># Number of rows with runs 3 hits or less after being filtered</span>
+<span class="kw">filter</span>(tbl_filtered, runLen <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">nrow</span>()</code></pre>
+<pre><code>## [1] 0</code></pre>
 </div>
 <div id="custom-filters-with-the-filterbyactivity-function" class="section level3">
 <h3><span class="header-section-number">5.4.3</span> Custom filters with the <code>filterByActivity()</code> function</h3>
@@ -473,10 +492,10 @@ sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, 
 <p>For example, the following code, adds a <code>probability</code> column to the sample project data, which is identical to the <code>motusFilter</code> column (i.e., by default <code>filterByActivity()</code> uses the same conditions).</p>
 <p><strong>Note</strong> that this function requires the SQLite database connection (not a flat data frame), but returns a data.frame of the <code>alltags</code> view (not a SQLite database connection).</p>
 <pre class="sourceCode r"><code class="sourceCode r">tbl_motusFilter &lt;-<span class="st"> </span><span class="kw">filterByActivity</span>(sql.motus, <span class="dt">return =</span> <span class="st">&quot;all&quot;</span>)</code></pre>
-<p>Users can adjust these parameters to be more strict (i.e., exclude fewer detections). This next example excludes all runs of length 4 or less and will exclude any runs less than length 10 from <code>hourbin</code>s which have more than 50 runs and where at least 75% of those runs have a run length of 2.</p>
+<p>Users can adjust these parameters to be more strict (i.e., exclude fewer detections). This next example excludes all runs of length 4 or less and will exclude any runs less than length 10 from <code>hourBin</code>s which have more than 50 runs and where at least 75% of those runs have a run length of 2.</p>
 <pre class="sourceCode r"><code class="sourceCode r">tbl_strict &lt;-<span class="st"> </span><span class="kw">filterByActivity</span>(sql.motus, <span class="dt">minLen =</span> <span class="dv">4</span>, <span class="dt">maxLen =</span> <span class="dv">10</span>, 
                                <span class="dt">maxRuns =</span> <span class="dv">50</span>, <span class="dt">ratio =</span> <span class="fl">0.75</span>, <span class="dt">return =</span> <span class="st">&quot;all&quot;</span>)</code></pre>
-<p>These parameters can also be less strict (i.e., exclude more detections). This example excludes all runs of length 2 or less and will exclude any runs less than length 4 from <code>hourbin</code>s which have more than 500 runs and where at least 95% of those runs have a run length of 2.</p>
+<p>These parameters can also be less strict (i.e., exclude more detections). This example excludes all runs of length 2 or less and will exclude any runs less than length 4 from <code>hourBin</code>s which have more than 500 runs and where at least 95% of those runs have a run length of 2.</p>
 <pre class="sourceCode r"><code class="sourceCode r">tbl_relaxed &lt;-<span class="st"> </span><span class="kw">filterByActivity</span>(sql.motus, <span class="dt">minLen =</span> <span class="dv">2</span>, <span class="dt">maxLen =</span> <span class="dv">4</span>, 
                                 <span class="dt">maxRuns =</span> <span class="dv">500</span>, <span class="dt">ratio =</span> <span class="fl">0.95</span>, <span class="dt">return =</span> <span class="st">&quot;all&quot;</span>)</code></pre>
 <p>Note that the filters may exclude some true detections in the process. Therefore, we recommend that after a full analysis of your data, you return to these detections and examine them individually, to determine (usually contextually) if they can be considered real.</p>
@@ -584,35 +603,33 @@ df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span
 <span class="st">  </span><span class="kw">group_by</span>(recvDeployName, <span class="kw">month</span>(ts), runLen) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">length</span>(ts), 
             <span class="dt">n.tags =</span> <span class="kw">length</span>(<span class="kw">unique</span>(motusTagID)))</code></pre>
-<pre><code>## # A tibble: 2 x 5
-## # Groups:   recvDeployName, month(ts) [2]
-##   recvDeployName     `month(ts)` runLen     n n.tags
-##   &lt;chr&gt;                    &lt;dbl&gt;  &lt;int&gt; &lt;int&gt;  &lt;int&gt;
-## 1 Sable West Light 2           1      3     3      1
-## 2 Swallowtail                 12      3     6      2</code></pre>
+<pre><code>## # A tibble: 0 x 5
+## # Groups:   recvDeployName, month(ts) [0]
+## # … with 5 variables: recvDeployName &lt;chr&gt;, `month(ts)` &lt;dbl&gt;,
+## #   runLen &lt;int&gt;, n &lt;int&gt;, n.tags &lt;int&gt;</code></pre>
 <p>These detections were at sites around the Canadian Maritimes (Sable Island, Nova Scotia; Grand Manan, New Brunswick) and were run lengths of 3. These are indicators of likely false positives. We’ll now start a tally of the particular runs involved, so that we can collate them in to a filter later.</p>
-<p>If you are interested, you can re-run the code above, but on the full data frame (<code>tbl(sql.motus, &quot;alltags&quot;)</code>) containing run lengths of 2. You will see that there are additional false positive detections at these sites, that are already eliminated by filtering on <code>runLen &gt; 2</code>. These additional detections provide further evidence that these sites experienced some radio noise during these particular months, resulting in some false positive detections.</p>
-<p>You may also be interested more generally in exploring which data have only short run lengths. For example, the following code shows the maximum run length at all sites by month (for those runs with <code>runLen &gt; 2</code>).</p>
+<p>If you are interested, you can re-run the code above, but on the full data frame (<code>tbl(sql.motus, &quot;alltags&quot;)</code>) containing run lengths of 2 or 3. You will see that there are additional false positive detections at these sites, that are already eliminated by filtering. These additional detections provide further evidence that these sites experienced some radio noise during these particular months, resulting in some false positive detections.</p>
+<p>You may also be interested more generally in exploring which data have only short run lengths. For example, the following code shows the maximum run length at all sites by month (for those runs which haven’t been removed by filtering).</p>
 <pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">month =</span> <span class="kw">month</span>(ts)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(recvDeployName, month) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">max.rl =</span> <span class="kw">max</span>(runLen)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> month, <span class="dt">value =</span> max.rl)</code></pre>
-<pre><code>## # A tibble: 46 x 8
-## # Groups:   recvDeployName [46]
-##    recvDeployName               `1`   `4`   `5`   `8`   `9`  `10`  `12`
-##    &lt;chr&gt;                      &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-##  1 Assateague State Park         NA    NA    NA    NA     6    NA    NA
-##  2 BennettMeadow                 NA    NA    NA    NA    NA    11    NA
-##  3 Binbrook_Conservation_Area    NA    NA     3    NA    NA    NA    NA
-##  4 BISE                          NA    NA    NA    NA    NA     6    NA
-##  5 Bombay Hook                   NA    NA    NA    NA    53    NA    NA
-##  6 Brier2                        NA    NA    NA    NA    29    NA    NA
-##  7 BSC HQ                        NA    NA    21    NA    NA    NA    NA
-##  8 BULL                          NA    NA    NA    NA    38     5    NA
-##  9 Comeau (Marshalltown)         NA    NA    NA    NA     4    NA    NA
-## 10 CONY                          NA    NA    NA    NA    NA     7    NA
-## # … with 36 more rows</code></pre>
+<pre><code>## # A tibble: 42 x 6
+## # Groups:   recvDeployName [42]
+##    recvDeployName          `4`   `5`   `8`   `9`  `10`
+##    &lt;chr&gt;                 &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1 Assateague State Park    NA    NA    NA     6    NA
+##  2 BennettMeadow            NA    NA    NA    NA    11
+##  3 BISE                     NA    NA    NA    NA     6
+##  4 Bombay Hook              NA    NA    NA    53    NA
+##  5 Brier2                   NA    NA    NA    29    NA
+##  6 BSC HQ                   NA    21    NA    NA    NA
+##  7 BULL                     NA    NA    NA    38     5
+##  8 Comeau (Marshalltown)    NA    NA    NA     4    NA
+##  9 CONY                     NA    NA    NA    NA     7
+## 10 D&#39;Estimauville           NA    NA    NA    40    NA
+## # … with 32 more rows</code></pre>
 <p>Alternatively, you can produce a list of sites where the maximum run length of detections was never greater than (say) 4, which may sometimes (but not always!) indicate they are simply false detections.</p>
 <pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">month =</span> <span class="kw">month</span>(ts)) <span class="op">%&gt;%</span>
@@ -620,19 +637,13 @@ df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">max.rl =</span> <span class="kw">max</span>(runLen)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(max.rl <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> month, <span class="dt">value =</span> max.rl)</code></pre>
-<pre><code>## # A tibble: 9 x 7
-## # Groups:   recvDeployName [9]
-##   recvDeployName               `1`   `4`   `5`   `9`  `10`  `12`
-##   &lt;chr&gt;                      &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-## 1 Binbrook_Conservation_Area    NA    NA     3    NA    NA    NA
-## 2 Comeau (Marshalltown)         NA    NA    NA     4    NA    NA
-## 3 MountToby                     NA    NA    NA    NA     3    NA
-## 4 NP mobile                     NA    NA    NA     3    NA    NA
-## 5 Old Cut                       NA     4    NA    NA    NA    NA
-## 6 OSCT                          NA    NA    NA    NA     3    NA
-## 7 Sable West Light 2             3    NA    NA    NA    NA    NA
-## 8 Swallowtail                   NA    NA    NA    NA    NA     3
-## 9 TRUS                          NA    NA    NA    NA     4    NA</code></pre>
+<pre><code>## # A tibble: 3 x 4
+## # Groups:   recvDeployName [3]
+##   recvDeployName          `4`   `9`  `10`
+##   &lt;chr&gt;                 &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1 Comeau (Marshalltown)    NA     4    NA
+## 2 Old Cut                   4    NA    NA
+## 3 TRUS                     NA    NA     4</code></pre>
 <p>It is impossible to go through every possible issue that you may encounter here. Users are strongly encouraged to explore their data fully, and make reasoned decisions on which detections are unlikely or indeterminate. Through the rest of this chapter we will show you how to collect these runs, and apply them to your data prior to analysis.</p>
 <p>To start, we’ll create a data frame that contains the <code>motusTagID</code>s and <code>runID</code>s for the false positives identified above.</p>
 <p>We will then re-create the plot With the newly filtered data.</p>
@@ -979,9 +990,9 @@ df.block<span class="fl">.8</span> &lt;-<span class="st"> </span>df.alltags.sub 
 <span class="st">  </span><span class="kw">select</span>(motusTagID, runID) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">distinct</span>()</code></pre>
 </div>
-<div id="checking-validity-of-run-lengths-of-2" class="section level2">
-<h2><span class="header-section-number">5.8</span> Checking validity of run lengths of 2</h2>
-<p>At the beginning of this chapter, we dropped all detections with a run length of 2 or a run length of 3-4 in noisy conditions, because they are considered to have a high probability of being false positive. Now that we’ve cleaned the data, and are confident in the detections that remain, you might at this point decide to go back and take a closer look at those omitted detections. You could do this, for example, by re-running the various plots described in this chapter (begin with lat/lon by time plots), to see if any of those detections make sense in the context of where the true detections lie. It is up to the user to decide which detections are reasonable in terms of the biology and behaviour of each tagged individual.</p>
+<div id="checking-validity-of-run-lengths-of-2-or-3" class="section level2">
+<h2><span class="header-section-number">5.8</span> Checking validity of run lengths of 2 or 3</h2>
+<p>At the beginning of this chapter, we dropped all detections with a run length of 2 or 3 or a run length of 4 in noisy conditions, because they are considered to have a high probability of being false positive. Now that we’ve cleaned the data, and are confident in the detections that remain, you might at this point decide to go back and take a closer look at those omitted detections. You could do this, for example, by re-running the various plots described in this chapter (begin with lat/lon by time plots), to see if any of those detections make sense in the context of where the true detections lie. It is up to the user to decide which detections are reasonable in terms of the biology and behaviour of each tagged individual.</p>
 </div>
 <div id="filtering-the-data" class="section level2">
 <h2><span class="header-section-number">5.9</span> Filtering the data</h2>

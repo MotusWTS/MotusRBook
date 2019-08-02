@@ -136,7 +136,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="loadingPackages.html"><a href="loadingPackages.html"><i class="fa fa-check"></i><b>2</b> Loading R Packages</a><ul>
-<li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.1</b> Internal data processing</a></li>
+<li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#installing-motus-packages"><i class="fa fa-check"></i><b>2.1</b> Installing Motus packages</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="loadingPackages.html"><a href="loadingPackages.html#troubleshooting-the-installation"><i class="fa fa-check"></i><b>2.1.1</b> Troubleshooting the installation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="loadingPackages.html"><a href="loadingPackages.html#installing-other-packages"><i class="fa fa-check"></i><b>2.2</b> Installing other packages</a></li>
+<li class="chapter" data-level="2.3" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.3</b> Internal data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="accessingData.html"><a href="accessingData.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
 <li class="chapter" data-level="3.1" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.1</b> Data structure</a></li>
@@ -194,7 +198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.6.1</b> Summarize tag detections</a></li>
 </ul></li>
 <li class="chapter" data-level="5.7" data-path="dataCleaning.html"><a href="dataCleaning.html#ambigs"><i class="fa fa-check"></i><b>5.7</b> Examining ambiguous detections</a></li>
-<li class="chapter" data-level="5.8" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2"><i class="fa fa-check"></i><b>5.8</b> Checking validity of run lengths of 2</a></li>
+<li class="chapter" data-level="5.8" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2-or-3"><i class="fa fa-check"></i><b>5.8</b> Checking validity of run lengths of 2 or 3</a></li>
 <li class="chapter" data-level="5.9" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.9</b> Filtering the data</a><ul>
 <li class="chapter" data-level="5.9.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.9.1</b> Filter and save to RDS</a></li>
 <li class="chapter" data-level="5.9.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.9.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
@@ -251,7 +255,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="C.2.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-1"><i class="fa fa-check"></i><b>C.2.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.2.3" data-path="appendixC.html"><a href="appendixC.html#example-1"><i class="fa fa-check"></i><b>C.2.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.3" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsCoor"><i class="fa fa-check"></i><b>C.3</b> <code>plotAllTagsCoord</code></a><ul>
+<li class="chapter" data-level="C.3" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsCoord"><i class="fa fa-check"></i><b>C.3</b> <code>plotAllTagsCoord</code></a><ul>
 <li class="chapter" data-level="C.3.1" data-path="appendixC.html"><a href="appendixC.html#description-2"><i class="fa fa-check"></i><b>C.3.1</b> Description</a></li>
 <li class="chapter" data-level="C.3.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-2"><i class="fa fa-check"></i><b>C.3.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.3.3" data-path="appendixC.html"><a href="appendixC.html#example-2"><i class="fa fa-check"></i><b>C.3.3</b> Example</a></li>
@@ -362,20 +366,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="loadingPackages" class="section level1">
 <h1><span class="header-section-number">2</span> Loading R Packages</h1>
+<div id="installing-motus-packages" class="section level2">
+<h2><span class="header-section-number">2.1</span> Installing Motus packages</h2>
 <p>Two R packages have been developed for Motus users:</p>
 <ol style="list-style-type: decimal">
 <li><p><code>motus</code>: provides functions for downloading and updated detections and deployment data, as well as for creating summary plots, and transforming (add sun rise/sun set times) and analyzing Motus data.</p></li>
 <li><p><code>motusData</code>: provides sample datasets used in some of the chapters of this book.</p></li>
 </ol>
 <p>Motus <strong>users</strong> can install the latest stable versions of the R packages using the following code. As with all R packages, you only need to install the packages once; after installation, you need to load each package (using <code>library()</code>) each time you open a new R session.</p>
-<p>Please note that some functionalities of the devtools package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of <a href="https://www.r-project.org/">R</a> and <a href="https://www.rstudio.com/products/RStudio/">RStudio</a>, and update your R packages using <code>update.pacakges()</code> in the R console.</p>
+<p>Please note that some functionalities of the <code>devtools</code> package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of <a href="https://www.r-project.org/">R</a> and <a href="https://www.rstudio.com/products/RStudio/">RStudio</a>, and update your R packages using <code>update.packages()</code> in the R console.</p>
 <p>To update your existing packages:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update.packages</span>()                         </code></pre>
 <p>Begin by installing the required packages, if not already installed.</p>
+<p>If you have used the older version of <code>motus</code> which included use of the <code>motusClient</code> package, it is recommended to first uninstall both packages.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">remove.packages</span>(<span class="kw">c</span>(<span class="st">&quot;motus&quot;</span>, <span class="st">&quot;motusClient&quot;</span>))</code></pre>
+<p>Then proceed with the installation of the <code>motus</code> package</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)
 <span class="kw">library</span>(devtools)
 
-<span class="co"># install motus for data download, data manipulation, visualization and analysis</span>
+<span class="co"># install motus</span>
 <span class="kw">install_github</span>(<span class="st">&quot;MotusWTS/motus&quot;</span>)
 
 <span class="co"># install motusData package which contains sample datasets, e.g., vanishBearing</span>
@@ -389,8 +398,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="kw">install_github</span>(<span class="st">&quot;MotusWTS/motus&quot;</span>, <span class="dt">force =</span> <span class="ot">TRUE</span>)
 
 <span class="kw">library</span>(motus)</code></pre>
+<div id="troubleshooting-the-installation" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Troubleshooting the installation</h3>
+<p>Occasionally users run into problems while trying to install or update <code>motus</code>. Often this is related to problems with different versions of package dependencies. Here we suggest several solutions.</p>
+<ol style="list-style-type: decimal">
+<li>Update all packages during the installation</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;MotusWTS/motus&quot;</span>, <span class="dt">upgrade =</span> <span class="st">&quot;always&quot;</span>)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>In some cases, it is easier to upgrade R itself by reinstalling the newest version of R: <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>. <strong>Note:</strong> While this results in a nice clean installation with fewer problems, it necessitates the re-installation of R packages which can be time-consuming.</p></li>
+<li><p>If reinstalling R is not an option, you get an error related to packages built under a current version of R, AND updating your packages doesn’t help, you can consider overriding the error with the following code. <strong>Note:</strong> This might help you install <code>motus</code> but may result in other problems. If possible, it’s best to resolve the errors rather than ignoring them.</p></li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.setenv</span>(<span class="st">&quot;R_REMOTES_NO_ERRORS_FROM_WARNINGS&quot;</span>=<span class="ot">TRUE</span>)
+remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;MotusWTS/motus&quot;</span>, <span class="dt">upgrade =</span> <span class="st">&quot;always&quot;</span>)</code></pre>
+</div>
+</div>
+<div id="installing-other-packages" class="section level2">
+<h2><span class="header-section-number">2.2</span> Installing other packages</h2>
 <p>Throughout the book, we use <code>tidyverse</code>, which is a collection of R packages for data science, including <code>tidyr</code>, <code>dplyr</code>, <code>ggplot2</code>, and <code>lubridate</code> for managing and manipulating dates. More information on <code>tidyverse</code> can be found at <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>, or by browsing (or better still, thoroughly reading) ‘R for Data Science’ by Garrett Grolemund and Hadley Wickham (<a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>). For mapping we also use the <code>rworldmap</code>, and <code>ggmap</code> packages. These can be installed from CRAN, as follows:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(maps)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;maps&quot;</span>)
+<span class="kw">library</span>(maps)
 
 <span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)
 <span class="kw">library</span>(tidyverse)
@@ -405,8 +432,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="kw">library</span>(ggmap)</code></pre>
 <p>We also install but do not load the <code>plyr</code> package; we use it directly for the handy <code>round_any</code> function (with the code <code>plyr::round_any()</code>), but loading it can cause problems with the <code>dplyr</code> functions:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;plyr&quot;</span>)</code></pre>
+</div>
 <div id="internalProcessing" class="section level2">
-<h2><span class="header-section-number">2.1</span> Internal data processing</h2>
+<h2><span class="header-section-number">2.3</span> Internal data processing</h2>
 <p>As an animal moves within the detection range of a Motus station, radio transmissions, or ‘bursts’, are detected by antenna(s) and recorded by a receiver. These raw detection data are either uploaded to the Motus database instantaneously via internet connection, or downloaded from the receiver and uploaded to Motus manually. Behind the scenes, various functions read and process the raw detections data to produce the tag detections file that users access using the R package (see Chapter <a href="accessingData.html#accessingData">3</a>). While most users will not need to call on the internal data processing functions, a complete list of functions within the Motus server R package can be found on GitHub (<a href="https://github.com/jbrzusto/motusServer" class="uri">https://github.com/jbrzusto/motusServer</a>). The code behind each function can be viewed on GitHub, or by typing the following in the R console after loading the R package, replacing <code>function.name</code> with the name of the R function of interest:</p>
 <pre class="sourceCode r"><code class="sourceCode r">function.name</code></pre>
 <p>In the next chapter we will examine and load some data.</p>

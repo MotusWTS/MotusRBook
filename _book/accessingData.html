@@ -136,7 +136,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="loadingPackages.html"><a href="loadingPackages.html"><i class="fa fa-check"></i><b>2</b> Loading R Packages</a><ul>
-<li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.1</b> Internal data processing</a></li>
+<li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#installing-motus-packages"><i class="fa fa-check"></i><b>2.1</b> Installing Motus packages</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="loadingPackages.html"><a href="loadingPackages.html#troubleshooting-the-installation"><i class="fa fa-check"></i><b>2.1.1</b> Troubleshooting the installation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="loadingPackages.html"><a href="loadingPackages.html#installing-other-packages"><i class="fa fa-check"></i><b>2.2</b> Installing other packages</a></li>
+<li class="chapter" data-level="2.3" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.3</b> Internal data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="accessingData.html"><a href="accessingData.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
 <li class="chapter" data-level="3.1" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.1</b> Data structure</a></li>
@@ -194,7 +198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.6.1</b> Summarize tag detections</a></li>
 </ul></li>
 <li class="chapter" data-level="5.7" data-path="dataCleaning.html"><a href="dataCleaning.html#ambigs"><i class="fa fa-check"></i><b>5.7</b> Examining ambiguous detections</a></li>
-<li class="chapter" data-level="5.8" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2"><i class="fa fa-check"></i><b>5.8</b> Checking validity of run lengths of 2</a></li>
+<li class="chapter" data-level="5.8" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2-or-3"><i class="fa fa-check"></i><b>5.8</b> Checking validity of run lengths of 2 or 3</a></li>
 <li class="chapter" data-level="5.9" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.9</b> Filtering the data</a><ul>
 <li class="chapter" data-level="5.9.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.9.1</b> Filter and save to RDS</a></li>
 <li class="chapter" data-level="5.9.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.9.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
@@ -251,7 +255,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="C.2.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-1"><i class="fa fa-check"></i><b>C.2.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.2.3" data-path="appendixC.html"><a href="appendixC.html#example-1"><i class="fa fa-check"></i><b>C.2.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.3" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsCoor"><i class="fa fa-check"></i><b>C.3</b> <code>plotAllTagsCoord</code></a><ul>
+<li class="chapter" data-level="C.3" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsCoord"><i class="fa fa-check"></i><b>C.3</b> <code>plotAllTagsCoord</code></a><ul>
 <li class="chapter" data-level="C.3.1" data-path="appendixC.html"><a href="appendixC.html#description-2"><i class="fa fa-check"></i><b>C.3.1</b> Description</a></li>
 <li class="chapter" data-level="C.3.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-2"><i class="fa fa-check"></i><b>C.3.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.3.3" data-path="appendixC.html"><a href="appendixC.html#example-2"><i class="fa fa-check"></i><b>C.3.3</b> Example</a></li>
@@ -374,31 +378,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>The .motus file contains a series of interrelated tables where data are stored in a condensed format to save memory. The following tables are included in your .motus file;</p>
 <ol style="list-style-type: decimal">
-<li><strong>antDeps</strong>: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.</li>
-<li><strong>batchRuns</strong>: metadata for runIDs and associated batchIDs</li>
-<li><strong>batches</strong>: detection data for a given receiver and boot number.</li>
-<li><strong>filters</strong>: metadata related to user created filters associated with the specified receiver.<br />
+<li><strong><code>antDeps</code></strong>: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.</li>
+<li><strong><code>batchRuns</code></strong>: metadata for runIDs and associated batchIDs</li>
+<li><strong><code>batches</code></strong>: detection data for a given receiver and boot number.</li>
+<li><strong><code>filters</code></strong>: metadata related to user created filters associated with the specified receiver.<br />
 </li>
-<li><strong>gps</strong>: metadata related to Geographic Positioning System (GPS) position of receiver.</li>
-<li><strong>hits</strong>: detection data at the level of individual hits.</li>
-<li><strong>meta</strong>: metadata related to the project and datatype (tags vs. receivers) that are included in the .motus file</li>
-<li><strong>projAmbig</strong>: metadata related to what projects have ambiguous tag detections</li>
-<li><strong>projBatch</strong>: metadata for the number of detections contained in each batch</li>
-<li><strong>projs</strong>: metadata related to projects, e.g., project name, principal investigator.</li>
-<li><strong>recvDeps</strong>: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.</li>
-<li><strong>recvs</strong>: metadata related to receiver serial number and associated Motus deviceID</li>
-<li><strong>runs</strong>: detection data associated with a run (continuous detections of a unique tag on a given receiver).</li>
-<li><strong>runsFilters</strong>: a list of runIDs associated with user created filters and assigned probabilities.<br />
+<li><strong><code>gps</code></strong>: metadata related to Geographic Positioning System (GPS) position of receiver.</li>
+<li><strong><code>hits</code></strong>: detection data at the level of individual hits.</li>
+<li><strong><code>meta</code></strong>: metadata related to the project and datatype (tags vs. receivers) that are included in the .motus file</li>
+<li><strong><code>projAmbig</code></strong>: metadata related to what projects have ambiguous tag detections</li>
+<li><strong><code>projBatch</code></strong>: metadata for the number of detections contained in each batch</li>
+<li><strong><code>projs</code></strong>: metadata related to projects, e.g., project name, principal investigator.</li>
+<li><strong><code>recvDeps</code></strong>: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.</li>
+<li><strong><code>recvs</code></strong>: metadata related to receiver serial number and associated Motus deviceID</li>
+<li><strong><code>runs</code></strong>: detection data associated with a run (continuous detections of a unique tag on a given receiver).</li>
+<li><strong><code>runsFilters</code></strong>: a list of runIDs associated with user created filters and assigned probabilities.<br />
 </li>
-<li><strong>species</strong>: metadata related to species, e.g., unique identifier, scientific name, common name.</li>
-<li><strong>tagAmbig</strong>: metadata related to ambiguous tags, e.g., ambigID and associated motusTagID</li>
-<li><strong>tagDeps</strong>: metadata related to tag deployments, e.g., deployment date, location, and species.</li>
-<li><strong>tags</strong>: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).</li>
+<li><strong><code>species</code></strong>: metadata related to species, e.g., unique identifier, scientific name, common name.</li>
+<li><strong><code>tagAmbig</code></strong>: metadata related to ambiguous tags, e.g., ambigID and associated motusTagID</li>
+<li><strong><code>tagDeps</code></strong>: metadata related to tag deployments, e.g., deployment date, location, and species.</li>
+<li><strong><code>tags</code></strong>: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).</li>
 </ol>
 <p>In addition to these tables, there are also ‘virtual’ tables or ‘views’, which have been created through queries that merge data from the various tables into a single convenient ‘view’ that contains all of the fields you are likely to need. The following views are currently included in each .motus file:</p>
 <ol style="list-style-type: decimal">
-<li><strong>allambigs</strong>: lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.</li>
-<li><strong>alltags</strong>: provides the full detection data for all tags, and all ambiguous (duplicate) tags, associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID.</li>
+<li><strong><code>allambigs</code></strong>: lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.</li>
+<li><strong><code>alltags</code></strong>: provides the full detection data for all tags, and all ambiguous (duplicate) tags, associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID.</li>
 </ol>
 <p>Because the file is a <code>dplyr::src_sqlite</code> file, all of the <code>dplyr</code> functions can be used to filter and summarize the .motus database, without needing to first save the data as a <em>flat</em> file (a typical two-dimensional dataframe). The SQL format is very advantageous when you have a large file – the queries using SQL will be substantially faster than those done on a flat dataframe.</p>
 </div>
@@ -418,7 +422,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="loadPackages" class="section level2">
 <h2><span class="header-section-number">3.3</span> Load relevant R packages</h2>
 <p>Before we begin working with data, we need to load the required packages for this chapter. If you have not yet <em>installed</em> these packages (from github and CRAN) then please return to Chapter <a href="loadingPackages.html#loadingPackages">2</a> and do so.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(motus)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(motus)
+<span class="kw">library</span>(lubridate)</code></pre>
 </div>
 <div id="set-system-environment" class="section level2">
 <h2><span class="header-section-number">3.4</span> Set system environment</h2>
@@ -448,7 +453,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>()</code></pre>
 <p>Specify the project number you wish to download detections for, in this case the sample data project.</p>
 <pre class="sourceCode r"><code class="sourceCode r">proj.num &lt;-<span class="st"> </span><span class="dv">176</span></code></pre>
-<p>As this is the first time you are downloading data for project 176, set <code>new = TRUE</code> and <code>update = TRUE</code>. This will create a .motus file in your current working directory, which was shown above using <code>getwd()</code> This will also create an SQL obect in your R environment called “sql.motus”</p>
+<p>As this is the first time you are downloading data for project 176, set <code>new = TRUE</code> and <code>update = TRUE</code>. This will create a .motus file in your current working directory, which was shown above using <code>getwd()</code> This will also create an SQL object in your R environment called “sql.motus”</p>
 <pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</code></pre>
 <p>Alternatively you can specify a different location to save the data by entering your preferred filepath. In this example we save to our data folder using the dir parameter. Note that “./” simply means ‘relative to the current folder’ (shown by <code>getwd()</code>).</p>
 <pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, 
@@ -530,8 +535,11 @@ df.serno &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st
 <div id="accessSQL" class="section level3">
 <h3><span class="header-section-number">3.5.6</span> Accessing downloaded detection data</h3>
 <p>Now that we’ve downloaded our data as an SQLite database and loaded it into an R object called <code>sql.motus</code>, we want to access the tables stored within. Detailed descriptions of all the tables stored in the .motus file can be found in section <a href="accessingData.html#databaseStructure">3.1</a>.</p>
-<p>You can also view the list of tables, and variables contained within those tables, using the code below:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># specify the filepath where your .motus file is saved, and the file name.</span>
+<p>You can also view the list of tables, and variables contained within those tables, using the <code>DBI</code> and <code>RSQLite</code> packages (these are automatically installed when you install <code>motus</code>).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DBI)
+<span class="kw">library</span>(RSQLite)
+
+<span class="co"># specify the filepath where your .motus file is saved, and the file name.</span>
 file.name &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">SQLite</span>(), <span class="st">&quot;./data/project-176.motus&quot;</span>) 
 
 <span class="co"># get a list of tables in the .motus file specified above.</span>
@@ -558,9 +566,9 @@ tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus,
 ##   .. .. ..@ loadable.extensions: logi TRUE
 ##   .. .. ..@ flags              : int 70
 ##   .. .. ..@ vfs                : chr &quot;&quot;
-##   .. .. ..@ ref                :&lt;environment: 0x56284834d9d0&gt; 
+##   .. .. ..@ ref                :&lt;environment: 0x55d5f45da978&gt; 
 ##   .. .. ..@ bigint             : chr &quot;integer64&quot;
-##   ..$ disco:&lt;environment: 0x5628480230d8&gt; 
+##   ..$ disco:&lt;environment: 0x55d5f43bd0e8&gt; 
 ##   ..- attr(*, &quot;class&quot;)= chr [1:4] &quot;src_SQLiteConnection&quot; &quot;src_dbi&quot; &quot;src_sql&quot; &quot;src&quot;
 ##  $ ops:List of 2
 ##   ..$ x   : &#39;ident&#39; chr &quot;alltags&quot;
