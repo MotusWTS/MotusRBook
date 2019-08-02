@@ -136,7 +136,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="loadingPackages.html"><a href="loadingPackages.html"><i class="fa fa-check"></i><b>2</b> Loading R Packages</a><ul>
-<li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.1</b> Internal data processing</a></li>
+<li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#installing-motus-packages"><i class="fa fa-check"></i><b>2.1</b> Installing Motus packages</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="loadingPackages.html"><a href="loadingPackages.html#troubleshooting-the-installation"><i class="fa fa-check"></i><b>2.1.1</b> Troubleshooting the installation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="loadingPackages.html"><a href="loadingPackages.html#installing-other-packages"><i class="fa fa-check"></i><b>2.2</b> Installing other packages</a></li>
+<li class="chapter" data-level="2.3" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.3</b> Internal data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="accessingData.html"><a href="accessingData.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
 <li class="chapter" data-level="3.1" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.1</b> Data structure</a></li>
@@ -150,6 +154,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloading-multiple-receivers-at-the-same-time"><i class="fa fa-check"></i><b>3.5.4</b> Downloading multiple receivers at the same time</a></li>
 <li class="chapter" data-level="3.5.5" data-path="accessingData.html"><a href="accessingData.html#updating-all-.motus-files-within-a-directory"><i class="fa fa-check"></i><b>3.5.5</b> Updating all .motus files within a directory</a></li>
 <li class="chapter" data-level="3.5.6" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.6</b> Accessing downloaded detection data</a></li>
+<li class="chapter" data-level="3.5.7" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.5.7</b> Converting to flat file</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.6</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
 <li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.7</b> Update and/or open an existing database</a></li>
@@ -182,14 +187,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="dataCleaning.html"><a href="dataCleaning.html"><i class="fa fa-check"></i><b>5</b> Data Cleaning</a><ul>
 <li class="chapter" data-level="5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#loadDetectionsCleaning"><i class="fa fa-check"></i><b>5.1</b> Load required packages</a></li>
 <li class="chapter" data-level="5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#load-detections-data"><i class="fa fa-check"></i><b>5.2</b> Load detections data</a></li>
-<li class="chapter" data-level="5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.3</b> Preliminary data checks</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.3.1</b> Summarize tag detections</a></li>
+<li class="chapter" data-level="5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#assess-tag-detections"><i class="fa fa-check"></i><b>5.3</b> Assess tag detections</a></li>
+<li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-filtering"><i class="fa fa-check"></i><b>5.4</b> Preliminary filtering</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="dataCleaning.html"><a href="dataCleaning.html#understanding-the-motusfilter"><i class="fa fa-check"></i><b>5.4.1</b> Understanding the <code>motusFilter</code></a></li>
+<li class="chapter" data-level="5.4.2" data-path="dataCleaning.html"><a href="dataCleaning.html#how-the-motusfilter-is-generated"><i class="fa fa-check"></i><b>5.4.2</b> How the <code>motusFilter</code> is generated</a></li>
+<li class="chapter" data-level="5.4.3" data-path="dataCleaning.html"><a href="dataCleaning.html#custom-filters-with-the-filterbyactivity-function"><i class="fa fa-check"></i><b>5.4.3</b> Custom filters with the <code>filterByActivity()</code> function</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#ambigs"><i class="fa fa-check"></i><b>5.4</b> Examining ambiguous detections</a></li>
-<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2"><i class="fa fa-check"></i><b>5.5</b> Checking validity of run lengths of 2</a></li>
-<li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.6</b> Filtering the data</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.6.1</b> Filter and save to RDS</a></li>
-<li class="chapter" data-level="5.6.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.6.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
+<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#preparing-the-data"><i class="fa fa-check"></i><b>5.5</b> Preparing the data</a></li>
+<li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.6</b> Preliminary data checks</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.6.1</b> Summarize tag detections</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="dataCleaning.html"><a href="dataCleaning.html#ambigs"><i class="fa fa-check"></i><b>5.7</b> Examining ambiguous detections</a></li>
+<li class="chapter" data-level="5.8" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2-or-3"><i class="fa fa-check"></i><b>5.8</b> Checking validity of run lengths of 2 or 3</a></li>
+<li class="chapter" data-level="5.9" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.9</b> Filtering the data</a><ul>
+<li class="chapter" data-level="5.9.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.9.1</b> Filter and save to RDS</a></li>
+<li class="chapter" data-level="5.9.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.9.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
@@ -226,110 +238,110 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="B.4.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.4.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
 <li class="chapter" data-level="B.4.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.4.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
 <li class="chapter" data-level="B.4.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.4.4</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
-<li class="chapter" data-level="B.4.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.4.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
+<li class="chapter" data-level="B.4.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.4.5</b> I get an error <code>Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file</code> when attempting to run <code>tagme()</code></a></li>
 <li class="chapter" data-level="B.4.6" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.4.6</b> I see GPS coordinates of “0” or “999”</a></li>
 <li class="chapter" data-level="B.4.7" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.4.7</b> I see port with a value of -1</a></li>
-<li class="chapter" data-level="B.4.8" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.4.8</b> I get the error “Error in rsqlite_fetch(<span>res@ptr</span>, n = n) : database disk image is malformed”</a></li>
+<li class="chapter" data-level="B.4.8" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.4.8</b> I get the error <code>Error in rsqlite_fetch(res@ptr, n = n) : database disk image is malformed</code></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - The Motus R Package</a><ul>
-<li class="chapter" data-level="C.1" data-path="appendixC.html"><a href="appendixC.html#checkVersion.B"><i class="fa fa-check"></i><b>C.1</b> checkVersion</a><ul>
+<li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - <code>motus</code> - Summary and plotting functions</a><ul>
+<li class="chapter" data-level="C.1" data-path="appendixC.html"><a href="appendixC.html#checkVersion.B"><i class="fa fa-check"></i><b>C.1</b> <code>checkVersion</code></a><ul>
 <li class="chapter" data-level="C.1.1" data-path="appendixC.html"><a href="appendixC.html#description"><i class="fa fa-check"></i><b>C.1.1</b> Description</a></li>
 <li class="chapter" data-level="C.1.2" data-path="appendixC.html"><a href="appendixC.html#dependencies"><i class="fa fa-check"></i><b>C.1.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.1.3" data-path="appendixC.html"><a href="appendixC.html#example"><i class="fa fa-check"></i><b>C.1.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.2" data-path="appendixC.html"><a href="appendixC.html#sunRiseSet"><i class="fa fa-check"></i><b>C.2</b> sunRiseSet</a><ul>
+<li class="chapter" data-level="C.2" data-path="appendixC.html"><a href="appendixC.html#sunRiseSet"><i class="fa fa-check"></i><b>C.2</b> <code>sunRiseSet</code></a><ul>
 <li class="chapter" data-level="C.2.1" data-path="appendixC.html"><a href="appendixC.html#description-1"><i class="fa fa-check"></i><b>C.2.1</b> Description</a></li>
 <li class="chapter" data-level="C.2.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-1"><i class="fa fa-check"></i><b>C.2.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.2.3" data-path="appendixC.html"><a href="appendixC.html#example-1"><i class="fa fa-check"></i><b>C.2.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.3" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsCoor"><i class="fa fa-check"></i><b>C.3</b> plotAllTagsCoord</a><ul>
+<li class="chapter" data-level="C.3" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsCoord"><i class="fa fa-check"></i><b>C.3</b> <code>plotAllTagsCoord</code></a><ul>
 <li class="chapter" data-level="C.3.1" data-path="appendixC.html"><a href="appendixC.html#description-2"><i class="fa fa-check"></i><b>C.3.1</b> Description</a></li>
 <li class="chapter" data-level="C.3.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-2"><i class="fa fa-check"></i><b>C.3.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.3.3" data-path="appendixC.html"><a href="appendixC.html#example-2"><i class="fa fa-check"></i><b>C.3.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.4" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsSite"><i class="fa fa-check"></i><b>C.4</b> plotAllTagsSite</a><ul>
+<li class="chapter" data-level="C.4" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsSite"><i class="fa fa-check"></i><b>C.4</b> <code>plotAllTagsSite</code></a><ul>
 <li class="chapter" data-level="C.4.1" data-path="appendixC.html"><a href="appendixC.html#description-3"><i class="fa fa-check"></i><b>C.4.1</b> Description</a></li>
 <li class="chapter" data-level="C.4.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-3"><i class="fa fa-check"></i><b>C.4.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.4.3" data-path="appendixC.html"><a href="appendixC.html#example-3"><i class="fa fa-check"></i><b>C.4.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.5" data-path="appendixC.html"><a href="appendixC.html#plotDailySiteSum"><i class="fa fa-check"></i><b>C.5</b> plotDailySiteSum</a><ul>
+<li class="chapter" data-level="C.5" data-path="appendixC.html"><a href="appendixC.html#plotDailySiteSum"><i class="fa fa-check"></i><b>C.5</b> <code>plotDailySiteSum</code></a><ul>
 <li class="chapter" data-level="C.5.1" data-path="appendixC.html"><a href="appendixC.html#description-4"><i class="fa fa-check"></i><b>C.5.1</b> Description</a></li>
 <li class="chapter" data-level="C.5.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-4"><i class="fa fa-check"></i><b>C.5.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.5.3" data-path="appendixC.html"><a href="appendixC.html#example-4"><i class="fa fa-check"></i><b>C.5.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.6" data-path="appendixC.html"><a href="appendixC.html#plotRouteMap"><i class="fa fa-check"></i><b>C.6</b> plotRouteMap</a><ul>
+<li class="chapter" data-level="C.6" data-path="appendixC.html"><a href="appendixC.html#plotRouteMap"><i class="fa fa-check"></i><b>C.6</b> <code>plotRouteMap</code></a><ul>
 <li class="chapter" data-level="C.6.1" data-path="appendixC.html"><a href="appendixC.html#description-5"><i class="fa fa-check"></i><b>C.6.1</b> Description</a></li>
 <li class="chapter" data-level="C.6.2" data-path="appendixC.html"><a href="appendixC.html#example-5"><i class="fa fa-check"></i><b>C.6.2</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.7" data-path="appendixC.html"><a href="appendixC.html#plotSite"><i class="fa fa-check"></i><b>C.7</b> plotSite</a><ul>
+<li class="chapter" data-level="C.7" data-path="appendixC.html"><a href="appendixC.html#plotSite"><i class="fa fa-check"></i><b>C.7</b> <code>plotSite</code></a><ul>
 <li class="chapter" data-level="C.7.1" data-path="appendixC.html"><a href="appendixC.html#description-6"><i class="fa fa-check"></i><b>C.7.1</b> Description</a></li>
 <li class="chapter" data-level="C.7.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-5"><i class="fa fa-check"></i><b>C.7.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.7.3" data-path="appendixC.html"><a href="appendixC.html#example-6"><i class="fa fa-check"></i><b>C.7.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.8" data-path="appendixC.html"><a href="appendixC.html#plotSiteSig"><i class="fa fa-check"></i><b>C.8</b> plotSiteSig</a><ul>
+<li class="chapter" data-level="C.8" data-path="appendixC.html"><a href="appendixC.html#plotSiteSig"><i class="fa fa-check"></i><b>C.8</b> <code>plotSiteSig</code></a><ul>
 <li class="chapter" data-level="C.8.1" data-path="appendixC.html"><a href="appendixC.html#description-7"><i class="fa fa-check"></i><b>C.8.1</b> Description</a></li>
 <li class="chapter" data-level="C.8.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-6"><i class="fa fa-check"></i><b>C.8.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.8.3" data-path="appendixC.html"><a href="appendixC.html#example-7"><i class="fa fa-check"></i><b>C.8.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.9" data-path="appendixC.html"><a href="appendixC.html#plotTagSig"><i class="fa fa-check"></i><b>C.9</b> plotTagSig</a><ul>
+<li class="chapter" data-level="C.9" data-path="appendixC.html"><a href="appendixC.html#plotTagSig"><i class="fa fa-check"></i><b>C.9</b> <code>plotTagSig</code></a><ul>
 <li class="chapter" data-level="C.9.1" data-path="appendixC.html"><a href="appendixC.html#description-8"><i class="fa fa-check"></i><b>C.9.1</b> Description</a></li>
 <li class="chapter" data-level="C.9.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-7"><i class="fa fa-check"></i><b>C.9.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.9.3" data-path="appendixC.html"><a href="appendixC.html#example-8"><i class="fa fa-check"></i><b>C.9.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.10" data-path="appendixC.html"><a href="appendixC.html#simSiteDet"><i class="fa fa-check"></i><b>C.10</b> simSiteDet</a><ul>
+<li class="chapter" data-level="C.10" data-path="appendixC.html"><a href="appendixC.html#simSiteDet"><i class="fa fa-check"></i><b>C.10</b> <code>simSiteDet</code></a><ul>
 <li class="chapter" data-level="C.10.1" data-path="appendixC.html"><a href="appendixC.html#description-9"><i class="fa fa-check"></i><b>C.10.1</b> Description</a></li>
 <li class="chapter" data-level="C.10.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-8"><i class="fa fa-check"></i><b>C.10.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.10.3" data-path="appendixC.html"><a href="appendixC.html#example-9"><i class="fa fa-check"></i><b>C.10.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.11" data-path="appendixC.html"><a href="appendixC.html#siteSum"><i class="fa fa-check"></i><b>C.11</b> siteSum</a><ul>
+<li class="chapter" data-level="C.11" data-path="appendixC.html"><a href="appendixC.html#siteSum"><i class="fa fa-check"></i><b>C.11</b> <code>siteSum</code></a><ul>
 <li class="chapter" data-level="C.11.1" data-path="appendixC.html"><a href="appendixC.html#description-10"><i class="fa fa-check"></i><b>C.11.1</b> Description</a></li>
 <li class="chapter" data-level="C.11.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-9"><i class="fa fa-check"></i><b>C.11.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.11.3" data-path="appendixC.html"><a href="appendixC.html#example-10"><i class="fa fa-check"></i><b>C.11.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.12" data-path="appendixC.html"><a href="appendixC.html#siteSumDaily"><i class="fa fa-check"></i><b>C.12</b> siteSumDaily</a><ul>
+<li class="chapter" data-level="C.12" data-path="appendixC.html"><a href="appendixC.html#siteSumDaily"><i class="fa fa-check"></i><b>C.12</b> <code>siteSumDaily</code></a><ul>
 <li class="chapter" data-level="C.12.1" data-path="appendixC.html"><a href="appendixC.html#description-11"><i class="fa fa-check"></i><b>C.12.1</b> Description</a></li>
 <li class="chapter" data-level="C.12.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-10"><i class="fa fa-check"></i><b>C.12.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.12.3" data-path="appendixC.html"><a href="appendixC.html#example-11"><i class="fa fa-check"></i><b>C.12.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.13" data-path="appendixC.html"><a href="appendixC.html#siteTrans"><i class="fa fa-check"></i><b>C.13</b> siteTrans</a><ul>
+<li class="chapter" data-level="C.13" data-path="appendixC.html"><a href="appendixC.html#siteTrans"><i class="fa fa-check"></i><b>C.13</b> <code>siteTrans</code></a><ul>
 <li class="chapter" data-level="C.13.1" data-path="appendixC.html"><a href="appendixC.html#description-12"><i class="fa fa-check"></i><b>C.13.1</b> Description</a></li>
 <li class="chapter" data-level="C.13.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-11"><i class="fa fa-check"></i><b>C.13.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.13.3" data-path="appendixC.html"><a href="appendixC.html#example-12"><i class="fa fa-check"></i><b>C.13.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.14" data-path="appendixC.html"><a href="appendixC.html#tagSum"><i class="fa fa-check"></i><b>C.14</b> tagSum</a><ul>
+<li class="chapter" data-level="C.14" data-path="appendixC.html"><a href="appendixC.html#tagSum"><i class="fa fa-check"></i><b>C.14</b> <code>tagSum</code></a><ul>
 <li class="chapter" data-level="C.14.1" data-path="appendixC.html"><a href="appendixC.html#description-13"><i class="fa fa-check"></i><b>C.14.1</b> Description</a></li>
 <li class="chapter" data-level="C.14.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-12"><i class="fa fa-check"></i><b>C.14.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.14.3" data-path="appendixC.html"><a href="appendixC.html#example-13"><i class="fa fa-check"></i><b>C.14.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.15" data-path="appendixC.html"><a href="appendixC.html#tagSumSite"><i class="fa fa-check"></i><b>C.15</b> tagSumSite</a><ul>
+<li class="chapter" data-level="C.15" data-path="appendixC.html"><a href="appendixC.html#tagSumSite"><i class="fa fa-check"></i><b>C.15</b> <code>tagSumSite</code></a><ul>
 <li class="chapter" data-level="C.15.1" data-path="appendixC.html"><a href="appendixC.html#description-14"><i class="fa fa-check"></i><b>C.15.1</b> Description</a></li>
 <li class="chapter" data-level="C.15.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-13"><i class="fa fa-check"></i><b>C.15.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.15.3" data-path="appendixC.html"><a href="appendixC.html#example-14"><i class="fa fa-check"></i><b>C.15.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.16" data-path="appendixC.html"><a href="appendixC.html#timeToSunriset"><i class="fa fa-check"></i><b>C.16</b> timeToSunriset</a><ul>
+<li class="chapter" data-level="C.16" data-path="appendixC.html"><a href="appendixC.html#timeToSunriset"><i class="fa fa-check"></i><b>C.16</b> <code>timeToSunriset</code></a><ul>
 <li class="chapter" data-level="C.16.1" data-path="appendixC.html"><a href="appendixC.html#description-15"><i class="fa fa-check"></i><b>C.16.1</b> Description</a></li>
 <li class="chapter" data-level="C.16.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-14"><i class="fa fa-check"></i><b>C.16.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.16.3" data-path="appendixC.html"><a href="appendixC.html#example-15"><i class="fa fa-check"></i><b>C.16.3</b> Example</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="D" data-path="appendixD.html"><a href="appendixD.html"><i class="fa fa-check"></i><b>D</b> Appendix - The motusClient Package - Data filtering functions</a><ul>
-<li class="chapter" data-level="D.1" data-path="appendixD.html"><a href="appendixD.html#listRunsFilters"><i class="fa fa-check"></i><b>D.1</b> listRunsFilters</a><ul>
+<li class="chapter" data-level="D" data-path="appendixD.html"><a href="appendixD.html"><i class="fa fa-check"></i><b>D</b> Appendix - <code>motus</code> - Data filtering functions</a><ul>
+<li class="chapter" data-level="D.1" data-path="appendixD.html"><a href="appendixD.html#listRunsFilters"><i class="fa fa-check"></i><b>D.1</b> <code>listRunsFilters</code></a><ul>
 <li class="chapter" data-level="D.1.1" data-path="appendixD.html"><a href="appendixD.html#description-16"><i class="fa fa-check"></i><b>D.1.1</b> Description</a></li>
 </ul></li>
 <li class="chapter" data-level="D.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-15"><i class="fa fa-check"></i><b>D.2</b> Dependencies</a></li>
 <li class="chapter" data-level="D.3" data-path="appendixD.html"><a href="appendixD.html#example-16"><i class="fa fa-check"></i><b>D.3</b> Example</a></li>
-<li class="chapter" data-level="D.4" data-path="appendixD.html"><a href="appendixD.html#createRunsFilter"><i class="fa fa-check"></i><b>D.4</b> createRunsFilter</a><ul>
+<li class="chapter" data-level="D.4" data-path="appendixD.html"><a href="appendixD.html#createRunsFilter"><i class="fa fa-check"></i><b>D.4</b> <code>createRunsFilter</code></a><ul>
 <li class="chapter" data-level="D.4.1" data-path="appendixD.html"><a href="appendixD.html#description-17"><i class="fa fa-check"></i><b>D.4.1</b> Description</a></li>
 <li class="chapter" data-level="D.4.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-16"><i class="fa fa-check"></i><b>D.4.2</b> Dependencies</a></li>
 <li class="chapter" data-level="D.4.3" data-path="appendixD.html"><a href="appendixD.html#example-17"><i class="fa fa-check"></i><b>D.4.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="D.5" data-path="appendixD.html"><a href="appendixD.html#getRunsFilters"><i class="fa fa-check"></i><b>D.5</b> getRunsFilters</a><ul>
+<li class="chapter" data-level="D.5" data-path="appendixD.html"><a href="appendixD.html#getRunsFilters"><i class="fa fa-check"></i><b>D.5</b> <code>getRunsFilters</code></a><ul>
 <li class="chapter" data-level="D.5.1" data-path="appendixD.html"><a href="appendixD.html#description-18"><i class="fa fa-check"></i><b>D.5.1</b> Description</a></li>
 <li class="chapter" data-level="D.5.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-17"><i class="fa fa-check"></i><b>D.5.2</b> Dependencies</a></li>
 <li class="chapter" data-level="D.5.3" data-path="appendixD.html"><a href="appendixD.html#example-18"><i class="fa fa-check"></i><b>D.5.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="D.6" data-path="appendixD.html"><a href="appendixD.html#writeRunsFilter"><i class="fa fa-check"></i><b>D.6</b> writeRunsFilter</a><ul>
+<li class="chapter" data-level="D.6" data-path="appendixD.html"><a href="appendixD.html#writeRunsFilter"><i class="fa fa-check"></i><b>D.6</b> <code>writeRunsFilter</code></a><ul>
 <li class="chapter" data-level="D.6.1" data-path="appendixD.html"><a href="appendixD.html#description-19"><i class="fa fa-check"></i><b>D.6.1</b> Description</a></li>
 <li class="chapter" data-level="D.6.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-18"><i class="fa fa-check"></i><b>D.6.2</b> Dependencies</a></li>
 <li class="chapter" data-level="D.6.3" data-path="appendixD.html"><a href="appendixD.html#examples"><i class="fa fa-check"></i><b>D.6.3</b> Examples</a></li>
@@ -355,14 +367,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="appendixB" class="section level1">
 <h1><span class="header-section-number">B</span> Appendix - Troubleshooting</h1>
 <p>As a first step, always ensure you are using the latest version of the motus package (see section @ref(checkVersion.B)), and you have all required packages installed, loaded, and up to date (see Chapter <a href="loadingPackages.html#loadingPackages">2</a>).</p>
-<p>While attempting to download data with the motus package, you may encounter errors, many of which are likely due to an interrupted connection. <strong>Always ensure you are connected to the internet when using the tagme() function with ‘update = TRUE’</strong>. Most issues can be solved by either logging out of the motus package, or by restarting R and resuming the download using tagme(). If errors persist and you are unable to download your data, the server may be temporarily offline. Please contact Motus with any concerns at <a href="mailto:motus@birdscanada.org" class="email">motus@birdscanada.org</a>.</p>
+<p>While attempting to download data with the motus package, you may encounter errors, many of which are likely due to an interrupted connection. <strong>Always ensure you are connected to the internet when using the <code>tagme()</code> function with <code>update = TRUE</code></strong>. Most issues can be solved by either logging out of the motus package, or by restarting R and resuming the download using <code>tagme()</code>. If errors persist and you are unable to download your data, the server may be temporarily offline. Please contact Motus with any concerns at <a href="mailto:motus@birdscanada.org" class="email">motus@birdscanada.org</a>.</p>
 <div id="motusLogout" class="section level2">
 <h2><span class="header-section-number">B.1</span> Logging out of motus</h2>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">motusLogout</span>()</code></pre>
 </div>
 <div id="resumeDownload" class="section level2">
 <h2><span class="header-section-number">B.2</span> Resume data download</h2>
-<p>To resume your data download, run tagme() again, but do not include ‘new = TRUE’:</p>
+<p>To resume your data download, run <code>tagme()</code> again, but do not include <code>new = TRUE</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tagme</span>(project.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> ...)</code></pre>
 </div>
 <div id="googleMapsKey" class="section level2">
@@ -380,34 +392,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>You may need to enable Google Maps Static API. You can do this through the navigation menu in the upper left corner, and selecting APIs &amp; Services &gt; library, choosing “Google Maps Static API” and clicking “Enable”.</li>
 </ol>
 <p>Full details are listed under “Detailed Guide” <a href="https://developers.google.com/maps/documentation/javascript/get-api-key">here</a>. Note that you may have to enable Google Maps Static API. For troubleshooting see <a href="https://groups.google.com/forum/#!topic/motus-wts/UxqFIO6Pcmo">here</a> and <a href="https://groups.google.com/forum/#!topic/motus-wts/UxqFIO6Pcmo%20and%20https://github.com/dkahle/ggmap/issues/51">here</a>.</p>
-<p>Once you have your access key, you’ll need to provide it with the call register_google(), <strong>each time you start a new R session you will be required to enter your key.</strong></p>
+<p>Once you have your access key, you’ll need to provide it with the call <code>register_google()</code>, <strong>each time you start a new R session you will be required to enter your key.</strong></p>
 <p>Then you can create Google maps with the <code>ggmap</code> package using the <code>get_googlemap()</code> function and specifying the lat/lon center of your map (as opposed to bounding box as with stamen maps).</p>
 </div>
 <div id="common-error-messages-and-solutions" class="section level2">
 <h2><span class="header-section-number">B.4</span> Common error messages and solutions:</h2>
 <div id="i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme" class="section level3">
 <h3><span class="header-section-number">B.4.1</span> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</h3>
-<p>If this occurs after data download has finished, this message can be ignored. If it occurs during an active download, the connection will usually be maintained and the download will continue. However if the download stops, simply run tagme() again. If that does not work, we suggest logging out of the motus package or restarting R (see sections <a href="appendixB.html#motusLogout">B.1</a> and <a href="appendixB.html#resumeDownload">B.2</a>).</p>
+<p>If this occurs after data download has finished, this message can be ignored. If it occurs during an active download, the connection will usually be maintained and the download will continue. However if the download stops, simply run <code>tagme()</code> again. If that does not work, we suggest logging out of the motus package or restarting R (see sections <a href="appendixB.html#motusLogout">B.1</a> and <a href="appendixB.html#resumeDownload">B.2</a>).</p>
 </div>
 <div id="i-get-an-internal-server-error-message-when-using-tagme-update-true" class="section level3">
 <h3><span class="header-section-number">B.4.2</span> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</h3>
-<p>If you get this message while updating your .motus file, use tagme() again to continue the download.</p>
+<p>If you get this message while updating your .motus file, use <code>tagme()</code> again to continue the download.</p>
 </div>
 <div id="i-get-an-error-forbidden-message-when-using-tagme" class="section level3">
 <h3><span class="header-section-number">B.4.3</span> I get an “Error: Forbidden” message when using tagme()</h3>
-<p>This error may occur if you are attempting to download multiple projects simultaneously from the same user account. If you get this error, please logout of the motus package, and try tagme() again (see sections <a href="appendixB.html#motusLogout">B.1</a> and <a href="appendixB.html#resumeDownload">B.2</a>).</p>
+<p>This error may occur if you are attempting to download multiple projects simultaneously from the same user account. If you get this error, please logout of the motus package, and try <code>tagme()</code> again (see sections <a href="appendixB.html#motusLogout">B.1</a> and <a href="appendixB.html#resumeDownload">B.2</a>).</p>
 </div>
 <div id="i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work." class="section level3">
 <h3><span class="header-section-number">B.4.4</span> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</h3>
-<p>Be sure to start the steps from the top of the chapter and run them in sequential order. Another possibility is that your .motus database hasn’t been updated to support the latest version of the motusClient or the motus package. If the checkVersion function returns a warning, this may indicate that the internal function used to update your database has not been triggered by tagme(). This can happen, for example, if you load the motusClient package without also loading the motus package. Loading the motus package will also load motusClient, so you should only ever need load motus into your R library.</p>
+<p>Be sure to start the steps from the top of the chapter and run them in sequential order. Another possibility is that your .motus database hasn’t been updated to support the latest version of the motus package.</p>
 <p>To ensure that your .motus file is up-to-date with the motus package:</p>
 <pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)
 <span class="kw">checkVersion</span>(sql.motus)</code></pre>
 <p>To correct any warnings, you should follow these steps:</p>
 <ol style="list-style-type: decimal">
-<li>download the latest versions of the motusClient and then the motus package (refer to Chapter <a href="loadingPackages.html#loadingPackages">2</a>).</li>
+<li>download the latest version of the motus package (refer to Chapter <a href="loadingPackages.html#loadingPackages">2</a>).</li>
 <li>terminate and restart your R session.</li>
-<li>load the motus library using ‘library(motus)’ in your R console.</li>
+<li>load the motus library using <code>library(motus)</code> in your R console.</li>
 <li>load your sqlite file. Look for notes on the console indicating that your database is being updated.</li>
 <li>check the version again.</li>
 </ol>
@@ -416,8 +428,8 @@ sql &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <sp
 <span class="kw">checkVersion</span>(sql)</code></pre>
 </div>
 <div id="i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme" class="section level3">
-<h3><span class="header-section-number">B.4.5</span> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</h3>
-<p>If you get this message, it’s likely that you’re attempting a new download or update to a non-existant directory. The directory is specified in the **dir = &quot;“** command of the tagme() function. If the directory is not specified, files will be saved to your working directory. Use getwd() to determine your current working directory. Use setwd() to set a new working directory. To specify a location to save files from your working directory use”./&quot; followed by the file path.</p>
+<h3><span class="header-section-number">B.4.5</span> I get an error <code>Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file</code> when attempting to run <code>tagme()</code></h3>
+<p>If you get this message, it’s likely that you’re attempting a new download or update to a nonexistant directory. The directory is specified in the <strong><code>dir = &quot;&quot;</code></strong> command of the <code>tagme()</code> function. If the directory is not specified, files will be saved to your working directory. Use <code>getwd()</code> to determine your current working directory. Use <code>setwd()</code> to set a new working directory. To specify a location to save files from your working directory use “./” followed by the file path.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>() <span class="co"># show working directory, in this case it&#39;s &quot;C:/Documents&quot;</span>
 
 <span class="co"># downloads data to your working directory</span>
@@ -432,7 +444,7 @@ sql &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <sp
 </div>
 <div id="i-see-gps-coordinates-of-0-or-999" class="section level3">
 <h3><span class="header-section-number">B.4.6</span> I see GPS coordinates of “0” or “999”</h3>
-<p>These values are recorded from the GPS unit in the field. Values like these should be ignored, you can replace these with “NA”, or insert the recvDeployLat/recvDeplOyLon values which are taken from receiver deployment metadata entered by users.</p>
+<p>These values are recorded from the GPS unit in the field. Values like these should be ignored, you can replace these with <code>NA</code>, or insert the <code>recvDeployLat</code>/<code>recvDeplOyLon</code> values which are taken from receiver deployment metadata entered by users.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">## to replace gpsLat/gpsLon values of NA, 0, or 999 with that of receiver deployment metadata in the alltags table, and read into a data.frame</span>
 df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">recvLat =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLat)<span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), 
@@ -446,7 +458,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <p>Port “-1” represents the “A1+A2+A3+A4” compound antenna which is sometimes reported in Lotek .DTA file detections. This likely means the receiver has combined the signal from 4 antennas to detect the tag.</p>
 </div>
 <div id="i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed" class="section level3">
-<h3><span class="header-section-number">B.4.8</span> I get the error “Error in rsqlite_fetch(<a href="mailto:res@ptr" class="email">res@ptr</a>, n = n) : database disk image is malformed”</h3>
+<h3><span class="header-section-number">B.4.8</span> I get the error <code>Error in rsqlite_fetch(res@ptr, n = n) : database disk image is malformed</code></h3>
 <p>This is likely due to corrupt files which can occur during download. The easiest solution is to delete your current .motus file and download from scratch.</p>
 <p>Of course, there is always the possibility that the book contains errors! If this does not work, please contact <a href="mailto:motus@birdscanada.org" class="email">motus@birdscanada.org</a>.</p>
 

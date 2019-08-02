@@ -69,7 +69,7 @@ knitr::include_graphics("images/vanishBearingDeviation.png")
 
 ```
 
-This suggests that stations with closer spaced antennas yield more accurate vanishing bearings. If the estimation of vanishing bearings is a primary goal of your research, we suggest spacing antennas 60 degrees apart, as in Sjöberg and Nilson (2015).
+This suggests that stations with closer spaced antennas yield more accurate vanishing bearings. If the estimation of vanishing bearings is a primary goal of your research, we suggest spacing antennas 60 degrees apart, as in Sjöberg and Nilsson (2015).
 
 3) **For receivers with negative signal strength values, weights need to be normalized**
 
@@ -108,7 +108,7 @@ Sys.setenv(TZ = "UTC")
 
 The sample data used in this chapter includes the detections of three Magnolia Warblers that were tagged at the Old Cut field research station of the Long Point Bird Observatory in Ontario, Canada, by Morbey et al. (2017). The warblers were tagged and released in spring 2015.
 
-The sample data are included in the motusData R package as the "vanishBearing.rda" file. In order to access these data, you will need to first install the motusData package following the instructions in  section \@ref(loadingPackages), *prior* to running the code in this chapter: 
+The sample data are included in the motusData R package as the "vanishBearing.rda" file. In order to access these data, you will need to first install the motusData package following the instructions in section \@ref(loadingPackages), *prior* to running the code in this chapter: 
 
 ```{r vanishLoadData, warning = FALSE, message = FALSE}
 # load the motusData package, which contains the sample data for this chapter
@@ -221,7 +221,7 @@ df.departTime
 
 Now, we subset our data to one individual to calculate its vanishing bearing. 
 
-We will continue with the same individual, motusTagID 16823, using all detections after and including our specified departure time:
+We will continue with the same individual, `motusTagID` 16823, using all detections after and including our specified departure time:
 
 
 Now that we have only the post-departure detections for the bird we are interested in, we calculate its vanishing bearing.
@@ -264,7 +264,7 @@ df.vanishBearing <- right_join(df.vanish, df.departTime, by = "motusTagID") %>%
 
 ```
 
-The resulting 'df.vanish' dataframe contains the motusTagID, the vanishing bearing of the tag, the time in seconds/minutes used to estimate the bearing, and the receiver's name and coordinates. We can make a circular plot with points for the individual vanishing bearings and an arrow for the mean bearing as follows:
+The resulting `df.vanish` dataframe contains the `motusTagID`, the vanishing bearing of the tag, the time in seconds/minutes used to estimate the bearing, and the receiver's name and coordinates. We can make a circular plot with points for the individual vanishing bearings and an arrow for the mean bearing as follows:
 
 ```{r plotCircular}
 

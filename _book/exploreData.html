@@ -136,7 +136,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="loadingPackages.html"><a href="loadingPackages.html"><i class="fa fa-check"></i><b>2</b> Loading R Packages</a><ul>
-<li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.1</b> Internal data processing</a></li>
+<li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#installing-motus-packages"><i class="fa fa-check"></i><b>2.1</b> Installing Motus packages</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="loadingPackages.html"><a href="loadingPackages.html#troubleshooting-the-installation"><i class="fa fa-check"></i><b>2.1.1</b> Troubleshooting the installation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="loadingPackages.html"><a href="loadingPackages.html#installing-other-packages"><i class="fa fa-check"></i><b>2.2</b> Installing other packages</a></li>
+<li class="chapter" data-level="2.3" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.3</b> Internal data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="accessingData.html"><a href="accessingData.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
 <li class="chapter" data-level="3.1" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.1</b> Data structure</a></li>
@@ -150,6 +154,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloading-multiple-receivers-at-the-same-time"><i class="fa fa-check"></i><b>3.5.4</b> Downloading multiple receivers at the same time</a></li>
 <li class="chapter" data-level="3.5.5" data-path="accessingData.html"><a href="accessingData.html#updating-all-.motus-files-within-a-directory"><i class="fa fa-check"></i><b>3.5.5</b> Updating all .motus files within a directory</a></li>
 <li class="chapter" data-level="3.5.6" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.6</b> Accessing downloaded detection data</a></li>
+<li class="chapter" data-level="3.5.7" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.5.7</b> Converting to flat file</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.6</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
 <li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.7</b> Update and/or open an existing database</a></li>
@@ -182,14 +187,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="dataCleaning.html"><a href="dataCleaning.html"><i class="fa fa-check"></i><b>5</b> Data Cleaning</a><ul>
 <li class="chapter" data-level="5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#loadDetectionsCleaning"><i class="fa fa-check"></i><b>5.1</b> Load required packages</a></li>
 <li class="chapter" data-level="5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#load-detections-data"><i class="fa fa-check"></i><b>5.2</b> Load detections data</a></li>
-<li class="chapter" data-level="5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.3</b> Preliminary data checks</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.3.1</b> Summarize tag detections</a></li>
+<li class="chapter" data-level="5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#assess-tag-detections"><i class="fa fa-check"></i><b>5.3</b> Assess tag detections</a></li>
+<li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-filtering"><i class="fa fa-check"></i><b>5.4</b> Preliminary filtering</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="dataCleaning.html"><a href="dataCleaning.html#understanding-the-motusfilter"><i class="fa fa-check"></i><b>5.4.1</b> Understanding the <code>motusFilter</code></a></li>
+<li class="chapter" data-level="5.4.2" data-path="dataCleaning.html"><a href="dataCleaning.html#how-the-motusfilter-is-generated"><i class="fa fa-check"></i><b>5.4.2</b> How the <code>motusFilter</code> is generated</a></li>
+<li class="chapter" data-level="5.4.3" data-path="dataCleaning.html"><a href="dataCleaning.html#custom-filters-with-the-filterbyactivity-function"><i class="fa fa-check"></i><b>5.4.3</b> Custom filters with the <code>filterByActivity()</code> function</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#ambigs"><i class="fa fa-check"></i><b>5.4</b> Examining ambiguous detections</a></li>
-<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2"><i class="fa fa-check"></i><b>5.5</b> Checking validity of run lengths of 2</a></li>
-<li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.6</b> Filtering the data</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.6.1</b> Filter and save to RDS</a></li>
-<li class="chapter" data-level="5.6.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.6.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
+<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#preparing-the-data"><i class="fa fa-check"></i><b>5.5</b> Preparing the data</a></li>
+<li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.6</b> Preliminary data checks</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.6.1</b> Summarize tag detections</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="dataCleaning.html"><a href="dataCleaning.html#ambigs"><i class="fa fa-check"></i><b>5.7</b> Examining ambiguous detections</a></li>
+<li class="chapter" data-level="5.8" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2-or-3"><i class="fa fa-check"></i><b>5.8</b> Checking validity of run lengths of 2 or 3</a></li>
+<li class="chapter" data-level="5.9" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.9</b> Filtering the data</a><ul>
+<li class="chapter" data-level="5.9.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.9.1</b> Filter and save to RDS</a></li>
+<li class="chapter" data-level="5.9.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.9.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
@@ -226,110 +238,110 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="B.4.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.4.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
 <li class="chapter" data-level="B.4.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.4.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
 <li class="chapter" data-level="B.4.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.4.4</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
-<li class="chapter" data-level="B.4.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.4.5</b> I get an error “Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file” when attempting to run tagme()</a></li>
+<li class="chapter" data-level="B.4.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.4.5</b> I get an error <code>Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file</code> when attempting to run <code>tagme()</code></a></li>
 <li class="chapter" data-level="B.4.6" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.4.6</b> I see GPS coordinates of “0” or “999”</a></li>
 <li class="chapter" data-level="B.4.7" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.4.7</b> I see port with a value of -1</a></li>
-<li class="chapter" data-level="B.4.8" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.4.8</b> I get the error “Error in rsqlite_fetch(<span>res@ptr</span>, n = n) : database disk image is malformed”</a></li>
+<li class="chapter" data-level="B.4.8" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.4.8</b> I get the error <code>Error in rsqlite_fetch(res@ptr, n = n) : database disk image is malformed</code></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - The Motus R Package</a><ul>
-<li class="chapter" data-level="C.1" data-path="appendixC.html"><a href="appendixC.html#checkVersion.B"><i class="fa fa-check"></i><b>C.1</b> checkVersion</a><ul>
+<li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - <code>motus</code> - Summary and plotting functions</a><ul>
+<li class="chapter" data-level="C.1" data-path="appendixC.html"><a href="appendixC.html#checkVersion.B"><i class="fa fa-check"></i><b>C.1</b> <code>checkVersion</code></a><ul>
 <li class="chapter" data-level="C.1.1" data-path="appendixC.html"><a href="appendixC.html#description"><i class="fa fa-check"></i><b>C.1.1</b> Description</a></li>
 <li class="chapter" data-level="C.1.2" data-path="appendixC.html"><a href="appendixC.html#dependencies"><i class="fa fa-check"></i><b>C.1.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.1.3" data-path="appendixC.html"><a href="appendixC.html#example"><i class="fa fa-check"></i><b>C.1.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.2" data-path="appendixC.html"><a href="appendixC.html#sunRiseSet"><i class="fa fa-check"></i><b>C.2</b> sunRiseSet</a><ul>
+<li class="chapter" data-level="C.2" data-path="appendixC.html"><a href="appendixC.html#sunRiseSet"><i class="fa fa-check"></i><b>C.2</b> <code>sunRiseSet</code></a><ul>
 <li class="chapter" data-level="C.2.1" data-path="appendixC.html"><a href="appendixC.html#description-1"><i class="fa fa-check"></i><b>C.2.1</b> Description</a></li>
 <li class="chapter" data-level="C.2.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-1"><i class="fa fa-check"></i><b>C.2.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.2.3" data-path="appendixC.html"><a href="appendixC.html#example-1"><i class="fa fa-check"></i><b>C.2.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.3" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsCoor"><i class="fa fa-check"></i><b>C.3</b> plotAllTagsCoord</a><ul>
+<li class="chapter" data-level="C.3" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsCoord"><i class="fa fa-check"></i><b>C.3</b> <code>plotAllTagsCoord</code></a><ul>
 <li class="chapter" data-level="C.3.1" data-path="appendixC.html"><a href="appendixC.html#description-2"><i class="fa fa-check"></i><b>C.3.1</b> Description</a></li>
 <li class="chapter" data-level="C.3.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-2"><i class="fa fa-check"></i><b>C.3.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.3.3" data-path="appendixC.html"><a href="appendixC.html#example-2"><i class="fa fa-check"></i><b>C.3.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.4" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsSite"><i class="fa fa-check"></i><b>C.4</b> plotAllTagsSite</a><ul>
+<li class="chapter" data-level="C.4" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsSite"><i class="fa fa-check"></i><b>C.4</b> <code>plotAllTagsSite</code></a><ul>
 <li class="chapter" data-level="C.4.1" data-path="appendixC.html"><a href="appendixC.html#description-3"><i class="fa fa-check"></i><b>C.4.1</b> Description</a></li>
 <li class="chapter" data-level="C.4.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-3"><i class="fa fa-check"></i><b>C.4.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.4.3" data-path="appendixC.html"><a href="appendixC.html#example-3"><i class="fa fa-check"></i><b>C.4.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.5" data-path="appendixC.html"><a href="appendixC.html#plotDailySiteSum"><i class="fa fa-check"></i><b>C.5</b> plotDailySiteSum</a><ul>
+<li class="chapter" data-level="C.5" data-path="appendixC.html"><a href="appendixC.html#plotDailySiteSum"><i class="fa fa-check"></i><b>C.5</b> <code>plotDailySiteSum</code></a><ul>
 <li class="chapter" data-level="C.5.1" data-path="appendixC.html"><a href="appendixC.html#description-4"><i class="fa fa-check"></i><b>C.5.1</b> Description</a></li>
 <li class="chapter" data-level="C.5.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-4"><i class="fa fa-check"></i><b>C.5.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.5.3" data-path="appendixC.html"><a href="appendixC.html#example-4"><i class="fa fa-check"></i><b>C.5.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.6" data-path="appendixC.html"><a href="appendixC.html#plotRouteMap"><i class="fa fa-check"></i><b>C.6</b> plotRouteMap</a><ul>
+<li class="chapter" data-level="C.6" data-path="appendixC.html"><a href="appendixC.html#plotRouteMap"><i class="fa fa-check"></i><b>C.6</b> <code>plotRouteMap</code></a><ul>
 <li class="chapter" data-level="C.6.1" data-path="appendixC.html"><a href="appendixC.html#description-5"><i class="fa fa-check"></i><b>C.6.1</b> Description</a></li>
 <li class="chapter" data-level="C.6.2" data-path="appendixC.html"><a href="appendixC.html#example-5"><i class="fa fa-check"></i><b>C.6.2</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.7" data-path="appendixC.html"><a href="appendixC.html#plotSite"><i class="fa fa-check"></i><b>C.7</b> plotSite</a><ul>
+<li class="chapter" data-level="C.7" data-path="appendixC.html"><a href="appendixC.html#plotSite"><i class="fa fa-check"></i><b>C.7</b> <code>plotSite</code></a><ul>
 <li class="chapter" data-level="C.7.1" data-path="appendixC.html"><a href="appendixC.html#description-6"><i class="fa fa-check"></i><b>C.7.1</b> Description</a></li>
 <li class="chapter" data-level="C.7.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-5"><i class="fa fa-check"></i><b>C.7.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.7.3" data-path="appendixC.html"><a href="appendixC.html#example-6"><i class="fa fa-check"></i><b>C.7.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.8" data-path="appendixC.html"><a href="appendixC.html#plotSiteSig"><i class="fa fa-check"></i><b>C.8</b> plotSiteSig</a><ul>
+<li class="chapter" data-level="C.8" data-path="appendixC.html"><a href="appendixC.html#plotSiteSig"><i class="fa fa-check"></i><b>C.8</b> <code>plotSiteSig</code></a><ul>
 <li class="chapter" data-level="C.8.1" data-path="appendixC.html"><a href="appendixC.html#description-7"><i class="fa fa-check"></i><b>C.8.1</b> Description</a></li>
 <li class="chapter" data-level="C.8.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-6"><i class="fa fa-check"></i><b>C.8.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.8.3" data-path="appendixC.html"><a href="appendixC.html#example-7"><i class="fa fa-check"></i><b>C.8.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.9" data-path="appendixC.html"><a href="appendixC.html#plotTagSig"><i class="fa fa-check"></i><b>C.9</b> plotTagSig</a><ul>
+<li class="chapter" data-level="C.9" data-path="appendixC.html"><a href="appendixC.html#plotTagSig"><i class="fa fa-check"></i><b>C.9</b> <code>plotTagSig</code></a><ul>
 <li class="chapter" data-level="C.9.1" data-path="appendixC.html"><a href="appendixC.html#description-8"><i class="fa fa-check"></i><b>C.9.1</b> Description</a></li>
 <li class="chapter" data-level="C.9.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-7"><i class="fa fa-check"></i><b>C.9.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.9.3" data-path="appendixC.html"><a href="appendixC.html#example-8"><i class="fa fa-check"></i><b>C.9.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.10" data-path="appendixC.html"><a href="appendixC.html#simSiteDet"><i class="fa fa-check"></i><b>C.10</b> simSiteDet</a><ul>
+<li class="chapter" data-level="C.10" data-path="appendixC.html"><a href="appendixC.html#simSiteDet"><i class="fa fa-check"></i><b>C.10</b> <code>simSiteDet</code></a><ul>
 <li class="chapter" data-level="C.10.1" data-path="appendixC.html"><a href="appendixC.html#description-9"><i class="fa fa-check"></i><b>C.10.1</b> Description</a></li>
 <li class="chapter" data-level="C.10.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-8"><i class="fa fa-check"></i><b>C.10.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.10.3" data-path="appendixC.html"><a href="appendixC.html#example-9"><i class="fa fa-check"></i><b>C.10.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.11" data-path="appendixC.html"><a href="appendixC.html#siteSum"><i class="fa fa-check"></i><b>C.11</b> siteSum</a><ul>
+<li class="chapter" data-level="C.11" data-path="appendixC.html"><a href="appendixC.html#siteSum"><i class="fa fa-check"></i><b>C.11</b> <code>siteSum</code></a><ul>
 <li class="chapter" data-level="C.11.1" data-path="appendixC.html"><a href="appendixC.html#description-10"><i class="fa fa-check"></i><b>C.11.1</b> Description</a></li>
 <li class="chapter" data-level="C.11.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-9"><i class="fa fa-check"></i><b>C.11.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.11.3" data-path="appendixC.html"><a href="appendixC.html#example-10"><i class="fa fa-check"></i><b>C.11.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.12" data-path="appendixC.html"><a href="appendixC.html#siteSumDaily"><i class="fa fa-check"></i><b>C.12</b> siteSumDaily</a><ul>
+<li class="chapter" data-level="C.12" data-path="appendixC.html"><a href="appendixC.html#siteSumDaily"><i class="fa fa-check"></i><b>C.12</b> <code>siteSumDaily</code></a><ul>
 <li class="chapter" data-level="C.12.1" data-path="appendixC.html"><a href="appendixC.html#description-11"><i class="fa fa-check"></i><b>C.12.1</b> Description</a></li>
 <li class="chapter" data-level="C.12.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-10"><i class="fa fa-check"></i><b>C.12.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.12.3" data-path="appendixC.html"><a href="appendixC.html#example-11"><i class="fa fa-check"></i><b>C.12.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.13" data-path="appendixC.html"><a href="appendixC.html#siteTrans"><i class="fa fa-check"></i><b>C.13</b> siteTrans</a><ul>
+<li class="chapter" data-level="C.13" data-path="appendixC.html"><a href="appendixC.html#siteTrans"><i class="fa fa-check"></i><b>C.13</b> <code>siteTrans</code></a><ul>
 <li class="chapter" data-level="C.13.1" data-path="appendixC.html"><a href="appendixC.html#description-12"><i class="fa fa-check"></i><b>C.13.1</b> Description</a></li>
 <li class="chapter" data-level="C.13.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-11"><i class="fa fa-check"></i><b>C.13.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.13.3" data-path="appendixC.html"><a href="appendixC.html#example-12"><i class="fa fa-check"></i><b>C.13.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.14" data-path="appendixC.html"><a href="appendixC.html#tagSum"><i class="fa fa-check"></i><b>C.14</b> tagSum</a><ul>
+<li class="chapter" data-level="C.14" data-path="appendixC.html"><a href="appendixC.html#tagSum"><i class="fa fa-check"></i><b>C.14</b> <code>tagSum</code></a><ul>
 <li class="chapter" data-level="C.14.1" data-path="appendixC.html"><a href="appendixC.html#description-13"><i class="fa fa-check"></i><b>C.14.1</b> Description</a></li>
 <li class="chapter" data-level="C.14.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-12"><i class="fa fa-check"></i><b>C.14.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.14.3" data-path="appendixC.html"><a href="appendixC.html#example-13"><i class="fa fa-check"></i><b>C.14.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.15" data-path="appendixC.html"><a href="appendixC.html#tagSumSite"><i class="fa fa-check"></i><b>C.15</b> tagSumSite</a><ul>
+<li class="chapter" data-level="C.15" data-path="appendixC.html"><a href="appendixC.html#tagSumSite"><i class="fa fa-check"></i><b>C.15</b> <code>tagSumSite</code></a><ul>
 <li class="chapter" data-level="C.15.1" data-path="appendixC.html"><a href="appendixC.html#description-14"><i class="fa fa-check"></i><b>C.15.1</b> Description</a></li>
 <li class="chapter" data-level="C.15.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-13"><i class="fa fa-check"></i><b>C.15.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.15.3" data-path="appendixC.html"><a href="appendixC.html#example-14"><i class="fa fa-check"></i><b>C.15.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="C.16" data-path="appendixC.html"><a href="appendixC.html#timeToSunriset"><i class="fa fa-check"></i><b>C.16</b> timeToSunriset</a><ul>
+<li class="chapter" data-level="C.16" data-path="appendixC.html"><a href="appendixC.html#timeToSunriset"><i class="fa fa-check"></i><b>C.16</b> <code>timeToSunriset</code></a><ul>
 <li class="chapter" data-level="C.16.1" data-path="appendixC.html"><a href="appendixC.html#description-15"><i class="fa fa-check"></i><b>C.16.1</b> Description</a></li>
 <li class="chapter" data-level="C.16.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-14"><i class="fa fa-check"></i><b>C.16.2</b> Dependencies</a></li>
 <li class="chapter" data-level="C.16.3" data-path="appendixC.html"><a href="appendixC.html#example-15"><i class="fa fa-check"></i><b>C.16.3</b> Example</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="D" data-path="appendixD.html"><a href="appendixD.html"><i class="fa fa-check"></i><b>D</b> Appendix - The motusClient Package - Data filtering functions</a><ul>
-<li class="chapter" data-level="D.1" data-path="appendixD.html"><a href="appendixD.html#listRunsFilters"><i class="fa fa-check"></i><b>D.1</b> listRunsFilters</a><ul>
+<li class="chapter" data-level="D" data-path="appendixD.html"><a href="appendixD.html"><i class="fa fa-check"></i><b>D</b> Appendix - <code>motus</code> - Data filtering functions</a><ul>
+<li class="chapter" data-level="D.1" data-path="appendixD.html"><a href="appendixD.html#listRunsFilters"><i class="fa fa-check"></i><b>D.1</b> <code>listRunsFilters</code></a><ul>
 <li class="chapter" data-level="D.1.1" data-path="appendixD.html"><a href="appendixD.html#description-16"><i class="fa fa-check"></i><b>D.1.1</b> Description</a></li>
 </ul></li>
 <li class="chapter" data-level="D.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-15"><i class="fa fa-check"></i><b>D.2</b> Dependencies</a></li>
 <li class="chapter" data-level="D.3" data-path="appendixD.html"><a href="appendixD.html#example-16"><i class="fa fa-check"></i><b>D.3</b> Example</a></li>
-<li class="chapter" data-level="D.4" data-path="appendixD.html"><a href="appendixD.html#createRunsFilter"><i class="fa fa-check"></i><b>D.4</b> createRunsFilter</a><ul>
+<li class="chapter" data-level="D.4" data-path="appendixD.html"><a href="appendixD.html#createRunsFilter"><i class="fa fa-check"></i><b>D.4</b> <code>createRunsFilter</code></a><ul>
 <li class="chapter" data-level="D.4.1" data-path="appendixD.html"><a href="appendixD.html#description-17"><i class="fa fa-check"></i><b>D.4.1</b> Description</a></li>
 <li class="chapter" data-level="D.4.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-16"><i class="fa fa-check"></i><b>D.4.2</b> Dependencies</a></li>
 <li class="chapter" data-level="D.4.3" data-path="appendixD.html"><a href="appendixD.html#example-17"><i class="fa fa-check"></i><b>D.4.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="D.5" data-path="appendixD.html"><a href="appendixD.html#getRunsFilters"><i class="fa fa-check"></i><b>D.5</b> getRunsFilters</a><ul>
+<li class="chapter" data-level="D.5" data-path="appendixD.html"><a href="appendixD.html#getRunsFilters"><i class="fa fa-check"></i><b>D.5</b> <code>getRunsFilters</code></a><ul>
 <li class="chapter" data-level="D.5.1" data-path="appendixD.html"><a href="appendixD.html#description-18"><i class="fa fa-check"></i><b>D.5.1</b> Description</a></li>
 <li class="chapter" data-level="D.5.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-17"><i class="fa fa-check"></i><b>D.5.2</b> Dependencies</a></li>
 <li class="chapter" data-level="D.5.3" data-path="appendixD.html"><a href="appendixD.html#example-18"><i class="fa fa-check"></i><b>D.5.3</b> Example</a></li>
 </ul></li>
-<li class="chapter" data-level="D.6" data-path="appendixD.html"><a href="appendixD.html#writeRunsFilter"><i class="fa fa-check"></i><b>D.6</b> writeRunsFilter</a><ul>
+<li class="chapter" data-level="D.6" data-path="appendixD.html"><a href="appendixD.html#writeRunsFilter"><i class="fa fa-check"></i><b>D.6</b> <code>writeRunsFilter</code></a><ul>
 <li class="chapter" data-level="D.6.1" data-path="appendixD.html"><a href="appendixD.html#description-19"><i class="fa fa-check"></i><b>D.6.1</b> Description</a></li>
 <li class="chapter" data-level="D.6.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-18"><i class="fa fa-check"></i><b>D.6.2</b> Dependencies</a></li>
 <li class="chapter" data-level="D.6.3" data-path="appendixD.html"><a href="appendixD.html#examples"><i class="fa fa-check"></i><b>D.6.3</b> Examples</a></li>
@@ -360,15 +372,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Follow the instructions in Chapter <a href="loadingPackages.html#loadingPackages">2</a> to install the following packages before loading, if you haven’t already done so.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(motus)
 <span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(ggmap)</code></pre>
+<span class="kw">library</span>(ggmap)
+<span class="kw">library</span>(lubridate)</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</code></pre>
 </div>
 <div id="load-data" class="section level2">
 <h2><span class="header-section-number">6.2</span> Load data</h2>
-<p>If you followed along with the the previous Chapter (Chapter <a href="dataCleaning.html#dataCleaning">5</a>) and are working with the cleaned ‘df.alltags.sub’ file, you can skip this step and move to section <a href="exploreData.html#dataSummaries">6.3</a>.</p>
+<p>If you followed along with the the previous Chapter (Chapter <a href="dataCleaning.html#dataCleaning">5</a>) and are working with the cleaned <code>df.alltags.sub</code> file, you can skip this step and move to section <a href="exploreData.html#dataSummaries">6.3</a>.</p>
 <p>Otherwise, if you saved your data as an RDS file, you can load it using:</p>
 <pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/dfAlltagsSub.rds&quot;</span>) <span class="co"># change dir to local directory</span></code></pre>
-<p>Or, if you’ve applied a custom filter to your .motus file, you can load the previously downloaded sample .motus data (see Chapter <a href="accessingData.html#accessingData">3</a>) and clean it now. Currently the main benefit of using the custom filter is that you apply the filter to the .motus file, which allows you more flexibility in applying dplyr functions to manage and filter the data (e.g., you can select different variables to include in the data than we included in the RDS file in Chapter <a href="dataCleaning.html#dataCleaning">5</a>). This approach also allows you to more readily integrate new data added to your database with the tagme function. Because we are selecting the same variables and filtering the same records, the following gives you the same dataset as the readRDS statement above:</p>
+<p>Or, if you’ve applied a custom filter to your .motus file, you can load the previously downloaded sample motus data (see Chapter <a href="accessingData.html#accessingData">3</a>) and clean it now. Currently the main benefit of using the custom filter is that you apply the filter to the .motus file, which allows you more flexibility in applying <code>dplyr</code> functions to manage and filter the data (e.g., you can select different variables to include in the data than we included in the RDS file in Chapter <a href="dataCleaning.html#dataCleaning">5</a>). This approach also allows you to more readily integrate new data added to your database with the tagme function. Because we are selecting the same variables and filtering the same records, the following gives you the same dataset as the <code>readRDS</code> statement above:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load the .motus file</span>
 proj.num &lt;-<span class="st"> </span><span class="dv">176</span>
 sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)
@@ -402,14 +415,14 @@ df.alltags.sub &lt;-<span class="st"> </span><span class="kw">left_join</span>(t
          <span class="dt">recvDeployName =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(recvDeployName), 
                                   <span class="kw">paste</span>(recvLat, recvLon, <span class="dt">sep=</span><span class="st">&quot;:&quot;</span>), 
                                   recvDeployName))</code></pre>
-<p><strong>Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues.</strong> Details on filtering the tbl prior to collecting as a dataframe are available in section <a href="#convertToFlat"><strong>??</strong></a>.</p>
-<p>Here we do so by adding a filter to the above command, in this case, only creating a dataframe for motusTagID 16047, but you can decide how to best subset your data based on your need (e.g. by species or year):</p>
+<p><strong>Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues.</strong> Details on filtering the tbl prior to collecting as a dataframe are available in section <a href="accessingData.html#convertToFlat">3.5.7</a>.</p>
+<p>Here we do so by adding a filter to the above command, in this case, only creating a dataframe for <code>motusTagID</code> 16047, but you can decide how to best subset your data based on your need (e.g. by species or year):</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a subset for a single tag, to keep the dataframe small</span>
 df.alltags<span class="fl">.16047</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16047</span>) </code></pre>
 </div>
 <div id="dataSummaries" class="section level2">
 <h2><span class="header-section-number">6.3</span> Summarizing your data</h2>
-<p>Here we will run through some basic commands, starting with the summary() function to view a selection of variables in a data frame:</p>
+<p>Here we will run through some basic commands, starting with the <code>summary()</code> function to view a selection of variables in a data frame:</p>
 <pre class="sourceCode r"><code class="sourceCode r">sql.motus <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">tbl</span>(<span class="st">&quot;alltags&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, 
@@ -438,31 +451,31 @@ df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span>
          recvLat, recvLon) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">summary</span>()</code></pre>
 <pre><code>##        ts                        motusTagID        runLen      
-##  Min.   :2015-08-03 06:37:11   Min.   :16011   Min.   :   3.0  
-##  1st Qu.:2016-10-06 10:30:26   1st Qu.:22897   1st Qu.:  25.0  
-##  Median :2016-10-09 21:49:41   Median :22897   Median :  92.0  
-##  Mean   :2016-09-04 20:32:07   Mean   :22247   Mean   : 230.7  
-##  3rd Qu.:2016-10-19 10:41:54   3rd Qu.:22897   3rd Qu.: 286.0  
+##  Min.   :2015-08-03 06:37:11   Min.   :16011   Min.   :   4.0  
+##  1st Qu.:2016-10-06 19:17:36   1st Qu.:22897   1st Qu.:  27.0  
+##  Median :2016-10-09 21:48:11   Median :22897   Median :  97.0  
+##  Mean   :2016-09-05 10:37:42   Mean   :22267   Mean   : 235.1  
+##  3rd Qu.:2016-10-19 10:37:42   3rd Qu.:22897   3rd Qu.: 287.0  
 ##  Max.   :2017-04-20 22:33:19   Max.   :23316   Max.   :1371.0  
 ##                                                                
-##   speciesEN          tagDeployLat    tagDeployLon       recvLat      
-##  Length:49076       Min.   :50.19   Min.   :-80.69   Min.   :-42.50  
-##  Class :character   1st Qu.:50.19   1st Qu.:-63.75   1st Qu.: 50.20  
-##  Mode  :character   Median :50.19   Median :-63.75   Median : 50.20  
-##                     Mean   :50.34   Mean   :-65.63   Mean   : 49.97  
-##                     3rd Qu.:50.19   3rd Qu.:-63.75   3rd Qu.: 50.20  
-##                     Max.   :51.80   Max.   :-63.75   Max.   : 51.82  
-##                                                      NA&#39;s   :167     
+##   speciesEN          tagDeployLat    tagDeployLon       recvLat     
+##  Length:48133       Min.   :50.19   Min.   :-80.69   Min.   :37.10  
+##  Class :character   1st Qu.:50.19   1st Qu.:-63.75   1st Qu.:50.20  
+##  Mode  :character   Median :50.19   Median :-63.75   Median :50.20  
+##                     Mean   :50.34   Mean   :-65.56   Mean   :50.05  
+##                     3rd Qu.:50.19   3rd Qu.:-63.75   3rd Qu.:50.20  
+##                     Max.   :51.80   Max.   :-63.75   Max.   :51.82  
+##                                                      NA&#39;s   :164    
 ##     recvLon      
 ##  Min.   :-80.69  
 ##  1st Qu.:-63.75  
 ##  Median :-63.75  
-##  Mean   :-65.32  
+##  Mean   :-65.26  
 ##  3rd Qu.:-63.75  
 ##  Max.   :-62.99  
-##  NA&#39;s   :167</code></pre>
-<p>The dplyr package allows you to easily summarize data by group, manipulate variables, or create new variables based on your data.</p>
-<p>We can manipulate existing variables or create new ones with dplyr’s mutate function, here we’ll convert ts to a POSIXct format, then make a new variable for year and day of year (doy).</p>
+##  NA&#39;s   :164</code></pre>
+<p>The <code>dplyr</code> package allows you to easily summarize data by group, manipulate variables, or create new variables based on your data.</p>
+<p>We can manipulate existing variables or create new ones with <code>dplyr</code>’s <code>mutate()</code> function, here we’ll convert ts to a POSIXct format, then make a new variable for year and day of year (doy).</p>
 <p>We’ll also remove the set of points with missing receiver latitude and longitudes. These may be useful in some contexts (for example if the approximate location of the receiver is known) but can cause warnings or errors when plotting.</p>
 <pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>), <span class="co"># convert ts to POSIXct format</span>
@@ -520,7 +533,7 @@ df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span>
 ## 4         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657 2015 299
 ## 5         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657 2015 299
 ## 6         &lt;NA&gt;     NA       NA           1 42.68067 -72.47392 2015 299</code></pre>
-<p>We can also summarize information by group, in this case motusTagID, and apply various functions to these groups such as getting the total number of detections (n) for each tag, the number of receivers each tag was detected on, the first and last detection date, and the total number of days there was at least one detection:</p>
+<p>We can also summarize information by group, in this case <code>motusTagID</code>, and apply various functions to these groups such as getting the total number of detections (n) for each tag, the number of receivers each tag was detected on, the first and last detection date, and the total number of days there was at least one detection:</p>
 <pre class="sourceCode r"><code class="sourceCode r">tagSummary &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(motusTagID) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">nDet =</span> <span class="kw">n</span>(),
@@ -533,13 +546,13 @@ df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span>
 <pre><code>## # A tibble: 6 x 6
 ##   motusTagID  nDet nRecv tsMin               tsMax               totDay
 ##        &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dttm&gt;              &lt;dttm&gt;               &lt;int&gt;
-## 1      16011   122     1 2015-08-03 06:37:11 2015-08-05 20:41:12      3
-## 2      16035   430     5 2015-08-14 17:53:49 2015-09-02 14:06:09      6
+## 1      16011   116     1 2015-08-03 06:37:11 2015-08-05 20:41:12      3
+## 2      16035   415     5 2015-08-14 17:53:49 2015-09-02 14:06:09      6
 ## 3      16036    62     1 2015-08-17 21:56:44 2015-08-17 21:58:52      1
-## 4      16037  1296     3 2015-08-23 15:13:57 2015-09-08 18:37:16     14
-## 5      16038    73     1 2015-08-20 18:42:33 2015-08-22 22:19:37      3
-## 6      16039  1050    10 2015-08-23 02:28:45 2015-09-19 06:08:31      8</code></pre>
-<p>We can also group by multiple variables; applying the same function as above but now grouping by motusTagID and recvDeployName, we will get information for each tag detected on each receiver. Since we are grouping by recvDeployName, there will be by default only one recvDeployName in each group, thus the variable nRecv will be 1 for each row. This in not very informative, however we include this to help illustrate how grouping works:</p>
+## 4      16037  1278     3 2015-08-23 15:13:57 2015-09-08 18:37:16     14
+## 5      16038    70     1 2015-08-20 18:42:33 2015-08-22 22:19:37      3
+## 6      16039  1044    10 2015-08-23 02:28:45 2015-09-19 06:08:31      8</code></pre>
+<p>We can also group by multiple variables; applying the same function as above but now grouping by <code>motusTagID</code> and <code>recvDeployName</code>, we will get information for each tag detected on each receiver. Since we are grouping by <code>recvDeployName</code>, there will be by default only one <code>recvDeployName</code> in each group, thus the variable <code>nRecv</code> will be 1 for each row. This in not very informative, however we include this to help illustrate how grouping works:</p>
 <pre class="sourceCode r"><code class="sourceCode r">tagRecvSummary &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(motusTagID, recvDeployName) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">nDet =</span> <span class="kw">n</span>(),
@@ -553,18 +566,18 @@ df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span>
 ## # Groups:   motusTagID [2]
 ##   motusTagID recvDeployName  nDet nRecv tsMin              
 ##        &lt;int&gt; &lt;chr&gt;          &lt;int&gt; &lt;int&gt; &lt;dttm&gt;             
-## 1      16011 North Bluff      122     1 2015-08-03 06:37:11
-## 2      16035 Brier2            41     1 2015-09-02 14:03:19
+## 1      16011 North Bluff      116     1 2015-08-03 06:37:11
+## 2      16035 Brier2            38     1 2015-09-02 14:03:19
 ## 3      16035 D&#39;Estimauville    32     1 2015-09-02 07:58:43
-## 4      16035 Netitishi        286     1 2015-08-14 17:53:49
+## 4      16035 Netitishi        274     1 2015-08-14 17:53:49
 ## 5      16035 Southwest Head    65     1 2015-09-02 13:06:13
 ## 6      16035 Swallowtail        6     1 2015-09-02 13:21:27
 ## # … with 2 more variables: tsMax &lt;dttm&gt;, totDay &lt;int&gt;</code></pre>
 </div>
 <div id="dataPlotting" class="section level2">
 <h2><span class="header-section-number">6.4</span> Plotting your data</h2>
-<p>Plotting your data is a powerful way to visualize broad and fine-scale detection patterns. This section will give you a brief introduction to plotting using ggplot2. For more in depth information on the uses of ggplot2, we recommend the <a href="http://www.cookbook-r.com/Graphs/">Cookbook for R</a>, and the rstudio <a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf">ggplot2 cheatsheet</a>.</p>
-<p>To make coarse-scale plots with large files, we suggest first rounding the detection time to the nearest hour or day so that processing time is faster. Here we round detection times to the nearest hour, then make a basic plot of hourly detections by motusTagID:</p>
+<p>Plotting your data is a powerful way to visualize broad and fine-scale detection patterns. This section will give you a brief introduction to plotting using <code>ggplot2.</code> For more in depth information on the uses of <code>ggplot2</code>, we recommend the <a href="http://www.cookbook-r.com/Graphs/">Cookbook for R</a>, and the Rstudio <a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf"><code>ggplot2</code> cheatsheet</a>.</p>
+<p>To make coarse-scale plots with large files, we suggest first rounding the detection time to the nearest hour or day so that processing time is faster. Here we round detection times to the nearest hour, then make a basic plot of hourly detections by <code>motusTagID</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub<span class="fl">.2</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">hour =</span> <span class="kw">as.POSIXct</span>(<span class="kw">round</span>(ts, <span class="st">&quot;hour&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(motusTagID, port, tagDeployStart, tagDeployLat, tagDeployLon, 
@@ -584,7 +597,7 @@ Let’s focus only on tags deployed in 2016, and we can colour the tags by speci
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time (rounded to hour)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;MotusTagID&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Species&quot;</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/hourlyPlotSpecies-1.png" width="672" />
-We can see how tags moved latitudinally by first ordering by hour, and colouring by motusTagID:</p>
+We can see how tags moved latitudinally by first ordering by hour, and colouring by <code>motusTagID</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">arrange</span>(df.alltags.sub<span class="fl">.2</span>, hour)
 
 <span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub<span class="fl">.2</span>, <span class="kw">year</span>(tagDeployStart) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>), 
@@ -596,7 +609,7 @@ We can see how tags moved latitudinally by first ordering by hour, and colouring
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time (rounded to hour)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Receiver latitude&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/hourlyPlotLat-1.png" width="672" />
-Now lets look at more detailed plots of signal variation. We use the full df.alltags.sub dataframe so that we can get signal strength for each detection of a specific tag. Let’s examine fall 2016 detections of tag 22897 at Niapiskau; we facet the plot by deployment name, ordered by decreasing latitude:</p>
+Now lets look at more detailed plots of signal variation. We use the full <code>df.alltags.sub</code> dataframe so that we can get signal strength for each detection of a specific tag. Let’s examine fall 2016 detections of tag 22897 at Niapiskau; we facet the plot by deployment name, ordered by decreasing latitude:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, 
                      motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22897</span>, 
                      recvDeployName <span class="op">==</span><span class="st"> &quot;Niapiskau&quot;</span>), 
@@ -606,7 +619,7 @@ Now lets look at more detailed plots of signal variation. We use the full df.all
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_grid</span>(recvDeployName <span class="op">~</span><span class="st"> </span>.)</code></pre>
 <p><img src="MotusRBook_files/figure-html/plot22897-1.png" width="672" /></p>
-<p>We use the sunRiseSet function available in the motus R package (see <a href="appendixC.html#sunRiseSet">C.2</a>) to get sunrise and sunset times for all detections. We then zoom in on a certain timeframe and add that information to the above plot by adding a geom_vline() statement to the code, which adds a yellow line for sunrise time, and a blue line for sunset time:</p>
+<p>We use the <code>sunRiseSet()</code> function available in the <code>motus</code> R package (see <a href="appendixC.html#sunRiseSet">C.2</a>) to get sunrise and sunset times for all detections. We then zoom in on a certain timeframe and add that information to the above plot by adding a <code>geom_vline()</code> statement to the code, which adds a yellow line for sunrise time, and a blue line for sunset time:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add sunrise and sunset times to the dataframe</span>
 df.alltags.sub &lt;-<span class="st"> </span><span class="kw">sunRiseSet</span>(df.alltags.sub, <span class="dt">lat =</span> <span class="st">&quot;recvLat&quot;</span>, <span class="dt">lon =</span> <span class="st">&quot;recvLon&quot;</span>) 
 
@@ -622,7 +635,7 @@ df.alltags.sub &lt;-<span class="st"> </span><span class="kw">sunRiseSet</span>(
 <span class="st">  </span><span class="kw">geom_vline</span>(<span class="kw">aes</span>(<span class="dt">xintercept =</span> sunset), <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/plotSunriset22897-1.png" width="672" />
 We can see that during this period, the tag was most often detected during the day, suggesting it may be actively foraging in this area during this time.</p>
-<p>The same plots can provide valuable movement information when the receivers are ordered geographically. We do this for motusTagID 16039:</p>
+<p>The same plots can provide valuable movement information when the receivers are ordered geographically. We do this for <code>motusTagID</code> 16039:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We&#39;ll first order sitelat by latitude (for plots)</span>
 df.alltags.sub &lt;-<span class="st"> </span><span class="kw">mutate</span>(df.alltags.sub, 
                          <span class="dt">recvDeployName =</span> <span class="kw">reorder</span>(recvDeployName, recvLat))
@@ -670,18 +683,18 @@ fun.getpath &lt;-<span class="st"> </span><span class="cf">function</span>(df) {
 
 df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(df.alltags.sub)</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">df.alltags.sub.path &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span>
-<span class="st">                </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># only tags registered to project</span>
-<span class="st">                </span><span class="kw">arrange</span>(motusTagID, ts) <span class="op">%&gt;%</span><span class="st">       </span><span class="co"># order by time stamp for each tag</span>
-<span class="st">                </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">as_date</span>(ts)) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># create date variable</span>
-<span class="st">                </span><span class="kw">group_by</span>(motusTagID, date, recvDeployName, ambigID, 
-                         tagDeployLon, tagDeployLat, recvLat, recvLon)
+<span class="st">  </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># only tags registered to project</span>
+<span class="st">  </span><span class="kw">arrange</span>(motusTagID, ts) <span class="op">%&gt;%</span><span class="st">       </span><span class="co"># order by time stamp for each tag</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">as_date</span>(ts)) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># create date variable</span>
+<span class="st">  </span><span class="kw">group_by</span>(motusTagID, date, recvDeployName, ambigID, 
+           tagDeployLon, tagDeployLat, recvLat, recvLon)
 
 df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(df.alltags.sub.path)</code></pre>
 <div id="ggmaps" class="section level3">
 <h3><span class="header-section-number">6.5.1</span> Mapping with the <code>ggmap</code> package</h3>
-<p>Mapping with <code>ggmap</code> can be a fast way to view flight paths and allows you to select from multiple base layers.</p>
-<p>There are several ways to use the <code>ggmap</code> package. One is with Google Maps, which, as of October 16, 2018, requires a Google Maps API key (see Appendix B section <a href="appendixB.html#googleMapsKey">B.3</a> for more details). An alternative method is to use an open source of map tiles, such as Stamen Map tiles, which do not require an API key. The following example uses Stamen Map tiles.</p>
-<p>The first step is to create a map with a specified map are, maptype (“terrain”, “toner”, or “watercolor”, among others), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale. For stamen maps this represents the level of detail you want). We then add points for receivers and lines connecting consecutive detections by motusTagID. We can also add points for all receivers that were active during a certain time period if we have already downloaded all metadata.</p>
+<p>Mapping with <code>ggmap</code> can be a fast way to view flight paths and allows you to select from multiple base layers.<br />
+There are several ways to use the <code>ggmap</code> package. One is with Google Maps, which, as of October 16, 2018, requires a Google Maps API key (see Appendix B section <a href="appendixB.html#googleMapsKey">B.3</a> for more details). An alternative method is to use an open source of map tiles, such as Stamen Map tiles, which do not require an API key. The following example uses Stamen Map tiles.</p>
+<p>The first step is to create a map with a specified map are, maptype (“terrain”, “toner”, or “watercolor”, among others), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale. For stamen maps this represents the level of detail you want). We then add points for receivers and lines connecting consecutive detections by <code>motusTagID.</code> We can also add points for all receivers that were active during a certain time period if we have already downloaded all metadata.</p>
 <pre class="sourceCode r"><code class="sourceCode r">gmap &lt;-<span class="st">  </span><span class="kw">get_stamenmap</span>(<span class="dt">bbox =</span> <span class="kw">c</span>(<span class="dt">left =</span> <span class="dv">-90</span>, <span class="dt">right =</span> <span class="dv">-57</span>, <span class="dt">bottom =</span> <span class="dv">35</span>, <span class="dt">top =</span> <span class="dv">55</span>),
                        <span class="dt">maptype =</span> <span class="st">&quot;terrain-background&quot;</span>, <span class="co"># select maptype</span>
                        <span class="dt">zoom =</span> <span class="dv">6</span>) <span class="co"># zoom, must be a whole number</span>
@@ -712,19 +725,19 @@ df.recvDeps &lt;-<span class="st"> </span>tbl.recvDeps <span class="op">%&gt;%</
          <span class="co"># for deployments with no end dates, make an end date a year from now</span>
          <span class="dt">tsEnd =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(tsEnd), 
                          <span class="kw">as.POSIXct</span>(<span class="kw">format</span>(<span class="kw">Sys.time</span>(), <span class="st">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)) <span class="op">+</span>
-<span class="st">                           </span>lubridate<span class="op">::</span><span class="kw">dyears</span>(<span class="dv">1</span>), 
+<span class="st">                           </span><span class="kw">dyears</span>(<span class="dv">1</span>), 
                          tsEnd), 
          <span class="dt">tsEnd =</span> <span class="kw">as.POSIXct</span>(tsEnd, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))
 
 <span class="co"># get running intervals for all receiver deployments</span>
-siteOp &lt;-<span class="st"> </span><span class="kw">with</span>(df.recvDeps, lubridate<span class="op">::</span><span class="kw">interval</span>(tsStart, tsEnd))
+siteOp &lt;-<span class="st"> </span><span class="kw">with</span>(df.recvDeps, <span class="kw">interval</span>(tsStart, tsEnd))
 
 <span class="co"># set the date range you&#39;re interested in</span>
-dateRange &lt;-<span class="st"> </span>lubridate<span class="op">::</span><span class="kw">interval</span>(<span class="kw">as.POSIXct</span>(<span class="st">&quot;2015-08-01&quot;</span>), <span class="kw">as.POSIXct</span>(<span class="st">&quot;2016-01-01&quot;</span>))
+dateRange &lt;-<span class="st"> </span><span class="kw">interval</span>(<span class="kw">as.POSIXct</span>(<span class="st">&quot;2015-08-01&quot;</span>), <span class="kw">as.POSIXct</span>(<span class="st">&quot;2016-01-01&quot;</span>))
 
 <span class="co"># create new variable &quot;active&quot; which will be set to TRUE if the receiver was</span>
 <span class="co"># active at some point during your specified date range, and FALSE if not</span>
-df.recvDeps<span class="op">$</span>active &lt;-<span class="st"> </span>lubridate<span class="op">::</span><span class="kw">int_overlaps</span>(siteOp, dateRange) 
+df.recvDeps<span class="op">$</span>active &lt;-<span class="st"> </span><span class="kw">int_overlaps</span>(siteOp, dateRange) 
 
 <span class="co"># create map with receivers active during specified date range as red, and</span>
 <span class="co"># receivers with detections as yellow</span>
@@ -751,14 +764,14 @@ na.lakes &lt;-<span class="st"> </span><span class="kw">mutate</span>(na.lakes, 
 na.map &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="dt">map =</span> <span class="st">&quot;world2&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(region <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;USA&quot;</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">long =</span> long <span class="op">-</span><span class="st"> </span><span class="dv">360</span>)</code></pre>
-<p>Then, to map the paths, we set the x-axis and y-axis limits based on the location of receivers with detections. Depending on your data, these might need to be modified to encompass the deployment location of the tags, if tags were not deployed near towers with detections. We then use ggplot to plot the map and tag paths. Here we use the Mercator projection and are colouring the paths by motusTagID, including a point for where the tag was deployed:</p>
+<p>Then, to map the paths, we set the x-axis and y-axis limits based on the location of receivers with detections. Depending on your data, these might need to be modified to encompass the deployment location of the tags, if tags were not deployed near towers with detections. We then use <code>ggplot</code> to plot the map and tag paths. Here we use the Mercator projection and are colouring the paths by <code>motusTagID</code>, including a point for where the tag was deployed:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># set limits to map based on locations of detections, ensuring they include the</span>
 <span class="co"># deployment locations</span>
 xmin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tmp<span class="op">$</span>recvLon, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">2</span>
 xmax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class="op">$</span>recvLon, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">2</span>
 ymin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
 ymax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
-                
+
 <span class="co"># map</span>
 <span class="kw">ggplot</span>(<span class="dt">data =</span> na.lakes, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat))<span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
@@ -768,8 +781,8 @@ ymax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class
 <span class="st">  </span><span class="kw">coord_map</span>(<span class="dt">projection =</span> <span class="st">&quot;mercator&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(xmin, xmax), <span class="dt">ylim =</span> <span class="kw">c</span>(ymin, ymax)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, 
-           <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat, 
-               <span class="dt">group =</span> <span class="kw">as.factor</span>(motusTagID), <span class="dt">colour =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span>
+            <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat, 
+                <span class="dt">group =</span> <span class="kw">as.factor</span>(motusTagID), <span class="dt">colour =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, 
              <span class="kw">aes</span>(<span class="dt">x =</span> tagDeployLon, <span class="dt">y =</span> tagDeployLat), <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">shape =</span> <span class="dv">4</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="st">&quot;motusTagID&quot;</span>) </code></pre>

@@ -16,7 +16,7 @@ The Motus Wildlife Tracking System ('Motus'; Taylor et al. 2017; <https://www.mo
 
 Motus is unique among automated telemetry arrays in that all researchers in a geographic region (e.g., the Americas or Europe) use a shared radio frequency. This allows tagged animals to be detected by any receiving station across the network, greatly broadening the spatial scope of potential research questions. Motus users also use a shared data infrastructure and web portal: all data collected from across the network are centrally stored and archived, which allows users to access detections of their tags by anyone's receiver in the network, and individuals that maintain receivers have access to all detections of anyone's tags on those receivers.
 
-Having a shared data infrastructure also means that users can benefit from R functions written specifically for Motus data by any and all users. The Motus R package described in this book is in continual development, and the intent of this online 'handbook' is to help users learn the various functionalities of the package, and potentially contribute to it. We also show how additional R packages such as ggplot can be used to explore, visualize, transform, and analyze Motus data. 
+Having a shared data infrastructure also means that users can benefit from R functions written specifically for Motus data by any and all users. The `motus` R package described in this book is in continual development, and the intent of this online 'handbook' is to help users learn the various functionalities of the package, and potentially contribute to it. We also show how additional R packages such as ggplot can be used to explore, visualize, transform, and analyze Motus data. 
 
 The content of the handbook will continue to evolve and grow along with the analytical needs of the network. Those interested in contributing code to the Motus R package or this handbook can send proposed additions to motus@birdscanada.org.  
 
@@ -53,7 +53,7 @@ Yolanda Morbey, Associate Professor, Department of Biology, Western University, 
 
 ## Acknowledgements {#acknowledgements}
 
-Some of the text included in this book was adapted from John Brzustowski's github repository for the Motus R package at: <https://github.com/jbrzusto/motus>.
+Some of the text included in this book was adapted from John Brzustowski's GitHub repository for the `motus` R package at: <https://github.com/jbrzusto/motus>.
 
 Motus was conceived as the SensorGnome network by Philip Taylor and John Brzustowski at Acadia University. Initial expansion of the network was supported by a Canada Foundation for Innovation Grant to Western University (Dr. Christopher Guglielmo), The University of Guelph (Dr. Ryan Norris), and Acadia University (Dr. Philip Taylor). The development of the Motus web interface, R package, and accompanying handbook were made possible through a Canarie grant to Bird Studies Canada (<https://www.canarie.ca/>). Motus continues to grow as a program of Bird Studies Canada, through the collaboration of numerous independent researchers, organizations, and individuals. A non-exhaustive list of Motus partners and collaborators can be found at <https://motus.org/data/partners.jsp>. If your organization is not listed, please contact motus@birdscanada.org.
 
