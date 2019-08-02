@@ -6,6 +6,7 @@ opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = FALSE)
 
 ```
 
+## Installing Motus packages
 Two R packages have been developed for Motus users:
 
 1. `motus`: provides functions for downloading and updated detections and deployment data, as well as for creating summary plots, and transforming (add sun rise/sun set times) and analyzing Motus data.
@@ -14,7 +15,7 @@ Two R packages have been developed for Motus users:
 
 Motus **users** can install the latest stable versions of the R packages using the following code. As with all R packages, you only need to install the packages once; after installation, you need to load each package (using `library()`) each time you open a new R session. 
 
-Please note that some functionalities of the devtools package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of [R](https://www.r-project.org/) and [RStudio](https://www.rstudio.com/products/RStudio/), and update your R packages using `update.pacakges()` in the R console.
+Please note that some functionalities of the `devtools` package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of [R](https://www.r-project.org/) and [RStudio](https://www.rstudio.com/products/RStudio/), and update your R packages using `update.packages()` in the R console.
 
 To update your existing packages:
 
@@ -24,11 +25,19 @@ update.packages()
 
 Begin by installing the required packages, if not already installed.
 
+If you have used the older version of `motus` which included use of the `motusClient` package, it is recommended to first uninstall both packages.
+
+```{r, eval = FALSE}
+remove.packages(c("motus", "motusClient"))
+```
+
+Then proceed with the installation of the `motus` package
+
 ```{r install packages, eval = FALSE}
 install.packages("devtools")
 library(devtools)
 
-# install motus for data download, data manipulation, visualization and analysis
+# install motus
 install_github("MotusWTS/motus")
 
 # install motusData package which contains sample datasets, e.g., vanishBearing
@@ -48,10 +57,31 @@ install_github("MotusWTS/motus", force = TRUE)
 library(motus)
 ```
 
+### Troubleshooting the installation
+
+Occasionally users run into problems while trying to install or update `motus`. Often this is related to problems with different versions of package dependencies. Here we suggest several solutions.
+
+1. Update all packages during the installation
+
+```{r, eval = FALSE}
+devtools::install_github("MotusWTS/motus", upgrade = "always")
+```
+
+2. In some cases, it is easier to upgrade R itself by reinstalling the newest version of R: <https://cran.r-project.org/>. **Note:** While this results in a nice clean installation with fewer problems, it necessitates the re-installation of R packages which can be time-consuming.
+
+3. If reinstalling R is not an option, you get an error related to packages built under a current version of R, AND updating your packages doesn't help, you can consider overriding the error with the following code. **Note:** This might help you install `motus` but may result in other problems. If possible, it's best to resolve the errors rather than ignoring them.
+
+```{r, eval = FALSE}
+Sys.setenv("R_REMOTES_NO_ERRORS_FROM_WARNINGS"=TRUE)
+remotes::install_github("MotusWTS/motus", upgrade = "always")
+```
+
+
+## Installing other packages
 Throughout the book, we use `tidyverse`, which is a collection of R packages for data science, including `tidyr`, `dplyr`, `ggplot2`, and `lubridate` for managing and manipulating dates. More information on `tidyverse` can be found at <https://www.tidyverse.org/>, or by browsing (or better still, thoroughly reading) 'R for Data Science' by Garrett Grolemund and Hadley Wickham (<http://r4ds.had.co.nz/>). For mapping we also use the `rworldmap`, and `ggmap` packages.  These can be installed from CRAN, as follows:
 
 ```{r install tidyverse, eval = FALSE}
-
+install.packages("maps")
 library(maps)
 
 install.packages("tidyverse")
