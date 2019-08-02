@@ -20,8 +20,8 @@ Before we begin working with data, we need to load the required packages for thi
 ```{r loadPackages.4, eval = TRUE, warning = FALSE, message = FALSE}
 
 library(tidyverse)
-library(tidyr)
 library(motus)
+library(lubridate)
 
 # Set the system environment time zone to UTC (to ensure that you are always working in UTC)
 Sys.setenv(TZ = "UTC")
@@ -150,7 +150,7 @@ df.tagDeps <- df.tagDeps %>%
 
 ### Location of tag deployments
 
-Creating a map of your tag deployments can point out any obvious errors in the tag deployment latitude or longitude that weren't captured by the online metadata message center queries.
+Creating a map of your tag deployments can point out any obvious errors in the tag deployment latitude or longitude that weren't captured by the online metadata message centre queries.
 
 **a. Load base map files**
 
@@ -340,7 +340,7 @@ ggplot(data = df.projRecvs.long,
        aes(x = ts, y = as.factor(deviceID), colour = as.factor(deployID))) +
   theme(legend.position = "none") +
   geom_line(lwd = 3) + 
-  # instead, center to the right
+  # instead, centre to the right
   geom_text(data = filter(df.projRecvs.long, when == "tsStart"), 
             aes(label = deployID), hjust = "left", nudge_y = 0.2, size = 3, angle = 45) +
   theme_bw() +
@@ -356,7 +356,7 @@ ggplot(data = df.projRecvs.long,
   theme_bw() +
   theme(legend.position = "none") + 
   geom_line(lwd = 3) + 
-  # center labels to the left
+  # centre labels to the left
   geom_text(data = filter(df.projRecvs.long, when == "tsStart"), 
             aes(label = deployID), hjust = "left", nudge_y = 0.4, size = 3) +
   labs(x = "Day of year", y = "Receiver ID") +

@@ -18,6 +18,7 @@ Follow the instructions in Chapter \@ref(loadingPackages) to install the followi
 library(motus)
 library(tidyverse)
 library(ggmap)
+library(lubridate)
 
 ```
 
@@ -93,13 +94,13 @@ tbl.filter = getRunsFilters(sql.motus, "filtAmbigFalsePos")
 df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID")) %>%
   mutate(probability = ifelse(is.na(probability), 1, probability),
          recvLat = if_else((is.na(gpsLat)|gpsLat == 0|gpsLat == 999), recvDeployLat, gpsLat),
-                             recvLon = if_else((is.na(gpsLon)|gpsLon == 0|gpsLon == 999), recvDeployLon, gpsLon),
-                             recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
+         recvLon = if_else((is.na(gpsLon)|gpsLon == 0|gpsLon == 999), recvDeployLon, gpsLon),
+         recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
   filter(probability > 0) %>%
   select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, -mfg, -nomFreq,
-                             -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID,
-                             -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat,
-                             -gpsLon, - recvAlt, - recvSiteName) %>%
+         -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID,
+         -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat,
+         -gpsLon, - recvAlt, - recvSiteName) %>%
   collect() %>%
   as.data.frame() %>%
   mutate(ts = as_datetime(ts),  # work with dates AFTER transforming to flat file
@@ -192,7 +193,7 @@ head(tagRecvSummary)
 
 ## Plotting your data {#dataPlotting}
 
-Plotting your data is a powerful way to visualize broad and fine-scale detection patterns. This section will give you a brief introduction to plotting using `ggplot2.`  For more in depth information on the uses of `ggplot2`, we recommend the [Cookbook for R](http://www.cookbook-r.com/Graphs/), and the rstudio [`ggplot2` cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf).  
+Plotting your data is a powerful way to visualize broad and fine-scale detection patterns. This section will give you a brief introduction to plotting using `ggplot2.`  For more in depth information on the uses of `ggplot2`, we recommend the [Cookbook for R](http://www.cookbook-r.com/Graphs/), and the Rstudio [`ggplot2` cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf).  
 
 To make coarse-scale plots with large files, we suggest first rounding the detection time to the nearest hour or day so that processing time is faster. Here we round detection times to the nearest hour, then make a basic plot of hourly detections by `motusTagID`:
 
@@ -207,7 +208,7 @@ ggplot(data = df.alltags.sub.2, aes(x = hour, y = as.factor(motusTagID))) +
   theme_bw() +
   geom_point() + 
   labs(x = "Time (rounded to hour)", y = "MotusTagID")
-  
+
 ```
 Let's focus only on tags deployed in 2016, and we can colour the tags by species:
 
@@ -324,17 +325,17 @@ fun.getpath <- function(df) {
 } # end of function call
 
 df.alltags.path <- fun.getpath(df.alltags.sub)
-                    
+
 ```
 
 ```{r plotTagPaths.6}
 
 df.alltags.sub.path <- df.alltags.sub %>%
-                filter(tagProjID == proj.num) %>% # only tags registered to project
-                arrange(motusTagID, ts) %>%       # order by time stamp for each tag
-                mutate(date = as_date(ts)) %>%    # create date variable
-                group_by(motusTagID, date, recvDeployName, ambigID, 
-                         tagDeployLon, tagDeployLat, recvLat, recvLon)
+  filter(tagProjID == proj.num) %>% # only tags registered to project
+  arrange(motusTagID, ts) %>%       # order by time stamp for each tag
+  mutate(date = as_date(ts)) %>%    # create date variable
+  group_by(motusTagID, date, recvDeployName, ambigID, 
+           tagDeployLon, tagDeployLat, recvLat, recvLon)
 
 df.alltags.path <- fun.getpath(df.alltags.sub.path)
 ```
@@ -382,19 +383,19 @@ df.recvDeps <- tbl.recvDeps %>%
          # for deployments with no end dates, make an end date a year from now
          tsEnd = if_else(is.na(tsEnd), 
                          as.POSIXct(format(Sys.time(), "%Y-%m-%d %H:%M:%S")) +
-                           lubridate::dyears(1), 
+                           dyears(1), 
                          tsEnd), 
          tsEnd = as.POSIXct(tsEnd, tz = "UTC", origin = "1970-01-01"))
 
 # get running intervals for all receiver deployments
-siteOp <- with(df.recvDeps, lubridate::interval(tsStart, tsEnd))
+siteOp <- with(df.recvDeps, interval(tsStart, tsEnd))
 
 # set the date range you're interested in
-dateRange <- lubridate::interval(as.POSIXct("2015-08-01"), as.POSIXct("2016-01-01"))
+dateRange <- interval(as.POSIXct("2015-08-01"), as.POSIXct("2016-01-01"))
 
 # create new variable "active" which will be set to TRUE if the receiver was
 # active at some point during your specified date range, and FALSE if not
-df.recvDeps$active <- lubridate::int_overlaps(siteOp, dateRange) 
+df.recvDeps$active <- int_overlaps(siteOp, dateRange) 
 
 # create map with receivers active during specified date range as red, and
 # receivers with detections as yellow
@@ -437,7 +438,7 @@ xmin <- min(df.tmp$recvLon, na.rm = TRUE) - 2
 xmax <- max(df.tmp$recvLon, na.rm = TRUE) + 2
 ymin <- min(df.tmp$recvLat, na.rm = TRUE) - 1
 ymax <- max(df.tmp$recvLat, na.rm = TRUE) + 1
-                
+
 # map
 ggplot(data = na.lakes, aes(x = long, y = lat))+ 
   theme_bw() + 
@@ -447,8 +448,8 @@ ggplot(data = na.lakes, aes(x = long, y = lat))+
   coord_map(projection = "mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
   labs(x = "", y = "") +
   geom_path(data = df.tmp, 
-           aes(x = recvLon, y = recvLat, 
-               group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
+            aes(x = recvLon, y = recvLat, 
+                group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
   geom_point(data = df.tmp, 
              aes(x = tagDeployLon, y = tagDeployLat), colour = "black", shape = 4) +
   scale_colour_discrete("motusTagID") 

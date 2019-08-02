@@ -69,7 +69,7 @@ knitr::include_graphics("images/vanishBearingDeviation.png")
 
 ```
 
-This suggests that stations with closer spaced antennas yield more accurate vanishing bearings. If the estimation of vanishing bearings is a primary goal of your research, we suggest spacing antennas 60 degrees apart, as in Sjöberg and Nilson (2015).
+This suggests that stations with closer spaced antennas yield more accurate vanishing bearings. If the estimation of vanishing bearings is a primary goal of your research, we suggest spacing antennas 60 degrees apart, as in Sjöberg and Nilsson (2015).
 
 3) **For receivers with negative signal strength values, weights need to be normalized**
 

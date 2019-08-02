@@ -28,29 +28,29 @@ Each tag detection database is stored as an SQLite (`dplyr::src_sqlite`) file wi
 
 The .motus file contains a series of interrelated tables where data are stored in a condensed format to save memory. The following tables are included in your .motus file;
 
-1. **antDeps**: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.
-2. **batchRuns**: metadata for runIDs and associated batchIDs
-3. **batches**: detection data for a given receiver and boot number.
-4. **filters**: metadata related to user created filters associated with the specified receiver.  
-5. **gps**: metadata related to Geographic Positioning System (GPS) position of receiver. 
-6. **hits**: detection data at the level of individual hits.
-7. **meta**: metadata related to the project and datatype (tags vs. receivers) that are included in the .motus file
-8. **projAmbig**: metadata related to what projects have ambiguous tag detections
-9. **projBatch**: metadata for the number of detections contained in each batch
-10. **projs**: metadata related to projects, e.g., project name, principal investigator.
-11. **recvDeps**: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.
-12. **recvs**: metadata related to receiver serial number and associated Motus deviceID
-13. **runs**: detection data associated with a run (continuous detections of a unique tag on a given receiver).
-14. **runsFilters**: a list of runIDs associated with user created filters and assigned probabilities.  
-15. **species**: metadata related to species, e.g., unique identifier, scientific name, common name.
-16. **tagAmbig**: metadata related to ambiguous tags, e.g., ambigID and associated motusTagID
-17. **tagDeps**: metadata related to tag deployments, e.g., deployment date, location, and species.
-18. **tags**: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).
+1. **`antDeps`**: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.
+2. **`batchRuns`**: metadata for runIDs and associated batchIDs
+3. **`batches`**: detection data for a given receiver and boot number.
+4. **`filters`**: metadata related to user created filters associated with the specified receiver.  
+5. **`gps`**: metadata related to Geographic Positioning System (GPS) position of receiver. 
+6. **`hits`**: detection data at the level of individual hits.
+7. **`meta`**: metadata related to the project and datatype (tags vs. receivers) that are included in the .motus file
+8. **`projAmbig`**: metadata related to what projects have ambiguous tag detections
+9. **`projBatch`**: metadata for the number of detections contained in each batch
+10. **`projs`**: metadata related to projects, e.g., project name, principal investigator.
+11. **`recvDeps`**: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.
+12. **`recvs`**: metadata related to receiver serial number and associated Motus deviceID
+13. **`runs`**: detection data associated with a run (continuous detections of a unique tag on a given receiver).
+14. **`runsFilters`**: a list of runIDs associated with user created filters and assigned probabilities.  
+15. **`species`**: metadata related to species, e.g., unique identifier, scientific name, common name.
+16. **`tagAmbig`**: metadata related to ambiguous tags, e.g., ambigID and associated motusTagID
+17. **`tagDeps`**: metadata related to tag deployments, e.g., deployment date, location, and species.
+18. **`tags`**: metadata related to tags, e.g., unique identifier, tag characteristics (e.g., burst interval).
 
 In addition to these tables, there are also 'virtual' tables or 'views', which have been created through queries that merge data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in each .motus file:
 
-1. **allambigs**: lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.
-2. **alltags**: provides the full detection data for all tags, and all ambiguous (duplicate) tags,  associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID. 
+1. **`allambigs`**: lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.
+2. **`alltags`**: provides the full detection data for all tags, and all ambiguous (duplicate) tags,  associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID. 
 
 Because the file is a `dplyr::src_sqlite` file, all of the `dplyr` functions can be used to filter and summarize the .motus database, without needing to first save the data as a *flat* file (a typical two-dimensional dataframe). The SQL format is very advantageous when you have a large file -- the queries using SQL will be substantially faster than those done on a flat dataframe. 
 
@@ -74,6 +74,7 @@ Before we begin working with data, we need to load the required packages for thi
 
 ```{r loadPackages, warning = FALSE, message = FALSE}
 library(motus)
+library(lubridate)
 ```
 
 ## Set system environment
@@ -120,7 +121,7 @@ Specify the project number you wish to download detections for, in this case the
 proj.num <- 176
 ```
 
-As this is the first time you are downloading data for project 176, set `new = TRUE` and `update = TRUE`. This will create a .motus file in your current working directory, which was shown above using `getwd()` This will also create an SQL obect in your R environment called "sql.motus"
+As this is the first time you are downloading data for project 176, set `new = TRUE` and `update = TRUE`. This will create a .motus file in your current working directory, which was shown above using `getwd()` This will also create an SQL object in your R environment called "sql.motus"
 
 ```{r, eval = FALSE}
 sql.motus <- tagme(projRecv = proj.num, new = TRUE, update = TRUE)
@@ -236,9 +237,11 @@ tagme(dir = "./data/")
 
 Now that we've downloaded our data as an SQLite database and loaded it into an R object called `sql.motus`, we want to access the tables stored within. Detailed descriptions of all the tables stored in the .motus file can be found in section \@ref(databaseStructure).
 
-You can also view the list of tables, and variables contained within those tables, using the code below:
+You can also view the list of tables, and variables contained within those tables, using the `DBI` and `RSQLite` packages (these are automatically installed when you install `motus`).
 
 ```{r sqlTables, eval = TRUE}
+library(DBI)
+library(RSQLite)
 
 # specify the filepath where your .motus file is saved, and the file name.
 file.name <- dbConnect(SQLite(), "./data/project-176.motus") 

@@ -18,5 +18,4 @@ knitr::include_graphics("images/BSC_Motus_Logo.png")
 
 Our goal with this online 'handbook' is to show Motus (<https://motus.org>) users how to use the R statistical programming language (<https://www.r-project.org/>) to import tag detections data for a project or receiver; clean data and filter false positives; explore detections data through visualizations and summaries; transform the data, e.g., by determining time since sunrise/sunset or magnetic declination; and run various analytical procedures. We hope the contents will be of use, and if you have suggestions for additional examples, please let us know by emailing motus@birdscanada.org. 
 
-Version 1.1 
-Published June 2019
+Published `r format(Sys.Date(), "%B %Y")`

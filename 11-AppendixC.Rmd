@@ -73,7 +73,7 @@ head(alltags.df.sun)
 
 ```
 
-## `plotAllTagsCoord` {#plotAllTagsCoor}
+## `plotAllTagsCoord` {#plotAllTagsCoord}
 ### Description
 Plot latitude/longitude vs time (UTC rounded to the hour) for each tag using .motus detection data.  Coordinate is by default taken from a receivers GPS latitude recordings.
 
