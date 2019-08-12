@@ -12,13 +12,16 @@ s <- spelling::spell_check_files(list.files(pattern = ".Rmd"),
                                  ignore = readLines("WORDLIST"))
 write(s$word, "WORDLIST", append = TRUE)
 
-# 2. Compile Chapters
+# 2. Install the version of motus the book should be compiled with
+remotes::install_github("MotusWTS/motus", ref = "staging")
+
+# 3. Compile Chapters
 # To compile a single chapter
 bookdown::preview_chapter("05-DataCleaning.Rmd")
 
 # To compile the entire book
 bookdown::render_book("index.Rmd")
 
-# 3. Post
+# 4. Post
 # The compiled html version of the book is now in "./_book"
 
