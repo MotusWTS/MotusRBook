@@ -1,12 +1,13 @@
 # Exploring data with the Motus R package {#exploreData}
 
+*Tara L. Crewe, Zoe Crysler, and Philip Taylor*
+
 ```{r tidyr6, echo = FALSE, message = FALSE, warning = FALSE}
 
 library(knitr)
 opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = FALSE)
 
 ```
-*Tara L. Crewe, Zoe Crysler, and Philip Taylor*
 
 Once you have clarified any possible ambiguous tags, and removed false positives, you are ready to start analyzing your clean data set. This chapter will walk you through some simple procedures to start working with and visualizing the clean sample data set; you can modify these scripts to work with your own data. For a more in-depth R tutorial we strongly recommend working through R for Data Science by Garrett Grolemund and Hadley Wickham (<http://r4ds.had.co.nz/>).
 

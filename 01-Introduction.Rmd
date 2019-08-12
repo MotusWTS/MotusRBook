@@ -1,4 +1,7 @@
 # Introduction {#introduction}
+
+*Tara L. Crewe, Zoe Crysler, and Philip Taylor*
+
 ```{r tidyr1, echo = FALSE, message = FALSE, warning = FALSE}
 
 library(knitr)
@@ -10,7 +13,6 @@ opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = FALSE)
 knitr::include_graphics("images/Motus-System-IG-finalSml.png")
 ```
 
-*Tara L. Crewe, Zoe Crysler, and Philip Taylor*
  <br>
 
 The Motus Wildlife Tracking System ('Motus'; Taylor et al. 2017; <https://www.motus.org>) is an international, collaborative automated radio-telemetry network to track the movement and behaviour of flying organisms affixed with digitally encoded radio-transmitters. Motus was developed at Acadia University in 2012-2013. In 2014, a major infrastructure expansion was made possible through a Canada Foundation for Innovation grant to Western University, The University of Guelph, and Acadia University. Since then, Motus has grown through the collaboration of independent researchers and organizations (see <https://motus.org/about/>). It is now managed as a program of Bird Studies Canada (<https://www.birdscanada.org>) in partnership with Acadia University. 

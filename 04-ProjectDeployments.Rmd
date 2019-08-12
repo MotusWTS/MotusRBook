@@ -1,12 +1,13 @@
 # Tag and Receiver Deployments {#deployments}
 
+*Tara L. Crewe, Zoe Crysler, and Philip Taylor*
+
 ```{r tidyr4, echo = FALSE, message = FALSE, warning = FALSE}
 
 library(knitr)
 opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = FALSE)
 
 ```
-*Tara L. Crewe, Zoe Crysler, and Philip Taylor*
 
 Before working with your detection data, a first step is to summarize and visualize the metadata for tag and receiver deployments registered to your project. Summarizing and plotting your deployments can be an effective way to find any errors in tag or receiver deployment metadata, which can in turn influence the completeness of the detections data for your project and the projects of others with detections of their own tags on your receivers. 
 

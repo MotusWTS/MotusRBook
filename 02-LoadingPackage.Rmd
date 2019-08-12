@@ -1,11 +1,13 @@
 # Loading R Packages {#loadingPackages}
+
+*Tara L. Crewe, Zoe Crysler, Philip Taylor, Steffi LaZerte, Denis Lepage*
+
 ```{r tidyr2, echo = FALSE, message = FALSE, warning = FALSE}
 
 library(knitr)
 opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = FALSE)
 
 ```
-*Tara L. Crewe, Zoe Crysler, Philip Taylor, Steffi LaZerte, Denis Lepage*
 
 ## Installing Motus packages
 Two R packages have been developed for Motus users:
