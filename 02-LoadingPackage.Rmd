@@ -5,6 +5,7 @@ library(knitr)
 opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = FALSE)
 
 ```
+*Tara L. Crewe, Zoe Crysler, Philip Taylor, Steffi LaZerte, Denis Lepage*
 
 ## Installing Motus packages
 Two R packages have been developed for Motus users:
@@ -15,7 +16,7 @@ Two R packages have been developed for Motus users:
 
 Motus **users** can install the latest stable versions of the R packages using the following code. As with all R packages, you only need to install the packages once; after installation, you need to load each package (using `library()`) each time you open a new R session. 
 
-Please note that some functionalities of the `devtools` package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of [R](https://www.r-project.org/) and [RStudio](https://www.rstudio.com/products/RStudio/), and update your R packages using `update.packages()` in the R console.
+Please note that some functionalities of the `remotes` package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of [R](https://www.r-project.org/) and [RStudio](https://www.rstudio.com/products/RStudio/), and update your R packages using `update.packages()` in the R console.
 
 To update your existing packages:
 
@@ -34,8 +35,8 @@ remove.packages(c("motus", "motusClient"))
 Then proceed with the installation of the `motus` package
 
 ```{r install packages, eval = FALSE}
-install.packages("devtools")
-library(devtools)
+install.packages("remotes")
+library(remotes)
 
 # install motus
 install_github("MotusWTS/motus")
@@ -69,7 +70,7 @@ Occasionally users run into problems while trying to install or update `motus`. 
 1. Update all packages during the installation
 
 ```{r, eval = FALSE}
-devtools::install_github("MotusWTS/motus", upgrade = "always")
+remotes::install_github("MotusWTS/motus", upgrade = "always")
 ```
 
 2. If the installation of Motus generates errors saying that some of the existing packages cannot be removed, you can try to quit any R session, manually delete the problematic package folder from your R libraries and manually install the package again before trying to install motus. You can also try to set up a custom R library folder with .libPaths() and ensure that you have full write permissions on that folder, or try to start R in administrator (Windows) or SUDO mode (Linux/Ubuntu) and try installing again.

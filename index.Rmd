@@ -1,6 +1,6 @@
 ---
 title: "Motus R Book"
-author: "Tara L. Crewe, Zoe Crysler, and Philip Taylor"
+author: "Motus Wildlife Tracking System"
 #date: "`r Sys.Date()`"
 output: bookdown::gitbook
 documentclass: book
@@ -17,5 +17,7 @@ knitr::include_graphics("images/BSC_Motus_Logo.png")
 ```
 
 Our goal with this online 'handbook' is to show Motus (<https://motus.org>) users how to use the R statistical programming language (<https://www.r-project.org/>) to import tag detections data for a project or receiver; clean data and filter false positives; explore detections data through visualizations and summaries; transform the data, e.g., by determining time since sunrise/sunset or magnetic declination; and run various analytical procedures. We hope the contents will be of use, and if you have suggestions for additional examples, please let us know by emailing motus@birdscanada.org. 
+
+The current version is largely based on the earlier work by Crewe et al. 2018 (available at <https://motus.org/motusRBook/archives/MotusRBook2018-01.pdf>), and has since been supplemented by various people on the Motus team.
 
 Published `r format(Sys.Date(), "%B %Y")`
