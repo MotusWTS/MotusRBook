@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html >
+
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>C Appendix - motus - Summary and plotting functions | Motus R Book</title>
-  <meta name="description" content="C Appendix - motus - Summary and plotting functions | Motus R Book" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="description" content="C Appendix - motus - Summary and plotting functions | Motus R Book">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
   <meta property="og:title" content="C Appendix - motus - Summary and plotting functions | Motus R Book" />
   <meta property="og:type" content="book" />
@@ -21,13 +22,13 @@
   
   <meta name="twitter:image" content="BSC_Motus_Logo.png" />
 
-<meta name="author" content="Motus Wildlife Tracking System" />
+<meta name="author" content="Motus Wildlife Tracking System">
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
 <link rel="prev" href="appendixB.html">
@@ -59,41 +60,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -184,7 +211,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.8" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2-or-3"><i class="fa fa-check"></i><b>5.8</b> Checking validity of run lengths of 2 or 3</a></li>
 <li class="chapter" data-level="5.9" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.9</b> Filtering the data</a><ul>
 <li class="chapter" data-level="5.9.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.9.1</b> Filter and save to RDS</a></li>
-<li class="chapter" data-level="5.9.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.9.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
+<li class="chapter" data-level="5.9.2" data-path="dataCleaning.html"><a href="dataCleaning.html#saveFilter"><i class="fa fa-check"></i><b>5.9.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
@@ -350,19 +377,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="appendixC" class="section level1">
 <h1><span class="header-section-number">C</span> Appendix - <code>motus</code> - Summary and plotting functions</h1>
 <p>The <code>motus</code> R package offers functions that work with .motus data to do common computations, summaries and plots. This appendix outlines these functions and provides examples on function use. Many of these functions work with both <code>tbl</code> and <code>data.frame</code> formats, however some require the data to be in sql format as specified below. Detailed instructions on accessing and formatting data are available in Chapter <a href="accessingData.html#accessingData">3</a>. The examples throughout this chapter work with the sample data which can be accessed and converted to various formats through the following code:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download and access sample data in sql format</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download and access sample data in sql format</span>
 <span class="co"># username: motus.sample, password: motus.sample</span>
 sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)
 
 <span class="co"># extract &quot;alltags&quot;&quot; table from sql file &quot;sql.motus&quot;</span>
 tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>) 
 
-## convert the tbl &quot;tbl.alltags&quot; to a data.frame called &quot;df.alltags&quot;
+<span class="co">## convert the tbl &quot;tbl.alltags&quot; to a data.frame called &quot;df.alltags&quot;</span>
 df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">as.data.frame</span>()</code></pre></div>
+<span class="st">  </span><span class="kw">as.data.frame</span>()</code></pre>
 <p>You can access the function help pages using `?sunRiseSet in the R console. Or view the underlying function code like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sunRiseSet</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">sunRiseSet</code></pre>
 <div id="checkVersion.B" class="section level2">
 <h2><span class="header-section-number">C.1</span> <code>checkVersion</code></h2>
 <div id="description" class="section level3">
@@ -375,7 +402,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 </div>
 <div id="example" class="section level3">
 <h3><span class="header-section-number">C.1.3</span> Example</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">checkVersion</span>(sql.motus)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">checkVersion</span>(sql.motus)</code></pre>
 </div>
 </div>
 <div id="sunRiseSet" class="section level2">
@@ -394,8 +421,8 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-1" class="section level3">
 <h3><span class="header-section-number">C.2.3</span> Example</h3>
 <p>Add sunrise/sunset variables to the <code>alltags</code> data.frame</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alltags.df.sun &lt;-<span class="st"> </span><span class="kw">sunRiseSet</span>(df.alltags)
-<span class="kw">head</span>(alltags.df.sun)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">alltags.df.sun &lt;-<span class="st"> </span><span class="kw">sunRiseSet</span>(df.alltags)
+<span class="kw">head</span>(alltags.df.sun)</code></pre>
 <pre><code>##    hitID runID batchID                  ts sig sigsd noise freq freqsd
 ## 1  45107  8886      53 2015-10-26 11:19:49  52     0   -96    4      0
 ## 2  45108  8886      53 2015-10-26 11:20:28  54     0   -96    4      0
@@ -501,9 +528,9 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-2" class="section level3">
 <h3><span class="header-section-number">C.3.3</span> Example</h3>
 <p>Plot select tags from <code>tbl.alltags</code> with 3 tags per panel</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotAllTagsCoord</span>(
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotAllTagsCoord</span>(
   <span class="kw">filter</span>(tbl.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">19129</span>, <span class="dv">16011</span>, <span class="dv">17357</span>, <span class="dv">16035</span>, <span class="dv">22897</span>, <span class="dv">23316</span>)), 
-  <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</code></pre></div>
+  <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/plotAllTagsCoord-1.png" width="672" /></p>
 </div>
 </div>
@@ -526,9 +553,9 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-3" class="section level3">
 <h3><span class="header-section-number">C.4.3</span> Example</h3>
 <p>Plot tbl file <code>tbl.alltags</code> using gpsLat and 3 tags per panel for select species Red Knot</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotAllTagsSite</span>(<span class="kw">filter</span>(tbl.alltags, speciesEN <span class="op">==</span><span class="st"> &quot;Red Knot&quot;</span>), 
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotAllTagsSite</span>(<span class="kw">filter</span>(tbl.alltags, speciesEN <span class="op">==</span><span class="st"> &quot;Red Knot&quot;</span>), 
                 <span class="dt">coordinate =</span> <span class="st">&quot;recvDeployLat&quot;</span>, 
-                <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</code></pre></div>
+                <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/plotAllTagsSite-1.png" width="672" /></p>
 </div>
 </div>
@@ -549,7 +576,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-4" class="section level3">
 <h3><span class="header-section-number">C.5.3</span> Example</h3>
 <p>Plot of all tag detections at site Longridge using data.frame <code>df.alltags</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotDailySiteSum</span>(df.alltags, <span class="dt">recvDeployName =</span> <span class="st">&quot;Longridge&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotDailySiteSum</span>(df.alltags, <span class="dt">recvDeployName =</span> <span class="st">&quot;Longridge&quot;</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/plotDailySiteSum-1.png" width="672" /></p>
 </div>
 </div>
@@ -557,17 +584,22 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <h2><span class="header-section-number">C.6</span> <code>plotRouteMap</code></h2>
 <div id="description-5" class="section level3">
 <h3><span class="header-section-number">C.6.1</span> Description</h3>
-<p><code>ggmap</code> map of routes of Motus tag detections coloured by <code>motusTagID.</code> User defines a date range to show points for receivers that were operational at some point during specified date range. ### Dependencies <strong><code>data</code></strong> a .motus sql file<br />
-<strong><code>maptype</code></strong> map type to display, can be: “terrain” , “terrain-background”, “toner”, “watercolor”, etc. <strong><code>lat</code></strong> top and bottom latitude bounds. If NULL (default) this is calculated from the data <strong><code>lon</code></strong> left and right longitude bounds. If NULL (default) this is calculated from the data <strong><code>zoom</code></strong> integer for zoom 3-21, 3 being continent level, 10 being city-scale<br />
+<p><code>ggmap</code> map of routes of Motus tag detections coloured by <code>motusTagID.</code> User defines a date range to show points for receivers that were operational at some point during specified date range.
+### Dependencies
+<strong><code>data</code></strong> a .motus sql file<br />
+<strong><code>maptype</code></strong> map type to display, can be: “terrain” , “terrain-background”, “toner”, “watercolor”, etc.
+<strong><code>lat</code></strong> top and bottom latitude bounds. If NULL (default) this is calculated from the data
+<strong><code>lon</code></strong> left and right longitude bounds. If NULL (default) this is calculated from the data
+<strong><code>zoom</code></strong> integer for zoom 3-21, 3 being continent level, 10 being city-scale<br />
 <strong><code>recvStart</code></strong> start date for date range of active receivers<br />
 <strong><code>recvEnd</code></strong> end date for date range of active receivers</p>
 </div>
 <div id="example-5" class="section level3">
 <h3><span class="header-section-number">C.6.2</span> Example</h3>
 <p>Plot routemap of all detection data, with “terrain” maptype, and receivers active between 2016-01-01 and 2017-01-01</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotRouteMap</span>(sql.motus, 
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotRouteMap</span>(sql.motus, 
              <span class="dt">maptype =</span> <span class="st">&quot;terrain&quot;</span>,
-             <span class="dt">recvStart =</span> <span class="st">&quot;2016-01-01&quot;</span>, <span class="dt">recvEnd =</span> <span class="st">&quot;2016-12-31&quot;</span>)</code></pre></div>
+             <span class="dt">recvStart =</span> <span class="st">&quot;2016-01-01&quot;</span>, <span class="dt">recvEnd =</span> <span class="st">&quot;2016-12-31&quot;</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/plotRouteMap-1.png" width="672" /></p>
 </div>
 </div>
@@ -587,7 +619,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-6" class="section level3">
 <h3><span class="header-section-number">C.7.3</span> Example</h3>
 <p>Plot only detections at a specific site; Piskwamish for data.frame <code>df.alltags</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotSite</span>(<span class="kw">filter</span>(df.alltags, recvDeployName <span class="op">==</span><span class="st"> &quot;Piskwamish&quot;</span>))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotSite</span>(<span class="kw">filter</span>(df.alltags, recvDeployName <span class="op">==</span><span class="st"> &quot;Piskwamish&quot;</span>))</code></pre>
 <p><img src="MotusRBook_files/figure-html/plotSite-1.png" width="672" /></p>
 </div>
 </div>
@@ -610,8 +642,8 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-7" class="section level3">
 <h3><span class="header-section-number">C.8.3</span> Example</h3>
 <p>Plot select tags for site Piskwamish</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotSiteSig</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16037</span>, <span class="dv">16039</span>, <span class="dv">16035</span>)), 
-            <span class="dt">recvDeployName =</span> <span class="st">&quot;Netitishi&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotSiteSig</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16037</span>, <span class="dv">16039</span>, <span class="dv">16035</span>)), 
+            <span class="dt">recvDeployName =</span> <span class="st">&quot;Netitishi&quot;</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/plotSiteSig-1.png" width="672" /></p>
 </div>
 </div>
@@ -635,7 +667,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-8" class="section level3">
 <h3><span class="header-section-number">C.9.3</span> Example</h3>
 <p>Plot signal strength of a specified tag using <code>tbl</code> file <code>tbl.alltags</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotTagSig</span>(tbl.alltags, <span class="dt">motusTagID =</span> <span class="dv">16035</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotTagSig</span>(tbl.alltags, <span class="dt">motusTagID =</span> <span class="dv">16035</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/plotTagSig-1.png" width="672" /></p>
 </div>
 </div>
@@ -655,8 +687,8 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-9" class="section level3">
 <h3><span class="header-section-number">C.10.3</span> Example</h3>
 <p>To get a data.frame called <code>simSites</code> of just simultaneous detections from a data.frame <code>df.alltags</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simSites &lt;-<span class="st"> </span><span class="kw">simSiteDet</span>(df.alltags)
-<span class="kw">head</span>(simSites)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">simSites &lt;-<span class="st"> </span><span class="kw">simSiteDet</span>(df.alltags)
+<span class="kw">head</span>(simSites)</code></pre>
 <pre><code>##  [1] motusTagID        ts                num.dup          
 ##  [4] hitID             runID             batchID          
 ##  [7] sig               sigsd             noise            
@@ -700,19 +732,19 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-10" class="section level3">
 <h3><span class="header-section-number">C.11.3</span> Example</h3>
 <p>Create site summaries for select sites with time in minutes</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">site_summary &lt;-<span class="st"> </span><span class="kw">siteSum</span>(<span class="kw">filter</span>(df.alltags, 
+<pre class="sourceCode r"><code class="sourceCode r">site_summary &lt;-<span class="st"> </span><span class="kw">siteSum</span>(<span class="kw">filter</span>(df.alltags, 
                                recvDeployName <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Niapiskau&quot;</span>, <span class="st">&quot;Netitishi&quot;</span>, 
                                                      <span class="st">&quot;Old Cur&quot;</span>, <span class="st">&quot;Washkaugou&quot;</span>)), 
-                        <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)</code></pre></div>
+                        <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/siteSum-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(site_summary)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(site_summary)</code></pre>
 <pre><code>## # A tibble: 3 x 6
 ##   recvDeployName first_ts            last_ts             tot_ts num.tags
 ##   &lt;fct&gt;          &lt;dttm&gt;              &lt;dttm&gt;              &lt;drtn&gt;    &lt;int&gt;
-## 1 Niapiskau_50.~ 2016-10-01 23:47:57 2016-10-27 00:03:21 36015~        6
-## 2 Washkaugou_51~ 2016-10-09 23:52:45 2016-10-10 00:00:42     7~        2
-## 3 Netitishi_51.~ 2015-08-14 17:53:49 2015-09-08 01:10:13 34996~        7
-## # ... with 1 more variable: num.det &lt;int&gt;</code></pre>
+## 1 Niapiskau_50.… 2016-10-01 23:47:57 2016-10-27 00:03:21 36015…        6
+## 2 Washkaugou_51… 2016-10-09 23:52:45 2016-10-10 00:00:42     7…        2
+## 3 Netitishi_51.… 2015-08-14 17:53:49 2015-09-08 01:10:13 34996…        7
+## # … with 1 more variable: num.det &lt;int&gt;</code></pre>
 </div>
 </div>
 <div id="siteSumDaily" class="section level2">
@@ -733,8 +765,8 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-11" class="section level3">
 <h3><span class="header-section-number">C.12.3</span> Example</h3>
 <p>Create site summaries for all sites within detection data with time in minutes using <code>tbl</code> file <code>tbl.alltags</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily_site_summary &lt;-<span class="st"> </span><span class="kw">siteSumDaily</span>(tbl.alltags, <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)
-<span class="kw">head</span>(daily_site_summary)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">daily_site_summary &lt;-<span class="st"> </span><span class="kw">siteSumDaily</span>(tbl.alltags, <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)
+<span class="kw">head</span>(daily_site_summary)</code></pre>
 <pre><code>##                            recvDeployName       date            first_ts
 ## 1      Assateague State Park\n38.2, -75.1 2015-09-13 2015-09-13 10:12:50
 ## 2                    Baccaro\n43.5, -65.5 2017-05-19 2017-05-19 16:01:21
@@ -770,19 +802,19 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-12" class="section level3">
 <h3><span class="header-section-number">C.13.3</span> Example</h3>
 <p>View site transitions for only tag 16037 from data.frame <code>df.alltags</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">transitions &lt;-<span class="st"> </span><span class="kw">siteTrans</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16037</span>), 
+<pre class="sourceCode r"><code class="sourceCode r">transitions &lt;-<span class="st"> </span><span class="kw">siteTrans</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16037</span>), 
                          <span class="dt">latCoord =</span> <span class="st">&quot;recvDeployLat&quot;</span>, <span class="dt">lonCoord =</span> <span class="st">&quot;recvDeployLon&quot;</span>)
-<span class="kw">head</span>(transitions)</code></pre></div>
+<span class="kw">head</span>(transitions)</code></pre>
 <pre><code>## # A tibble: 6 x 14
 ##   motusTagID tagDeployID ts.x                lat.x lon.x recvDeployName.x
 ##        &lt;int&gt;       &lt;int&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;           
 ## 1      16037        1825 2015-08-17 17:02:39  NA    NA   NP mobile_NA, NA
-## 2      16037        1825 2015-08-28 16:40:18  51.5 -80.4 North Bluff_51.~
-## 3      16037        1825 2015-09-08 01:10:13  51.3 -80.1 Netitishi_51.3,~
-## 4      16037        1825 2015-09-08 18:37:16  44.6 -65.8 Comeau (Marshal~
+## 2      16037        1825 2015-08-28 16:40:18  51.5 -80.4 North Bluff_51.…
+## 3      16037        1825 2015-09-08 01:10:13  51.3 -80.1 Netitishi_51.3,…
+## 4      16037        1825 2015-09-08 18:37:16  44.6 -65.8 Comeau (Marshal…
 ## 5      16037        1825 2015-09-13 19:46:27  39.0 -74.8 NWW_39, -74.8   
 ## 6      16037        1825 2015-09-14 15:56:49  37.1 -76.0 BULL_37.1, -76  
-## # ... with 8 more variables: ts.y &lt;dttm&gt;, lat.y &lt;dbl&gt;, lon.y &lt;dbl&gt;,
+## # … with 8 more variables: ts.y &lt;dttm&gt;, lat.y &lt;dbl&gt;, lon.y &lt;dbl&gt;,
 ## #   recvDeployName.y &lt;chr&gt;, tot_ts &lt;drtn&gt;, dist &lt;dbl&gt;, rate &lt;dbl&gt;,
 ## #   bearing &lt;dbl&gt;</code></pre>
 </div>
@@ -806,8 +838,8 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-13" class="section level3">
 <h3><span class="header-section-number">C.14.3</span> Example</h3>
 <p>Create tag summary for all tags within detection data using tbl file <code>tbl.alltags</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tag_summary &lt;-<span class="st"> </span><span class="kw">tagSum</span>(tbl.alltags)
-<span class="kw">head</span>(tag_summary)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">tag_summary &lt;-<span class="st"> </span><span class="kw">tagSum</span>(tbl.alltags)
+<span class="kw">head</span>(tag_summary)</code></pre>
 <pre><code>##                               fullID            first_ts
 ## 1      Niles#152:6.1@166.38(M.10811) 2015-08-03 06:37:11
 ## 2                   ?proj?-0#395:9.7 2015-07-23 10:10:54
@@ -855,9 +887,9 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-14" class="section level3">
 <h3><span class="header-section-number">C.15.3</span> Example</h3>
 <p>Create tag summaries for only select tags with time in default hours with data.frame <code>df.alltags</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tag_site_summary &lt;-<span class="st"> </span><span class="kw">tagSumSite</span>(<span class="kw">filter</span>(df.alltags, 
+<pre class="sourceCode r"><code class="sourceCode r">tag_site_summary &lt;-<span class="st"> </span><span class="kw">tagSumSite</span>(<span class="kw">filter</span>(df.alltags, 
                                       motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16047</span>, <span class="dv">16037</span>, <span class="dv">16039</span>)))
-<span class="kw">head</span>(tag_site_summary)</code></pre></div>
+<span class="kw">head</span>(tag_site_summary)</code></pre>
 <pre><code>##                               fullID                     recvDeployName
 ## 1 SampleData#179:6.1@166.38(M.16037)                    BULL\n37.1, -76
 ## 2 SampleData#179:6.1@166.38(M.16037) Comeau (Marshalltown)\n44.6, -65.8
@@ -891,8 +923,8 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="example-15" class="section level3">
 <h3><span class="header-section-number">C.16.3</span> Example</h3>
 <p>Get sunrise and sunset information with units in minutes using tbl file <code>tbl.alltags</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sunrise &lt;-<span class="st"> </span><span class="kw">timeToSunriset</span>(tbl.alltags, <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)
-<span class="kw">head</span>(sunrise)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">sunrise &lt;-<span class="st"> </span><span class="kw">timeToSunriset</span>(tbl.alltags, <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)
+<span class="kw">head</span>(sunrise)</code></pre>
 <pre><code>##    hitID runID batchID                  ts sig sigsd noise freq freqsd
 ## 1  45107  8886      53 2015-10-26 11:19:49  52     0   -96    4      0
 ## 2  45108  8886      53 2015-10-26 11:20:28  54     0   -96    4      0

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html >
+
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>7 Vanishing bearings | Motus R Book</title>
-  <meta name="description" content="7 Vanishing bearings | Motus R Book" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="description" content="7 Vanishing bearings | Motus R Book">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
   <meta property="og:title" content="7 Vanishing bearings | Motus R Book" />
   <meta property="og:type" content="book" />
@@ -21,13 +22,13 @@
   
   <meta name="twitter:image" content="BSC_Motus_Logo.png" />
 
-<meta name="author" content="Motus Wildlife Tracking System" />
+<meta name="author" content="Motus Wildlife Tracking System">
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
 <link rel="prev" href="exploreData.html">
@@ -59,41 +60,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -184,7 +211,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.8" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2-or-3"><i class="fa fa-check"></i><b>5.8</b> Checking validity of run lengths of 2 or 3</a></li>
 <li class="chapter" data-level="5.9" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.9</b> Filtering the data</a><ul>
 <li class="chapter" data-level="5.9.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.9.1</b> Filter and save to RDS</a></li>
-<li class="chapter" data-level="5.9.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.9.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
+<li class="chapter" data-level="5.9.2" data-path="dataCleaning.html"><a href="dataCleaning.html#saveFilter"><i class="fa fa-check"></i><b>5.9.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
@@ -400,22 +427,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="loadPackages7" class="section level3">
 <h3><span class="header-section-number">7.2.1</span> Load the required packages</h3>
 <p>Follow the instructions in Chapter <a href="loadingPackages.html#loadingPackages">2</a> to install the following packages before loading, if they are not already installed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(circular)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(circular)
 <span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(tidyr)
 <span class="kw">library</span>(motus)
 <span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(jpeg)
 <span class="kw">library</span>(ggmap)
 
 <span class="co">#Make sure working on UTC </span>
-<span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</code></pre></div>
+<span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</code></pre>
 </div>
 <div id="vanishingSample" class="section level3">
 <h3><span class="header-section-number">7.2.2</span> Load the sample data</h3>
 <p>The sample data used in this chapter includes the detections of three Magnolia Warblers that were tagged at the Old Cut field research station of the Long Point Bird Observatory in Ontario, Canada, by Morbey et al. (2017). The warblers were tagged and released in spring 2015.</p>
 <p>The sample data are included in the motusData R package as the “vanishBearing.rda” file. In order to access these data, you will need to first install the motusData package following the instructions in section <a href="loadingPackages.html#loadingPackages">2</a>, <em>prior</em> to running the code in this chapter:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load the motusData package, which contains the sample data for this chapter</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load the motusData package, which contains the sample data for this chapter</span>
 <span class="kw">library</span>(motusData) 
 
 <span class="co"># Load the sample data we provided from 3 individual warblers departing Old Cut</span>
@@ -427,23 +453,23 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 df.vanish &lt;-<span class="st"> </span>vanishBearing <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">recvSiteName =</span> <span class="kw">reorder</span>(recvSiteName, recvLat),
          <span class="dt">motusTagID =</span> <span class="kw">as.factor</span>(<span class="kw">as.character</span>(motusTagID))) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># order sites by latitude</span>
-<span class="st">  </span><span class="kw">arrange</span>(ts) <span class="co"># arrange by ts</span></code></pre></div>
+<span class="st">  </span><span class="kw">arrange</span>(ts) <span class="co"># arrange by ts</span></code></pre>
 </div>
 <div id="select-individuals-that-show-clear-departure-detections" class="section level3">
 <h3><span class="header-section-number">7.2.3</span> Select individuals that show clear departure detections</h3>
 <p>First, we subset the data to the individuals that showed clear departures from the stopover site of interest. In fact, the sample data only includes three departures of birds we <em>know</em> have clear departures from Old Cut, but we show this step here regardless!</p>
 <p>By selecting only clear departures, we make sure that the bird departed from nearby the station, minimizing the potential for parallax error. We look for clear departures by first plotting latitude against time. In this case, we can see the birds departing north past several stations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> df.vanish, <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> recvLat, <span class="dt">colour =</span> <span class="kw">as.factor</span>(recvSiteName))) <span class="op">+</span><span class="st"> </span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> df.vanish, <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> recvLat, <span class="dt">colour =</span> <span class="kw">as.factor</span>(recvSiteName))) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>motusTagID, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre>
 <p><img src="MotusRBook_files/figure-html/vanishPlotLatvsSIG-1.png" width="672" /></p>
 <p>We also make sure that the bird was being detected by several antennas at once during departure; if detections are on only one antenna, the vanishing bearing will simply be the direction of the lone antenna with detections. We plot signal strength by time for a subset of the data, to show the last few hours of detections of the bird at Old Cut. Let’s try this with tag # 16823 from our sample data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>, ts <span class="op">&gt;</span><span class="st"> &quot;2015-05-30 00:00:00&quot;</span>), 
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>, ts <span class="op">&gt;</span><span class="st"> &quot;2015-05-30 00:00:00&quot;</span>), 
        <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour =</span> <span class="kw">as.factor</span>(port))) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_grid</span>(recvSiteName <span class="op">~</span><span class="st"> </span>.)</code></pre></div>
+<span class="st">  </span><span class="kw">facet_grid</span>(recvSiteName <span class="op">~</span><span class="st"> </span>.)</code></pre>
 <p><img src="MotusRBook_files/figure-html/vanishPlotTSvsSIG-1.png" width="672" /></p>
 <p>We can see the typical detection pattern of a bird departing from a site, shown by a decrease in movement (beginning to roost) at around 00:25 UTC, followed by an increase in activity and departure from the site later in the night after 03:00 UTC. Soon after leaving the site, it gets detected by five other stations further north. Because this bird was detected before and during departure, we can assume it has departed from somewhat close to the Old Cut station.</p>
 <p>With your own data, look at plots like these for each of your tagged individuals, and for the purpose of vanishing bearings, remove any individuals that don’t have a clear departure.</p>
@@ -452,47 +478,47 @@ df.vanish &lt;-<span class="st"> </span>vanishBearing <span class="op">%&gt;%</s
 <h3><span class="header-section-number">7.2.4</span> Obtain departure times</h3>
 <p>In order to estimate vanishing bearings based on the signal strength of departure detections, we must first determine the approximate time that the bird started its departure flight. For now, the best way to do this is by manually going through each set of detections from each bird and obtaining the approximate time by plotting the time versus signal strength.</p>
 <p>Continuing with tag 16823, let’s find the departure time.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>), 
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>), 
        <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour=</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_grid</span>(recvSiteName <span class="op">~</span><span class="st"> </span>.)</code></pre></div>
+<span class="st">  </span><span class="kw">facet_grid</span>(recvSiteName <span class="op">~</span><span class="st"> </span>.)</code></pre>
 <p><img src="MotusRBook_files/figure-html/vanishFindDepTime-1.png" width="672" /></p>
 <p>We can see the complete set of detections of tag 16823 for Old Cut and other stations this bird was detected at post-departure.</p>
 <p>We then subset the plot in order to zoom in to the last few minutes of detections at Old Cut, which is where the bird is departing from. By zooming in we can find the exact departure time.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, 
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, 
                      motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>,  
                      ts <span class="op">&gt;</span><span class="st"> &quot;2015-05-30 03:03:00&quot;</span>,  
                      ts <span class="op">&lt;</span><span class="st"> &quot;2015-05-30 03:10:00&quot;</span>), 
        <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour=</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre>
 <p><img src="MotusRBook_files/figure-html/vanishPlotTSvsSIG2-1.png" width="672" /></p>
 <p>In this case, we can see an increase in signal strength beginning at about 3:04 for the 90 and 260 degree antennas at Old Cut. These reach a peak in signal strength at about 3:04:59, after which signal strength declines. This suggests that the bird was likely south of the station when it began it’s departure - signal strength increased and peaked as it passed through the antenna beams, and then declined again as the bird moved away (north) from the Old Cut station. We choose the peak signal strength, i.e., 3:04:59 as the departure time for this bird, to exclude those detections where the bird was likely moving towards the station; we would not want the ‘approaching’ station signals to contribute to the vanishing bearing, because it assumes the bird is moving radially away from the station.</p>
 <p>We create a dataframe with the departure times of each bird and their motusTagIDs, to use later for data filtering. We add departure times for the other two birds in the sample dataset; if you are keen, you can try the plots above on tags 16897 and 16791 to see how we came up with those departure times:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## create dataframe and assign column names
-dep.<span class="dv">16823</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16823</span>, <span class="st">&quot;2015-05-30 03:04:59&quot;</span>))
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## create dataframe and assign column names</span>
+dep<span class="fl">.16823</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16823</span>, <span class="st">&quot;2015-05-30 03:04:59&quot;</span>))
 
-## create dataframes for the other two tags:
-dep.<span class="dv">16867</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16867</span>, <span class="st">&quot;2015-05-29 01:56:00&quot;</span>))
-dep.<span class="dv">16791</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16791</span>, <span class="st">&quot;2015-05-08 02:41:40&quot;</span>))
+<span class="co">## create dataframes for the other two tags:</span>
+dep<span class="fl">.16867</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16867</span>, <span class="st">&quot;2015-05-29 01:56:00&quot;</span>))
+dep<span class="fl">.16791</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16791</span>, <span class="st">&quot;2015-05-08 02:41:40&quot;</span>))
 
-## put them all together
-df.departTime &lt;-<span class="st"> </span><span class="kw">rbind</span>(dep.<span class="dv">16823</span>, dep.<span class="dv">16867</span>, dep.<span class="dv">16791</span>)
+<span class="co">## put them all together</span>
+df.departTime &lt;-<span class="st"> </span><span class="kw">rbind</span>(dep<span class="fl">.16823</span>, dep<span class="fl">.16867</span>, dep<span class="fl">.16791</span>)
 <span class="kw">names</span>(df.departTime) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;motusTagID&quot;</span>, <span class="st">&quot;ts_depart&quot;</span>)
 
-## convert time to posixCT using Lubridate functionality
+<span class="co">## convert time to posixCT using Lubridate functionality</span>
 df.departTime &lt;-<span class="st"> </span><span class="kw">mutate</span>(df.departTime, <span class="dt">ts_depart =</span> <span class="kw">ymd_hms</span>(ts_depart))
 
-df.departTime</code></pre></div>
+df.departTime</code></pre>
 <pre><code>##   motusTagID           ts_depart
 ## 1      16823 2015-05-30 03:04:59
 ## 2      16867 2015-05-29 01:56:00
 ## 3      16791 2015-05-08 02:41:40</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## optionally, save to .RDS file to preserve time structure (you could save to
-## .csv, but time structure will not be preserved) not run here:
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## optionally, save to .RDS file to preserve time structure (you could save to</span>
+<span class="co">## .csv, but time structure will not be preserved) not run here:</span>
 
-<span class="co"># saveRDS(df.departTime, file = &quot;./data/departureTimes.RDS&quot;)</span></code></pre></div>
+<span class="co"># saveRDS(df.departTime, file = &quot;./data/departureTimes.RDS&quot;)</span></code></pre>
 </div>
 <div id="calculate-vanishing-bearings-for-individuals-with-departure-times." class="section level3">
 <h3><span class="header-section-number">7.2.5</span> Calculate vanishing bearings for individuals with departure times.</h3>
@@ -501,15 +527,15 @@ df.departTime</code></pre></div>
 <p>Now that we have only the post-departure detections for the bird we are interested in, we calculate its vanishing bearing.</p>
 <p>First, we normalize the signal strengths, as discussed above, using the minimum and maximum observed signal strength across all data collected by the receiver. If there are differences in the range of signal strengths detected by antennas on a receiver, you might want to instead normalize by antenna. We do not have access to the entire database with the sample data, but we know the minimum and maximum signal strengths detected at the Old Cut stations are -78.0691 and -17.8707, respectively.</p>
 <p>We then calculate a weighted mean of departure angle across the entire departure period using the circular function. The numbers -78.0691 and -17.8707 are the minimum and maximum signal strength values for the Old Cut station. If using your own data, make sure you instead use the min and max signal strength for your station (using the full stations’s data, not only from the subset of the tags you are analyzing).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Merge sample data with departure times, subset data, and calculate vanishing bearing
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Merge sample data with departure times, subset data, and calculate vanishing bearing</span>
 
-## Note that we use the recvSiteName to specify the departure station of
-## interest. Depending on whether the station has moved or changed names with
-## deployments, recvDeployID might be more appropriate.
+<span class="co">## Note that we use the recvSiteName to specify the departure station of</span>
+<span class="co">## interest. Depending on whether the station has moved or changed names with</span>
+<span class="co">## deployments, recvDeployID might be more appropriate.</span>
 
 depart.station &lt;-<span class="st"> &quot;Old Cut&quot;</span>
-min.sig &lt;-<span class="st"> </span><span class="op">-</span><span class="fl">78.0691</span> <span class="co"># normally max/min sig comes from the complete raw data for a station</span>
-max.sig &lt;-<span class="st"> </span><span class="op">-</span><span class="fl">17.8707</span>
+min.sig &lt;-<span class="st"> </span><span class="fl">-78.0691</span> <span class="co"># normally max/min sig comes from the complete raw data for a station</span>
+max.sig &lt;-<span class="st"> </span><span class="fl">-17.8707</span>
 
 <span class="co"># in this case, right join should drop any individuals that don&#39;t have departure</span>
 <span class="co"># times in df.departTime</span>
@@ -529,26 +555,26 @@ df.vanishBearing &lt;-<span class="st"> </span><span class="kw">right_join</span
                                                                    <span class="dt">template =</span> <span class="st">&quot;none&quot;</span>, 
                                                                    <span class="dt">rotation =</span> <span class="st">&quot;clock&quot;</span>)),
             <span class="dt">minutes.used =</span> <span class="kw">as.duration</span>(<span class="kw">min</span>(ts) <span class="op">%--%</span><span class="st"> </span><span class="kw">max</span>(ts))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">as.data.frame</span>()</code></pre></div>
+<span class="st">  </span><span class="kw">as.data.frame</span>()</code></pre>
 <p>The resulting <code>df.vanish</code> dataframe contains the <code>motusTagID</code>, the vanishing bearing of the tag, the time in seconds/minutes used to estimate the bearing, and the receiver’s name and coordinates. We can make a circular plot with points for the individual vanishing bearings and an arrow for the mean bearing as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># if you have many bearings/points, can use stack = TRUE</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># if you have many bearings/points, can use stack = TRUE</span>
 <span class="kw">plot.circular</span>(df.vanishBearing<span class="op">$</span>vanish.bearing, <span class="dt">zero =</span> pi<span class="op">/</span><span class="dv">2</span>)
-<span class="kw">arrows.circular</span>(<span class="kw">mean</span>(df.vanishBearing<span class="op">$</span>vanish.bearing), <span class="dt">zero =</span> pi<span class="op">/</span><span class="dv">2</span>)</code></pre></div>
+<span class="kw">arrows.circular</span>(<span class="kw">mean</span>(df.vanishBearing<span class="op">$</span>vanish.bearing), <span class="dt">zero =</span> pi<span class="op">/</span><span class="dv">2</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/plotCircular-1.png" width="672" /></p>
 </div>
 <div id="plot-the-vanishing-bearings-on-a-map" class="section level3">
 <h3><span class="header-section-number">7.2.6</span> Plot the vanishing bearings on a map</h3>
 <p>Mapping your vanishing bearing(s) with <code>ggmap</code> can also be a great way to visualize the departure direction of your bird(s). Here we use Stamen maps to show the stations and orientations of antennas that detected the bird during departure, along with the orientation of the vanishing bearing. For information on using <code>ggmap</code> to create Google Maps, see Appendix B in section <a href="appendixB.html#googleMapsKey">B.3</a>.</p>
 <p>First, pick a tag to map:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tagID &lt;-<span class="st"> </span><span class="dv">16823</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">tagID &lt;-<span class="st"> </span><span class="dv">16823</span></code></pre>
 <p>Then, create a map with a specified map centre, maptype (“terrain”, “roadmap”, “satellite”, or “hybrid”), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale). We add a yellow point for the stations with detections, yellow lines to represent antenna bearings with detections, and a red line for the vanishing bearing:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## First we obtain a map of our location of interest, in this case Old Cut
-map.OC &lt;-<span class="st">  </span><span class="kw">get_stamenmap</span>(<span class="dt">bbox =</span> <span class="kw">c</span>(<span class="dt">left =</span> <span class="op">-</span><span class="fl">80.6</span>, <span class="dt">right =</span> <span class="op">-</span><span class="fl">80.2</span>, <span class="dt">bottom =</span> <span class="fl">42.5</span>, <span class="dt">top =</span> <span class="fl">42.75</span>),
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## First we obtain a map of our location of interest, in this case Old Cut</span>
+map.OC &lt;-<span class="st">  </span><span class="kw">get_stamenmap</span>(<span class="dt">bbox =</span> <span class="kw">c</span>(<span class="dt">left =</span> <span class="fl">-80.6</span>, <span class="dt">right =</span> <span class="fl">-80.2</span>, <span class="dt">bottom =</span> <span class="fl">42.5</span>, <span class="dt">top =</span> <span class="fl">42.75</span>),
                    <span class="dt">maptype =</span> <span class="st">&quot;terrain-background&quot;</span>,
                    <span class="dt">zoom =</span> <span class="dv">12</span>,
                    <span class="dt">color =</span> <span class="st">&quot;color&quot;</span>)
 
-## Do the following to make a scale bar
+<span class="co">## Do the following to make a scale bar</span>
 bb &lt;-<span class="st"> </span><span class="kw">attr</span>(map.OC,<span class="st">&quot;bb&quot;</span>)
 sbar &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">lon.start =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lon <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span>(bb<span class="op">$</span>ur.lon <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lon)),
                    <span class="dt">lon.end =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lon <span class="op">+</span><span class="st"> </span><span class="fl">0.25</span><span class="op">*</span>(bb<span class="op">$</span>ur.lon <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lon)),
@@ -562,9 +588,9 @@ sbar<span class="op">$</span>lon.end &lt;-<span class="st"> </span>sbar<span cla
 <span class="st">  </span>((sbar<span class="op">$</span>lon.end<span class="op">-</span>sbar<span class="op">$</span>lon.start)<span class="op">/</span>sbar<span class="op">$</span>distance)<span class="op">*</span>scalebar.length<span class="op">*</span><span class="dv">1000</span>
 ptspermm &lt;-<span class="st"> </span><span class="fl">2.83464567</span>  <span class="co"># need this because geom_text uses mm, and themes use pts.</span>
 
-## To map antenna bearings:
-## Create a station dataframe with antenna bearings for all antennas with
-## detections for the tag of interest
+<span class="co">## To map antenna bearings:</span>
+<span class="co">## Create a station dataframe with antenna bearings for all antennas with</span>
+<span class="co">## detections for the tag of interest</span>
 df.stations &lt;-<span class="st"> </span>df.vanish <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(motusTagID <span class="op">==</span><span class="st"> </span>tagID) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(recvSiteName, antBearing, port, recvLon, recvLat) <span class="op">%&gt;%</span>
@@ -574,7 +600,7 @@ df.stations &lt;-<span class="st"> </span>df.vanish <span class="op">%&gt;%</spa
 arr.sc &lt;-<span class="st"> </span><span class="fl">0.03</span> 
 rad &lt;-<span class="st"> </span><span class="cf">function</span>(x) {x <span class="op">*</span><span class="st"> </span>pi<span class="op">/</span><span class="dv">180</span>}
 
-## Now we make the map
+<span class="co">## Now we make the map</span>
 
 <span class="kw">ggmap</span>(map.OC) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.stations, <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat), <span class="dt">size =</span> <span class="dv">1</span>, 
@@ -605,13 +631,13 @@ rad &lt;-<span class="st"> </span><span class="cf">function</span>(x) {x <span c
               <span class="dt">hjust =</span> <span class="fl">0.5</span>,
               <span class="dt">vjust =</span> <span class="dv">0</span>,
               <span class="dt">size =</span> <span class="dv">8</span><span class="op">/</span>ptspermm, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>)  <span class="op">+</span>
-<span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Longitude&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Latitude&quot;</span>)</code></pre></div>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Longitude&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Latitude&quot;</span>)</code></pre>
 <p><img src="MotusRBook_files/figure-html/vanishMapping-1.png" width="672" /></p>
 <p>Lengths of the yellow and red lines do not represent antenna range or exact path of the bird. For this departure, we have detections on two other stations which corroborate the vanishing bearing.</p>
 <p>If desired, you can print the map to file as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tiff</span>(<span class="dt">file =</span> <span class="kw">paste</span>(tagID, <span class="st">&quot;vanishBearing.tiff&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>))
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tiff</span>(<span class="dt">file =</span> <span class="kw">paste</span>(tagID, <span class="st">&quot;vanishBearing.tiff&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>))
 <span class="kw">print</span>(out.map)
-<span class="kw">dev.off</span>()</code></pre></div>
+<span class="kw">dev.off</span>()</code></pre>
 </div>
 </div>
 <div id="vanishingLitCited" class="section level2">

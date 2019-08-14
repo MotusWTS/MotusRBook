@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html >
+
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>B Appendix - Troubleshooting | Motus R Book</title>
-  <meta name="description" content="B Appendix - Troubleshooting | Motus R Book" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="description" content="B Appendix - Troubleshooting | Motus R Book">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
   <meta property="og:title" content="B Appendix - Troubleshooting | Motus R Book" />
   <meta property="og:type" content="book" />
@@ -21,13 +22,13 @@
   
   <meta name="twitter:image" content="BSC_Motus_Logo.png" />
 
-<meta name="author" content="Motus Wildlife Tracking System" />
+<meta name="author" content="Motus Wildlife Tracking System">
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
 <link rel="prev" href="appendixA.html">
@@ -59,41 +60,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -184,7 +211,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.8" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2-or-3"><i class="fa fa-check"></i><b>5.8</b> Checking validity of run lengths of 2 or 3</a></li>
 <li class="chapter" data-level="5.9" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.9</b> Filtering the data</a><ul>
 <li class="chapter" data-level="5.9.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.9.1</b> Filter and save to RDS</a></li>
-<li class="chapter" data-level="5.9.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.9.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
+<li class="chapter" data-level="5.9.2" data-path="dataCleaning.html"><a href="dataCleaning.html#saveFilter"><i class="fa fa-check"></i><b>5.9.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
@@ -350,15 +377,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="appendixB" class="section level1">
 <h1><span class="header-section-number">B</span> Appendix - Troubleshooting</h1>
 <p>As a first step, always ensure you are using the latest version of the motus package (see section @ref(checkVersion.B)), and you have all required packages installed, loaded, and up to date (see Chapter <a href="loadingPackages.html#loadingPackages">2</a>).</p>
-<p>While attempting to download data with the motus package, you may encounter errors, many of which are likely due to an interrupted connection. <strong>Always ensure you are connected to the internet when using the <code>tagme()</code> function with <code>update = TRUE</code></strong>. Most issues can be solved by either logging out of the motus package, or by restarting R and resuming the download using <code>tagme()</code>. If errors persist and you are unable to download your data, the server may be temporarily offline. Please contact Motus with any concerns at <a href="mailto:motus@birdscanada.org">motus@birdscanada.org</a>.</p>
+<p>While attempting to download data with the motus package, you may encounter errors, many of which are likely due to an interrupted connection. <strong>Always ensure you are connected to the internet when using the <code>tagme()</code> function with <code>update = TRUE</code></strong>. Most issues can be solved by either logging out of the motus package, or by restarting R and resuming the download using <code>tagme()</code>. If errors persist and you are unable to download your data, the server may be temporarily offline. Please contact Motus with any concerns at <a href="mailto:motus@birdscanada.org" class="email">motus@birdscanada.org</a>.</p>
 <div id="motusLogout" class="section level2">
 <h2><span class="header-section-number">B.1</span> Logging out of motus</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">motusLogout</span>()</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">motusLogout</span>()</code></pre>
 </div>
 <div id="resumeDownload" class="section level2">
 <h2><span class="header-section-number">B.2</span> Resume data download</h2>
 <p>To resume your data download, run <code>tagme()</code> again, but do not include <code>new = TRUE</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tagme</span>(project.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> ...)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tagme</span>(project.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> ...)</code></pre>
 </div>
 <div id="googleMapsKey" class="section level2">
 <h2><span class="header-section-number">B.3</span> Google Maps</h2>
@@ -396,8 +423,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">B.4.4</span> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</h3>
 <p>Be sure to start the steps from the top of the chapter and run them in sequential order. Another possibility is that your .motus database hasn’t been updated to support the latest version of the motus package.</p>
 <p>To ensure that your .motus file is up-to-date with the motus package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)
-<span class="kw">checkVersion</span>(sql.motus)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)
+<span class="kw">checkVersion</span>(sql.motus)</code></pre>
 <p>To correct any warnings, you should follow these steps:</p>
 <ol style="list-style-type: decimal">
 <li>download the latest version of the motus package (refer to Chapter <a href="loadingPackages.html#loadingPackages">2</a>).</li>
@@ -406,14 +433,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>load your sqlite file. Look for notes on the console indicating that your database is being updated.</li>
 <li>check the version again.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(motus)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(motus)
 sql &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)
-<span class="kw">checkVersion</span>(sql)</code></pre></div>
+<span class="kw">checkVersion</span>(sql)</code></pre>
 </div>
 <div id="i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme" class="section level3">
 <h3><span class="header-section-number">B.4.5</span> I get an error <code>Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file</code> when attempting to run <code>tagme()</code></h3>
 <p>If you get this message, it’s likely that you’re attempting a new download or update to a nonexistant directory. The directory is specified in the <strong><code>dir = &quot;&quot;</code></strong> command of the <code>tagme()</code> function. If the directory is not specified, files will be saved to your working directory. Use <code>getwd()</code> to determine your current working directory. Use <code>setwd()</code> to set a new working directory. To specify a location to save files from your working directory use “./” followed by the file path.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>() <span class="co"># show working directory, in this case it&#39;s &quot;C:/Documents&quot;</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>() <span class="co"># show working directory, in this case it&#39;s &quot;C:/Documents&quot;</span>
 
 <span class="co"># downloads data to your working directory</span>
 <span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)
@@ -423,18 +450,18 @@ sql &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <sp
 <span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>) 
 
 <span class="co"># downloads data to the file path C:/Downloads</span>
-<span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;C:/Downloads&quot;</span>) </code></pre></div>
+<span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;C:/Downloads&quot;</span>) </code></pre>
 </div>
 <div id="i-see-gps-coordinates-of-0-or-999" class="section level3">
 <h3><span class="header-section-number">B.4.6</span> I see GPS coordinates of “0” or “999”</h3>
 <p>These values are recorded from the GPS unit in the field. Values like these should be ignored, you can replace these with <code>NA</code>, or insert the <code>recvDeployLat</code>/<code>recvDeplOyLon</code> values which are taken from receiver deployment metadata entered by users.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## to replace gpsLat/gpsLon values of NA, 0, or 999 with that of receiver deployment metadata in the alltags table, and read into a data.frame
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## to replace gpsLat/gpsLon values of NA, 0, or 999 with that of receiver deployment metadata in the alltags table, and read into a data.frame</span>
 df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">recvLat =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLat)<span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), 
                            recvDeployLat, gpsLat), 
          <span class="dt">recvLon =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLon)<span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), 
                            recvDeployLon, gpsLon)
-  <span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</code></pre></div>
+  <span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</code></pre>
 </div>
 <div id="i-see-port-with-a-value-of--1" class="section level3">
 <h3><span class="header-section-number">B.4.7</span> I see port with a value of -1</h3>
@@ -443,7 +470,7 @@ df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</sp
 <div id="i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed" class="section level3">
 <h3><span class="header-section-number">B.4.8</span> I get the error <code>Error in rsqlite_fetch(res@ptr, n = n) : database disk image is malformed</code></h3>
 <p>This is likely due to corrupt files which can occur during download. The easiest solution is to delete your current .motus file and download from scratch.</p>
-<p>Of course, there is always the possibility that the book contains errors! If this does not work, please contact <a href="mailto:motus@birdscanada.org">motus@birdscanada.org</a>.</p>
+<p>Of course, there is always the possibility that the book contains errors! If this does not work, please contact <a href="mailto:motus@birdscanada.org" class="email">motus@birdscanada.org</a>.</p>
 
 </div>
 </div>
