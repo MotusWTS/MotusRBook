@@ -15,7 +15,7 @@ Estimating the orientation of a bird departing a stopover site may be key in cer
 
 Sjöberg and Nilsson (2015) calculated vanishing bearings using ordinary circular statistics to estimate the mean of the receiving antenna bearings over the last 5-10 minutes of detections, with the bearing of each detection weighted by strength of the signal. In other words, every signal detected was a vector pointing in the direction of the receiving antenna, with the length of the vector represented by signal strength. A stronger signal would therefore get a longer vector and a higher weight than a weaker signal. 
 
-This chapter will show you how to estimate the departure bearing of your tagged birds using Sjöberg and Nilsson’s method. You can modify these scripts to work with your own data, or use the sample data provided. Before you begin, there are a few assumptions and potential weaknesses you should be aware of: 
+This chapter will show you how to estimate the departure bearing of your tagged birds using Sjöberg and Nilsson's method. You can modify these scripts to work with your own data, or use the sample data provided. Before you begin, there are a few assumptions and potential weaknesses you should be aware of: 
 
 ## Things to be aware of {#thingsToBeAwareOf}
 
