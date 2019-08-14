@@ -23,14 +23,14 @@ s <- spelling::spell_check_files(list.files(pattern = ".Rmd"),
                                  ignore = readLines("WORDLIST"))
 write(s$word, "WORDLIST", append = TRUE)
 
-
-# 3. Compile Chapters
+# 3. Compile Chapters in html and in pdf
 # To compile a single chapter
 bookdown::preview_chapter("05-DataCleaning.Rmd")
 
 # To compile the entire book
-bookdown::render_book("index.Rmd")
+bookdown::render_book("index.Rmd", output_format = "all")
 
 # 4. Post
 # The compiled html version of the book is now in "./_book"
+# The compiled pdf version of the book is now in "./_book/MotusRBook.pdf"
 
