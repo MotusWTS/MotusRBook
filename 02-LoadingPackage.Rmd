@@ -102,9 +102,6 @@ library(maps)
 install.packages("tidyverse")
 library(tidyverse)
 
-install.packages("tidyr")
-library(tidyr)
-
 install.packages("rworldmap")
 library(rworldmap)
 
@@ -115,7 +112,6 @@ library(ggmap)
 library(motus)
 library(maps)
 library(tidyverse)
-library(tidyr)
 library(rworldmap)
 library(ggmap)
 ```

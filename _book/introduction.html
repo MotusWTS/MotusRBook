@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html >
+
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>1 Introduction | Motus R Book</title>
-  <meta name="description" content="1 Introduction | Motus R Book" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="description" content="1 Introduction | Motus R Book">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
   <meta property="og:title" content="1 Introduction | Motus R Book" />
   <meta property="og:type" content="book" />
@@ -21,13 +22,13 @@
   
   <meta name="twitter:image" content="BSC_Motus_Logo.png" />
 
-<meta name="author" content="Motus Wildlife Tracking System" />
+<meta name="author" content="Motus Wildlife Tracking System">
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
 <link rel="prev" href="index.html">
@@ -59,41 +60,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -184,7 +211,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.8" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2-or-3"><i class="fa fa-check"></i><b>5.8</b> Checking validity of run lengths of 2 or 3</a></li>
 <li class="chapter" data-level="5.9" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.9</b> Filtering the data</a><ul>
 <li class="chapter" data-level="5.9.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.9.1</b> Filter and save to RDS</a></li>
-<li class="chapter" data-level="5.9.2" data-path="dataCleaning.html"><a href="dataCleaning.html#save-a-custom-filter-in-the-motus-database-and-apply-it-to-the-data"><i class="fa fa-check"></i><b>5.9.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
+<li class="chapter" data-level="5.9.2" data-path="dataCleaning.html"><a href="dataCleaning.html#saveFilter"><i class="fa fa-check"></i><b>5.9.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
@@ -352,10 +379,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><em>Tara L. Crewe, Zoe Crysler, and Philip Taylor</em></p>
 <p><img src="images/Motus-System-IG-finalSml.png" width="1800" style="display: block; margin: auto;" /></p>
 <p><br></p>
-<p>The Motus Wildlife Tracking System (‘Motus’; Taylor et al. 2017; <a href="https://www.motus.org" class="uri">https://www.motus.org</a>) is an international, collaborative automated radio-telemetry network to track the movement and behaviour of flying organisms affixed with digitally encoded radio-transmitters. Motus was developed at Acadia University in 2012-2013. In 2014, a major infrastructure expansion was made possible through a Canada Foundation for Innovation grant to Western University, The University of Guelph, and Acadia University. Since then, Motus has grown through the collaboration of independent researchers and organizations (see <a href="https://motus.org/about/" class="uri">https://motus.org/about/</a>). It is now managed as a program of Bird Studies Canada (<a href="https://www.birdscanada.org" class="uri">https://www.birdscanada.org</a>) in partnership with Acadia University.</p>
+<p>The Motus Wildlife Tracking System (‘Motus’; Taylor et al. 2017; <a href="https://www.motus.org" class="uri">https://www.motus.org</a>) is an international, collaborative automated radio-telemetry network to track the movement and behaviour of flying organisms affixed with digitally encoded radio-transmitters. Motus was developed at Acadia University in 2012-2013. In 2014, a major infrastructure expansion was made possible through a Canada Foundation for Innovation grant to Western University, The University of Guelph, and Acadia University. Since then, Motus has grown through the collaboration of independent researchers and organizations (see <a href="https://motus.org/about/" class="uri">https://motus.org/about/</a>). It is now managed as a program of Bird Studies Canada (<a href="https://www.birdscanada.org" class="uri">https://www.birdscanada.org</a>) in partnership with Acadia University.</p>
 <p>Motus is unique among automated telemetry arrays in that all researchers in a geographic region (e.g., the Americas or Europe) use a shared radio frequency. This allows tagged animals to be detected by any receiving station across the network, greatly broadening the spatial scope of potential research questions. Motus users also use a shared data infrastructure and web portal: all data collected from across the network are centrally stored and archived, which allows users to access detections of their tags by anyone’s receiver in the network, and individuals that maintain receivers have access to all detections of anyone’s tags on those receivers.</p>
 <p>Having a shared data infrastructure also means that users can benefit from R functions written specifically for Motus data by any and all users. The <code>motus</code> R package described in this book is in continual development, and the intent of this online ‘handbook’ is to help users learn the various functionalities of the package, and potentially contribute to it. We also show how additional R packages such as ggplot can be used to explore, visualize, transform, and analyze Motus data.</p>
-<p>The content of the handbook will continue to evolve and grow along with the analytical needs of the network. Those interested in contributing code to the Motus R package or this handbook can send proposed additions to <a href="mailto:motus@birdscanada.org">motus@birdscanada.org</a>.</p>
+<p>The content of the handbook will continue to evolve and grow along with the analytical needs of the network. Those interested in contributing code to the Motus R package or this handbook can send proposed additions to <a href="mailto:motus@birdscanada.org" class="email">motus@birdscanada.org</a>.</p>
 <p>Taylor, P. D., T. L. Crewe, S. A. Mackenzie, D. Lepage, Y. Aubry, Z. Crysler, G. Finney, C. M. Francis, C. G. Guglielmo, D. J. Hamilton, R. L. Holberton, P. H. Loring, G. W. Mitchell, D. R. Noriis, J. Paquet, R. A. Ronconi, J. Smetzer, P. A. Smith, L. J. Welch, and B. K. Woodworth. 2017. The Motus Wildlife Tracking System: a collaborative research network to enhance the understanding of wildlife movement. Avian Conservation and Ecology 12(1):8. <a href="https://doi.org/10.5751/ACE-00953-120108" class="uri">https://doi.org/10.5751/ACE-00953-120108</a>.</p>
 <div id="whatBookCovers" class="section level2">
 <h2><span class="header-section-number">1.1</span> What this book does not cover</h2>
@@ -369,17 +396,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">1.3</span> Sample datasets</h2>
 <p>Throughout this book we use subsets of real datasets to illustrate how to access, manage, explore and analyze Motus data in R. We recommend that you run through the sample code in each chapter with the sample dataset <strong>before</strong> running through with your own data, because you will undoubtedly need to modify the code we provide in order to deal most effectively with your own data (every situation is different).</p>
 <p>Chapters 2 through 6 use a subset of data from the James Bay Shorebird Project. The James Bay Shorebird Project conducts monitoring and research on shorebirds staging along the James Bay coast, and is a collaborative effort among the Ontario Ministry of Natural Resources and Forestry, Bird Studies Canada, Trent University, and Environment and Climate Change Canada’s Canadian Wildlife Service, in conjunction with a larger conservation initiative involving James Bay First Nations and Nature Canada. The Royal Ontario Museum was a contributing partner until 2016. The goals of the project are to 1) improve the ability to estimate indices of abundance and population trends for shorebird species staging along the western James Bay coast, 2) understand movement patterns and their causes, and 3) identify the relative importance of shorebird staging sites and their habitats. Collectively, this information will aid in the development of conservation measures for Red Knot and other shorebird species through habitat protection like Western Hemisphere Shorebird Reserve Network (WHSRN) designation. More information can be viewed on the James Bay Shorebird Project website at <a href="https://www.jamesbayshorebirdproject.com/" class="uri">https://www.jamesbayshorebirdproject.com/</a>, on Facebook <a href="https://www.facebook.com/jamesbayshorebirdproject/" class="uri">https://www.facebook.com/jamesbayshorebirdproject/</a>, or by contacting their project lead:</p>
-<p>Christian Friis Wildlife Biologist Canadian Wildlife Service Environment and Climate Change Canada / Government of Canada <a href="mailto:christian.friis@canada.ca">christian.friis@canada.ca</a> / Tel: 416.739.4908</p>
+<p>Christian Friis
+Wildlife Biologist
+Canadian Wildlife Service Environment and Climate Change Canada / Government of Canada
+<a href="mailto:christian.friis@canada.ca" class="email">christian.friis@canada.ca</a> / Tel: 416.739.4908</p>
 <p>Biologiste de la Faune<br />
-Service Canadien de la Faune Environnement et Changement Climatique Canada / Gouvernement du Canada <a href="mailto:christian.friis@canada.ca">christian.friis@canada.ca</a> / Tél. : 416.739.4908</p>
+Service Canadien de la Faune Environnement et Changement Climatique Canada / Gouvernement du Canada
+<a href="mailto:christian.friis@canada.ca" class="email">christian.friis@canada.ca</a> / Tél. : 416.739.4908</p>
 <p>In Chapter 7, we use a subset of data collected by the Motus project ‘Studies of Migratory Birds and Bats, 2014-2017’ (Projects #20 and #50) to illustrate the calculation of vanishing bearings of birds departing a stopover site. This project holds Motus data for several Western University projects that took place in southern Ontario, Canada. These projects were led by principal investigators (Chris Guglielmo and Yolanda Morbey) and a number of their graduate students. A variety of species of birds and bats were tracked. For more information contact:</p>
-<p>Chris Guglielmo, Professor, Department of Biology, Western University, Canada, <a href="mailto:cguglie2@uwo.ca">cguglie2@uwo.ca</a> / Tel: 519.661.2111 (ext. 81204)</p>
-<p>Yolanda Morbey, Associate Professor, Department of Biology, Western University, Canada, <a href="mailto:ymorbey@uwo.ca">ymorbey@uwo.ca</a> / Tel: 519.661.2111 (ext. 80116)</p>
+<p>Chris Guglielmo, Professor, Department of Biology, Western University, Canada, <a href="mailto:cguglie2@uwo.ca" class="email">cguglie2@uwo.ca</a> / Tel: 519.661.2111 (ext. 81204)</p>
+<p>Yolanda Morbey, Associate Professor, Department of Biology, Western University, Canada, <a href="mailto:ymorbey@uwo.ca" class="email">ymorbey@uwo.ca</a> / Tel: 519.661.2111 (ext. 80116)</p>
 </div>
 <div id="acknowledgements" class="section level2">
 <h2><span class="header-section-number">1.4</span> Acknowledgements</h2>
 <p>Some of the text included in this book was adapted from John Brzustowski’s GitHub repository for the <code>motus</code> R package at: <a href="https://github.com/jbrzusto/motus" class="uri">https://github.com/jbrzusto/motus</a>.</p>
-<p>Motus was conceived as the SensorGnome network by Philip Taylor and John Brzustowski at Acadia University. Initial expansion of the network was supported by a Canada Foundation for Innovation Grant to Western University (Dr. Christopher Guglielmo), The University of Guelph (Dr. Ryan Norris), and Acadia University (Dr. Philip Taylor). The development of the Motus web interface, R package, and accompanying handbook were made possible through a Canarie grant to Bird Studies Canada (<a href="https://www.canarie.ca/" class="uri">https://www.canarie.ca/</a>). Motus continues to grow as a program of Bird Studies Canada, through the collaboration of numerous independent researchers, organizations, and individuals. A non-exhaustive list of Motus partners and collaborators can be found at <a href="https://motus.org/data/partners.jsp" class="uri">https://motus.org/data/partners.jsp</a>. If your organization is not listed, please contact <a href="mailto:motus@birdscanada.org">motus@birdscanada.org</a>.</p>
+<p>Motus was conceived as the SensorGnome network by Philip Taylor and John Brzustowski at Acadia University. Initial expansion of the network was supported by a Canada Foundation for Innovation Grant to Western University (Dr. Christopher Guglielmo), The University of Guelph (Dr. Ryan Norris), and Acadia University (Dr. Philip Taylor). The development of the Motus web interface, R package, and accompanying handbook were made possible through a Canarie grant to Bird Studies Canada (<a href="https://www.canarie.ca/" class="uri">https://www.canarie.ca/</a>). Motus continues to grow as a program of Bird Studies Canada, through the collaboration of numerous independent researchers, organizations, and individuals. A non-exhaustive list of Motus partners and collaborators can be found at <a href="https://motus.org/data/partners.jsp" class="uri">https://motus.org/data/partners.jsp</a>. If your organization is not listed, please contact <a href="mailto:motus@birdscanada.org" class="email">motus@birdscanada.org</a>.</p>
 <p>Many people have worked together to bring Motus technology, the web interface, and the R-package together. The core ‘Motus Team’ includes Joey Bernard, John Brzustowski, Tara Crewe, Zoe Crysler, Jeremy Hussell, Catherine Jardine, Steffi LaZerte, Denis Lepage, Stuart Mackenzie, Paul Morrill, and Philip Taylor.</p>
 
 </div>

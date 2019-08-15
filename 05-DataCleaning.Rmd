@@ -756,7 +756,7 @@ And to read the data in again:
 df.alltags.sub <- readRDS("./data/dfAlltagsSub.rds")
 ```
 
-### Save a custom filter in the motus database, and apply it to the data
+### Save a custom filter in the motus database, and apply it to the data {#saveFilter}
 
 As an alternative to saving your data as an RDS file, the Motus R package offers functionalities to save your filters directly within your .motus file. Once they are saved in your database, you can do the type of `anti_join()` as above without having to rely on dataframes or an RDS file to store your data. To learn more about the functions available to work with Motus filters, refer to [Appendix D]({#appendixD}) for more details. 
 
