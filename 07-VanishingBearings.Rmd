@@ -7,8 +7,6 @@ opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = FALSE)
 
 # Vanishing bearings {#vanishingBearings}
 
-*Ana Morales and Tara L. Crewe*
-
 *This chapter was contributed by Ana Morales and Tara Crewe, using data collected by Morbey et al. (2017) (see \@ref(sampleData)), and with financial support from a NSERC CREATE Environmental Innovation Program internship awarded to A.M. through McGill University, with partner Bird Studies Canada (T.C.).*
 
 Estimating the orientation of a bird departing a stopover site may be key in certain migration studies. In the context of an automated radio-telemetry study, the estimated departure direction is often called a vanishing bearing (Sjöberg and Nilsson 2015). The ability to use characteristics of signal detections to estimate the vanishing bearing of a migrating animal is particularly important at sites where additional stations are not available to capture the flight path following departure from a stopover site.
