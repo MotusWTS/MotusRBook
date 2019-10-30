@@ -334,7 +334,7 @@ The timing of deployments can be displayed graphically; horizontal line(s) in th
 
 df.projRecvs.long <- df.projRecvs %>%
   select(deviceID, deployID, tsStart, tsEnd) %>% 
-  tidyr::gather(when, ts, c(tsStart, tsEnd)) %>%
+  gather(when, ts, c(tsStart, tsEnd)) %>%
   # fake end date:
   mutate(ts = if_else(is.na(ts), max(ts, na.rm = TRUE) + duration(1, "month"), ts)) 
 
