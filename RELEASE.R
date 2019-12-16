@@ -28,6 +28,7 @@ write(s$word, "WORDLIST", append = TRUE)
 bookdown::preview_chapter("05-DataCleaning.Rmd")
 
 # To compile the entire book
+file.remove("./data/project-176.motus") # Start clean (not necessary if fiddling)
 bookdown::render_book("index.Rmd", output_format = "all")
 
 # 4. Post
