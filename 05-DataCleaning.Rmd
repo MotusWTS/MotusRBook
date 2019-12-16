@@ -160,12 +160,12 @@ Note that the filters may exclude some true detections in the process. Therefore
 
 ## Preparing the data
 
-When accessing the `alltags` view, we remove some unnecessary variables to reduce the overall size of the data set and make it easier to work with. **This is particularly important for large, unwieldy projects**; details on how to view the variables in a `tbl`, and how to filter and subset prior to collecting data into a dataframe can be found in Chapter \@ref(convertToFlat). 
+When accessing the `alltagsGPS` view, we remove some unnecessary variables to reduce the overall size of the data set and make it easier to work with. **This is particularly important for large, unwieldy projects**; details on how to view the variables in a `tbl`, and how to filter and subset prior to collecting data into a dataframe can be found in Chapter \@ref(convertToFlat). 
 
-First we will use the `filterByActivity()` function to label dubious detections. This returns all the data in the `alltags` view with a new `probability` column.
+First we will use the `filterByActivity()` function to label dubious detections. This returns all the data in the `alltagsGPS` view with a new `probability` column.
 
 ```{r}
-tbl.alltags <- filterByActivity(sql.motus, return = "all")
+tbl.alltags <- filterByActivity(sql.motus, return = "all", view = "alltagsGPS")
 ```
 
 We then create receiver latitude and longitude variables (`recvLat`, `recvLon`, `recvAlt`) based on the coordinates recorded by the receiver GPS (`gpsLat`, `gpsLon`, `gpsAlt`), and where those are not available, infilled with coordinates from the receiver deployment metadata (`recvDeployLat`, `recvDeployLon`, `recvDeployAlt`). Missing gps coordinates may appear as `NA` if they are missing, or as `0` or `999` if there was a problem with the unit recording.
