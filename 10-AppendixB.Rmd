@@ -39,7 +39,10 @@ Once you have your access key, you'll need to provide it with the call `register
 
 Then you can create Google maps with the `ggmap` package using the `get_googlemap()` function and specifying the lat/lon center of your map (as opposed to bounding box as with stamen maps).
 
-## Common error messages and solutions:
+## Common problems and solutions:
+
+### I cannot access Project 176 / I download 0 records from Project 176
+Remember that project 176 is *only* accessible with the username and password: **`motus.sample`**.
 
 ### I get the message "Auto-disconnecting SQLiteConnection" one or multiple times after using tagme()
 

@@ -140,6 +140,8 @@ sql.motus <- tagme(projRecv = proj.num, new = TRUE, update = TRUE,
                    dir = "./data/")
 ```
 
+> **Note:** You'll need to use the **username** `motus.sample` and the **password** `motus.sample` to access this data (see below for more details)!
+
 Using `tagme()` as shown above will download a file to your working or specified directory called "project-176.motus" for the sample data (the number in the file name corresponds to the project number). The progress of the download process should print on the console; if you are not seeing it, try scrolling down your screen while `tagme()` is running.
 
 In the event that your connection to the Motus server fails prior to a complete download (e.g., due to a poor internet connection), use `tagme(proj.num, update = TRUE)` to continue the download from where it left off, ensuring to specify a directory if it is saved outside the working directory. 
