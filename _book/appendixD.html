@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>D Appendix - motus - Data filtering functions | Motus R Book</title>
-  <meta name="description" content="D Appendix - motus - Data filtering functions | Motus R Book">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="D Appendix - motus - Data filtering functions | Motus R Book" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content="D Appendix - motus - Data filtering functions | Motus R Book" />
   <meta property="og:type" content="book" />
@@ -22,16 +21,16 @@
   
   <meta name="twitter:image" content="BSC_Motus_Logo.png" />
 
-<meta name="author" content="Motus Wildlife Tracking System">
+<meta name="author" content="Tara L. Crewe, Zoe Crysler, and Philip Taylor" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="appendixC.html">
+<link rel="prev" href="appendixC.html"/>
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -65,7 +64,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -243,41 +241,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="B.1" data-path="appendixB.html"><a href="appendixB.html#motusLogout"><i class="fa fa-check"></i><b>B.1</b> Logging out of motus</a></li>
 <li class="chapter" data-level="B.2" data-path="appendixB.html"><a href="appendixB.html#resumeDownload"><i class="fa fa-check"></i><b>B.2</b> Resume data download</a></li>
 <li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#googleMapsKey"><i class="fa fa-check"></i><b>B.3</b> Google Maps</a></li>
-<li class="chapter" data-level="B.4" data-path="appendixB.html"><a href="appendixB.html#common-error-messages-and-solutions"><i class="fa fa-check"></i><b>B.4</b> Common error messages and solutions:</a><ul>
-<li class="chapter" data-level="B.4.1" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.4.1</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
-<li class="chapter" data-level="B.4.2" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.4.2</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
-<li class="chapter" data-level="B.4.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.4.3</b> I get an “Error: Forbidden” message when using tagme()</a></li>
-<li class="chapter" data-level="B.4.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.4.4</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
-<li class="chapter" data-level="B.4.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.4.5</b> I get an error <code>Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file</code> when attempting to run <code>tagme()</code></a></li>
-<li class="chapter" data-level="B.4.6" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.4.6</b> I see GPS coordinates of “0” or “999”</a></li>
-<li class="chapter" data-level="B.4.7" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.4.7</b> I see port with a value of -1</a></li>
-<li class="chapter" data-level="B.4.8" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.4.8</b> I get the error <code>Error in rsqlite_fetch(res@ptr, n = n) : database disk image is malformed</code></a></li>
+<li class="chapter" data-level="B.4" data-path="appendixB.html"><a href="appendixB.html#common-problems-and-solutions"><i class="fa fa-check"></i><b>B.4</b> Common problems and solutions:</a><ul>
+<li class="chapter" data-level="B.4.1" data-path="appendixB.html"><a href="appendixB.html#i-cannot-access-project-176-i-download-0-records-from-project-176"><i class="fa fa-check"></i><b>B.4.1</b> I cannot access Project 176 / I download 0 records from Project 176</a></li>
+<li class="chapter" data-level="B.4.2" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.4.2</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
+<li class="chapter" data-level="B.4.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.4.3</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
+<li class="chapter" data-level="B.4.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.4.4</b> I get an “Error: Forbidden” message when using tagme()</a></li>
+<li class="chapter" data-level="B.4.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.4.5</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
+<li class="chapter" data-level="B.4.6" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.4.6</b> I get an error <code>Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file</code> when attempting to run <code>tagme()</code></a></li>
+<li class="chapter" data-level="B.4.7" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.4.7</b> I see GPS coordinates of “0” or “999”</a></li>
+<li class="chapter" data-level="B.4.8" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.4.8</b> I see port with a value of -1</a></li>
+<li class="chapter" data-level="B.4.9" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.4.9</b> I get the error <code>Error in rsqlite_fetch(res@ptr, n = n) : database disk image is malformed</code></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - <code>motus</code> - Summary and plotting functions</a><ul>
 <li class="chapter" data-level="C.1" data-path="appendixC.html"><a href="appendixC.html#checkVersion.B"><i class="fa fa-check"></i><b>C.1</b> <code>checkVersion</code></a><ul>
 <li class="chapter" data-level="C.1.1" data-path="appendixC.html"><a href="appendixC.html#description"><i class="fa fa-check"></i><b>C.1.1</b> Description</a></li>
-<li class="chapter" data-level="C.1.2" data-path="appendixC.html"><a href="appendixC.html#dependencies"><i class="fa fa-check"></i><b>C.1.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.1.2" data-path="appendixC.html"><a href="appendixC.html#arguments"><i class="fa fa-check"></i><b>C.1.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.1.3" data-path="appendixC.html"><a href="appendixC.html#example"><i class="fa fa-check"></i><b>C.1.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.2" data-path="appendixC.html"><a href="appendixC.html#sunRiseSet"><i class="fa fa-check"></i><b>C.2</b> <code>sunRiseSet</code></a><ul>
 <li class="chapter" data-level="C.2.1" data-path="appendixC.html"><a href="appendixC.html#description-1"><i class="fa fa-check"></i><b>C.2.1</b> Description</a></li>
-<li class="chapter" data-level="C.2.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-1"><i class="fa fa-check"></i><b>C.2.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.2.2" data-path="appendixC.html"><a href="appendixC.html#arguments-1"><i class="fa fa-check"></i><b>C.2.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.2.3" data-path="appendixC.html"><a href="appendixC.html#example-1"><i class="fa fa-check"></i><b>C.2.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.3" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsCoord"><i class="fa fa-check"></i><b>C.3</b> <code>plotAllTagsCoord</code></a><ul>
 <li class="chapter" data-level="C.3.1" data-path="appendixC.html"><a href="appendixC.html#description-2"><i class="fa fa-check"></i><b>C.3.1</b> Description</a></li>
-<li class="chapter" data-level="C.3.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-2"><i class="fa fa-check"></i><b>C.3.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.3.2" data-path="appendixC.html"><a href="appendixC.html#arguments-2"><i class="fa fa-check"></i><b>C.3.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.3.3" data-path="appendixC.html"><a href="appendixC.html#example-2"><i class="fa fa-check"></i><b>C.3.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.4" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsSite"><i class="fa fa-check"></i><b>C.4</b> <code>plotAllTagsSite</code></a><ul>
 <li class="chapter" data-level="C.4.1" data-path="appendixC.html"><a href="appendixC.html#description-3"><i class="fa fa-check"></i><b>C.4.1</b> Description</a></li>
-<li class="chapter" data-level="C.4.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-3"><i class="fa fa-check"></i><b>C.4.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.4.2" data-path="appendixC.html"><a href="appendixC.html#arguments-3"><i class="fa fa-check"></i><b>C.4.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.4.3" data-path="appendixC.html"><a href="appendixC.html#example-3"><i class="fa fa-check"></i><b>C.4.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.5" data-path="appendixC.html"><a href="appendixC.html#plotDailySiteSum"><i class="fa fa-check"></i><b>C.5</b> <code>plotDailySiteSum</code></a><ul>
 <li class="chapter" data-level="C.5.1" data-path="appendixC.html"><a href="appendixC.html#description-4"><i class="fa fa-check"></i><b>C.5.1</b> Description</a></li>
-<li class="chapter" data-level="C.5.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-4"><i class="fa fa-check"></i><b>C.5.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.5.2" data-path="appendixC.html"><a href="appendixC.html#arguments-4"><i class="fa fa-check"></i><b>C.5.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.5.3" data-path="appendixC.html"><a href="appendixC.html#example-4"><i class="fa fa-check"></i><b>C.5.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.6" data-path="appendixC.html"><a href="appendixC.html#plotRouteMap"><i class="fa fa-check"></i><b>C.6</b> <code>plotRouteMap</code></a><ul>
@@ -286,52 +285,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="C.7" data-path="appendixC.html"><a href="appendixC.html#plotSite"><i class="fa fa-check"></i><b>C.7</b> <code>plotSite</code></a><ul>
 <li class="chapter" data-level="C.7.1" data-path="appendixC.html"><a href="appendixC.html#description-6"><i class="fa fa-check"></i><b>C.7.1</b> Description</a></li>
-<li class="chapter" data-level="C.7.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-5"><i class="fa fa-check"></i><b>C.7.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.7.2" data-path="appendixC.html"><a href="appendixC.html#arguments-5"><i class="fa fa-check"></i><b>C.7.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.7.3" data-path="appendixC.html"><a href="appendixC.html#example-6"><i class="fa fa-check"></i><b>C.7.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.8" data-path="appendixC.html"><a href="appendixC.html#plotSiteSig"><i class="fa fa-check"></i><b>C.8</b> <code>plotSiteSig</code></a><ul>
 <li class="chapter" data-level="C.8.1" data-path="appendixC.html"><a href="appendixC.html#description-7"><i class="fa fa-check"></i><b>C.8.1</b> Description</a></li>
-<li class="chapter" data-level="C.8.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-6"><i class="fa fa-check"></i><b>C.8.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.8.2" data-path="appendixC.html"><a href="appendixC.html#arguments-6"><i class="fa fa-check"></i><b>C.8.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.8.3" data-path="appendixC.html"><a href="appendixC.html#example-7"><i class="fa fa-check"></i><b>C.8.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.9" data-path="appendixC.html"><a href="appendixC.html#plotTagSig"><i class="fa fa-check"></i><b>C.9</b> <code>plotTagSig</code></a><ul>
 <li class="chapter" data-level="C.9.1" data-path="appendixC.html"><a href="appendixC.html#description-8"><i class="fa fa-check"></i><b>C.9.1</b> Description</a></li>
-<li class="chapter" data-level="C.9.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-7"><i class="fa fa-check"></i><b>C.9.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.9.2" data-path="appendixC.html"><a href="appendixC.html#arguments-7"><i class="fa fa-check"></i><b>C.9.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.9.3" data-path="appendixC.html"><a href="appendixC.html#example-8"><i class="fa fa-check"></i><b>C.9.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.10" data-path="appendixC.html"><a href="appendixC.html#simSiteDet"><i class="fa fa-check"></i><b>C.10</b> <code>simSiteDet</code></a><ul>
 <li class="chapter" data-level="C.10.1" data-path="appendixC.html"><a href="appendixC.html#description-9"><i class="fa fa-check"></i><b>C.10.1</b> Description</a></li>
-<li class="chapter" data-level="C.10.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-8"><i class="fa fa-check"></i><b>C.10.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.10.2" data-path="appendixC.html"><a href="appendixC.html#arguments-8"><i class="fa fa-check"></i><b>C.10.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.10.3" data-path="appendixC.html"><a href="appendixC.html#example-9"><i class="fa fa-check"></i><b>C.10.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.11" data-path="appendixC.html"><a href="appendixC.html#siteSum"><i class="fa fa-check"></i><b>C.11</b> <code>siteSum</code></a><ul>
 <li class="chapter" data-level="C.11.1" data-path="appendixC.html"><a href="appendixC.html#description-10"><i class="fa fa-check"></i><b>C.11.1</b> Description</a></li>
-<li class="chapter" data-level="C.11.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-9"><i class="fa fa-check"></i><b>C.11.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.11.2" data-path="appendixC.html"><a href="appendixC.html#arguments-9"><i class="fa fa-check"></i><b>C.11.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.11.3" data-path="appendixC.html"><a href="appendixC.html#example-10"><i class="fa fa-check"></i><b>C.11.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.12" data-path="appendixC.html"><a href="appendixC.html#siteSumDaily"><i class="fa fa-check"></i><b>C.12</b> <code>siteSumDaily</code></a><ul>
 <li class="chapter" data-level="C.12.1" data-path="appendixC.html"><a href="appendixC.html#description-11"><i class="fa fa-check"></i><b>C.12.1</b> Description</a></li>
-<li class="chapter" data-level="C.12.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-10"><i class="fa fa-check"></i><b>C.12.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.12.2" data-path="appendixC.html"><a href="appendixC.html#arguments-10"><i class="fa fa-check"></i><b>C.12.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.12.3" data-path="appendixC.html"><a href="appendixC.html#example-11"><i class="fa fa-check"></i><b>C.12.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.13" data-path="appendixC.html"><a href="appendixC.html#siteTrans"><i class="fa fa-check"></i><b>C.13</b> <code>siteTrans</code></a><ul>
 <li class="chapter" data-level="C.13.1" data-path="appendixC.html"><a href="appendixC.html#description-12"><i class="fa fa-check"></i><b>C.13.1</b> Description</a></li>
-<li class="chapter" data-level="C.13.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-11"><i class="fa fa-check"></i><b>C.13.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.13.2" data-path="appendixC.html"><a href="appendixC.html#arguments-11"><i class="fa fa-check"></i><b>C.13.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.13.3" data-path="appendixC.html"><a href="appendixC.html#example-12"><i class="fa fa-check"></i><b>C.13.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.14" data-path="appendixC.html"><a href="appendixC.html#tagSum"><i class="fa fa-check"></i><b>C.14</b> <code>tagSum</code></a><ul>
 <li class="chapter" data-level="C.14.1" data-path="appendixC.html"><a href="appendixC.html#description-13"><i class="fa fa-check"></i><b>C.14.1</b> Description</a></li>
-<li class="chapter" data-level="C.14.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-12"><i class="fa fa-check"></i><b>C.14.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.14.2" data-path="appendixC.html"><a href="appendixC.html#arguments-12"><i class="fa fa-check"></i><b>C.14.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.14.3" data-path="appendixC.html"><a href="appendixC.html#example-13"><i class="fa fa-check"></i><b>C.14.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.15" data-path="appendixC.html"><a href="appendixC.html#tagSumSite"><i class="fa fa-check"></i><b>C.15</b> <code>tagSumSite</code></a><ul>
 <li class="chapter" data-level="C.15.1" data-path="appendixC.html"><a href="appendixC.html#description-14"><i class="fa fa-check"></i><b>C.15.1</b> Description</a></li>
-<li class="chapter" data-level="C.15.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-13"><i class="fa fa-check"></i><b>C.15.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.15.2" data-path="appendixC.html"><a href="appendixC.html#arguments-13"><i class="fa fa-check"></i><b>C.15.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.15.3" data-path="appendixC.html"><a href="appendixC.html#example-14"><i class="fa fa-check"></i><b>C.15.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.16" data-path="appendixC.html"><a href="appendixC.html#timeToSunriset"><i class="fa fa-check"></i><b>C.16</b> <code>timeToSunriset</code></a><ul>
 <li class="chapter" data-level="C.16.1" data-path="appendixC.html"><a href="appendixC.html#description-15"><i class="fa fa-check"></i><b>C.16.1</b> Description</a></li>
-<li class="chapter" data-level="C.16.2" data-path="appendixC.html"><a href="appendixC.html#dependencies-14"><i class="fa fa-check"></i><b>C.16.2</b> Dependencies</a></li>
+<li class="chapter" data-level="C.16.2" data-path="appendixC.html"><a href="appendixC.html#arguments-14"><i class="fa fa-check"></i><b>C.16.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.16.3" data-path="appendixC.html"><a href="appendixC.html#example-15"><i class="fa fa-check"></i><b>C.16.3</b> Example</a></li>
 </ul></li>
 </ul></li>
@@ -339,21 +338,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="D.1" data-path="appendixD.html"><a href="appendixD.html#listRunsFilters"><i class="fa fa-check"></i><b>D.1</b> <code>listRunsFilters</code></a><ul>
 <li class="chapter" data-level="D.1.1" data-path="appendixD.html"><a href="appendixD.html#description-16"><i class="fa fa-check"></i><b>D.1.1</b> Description</a></li>
 </ul></li>
-<li class="chapter" data-level="D.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-15"><i class="fa fa-check"></i><b>D.2</b> Dependencies</a></li>
+<li class="chapter" data-level="D.2" data-path="appendixD.html"><a href="appendixD.html#arguments-15"><i class="fa fa-check"></i><b>D.2</b> Arguments</a></li>
 <li class="chapter" data-level="D.3" data-path="appendixD.html"><a href="appendixD.html#example-16"><i class="fa fa-check"></i><b>D.3</b> Example</a></li>
 <li class="chapter" data-level="D.4" data-path="appendixD.html"><a href="appendixD.html#createRunsFilter"><i class="fa fa-check"></i><b>D.4</b> <code>createRunsFilter</code></a><ul>
 <li class="chapter" data-level="D.4.1" data-path="appendixD.html"><a href="appendixD.html#description-17"><i class="fa fa-check"></i><b>D.4.1</b> Description</a></li>
-<li class="chapter" data-level="D.4.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-16"><i class="fa fa-check"></i><b>D.4.2</b> Dependencies</a></li>
+<li class="chapter" data-level="D.4.2" data-path="appendixD.html"><a href="appendixD.html#arguments-16"><i class="fa fa-check"></i><b>D.4.2</b> Arguments</a></li>
 <li class="chapter" data-level="D.4.3" data-path="appendixD.html"><a href="appendixD.html#example-17"><i class="fa fa-check"></i><b>D.4.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="D.5" data-path="appendixD.html"><a href="appendixD.html#getRunsFilters"><i class="fa fa-check"></i><b>D.5</b> <code>getRunsFilters</code></a><ul>
 <li class="chapter" data-level="D.5.1" data-path="appendixD.html"><a href="appendixD.html#description-18"><i class="fa fa-check"></i><b>D.5.1</b> Description</a></li>
-<li class="chapter" data-level="D.5.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-17"><i class="fa fa-check"></i><b>D.5.2</b> Dependencies</a></li>
+<li class="chapter" data-level="D.5.2" data-path="appendixD.html"><a href="appendixD.html#arguments-17"><i class="fa fa-check"></i><b>D.5.2</b> Arguments</a></li>
 <li class="chapter" data-level="D.5.3" data-path="appendixD.html"><a href="appendixD.html#example-18"><i class="fa fa-check"></i><b>D.5.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="D.6" data-path="appendixD.html"><a href="appendixD.html#writeRunsFilter"><i class="fa fa-check"></i><b>D.6</b> <code>writeRunsFilter</code></a><ul>
 <li class="chapter" data-level="D.6.1" data-path="appendixD.html"><a href="appendixD.html#description-19"><i class="fa fa-check"></i><b>D.6.1</b> Description</a></li>
-<li class="chapter" data-level="D.6.2" data-path="appendixD.html"><a href="appendixD.html#dependencies-18"><i class="fa fa-check"></i><b>D.6.2</b> Dependencies</a></li>
+<li class="chapter" data-level="D.6.2" data-path="appendixD.html"><a href="appendixD.html#arguments-18"><i class="fa fa-check"></i><b>D.6.2</b> Arguments</a></li>
 <li class="chapter" data-level="D.6.3" data-path="appendixD.html"><a href="appendixD.html#examples"><i class="fa fa-check"></i><b>D.6.3</b> Examples</a></li>
 </ul></li>
 </ul></li>
@@ -385,13 +384,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Returns a dataframe containing the filterIDs, logins, names, projectIDs and descriptions for a given tag or receiver projectID available in the local database.</p>
 </div>
 </div>
-<div id="dependencies-15" class="section level2">
-<h2><span class="header-section-number">D.2</span> Dependencies</h2>
+<div id="arguments-15" class="section level2">
+<h2><span class="header-section-number">D.2</span> Arguments</h2>
 <p><strong>src</strong> is the SQLite object that you get from loading a .motus file into R, e.g., ‘sql.motus’ file in Chapter <a href="accessingData.html#accessingData">3</a>.</p>
 </div>
 <div id="example-16" class="section level2">
 <h2><span class="header-section-number">D.3</span> Example</h2>
-<pre class="sourceCode r"><code class="sourceCode r">filt.df &lt;-<span class="st"> </span><span class="kw">listRunsFilters</span>(<span class="dt">src =</span> sql.motus)</code></pre>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1">filt.df &lt;-<span class="st"> </span><span class="kw">listRunsFilters</span>(<span class="dt">src =</span> sql.motus)</a></code></pre></div>
 </div>
 <div id="createRunsFilter" class="section level2">
 <h2><span class="header-section-number">D.4</span> <code>createRunsFilter</code></h2>
@@ -399,8 +398,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">D.4.1</span> Description</h3>
 <p>This function can be used mostly by users to modify properties of existing filters (e.g., filter description or projectID), but it is also being called internally by ‘writeRunsFilter’ (section <a href="appendixD.html#writeRunsFilter">D.6</a>) to generate a new filterID. To save the actual filter records, you must use <code>writeRunsFilter</code> (section <a href="appendixD.html#writeRunsFilter">D.6</a>). The function returns the <code>filterID</code> (integer) in the local database that matches the new or existing filter with the provided filterName. If a filter with the same name already exists, the function generates a warning and returns the ID of the existing filter.</p>
 </div>
-<div id="dependencies-16" class="section level3">
-<h3><span class="header-section-number">D.4.2</span> Dependencies</h3>
+<div id="arguments-16" class="section level3">
+<h3><span class="header-section-number">D.4.2</span> Arguments</h3>
 <p><strong><code>src</code></strong> is the SQLite object that you get from loading a .motus file into R, e.g., ‘sql.motus’ file in Chapter <a href="accessingData.html#accessingData">3</a>.<br />
 <strong><code>filterName</code></strong> the name you would like to assign to the filter. The function only creates a new filter if the name does not already exist locally.<br />
 <strong><code>motusProjID</code></strong> the numeric ID associated with a project, e.g., 176 for the sample data used throughout this book. The function defaults to motusProjID = ‘NA’ when project ID is not supplied, which is the recommended value for now. The project ID assigned to a filter will mostly be useful for future synchronization of filters with the Motus server. The detection records contained in the filter do not have to be assigned to the projectID assigned to the filter.
@@ -410,16 +409,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-17" class="section level3">
 <h3><span class="header-section-number">D.4.3</span> Example</h3>
 <p>Create a new filter called “myfilter” for the sql.motus database which is not attached to a specific project:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>)
-
-<span class="co"># OR add assignment to project</span>
-
-<span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">motusProjID =</span> <span class="dv">176</span>)
-
-<span class="co"># OR add project and description, possibly updating any previous version called myfilter.</span>
-
-<span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">motusProjID =</span> <span class="dv">176</span>, 
-                 <span class="dt">descr =</span> <span class="st">&quot;assign probability of 0 to false positives&quot;</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1"><span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>)</a>
+<a class="sourceLine" id="cb233-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb233-3" data-line-number="3"><span class="co"># OR add assignment to project</span></a>
+<a class="sourceLine" id="cb233-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb233-5" data-line-number="5"><span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">motusProjID =</span> <span class="dv">176</span>)</a>
+<a class="sourceLine" id="cb233-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb233-7" data-line-number="7"><span class="co"># OR add project and description, possibly updating any previous version called myfilter.</span></a>
+<a class="sourceLine" id="cb233-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb233-9" data-line-number="9"><span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">motusProjID =</span> <span class="dv">176</span>, </a>
+<a class="sourceLine" id="cb233-10" data-line-number="10">                 <span class="dt">descr =</span> <span class="st">&quot;assign probability of 0 to false positives&quot;</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="getRunsFilters" class="section level2">
@@ -428,26 +427,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">D.5.1</span> Description</h3>
 <p>Returns a sqlite table reference to the runsFilters records saved in the database (<code>runID</code>, <code>motusTagID</code>, and <code>probability</code>) associated with a specific name (and optionally project) from the local database. For examples on how you can use the returned table to merge with your detection data, refer to section <a href="dataCleaning.html#saveFilter">5.9.2</a> in chapter 5.</p>
 </div>
-<div id="dependencies-17" class="section level3">
-<h3><span class="header-section-number">D.5.2</span> Dependencies</h3>
+<div id="arguments-17" class="section level3">
+<h3><span class="header-section-number">D.5.2</span> Arguments</h3>
 <p><strong><code>src</code></strong> is the SQLite object that you get from loading a .motus file into R, e.g., ‘sql.motus’ file in Chapter <a href="accessingData.html#accessingData">3</a>.<br />
 <strong><code>filterName</code></strong> the name you used when you created or saved your filter. Function returns a warning if the <code>filterName</code> doesn’t exist.<br />
 <strong><code>motusProjID</code></strong> the numeric ID associated with a project, e.g., 176 for the sample data used throughout this book. The function defaults to <code>motusProjID = 'NA'</code> when project ID is not supplied.</p>
 </div>
 <div id="example-18" class="section level3">
 <h3><span class="header-section-number">D.5.3</span> Example</h3>
-<pre class="sourceCode r"><code class="sourceCode r">tbl.filt &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(<span class="dt">src =</span> sql.motus, <span class="dt">filterName =</span> <span class="st">&quot;myfilter&quot;</span>)
-tbl.filt2 &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(sql.motus, <span class="st">&quot;myfilter2&quot;</span>)
-
-<span class="co"># filter records from df that are in tbl.filt</span>
-df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
-
-<span class="co"># you can apply a second filter, tbl.filt2, to the result of the previous filter</span>
-df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1">tbl.filt &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(<span class="dt">src =</span> sql.motus, <span class="dt">filterName =</span> <span class="st">&quot;myfilter&quot;</span>)</a>
+<a class="sourceLine" id="cb234-2" data-line-number="2">tbl.filt2 &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(sql.motus, <span class="st">&quot;myfilter2&quot;</span>)</a>
+<a class="sourceLine" id="cb234-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb234-4" data-line-number="4"><span class="co"># filter records from df that are in tbl.filt</span></a>
+<a class="sourceLine" id="cb234-5" data-line-number="5">df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb234-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb234-7" data-line-number="7"><span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb234-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb234-9" data-line-number="9"><span class="co"># you can apply a second filter, tbl.filt2, to the result of the previous filter</span></a>
+<a class="sourceLine" id="cb234-10" data-line-number="10">df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb234-11" data-line-number="11"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb234-12" data-line-number="12"><span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="writeRunsFilter" class="section level2">
@@ -456,8 +455,8 @@ df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt2
 <h3><span class="header-section-number">D.6.1</span> Description</h3>
 <p>Writes to the local database (SQLite file) the content of a dataframe containing <code>runID</code>, <code>motusTagID</code>, and assigned <code>probability.</code> If the <code>filterName</code> provided does not exist, the function will call <code>createRunsFilter</code> (section <a href="appendixD.html#createRunsFilter">D.4</a>) to create one in your database. The default behaviour of the function is that any new records from the dataframe are appended to the existing or new filter called filterName, those that already are present (same <code>runID</code> and <code>motusTagID</code>) are replaced (<code>overwrite=TRUE</code>), but those that are not included in the dataframe are retained in the existing filter table (<code>delete=FALSE</code>). To entirely replace the existing filter values with those of the new dataframe, use <code>delete=TRUE</code>. The function returns a sqlite table reference to the filter, similarly to <code>getRunsFilter</code> (section <a href="appendixD.html#getRunsFilters">D.5</a>).</p>
 </div>
-<div id="dependencies-18" class="section level3">
-<h3><span class="header-section-number">D.6.2</span> Dependencies</h3>
+<div id="arguments-18" class="section level3">
+<h3><span class="header-section-number">D.6.2</span> Arguments</h3>
 <p><strong><code>src</code></strong> is the SQLite object that you get from loading a .motus file into R, e.g., ‘sql.motus’ file in Chapter <a href="accessingData.html#accessingData">3</a>.<br />
 <strong><code>filterName</code></strong> the name of the filter you would like to assign the database to.<br />
 <strong><code>motusProjID</code></strong> the numeric ID associated with a project, e.g., 176 for the sample data used throughout this book. Default = ‘NA’ when project ID is not supplied.<br />
@@ -467,18 +466,18 @@ df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt2
 </div>
 <div id="examples" class="section level3">
 <h3><span class="header-section-number">D.6.3</span> Examples</h3>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># write a dataframe containing filter records (runID, motusTagID and</span>
-<span class="co"># probability) to “myfilter”</span>
-<span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="dt">filterName =</span> <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df)
-
-<span class="co"># write a dataframe containing filter records (runID, motusTagID and</span>
-<span class="co"># probability) to “myfilter”, overwriting a previous version entirely</span>
-<span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="dt">fileName =</span> <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df, <span class="dt">delete =</span> <span class="ot">TRUE</span>)
-
-<span class="co"># write a dataframe containing filter records (runID, motusTagID and</span>
-<span class="co"># probability) to &quot;myfilter&quot;, but only append new records, leaving previously</span>
-<span class="co"># created ones intact</span>
-<span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df, <span class="dt">overwrite =</span> <span class="ot">FALSE</span>)</code></pre>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1"><span class="co"># write a dataframe containing filter records (runID, motusTagID and</span></a>
+<a class="sourceLine" id="cb235-2" data-line-number="2"><span class="co"># probability) to “myfilter”</span></a>
+<a class="sourceLine" id="cb235-3" data-line-number="3"><span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="dt">filterName =</span> <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df)</a>
+<a class="sourceLine" id="cb235-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb235-5" data-line-number="5"><span class="co"># write a dataframe containing filter records (runID, motusTagID and</span></a>
+<a class="sourceLine" id="cb235-6" data-line-number="6"><span class="co"># probability) to “myfilter”, overwriting a previous version entirely</span></a>
+<a class="sourceLine" id="cb235-7" data-line-number="7"><span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="dt">fileName =</span> <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df, <span class="dt">delete =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb235-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb235-9" data-line-number="9"><span class="co"># write a dataframe containing filter records (runID, motusTagID and</span></a>
+<a class="sourceLine" id="cb235-10" data-line-number="10"><span class="co"># probability) to &quot;myfilter&quot;, but only append new records, leaving previously</span></a>
+<a class="sourceLine" id="cb235-11" data-line-number="11"><span class="co"># created ones intact</span></a>
+<a class="sourceLine" id="cb235-12" data-line-number="12"><span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df, <span class="dt">overwrite =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 
 </div>
 </div>
