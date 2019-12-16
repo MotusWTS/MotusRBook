@@ -81,6 +81,7 @@ Before we begin working with data, we need to load the required packages for thi
 ```{r loadPackages, warning = FALSE, message = FALSE}
 library(motus)
 library(lubridate)
+library(dplyr)
 ```
 
 ## Set system environment
