@@ -253,7 +253,7 @@ fun.getpath <- function(df) {
     filter(tagProjID == proj.num, # keep only tags registered to the sample project
            !is.na(recvLat) | !(recvLat == 0)) %>% # drops data without lon/lat
     group_by(motusTagID, runID, recvDeployName, ambigID, 
-             tagDeployLon, tagDeployLat, recvLat, recvLon) %>%
+             tagDepLon, tagDepLat, recvLat, recvLon) %>%
     #summarizing by runID to get max run length and mean time stamp:
     summarize(max.runLen = max(runLen), ts.h = mean(ts)) %>% 
     arrange(motusTagID, ts.h)
@@ -422,7 +422,7 @@ Let's deal with the easy ones first.
 ```{r ambig337a}
 df.alltags.sub %>%
   filter(ambigID == -337) %>%
-  count(motusTagID, tagDeployStart, tagDeployEnd, tagDeployLat, tagDeployLon)
+  count(motusTagID, tagDeployStart, tagDeployEnd, tagDepLat, tagDepLon)
 ```
 We can see from the plot that ambiguous tag -337 is ambiguous only at the beginning of the deployment.
 
@@ -446,7 +446,7 @@ df.block.2 <- df.alltags.sub %>%
 df.alltags.sub %>%
   filter(ambigID == -134) %>%
   count(motusTagID, tagDeployStart, tagDeployEnd, 
-           tagDeployLat, tagDeployLon, month(ts))
+           tagDepLat, tagDepLon, month(ts))
 ```
 
 Here we have a similar situation, but one that is a bit more complex. Two identical tags were deployed at the same location, shortly after one another. Let's examine a simple plot. 
@@ -487,7 +487,7 @@ df.alltags %>%
   filter(ambigID == -171) %>% 
   filter(!is.na(tagDeployStart)) %>%
   select(motusTagID, tagProjID, start = tagDeployStart, end = tagDeployEnd, 
-         lat = tagDeployLat, lon = tagDeployLon, species = speciesEN) %>%
+         lat = tagDepLat, lon = tagDepLon, species = speciesEN) %>%
   distinct() %>%
   arrange(start)
 ```
@@ -529,7 +529,7 @@ df.alltags %>%
   filter(ambigID == -114) %>% 
   filter(!is.na(tagDeployStart)) %>%
   select(motusTagID, tagProjID, start = tagDeployStart, end = tagDeployEnd, 
-         lat = tagDeployLat, lon = tagDeployLon, species = speciesEN) %>%
+         lat = tagDepLat, lon = tagDepLon, species = speciesEN) %>%
   distinct() %>%
   arrange(start)
 
@@ -570,7 +570,7 @@ df.alltags %>%
   filter(ambigID == -106) %>% 
   filter(!is.na(tagDeployStart)) %>%
   select(motusTagID, tagProjID, start = tagDeployStart, end = tagDeployEnd, 
-         lat = tagDeployLat, lon = tagDeployLon, species = speciesEN) %>%
+         lat = tagDepLat, lon = tagDepLon, species = speciesEN) %>%
   distinct() %>%
   arrange(start)
 
@@ -625,7 +625,7 @@ df.alltags %>%
   filter(ambigID == -56) %>% 
   filter(!is.na(tagDeployStart)) %>%
   select(motusTagID, tagProjID, start = tagDeployStart, end = tagDeployEnd, 
-         lat = tagDeployLat, lon = tagDeployLon, species = speciesEN) %>%
+         lat = tagDepLat, lon = tagDepLon, species = speciesEN) %>%
   distinct() %>%
   arrange(start)
 

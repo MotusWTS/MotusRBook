@@ -85,12 +85,12 @@ df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID
 ```
 ```{r importDataDUPLICATE, echo = FALSE}
 # load the .motus file
-proj.num = 176
+proj.num <- 176
 sql.motus <- tagme(proj.num, update = FALSE, dir = "./data/")
-tbl.alltags <- tbl(sql.motus, "alltags")
+tbl.alltags <- tbl(sql.motus, "alltagsGPS")
 
 # obtain a table object of the filter
-tbl.filter = getRunsFilters(sql.motus, "filtAmbigFalsePos")
+tbl.filter <- getRunsFilters(sql.motus, "filtAmbigFalsePos")
 
 # filter and convert the table into a dataframe, with a few modications
 df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID")) %>%
@@ -131,14 +131,14 @@ Here we will run through some basic commands, starting with the `summary()` func
 
 sql.motus %>% 
   tbl("alltags") %>% 
-  select(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, 
+  select(ts, motusTagID, runLen, speciesEN, tagDepLat, tagDepLon, 
          recvDeployLat, recvDeployLon) %>% 
   collect() %>%
   summary()
 
 # same summary for the filtered sql data
 df.alltags.sub %>% 
-  select(ts, motusTagID, runLen, speciesEN, tagDeployLat, tagDeployLon, 
+  select(ts, motusTagID, runLen, speciesEN, tagDepLat, tagDepLon, 
          recvLat, recvLon) %>% 
   summary()
 ```
@@ -202,7 +202,7 @@ To make coarse-scale plots with large files, we suggest first rounding the detec
 ```{r hourlyPlot}
 df.alltags.sub.2 <- df.alltags.sub %>%
   mutate(hour = as.POSIXct(round(ts, "hour"))) %>% 
-  select(motusTagID, port, tagDeployStart, tagDeployLat, tagDeployLon, 
+  select(motusTagID, port, tagDeployStart, tagDepLat, tagDepLon, 
          recvLat, recvLon, recvDeployName, antBearing, speciesEN, year, doy, hour) %>% 
   distinct()
 
@@ -320,7 +320,7 @@ fun.getpath <- function(df) {
     filter(tagProjID == proj.num, # keep only tags registered to the sample project
            !is.na(recvLat) | !(recvLat == 0)) %>% 
     group_by(motusTagID, runID, recvDeployName, ambigID, 
-             tagDeployLon, tagDeployLat, recvLat, recvLon) %>%
+             tagDepLon, tagDepLat, recvLat, recvLon) %>%
     summarize(max.runLen = max(runLen), ts.h = mean(ts)) %>%
     arrange(motusTagID, ts.h) %>%
     data.frame()
@@ -337,7 +337,7 @@ df.alltags.sub.path <- df.alltags.sub %>%
   arrange(motusTagID, ts) %>%       # order by time stamp for each tag
   mutate(date = as_date(ts)) %>%    # create date variable
   group_by(motusTagID, date, recvDeployName, ambigID, 
-           tagDeployLon, tagDeployLat, recvLat, recvLon)
+           tagDepLon, tagDepLat, recvLat, recvLon)
 
 df.alltags.path <- fun.getpath(df.alltags.sub.path)
 ```
@@ -453,7 +453,7 @@ ggplot(data = na.lakes, aes(x = long, y = lat))+
             aes(x = recvLon, y = recvLat, 
                 group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
   geom_point(data = df.tmp, 
-             aes(x = tagDeployLon, y = tagDeployLat), colour = "black", shape = 4) +
+             aes(x = tagDepLon, y = tagDepLat), colour = "black", shape = 4) +
   scale_colour_discrete("motusTagID") 
 ```
 
