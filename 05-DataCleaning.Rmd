@@ -187,7 +187,7 @@ df.alltags <- tbl.alltags %>%
          recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
   select(-noise, -slop, -burstSlop, -done, -bootnum, -mfgID, 
          -codeSet, -mfg, -nomFreq, -markerNumber, -markerType, 
-         -tagDeployComments, -fullID, -deviceID, -recvDeployLat, 
+         -tagDepComments, -fullID, -deviceID, -recvDeployLat, 
          -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat, 
          -gpsLon, -recvAlt, -recvSiteName) %>%
   collect() %>%

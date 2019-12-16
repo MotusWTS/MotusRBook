@@ -70,7 +70,7 @@ df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID
                            gpsAlt)) %>%
   filter(probability > 0) %>%
   select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, 
-         -mfg, -nomFreq, -markerNumber, -markerType, -tagDeployComments, 
+         -mfg, -nomFreq, -markerNumber, -markerType, -tagDepComments, 
          -fullID, -deviceID, -recvDeployLat, -recvDeployLon, -recvDeployAlt, 
          -speciesGroup, -gpsLat, -gpsLon, -recvAlt, -recvSiteName) %>%
   collect() %>%
@@ -100,7 +100,7 @@ df.alltags.sub <- left_join(tbl.alltags, tbl.filter, by = c("runID", "motusTagID
          recvAlt = if_else(is.na(gpsAlt), recvDeployAlt, gpsAlt)) %>%
   filter(probability > 0) %>%
   select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, -mfg, -nomFreq,
-         -markerNumber, -markerType, -tagDeployComments, -fullID, -deviceID,
+         -markerNumber, -markerType, -tagDepComments, -fullID, -deviceID,
          -recvDeployLat, -recvDeployLon, -recvDeployAlt, -speciesGroup, -gpsLat,
          -gpsLon, - recvAlt, - recvSiteName) %>%
   collect() %>%
