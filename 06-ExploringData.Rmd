@@ -48,7 +48,7 @@ Or, if you've applied a custom filter to your .motus file, you can load the prev
 
 ```{r importData, eval = FALSE}
 
-# load the .motus file
+# load the .motus file (remember 'motus.sample' is both username and password)
 proj.num <- 176
 sql.motus <- tagme(proj.num, update = TRUE, dir = "./data/")
 tbl.alltags <- tbl(sql.motus, "alltags")
