@@ -999,9 +999,11 @@ We use the <code>collect()</code> and <code>as.data.frame()</code> functions to 
 <a class="sourceLine" id="cb154-7" data-line-number="7"><span class="co"># create a new filter with name filtAmbigFalsePos and populate it with df.block.all</span></a>
 <a class="sourceLine" id="cb154-8" data-line-number="8">tbl.filter &lt;-<span class="st"> </span><span class="kw">writeRunsFilter</span>(sql.motus, <span class="st">&quot;filtAmbigFalsePos&quot;</span>, </a>
 <a class="sourceLine" id="cb154-9" data-line-number="9">                              <span class="dt">df =</span> df.block.all, <span class="dt">delete =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Warning in createRunsFilter(src, filterName, motusProjID, update = FALSE): Warning: filter already exists. Use
+## createRunsFilter function with update=TRUE if you want to update the properties (e.g. name) of the existing filter.</code></pre>
 <pre><code>## Filter records saved</code></pre>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1"><span class="co"># obtain a table object where the filtered records from tbl.filter.1 have been removed</span></a>
-<a class="sourceLine" id="cb156-2" data-line-number="2">tbl.alltags.sub &lt;-<span class="st"> </span><span class="kw">anti_join</span>(tbl.alltags, tbl.filter, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" data-line-number="1"><span class="co"># obtain a table object where the filtered records from tbl.filter.1 have been removed</span></a>
+<a class="sourceLine" id="cb157-2" data-line-number="2">tbl.alltags.sub &lt;-<span class="st"> </span><span class="kw">anti_join</span>(tbl.alltags, tbl.filter, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>))</a></code></pre></div>
 
 </div>
 </div>
