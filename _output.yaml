@@ -1,9 +1,10 @@
 bookdown::gitbook:
   config:
+    search: yes
     toc:
       collapse: section
       before: |
-        <li><strong><a href="./">R for Motus</a></strong></li>
+        <li><strong><a href="https://beta.motus.org/MotusRBook">R for Motus</a></strong></li>
   includes:
     in_header: [GA_Script.html]
 

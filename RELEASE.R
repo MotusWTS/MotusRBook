@@ -23,7 +23,9 @@ s <- spelling::spell_check_files(list.files(pattern = ".Rmd"),
                                  ignore = readLines("WORDLIST"))
 write(s$word, "WORDLIST", append = TRUE)
 
-# 3. Compile Chapters in html and in pdf
+# 3. Change the link in _output.yaml to correspond to correct location (beta vs. non-beta)
+
+# 4. Compile Chapters in html and in pdf
 # To compile a single chapter
 bookdown::preview_chapter("05-DataCleaning.Rmd")
 
