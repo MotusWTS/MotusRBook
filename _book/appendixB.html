@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>B Appendix - Troubleshooting | Motus R Book</title>
   <meta name="description" content="B Appendix - Troubleshooting | Motus R Book" />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="B Appendix - Troubleshooting | Motus R Book" />
   <meta property="og:type" content="book" />
@@ -201,7 +201,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4.2" data-path="dataCleaning.html"><a href="dataCleaning.html#how-the-motusfilter-is-generated"><i class="fa fa-check"></i><b>5.4.2</b> How the <code>motusFilter</code> is generated</a></li>
 <li class="chapter" data-level="5.4.3" data-path="dataCleaning.html"><a href="dataCleaning.html#custom-filters-with-the-filterbyactivity-function"><i class="fa fa-check"></i><b>5.4.3</b> Custom filters with the <code>filterByActivity()</code> function</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#preparing-the-data"><i class="fa fa-check"></i><b>5.5</b> Preparing the data</a></li>
+<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#preparing-the-data"><i class="fa fa-check"></i><b>5.5</b> Preparing the data</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#label-detections-by-probability"><i class="fa fa-check"></i><b>5.5.1</b> Label detections by probability</a></li>
+<li class="chapter" data-level="5.5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#clean-up"><i class="fa fa-check"></i><b>5.5.2</b> Clean up</a></li>
+<li class="chapter" data-level="5.5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#addGPS"><i class="fa fa-check"></i><b>5.5.3</b> Add GPS data</a></li>
+</ul></li>
 <li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.6</b> Preliminary data checks</a><ul>
 <li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.6.1</b> Summarize tag detections</a></li>
 </ul></li>
@@ -379,12 +383,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>While attempting to download data with the motus package, you may encounter errors, many of which are likely due to an interrupted connection. <strong>Always ensure you are connected to the internet when using the <code>tagme()</code> function with <code>update = TRUE</code></strong>. Most issues can be solved by either logging out of the motus package, or by restarting R and resuming the download using <code>tagme()</code>. If errors persist and you are unable to download your data, the server may be temporarily offline. Please contact Motus with any concerns at <a href="mailto:motus@birdscanada.org" class="email">motus@birdscanada.org</a>.</p>
 <div id="motusLogout" class="section level2">
 <h2><span class="header-section-number">B.1</span> Logging out of motus</h2>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" data-line-number="1"><span class="kw">motusLogout</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1"><span class="kw">motusLogout</span>()</a></code></pre></div>
 </div>
 <div id="resumeDownload" class="section level2">
 <h2><span class="header-section-number">B.2</span> Resume data download</h2>
 <p>To resume your data download, run <code>tagme()</code> again, but do not include <code>new = TRUE</code>:</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1"><span class="kw">tagme</span>(project.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> ...)</a></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1"><span class="kw">tagme</span>(project.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> ...)</a></code></pre></div>
 </div>
 <div id="googleMapsKey" class="section level2">
 <h2><span class="header-section-number">B.3</span> Google Maps</h2>
@@ -426,8 +430,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">B.4.5</span> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</h3>
 <p>Be sure to start the steps from the top of the chapter and run them in sequential order. Another possibility is that your .motus database hasn’t been updated to support the latest version of the motus package.</p>
 <p>To ensure that your .motus file is up-to-date with the motus package:</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)</a>
-<a class="sourceLine" id="cb202-2" data-line-number="2"><span class="kw">checkVersion</span>(sql.motus)</a></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)</a>
+<a class="sourceLine" id="cb204-2" data-line-number="2"><span class="kw">checkVersion</span>(sql.motus)</a></code></pre></div>
 <p>To correct any warnings, you should follow these steps:</p>
 <ol style="list-style-type: decimal">
 <li>download the latest version of the motus package (refer to Chapter <a href="loadingPackages.html#loadingPackages">2</a>).</li>
@@ -436,35 +440,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>load your sqlite file. Look for notes on the console indicating that your database is being updated.</li>
 <li>check the version again.</li>
 </ol>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1"><span class="kw">library</span>(motus)</a>
-<a class="sourceLine" id="cb203-2" data-line-number="2">sql &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)</a>
-<a class="sourceLine" id="cb203-3" data-line-number="3"><span class="kw">checkVersion</span>(sql)</a></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1"><span class="kw">library</span>(motus)</a>
+<a class="sourceLine" id="cb205-2" data-line-number="2">sql &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)</a>
+<a class="sourceLine" id="cb205-3" data-line-number="3"><span class="kw">checkVersion</span>(sql)</a></code></pre></div>
 </div>
 <div id="i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme" class="section level3">
 <h3><span class="header-section-number">B.4.6</span> I get an error <code>Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file</code> when attempting to run <code>tagme()</code></h3>
 <p>If you get this message, it’s likely that you’re attempting a new download or update to a nonexistant directory. The directory is specified in the <strong><code>dir = &quot;&quot;</code></strong> command of the <code>tagme()</code> function. If the directory is not specified, files will be saved to your working directory. Use <code>getwd()</code> to determine your current working directory. Use <code>setwd()</code> to set a new working directory. To specify a location to save files from your working directory use “./” followed by the file path.</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1"><span class="kw">getwd</span>() <span class="co"># show working directory, in this case it&#39;s &quot;C:/Documents&quot;</span></a>
-<a class="sourceLine" id="cb204-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb204-3" data-line-number="3"><span class="co"># downloads data to your working directory</span></a>
-<a class="sourceLine" id="cb204-4" data-line-number="4"><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb204-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb204-6" data-line-number="6"><span class="co"># downloads data to the data folder within your working directory</span></a>
-<a class="sourceLine" id="cb204-7" data-line-number="7"><span class="co"># ie. the file path C:/Documents/data</span></a>
-<a class="sourceLine" id="cb204-8" data-line-number="8"><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>) </a>
-<a class="sourceLine" id="cb204-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb204-10" data-line-number="10"><span class="co"># downloads data to the file path C:/Downloads</span></a>
-<a class="sourceLine" id="cb204-11" data-line-number="11"><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;C:/Downloads&quot;</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1"><span class="kw">getwd</span>() <span class="co"># show working directory, in this case it&#39;s &quot;C:/Documents&quot;</span></a>
+<a class="sourceLine" id="cb206-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb206-3" data-line-number="3"><span class="co"># downloads data to your working directory</span></a>
+<a class="sourceLine" id="cb206-4" data-line-number="4"><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb206-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb206-6" data-line-number="6"><span class="co"># downloads data to the data folder within your working directory</span></a>
+<a class="sourceLine" id="cb206-7" data-line-number="7"><span class="co"># ie. the file path C:/Documents/data</span></a>
+<a class="sourceLine" id="cb206-8" data-line-number="8"><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>) </a>
+<a class="sourceLine" id="cb206-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb206-10" data-line-number="10"><span class="co"># downloads data to the file path C:/Downloads</span></a>
+<a class="sourceLine" id="cb206-11" data-line-number="11"><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;C:/Downloads&quot;</span>) </a></code></pre></div>
 </div>
 <div id="i-see-gps-coordinates-of-0-or-999" class="section level3">
 <h3><span class="header-section-number">B.4.7</span> I see GPS coordinates of “0” or “999”</h3>
 <p>These values are recorded from the GPS unit in the field. Values like these should be ignored, you can replace these with <code>NA</code>, or insert the <code>recvDeployLat</code>/<code>recvDeplOyLon</code> values which are taken from receiver deployment metadata entered by users.</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1"><span class="co">## to replace gpsLat/gpsLon values of NA, 0, or 999 with that of receiver deployment metadata in the alltags table, and read into a data.frame</span></a>
-<a class="sourceLine" id="cb205-2" data-line-number="2">df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb205-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">recvLat =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLat)<span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </a>
-<a class="sourceLine" id="cb205-4" data-line-number="4">                           recvDeployLat, gpsLat), </a>
-<a class="sourceLine" id="cb205-5" data-line-number="5">         <span class="dt">recvLon =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLon)<span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </a>
-<a class="sourceLine" id="cb205-6" data-line-number="6">                           recvDeployLon, gpsLon)</a>
-<a class="sourceLine" id="cb205-7" data-line-number="7">  <span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</a></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1"><span class="co">## to replace gpsLat/gpsLon values of NA, 0, or 999 with that of receiver deployment metadata in the alltags table, and read into a data.frame</span></a>
+<a class="sourceLine" id="cb207-2" data-line-number="2">df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb207-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">recvLat =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLat)<span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </a>
+<a class="sourceLine" id="cb207-4" data-line-number="4">                           recvDeployLat, gpsLat), </a>
+<a class="sourceLine" id="cb207-5" data-line-number="5">         <span class="dt">recvLon =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLon)<span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </a>
+<a class="sourceLine" id="cb207-6" data-line-number="6">                           recvDeployLon, gpsLon)</a>
+<a class="sourceLine" id="cb207-7" data-line-number="7">  <span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</a></code></pre></div>
 </div>
 <div id="i-see-port-with-a-value-of--1" class="section level3">
 <h3><span class="header-section-number">B.4.8</span> I see port with a value of -1</h3>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6 Exploring data with the Motus R package | Motus R Book</title>
   <meta name="description" content="6 Exploring data with the Motus R package | Motus R Book" />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6 Exploring data with the Motus R package | Motus R Book" />
   <meta property="og:type" content="book" />
@@ -201,7 +201,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4.2" data-path="dataCleaning.html"><a href="dataCleaning.html#how-the-motusfilter-is-generated"><i class="fa fa-check"></i><b>5.4.2</b> How the <code>motusFilter</code> is generated</a></li>
 <li class="chapter" data-level="5.4.3" data-path="dataCleaning.html"><a href="dataCleaning.html#custom-filters-with-the-filterbyactivity-function"><i class="fa fa-check"></i><b>5.4.3</b> Custom filters with the <code>filterByActivity()</code> function</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#preparing-the-data"><i class="fa fa-check"></i><b>5.5</b> Preparing the data</a></li>
+<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#preparing-the-data"><i class="fa fa-check"></i><b>5.5</b> Preparing the data</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#label-detections-by-probability"><i class="fa fa-check"></i><b>5.5.1</b> Label detections by probability</a></li>
+<li class="chapter" data-level="5.5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#clean-up"><i class="fa fa-check"></i><b>5.5.2</b> Clean up</a></li>
+<li class="chapter" data-level="5.5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#addGPS"><i class="fa fa-check"></i><b>5.5.3</b> Add GPS data</a></li>
+</ul></li>
 <li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.6</b> Preliminary data checks</a><ul>
 <li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.6.1</b> Summarize tag detections</a></li>
 </ul></li>
@@ -380,157 +384,150 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="load-required-packages" class="section level2">
 <h2><span class="header-section-number">6.1</span> Load required packages</h2>
 <p>Follow the instructions in Chapter <a href="loadingPackages.html#loadingPackages">2</a> to install the following packages before loading, if you haven’t already done so.</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" data-line-number="1"><span class="kw">library</span>(motus)</a>
-<a class="sourceLine" id="cb158-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb158-3" data-line-number="3"><span class="kw">library</span>(ggmap)</a>
-<a class="sourceLine" id="cb158-4" data-line-number="4"><span class="kw">library</span>(lubridate)</a></code></pre></div>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" data-line-number="1"><span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1"><span class="kw">library</span>(motus)</a>
+<a class="sourceLine" id="cb160-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb160-3" data-line-number="3"><span class="kw">library</span>(ggmap)</a>
+<a class="sourceLine" id="cb160-4" data-line-number="4"><span class="kw">library</span>(lubridate)</a></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1"><span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</a></code></pre></div>
 </div>
 <div id="load-data" class="section level2">
 <h2><span class="header-section-number">6.2</span> Load data</h2>
 <p>If you followed along with the the previous Chapter (Chapter <a href="dataCleaning.html#dataCleaning">5</a>) and are working with the cleaned <code>df.alltags.sub</code> file, you can skip this step and move to section <a href="exploreData.html#dataSummaries">6.3</a>.</p>
 <p>Otherwise, if you saved your data as an RDS file, you can load it using:</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/dfAlltagsSub.rds&quot;</span>) <span class="co"># change dir to local directory</span></a></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/dfAlltagsSub.rds&quot;</span>) <span class="co"># change dir to local directory</span></a></code></pre></div>
 <p>Or, if you’ve applied a custom filter to your .motus file, you can load the previously downloaded sample motus data (see Chapter <a href="accessingData.html#accessingData">3</a>) and clean it now. Currently the main benefit of using the custom filter is that you apply the filter to the .motus file, which allows you more flexibility in applying <code>dplyr</code> functions to manage and filter the data (e.g., you can select different variables to include in the data than we included in the RDS file in Chapter <a href="dataCleaning.html#dataCleaning">5</a>). This approach also allows you to more readily integrate new data added to your database with the tagme function. Because we are selecting the same variables and filtering the same records, the following gives you the same dataset as the <code>readRDS</code> statement above:</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1"><span class="co"># load the .motus file (remember &#39;motus.sample&#39; is both username and password)</span></a>
-<a class="sourceLine" id="cb161-2" data-line-number="2">proj.num &lt;-<span class="st"> </span><span class="dv">176</span></a>
-<a class="sourceLine" id="cb161-3" data-line-number="3">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</a>
-<a class="sourceLine" id="cb161-4" data-line-number="4">tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)</a>
-<a class="sourceLine" id="cb161-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb161-6" data-line-number="6"><span class="co"># obtain a table object of the filter</span></a>
-<a class="sourceLine" id="cb161-7" data-line-number="7">tbl.filter &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(sql.motus, <span class="st">&quot;filtAmbigFalsePos&quot;</span>)</a>
-<a class="sourceLine" id="cb161-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb161-9" data-line-number="9"><span class="co"># filter and convert the table into a dataframe, with a few modications</span></a>
-<a class="sourceLine" id="cb161-10" data-line-number="10">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">left_join</span>(tbl.alltags, tbl.filter, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb161-11" data-line-number="11"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability),</a>
-<a class="sourceLine" id="cb161-12" data-line-number="12">         <span class="dt">recvLat =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLat)<span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </a>
-<a class="sourceLine" id="cb161-13" data-line-number="13">                           recvDeployLat, </a>
-<a class="sourceLine" id="cb161-14" data-line-number="14">                           gpsLat),</a>
-<a class="sourceLine" id="cb161-15" data-line-number="15">         <span class="dt">recvLon =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLon)<span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </a>
-<a class="sourceLine" id="cb161-16" data-line-number="16">                           recvDeployLon, </a>
-<a class="sourceLine" id="cb161-17" data-line-number="17">                           gpsLon),</a>
-<a class="sourceLine" id="cb161-18" data-line-number="18">         <span class="dt">recvAlt =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(gpsAlt), </a>
-<a class="sourceLine" id="cb161-19" data-line-number="19">                           recvDeployAlt, </a>
-<a class="sourceLine" id="cb161-20" data-line-number="20">                           gpsAlt)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb161-21" data-line-number="21"><span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb161-22" data-line-number="22"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>noise, <span class="op">-</span>slop, <span class="op">-</span>burstSlop, <span class="op">-</span>done, <span class="op">-</span>bootnum, <span class="op">-</span>codeSet, </a>
-<a class="sourceLine" id="cb161-23" data-line-number="23">         <span class="op">-</span>mfg, <span class="op">-</span>nomFreq, <span class="op">-</span>markerNumber, <span class="op">-</span>markerType, <span class="op">-</span>tagDepComments, </a>
-<a class="sourceLine" id="cb161-24" data-line-number="24">         <span class="op">-</span>fullID, <span class="op">-</span>deviceID, <span class="op">-</span>recvDeployLat, <span class="op">-</span>recvDeployLon, <span class="op">-</span>recvDeployAlt, </a>
-<a class="sourceLine" id="cb161-25" data-line-number="25">         <span class="op">-</span>speciesGroup, <span class="op">-</span>gpsLat, <span class="op">-</span>gpsLon, <span class="op">-</span>recvAlt, <span class="op">-</span>recvSiteName) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb161-26" data-line-number="26"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb161-27" data-line-number="27"><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb161-28" data-line-number="28"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts),  <span class="co"># work with dates AFTER transforming to flat file</span></a>
-<a class="sourceLine" id="cb161-29" data-line-number="29">         <span class="dt">tagDeployStart =</span> <span class="kw">as_datetime</span>(tagDeployStart),</a>
-<a class="sourceLine" id="cb161-30" data-line-number="30">         <span class="dt">tagDeployEnd =</span> <span class="kw">as_datetime</span>(tagDeployEnd),</a>
-<a class="sourceLine" id="cb161-31" data-line-number="31">         <span class="dt">recvDeployName =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(recvDeployName), </a>
-<a class="sourceLine" id="cb161-32" data-line-number="32">                                  <span class="kw">paste</span>(recvLat, recvLon, <span class="dt">sep=</span><span class="st">&quot;:&quot;</span>), </a>
-<a class="sourceLine" id="cb161-33" data-line-number="33">                                  recvDeployName))</a></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1"><span class="co"># load the .motus file (remember &#39;motus.sample&#39; is both username and password)</span></a>
+<a class="sourceLine" id="cb163-2" data-line-number="2">proj.num &lt;-<span class="st"> </span><span class="dv">176</span></a>
+<a class="sourceLine" id="cb163-3" data-line-number="3">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</a>
+<a class="sourceLine" id="cb163-4" data-line-number="4">tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)</a>
+<a class="sourceLine" id="cb163-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb163-6" data-line-number="6"><span class="co"># obtain a table object of the filter</span></a>
+<a class="sourceLine" id="cb163-7" data-line-number="7">tbl.filter &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(sql.motus, <span class="st">&quot;filtAmbigFalsePos&quot;</span>)</a>
+<a class="sourceLine" id="cb163-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb163-9" data-line-number="9"><span class="co"># filter and convert the table into a dataframe, with a few modications</span></a>
+<a class="sourceLine" id="cb163-10" data-line-number="10">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">left_join</span>(tbl.alltags, tbl.filter, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb163-11" data-line-number="11"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability),</a>
+<a class="sourceLine" id="cb163-12" data-line-number="12">         <span class="dt">recvLat =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLat)<span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </a>
+<a class="sourceLine" id="cb163-13" data-line-number="13">                           recvDeployLat, </a>
+<a class="sourceLine" id="cb163-14" data-line-number="14">                           gpsLat),</a>
+<a class="sourceLine" id="cb163-15" data-line-number="15">         <span class="dt">recvLon =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLon)<span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </a>
+<a class="sourceLine" id="cb163-16" data-line-number="16">                           recvDeployLon, </a>
+<a class="sourceLine" id="cb163-17" data-line-number="17">                           gpsLon),</a>
+<a class="sourceLine" id="cb163-18" data-line-number="18">         <span class="dt">recvAlt =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(gpsAlt), </a>
+<a class="sourceLine" id="cb163-19" data-line-number="19">                           recvDeployAlt, </a>
+<a class="sourceLine" id="cb163-20" data-line-number="20">                           gpsAlt)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb163-21" data-line-number="21"><span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb163-22" data-line-number="22"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>noise, <span class="op">-</span>slop, <span class="op">-</span>burstSlop, <span class="op">-</span>done, <span class="op">-</span>bootnum, <span class="op">-</span>codeSet, </a>
+<a class="sourceLine" id="cb163-23" data-line-number="23">         <span class="op">-</span>mfg, <span class="op">-</span>nomFreq, <span class="op">-</span>markerNumber, <span class="op">-</span>markerType, <span class="op">-</span>tagDepComments, </a>
+<a class="sourceLine" id="cb163-24" data-line-number="24">         <span class="op">-</span>fullID, <span class="op">-</span>deviceID, <span class="op">-</span>recvDeployLat, <span class="op">-</span>recvDeployLon, <span class="op">-</span>recvDeployAlt, </a>
+<a class="sourceLine" id="cb163-25" data-line-number="25">         <span class="op">-</span>speciesGroup, <span class="op">-</span>gpsLat, <span class="op">-</span>gpsLon, <span class="op">-</span>recvAlt, <span class="op">-</span>recvSiteName) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb163-26" data-line-number="26"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb163-27" data-line-number="27"><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb163-28" data-line-number="28"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts),  <span class="co"># work with dates AFTER transforming to flat file</span></a>
+<a class="sourceLine" id="cb163-29" data-line-number="29">         <span class="dt">tagDeployStart =</span> <span class="kw">as_datetime</span>(tagDeployStart),</a>
+<a class="sourceLine" id="cb163-30" data-line-number="30">         <span class="dt">tagDeployEnd =</span> <span class="kw">as_datetime</span>(tagDeployEnd),</a>
+<a class="sourceLine" id="cb163-31" data-line-number="31">         <span class="dt">recvDeployName =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(recvDeployName), </a>
+<a class="sourceLine" id="cb163-32" data-line-number="32">                                  <span class="kw">paste</span>(recvLat, recvLon, <span class="dt">sep=</span><span class="st">&quot;:&quot;</span>), </a>
+<a class="sourceLine" id="cb163-33" data-line-number="33">                                  recvDeployName))</a></code></pre></div>
 <p><strong>Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues.</strong> Details on filtering the tbl prior to collecting as a dataframe are available in section <a href="accessingData.html#convertToFlat">3.5.7</a>.</p>
 <p>Here we do so by adding a filter to the above command, in this case, only creating a dataframe for <code>motusTagID</code> 16047, but you can decide how to best subset your data based on your need (e.g. by species or year):</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1"><span class="co"># create a subset for a single tag, to keep the dataframe small</span></a>
-<a class="sourceLine" id="cb162-2" data-line-number="2">df.alltags<span class="fl">.16047</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16047</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1"><span class="co"># create a subset for a single tag, to keep the dataframe small</span></a>
+<a class="sourceLine" id="cb164-2" data-line-number="2">df.alltags<span class="fl">.16047</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16047</span>) </a></code></pre></div>
 </div>
 <div id="dataSummaries" class="section level2">
 <h2><span class="header-section-number">6.3</span> Summarizing your data</h2>
 <p>Here we will run through some basic commands, starting with the <code>summary()</code> function to view a selection of variables in a data frame:</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1">sql.motus <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb163-2" data-line-number="2"><span class="st">  </span><span class="kw">tbl</span>(<span class="st">&quot;alltags&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb163-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(ts, motusTagID, runLen, speciesEN, tagDepLat, tagDepLon, </a>
-<a class="sourceLine" id="cb163-4" data-line-number="4">         recvDeployLat, recvDeployLon) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb163-5" data-line-number="5"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb163-6" data-line-number="6"><span class="st">  </span><span class="kw">summary</span>()</a></code></pre></div>
-<pre><code>##        ts              motusTagID        runLen        speciesEN           tagDepLat       tagDepLon     
-##  Min.   :1.438e+09   Min.   :10811   Min.   :   2.0   Length:108826      Min.   :11.12   Min.   :-80.69  
-##  1st Qu.:1.476e+09   1st Qu.:22897   1st Qu.:  30.0   Class :character   1st Qu.:50.19   1st Qu.:-63.75  
-##  Median :1.477e+09   Median :22905   Median : 122.0   Mode  :character   Median :50.19   Median :-63.75  
-##  Mean   :1.476e+09   Mean   :22660   Mean   : 355.9                      Mean   :50.14   Mean   :-65.77  
-##  3rd Qu.:1.477e+09   3rd Qu.:23316   3rd Qu.: 404.0                      3rd Qu.:50.19   3rd Qu.:-63.75  
-##  Max.   :1.498e+09   Max.   :24303   Max.   :2474.0                      Max.   :51.80   Max.   :-63.75  
-##                                                                          NA&#39;s   :2025    NA&#39;s   :2025    
-##  recvDeployLat    recvDeployLon    
-##  Min.   :-42.50   Min.   :-143.68  
-##  1st Qu.: 50.20   1st Qu.: -63.75  
-##  Median : 50.20   Median : -63.75  
-##  Mean   : 49.05   Mean   : -65.64  
-##  3rd Qu.: 50.20   3rd Qu.: -63.75  
-##  Max.   : 62.89   Max.   : -60.02  
-##  NA&#39;s   :173      NA&#39;s   :173</code></pre>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="co"># same summary for the filtered sql data</span></a>
-<a class="sourceLine" id="cb165-2" data-line-number="2">df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1">sql.motus <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb165-2" data-line-number="2"><span class="st">  </span><span class="kw">tbl</span>(<span class="st">&quot;alltags&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb165-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(ts, motusTagID, runLen, speciesEN, tagDepLat, tagDepLon, </a>
-<a class="sourceLine" id="cb165-4" data-line-number="4">         recvLat, recvLon) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb165-5" data-line-number="5"><span class="st">  </span><span class="kw">summary</span>()</a></code></pre></div>
-<pre><code>##        ts                        motusTagID        runLen        speciesEN           tagDepLat       tagDepLon     
-##  Min.   :2015-08-03 06:37:11   Min.   :16011   Min.   :   4.0   Length:48133       Min.   :50.19   Min.   :-80.69  
-##  1st Qu.:2016-10-06 19:17:36   1st Qu.:22897   1st Qu.:  27.0   Class :character   1st Qu.:50.19   1st Qu.:-63.75  
-##  Median :2016-10-09 21:48:11   Median :22897   Median :  97.0   Mode  :character   Median :50.19   Median :-63.75  
-##  Mean   :2016-09-05 10:37:42   Mean   :22267   Mean   : 235.1                      Mean   :50.34   Mean   :-65.56  
-##  3rd Qu.:2016-10-19 10:37:42   3rd Qu.:22897   3rd Qu.: 287.0                      3rd Qu.:50.19   3rd Qu.:-63.75  
-##  Max.   :2017-04-20 22:33:19   Max.   :23316   Max.   :1371.0                      Max.   :51.80   Max.   :-63.75  
-##                                                                                                                    
-##     recvLat         recvLon      
-##  Min.   :37.10   Min.   :-80.69  
-##  1st Qu.:50.20   1st Qu.:-63.75  
-##  Median :50.20   Median :-63.75  
-##  Mean   :50.05   Mean   :-65.26  
-##  3rd Qu.:50.20   3rd Qu.:-63.75  
-##  Max.   :51.82   Max.   :-62.99  
-##  NA&#39;s   :164     NA&#39;s   :164</code></pre>
+<a class="sourceLine" id="cb165-4" data-line-number="4">         recvDeployLat, recvDeployLon) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb165-5" data-line-number="5"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb165-6" data-line-number="6"><span class="st">  </span><span class="kw">summary</span>()</a></code></pre></div>
+<pre><code>##        ts              motusTagID        runLen        speciesEN           tagDepLat       tagDepLon      recvDeployLat   
+##  Min.   :1.438e+09   Min.   :10811   Min.   :   2.0   Length:108826      Min.   :11.12   Min.   :-80.69   Min.   :-42.50  
+##  1st Qu.:1.476e+09   1st Qu.:22897   1st Qu.:  30.0   Class :character   1st Qu.:50.19   1st Qu.:-63.75   1st Qu.: 50.20  
+##  Median :1.477e+09   Median :22905   Median : 122.0   Mode  :character   Median :50.19   Median :-63.75   Median : 50.20  
+##  Mean   :1.476e+09   Mean   :22660   Mean   : 355.9                      Mean   :50.14   Mean   :-65.77   Mean   : 49.05  
+##  3rd Qu.:1.477e+09   3rd Qu.:23316   3rd Qu.: 404.0                      3rd Qu.:50.19   3rd Qu.:-63.75   3rd Qu.: 50.20  
+##  Max.   :1.498e+09   Max.   :24303   Max.   :2474.0                      Max.   :51.80   Max.   :-63.75   Max.   : 62.89  
+##                                                                          NA&#39;s   :2025    NA&#39;s   :2025     NA&#39;s   :173     
+##  recvDeployLon    
+##  Min.   :-143.68  
+##  1st Qu.: -63.75  
+##  Median : -63.75  
+##  Mean   : -65.64  
+##  3rd Qu.: -63.75  
+##  Max.   : -60.02  
+##  NA&#39;s   :173</code></pre>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1"><span class="co"># same summary for the filtered sql data</span></a>
+<a class="sourceLine" id="cb167-2" data-line-number="2">df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb167-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(ts, motusTagID, runLen, speciesEN, tagDepLat, tagDepLon, </a>
+<a class="sourceLine" id="cb167-4" data-line-number="4">         recvLat, recvLon) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb167-5" data-line-number="5"><span class="st">  </span><span class="kw">summary</span>()</a></code></pre></div>
+<pre><code>##        ts                        motusTagID        runLen        speciesEN           tagDepLat       tagDepLon         recvLat     
+##  Min.   :2015-08-03 06:37:11   Min.   :16011   Min.   :   4.0   Length:48133       Min.   :50.19   Min.   :-80.69   Min.   :37.10  
+##  1st Qu.:2016-10-06 19:17:36   1st Qu.:22897   1st Qu.:  27.0   Class :character   1st Qu.:50.19   1st Qu.:-63.75   1st Qu.:50.20  
+##  Median :2016-10-09 21:48:11   Median :22897   Median :  97.0   Mode  :character   Median :50.19   Median :-63.75   Median :50.20  
+##  Mean   :2016-09-05 10:37:42   Mean   :22267   Mean   : 235.1                      Mean   :50.34   Mean   :-65.56   Mean   :50.05  
+##  3rd Qu.:2016-10-19 10:37:42   3rd Qu.:22897   3rd Qu.: 287.0                      3rd Qu.:50.19   3rd Qu.:-63.75   3rd Qu.:50.20  
+##  Max.   :2017-04-20 22:33:19   Max.   :23316   Max.   :1371.0                      Max.   :51.80   Max.   :-63.75   Max.   :51.82  
+##                                                                                                                     NA&#39;s   :164    
+##     recvLon      
+##  Min.   :-80.69  
+##  1st Qu.:-63.75  
+##  Median :-63.75  
+##  Mean   :-65.26  
+##  3rd Qu.:-63.75  
+##  Max.   :-62.99  
+##  NA&#39;s   :164</code></pre>
 <p>The <code>dplyr</code> package allows you to easily summarize data by group, manipulate variables, or create new variables based on your data.</p>
 <p>We can manipulate existing variables or create new ones with <code>dplyr</code>’s <code>mutate()</code> function, here we’ll convert ts to a POSIXct format, then make a new variable for year and day of year (doy).</p>
 <p>We’ll also remove the set of points with missing receiver latitude and longitudes. These may be useful in some contexts (for example if the approximate location of the receiver is known) but can cause warnings or errors when plotting.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1">df.alltags.sub &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb167-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>), <span class="co"># convert ts to POSIXct format</span></a>
-<a class="sourceLine" id="cb167-3" data-line-number="3">         <span class="dt">year =</span> <span class="kw">year</span>(ts), <span class="co"># extract year from ts</span></a>
-<a class="sourceLine" id="cb167-4" data-line-number="4">         <span class="dt">doy =</span> <span class="kw">yday</span>(ts)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># extract numeric day of year from ts</span></a>
-<a class="sourceLine" id="cb167-5" data-line-number="5"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(recvLat))</a>
-<a class="sourceLine" id="cb167-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb167-7" data-line-number="7"><span class="kw">head</span>(df.alltags.sub)</a></code></pre></div>
-<pre><code>##    hitID runID batchID                  ts tsCorrected sig sigsd freq freqsd motusTagID ambigID port runLen
-## 1  45107  8886      53 2015-10-26 11:19:49  1445858390  52     0    4      0      16047      NA    3      5
-## 2  45108  8886      53 2015-10-26 11:20:28  1445858429  54     0    4      0      16047      NA    3      5
-## 3  45109  8886      53 2015-10-26 11:21:17  1445858477  55     0    4      0      16047      NA    3      5
-## 4  45110  8886      53 2015-10-26 11:21:55  1445858516  52     0    4      0      16047      NA    3      5
-## 5  45111  8886      53 2015-10-26 11:22:44  1445858564  49     0    4      0      16047      NA    3      5
-## 6 199885 23305      64 2015-10-26 11:12:04  1445857924  33     0    4      0      16047      NA    1     11
-##   tagProjID mfgID tagType tagModel tagLifespan  tagBI pulseLen tagDeployID speciesID      tagDeployStart
-## 1       176   378      ID NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00
-## 2       176   378      ID NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00
-## 3       176   378      ID NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00
-## 4       176   378      ID NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00
-## 5       176   378      ID NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00
-## 6       176   378      ID NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00
-##          tagDeployEnd tagDepLat tagDepLon tagDepAlt recvDeployID      recv recvDeployName isRecvMobile recvProjID
-## 1 2016-03-10 18:00:00   51.4839    -80.45        NA         2510 Lotek-159      Shelburne            0         74
-## 2 2016-03-10 18:00:00   51.4839    -80.45        NA         2510 Lotek-159      Shelburne            0         74
-## 3 2016-03-10 18:00:00   51.4839    -80.45        NA         2510 Lotek-159      Shelburne            0         74
-## 4 2016-03-10 18:00:00   51.4839    -80.45        NA         2510 Lotek-159      Shelburne            0         74
-## 5 2016-03-10 18:00:00   51.4839    -80.45        NA         2510 Lotek-159      Shelburne            0         74
-## 6 2016-03-10 18:00:00   51.4839    -80.45        NA         2512 Lotek-164  BennettMeadow            0         74
-##   recvUtcOffset antType antBearing antHeight speciesEN          speciesFR       speciesSci tagProjName recvProjName
-## 1            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus  SampleData         &lt;NA&gt;
-## 2            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus  SampleData         &lt;NA&gt;
-## 3            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus  SampleData         &lt;NA&gt;
-## 4            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus  SampleData         &lt;NA&gt;
-## 5            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus  SampleData         &lt;NA&gt;
-## 6            NA  yagi-9        243        NA  Red Knot Bécasseau maubèche Calidris canutus  SampleData         &lt;NA&gt;
-##   gpsAlt filterID probability  recvLat   recvLon year doy
-## 1     NA       NA           1 42.60699 -72.71657 2015 299
-## 2     NA       NA           1 42.60699 -72.71657 2015 299
-## 3     NA       NA           1 42.60699 -72.71657 2015 299
-## 4     NA       NA           1 42.60699 -72.71657 2015 299
-## 5     NA       NA           1 42.60699 -72.71657 2015 299
-## 6     NA       NA           1 42.68067 -72.47392 2015 299</code></pre>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1">df.alltags.sub &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb169-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>), <span class="co"># convert ts to POSIXct format</span></a>
+<a class="sourceLine" id="cb169-3" data-line-number="3">         <span class="dt">year =</span> <span class="kw">year</span>(ts), <span class="co"># extract year from ts</span></a>
+<a class="sourceLine" id="cb169-4" data-line-number="4">         <span class="dt">doy =</span> <span class="kw">yday</span>(ts)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># extract numeric day of year from ts</span></a>
+<a class="sourceLine" id="cb169-5" data-line-number="5"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(recvLat))</a>
+<a class="sourceLine" id="cb169-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb169-7" data-line-number="7"><span class="kw">head</span>(df.alltags.sub)</a></code></pre></div>
+<pre><code>##    hitID runID batchID                  ts tsCorrected sig sigsd freq freqsd motusTagID ambigID port runLen tagProjID mfgID tagType
+## 1  45107  8886      53 2015-10-26 11:19:49  1445858390  52     0    4      0      16047      NA    3      5       176   378      ID
+## 2  45108  8886      53 2015-10-26 11:20:28  1445858429  54     0    4      0      16047      NA    3      5       176   378      ID
+## 3  45109  8886      53 2015-10-26 11:21:17  1445858477  55     0    4      0      16047      NA    3      5       176   378      ID
+## 4  45110  8886      53 2015-10-26 11:21:55  1445858516  52     0    4      0      16047      NA    3      5       176   378      ID
+## 5  45111  8886      53 2015-10-26 11:22:44  1445858564  49     0    4      0      16047      NA    3      5       176   378      ID
+## 6 199885 23305      64 2015-10-26 11:12:04  1445857924  33     0    4      0      16047      NA    1     11       176   378      ID
+##   tagModel tagLifespan  tagBI pulseLen tagDeployID speciesID      tagDeployStart        tagDeployEnd tagDepLat tagDepLon tagDepAlt
+## 1 NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA
+## 2 NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA
+## 3 NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA
+## 4 NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA
+## 5 NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA
+## 6 NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA
+##   recvDeployID      recv recvDeployName isRecvMobile recvProjID recvUtcOffset antType antBearing antHeight speciesEN          speciesFR
+## 1         2510 Lotek-159      Shelburne            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche
+## 2         2510 Lotek-159      Shelburne            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche
+## 3         2510 Lotek-159      Shelburne            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche
+## 4         2510 Lotek-159      Shelburne            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche
+## 5         2510 Lotek-159      Shelburne            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche
+## 6         2512 Lotek-164  BennettMeadow            0         74            NA  yagi-9        243        NA  Red Knot Bécasseau maubèche
+##         speciesSci tagProjName recvProjName gpsAlt filterID probability  recvLat   recvLon year doy
+## 1 Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657 2015 299
+## 2 Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657 2015 299
+## 3 Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657 2015 299
+## 4 Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657 2015 299
+## 5 Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657 2015 299
+## 6 Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.68067 -72.47392 2015 299</code></pre>
 <p>We can also summarize information by group, in this case <code>motusTagID</code>, and apply various functions to these groups such as getting the total number of detections (n) for each tag, the number of receivers each tag was detected on, the first and last detection date, and the total number of days there was at least one detection:</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1">tagSummary &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb169-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(motusTagID) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb169-3" data-line-number="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">nDet =</span> <span class="kw">n</span>(),</a>
-<a class="sourceLine" id="cb169-4" data-line-number="4">            <span class="dt">nRecv =</span> <span class="kw">length</span>(<span class="kw">unique</span>(recvDeployName)),</a>
-<a class="sourceLine" id="cb169-5" data-line-number="5">            <span class="dt">tsMin =</span> <span class="kw">min</span>(ts),</a>
-<a class="sourceLine" id="cb169-6" data-line-number="6">            <span class="dt">tsMax =</span> <span class="kw">max</span>(ts),</a>
-<a class="sourceLine" id="cb169-7" data-line-number="7">            <span class="dt">totDay =</span> <span class="kw">length</span>(<span class="kw">unique</span>(doy)))</a>
-<a class="sourceLine" id="cb169-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb169-9" data-line-number="9"><span class="kw">head</span>(tagSummary)</a></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1">tagSummary &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb171-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(motusTagID) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb171-3" data-line-number="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">nDet =</span> <span class="kw">n</span>(),</a>
+<a class="sourceLine" id="cb171-4" data-line-number="4">            <span class="dt">nRecv =</span> <span class="kw">length</span>(<span class="kw">unique</span>(recvDeployName)),</a>
+<a class="sourceLine" id="cb171-5" data-line-number="5">            <span class="dt">tsMin =</span> <span class="kw">min</span>(ts),</a>
+<a class="sourceLine" id="cb171-6" data-line-number="6">            <span class="dt">tsMax =</span> <span class="kw">max</span>(ts),</a>
+<a class="sourceLine" id="cb171-7" data-line-number="7">            <span class="dt">totDay =</span> <span class="kw">length</span>(<span class="kw">unique</span>(doy)))</a>
+<a class="sourceLine" id="cb171-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb171-9" data-line-number="9"><span class="kw">head</span>(tagSummary)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 6
 ##   motusTagID  nDet nRecv tsMin               tsMax               totDay
 ##        &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dttm&gt;              &lt;dttm&gt;               &lt;int&gt;
@@ -541,15 +538,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5      16038    70     1 2015-08-20 18:42:33 2015-08-22 22:19:37      3
 ## 6      16039  1044    10 2015-08-23 02:28:45 2015-09-19 06:08:31      8</code></pre>
 <p>We can also group by multiple variables; applying the same function as above but now grouping by <code>motusTagID</code> and <code>recvDeployName</code>, we will get information for each tag detected on each receiver. Since we are grouping by <code>recvDeployName</code>, there will be by default only one <code>recvDeployName</code> in each group, thus the variable <code>nRecv</code> will be 1 for each row. This in not very informative, however we include this to help illustrate how grouping works:</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1">tagRecvSummary &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb171-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(motusTagID, recvDeployName) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb171-3" data-line-number="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">nDet =</span> <span class="kw">n</span>(),</a>
-<a class="sourceLine" id="cb171-4" data-line-number="4">            <span class="dt">nRecv =</span> <span class="kw">length</span>(<span class="kw">unique</span>(recvDeployName)),</a>
-<a class="sourceLine" id="cb171-5" data-line-number="5">            <span class="dt">tsMin =</span> <span class="kw">min</span>(ts),</a>
-<a class="sourceLine" id="cb171-6" data-line-number="6">            <span class="dt">tsMax =</span> <span class="kw">max</span>(ts),</a>
-<a class="sourceLine" id="cb171-7" data-line-number="7">            <span class="dt">totDay =</span> <span class="kw">length</span>(<span class="kw">unique</span>(doy)))</a>
-<a class="sourceLine" id="cb171-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb171-9" data-line-number="9"><span class="kw">head</span>(tagRecvSummary)</a></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1">tagRecvSummary &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb173-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(motusTagID, recvDeployName) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb173-3" data-line-number="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">nDet =</span> <span class="kw">n</span>(),</a>
+<a class="sourceLine" id="cb173-4" data-line-number="4">            <span class="dt">nRecv =</span> <span class="kw">length</span>(<span class="kw">unique</span>(recvDeployName)),</a>
+<a class="sourceLine" id="cb173-5" data-line-number="5">            <span class="dt">tsMin =</span> <span class="kw">min</span>(ts),</a>
+<a class="sourceLine" id="cb173-6" data-line-number="6">            <span class="dt">tsMax =</span> <span class="kw">max</span>(ts),</a>
+<a class="sourceLine" id="cb173-7" data-line-number="7">            <span class="dt">totDay =</span> <span class="kw">length</span>(<span class="kw">unique</span>(doy)))</a>
+<a class="sourceLine" id="cb173-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb173-9" data-line-number="9"><span class="kw">head</span>(tagRecvSummary)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 7
 ## # Groups:   motusTagID [2]
 ##   motusTagID recvDeployName  nDet nRecv tsMin               tsMax               totDay
@@ -565,214 +562,214 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.4</span> Plotting your data</h2>
 <p>Plotting your data is a powerful way to visualize broad and fine-scale detection patterns. This section will give you a brief introduction to plotting using <code>ggplot2.</code> For more in depth information on the uses of <code>ggplot2</code>, we recommend the <a href="http://www.cookbook-r.com/Graphs/">Cookbook for R</a>, and the Rstudio <a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf"><code>ggplot2</code> cheatsheet</a>.</p>
 <p>To make coarse-scale plots with large files, we suggest first rounding the detection time to the nearest hour or day so that processing time is faster. Here we round detection times to the nearest hour, then make a basic plot of hourly detections by <code>motusTagID</code>:</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1">df.alltags.sub<span class="fl">.2</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb173-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">hour =</span> <span class="kw">as.POSIXct</span>(<span class="kw">round</span>(ts, <span class="st">&quot;hour&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb173-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(motusTagID, port, tagDeployStart, tagDepLat, tagDepLon, </a>
-<a class="sourceLine" id="cb173-4" data-line-number="4">         recvLat, recvLon, recvDeployName, antBearing, speciesEN, year, doy, hour) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb173-5" data-line-number="5"><span class="st">  </span><span class="kw">distinct</span>()</a>
-<a class="sourceLine" id="cb173-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb173-7" data-line-number="7"><span class="kw">ggplot</span>(<span class="dt">data =</span> df.alltags.sub<span class="fl">.2</span>, <span class="kw">aes</span>(<span class="dt">x =</span> hour, <span class="dt">y =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb173-8" data-line-number="8"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb173-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb173-10" data-line-number="10"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time (rounded to hour)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;MotusTagID&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1">df.alltags.sub<span class="fl">.2</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb175-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">hour =</span> <span class="kw">as.POSIXct</span>(<span class="kw">round</span>(ts, <span class="st">&quot;hour&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb175-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(motusTagID, port, tagDeployStart, tagDepLat, tagDepLon, </a>
+<a class="sourceLine" id="cb175-4" data-line-number="4">         recvLat, recvLon, recvDeployName, antBearing, speciesEN, year, doy, hour) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb175-5" data-line-number="5"><span class="st">  </span><span class="kw">distinct</span>()</a>
+<a class="sourceLine" id="cb175-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb175-7" data-line-number="7"><span class="kw">ggplot</span>(<span class="dt">data =</span> df.alltags.sub<span class="fl">.2</span>, <span class="kw">aes</span>(<span class="dt">x =</span> hour, <span class="dt">y =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb175-8" data-line-number="8"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb175-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb175-10" data-line-number="10"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time (rounded to hour)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;MotusTagID&quot;</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/hourlyPlot-1.png" width="672" />
 Let’s focus only on tags deployed in 2016, and we can colour the tags by species:</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub<span class="fl">.2</span>, <span class="kw">year</span>(tagDeployStart) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>), </a>
-<a class="sourceLine" id="cb174-2" data-line-number="2">       <span class="kw">aes</span>(<span class="dt">x =</span> hour, <span class="dt">y =</span> <span class="kw">as.factor</span>(motusTagID), <span class="dt">colour =</span> speciesEN)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb174-3" data-line-number="3"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb174-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb174-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time (rounded to hour)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;MotusTagID&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb174-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Species&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub<span class="fl">.2</span>, <span class="kw">year</span>(tagDeployStart) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>), </a>
+<a class="sourceLine" id="cb176-2" data-line-number="2">       <span class="kw">aes</span>(<span class="dt">x =</span> hour, <span class="dt">y =</span> <span class="kw">as.factor</span>(motusTagID), <span class="dt">colour =</span> speciesEN)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb176-3" data-line-number="3"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb176-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb176-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time (rounded to hour)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;MotusTagID&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb176-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Species&quot;</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/hourlyPlotSpecies-1.png" width="672" />
 We can see how tags moved latitudinally by first ordering by hour, and colouring by <code>motusTagID</code>:</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1">df.alltags.sub<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">arrange</span>(df.alltags.sub<span class="fl">.2</span>, hour)</a>
-<a class="sourceLine" id="cb175-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb175-3" data-line-number="3"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub<span class="fl">.2</span>, <span class="kw">year</span>(tagDeployStart) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>), </a>
-<a class="sourceLine" id="cb175-4" data-line-number="4">       <span class="kw">aes</span>(<span class="dt">x =</span> hour, <span class="dt">y =</span> recvLat, <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID), </a>
-<a class="sourceLine" id="cb175-5" data-line-number="5">           <span class="dt">group =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb175-6" data-line-number="6"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb175-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb175-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb175-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time (rounded to hour)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Receiver latitude&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb175-10" data-line-number="10"><span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1">df.alltags.sub<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">arrange</span>(df.alltags.sub<span class="fl">.2</span>, hour)</a>
+<a class="sourceLine" id="cb177-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb177-3" data-line-number="3"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub<span class="fl">.2</span>, <span class="kw">year</span>(tagDeployStart) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>), </a>
+<a class="sourceLine" id="cb177-4" data-line-number="4">       <span class="kw">aes</span>(<span class="dt">x =</span> hour, <span class="dt">y =</span> recvLat, <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID), </a>
+<a class="sourceLine" id="cb177-5" data-line-number="5">           <span class="dt">group =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb177-6" data-line-number="6"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb177-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time (rounded to hour)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Receiver latitude&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-10" data-line-number="10"><span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/hourlyPlotLat-1.png" width="672" />
 Now lets look at more detailed plots of signal variation. We use the full <code>df.alltags.sub</code> dataframe so that we can get signal strength for each detection of a specific tag. Let’s examine fall 2016 detections of tag 22897 at Niapiskau; we facet the plot by deployment name, ordered by decreasing latitude:</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, </a>
-<a class="sourceLine" id="cb176-2" data-line-number="2">                     motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22897</span>, </a>
-<a class="sourceLine" id="cb176-3" data-line-number="3">                     recvDeployName <span class="op">==</span><span class="st"> &quot;Niapiskau&quot;</span>), </a>
-<a class="sourceLine" id="cb176-4" data-line-number="4">       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb176-5" data-line-number="5"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb176-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb176-7" data-line-number="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb176-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_grid</span>(recvDeployName <span class="op">~</span><span class="st"> </span>.)</a></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, </a>
+<a class="sourceLine" id="cb178-2" data-line-number="2">                     motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22897</span>, </a>
+<a class="sourceLine" id="cb178-3" data-line-number="3">                     recvDeployName <span class="op">==</span><span class="st"> &quot;Niapiskau&quot;</span>), </a>
+<a class="sourceLine" id="cb178-4" data-line-number="4">       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb178-5" data-line-number="5"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb178-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb178-7" data-line-number="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb178-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_grid</span>(recvDeployName <span class="op">~</span><span class="st"> </span>.)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plot22897-1.png" width="672" /></p>
 <p>We use the <code>sunRiseSet()</code> function available in the <code>motus</code> R package (see <a href="appendixC.html#sunRiseSet">C.2</a>) to get sunrise and sunset times for all detections. We then zoom in on a certain timeframe and add that information to the above plot by adding a <code>geom_vline()</code> statement to the code, which adds a yellow line for sunrise time, and a blue line for sunset time:</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1"><span class="co"># add sunrise and sunset times to the dataframe</span></a>
-<a class="sourceLine" id="cb177-2" data-line-number="2">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">sunRiseSet</span>(df.alltags.sub, <span class="dt">lat =</span> <span class="st">&quot;recvLat&quot;</span>, <span class="dt">lon =</span> <span class="st">&quot;recvLon&quot;</span>) </a>
-<a class="sourceLine" id="cb177-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb177-4" data-line-number="4"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22897</span>,</a>
-<a class="sourceLine" id="cb177-5" data-line-number="5">                     ts <span class="op">&gt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2016-10-11&quot;</span>),</a>
-<a class="sourceLine" id="cb177-6" data-line-number="6">                     ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2016-10-17&quot;</span>),</a>
-<a class="sourceLine" id="cb177-7" data-line-number="7">                     recvDeployName <span class="op">==</span><span class="st"> &quot;Niapiskau&quot;</span>), </a>
-<a class="sourceLine" id="cb177-8" data-line-number="8">       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb177-9" data-line-number="9"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb177-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb177-11" data-line-number="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time of year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb177-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="kw">aes</span>(<span class="dt">xintercept =</span> sunrise), <span class="dt">col =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb177-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="kw">aes</span>(<span class="dt">xintercept =</span> sunset), <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1"><span class="co"># add sunrise and sunset times to the dataframe</span></a>
+<a class="sourceLine" id="cb179-2" data-line-number="2">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">sunRiseSet</span>(df.alltags.sub, <span class="dt">lat =</span> <span class="st">&quot;recvLat&quot;</span>, <span class="dt">lon =</span> <span class="st">&quot;recvLon&quot;</span>) </a>
+<a class="sourceLine" id="cb179-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb179-4" data-line-number="4"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22897</span>,</a>
+<a class="sourceLine" id="cb179-5" data-line-number="5">                     ts <span class="op">&gt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2016-10-11&quot;</span>),</a>
+<a class="sourceLine" id="cb179-6" data-line-number="6">                     ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2016-10-17&quot;</span>),</a>
+<a class="sourceLine" id="cb179-7" data-line-number="7">                     recvDeployName <span class="op">==</span><span class="st"> &quot;Niapiskau&quot;</span>), </a>
+<a class="sourceLine" id="cb179-8" data-line-number="8">       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-9" data-line-number="9"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb179-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb179-11" data-line-number="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time of year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="kw">aes</span>(<span class="dt">xintercept =</span> sunrise), <span class="dt">col =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb179-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="kw">aes</span>(<span class="dt">xintercept =</span> sunset), <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotSunriset22897-1.png" width="672" />
 We can see that during this period, the tag was most often detected during the day, suggesting it may be actively foraging in this area during this time.</p>
 <p>The same plots can provide valuable movement information when the receivers are ordered geographically. We do this for <code>motusTagID</code> 16039:</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1"><span class="co"># We&#39;ll first order sitelat by latitude (for plots)</span></a>
-<a class="sourceLine" id="cb178-2" data-line-number="2">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">mutate</span>(df.alltags.sub, </a>
-<a class="sourceLine" id="cb178-3" data-line-number="3">                         <span class="dt">recvDeployName =</span> <span class="kw">reorder</span>(recvDeployName, recvLat))</a>
-<a class="sourceLine" id="cb178-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb178-5" data-line-number="5"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, </a>
-<a class="sourceLine" id="cb178-6" data-line-number="6">                     motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16039</span>,</a>
-<a class="sourceLine" id="cb178-7" data-line-number="7">                     ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-10-01&quot;</span>)), </a>
-<a class="sourceLine" id="cb178-8" data-line-number="8">       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> recvDeployName)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb178-9" data-line-number="9"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb178-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb178-11" data-line-number="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time of year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Receiver name (ordered by latitude)&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" data-line-number="1"><span class="co"># We&#39;ll first order sitelat by latitude (for plots)</span></a>
+<a class="sourceLine" id="cb180-2" data-line-number="2">df.alltags.sub &lt;-<span class="st"> </span><span class="kw">mutate</span>(df.alltags.sub, </a>
+<a class="sourceLine" id="cb180-3" data-line-number="3">                         <span class="dt">recvDeployName =</span> <span class="kw">reorder</span>(recvDeployName, recvLat))</a>
+<a class="sourceLine" id="cb180-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb180-5" data-line-number="5"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, </a>
+<a class="sourceLine" id="cb180-6" data-line-number="6">                     motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16039</span>,</a>
+<a class="sourceLine" id="cb180-7" data-line-number="7">                     ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-10-01&quot;</span>)), </a>
+<a class="sourceLine" id="cb180-8" data-line-number="8">       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> recvDeployName)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb180-9" data-line-number="9"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb180-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb180-11" data-line-number="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time of year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Receiver name (ordered by latitude)&quot;</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/latPlot1-1.png" width="672" /></p>
 <p>We zoom in on a section of this plot and look at antenna bearings to see directional movement past stations:</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16039</span>, </a>
-<a class="sourceLine" id="cb179-2" data-line-number="2">                     ts <span class="op">&gt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-09-14&quot;</span>), </a>
-<a class="sourceLine" id="cb179-3" data-line-number="3">                     ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-10-01&quot;</span>)), </a>
-<a class="sourceLine" id="cb179-4" data-line-number="4">       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">col =</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-5" data-line-number="5"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb179-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb179-7" data-line-number="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time of day&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Antenna bearing&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-9" data-line-number="9"><span class="st">  </span><span class="kw">facet_grid</span>(recvDeployName <span class="op">~</span><span class="st"> </span>.)</a></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16039</span>, </a>
+<a class="sourceLine" id="cb181-2" data-line-number="2">                     ts <span class="op">&gt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-09-14&quot;</span>), </a>
+<a class="sourceLine" id="cb181-3" data-line-number="3">                     ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-10-01&quot;</span>)), </a>
+<a class="sourceLine" id="cb181-4" data-line-number="4">       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">col =</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb181-5" data-line-number="5"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb181-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb181-7" data-line-number="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time of day&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb181-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Antenna bearing&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb181-9" data-line-number="9"><span class="st">  </span><span class="kw">facet_grid</span>(recvDeployName <span class="op">~</span><span class="st"> </span>.)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plot2-1.png" width="672" /></p>
 <p>This plot shows the typical flyby pattern of a migrating animal, with signal strength increasing and then decreasing as the tag moves through the beams of the antennas.</p>
 </div>
 <div id="mappingData" class="section level2">
 <h2><span class="header-section-number">6.5</span> Mapping your data</h2>
 <p>To generate maps of tag paths, we will once again use summarized data so we can work with a much smaller database for faster processing. Here we’ll summarize detections by day. As we did in Chapter <a href="dataCleaning.html#dataCleaning">5</a>, we create a simple function to summarize the data, since we will likely want to do this type of summary over and over again.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" data-line-number="1"><span class="co"># Simplify the data by summarizing by the runID</span></a>
-<a class="sourceLine" id="cb180-2" data-line-number="2"><span class="co"># If you want to summarize at a finer (or coarser) scale, you can also create</span></a>
-<a class="sourceLine" id="cb180-3" data-line-number="3"><span class="co"># other groups. The simplest alternative is a rounded timestamp variable; for</span></a>
-<a class="sourceLine" id="cb180-4" data-line-number="4"><span class="co"># example by using mutate(ts.h = plyr::round_any(ts, 3600) function call. Other</span></a>
-<a class="sourceLine" id="cb180-5" data-line-number="5"><span class="co"># options are to just use date (e.g date = as_date(ts))</span></a>
-<a class="sourceLine" id="cb180-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb180-7" data-line-number="7">fun.getpath &lt;-<span class="st"> </span><span class="cf">function</span>(df) {</a>
-<a class="sourceLine" id="cb180-8" data-line-number="8">  df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb180-9" data-line-number="9"><span class="st">    </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num, <span class="co"># keep only tags registered to the sample project</span></a>
-<a class="sourceLine" id="cb180-10" data-line-number="10">           <span class="op">!</span><span class="kw">is.na</span>(recvLat) <span class="op">|</span><span class="st"> </span><span class="op">!</span>(recvLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb180-11" data-line-number="11"><span class="st">    </span><span class="kw">group_by</span>(motusTagID, runID, recvDeployName, ambigID, </a>
-<a class="sourceLine" id="cb180-12" data-line-number="12">             tagDepLon, tagDepLat, recvLat, recvLon) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb180-13" data-line-number="13"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">max.runLen =</span> <span class="kw">max</span>(runLen), <span class="dt">ts.h =</span> <span class="kw">mean</span>(ts)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb180-14" data-line-number="14"><span class="st">    </span><span class="kw">arrange</span>(motusTagID, ts.h) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb180-15" data-line-number="15"><span class="st">    </span><span class="kw">data.frame</span>()</a>
-<a class="sourceLine" id="cb180-16" data-line-number="16">} <span class="co"># end of function call</span></a>
-<a class="sourceLine" id="cb180-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb180-18" data-line-number="18">df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(df.alltags.sub)</a></code></pre></div>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" data-line-number="1">df.alltags.sub.path &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb181-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># only tags registered to project</span></a>
-<a class="sourceLine" id="cb181-3" data-line-number="3"><span class="st">  </span><span class="kw">arrange</span>(motusTagID, ts) <span class="op">%&gt;%</span><span class="st">       </span><span class="co"># order by time stamp for each tag</span></a>
-<a class="sourceLine" id="cb181-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">as_date</span>(ts)) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># create date variable</span></a>
-<a class="sourceLine" id="cb181-5" data-line-number="5"><span class="st">  </span><span class="kw">group_by</span>(motusTagID, date, recvDeployName, ambigID, </a>
-<a class="sourceLine" id="cb181-6" data-line-number="6">           tagDepLon, tagDepLat, recvLat, recvLon)</a>
-<a class="sourceLine" id="cb181-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb181-8" data-line-number="8">df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(df.alltags.sub.path)</a></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1"><span class="co"># Simplify the data by summarizing by the runID</span></a>
+<a class="sourceLine" id="cb182-2" data-line-number="2"><span class="co"># If you want to summarize at a finer (or coarser) scale, you can also create</span></a>
+<a class="sourceLine" id="cb182-3" data-line-number="3"><span class="co"># other groups. The simplest alternative is a rounded timestamp variable; for</span></a>
+<a class="sourceLine" id="cb182-4" data-line-number="4"><span class="co"># example by using mutate(ts.h = plyr::round_any(ts, 3600) function call. Other</span></a>
+<a class="sourceLine" id="cb182-5" data-line-number="5"><span class="co"># options are to just use date (e.g date = as_date(ts))</span></a>
+<a class="sourceLine" id="cb182-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb182-7" data-line-number="7">fun.getpath &lt;-<span class="st"> </span><span class="cf">function</span>(df) {</a>
+<a class="sourceLine" id="cb182-8" data-line-number="8">  df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb182-9" data-line-number="9"><span class="st">    </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num, <span class="co"># keep only tags registered to the sample project</span></a>
+<a class="sourceLine" id="cb182-10" data-line-number="10">           <span class="op">!</span><span class="kw">is.na</span>(recvLat) <span class="op">|</span><span class="st"> </span><span class="op">!</span>(recvLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb182-11" data-line-number="11"><span class="st">    </span><span class="kw">group_by</span>(motusTagID, runID, recvDeployName, ambigID, </a>
+<a class="sourceLine" id="cb182-12" data-line-number="12">             tagDepLon, tagDepLat, recvLat, recvLon) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb182-13" data-line-number="13"><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">max.runLen =</span> <span class="kw">max</span>(runLen), <span class="dt">ts.h =</span> <span class="kw">mean</span>(ts)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb182-14" data-line-number="14"><span class="st">    </span><span class="kw">arrange</span>(motusTagID, ts.h) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb182-15" data-line-number="15"><span class="st">    </span><span class="kw">data.frame</span>()</a>
+<a class="sourceLine" id="cb182-16" data-line-number="16">} <span class="co"># end of function call</span></a>
+<a class="sourceLine" id="cb182-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb182-18" data-line-number="18">df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(df.alltags.sub)</a></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1">df.alltags.sub.path &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb183-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># only tags registered to project</span></a>
+<a class="sourceLine" id="cb183-3" data-line-number="3"><span class="st">  </span><span class="kw">arrange</span>(motusTagID, ts) <span class="op">%&gt;%</span><span class="st">       </span><span class="co"># order by time stamp for each tag</span></a>
+<a class="sourceLine" id="cb183-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">as_date</span>(ts)) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># create date variable</span></a>
+<a class="sourceLine" id="cb183-5" data-line-number="5"><span class="st">  </span><span class="kw">group_by</span>(motusTagID, date, recvDeployName, ambigID, </a>
+<a class="sourceLine" id="cb183-6" data-line-number="6">           tagDepLon, tagDepLat, recvLat, recvLon)</a>
+<a class="sourceLine" id="cb183-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb183-8" data-line-number="8">df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(df.alltags.sub.path)</a></code></pre></div>
 <div id="ggmaps" class="section level3">
 <h3><span class="header-section-number">6.5.1</span> Mapping with the <code>ggmap</code> package</h3>
 <p>Mapping with <code>ggmap</code> can be a fast way to view flight paths and allows you to select from multiple base layers.<br />
 There are several ways to use the <code>ggmap</code> package. One is with Google Maps, which, as of October 16, 2018, requires a Google Maps API key (see Appendix B section <a href="appendixB.html#googleMapsKey">B.3</a> for more details). An alternative method is to use an open source of map tiles, such as Stamen Map tiles, which do not require an API key. The following example uses Stamen Map tiles.</p>
 <p>The first step is to create a map with a specified map are, maptype (“terrain”, “toner”, or “watercolor”, among others), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale. For stamen maps this represents the level of detail you want). We then add points for receivers and lines connecting consecutive detections by <code>motusTagID.</code> We can also add points for all receivers that were active during a certain time period if we have already downloaded all metadata.</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1">gmap &lt;-<span class="st">  </span><span class="kw">get_stamenmap</span>(<span class="dt">bbox =</span> <span class="kw">c</span>(<span class="dt">left =</span> <span class="dv">-90</span>, <span class="dt">right =</span> <span class="dv">-57</span>, <span class="dt">bottom =</span> <span class="dv">35</span>, <span class="dt">top =</span> <span class="dv">55</span>),</a>
-<a class="sourceLine" id="cb182-2" data-line-number="2">                       <span class="dt">maptype =</span> <span class="st">&quot;terrain-background&quot;</span>, <span class="co"># select maptype</span></a>
-<a class="sourceLine" id="cb182-3" data-line-number="3">                       <span class="dt">zoom =</span> <span class="dv">6</span>) <span class="co"># zoom, must be a whole number</span></a>
-<a class="sourceLine" id="cb182-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb182-5" data-line-number="5"><span class="co"># just use the tags that we have examined carefully and filtered (in the</span></a>
-<a class="sourceLine" id="cb182-6" data-line-number="6"><span class="co"># previous chapter)</span></a>
-<a class="sourceLine" id="cb182-7" data-line-number="7">df.tmp &lt;-<span class="st"> </span>df.alltags.path <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb182-8" data-line-number="8"><span class="st">  </span><span class="kw">filter</span>(motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16011</span>, <span class="dv">16035</span>, <span class="dv">16036</span>, <span class="dv">16037</span>, <span class="dv">16038</span>, <span class="dv">16039</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb182-9" data-line-number="9"><span class="st">  </span><span class="kw">arrange</span>(ts.h)  <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># arange by hour</span></a>
-<a class="sourceLine" id="cb182-10" data-line-number="10"><span class="st">  </span><span class="kw">as.data.frame</span>()</a>
-<a class="sourceLine" id="cb182-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb182-12" data-line-number="12"><span class="kw">ggmap</span>(gmap) <span class="op">+</span></a>
-<a class="sourceLine" id="cb182-13" data-line-number="13"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb182-14" data-line-number="14"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat), </a>
-<a class="sourceLine" id="cb182-15" data-line-number="15">             <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb182-16" data-line-number="16"><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, </a>
-<a class="sourceLine" id="cb182-17" data-line-number="17">            <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat, <span class="dt">group =</span> motusTagID, <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb182-18" data-line-number="18"><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1">gmap &lt;-<span class="st">  </span><span class="kw">get_stamenmap</span>(<span class="dt">bbox =</span> <span class="kw">c</span>(<span class="dt">left =</span> <span class="dv">-90</span>, <span class="dt">right =</span> <span class="dv">-57</span>, <span class="dt">bottom =</span> <span class="dv">35</span>, <span class="dt">top =</span> <span class="dv">55</span>),</a>
+<a class="sourceLine" id="cb184-2" data-line-number="2">                       <span class="dt">maptype =</span> <span class="st">&quot;terrain-background&quot;</span>, <span class="co"># select maptype</span></a>
+<a class="sourceLine" id="cb184-3" data-line-number="3">                       <span class="dt">zoom =</span> <span class="dv">6</span>) <span class="co"># zoom, must be a whole number</span></a>
+<a class="sourceLine" id="cb184-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb184-5" data-line-number="5"><span class="co"># just use the tags that we have examined carefully and filtered (in the</span></a>
+<a class="sourceLine" id="cb184-6" data-line-number="6"><span class="co"># previous chapter)</span></a>
+<a class="sourceLine" id="cb184-7" data-line-number="7">df.tmp &lt;-<span class="st"> </span>df.alltags.path <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb184-8" data-line-number="8"><span class="st">  </span><span class="kw">filter</span>(motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16011</span>, <span class="dv">16035</span>, <span class="dv">16036</span>, <span class="dv">16037</span>, <span class="dv">16038</span>, <span class="dv">16039</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb184-9" data-line-number="9"><span class="st">  </span><span class="kw">arrange</span>(ts.h)  <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># arange by hour</span></a>
+<a class="sourceLine" id="cb184-10" data-line-number="10"><span class="st">  </span><span class="kw">as.data.frame</span>()</a>
+<a class="sourceLine" id="cb184-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb184-12" data-line-number="12"><span class="kw">ggmap</span>(gmap) <span class="op">+</span></a>
+<a class="sourceLine" id="cb184-13" data-line-number="13"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb184-14" data-line-number="14"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat), </a>
+<a class="sourceLine" id="cb184-15" data-line-number="15">             <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb184-16" data-line-number="16"><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, </a>
+<a class="sourceLine" id="cb184-17" data-line-number="17">            <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat, <span class="dt">group =</span> motusTagID, <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb184-18" data-line-number="18"><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/ggmap-1.png" width="672" /></p>
 <p>We make the same plot, with additional points for all receivers that were active during a specified time (concentrating on our area of interest):</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1"><span class="co"># get receiver metadata</span></a>
-<a class="sourceLine" id="cb183-2" data-line-number="2">tbl.recvDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;recvDeps&quot;</span>)</a>
-<a class="sourceLine" id="cb183-3" data-line-number="3">df.recvDeps &lt;-<span class="st"> </span>tbl.recvDeps <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb183-4" data-line-number="4"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb183-5" data-line-number="5"><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb183-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">tsStart =</span> <span class="kw">as_datetime</span>(tsStart, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>),</a>
-<a class="sourceLine" id="cb183-7" data-line-number="7">         <span class="dt">tsEnd =</span> <span class="kw">as_datetime</span>(tsEnd, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>),</a>
-<a class="sourceLine" id="cb183-8" data-line-number="8">         <span class="co"># for deployments with no end dates, make an end date a year from now</span></a>
-<a class="sourceLine" id="cb183-9" data-line-number="9">         <span class="dt">tsEnd =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(tsEnd), </a>
-<a class="sourceLine" id="cb183-10" data-line-number="10">                         <span class="kw">as.POSIXct</span>(<span class="kw">format</span>(<span class="kw">Sys.time</span>(), <span class="st">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb183-11" data-line-number="11"><span class="st">                           </span><span class="kw">dyears</span>(<span class="dv">1</span>), </a>
-<a class="sourceLine" id="cb183-12" data-line-number="12">                         tsEnd), </a>
-<a class="sourceLine" id="cb183-13" data-line-number="13">         <span class="dt">tsEnd =</span> <span class="kw">as.POSIXct</span>(tsEnd, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))</a>
-<a class="sourceLine" id="cb183-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb183-15" data-line-number="15"><span class="co"># get running intervals for all receiver deployments</span></a>
-<a class="sourceLine" id="cb183-16" data-line-number="16">siteOp &lt;-<span class="st"> </span><span class="kw">with</span>(df.recvDeps, <span class="kw">interval</span>(tsStart, tsEnd))</a>
-<a class="sourceLine" id="cb183-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb183-18" data-line-number="18"><span class="co"># set the date range you&#39;re interested in</span></a>
-<a class="sourceLine" id="cb183-19" data-line-number="19">dateRange &lt;-<span class="st"> </span><span class="kw">interval</span>(<span class="kw">as.POSIXct</span>(<span class="st">&quot;2015-08-01&quot;</span>), <span class="kw">as.POSIXct</span>(<span class="st">&quot;2016-01-01&quot;</span>))</a>
-<a class="sourceLine" id="cb183-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb183-21" data-line-number="21"><span class="co"># create new variable &quot;active&quot; which will be set to TRUE if the receiver was</span></a>
-<a class="sourceLine" id="cb183-22" data-line-number="22"><span class="co"># active at some point during your specified date range, and FALSE if not</span></a>
-<a class="sourceLine" id="cb183-23" data-line-number="23">df.recvDeps<span class="op">$</span>active &lt;-<span class="st"> </span><span class="kw">int_overlaps</span>(siteOp, dateRange) </a>
-<a class="sourceLine" id="cb183-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb183-25" data-line-number="25"><span class="co"># create map with receivers active during specified date range as red, and</span></a>
-<a class="sourceLine" id="cb183-26" data-line-number="26"><span class="co"># receivers with detections as yellow</span></a>
-<a class="sourceLine" id="cb183-27" data-line-number="27"><span class="kw">ggmap</span>(gmap) <span class="op">+</span></a>
-<a class="sourceLine" id="cb183-28" data-line-number="28"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb183-29" data-line-number="29"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(df.recvDeps, active <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>), </a>
-<a class="sourceLine" id="cb183-30" data-line-number="30">             ggplot2<span class="op">::</span><span class="kw">aes</span>(<span class="dt">x =</span> longitude, <span class="dt">y =</span> latitude), </a>
-<a class="sourceLine" id="cb183-31" data-line-number="31">             <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb183-32" data-line-number="32"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat), </a>
-<a class="sourceLine" id="cb183-33" data-line-number="33">             <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb183-34" data-line-number="34"><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, </a>
-<a class="sourceLine" id="cb183-35" data-line-number="35">            <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat, <span class="dt">group =</span> motusTagID, </a>
-<a class="sourceLine" id="cb183-36" data-line-number="36">                <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb183-37" data-line-number="37"><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1"><span class="co"># get receiver metadata</span></a>
+<a class="sourceLine" id="cb185-2" data-line-number="2">tbl.recvDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;recvDeps&quot;</span>)</a>
+<a class="sourceLine" id="cb185-3" data-line-number="3">df.recvDeps &lt;-<span class="st"> </span>tbl.recvDeps <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb185-4" data-line-number="4"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb185-5" data-line-number="5"><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb185-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">tsStart =</span> <span class="kw">as_datetime</span>(tsStart, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>),</a>
+<a class="sourceLine" id="cb185-7" data-line-number="7">         <span class="dt">tsEnd =</span> <span class="kw">as_datetime</span>(tsEnd, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>),</a>
+<a class="sourceLine" id="cb185-8" data-line-number="8">         <span class="co"># for deployments with no end dates, make an end date a year from now</span></a>
+<a class="sourceLine" id="cb185-9" data-line-number="9">         <span class="dt">tsEnd =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(tsEnd), </a>
+<a class="sourceLine" id="cb185-10" data-line-number="10">                         <span class="kw">as.POSIXct</span>(<span class="kw">format</span>(<span class="kw">Sys.time</span>(), <span class="st">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb185-11" data-line-number="11"><span class="st">                           </span><span class="kw">dyears</span>(<span class="dv">1</span>), </a>
+<a class="sourceLine" id="cb185-12" data-line-number="12">                         tsEnd), </a>
+<a class="sourceLine" id="cb185-13" data-line-number="13">         <span class="dt">tsEnd =</span> <span class="kw">as.POSIXct</span>(tsEnd, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))</a>
+<a class="sourceLine" id="cb185-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb185-15" data-line-number="15"><span class="co"># get running intervals for all receiver deployments</span></a>
+<a class="sourceLine" id="cb185-16" data-line-number="16">siteOp &lt;-<span class="st"> </span><span class="kw">with</span>(df.recvDeps, <span class="kw">interval</span>(tsStart, tsEnd))</a>
+<a class="sourceLine" id="cb185-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb185-18" data-line-number="18"><span class="co"># set the date range you&#39;re interested in</span></a>
+<a class="sourceLine" id="cb185-19" data-line-number="19">dateRange &lt;-<span class="st"> </span><span class="kw">interval</span>(<span class="kw">as.POSIXct</span>(<span class="st">&quot;2015-08-01&quot;</span>), <span class="kw">as.POSIXct</span>(<span class="st">&quot;2016-01-01&quot;</span>))</a>
+<a class="sourceLine" id="cb185-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb185-21" data-line-number="21"><span class="co"># create new variable &quot;active&quot; which will be set to TRUE if the receiver was</span></a>
+<a class="sourceLine" id="cb185-22" data-line-number="22"><span class="co"># active at some point during your specified date range, and FALSE if not</span></a>
+<a class="sourceLine" id="cb185-23" data-line-number="23">df.recvDeps<span class="op">$</span>active &lt;-<span class="st"> </span><span class="kw">int_overlaps</span>(siteOp, dateRange) </a>
+<a class="sourceLine" id="cb185-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb185-25" data-line-number="25"><span class="co"># create map with receivers active during specified date range as red, and</span></a>
+<a class="sourceLine" id="cb185-26" data-line-number="26"><span class="co"># receivers with detections as yellow</span></a>
+<a class="sourceLine" id="cb185-27" data-line-number="27"><span class="kw">ggmap</span>(gmap) <span class="op">+</span></a>
+<a class="sourceLine" id="cb185-28" data-line-number="28"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb185-29" data-line-number="29"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(df.recvDeps, active <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>), </a>
+<a class="sourceLine" id="cb185-30" data-line-number="30">             ggplot2<span class="op">::</span><span class="kw">aes</span>(<span class="dt">x =</span> longitude, <span class="dt">y =</span> latitude), </a>
+<a class="sourceLine" id="cb185-31" data-line-number="31">             <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb185-32" data-line-number="32"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat), </a>
+<a class="sourceLine" id="cb185-33" data-line-number="33">             <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb185-34" data-line-number="34"><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, </a>
+<a class="sourceLine" id="cb185-35" data-line-number="35">            <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat, <span class="dt">group =</span> motusTagID, </a>
+<a class="sourceLine" id="cb185-36" data-line-number="36">                <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb185-37" data-line-number="37"><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/ggmapRecvs-1.png" width="960" /></p>
 </div>
 <div id="outlineMaps" class="section level3">
 <h3><span class="header-section-number">6.5.2</span> Creating simple outline maps</h3>
 <p>We load the base maps.</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1">na.lakes &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="dt">map =</span> <span class="st">&quot;lakes&quot;</span>)</a>
-<a class="sourceLine" id="cb184-2" data-line-number="2">na.lakes &lt;-<span class="st"> </span><span class="kw">mutate</span>(na.lakes, <span class="dt">long =</span> long<span class="op">-</span><span class="st"> </span><span class="dv">360</span>)</a>
-<a class="sourceLine" id="cb184-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb184-4" data-line-number="4"><span class="co"># Include all of the Americas to begin</span></a>
-<a class="sourceLine" id="cb184-5" data-line-number="5">na.map &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="dt">map =</span> <span class="st">&quot;world2&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb184-6" data-line-number="6"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;USA&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb184-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">long =</span> long <span class="op">-</span><span class="st"> </span><span class="dv">360</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" data-line-number="1">na.lakes &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="dt">map =</span> <span class="st">&quot;lakes&quot;</span>)</a>
+<a class="sourceLine" id="cb186-2" data-line-number="2">na.lakes &lt;-<span class="st"> </span><span class="kw">mutate</span>(na.lakes, <span class="dt">long =</span> long<span class="op">-</span><span class="st"> </span><span class="dv">360</span>)</a>
+<a class="sourceLine" id="cb186-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb186-4" data-line-number="4"><span class="co"># Include all of the Americas to begin</span></a>
+<a class="sourceLine" id="cb186-5" data-line-number="5">na.map &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="dt">map =</span> <span class="st">&quot;world2&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb186-6" data-line-number="6"><span class="st">  </span><span class="kw">filter</span>(region <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;USA&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb186-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">long =</span> long <span class="op">-</span><span class="st"> </span><span class="dv">360</span>)</a></code></pre></div>
 <p>Then, to map the paths, we set the x-axis and y-axis limits based on the location of receivers with detections. Depending on your data, these might need to be modified to encompass the deployment location of the tags, if tags were not deployed near towers with detections. We then use <code>ggplot</code> to plot the map and tag paths. Here we use the Mercator projection and are colouring the paths by <code>motusTagID</code>, including a point for where the tag was deployed:</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1"><span class="co"># set limits to map based on locations of detections, ensuring they include the</span></a>
-<a class="sourceLine" id="cb185-2" data-line-number="2"><span class="co"># deployment locations</span></a>
-<a class="sourceLine" id="cb185-3" data-line-number="3">xmin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tmp<span class="op">$</span>recvLon, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb185-4" data-line-number="4">xmax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class="op">$</span>recvLon, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb185-5" data-line-number="5">ymin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb185-6" data-line-number="6">ymax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb185-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb185-8" data-line-number="8"><span class="co"># map</span></a>
-<a class="sourceLine" id="cb185-9" data-line-number="9"><span class="kw">ggplot</span>(<span class="dt">data =</span> na.lakes, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat))<span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb185-10" data-line-number="10"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb185-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> na.map, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), </a>
-<a class="sourceLine" id="cb185-12" data-line-number="12">               <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;grey98&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb185-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">group =</span> group), <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb185-14" data-line-number="14"><span class="st">  </span><span class="kw">coord_map</span>(<span class="dt">projection =</span> <span class="st">&quot;mercator&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(xmin, xmax), <span class="dt">ylim =</span> <span class="kw">c</span>(ymin, ymax)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb185-15" data-line-number="15"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb185-16" data-line-number="16"><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, </a>
-<a class="sourceLine" id="cb185-17" data-line-number="17">            <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat, </a>
-<a class="sourceLine" id="cb185-18" data-line-number="18">                <span class="dt">group =</span> <span class="kw">as.factor</span>(motusTagID), <span class="dt">colour =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb185-19" data-line-number="19"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, </a>
-<a class="sourceLine" id="cb185-20" data-line-number="20">             <span class="kw">aes</span>(<span class="dt">x =</span> tagDepLon, <span class="dt">y =</span> tagDepLat), <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">shape =</span> <span class="dv">4</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb185-21" data-line-number="21"><span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="st">&quot;motusTagID&quot;</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1"><span class="co"># set limits to map based on locations of detections, ensuring they include the</span></a>
+<a class="sourceLine" id="cb187-2" data-line-number="2"><span class="co"># deployment locations</span></a>
+<a class="sourceLine" id="cb187-3" data-line-number="3">xmin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tmp<span class="op">$</span>recvLon, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb187-4" data-line-number="4">xmax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class="op">$</span>recvLon, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb187-5" data-line-number="5">ymin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb187-6" data-line-number="6">ymax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb187-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb187-8" data-line-number="8"><span class="co"># map</span></a>
+<a class="sourceLine" id="cb187-9" data-line-number="9"><span class="kw">ggplot</span>(<span class="dt">data =</span> na.lakes, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat))<span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb187-10" data-line-number="10"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb187-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> na.map, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), </a>
+<a class="sourceLine" id="cb187-12" data-line-number="12">               <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;grey98&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb187-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">group =</span> group), <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb187-14" data-line-number="14"><span class="st">  </span><span class="kw">coord_map</span>(<span class="dt">projection =</span> <span class="st">&quot;mercator&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(xmin, xmax), <span class="dt">ylim =</span> <span class="kw">c</span>(ymin, ymax)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb187-15" data-line-number="15"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb187-16" data-line-number="16"><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, </a>
+<a class="sourceLine" id="cb187-17" data-line-number="17">            <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat, </a>
+<a class="sourceLine" id="cb187-18" data-line-number="18">                <span class="dt">group =</span> <span class="kw">as.factor</span>(motusTagID), <span class="dt">colour =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb187-19" data-line-number="19"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, </a>
+<a class="sourceLine" id="cb187-20" data-line-number="20">             <span class="kw">aes</span>(<span class="dt">x =</span> tagDepLon, <span class="dt">y =</span> tagDepLat), <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">shape =</span> <span class="dv">4</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb187-21" data-line-number="21"><span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="st">&quot;motusTagID&quot;</span>) </a></code></pre></div>
 <p><img src="images/mapDetections.png" width="1650" style="display: block; margin: auto;" /></p>
 <p>The functions above provide examples of how you can begin exploring your data and are by no means exhaustive. The next chapter will cover some common errors and troubleshooting you may encounter while trying to download and use the .motus sql files.</p>
 
