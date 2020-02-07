@@ -53,7 +53,8 @@ The .motus file contains a series of interrelated tables where data are stored i
 In addition to these tables, there are also 'virtual' tables or 'views', which have been created through queries that merge data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in each .motus file:
 
 1. **`allambigs`**: lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.
-2. **`alltags`**: provides the full detection data for all tags, and all ambiguous (duplicate) tags,  associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID. 
+2. **`alltags`**: provides the full detection data for all tags, and all ambiguous (duplicate) tags,  associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID.  
+3. **`alltagsGPS`**: same as `alltags` but includes GPS latitude, longitude and altitude (much slower to load on large databases).
 
 Because the file is a `dplyr::src_sqlite` file, all of the `dplyr` functions can be used to filter and summarize the .motus database, without needing to first save the data as a *flat* file (a typical two-dimensional dataframe). The SQL format is very advantageous when you have a large file -- the queries using SQL will be substantially faster than those done on a flat dataframe. 
 
@@ -259,13 +260,19 @@ dbListTables(file.name)
 dbListFields(file.name, "species") 
 ```
 
-The *virtual* table `alltags` contains the detection data, along with all metadata variables that most users will ever need from the various underlying .motus tables. We access the tables using the `tbl()` function from the `dplyr` package which we installed in Chapter 2:  
+The *virtual* table `alltags` contains the detection data, along with most metadata variables that users need from the various underlying .motus tables. We access the tables using the `tbl()` function from the `dplyr` package which we installed in Chapter 2:  
 
 ```{r getAllTagsTable, eval = TRUE}
 
 # this retrieves the "alltags" table from the "sql.motus" SQLite file we read in earlier
 tbl.alltags <- tbl(sql.motus, "alltags") # virtual table
 
+```
+
+However, if GPS data is required, users will either have to use the `alltagsGPS` view, or will have to add GPS values to a data subset (see Chapter 5 \@ref(addGPS)). 
+
+```{r getAllTagsGPSTable, eval = TRUE}
+tbl.alltagsGPS <- tbl(sql.motus, "alltagsGPS")
 ```
 
 We now have a new `tbl.alltags` object in R. The underlying structure of these tables is a list of length 2:

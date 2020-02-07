@@ -2,13 +2,14 @@
 if(!file.exists("WORDLIST")) file.create("WORDLIST")
 
 # 1. Install required packages
-pkgs <- c("knitr", "pander", "remotes", "maps", "tidyverse", "rworldmap", "ggmap", 
+pkgs <- c("bookdown", "knitr", "pander", "remotes", "maps", "tidyverse", "rworldmap", "ggmap", 
        "plyr", "circular", "jpeg", "DBI", "RSQLite")
 pkgs_new <- pkgs[!(pkgs %in% installed.packages()[,"Package"])] # Which are we missing?
 if(length(pkgs_new)) install.packages(pkgs_new) # Install missing
 
 # 2. Install the version of motus the book should be compiled with (ie. which ref?)
-remotes::install_github("MotusWTS/motus", ref = "beta")
+remotes::install_github("MotusWTS/motus", ref = "beta3")
+
 if(!"motusData" %in% installed.packages()[, "Package"]) remotes::install_github("MotusWTS/motusData")
 
 # 2. Check spelling
