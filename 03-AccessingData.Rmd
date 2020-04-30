@@ -28,7 +28,7 @@ Each tag detection database is stored as an SQLite (`dplyr::src_sqlite`) file wi
 
 The .motus file contains a series of interrelated tables where data are stored in a condensed format to save memory. The following tables are included in your .motus file;
 
-1. **`activity`**: data related to radio activity for each hour period (hourBin) at each antenna, including a count of the number of short runs used in helping identify false detections.
+1. **`activity`**: data related to radio activity for each hour period (`hourBin`) at each antenna, including a count of the number of short runs used in helping identify false detections.
 2. **`admInfo`**: internal table used to keep track of your the motus package used to create your motus file, and the data version.
 3. **`antDeps`**: metadata related to antenna deployments, e.g., deployment height, angle, antenna type.
 4. **`batchRuns`**: metadata for runIDs and associated batchIDs
@@ -37,9 +37,11 @@ The .motus file contains a series of interrelated tables where data are stored i
 7. **`gps`**: metadata related to Geographic Positioning System (GPS) position of receiver. 
 8. **`hits`**: detection data at the level of individual hits.
 9. **`meta`**: metadata related to the project and datatype (tags vs. receivers) that are included in the .motus file
+101. **`nodeData`**: data related to nodes by `batchID` and time (`ts`)
+102. **`nodeDeps`**; metadata related to nodes
 10. **`projAmbig`**: metadata related to what projects have ambiguous tag detections
 11. **`projs`**: metadata related to projects, e.g., project name, principal investigator.
-12. **`pulseCounts`**: number of radio pulses measured on each antenna over 1 hour periods (hourBin).
+12. **`pulseCounts`**: number of radio pulses measured on each antenna over 1 hour periods (`hourBin`).
 13. **`recvDeps`**: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.
 14. **`recvs`**: metadata related to receiver serial number and associated Motus deviceID
 15. **`runs`**: detection data associated with a run (continuous detections of a unique tag on a given receiver).
@@ -53,7 +55,8 @@ The .motus file contains a series of interrelated tables where data are stored i
 In addition to these tables, there are also 'virtual' tables or 'views', which have been created through queries that merge data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in each .motus file:
 
 1. **`allambigs`**: lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.
-2. **`alltags`**: provides the full detection data for all tags, and all ambiguous (duplicate) tags,  associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID. 
+2. **`alltags`**: provides the full detection data for all tags, and all ambiguous (duplicate) tags,  associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID.  
+3. **`alltagsGPS`**: same as `alltags` but includes GPS latitude, longitude and altitude (much slower to load on large databases).
 
 Because the file is a `dplyr::src_sqlite` file, all of the `dplyr` functions can be used to filter and summarize the .motus database, without needing to first save the data as a *flat* file (a typical two-dimensional dataframe). The SQL format is very advantageous when you have a large file -- the queries using SQL will be substantially faster than those done on a flat dataframe. 
 
@@ -259,13 +262,19 @@ dbListTables(file.name)
 dbListFields(file.name, "species") 
 ```
 
-The *virtual* table `alltags` contains the detection data, along with all metadata variables that most users will ever need from the various underlying .motus tables. We access the tables using the `tbl()` function from the `dplyr` package which we installed in Chapter 2:  
+The *virtual* table `alltags` contains the detection data, along with most metadata variables that users need from the various underlying .motus tables. We access the tables using the `tbl()` function from the `dplyr` package which we installed in Chapter 2:  
 
 ```{r getAllTagsTable, eval = TRUE}
 
 # this retrieves the "alltags" table from the "sql.motus" SQLite file we read in earlier
 tbl.alltags <- tbl(sql.motus, "alltags") # virtual table
 
+```
+
+However, if GPS data is required, users will either have to use the `alltagsGPS` view, or will have to add GPS values to a data subset (see Chapter 5 \@ref(addGPS)). 
+
+```{r getAllTagsGPSTable, eval = TRUE}
+tbl.alltagsGPS <- tbl(sql.motus, "alltagsGPS")
 ```
 
 We now have a new `tbl.alltags` object in R. The underlying structure of these tables is a list of length 2:
