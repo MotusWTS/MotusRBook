@@ -1,5 +1,9 @@
 # Motus R Book
 
+## v3.0 (2020-04-30)
+- Reflect new view `alltagsGPS` and function `getGPS()`
+- Add details for field `motusFilter` and function `filterByActivity()`
+
 ## v2.0 (2019-08-12)
 
 - AccessingData automatically downloads up-to-date motus data everytime
