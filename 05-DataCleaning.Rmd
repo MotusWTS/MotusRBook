@@ -115,7 +115,9 @@ To omit runs identified as dubious by `motusFilter` we can use an anti-join.
 
 ```{r}
 # Number of rows with runs 3 hits or less
-filter(tbl(sql.motus, "alltags"), runLen <= 3) %>% collect() %>% nrow()
+filter(tbl(sql.motus, "alltags"), runLen <= 3) %>% 
+  collect() %>% 
+  nrow()
 
 # Identify runs to remove
 to_remove <- tbl(sql.motus, "runs") %>%
@@ -126,7 +128,9 @@ to_remove <- tbl(sql.motus, "runs") %>%
 tbl_filtered <- anti_join(tbl(sql.motus, "alltags"), to_remove, by = "runID")
 
 # Number of rows with runs 3 hits or less after being filtered
-filter(tbl_filtered, runLen <= 3) %>% collect() %>% nrow()
+filter(tbl_filtered, runLen <= 3) %>% 
+  collect() %>% 
+  nrow()
 ```
 
 
@@ -141,18 +145,18 @@ For example, the following code, adds a `probability` column to the sample proje
 tbl_motusFilter <- filterByActivity(sql.motus, return = "all")
 ```
 
-Users can adjust these parameters to be more strict (i.e., exclude fewer detections). This next example excludes all runs of length 4 or less and will exclude any runs less than length 10 from `hourBin`s which have more than 50 runs and where at least 75% of those runs have a run length of 2. 
-
-```{r}
-tbl_strict <- filterByActivity(sql.motus, minLen = 4, maxLen = 10, 
-                               maxRuns = 50, ratio = 0.75, return = "all")
-```
-
-These parameters can also be less strict (i.e., exclude more detections). This example excludes all runs of length 2 or less and will exclude any runs less than length 4 from `hourBin`s which have more than 500 runs and where at least 95% of those runs have a run length of 2.
+Users can adjust these parameters to be less strict (i.e., exclude fewer detections). This example excludes all runs of length 2 or less and will exclude any runs less than length 4 from `hourBin`s which have more than 500 runs and where at least 95% of those runs have a run length of 2.
 
 ```{r}
 tbl_relaxed <- filterByActivity(sql.motus, minLen = 2, maxLen = 4, 
                                 maxRuns = 500, ratio = 0.95, return = "all")
+```
+
+These parameters can also be more strict (i.e., exclude more detections). This next example excludes all runs of length 4 or less and will exclude any runs less than length 10 from `hourBin`s which have more than 50 runs and where at least 75% of those runs have a run length of 2. 
+
+```{r}
+tbl_strict <- filterByActivity(sql.motus, minLen = 4, maxLen = 10, 
+                               maxRuns = 50, ratio = 0.75, return = "all")
 ```
 
 Note that the filters may exclude some true detections in the process. Therefore, we recommend that after a full analysis of your data, you return to these detections and examine them individually, to determine (usually contextually) if they can be considered real.
