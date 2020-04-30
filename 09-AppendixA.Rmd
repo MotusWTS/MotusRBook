@@ -1,6 +1,6 @@
 # (APPENDIX) Appendix {-} 
 
-# Appendix - alltags structure {#appendixA}
+# Appendix - `alltags` and `alltagsGPS` structure {#appendixA}
 
 ```{r tidyr8, echo = FALSE, message = FALSE, warning = FALSE}
 
@@ -9,7 +9,7 @@ opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = FALSE)
 library(pander)
 ```
 
-The following variables are included in each `alltags` view in the SQLite file:
+The following variables are included in `alltags` and `alltagsGPS` view in the SQLite file (note that the final three `gps` related fields are only available in `alltagsGPS`).
 
 ```{r parameterTable.A, echo = FALSE}
 param.table <- dplyr::select(read.csv("./data/DatabaseParameters.csv", stringsAsFactors = FALSE), 1:2)
