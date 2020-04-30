@@ -27,7 +27,7 @@ Manual telemetry can be used to determine the precise location of an individual 
 
 a) **Good departure**: you can see that the bird stayed in the vicinity of the Old Cut station during stopover, as shown by increased signal variation during the day, and decreased signal variation during the night. On the night of departure, the tag shows the usual decrease in activity at night, followed by an increase of activity at around 02:30 am as it departs; the tag stops being detected by the Old Cut's station soon after, and is then detected by other nearby receivers during its departure flight:  
 
-```{r vanishFig1, echo=FALSE, fig.align='center'}
+```{r vanishFig1, echo=FALSE, fig.align='center', out.width = "60%"}
 
 knitr::include_graphics("images/vanishBearing_goodDetection.png")
 
@@ -35,7 +35,7 @@ knitr::include_graphics("images/vanishBearing_goodDetection.png")
 
 b) **Unclear departure**: this bird was not detected by the Old Cut station for quite a while, and was only detected during an apparent flyover; signal characteristics do not support a clear departure from the station. In this case, we do not know how far the bird was from the station during the flyby. We caution against using examples like this to estimate vanishing bearings: 
 
-```{r vanishFig2, echo=FALSE, fig.align='center'}
+```{r vanishFig2, echo=FALSE, fig.align='center', out.width = "60%"}
 
 knitr::include_graphics("images/vanishBearing_badDetection.png")
 
@@ -47,7 +47,7 @@ At the Old Cut field station, three antennas were spaced 120 degrees apart in 20
 
 The following is a figure showing the estimated coarse and vanishing bearing for a warbler departing northwards from Old Cut in spring 2014, when the 3 antennas were spaced 120 degrees apart. The red line represents the estimated vanishing bearing of tag ID 277. The blue line represents the average coarse bearing based on detections from other stations (red points): 
 
-```{r vanishFig3, echo=FALSE, fig.align='center'}
+```{r vanishFig3, echo=FALSE, fig.align='center', out.width = "60%"}
 
 knitr::include_graphics("images/vanishBearing2014.png")
 
@@ -55,7 +55,7 @@ knitr::include_graphics("images/vanishBearing2014.png")
 
 In the example below, estimated coarse and vanishing bearings are shown for a warbler departing to the north in spring 2015, when Old Cut's antennas were spaced 90 degrees apart. We can see that the estimated vanishing bearing is pretty close to the coarse bearing estimate. 
 
-```{r vansihFig4, echo=FALSE, fig.align='center'}
+```{r vansihFig4, echo=FALSE, fig.align='center', out.width = "60%"}
 
 knitr::include_graphics("images/vanishBearing2015.png")
 
@@ -63,7 +63,7 @@ knitr::include_graphics("images/vanishBearing2015.png")
 
 Overall, mean deviation between coarse and vanishing bearings was higher in 2014 (n = 14 departures) when antennas were spaced 120 degrees apart, than in 2015 (n = 12 departures) when antennas were spaced 90 degrees apart: 
 
-```{r vanishFig5, echo=FALSE, fig.align='center'}
+```{r vanishFig5, echo=FALSE, fig.align='center', out.width = "60%"}
 
 knitr::include_graphics("images/vanishBearingDeviation.png")
 
