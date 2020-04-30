@@ -136,7 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><strong><a href="./">R for Motus</a></strong></li>
+<li><strong><a href="https://beta.motus.org/MotusRBook">R for Motus</a></strong></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>A walk through the use of R for Motus automated radio-telemetry data</a></li>
@@ -432,49 +432,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="loadPackages7" class="section level3">
 <h3><span class="header-section-number">7.2.1</span> Load the required packages</h3>
 <p>Follow the instructions in Chapter <a href="loadingPackages.html#loadingPackages">2</a> to install the following packages before loading, if they are not already installed.</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" data-line-number="1"><span class="kw">library</span>(circular)</a>
-<a class="sourceLine" id="cb189-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb189-3" data-line-number="3"><span class="kw">library</span>(motus)</a>
-<a class="sourceLine" id="cb189-4" data-line-number="4"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb189-5" data-line-number="5"><span class="kw">library</span>(jpeg)</a>
-<a class="sourceLine" id="cb189-6" data-line-number="6"><span class="kw">library</span>(ggmap)</a>
-<a class="sourceLine" id="cb189-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb189-8" data-line-number="8"><span class="co">#Make sure working on UTC </span></a>
-<a class="sourceLine" id="cb189-9" data-line-number="9"><span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" data-line-number="1"><span class="kw">library</span>(circular)</a>
+<a class="sourceLine" id="cb190-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb190-3" data-line-number="3"><span class="kw">library</span>(motus)</a>
+<a class="sourceLine" id="cb190-4" data-line-number="4"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb190-5" data-line-number="5"><span class="kw">library</span>(jpeg)</a>
+<a class="sourceLine" id="cb190-6" data-line-number="6"><span class="kw">library</span>(ggmap)</a>
+<a class="sourceLine" id="cb190-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb190-8" data-line-number="8"><span class="co">#Make sure working on UTC </span></a>
+<a class="sourceLine" id="cb190-9" data-line-number="9"><span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</a></code></pre></div>
 </div>
 <div id="vanishingSample" class="section level3">
 <h3><span class="header-section-number">7.2.2</span> Load the sample data</h3>
 <p>The sample data used in this chapter includes the detections of three Magnolia Warblers that were tagged at the Old Cut field research station of the Long Point Bird Observatory in Ontario, Canada, by Morbey et al. (2017). The warblers were tagged and released in spring 2015.</p>
 <p>The sample data are included in the motusData R package as the “vanishBearing.rda” file. In order to access these data, you will need to first install the motusData package following the instructions in section <a href="loadingPackages.html#loadingPackages">2</a>, <em>prior</em> to running the code in this chapter:</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" data-line-number="1"><span class="co"># load the motusData package, which contains the sample data for this chapter</span></a>
-<a class="sourceLine" id="cb190-2" data-line-number="2"><span class="kw">library</span>(motusData) </a>
-<a class="sourceLine" id="cb190-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb190-4" data-line-number="4"><span class="co"># Load the sample data we provided from 3 individual warblers departing Old Cut</span></a>
-<a class="sourceLine" id="cb190-5" data-line-number="5"><span class="co"># during the Spring of 2015.</span></a>
-<a class="sourceLine" id="cb190-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb190-7" data-line-number="7"><span class="co"># We also do a couple manipulations here, to reorder the levels of the</span></a>
-<a class="sourceLine" id="cb190-8" data-line-number="8"><span class="co"># recvSiteName factor, and order the data by ts.</span></a>
-<a class="sourceLine" id="cb190-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb190-10" data-line-number="10">df.vanish &lt;-<span class="st"> </span>vanishBearing <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb190-11" data-line-number="11"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">recvSiteName =</span> <span class="kw">reorder</span>(recvSiteName, recvLat),</a>
-<a class="sourceLine" id="cb190-12" data-line-number="12">         <span class="dt">motusTagID =</span> <span class="kw">as.factor</span>(<span class="kw">as.character</span>(motusTagID))) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># order sites by latitude</span></a>
-<a class="sourceLine" id="cb190-13" data-line-number="13"><span class="st">  </span><span class="kw">arrange</span>(ts) <span class="co"># arrange by ts</span></a></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1"><span class="co"># load the motusData package, which contains the sample data for this chapter</span></a>
+<a class="sourceLine" id="cb191-2" data-line-number="2"><span class="kw">library</span>(motusData) </a>
+<a class="sourceLine" id="cb191-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb191-4" data-line-number="4"><span class="co"># Load the sample data we provided from 3 individual warblers departing Old Cut</span></a>
+<a class="sourceLine" id="cb191-5" data-line-number="5"><span class="co"># during the Spring of 2015.</span></a>
+<a class="sourceLine" id="cb191-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb191-7" data-line-number="7"><span class="co"># We also do a couple manipulations here, to reorder the levels of the</span></a>
+<a class="sourceLine" id="cb191-8" data-line-number="8"><span class="co"># recvSiteName factor, and order the data by ts.</span></a>
+<a class="sourceLine" id="cb191-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb191-10" data-line-number="10">df.vanish &lt;-<span class="st"> </span>vanishBearing <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb191-11" data-line-number="11"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">recvSiteName =</span> <span class="kw">reorder</span>(recvSiteName, recvLat),</a>
+<a class="sourceLine" id="cb191-12" data-line-number="12">         <span class="dt">motusTagID =</span> <span class="kw">as.factor</span>(<span class="kw">as.character</span>(motusTagID))) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># order sites by latitude</span></a>
+<a class="sourceLine" id="cb191-13" data-line-number="13"><span class="st">  </span><span class="kw">arrange</span>(ts) <span class="co"># arrange by ts</span></a></code></pre></div>
 </div>
 <div id="select-individuals-that-show-clear-departure-detections" class="section level3">
 <h3><span class="header-section-number">7.2.3</span> Select individuals that show clear departure detections</h3>
 <p>First, we subset the data to the individuals that showed clear departures from the stopover site of interest. In fact, the sample data only includes three departures of birds we <em>know</em> have clear departures from Old Cut, but we show this step here regardless!</p>
 <p>By selecting only clear departures, we make sure that the bird departed from nearby the station, minimizing the potential for parallax error. We look for clear departures by first plotting latitude against time. In this case, we can see the birds departing north past several stations:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> df.vanish, <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> recvLat, <span class="dt">colour =</span> <span class="kw">as.factor</span>(recvSiteName))) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb191-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb191-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>motusTagID, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb191-4" data-line-number="4"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> df.vanish, <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> recvLat, <span class="dt">colour =</span> <span class="kw">as.factor</span>(recvSiteName))) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb192-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>motusTagID, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-4" data-line-number="4"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/vanishPlotLatvsSIG-1.png" width="672" /></p>
 <p>We also make sure that the bird was being detected by several antennas at once during departure; if detections are on only one antenna, the vanishing bearing will simply be the direction of the lone antenna with detections. We plot signal strength by time for a subset of the data, to show the last few hours of detections of the bird at Old Cut. Let’s try this with tag # 16823 from our sample data:</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>, ts <span class="op">&gt;</span><span class="st"> &quot;2015-05-30 00:00:00&quot;</span>), </a>
-<a class="sourceLine" id="cb192-2" data-line-number="2">       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour =</span> <span class="kw">as.factor</span>(port))) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb192-3" data-line-number="3"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb192-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb192-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_grid</span>(recvSiteName <span class="op">~</span><span class="st"> </span>.)</a></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>, ts <span class="op">&gt;</span><span class="st"> &quot;2015-05-30 00:00:00&quot;</span>), </a>
+<a class="sourceLine" id="cb193-2" data-line-number="2">       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour =</span> <span class="kw">as.factor</span>(port))) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb193-3" data-line-number="3"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb193-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb193-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_grid</span>(recvSiteName <span class="op">~</span><span class="st"> </span>.)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/vanishPlotTSvsSIG-1.png" width="672" /></p>
 <p>We can see the typical detection pattern of a bird departing from a site, shown by a decrease in movement (beginning to roost) at around 00:25 UTC, followed by an increase in activity and departure from the site later in the night after 03:00 UTC. Soon after leaving the site, it gets detected by five other stations further north. Because this bird was detected before and during departure, we can assume it has departed from somewhat close to the Old Cut station.</p>
 <p>With your own data, look at plots like these for each of your tagged individuals, and for the purpose of vanishing bearings, remove any individuals that don’t have a clear departure.</p>
@@ -483,47 +483,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.2.4</span> Obtain departure times</h3>
 <p>In order to estimate vanishing bearings based on the signal strength of departure detections, we must first determine the approximate time that the bird started its departure flight. For now, the best way to do this is by manually going through each set of detections from each bird and obtaining the approximate time by plotting the time versus signal strength.</p>
 <p>Continuing with tag 16823, let’s find the departure time.</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>), </a>
-<a class="sourceLine" id="cb193-2" data-line-number="2">       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour=</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb193-3" data-line-number="3"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb193-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb193-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_grid</span>(recvSiteName <span class="op">~</span><span class="st"> </span>.)</a></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>), </a>
+<a class="sourceLine" id="cb194-2" data-line-number="2">       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour=</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb194-3" data-line-number="3"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb194-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb194-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_grid</span>(recvSiteName <span class="op">~</span><span class="st"> </span>.)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/vanishFindDepTime-1.png" width="672" /></p>
 <p>We can see the complete set of detections of tag 16823 for Old Cut and other stations this bird was detected at post-departure.</p>
 <p>We then subset the plot in order to zoom in to the last few minutes of detections at Old Cut, which is where the bird is departing from. By zooming in we can find the exact departure time.</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, </a>
-<a class="sourceLine" id="cb194-2" data-line-number="2">                     motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>,  </a>
-<a class="sourceLine" id="cb194-3" data-line-number="3">                     ts <span class="op">&gt;</span><span class="st"> &quot;2015-05-30 03:03:00&quot;</span>,  </a>
-<a class="sourceLine" id="cb194-4" data-line-number="4">                     ts <span class="op">&lt;</span><span class="st"> &quot;2015-05-30 03:10:00&quot;</span>), </a>
-<a class="sourceLine" id="cb194-5" data-line-number="5">       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour=</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb194-6" data-line-number="6"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb194-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, </a>
+<a class="sourceLine" id="cb195-2" data-line-number="2">                     motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>,  </a>
+<a class="sourceLine" id="cb195-3" data-line-number="3">                     ts <span class="op">&gt;</span><span class="st"> &quot;2015-05-30 03:03:00&quot;</span>,  </a>
+<a class="sourceLine" id="cb195-4" data-line-number="4">                     ts <span class="op">&lt;</span><span class="st"> &quot;2015-05-30 03:10:00&quot;</span>), </a>
+<a class="sourceLine" id="cb195-5" data-line-number="5">       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour=</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb195-6" data-line-number="6"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb195-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/vanishPlotTSvsSIG2-1.png" width="672" /></p>
 <p>In this case, we can see an increase in signal strength beginning at about 3:04 for the 90 and 260 degree antennas at Old Cut. These reach a peak in signal strength at about 3:04:59, after which signal strength declines. This suggests that the bird was likely south of the station when it began it’s departure - signal strength increased and peaked as it passed through the antenna beams, and then declined again as the bird moved away (north) from the Old Cut station. We choose the peak signal strength, i.e., 3:04:59 as the departure time for this bird, to exclude those detections where the bird was likely moving towards the station; we would not want the ‘approaching’ station signals to contribute to the vanishing bearing, because it assumes the bird is moving radially away from the station.</p>
 <p>We create a dataframe with the departure times of each bird and their motusTagIDs, to use later for data filtering. We add departure times for the other two birds in the sample dataset; if you are keen, you can try the plots above on tags 16897 and 16791 to see how we came up with those departure times:</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1"><span class="co">## create dataframe and assign column names</span></a>
-<a class="sourceLine" id="cb195-2" data-line-number="2">dep<span class="fl">.16823</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16823</span>, <span class="st">&quot;2015-05-30 03:04:59&quot;</span>))</a>
-<a class="sourceLine" id="cb195-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb195-4" data-line-number="4"><span class="co">## create dataframes for the other two tags:</span></a>
-<a class="sourceLine" id="cb195-5" data-line-number="5">dep<span class="fl">.16867</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16867</span>, <span class="st">&quot;2015-05-29 01:56:00&quot;</span>))</a>
-<a class="sourceLine" id="cb195-6" data-line-number="6">dep<span class="fl">.16791</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16791</span>, <span class="st">&quot;2015-05-08 02:41:40&quot;</span>))</a>
-<a class="sourceLine" id="cb195-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb195-8" data-line-number="8"><span class="co">## put them all together</span></a>
-<a class="sourceLine" id="cb195-9" data-line-number="9">df.departTime &lt;-<span class="st"> </span><span class="kw">rbind</span>(dep<span class="fl">.16823</span>, dep<span class="fl">.16867</span>, dep<span class="fl">.16791</span>)</a>
-<a class="sourceLine" id="cb195-10" data-line-number="10"><span class="kw">names</span>(df.departTime) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;motusTagID&quot;</span>, <span class="st">&quot;ts_depart&quot;</span>)</a>
-<a class="sourceLine" id="cb195-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb195-12" data-line-number="12"><span class="co">## convert time to posixCT using Lubridate functionality</span></a>
-<a class="sourceLine" id="cb195-13" data-line-number="13">df.departTime &lt;-<span class="st"> </span><span class="kw">mutate</span>(df.departTime, <span class="dt">ts_depart =</span> <span class="kw">ymd_hms</span>(ts_depart))</a>
-<a class="sourceLine" id="cb195-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb195-15" data-line-number="15">df.departTime</a></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" data-line-number="1"><span class="co">## create dataframe and assign column names</span></a>
+<a class="sourceLine" id="cb196-2" data-line-number="2">dep<span class="fl">.16823</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16823</span>, <span class="st">&quot;2015-05-30 03:04:59&quot;</span>))</a>
+<a class="sourceLine" id="cb196-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb196-4" data-line-number="4"><span class="co">## create dataframes for the other two tags:</span></a>
+<a class="sourceLine" id="cb196-5" data-line-number="5">dep<span class="fl">.16867</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16867</span>, <span class="st">&quot;2015-05-29 01:56:00&quot;</span>))</a>
+<a class="sourceLine" id="cb196-6" data-line-number="6">dep<span class="fl">.16791</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16791</span>, <span class="st">&quot;2015-05-08 02:41:40&quot;</span>))</a>
+<a class="sourceLine" id="cb196-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb196-8" data-line-number="8"><span class="co">## put them all together</span></a>
+<a class="sourceLine" id="cb196-9" data-line-number="9">df.departTime &lt;-<span class="st"> </span><span class="kw">rbind</span>(dep<span class="fl">.16823</span>, dep<span class="fl">.16867</span>, dep<span class="fl">.16791</span>)</a>
+<a class="sourceLine" id="cb196-10" data-line-number="10"><span class="kw">names</span>(df.departTime) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;motusTagID&quot;</span>, <span class="st">&quot;ts_depart&quot;</span>)</a>
+<a class="sourceLine" id="cb196-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb196-12" data-line-number="12"><span class="co">## convert time to posixCT using Lubridate functionality</span></a>
+<a class="sourceLine" id="cb196-13" data-line-number="13">df.departTime &lt;-<span class="st"> </span><span class="kw">mutate</span>(df.departTime, <span class="dt">ts_depart =</span> <span class="kw">ymd_hms</span>(ts_depart))</a>
+<a class="sourceLine" id="cb196-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb196-15" data-line-number="15">df.departTime</a></code></pre></div>
 <pre><code>##   motusTagID           ts_depart
 ## 1      16823 2015-05-30 03:04:59
 ## 2      16867 2015-05-29 01:56:00
 ## 3      16791 2015-05-08 02:41:40</code></pre>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" data-line-number="1"><span class="co">## optionally, save to .RDS file to preserve time structure (you could save to</span></a>
-<a class="sourceLine" id="cb197-2" data-line-number="2"><span class="co">## .csv, but time structure will not be preserved) not run here:</span></a>
-<a class="sourceLine" id="cb197-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb197-4" data-line-number="4"><span class="co"># saveRDS(df.departTime, file = &quot;./data/departureTimes.RDS&quot;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" data-line-number="1"><span class="co">## optionally, save to .RDS file to preserve time structure (you could save to</span></a>
+<a class="sourceLine" id="cb198-2" data-line-number="2"><span class="co">## .csv, but time structure will not be preserved) not run here:</span></a>
+<a class="sourceLine" id="cb198-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb198-4" data-line-number="4"><span class="co"># saveRDS(df.departTime, file = &quot;./data/departureTimes.RDS&quot;)</span></a></code></pre></div>
 </div>
 <div id="calculate-vanishing-bearings-for-individuals-with-departure-times." class="section level3">
 <h3><span class="header-section-number">7.2.5</span> Calculate vanishing bearings for individuals with departure times.</h3>
@@ -532,117 +532,117 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Now that we have only the post-departure detections for the bird we are interested in, we calculate its vanishing bearing.</p>
 <p>First, we normalize the signal strengths, as discussed above, using the minimum and maximum observed signal strength across all data collected by the receiver. If there are differences in the range of signal strengths detected by antennas on a receiver, you might want to instead normalize by antenna. We do not have access to the entire database with the sample data, but we know the minimum and maximum signal strengths detected at the Old Cut stations are -78.0691 and -17.8707, respectively.</p>
 <p>We then calculate a weighted mean of departure angle across the entire departure period using the circular function. The numbers -78.0691 and -17.8707 are the minimum and maximum signal strength values for the Old Cut station. If using your own data, make sure you instead use the min and max signal strength for your station (using the full stations’s data, not only from the subset of the tags you are analyzing).</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" data-line-number="1"><span class="co">## Merge sample data with departure times, subset data, and calculate vanishing bearing</span></a>
-<a class="sourceLine" id="cb198-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb198-3" data-line-number="3"><span class="co">## Note that we use the recvSiteName to specify the departure station of</span></a>
-<a class="sourceLine" id="cb198-4" data-line-number="4"><span class="co">## interest. Depending on whether the station has moved or changed names with</span></a>
-<a class="sourceLine" id="cb198-5" data-line-number="5"><span class="co">## deployments, recvDeployID might be more appropriate.</span></a>
-<a class="sourceLine" id="cb198-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb198-7" data-line-number="7">depart.station &lt;-<span class="st"> &quot;Old Cut&quot;</span></a>
-<a class="sourceLine" id="cb198-8" data-line-number="8">min.sig &lt;-<span class="st"> </span><span class="fl">-78.0691</span> <span class="co"># normally max/min sig comes from the complete raw data for a station</span></a>
-<a class="sourceLine" id="cb198-9" data-line-number="9">max.sig &lt;-<span class="st"> </span><span class="fl">-17.8707</span></a>
-<a class="sourceLine" id="cb198-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb198-11" data-line-number="11"><span class="co"># in this case, right join should drop any individuals that don&#39;t have departure</span></a>
-<a class="sourceLine" id="cb198-12" data-line-number="12"><span class="co"># times in df.departTime</span></a>
-<a class="sourceLine" id="cb198-13" data-line-number="13">df.vanishBearing &lt;-<span class="st"> </span><span class="kw">right_join</span>(df.vanish, df.departTime, <span class="dt">by =</span> <span class="st">&quot;motusTagID&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb198-14" data-line-number="14"><span class="st">  </span><span class="kw">filter</span>(ts <span class="op">&gt;=</span><span class="st"> </span>ts_depart,</a>
-<a class="sourceLine" id="cb198-15" data-line-number="15">         recvSiteName <span class="op">==</span><span class="st"> </span>depart.station) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb198-16" data-line-number="16"><span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb198-17" data-line-number="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sig.norm =</span> (sig <span class="op">-</span><span class="st"> </span>(min.sig))<span class="op">/</span>((max.sig)<span class="op">-</span>(min.sig)), </a>
-<a class="sourceLine" id="cb198-18" data-line-number="18">         <span class="dt">circ.bear =</span> <span class="kw">circular</span>(antBearing, </a>
-<a class="sourceLine" id="cb198-19" data-line-number="19">                              <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">&quot;angles&quot;</span>), </a>
-<a class="sourceLine" id="cb198-20" data-line-number="20">                              <span class="dt">units =</span> <span class="kw">c</span>(<span class="st">&quot;degrees&quot;</span>), </a>
-<a class="sourceLine" id="cb198-21" data-line-number="21">                              <span class="dt">rotation =</span> <span class="kw">c</span>(<span class="st">&quot;clock&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb198-22" data-line-number="22"><span class="st">  </span><span class="kw">group_by</span>(motusTagID, recvSiteName, recvLat, recvLon) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb198-23" data-line-number="23"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">vanish.bearing =</span> <span class="kw">weighted.mean</span>(circ.bear, sig.norm, <span class="dt">na.rm =</span> <span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb198-24" data-line-number="24">                                           <span class="dt">control.circular =</span> <span class="kw">list</span>(<span class="dt">type =</span> <span class="st">&quot;angles&quot;</span>, </a>
-<a class="sourceLine" id="cb198-25" data-line-number="25">                                                                   <span class="dt">units =</span> <span class="st">&quot;degrees&quot;</span>, </a>
-<a class="sourceLine" id="cb198-26" data-line-number="26">                                                                   <span class="dt">template =</span> <span class="st">&quot;none&quot;</span>, </a>
-<a class="sourceLine" id="cb198-27" data-line-number="27">                                                                   <span class="dt">rotation =</span> <span class="st">&quot;clock&quot;</span>)),</a>
-<a class="sourceLine" id="cb198-28" data-line-number="28">            <span class="dt">minutes.used =</span> <span class="kw">as.duration</span>(<span class="kw">min</span>(ts) <span class="op">%--%</span><span class="st"> </span><span class="kw">max</span>(ts))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb198-29" data-line-number="29"><span class="st">  </span><span class="kw">as.data.frame</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1"><span class="co">## Merge sample data with departure times, subset data, and calculate vanishing bearing</span></a>
+<a class="sourceLine" id="cb199-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb199-3" data-line-number="3"><span class="co">## Note that we use the recvSiteName to specify the departure station of</span></a>
+<a class="sourceLine" id="cb199-4" data-line-number="4"><span class="co">## interest. Depending on whether the station has moved or changed names with</span></a>
+<a class="sourceLine" id="cb199-5" data-line-number="5"><span class="co">## deployments, recvDeployID might be more appropriate.</span></a>
+<a class="sourceLine" id="cb199-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb199-7" data-line-number="7">depart.station &lt;-<span class="st"> &quot;Old Cut&quot;</span></a>
+<a class="sourceLine" id="cb199-8" data-line-number="8">min.sig &lt;-<span class="st"> </span><span class="fl">-78.0691</span> <span class="co"># normally max/min sig comes from the complete raw data for a station</span></a>
+<a class="sourceLine" id="cb199-9" data-line-number="9">max.sig &lt;-<span class="st"> </span><span class="fl">-17.8707</span></a>
+<a class="sourceLine" id="cb199-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb199-11" data-line-number="11"><span class="co"># in this case, right join should drop any individuals that don&#39;t have departure</span></a>
+<a class="sourceLine" id="cb199-12" data-line-number="12"><span class="co"># times in df.departTime</span></a>
+<a class="sourceLine" id="cb199-13" data-line-number="13">df.vanishBearing &lt;-<span class="st"> </span><span class="kw">right_join</span>(df.vanish, df.departTime, <span class="dt">by =</span> <span class="st">&quot;motusTagID&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb199-14" data-line-number="14"><span class="st">  </span><span class="kw">filter</span>(ts <span class="op">&gt;=</span><span class="st"> </span>ts_depart,</a>
+<a class="sourceLine" id="cb199-15" data-line-number="15">         recvSiteName <span class="op">==</span><span class="st"> </span>depart.station) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb199-16" data-line-number="16"><span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb199-17" data-line-number="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sig.norm =</span> (sig <span class="op">-</span><span class="st"> </span>(min.sig))<span class="op">/</span>((max.sig)<span class="op">-</span>(min.sig)), </a>
+<a class="sourceLine" id="cb199-18" data-line-number="18">         <span class="dt">circ.bear =</span> <span class="kw">circular</span>(antBearing, </a>
+<a class="sourceLine" id="cb199-19" data-line-number="19">                              <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">&quot;angles&quot;</span>), </a>
+<a class="sourceLine" id="cb199-20" data-line-number="20">                              <span class="dt">units =</span> <span class="kw">c</span>(<span class="st">&quot;degrees&quot;</span>), </a>
+<a class="sourceLine" id="cb199-21" data-line-number="21">                              <span class="dt">rotation =</span> <span class="kw">c</span>(<span class="st">&quot;clock&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb199-22" data-line-number="22"><span class="st">  </span><span class="kw">group_by</span>(motusTagID, recvSiteName, recvLat, recvLon) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb199-23" data-line-number="23"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">vanish.bearing =</span> <span class="kw">weighted.mean</span>(circ.bear, sig.norm, <span class="dt">na.rm =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb199-24" data-line-number="24">                                           <span class="dt">control.circular =</span> <span class="kw">list</span>(<span class="dt">type =</span> <span class="st">&quot;angles&quot;</span>, </a>
+<a class="sourceLine" id="cb199-25" data-line-number="25">                                                                   <span class="dt">units =</span> <span class="st">&quot;degrees&quot;</span>, </a>
+<a class="sourceLine" id="cb199-26" data-line-number="26">                                                                   <span class="dt">template =</span> <span class="st">&quot;none&quot;</span>, </a>
+<a class="sourceLine" id="cb199-27" data-line-number="27">                                                                   <span class="dt">rotation =</span> <span class="st">&quot;clock&quot;</span>)),</a>
+<a class="sourceLine" id="cb199-28" data-line-number="28">            <span class="dt">minutes.used =</span> <span class="kw">as.duration</span>(<span class="kw">min</span>(ts) <span class="op">%--%</span><span class="st"> </span><span class="kw">max</span>(ts))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb199-29" data-line-number="29"><span class="st">  </span><span class="kw">as.data.frame</span>()</a></code></pre></div>
 <p>The resulting <code>df.vanish</code> dataframe contains the <code>motusTagID</code>, the vanishing bearing of the tag, the time in seconds/minutes used to estimate the bearing, and the receiver’s name and coordinates. We can make a circular plot with points for the individual vanishing bearings and an arrow for the mean bearing as follows:</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1"><span class="co"># if you have many bearings/points, can use stack = TRUE</span></a>
-<a class="sourceLine" id="cb199-2" data-line-number="2"><span class="kw">plot.circular</span>(df.vanishBearing<span class="op">$</span>vanish.bearing, <span class="dt">zero =</span> pi<span class="op">/</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb199-3" data-line-number="3"><span class="kw">arrows.circular</span>(<span class="kw">mean</span>(df.vanishBearing<span class="op">$</span>vanish.bearing), <span class="dt">zero =</span> pi<span class="op">/</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" data-line-number="1"><span class="co"># if you have many bearings/points, can use stack = TRUE</span></a>
+<a class="sourceLine" id="cb200-2" data-line-number="2"><span class="kw">plot.circular</span>(df.vanishBearing<span class="op">$</span>vanish.bearing, <span class="dt">zero =</span> pi<span class="op">/</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb200-3" data-line-number="3"><span class="kw">arrows.circular</span>(<span class="kw">mean</span>(df.vanishBearing<span class="op">$</span>vanish.bearing), <span class="dt">zero =</span> pi<span class="op">/</span><span class="dv">2</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotCircular-1.png" width="672" /></p>
 </div>
 <div id="plot-the-vanishing-bearings-on-a-map" class="section level3">
 <h3><span class="header-section-number">7.2.6</span> Plot the vanishing bearings on a map</h3>
 <p>Mapping your vanishing bearing(s) with <code>ggmap</code> can also be a great way to visualize the departure direction of your bird(s). Here we use Stamen maps to show the stations and orientations of antennas that detected the bird during departure, along with the orientation of the vanishing bearing. For information on using <code>ggmap</code> to create Google Maps, see Appendix B in section <a href="appendixB.html#googleMapsKey">B.3</a>.</p>
 <p>First, pick a tag to map:</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" data-line-number="1">tagID &lt;-<span class="st"> </span><span class="dv">16823</span></a></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1">tagID &lt;-<span class="st"> </span><span class="dv">16823</span></a></code></pre></div>
 <p>Then, create a map with a specified map centre, maptype (“terrain”, “roadmap”, “satellite”, or “hybrid”), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale). We add a yellow point for the stations with detections, yellow lines to represent antenna bearings with detections, and a red line for the vanishing bearing:</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1"><span class="co">## First we obtain a map of our location of interest, in this case Old Cut</span></a>
-<a class="sourceLine" id="cb201-2" data-line-number="2">map.OC &lt;-<span class="st">  </span><span class="kw">get_stamenmap</span>(<span class="dt">bbox =</span> <span class="kw">c</span>(<span class="dt">left =</span> <span class="fl">-80.6</span>, <span class="dt">right =</span> <span class="fl">-80.2</span>, <span class="dt">bottom =</span> <span class="fl">42.5</span>, <span class="dt">top =</span> <span class="fl">42.75</span>),</a>
-<a class="sourceLine" id="cb201-3" data-line-number="3">                   <span class="dt">maptype =</span> <span class="st">&quot;terrain-background&quot;</span>,</a>
-<a class="sourceLine" id="cb201-4" data-line-number="4">                   <span class="dt">zoom =</span> <span class="dv">12</span>,</a>
-<a class="sourceLine" id="cb201-5" data-line-number="5">                   <span class="dt">color =</span> <span class="st">&quot;color&quot;</span>)</a>
-<a class="sourceLine" id="cb201-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb201-7" data-line-number="7"><span class="co">## Do the following to make a scale bar</span></a>
-<a class="sourceLine" id="cb201-8" data-line-number="8">bb &lt;-<span class="st"> </span><span class="kw">attr</span>(map.OC,<span class="st">&quot;bb&quot;</span>)</a>
-<a class="sourceLine" id="cb201-9" data-line-number="9">sbar &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">lon.start =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lon <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span>(bb<span class="op">$</span>ur.lon <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lon)),</a>
-<a class="sourceLine" id="cb201-10" data-line-number="10">                   <span class="dt">lon.end =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lon <span class="op">+</span><span class="st"> </span><span class="fl">0.25</span><span class="op">*</span>(bb<span class="op">$</span>ur.lon <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lon)),</a>
-<a class="sourceLine" id="cb201-11" data-line-number="11">                   <span class="dt">lat.start =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lat <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span>(bb<span class="op">$</span>ur.lat <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lat)),</a>
-<a class="sourceLine" id="cb201-12" data-line-number="12">                   <span class="dt">lat.end =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lat <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span>(bb<span class="op">$</span>ur.lat <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lat)))</a>
-<a class="sourceLine" id="cb201-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb201-14" data-line-number="14">sbar<span class="op">$</span>distance &lt;-<span class="st"> </span>geosphere<span class="op">::</span><span class="kw">distVincentyEllipsoid</span>(<span class="kw">c</span>(sbar<span class="op">$</span>lon.start,sbar<span class="op">$</span>lat.start),</a>
-<a class="sourceLine" id="cb201-15" data-line-number="15">                                                  <span class="kw">c</span>(sbar<span class="op">$</span>lon.end,sbar<span class="op">$</span>lat.end))</a>
-<a class="sourceLine" id="cb201-16" data-line-number="16">scalebar.length &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb201-17" data-line-number="17">sbar<span class="op">$</span>lon.end &lt;-<span class="st"> </span>sbar<span class="op">$</span>lon.start <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb201-18" data-line-number="18"><span class="st">  </span>((sbar<span class="op">$</span>lon.end<span class="op">-</span>sbar<span class="op">$</span>lon.start)<span class="op">/</span>sbar<span class="op">$</span>distance)<span class="op">*</span>scalebar.length<span class="op">*</span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb201-19" data-line-number="19">ptspermm &lt;-<span class="st"> </span><span class="fl">2.83464567</span>  <span class="co"># need this because geom_text uses mm, and themes use pts.</span></a>
-<a class="sourceLine" id="cb201-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb201-21" data-line-number="21"><span class="co">## To map antenna bearings:</span></a>
-<a class="sourceLine" id="cb201-22" data-line-number="22"><span class="co">## Create a station dataframe with antenna bearings for all antennas with</span></a>
-<a class="sourceLine" id="cb201-23" data-line-number="23"><span class="co">## detections for the tag of interest</span></a>
-<a class="sourceLine" id="cb201-24" data-line-number="24">df.stations &lt;-<span class="st"> </span>df.vanish <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb201-25" data-line-number="25"><span class="st">  </span><span class="kw">filter</span>(motusTagID <span class="op">==</span><span class="st"> </span>tagID) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb201-26" data-line-number="26"><span class="st">  </span><span class="kw">select</span>(recvSiteName, antBearing, port, recvLon, recvLat) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb201-27" data-line-number="27"><span class="st">  </span><span class="kw">distinct</span>()</a>
-<a class="sourceLine" id="cb201-28" data-line-number="28"></a>
-<a class="sourceLine" id="cb201-29" data-line-number="29"><span class="co"># determines length of the vectors for antenna bearings and vanishing bearing lines</span></a>
-<a class="sourceLine" id="cb201-30" data-line-number="30">arr.sc &lt;-<span class="st"> </span><span class="fl">0.03</span> </a>
-<a class="sourceLine" id="cb201-31" data-line-number="31">rad &lt;-<span class="st"> </span><span class="cf">function</span>(x) {x <span class="op">*</span><span class="st"> </span>pi<span class="op">/</span><span class="dv">180</span>}</a>
-<a class="sourceLine" id="cb201-32" data-line-number="32"></a>
-<a class="sourceLine" id="cb201-33" data-line-number="33"><span class="co">## Now we make the map</span></a>
-<a class="sourceLine" id="cb201-34" data-line-number="34"></a>
-<a class="sourceLine" id="cb201-35" data-line-number="35"><span class="kw">ggmap</span>(map.OC) <span class="op">+</span></a>
-<a class="sourceLine" id="cb201-36" data-line-number="36"><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.stations, <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat), <span class="dt">size =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb201-37" data-line-number="37">               <span class="dt">colour =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb201-38" data-line-number="38"><span class="st">    </span><span class="co"># Add antenna bearings</span></a>
-<a class="sourceLine" id="cb201-39" data-line-number="39"><span class="st">    </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> df.stations, </a>
-<a class="sourceLine" id="cb201-40" data-line-number="40">                 <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">xend =</span> recvLon <span class="op">+</span><span class="st"> </span>(<span class="kw">sin</span>(<span class="kw">rad</span>(antBearing))<span class="op">*</span>arr.sc), </a>
-<a class="sourceLine" id="cb201-41" data-line-number="41">                     <span class="dt">y =</span> recvLat, <span class="dt">yend =</span> recvLat <span class="op">+</span><span class="st"> </span>(<span class="kw">cos</span>(<span class="kw">rad</span>(antBearing))<span class="op">*</span>arr.sc)), </a>
-<a class="sourceLine" id="cb201-42" data-line-number="42">                 <span class="dt">colour =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb201-43" data-line-number="43"><span class="st">  </span></a>
-<a class="sourceLine" id="cb201-44" data-line-number="44"><span class="st">    </span><span class="co"># add vanishing bearings</span></a>
-<a class="sourceLine" id="cb201-45" data-line-number="45"><span class="st">    </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanishBearing, motusTagID <span class="op">==</span><span class="st"> </span>tagID), </a>
-<a class="sourceLine" id="cb201-46" data-line-number="46">                 <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">xend =</span> recvLon <span class="op">+</span><span class="st"> </span>(<span class="kw">sin</span>(<span class="kw">rad</span>(vanish.bearing))<span class="op">*</span>arr.sc),</a>
-<a class="sourceLine" id="cb201-47" data-line-number="47">                     <span class="dt">y =</span> recvLat, <span class="dt">yend =</span> recvLat <span class="op">+</span><span class="st"> </span>(<span class="kw">cos</span>(<span class="kw">rad</span>(vanish.bearing))<span class="op">*</span>arr.sc), </a>
-<a class="sourceLine" id="cb201-48" data-line-number="48">                     <span class="dt">colour =</span> motusTagID)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb201-49" data-line-number="49"><span class="st">  </span></a>
-<a class="sourceLine" id="cb201-50" data-line-number="50"><span class="st">    </span><span class="co"># Add scale bar  </span></a>
-<a class="sourceLine" id="cb201-51" data-line-number="51"><span class="st">    </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> sbar,</a>
-<a class="sourceLine" id="cb201-52" data-line-number="52">                 <span class="kw">aes</span>(<span class="dt">x =</span> lon.start, <span class="dt">xend =</span> lon.end,</a>
-<a class="sourceLine" id="cb201-53" data-line-number="53">                     <span class="dt">y =</span> lat.start, <span class="dt">yend =</span> lat.end), </a>
-<a class="sourceLine" id="cb201-54" data-line-number="54">                 <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>,</a>
-<a class="sourceLine" id="cb201-55" data-line-number="55">                 <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;cm&quot;</span>),</a>
-<a class="sourceLine" id="cb201-56" data-line-number="56">                               <span class="dt">ends =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;open&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb201-57" data-line-number="57"><span class="st">    </span><span class="kw">geom_text</span>(<span class="dt">data =</span> sbar,</a>
-<a class="sourceLine" id="cb201-58" data-line-number="58">              <span class="kw">aes</span>(<span class="dt">x =</span> (lon.start <span class="op">+</span><span class="st"> </span>lon.end)<span class="op">/</span><span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb201-59" data-line-number="59">                  <span class="dt">y =</span> lat.start <span class="op">+</span><span class="st"> </span><span class="fl">0.025</span><span class="op">*</span>(bb<span class="op">$</span>ur.lat <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lat),</a>
-<a class="sourceLine" id="cb201-60" data-line-number="60">                  <span class="dt">label =</span> <span class="kw">paste</span>(<span class="kw">format</span>(scalebar.length), <span class="st">&#39;km&#39;</span>)),</a>
-<a class="sourceLine" id="cb201-61" data-line-number="61">              <span class="dt">hjust =</span> <span class="fl">0.5</span>,</a>
-<a class="sourceLine" id="cb201-62" data-line-number="62">              <span class="dt">vjust =</span> <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb201-63" data-line-number="63">              <span class="dt">size =</span> <span class="dv">8</span><span class="op">/</span>ptspermm, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>)  <span class="op">+</span></a>
-<a class="sourceLine" id="cb201-64" data-line-number="64"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Longitude&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Latitude&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1"><span class="co">## First we obtain a map of our location of interest, in this case Old Cut</span></a>
+<a class="sourceLine" id="cb202-2" data-line-number="2">map.OC &lt;-<span class="st">  </span><span class="kw">get_stamenmap</span>(<span class="dt">bbox =</span> <span class="kw">c</span>(<span class="dt">left =</span> <span class="fl">-80.6</span>, <span class="dt">right =</span> <span class="fl">-80.2</span>, <span class="dt">bottom =</span> <span class="fl">42.5</span>, <span class="dt">top =</span> <span class="fl">42.75</span>),</a>
+<a class="sourceLine" id="cb202-3" data-line-number="3">                   <span class="dt">maptype =</span> <span class="st">&quot;terrain-background&quot;</span>,</a>
+<a class="sourceLine" id="cb202-4" data-line-number="4">                   <span class="dt">zoom =</span> <span class="dv">12</span>,</a>
+<a class="sourceLine" id="cb202-5" data-line-number="5">                   <span class="dt">color =</span> <span class="st">&quot;color&quot;</span>)</a>
+<a class="sourceLine" id="cb202-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb202-7" data-line-number="7"><span class="co">## Do the following to make a scale bar</span></a>
+<a class="sourceLine" id="cb202-8" data-line-number="8">bb &lt;-<span class="st"> </span><span class="kw">attr</span>(map.OC,<span class="st">&quot;bb&quot;</span>)</a>
+<a class="sourceLine" id="cb202-9" data-line-number="9">sbar &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">lon.start =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lon <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span>(bb<span class="op">$</span>ur.lon <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lon)),</a>
+<a class="sourceLine" id="cb202-10" data-line-number="10">                   <span class="dt">lon.end =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lon <span class="op">+</span><span class="st"> </span><span class="fl">0.25</span><span class="op">*</span>(bb<span class="op">$</span>ur.lon <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lon)),</a>
+<a class="sourceLine" id="cb202-11" data-line-number="11">                   <span class="dt">lat.start =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lat <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span>(bb<span class="op">$</span>ur.lat <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lat)),</a>
+<a class="sourceLine" id="cb202-12" data-line-number="12">                   <span class="dt">lat.end =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lat <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span>(bb<span class="op">$</span>ur.lat <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lat)))</a>
+<a class="sourceLine" id="cb202-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb202-14" data-line-number="14">sbar<span class="op">$</span>distance &lt;-<span class="st"> </span>geosphere<span class="op">::</span><span class="kw">distVincentyEllipsoid</span>(<span class="kw">c</span>(sbar<span class="op">$</span>lon.start,sbar<span class="op">$</span>lat.start),</a>
+<a class="sourceLine" id="cb202-15" data-line-number="15">                                                  <span class="kw">c</span>(sbar<span class="op">$</span>lon.end,sbar<span class="op">$</span>lat.end))</a>
+<a class="sourceLine" id="cb202-16" data-line-number="16">scalebar.length &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb202-17" data-line-number="17">sbar<span class="op">$</span>lon.end &lt;-<span class="st"> </span>sbar<span class="op">$</span>lon.start <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb202-18" data-line-number="18"><span class="st">  </span>((sbar<span class="op">$</span>lon.end<span class="op">-</span>sbar<span class="op">$</span>lon.start)<span class="op">/</span>sbar<span class="op">$</span>distance)<span class="op">*</span>scalebar.length<span class="op">*</span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb202-19" data-line-number="19">ptspermm &lt;-<span class="st"> </span><span class="fl">2.83464567</span>  <span class="co"># need this because geom_text uses mm, and themes use pts.</span></a>
+<a class="sourceLine" id="cb202-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb202-21" data-line-number="21"><span class="co">## To map antenna bearings:</span></a>
+<a class="sourceLine" id="cb202-22" data-line-number="22"><span class="co">## Create a station dataframe with antenna bearings for all antennas with</span></a>
+<a class="sourceLine" id="cb202-23" data-line-number="23"><span class="co">## detections for the tag of interest</span></a>
+<a class="sourceLine" id="cb202-24" data-line-number="24">df.stations &lt;-<span class="st"> </span>df.vanish <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb202-25" data-line-number="25"><span class="st">  </span><span class="kw">filter</span>(motusTagID <span class="op">==</span><span class="st"> </span>tagID) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb202-26" data-line-number="26"><span class="st">  </span><span class="kw">select</span>(recvSiteName, antBearing, port, recvLon, recvLat) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb202-27" data-line-number="27"><span class="st">  </span><span class="kw">distinct</span>()</a>
+<a class="sourceLine" id="cb202-28" data-line-number="28"></a>
+<a class="sourceLine" id="cb202-29" data-line-number="29"><span class="co"># determines length of the vectors for antenna bearings and vanishing bearing lines</span></a>
+<a class="sourceLine" id="cb202-30" data-line-number="30">arr.sc &lt;-<span class="st"> </span><span class="fl">0.03</span> </a>
+<a class="sourceLine" id="cb202-31" data-line-number="31">rad &lt;-<span class="st"> </span><span class="cf">function</span>(x) {x <span class="op">*</span><span class="st"> </span>pi<span class="op">/</span><span class="dv">180</span>}</a>
+<a class="sourceLine" id="cb202-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb202-33" data-line-number="33"><span class="co">## Now we make the map</span></a>
+<a class="sourceLine" id="cb202-34" data-line-number="34"></a>
+<a class="sourceLine" id="cb202-35" data-line-number="35"><span class="kw">ggmap</span>(map.OC) <span class="op">+</span></a>
+<a class="sourceLine" id="cb202-36" data-line-number="36"><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.stations, <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat), <span class="dt">size =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb202-37" data-line-number="37">               <span class="dt">colour =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb202-38" data-line-number="38"><span class="st">    </span><span class="co"># Add antenna bearings</span></a>
+<a class="sourceLine" id="cb202-39" data-line-number="39"><span class="st">    </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> df.stations, </a>
+<a class="sourceLine" id="cb202-40" data-line-number="40">                 <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">xend =</span> recvLon <span class="op">+</span><span class="st"> </span>(<span class="kw">sin</span>(<span class="kw">rad</span>(antBearing))<span class="op">*</span>arr.sc), </a>
+<a class="sourceLine" id="cb202-41" data-line-number="41">                     <span class="dt">y =</span> recvLat, <span class="dt">yend =</span> recvLat <span class="op">+</span><span class="st"> </span>(<span class="kw">cos</span>(<span class="kw">rad</span>(antBearing))<span class="op">*</span>arr.sc)), </a>
+<a class="sourceLine" id="cb202-42" data-line-number="42">                 <span class="dt">colour =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="op">+</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb202-43" data-line-number="43"><span class="st">  </span></a>
+<a class="sourceLine" id="cb202-44" data-line-number="44"><span class="st">    </span><span class="co"># add vanishing bearings</span></a>
+<a class="sourceLine" id="cb202-45" data-line-number="45"><span class="st">    </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanishBearing, motusTagID <span class="op">==</span><span class="st"> </span>tagID), </a>
+<a class="sourceLine" id="cb202-46" data-line-number="46">                 <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">xend =</span> recvLon <span class="op">+</span><span class="st"> </span>(<span class="kw">sin</span>(<span class="kw">rad</span>(vanish.bearing))<span class="op">*</span>arr.sc),</a>
+<a class="sourceLine" id="cb202-47" data-line-number="47">                     <span class="dt">y =</span> recvLat, <span class="dt">yend =</span> recvLat <span class="op">+</span><span class="st"> </span>(<span class="kw">cos</span>(<span class="kw">rad</span>(vanish.bearing))<span class="op">*</span>arr.sc), </a>
+<a class="sourceLine" id="cb202-48" data-line-number="48">                     <span class="dt">colour =</span> motusTagID)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb202-49" data-line-number="49"><span class="st">  </span></a>
+<a class="sourceLine" id="cb202-50" data-line-number="50"><span class="st">    </span><span class="co"># Add scale bar  </span></a>
+<a class="sourceLine" id="cb202-51" data-line-number="51"><span class="st">    </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> sbar,</a>
+<a class="sourceLine" id="cb202-52" data-line-number="52">                 <span class="kw">aes</span>(<span class="dt">x =</span> lon.start, <span class="dt">xend =</span> lon.end,</a>
+<a class="sourceLine" id="cb202-53" data-line-number="53">                     <span class="dt">y =</span> lat.start, <span class="dt">yend =</span> lat.end), </a>
+<a class="sourceLine" id="cb202-54" data-line-number="54">                 <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>,</a>
+<a class="sourceLine" id="cb202-55" data-line-number="55">                 <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;cm&quot;</span>),</a>
+<a class="sourceLine" id="cb202-56" data-line-number="56">                               <span class="dt">ends =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;open&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb202-57" data-line-number="57"><span class="st">    </span><span class="kw">geom_text</span>(<span class="dt">data =</span> sbar,</a>
+<a class="sourceLine" id="cb202-58" data-line-number="58">              <span class="kw">aes</span>(<span class="dt">x =</span> (lon.start <span class="op">+</span><span class="st"> </span>lon.end)<span class="op">/</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb202-59" data-line-number="59">                  <span class="dt">y =</span> lat.start <span class="op">+</span><span class="st"> </span><span class="fl">0.025</span><span class="op">*</span>(bb<span class="op">$</span>ur.lat <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lat),</a>
+<a class="sourceLine" id="cb202-60" data-line-number="60">                  <span class="dt">label =</span> <span class="kw">paste</span>(<span class="kw">format</span>(scalebar.length), <span class="st">&#39;km&#39;</span>)),</a>
+<a class="sourceLine" id="cb202-61" data-line-number="61">              <span class="dt">hjust =</span> <span class="fl">0.5</span>,</a>
+<a class="sourceLine" id="cb202-62" data-line-number="62">              <span class="dt">vjust =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb202-63" data-line-number="63">              <span class="dt">size =</span> <span class="dv">8</span><span class="op">/</span>ptspermm, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>)  <span class="op">+</span></a>
+<a class="sourceLine" id="cb202-64" data-line-number="64"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Longitude&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Latitude&quot;</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/vanishMapping-1.png" width="672" /></p>
 <p>Lengths of the yellow and red lines do not represent antenna range or exact path of the bird. For this departure, we have detections on two other stations which corroborate the vanishing bearing.</p>
 <p>If desired, you can print the map to file as follows:</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1"><span class="kw">tiff</span>(<span class="dt">file =</span> <span class="kw">paste</span>(tagID, <span class="st">&quot;vanishBearing.tiff&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>))</a>
-<a class="sourceLine" id="cb202-2" data-line-number="2"><span class="kw">print</span>(out.map)</a>
-<a class="sourceLine" id="cb202-3" data-line-number="3"><span class="kw">dev.off</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1"><span class="kw">tiff</span>(<span class="dt">file =</span> <span class="kw">paste</span>(tagID, <span class="st">&quot;vanishBearing.tiff&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>))</a>
+<a class="sourceLine" id="cb203-2" data-line-number="2"><span class="kw">print</span>(out.map)</a>
+<a class="sourceLine" id="cb203-3" data-line-number="3"><span class="kw">dev.off</span>()</a></code></pre></div>
 </div>
 </div>
 <div id="vanishingLitCited" class="section level2">
@@ -703,7 +703,8 @@ gitbook.start({
 "download": ["MotusRBook.pdf"],
 "toc": {
 "collapse": "section"
-}
+},
+"search": true
 });
 });
 </script>

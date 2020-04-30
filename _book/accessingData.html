@@ -136,7 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><strong><a href="./">R for Motus</a></strong></li>
+<li><strong><a href="https://beta.motus.org/MotusRBook">R for Motus</a></strong></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>A walk through the use of R for Motus automated radio-telemetry data</a></li>
@@ -572,10 +572,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb23-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb23-7" data-line-number="7"><span class="co"># get a list of tables in the .motus file specified above.</span></a>
 <a class="sourceLine" id="cb23-8" data-line-number="8"><span class="kw">dbListTables</span>(file.name) </a></code></pre></div>
-<pre><code>##  [1] &quot;activity&quot;    &quot;admInfo&quot;     &quot;allambigs&quot;   &quot;alltags&quot;     &quot;alltagsGPS&quot;  &quot;antDeps&quot;     &quot;batchRuns&quot;   &quot;batches&quot;    
-##  [9] &quot;clarified&quot;   &quot;filters&quot;     &quot;gps&quot;         &quot;hits&quot;        &quot;meta&quot;        &quot;nodeData&quot;    &quot;nodeDeps&quot;    &quot;projAmbig&quot;  
-## [17] &quot;projBatch&quot;   &quot;projs&quot;       &quot;recvDeps&quot;    &quot;recvs&quot;       &quot;runs&quot;        &quot;runsFilters&quot; &quot;species&quot;     &quot;tagAmbig&quot;   
-## [25] &quot;tagDeps&quot;     &quot;tagProps&quot;    &quot;tags&quot;</code></pre>
+<pre><code>##  [1] &quot;activity&quot;    &quot;admInfo&quot;     &quot;allambigs&quot;   &quot;alltags&quot;     &quot;alltagsGPS&quot;  &quot;antDeps&quot;     &quot;batchRuns&quot;  
+##  [8] &quot;batches&quot;     &quot;clarified&quot;   &quot;filters&quot;     &quot;gps&quot;         &quot;hits&quot;        &quot;meta&quot;        &quot;nodeData&quot;   
+## [15] &quot;nodeDeps&quot;    &quot;projAmbig&quot;   &quot;projBatch&quot;   &quot;projs&quot;       &quot;recvDeps&quot;    &quot;recvs&quot;       &quot;runs&quot;       
+## [22] &quot;runsFilters&quot; &quot;species&quot;     &quot;tagAmbig&quot;    &quot;tagDeps&quot;     &quot;tagProps&quot;    &quot;tags&quot;</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co"># get a list of variables in the &quot;species&quot; table in the .motus file.</span></a>
 <a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">dbListFields</span>(file.name, <span class="st">&quot;species&quot;</span>) </a></code></pre></div>
 <pre><code>## [1] &quot;id&quot;         &quot;english&quot;    &quot;french&quot;     &quot;scientific&quot; &quot;group&quot;      &quot;sort&quot;</code></pre>
@@ -594,7 +594,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   .. .. ..@ loadable.extensions: logi TRUE
 ##   .. .. ..@ flags              : int 70
 ##   .. .. ..@ vfs                : chr &quot;&quot;
-##   .. .. ..@ ref                :&lt;environment: 0x5570d57c3c28&gt; 
+##   .. .. ..@ ref                :&lt;environment: 0x55becda12808&gt; 
 ##   .. .. ..@ bigint             : chr &quot;integer64&quot;
 ##   ..$ disco: NULL
 ##   ..- attr(*, &quot;class&quot;)= chr [1:4] &quot;src_SQLiteConnection&quot; &quot;src_dbi&quot; &quot;src_sql&quot; &quot;src&quot;
@@ -608,16 +608,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb31-2" data-line-number="2"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb31-3" data-line-number="3"><span class="st">  </span><span class="kw">names</span>() <span class="co"># list the variable names in the table</span></a></code></pre></div>
-<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;    &quot;sig&quot;           
-##  [7] &quot;sigsd&quot;          &quot;noise&quot;          &quot;freq&quot;           &quot;freqsd&quot;         &quot;slop&quot;           &quot;burstSlop&quot;     
-## [13] &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;        &quot;port&quot;           &quot;runLen&quot;         &quot;bootnum&quot;       
-## [19] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;        &quot;mfg&quot;            &quot;tagModel&quot;      
-## [25] &quot;tagLifespan&quot;    &quot;nomFreq&quot;        &quot;tagBI&quot;          &quot;pulseLen&quot;       &quot;tagDeployID&quot;    &quot;speciesID&quot;     
-## [31] &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;   &quot;tagDepLat&quot;      &quot;tagDepLon&quot;     
-## [37] &quot;tagDepAlt&quot;      &quot;tagDepComments&quot; &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;   &quot;recvDeployLat&quot; 
-## [43] &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;           &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;  
-## [49] &quot;recvProjID&quot;     &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;     &quot;antHeight&quot;      &quot;speciesEN&quot;     
-## [55] &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;   &quot;tagProjName&quot;    &quot;recvProjName&quot;</code></pre>
+<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;   
+##  [6] &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;          &quot;freq&quot;           &quot;freqsd&quot;        
+## [11] &quot;slop&quot;           &quot;burstSlop&quot;      &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;       
+## [16] &quot;port&quot;           &quot;runLen&quot;         &quot;bootnum&quot;        &quot;tagProjID&quot;      &quot;mfgID&quot;         
+## [21] &quot;tagType&quot;        &quot;codeSet&quot;        &quot;mfg&quot;            &quot;tagModel&quot;       &quot;tagLifespan&quot;   
+## [26] &quot;nomFreq&quot;        &quot;tagBI&quot;          &quot;pulseLen&quot;       &quot;tagDeployID&quot;    &quot;speciesID&quot;     
+## [31] &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;   &quot;tagDepLat&quot;     
+## [36] &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot; &quot;fullID&quot;         &quot;deviceID&quot;      
+## [41] &quot;recvDeployID&quot;   &quot;recvDeployLat&quot;  &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;          
+## [46] &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;   &quot;recvProjID&quot;     &quot;recvUtcOffset&quot; 
+## [51] &quot;antType&quot;        &quot;antBearing&quot;     &quot;antHeight&quot;      &quot;speciesEN&quot;      &quot;speciesFR&quot;     
+## [56] &quot;speciesSci&quot;     &quot;speciesGroup&quot;   &quot;tagProjName&quot;    &quot;recvProjName&quot;</code></pre>
 </div>
 <div id="convertToFlat" class="section level3">
 <h3><span class="header-section-number">3.5.7</span> Converting to flat file</h3>
@@ -680,23 +682,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb39-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(motusTagID, recv) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb39-3" data-line-number="3"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb39-4" data-line-number="4"><span class="st">  </span><span class="kw">as.data.frame</span>() </a></code></pre></div>
+<pre><code>## Warning: The `add` argument of `group_by()` is deprecated as of dplyr 1.0.0.
+## Please use the `.add` argument instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
 <p>In later chapter(s) we will show you additional ways of summarizing and working with your data.</p>
 </div>
 </div>
 <div id="exportDetections" class="section level2">
 <h2><span class="header-section-number">3.6</span> Export your ‘flat’ dataframe to CSV or RDS file</h2>
 <p>A good workflow is to create a script that deals with all your data issues (as described in later chapters), and then saves the resulting dataframe for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. We use an .rds file, which preserves all of the associated R data structures (such as time stamps).</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">saveRDS</span>(df.alltags, <span class="st">&quot;./data/df_alltags.rds&quot;</span>)  </a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">saveRDS</span>(df.alltags, <span class="st">&quot;./data/df_alltags.rds&quot;</span>)  </a></code></pre></div>
 <p>Some users may also want to export the flat dataframe into a .csv file for analysis in other programs. This can easily be done with the following code. Note that it <strong>does not</strong> preserve time stamps:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">write.csv</span>(df.alltags, <span class="st">&quot;./data/df_alltags.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">write.csv</span>(df.alltags, <span class="st">&quot;./data/df_alltags.csv&quot;</span>)</a></code></pre></div>
 </div>
 <div id="tagmeUpdate" class="section level2">
 <h2><span class="header-section-number">3.7</span> Update and/or open an existing database</h2>
 <p>As you or other users upload data to our server, you may have additional tag detections that weren’t present in your initial data download. Since the .motus file is a SQLite database, you can update your existing file with any newly available data, rather than doing a complete new download of the entire database. To open and update a detections database that already exists (has been downloaded previously), we use the <code>tagme()</code> function but set <code>new = FALSE</code>:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">FALSE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">FALSE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>) </a></code></pre></div>
 <p>If you are working offline, and simply want to open an already downloaded database without connecting to the server to update, use <code>new = FALSE</code> and <code>update = FALSE</code>:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="co"># use dir = to specify a directory</span></a>
-<a class="sourceLine" id="cb43-2" data-line-number="2">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">FALSE</span>, <span class="dt">update =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="co"># use dir = to specify a directory</span></a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">FALSE</span>, <span class="dt">update =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 </div>
 <div id="tellme" class="section level2">
 <h2><span class="header-section-number">3.8</span> Check if new data are available</h2>
@@ -709,15 +715,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong><code>numGPS</code></strong>: number of GPS records of new data.</li>
 </ul>
 <p>The following assumes that a local copy of the database already exists:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num)                    <span class="co"># If db is in the working directory</span></a>
-<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)   <span class="co"># To specify a different directory</span></a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num)                    <span class="co"># If db is in the working directory</span></a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)   <span class="co"># To specify a different directory</span></a></code></pre></div>
 <p>To check how much data is available for a project but you <em>do not</em> have a database for it, use the ‘new’ parameter:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="forceMeta" class="section level2">
 <h2><span class="header-section-number">3.9</span> Force an update/re-import of tag and receiver deployment metadata</h2>
 <p>Tag and receiver metadata are automatically merged with tag detections when data are downloaded. However, if metadata have been updated since your initial download, you can force re-import of the metadata when updating a database by running:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">forceMeta =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">forceMeta =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="metadata" class="section level2">
 <h2><span class="header-section-number">3.10</span> Import full tag and receiver metadata</h2>
@@ -729,53 +735,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>In many instances, you will want access to the full metadata for all tags and receivers across the network, e.g., to determine how many of your deployed tags were not detected, or to plot the location of stations with and without detections. The <code>metadata()</code> function can be used to add the complete Motus metadata to your .motus file. The metadata function only needs to be run once, but we suggest that you re-import the metadata occasionally to ensure that you have the most recent and up-to-date information.</p>
 <p>Running the metadata function as follows will add the appropriate metadata from across the network (all tags and all receivers) to the <code>recvDeps</code> and <code>tagDeps</code> tables in your .motus file:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="co"># access all tag and receiver metadata for all projects in the network.</span></a>
-<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="kw">metadata</span>(sql.motus) </a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="co"># access all tag and receiver metadata for all projects in the network.</span></a>
+<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="kw">metadata</span>(sql.motus) </a></code></pre></div>
 <p>Alternatively, you can load metadata for a specific project(s) using:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="co"># access tag and receiver metadata associated with project 176</span></a>
-<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="kw">metadata</span>(sql.motus, <span class="dt">projectIDs =</span> <span class="dv">176</span>) </a>
-<a class="sourceLine" id="cb48-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb48-4" data-line-number="4"><span class="co"># access tag and receiver metadata associated with projects 176 and 1</span></a>
-<a class="sourceLine" id="cb48-5" data-line-number="5"><span class="kw">metadata</span>(sql.motus, <span class="dt">projectIDs =</span> <span class="kw">c</span>(<span class="dv">176</span>, <span class="dv">1</span>)) </a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="co"># access tag and receiver metadata associated with project 176</span></a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw">metadata</span>(sql.motus, <span class="dt">projectIDs =</span> <span class="dv">176</span>) </a>
+<a class="sourceLine" id="cb49-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb49-4" data-line-number="4"><span class="co"># access tag and receiver metadata associated with projects 176 and 1</span></a>
+<a class="sourceLine" id="cb49-5" data-line-number="5"><span class="kw">metadata</span>(sql.motus, <span class="dt">projectIDs =</span> <span class="kw">c</span>(<span class="dv">176</span>, <span class="dv">1</span>)) </a></code></pre></div>
 </div>
 <div id="checkVersion" class="section level2">
 <h2><span class="header-section-number">3.11</span> Ensure that you have the correct database version</h2>
 <p>When you call the tagme function to load the sqlite database, the version of the R package used to download the data is stored in an admInfo table. Over time, changes will be made to the functionality of the R package that may require adding new tables, views or fields to the database. If your version of the database does not match the version of the R package, some of the examples contained in this book may not work. The following call will check that your database has been updated to the version matching the current version of the <code>motus</code> R package. If your database does not match the most current version of the R package, use <code>tagme()</code> with <code>update = TRUE</code> to update your database to the correct format. Refer to Appendix B if the <code>checkVersion()</code> call returns a warning.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">checkVersion</span>(sql.motus)</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">checkVersion</span>(sql.motus)</a></code></pre></div>
 </div>
 <div id="r-object-naming-convention" class="section level2">
 <h2><span class="header-section-number">3.12</span> R object naming convention</h2>
 <p>Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with <code>sql.</code>, virtual table objects will be prefixed with <code>tbl.</code>, and dataframe objects will be prefixed with <code>df.</code>; the rest of the name will include the name of the .motus table that the data originates from. Throughout the rest of the book we will be relying on and referencing the naming formats below; please ensure that you are familiar with these before continuing to the next chapter. The following code assumes you have already downloaded the sample data and do not need to update it; if you have not downloaded the data, see section <a href="accessingData.html#downloadData">3.5.1</a> for instructions on initial download:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="co"># SQLite R object, which links to the .motus file:</span></a>
-<a class="sourceLine" id="cb50-2" data-line-number="2">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)  </a>
-<a class="sourceLine" id="cb50-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb50-4" data-line-number="4"><span class="co"># virtual table object of the alltags table in the sample.motus file:</span></a>
-<a class="sourceLine" id="cb50-5" data-line-number="5">tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)  </a>
-<a class="sourceLine" id="cb50-6" data-line-number="6">df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb50-7" data-line-number="7"><span class="st">                </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb50-8" data-line-number="8"><span class="st">                </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># dataframe (&quot;flat&quot;) object of alltags table</span></a>
-<a class="sourceLine" id="cb50-9" data-line-number="9"><span class="st">                </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))              </a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="co"># SQLite R object, which links to the .motus file:</span></a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)  </a>
+<a class="sourceLine" id="cb51-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb51-4" data-line-number="4"><span class="co"># virtual table object of the alltags table in the sample.motus file:</span></a>
+<a class="sourceLine" id="cb51-5" data-line-number="5">tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)  </a>
+<a class="sourceLine" id="cb51-6" data-line-number="6">df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-7" data-line-number="7"><span class="st">                </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-8" data-line-number="8"><span class="st">                </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># dataframe (&quot;flat&quot;) object of alltags table</span></a>
+<a class="sourceLine" id="cb51-9" data-line-number="9"><span class="st">                </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))              </a></code></pre></div>
 </div>
 <div id="importSummary" class="section level2">
 <h2><span class="header-section-number">3.13</span> Summary: download, access, and export data</h2>
 <p>Throughout the book we will predominantly be working with the <code>alltags</code> table in flat format. Although described in detail above, here we include a quick summary of how you download, access, and convert the sample data for use in the rest of the book. In later sections of the book, we include additional recommended modifications and filtering of unnecessary variables, more information is available in section <a href="dataCleaning.html#loadDetectionsCleaning">5.1</a> in Chapter <a href="dataCleaning.html#dataCleaning">5</a>.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="co"># set proj.num to 176 for sample data</span></a>
-<a class="sourceLine" id="cb51-2" data-line-number="2">proj.num &lt;-<span class="st"> </span><span class="dv">176</span></a>
-<a class="sourceLine" id="cb51-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb51-4" data-line-number="4"><span class="co"># - download and load detection data from the sample project and save in data folder</span></a>
-<a class="sourceLine" id="cb51-5" data-line-number="5"><span class="co"># - login and password for sample data is &quot;motus.sample&quot;</span></a>
-<a class="sourceLine" id="cb51-6" data-line-number="6"><span class="co"># - if you are accessing already-downloaded data, use new = FALSE; if you don&#39;t</span></a>
-<a class="sourceLine" id="cb51-7" data-line-number="7"><span class="co">#   want to update your data, also set update = FALSE</span></a>
-<a class="sourceLine" id="cb51-8" data-line-number="8">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</a>
-<a class="sourceLine" id="cb51-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb51-10" data-line-number="10"><span class="co"># access the &quot;alltags&quot; table within the SQLite file</span></a>
-<a class="sourceLine" id="cb51-11" data-line-number="11">tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)</a>
-<a class="sourceLine" id="cb51-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb51-13" data-line-number="13"><span class="co"># convert &quot;tbl.alltags&quot; to a flat dataframe and change numeric time to a datetime object</span></a>
-<a class="sourceLine" id="cb51-14" data-line-number="14">df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb51-15" data-line-number="15"><span class="st">              </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb51-16" data-line-number="16"><span class="st">              </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb51-17" data-line-number="17"><span class="st">              </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="co"># set proj.num to 176 for sample data</span></a>
+<a class="sourceLine" id="cb52-2" data-line-number="2">proj.num &lt;-<span class="st"> </span><span class="dv">176</span></a>
+<a class="sourceLine" id="cb52-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb52-4" data-line-number="4"><span class="co"># - download and load detection data from the sample project and save in data folder</span></a>
+<a class="sourceLine" id="cb52-5" data-line-number="5"><span class="co"># - login and password for sample data is &quot;motus.sample&quot;</span></a>
+<a class="sourceLine" id="cb52-6" data-line-number="6"><span class="co"># - if you are accessing already-downloaded data, use new = FALSE; if you don&#39;t</span></a>
+<a class="sourceLine" id="cb52-7" data-line-number="7"><span class="co">#   want to update your data, also set update = FALSE</span></a>
+<a class="sourceLine" id="cb52-8" data-line-number="8">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</a>
+<a class="sourceLine" id="cb52-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb52-10" data-line-number="10"><span class="co"># access the &quot;alltags&quot; table within the SQLite file</span></a>
+<a class="sourceLine" id="cb52-11" data-line-number="11">tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)</a>
+<a class="sourceLine" id="cb52-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb52-13" data-line-number="13"><span class="co"># convert &quot;tbl.alltags&quot; to a flat dataframe and change numeric time to a datetime object</span></a>
+<a class="sourceLine" id="cb52-14" data-line-number="14">df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb52-15" data-line-number="15"><span class="st">              </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb52-16" data-line-number="16"><span class="st">              </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb52-17" data-line-number="17"><span class="st">              </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))</a></code></pre></div>
 <p>For your own data we suggest creating a script with the following workflow:</p>
 <ol style="list-style-type: decimal">
 <li>download and/or update your data</li>
@@ -785,8 +791,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>We caution that producing a flat file using the full suite of fields can use a lot of memory, and can slow R down considerably when dealing with large datasets. For some combinations of data sets and computers, it may be impossible to directly use data frames in R. If that is the case, then this is the point in your workflow where you should carefully consider the information you need from within your data set (for example, how it is aggregated) and simplify it. You can always return to this script and creating a new RDS file with different variables, or aggregated at a different scale.</p>
 <p>To read in a saved RDS file you can run:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="co"># reads in your file &quot;df.alltags.rds&quot; saved in the data folder</span></a>
-<a class="sourceLine" id="cb52-2" data-line-number="2">df.alltags.saved &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/df_alltags.rds&quot;</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co"># reads in your file &quot;df.alltags.rds&quot; saved in the data folder</span></a>
+<a class="sourceLine" id="cb53-2" data-line-number="2">df.alltags.saved &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/df_alltags.rds&quot;</span>) </a></code></pre></div>
 <p>In the next chapter we will check for missing metadata.</p>
 
 </div>
@@ -842,7 +848,8 @@ gitbook.start({
 "download": ["MotusRBook.pdf"],
 "toc": {
 "collapse": "section"
-}
+},
+"search": true
 });
 });
 </script>

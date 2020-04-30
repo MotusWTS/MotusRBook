@@ -136,7 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><strong><a href="./">R for Motus</a></strong></li>
+<li><strong><a href="https://beta.motus.org/MotusRBook">R for Motus</a></strong></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>A walk through the use of R for Motus automated radio-telemetry data</a></li>
@@ -397,7 +397,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="example-16" class="section level2">
 <h2><span class="header-section-number">D.3</span> Example</h2>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" data-line-number="1">filt.df &lt;-<span class="st"> </span><span class="kw">listRunsFilters</span>(<span class="dt">src =</span> sql.motus)</a></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1">filt.df &lt;-<span class="st"> </span><span class="kw">listRunsFilters</span>(<span class="dt">src =</span> sql.motus)</a></code></pre></div>
 </div>
 <div id="createRunsFilter" class="section level2">
 <h2><span class="header-section-number">D.4</span> <code>createRunsFilter</code></h2>
@@ -416,16 +416,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-17" class="section level3">
 <h3><span class="header-section-number">D.4.3</span> Example</h3>
 <p>Create a new filter called “myfilter” for the sql.motus database which is not attached to a specific project:</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1"><span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>)</a>
-<a class="sourceLine" id="cb238-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb238-3" data-line-number="3"><span class="co"># OR add assignment to project</span></a>
-<a class="sourceLine" id="cb238-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb238-5" data-line-number="5"><span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">motusProjID =</span> <span class="dv">176</span>)</a>
-<a class="sourceLine" id="cb238-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb238-7" data-line-number="7"><span class="co"># OR add project and description, possibly updating any previous version called myfilter.</span></a>
-<a class="sourceLine" id="cb238-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb238-9" data-line-number="9"><span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">motusProjID =</span> <span class="dv">176</span>, </a>
-<a class="sourceLine" id="cb238-10" data-line-number="10">                 <span class="dt">descr =</span> <span class="st">&quot;assign probability of 0 to false positives&quot;</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" data-line-number="1"><span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>)</a>
+<a class="sourceLine" id="cb243-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb243-3" data-line-number="3"><span class="co"># OR add assignment to project</span></a>
+<a class="sourceLine" id="cb243-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb243-5" data-line-number="5"><span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">motusProjID =</span> <span class="dv">176</span>)</a>
+<a class="sourceLine" id="cb243-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb243-7" data-line-number="7"><span class="co"># OR add project and description, possibly updating any previous version called myfilter.</span></a>
+<a class="sourceLine" id="cb243-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb243-9" data-line-number="9"><span class="kw">createRunsFilter</span>(sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">motusProjID =</span> <span class="dv">176</span>, </a>
+<a class="sourceLine" id="cb243-10" data-line-number="10">                 <span class="dt">descr =</span> <span class="st">&quot;assign probability of 0 to false positives&quot;</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="getRunsFilters" class="section level2">
@@ -442,18 +442,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="example-18" class="section level3">
 <h3><span class="header-section-number">D.5.3</span> Example</h3>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" data-line-number="1">tbl.filt &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(<span class="dt">src =</span> sql.motus, <span class="dt">filterName =</span> <span class="st">&quot;myfilter&quot;</span>)</a>
-<a class="sourceLine" id="cb239-2" data-line-number="2">tbl.filt2 &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(sql.motus, <span class="st">&quot;myfilter2&quot;</span>)</a>
-<a class="sourceLine" id="cb239-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb239-4" data-line-number="4"><span class="co"># filter records from df that are in tbl.filt</span></a>
-<a class="sourceLine" id="cb239-5" data-line-number="5">df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb239-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb239-7" data-line-number="7"><span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb239-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb239-9" data-line-number="9"><span class="co"># you can apply a second filter, tbl.filt2, to the result of the previous filter</span></a>
-<a class="sourceLine" id="cb239-10" data-line-number="10">df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb239-11" data-line-number="11"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb239-12" data-line-number="12"><span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" data-line-number="1">tbl.filt &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(<span class="dt">src =</span> sql.motus, <span class="dt">filterName =</span> <span class="st">&quot;myfilter&quot;</span>)</a>
+<a class="sourceLine" id="cb244-2" data-line-number="2">tbl.filt2 &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(sql.motus, <span class="st">&quot;myfilter2&quot;</span>)</a>
+<a class="sourceLine" id="cb244-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb244-4" data-line-number="4"><span class="co"># filter records from df that are in tbl.filt</span></a>
+<a class="sourceLine" id="cb244-5" data-line-number="5">df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb244-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb244-7" data-line-number="7"><span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb244-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb244-9" data-line-number="9"><span class="co"># you can apply a second filter, tbl.filt2, to the result of the previous filter</span></a>
+<a class="sourceLine" id="cb244-10" data-line-number="10">df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, tbl.filt2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb244-11" data-line-number="11"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb244-12" data-line-number="12"><span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="writeRunsFilter" class="section level2">
@@ -473,18 +473,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="examples" class="section level3">
 <h3><span class="header-section-number">D.6.3</span> Examples</h3>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1"><span class="co"># write a dataframe containing filter records (runID, motusTagID and</span></a>
-<a class="sourceLine" id="cb240-2" data-line-number="2"><span class="co"># probability) to “myfilter”</span></a>
-<a class="sourceLine" id="cb240-3" data-line-number="3"><span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="dt">filterName =</span> <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df)</a>
-<a class="sourceLine" id="cb240-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb240-5" data-line-number="5"><span class="co"># write a dataframe containing filter records (runID, motusTagID and</span></a>
-<a class="sourceLine" id="cb240-6" data-line-number="6"><span class="co"># probability) to “myfilter”, overwriting a previous version entirely</span></a>
-<a class="sourceLine" id="cb240-7" data-line-number="7"><span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="dt">fileName =</span> <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df, <span class="dt">delete =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb240-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb240-9" data-line-number="9"><span class="co"># write a dataframe containing filter records (runID, motusTagID and</span></a>
-<a class="sourceLine" id="cb240-10" data-line-number="10"><span class="co"># probability) to &quot;myfilter&quot;, but only append new records, leaving previously</span></a>
-<a class="sourceLine" id="cb240-11" data-line-number="11"><span class="co"># created ones intact</span></a>
-<a class="sourceLine" id="cb240-12" data-line-number="12"><span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df, <span class="dt">overwrite =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" data-line-number="1"><span class="co"># write a dataframe containing filter records (runID, motusTagID and</span></a>
+<a class="sourceLine" id="cb245-2" data-line-number="2"><span class="co"># probability) to “myfilter”</span></a>
+<a class="sourceLine" id="cb245-3" data-line-number="3"><span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="dt">filterName =</span> <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df)</a>
+<a class="sourceLine" id="cb245-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb245-5" data-line-number="5"><span class="co"># write a dataframe containing filter records (runID, motusTagID and</span></a>
+<a class="sourceLine" id="cb245-6" data-line-number="6"><span class="co"># probability) to “myfilter”, overwriting a previous version entirely</span></a>
+<a class="sourceLine" id="cb245-7" data-line-number="7"><span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="dt">fileName =</span> <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df, <span class="dt">delete =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb245-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb245-9" data-line-number="9"><span class="co"># write a dataframe containing filter records (runID, motusTagID and</span></a>
+<a class="sourceLine" id="cb245-10" data-line-number="10"><span class="co"># probability) to &quot;myfilter&quot;, but only append new records, leaving previously</span></a>
+<a class="sourceLine" id="cb245-11" data-line-number="11"><span class="co"># created ones intact</span></a>
+<a class="sourceLine" id="cb245-12" data-line-number="12"><span class="kw">writeRunsFilter</span>(<span class="dt">src =</span> sql.motus, <span class="st">&quot;myfilter&quot;</span>, <span class="dt">df =</span> filter.df, <span class="dt">overwrite =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 
 </div>
 </div>
@@ -540,7 +540,8 @@ gitbook.start({
 "download": ["MotusRBook.pdf"],
 "toc": {
 "collapse": "section"
-}
+},
+"search": true
 });
 });
 </script>
