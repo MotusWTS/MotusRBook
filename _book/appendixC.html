@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>C Appendix - motus - Summary and plotting functions | Motus R Book</title>
   <meta name="description" content="C Appendix - motus - Summary and plotting functions | Motus R Book" />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="C Appendix - motus - Summary and plotting functions | Motus R Book" />
   <meta property="og:type" content="book" />
@@ -39,6 +39,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -201,7 +204,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4.2" data-path="dataCleaning.html"><a href="dataCleaning.html#how-the-motusfilter-is-generated"><i class="fa fa-check"></i><b>5.4.2</b> How the <code>motusFilter</code> is generated</a></li>
 <li class="chapter" data-level="5.4.3" data-path="dataCleaning.html"><a href="dataCleaning.html#custom-filters-with-the-filterbyactivity-function"><i class="fa fa-check"></i><b>5.4.3</b> Custom filters with the <code>filterByActivity()</code> function</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#preparing-the-data"><i class="fa fa-check"></i><b>5.5</b> Preparing the data</a></li>
+<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#preparing-the-data"><i class="fa fa-check"></i><b>5.5</b> Preparing the data</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#label-detections-by-probability"><i class="fa fa-check"></i><b>5.5.1</b> Label detections by probability</a></li>
+<li class="chapter" data-level="5.5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#clean-up"><i class="fa fa-check"></i><b>5.5.2</b> Clean up</a></li>
+<li class="chapter" data-level="5.5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#addGPS"><i class="fa fa-check"></i><b>5.5.3</b> Add GPS data</a></li>
+</ul></li>
 <li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.6</b> Preliminary data checks</a><ul>
 <li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.6.1</b> Summarize tag detections</a></li>
 </ul></li>
@@ -236,7 +243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8" data-path="advancedModelling.html"><a href="advancedModelling.html"><i class="fa fa-check"></i><b>8</b> Advanced modelling and analysis</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="appendixA.html"><a href="appendixA.html"><i class="fa fa-check"></i><b>A</b> Appendix - alltags structure</a></li>
+<li class="chapter" data-level="A" data-path="appendixA.html"><a href="appendixA.html"><i class="fa fa-check"></i><b>A</b> Appendix - <code>alltags</code> and <code>alltagsGPS</code> structure</a></li>
 <li class="chapter" data-level="B" data-path="appendixB.html"><a href="appendixB.html"><i class="fa fa-check"></i><b>B</b> Appendix - Troubleshooting</a><ul>
 <li class="chapter" data-level="B.1" data-path="appendixB.html"><a href="appendixB.html#motusLogout"><i class="fa fa-check"></i><b>B.1</b> Logging out of motus</a></li>
 <li class="chapter" data-level="B.2" data-path="appendixB.html"><a href="appendixB.html#resumeDownload"><i class="fa fa-check"></i><b>B.2</b> Resume data download</a></li>
@@ -254,7 +261,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - <code>motus</code> - Summary and plotting functions</a><ul>
-<li class="chapter" data-level="C.1" data-path="appendixC.html"><a href="appendixC.html#checkVersion.B"><i class="fa fa-check"></i><b>C.1</b> <code>checkVersion</code></a><ul>
+<li class="chapter" data-level="C.1" data-path="appendixC.html"><a href="appendixC.html#checkVersionB"><i class="fa fa-check"></i><b>C.1</b> <code>checkVersion</code></a><ul>
 <li class="chapter" data-level="C.1.1" data-path="appendixC.html"><a href="appendixC.html#description"><i class="fa fa-check"></i><b>C.1.1</b> Description</a></li>
 <li class="chapter" data-level="C.1.2" data-path="appendixC.html"><a href="appendixC.html#arguments"><i class="fa fa-check"></i><b>C.1.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.1.3" data-path="appendixC.html"><a href="appendixC.html#example"><i class="fa fa-check"></i><b>C.1.3</b> Example</a></li>
@@ -376,20 +383,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="appendixC" class="section level1">
 <h1><span class="header-section-number">C</span> Appendix - <code>motus</code> - Summary and plotting functions</h1>
 <p>The <code>motus</code> R package offers functions that work with .motus data to do common computations, summaries and plots. This appendix outlines these functions and provides examples on function use. Many of these functions work with both <code>tbl</code> and <code>data.frame</code> formats, however some require the data to be in sql format as specified below. Detailed instructions on accessing and formatting data are available in Chapter <a href="accessingData.html#accessingData">3</a>. The examples throughout this chapter work with the sample data which can be accessed and converted to various formats through the following code:</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1"><span class="co"># download and access sample data in sql format</span></a>
-<a class="sourceLine" id="cb206-2" data-line-number="2"><span class="co"># username: motus.sample, password: motus.sample</span></a>
-<a class="sourceLine" id="cb206-3" data-line-number="3">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)</a>
-<a class="sourceLine" id="cb206-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb206-5" data-line-number="5"><span class="co"># extract &quot;alltags&quot;&quot; table from sql file &quot;sql.motus&quot;</span></a>
-<a class="sourceLine" id="cb206-6" data-line-number="6">tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltagsGPS&quot;</span>) </a>
-<a class="sourceLine" id="cb206-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb206-8" data-line-number="8"><span class="co">## convert the tbl &quot;tbl.alltags&quot; to a data.frame called &quot;df.alltags&quot;</span></a>
-<a class="sourceLine" id="cb206-9" data-line-number="9">df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb206-10" data-line-number="10"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb206-11" data-line-number="11"><span class="st">  </span><span class="kw">as.data.frame</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1"><span class="co"># download and access sample data in sql format</span></a>
+<a class="sourceLine" id="cb209-2" data-line-number="2"><span class="co"># username: motus.sample, password: motus.sample</span></a>
+<a class="sourceLine" id="cb209-3" data-line-number="3">sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)</a>
+<a class="sourceLine" id="cb209-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb209-5" data-line-number="5"><span class="co"># extract &quot;alltags&quot;&quot; table from sql file &quot;sql.motus&quot;</span></a>
+<a class="sourceLine" id="cb209-6" data-line-number="6">tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltagsGPS&quot;</span>) </a>
+<a class="sourceLine" id="cb209-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb209-8" data-line-number="8"><span class="co">## convert the tbl &quot;tbl.alltags&quot; to a data.frame called &quot;df.alltags&quot;</span></a>
+<a class="sourceLine" id="cb209-9" data-line-number="9">df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb209-10" data-line-number="10"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb209-11" data-line-number="11"><span class="st">  </span><span class="kw">as.data.frame</span>()</a></code></pre></div>
 <p>You can access the function help pages using `?sunRiseSet in the R console. Or view the underlying function code like this:</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1">sunRiseSet</a></code></pre></div>
-<div id="checkVersion.B" class="section level2">
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1">sunRiseSet</a></code></pre></div>
+<pre><code>## function (data, lat = &quot;recvDeployLat&quot;, lon = &quot;recvDeployLon&quot;, 
+##     ts = &quot;ts&quot;) 
+## {
+##     data &lt;- data %&gt;% dplyr::collect() %&gt;% as.data.frame()
+##     data$ts &lt;- lubridate::as_datetime(data$ts, tz = &quot;UTC&quot;)
+##     cols &lt;- c(lat, lon, ts)
+##     loc_na &lt;- data[!stats::complete.cases(data[cols]), ]
+##     loc &lt;- data[stats::complete.cases(data[cols]), ]
+##     if (nrow(loc) == 0) 
+##         stop(&quot;No data with coordinates &#39;&quot;, lat, &quot;&#39; and &#39;&quot;, lon, 
+##             &quot;&#39;&quot;, call. = FALSE)
+##     loc$sunrise &lt;- maptools::sunriset(as.matrix(dplyr::select(loc, 
+##         lon, lat)), loc$ts, POSIXct.out = T, direction = &quot;sunrise&quot;)$time
+##     loc$sunset &lt;- maptools::sunriset(as.matrix(dplyr::select(loc, 
+##         lon, lat)), loc$ts, POSIXct.out = T, direction = &quot;sunset&quot;)$time
+##     data &lt;- merge(loc, loc_na, all = TRUE)
+##     return(data)
+## }
+## &lt;bytecode: 0x5570a64696f8&gt;
+## &lt;environment: namespace:motus&gt;</code></pre>
+<div id="checkVersionB" class="section level2">
 <h2><span class="header-section-number">C.1</span> <code>checkVersion</code></h2>
 <div id="description" class="section level3">
 <h3><span class="header-section-number">C.1.1</span> Description</h3>
@@ -401,7 +428,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="example" class="section level3">
 <h3><span class="header-section-number">C.1.3</span> Example</h3>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1"><span class="kw">checkVersion</span>(sql.motus)</a></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1"><span class="kw">checkVersion</span>(sql.motus)</a></code></pre></div>
 </div>
 </div>
 <div id="sunRiseSet" class="section level2">
@@ -420,8 +447,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-1" class="section level3">
 <h3><span class="header-section-number">C.2.3</span> Example</h3>
 <p>Add sunrise/sunset variables to the <code>alltags</code> data.frame</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1">alltags.df.sun &lt;-<span class="st"> </span><span class="kw">sunRiseSet</span>(df.alltags)</a>
-<a class="sourceLine" id="cb209-2" data-line-number="2"><span class="kw">head</span>(alltags.df.sun)</a></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1">alltags.df.sun &lt;-<span class="st"> </span><span class="kw">sunRiseSet</span>(df.alltags)</a>
+<a class="sourceLine" id="cb213-2" data-line-number="2"><span class="kw">head</span>(alltags.df.sun)</a></code></pre></div>
 <pre><code>##    hitID runID batchID                  ts tsCorrected sig sigsd noise freq freqsd  slop burstSlop done motusTagID
 ## 1  45107  8886      53 2015-10-26 11:19:49  1445858390  52     0   -96    4      0 1e-04    0.0000    1      16047
 ## 2  45108  8886      53 2015-10-26 11:20:28  1445858429  54     0   -96    4      0 1e-04   -0.0021    1      16047
@@ -464,20 +491,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4      Shelburne         &lt;NA&gt;            0         74            NA  yagi-9        127        NA  Red Knot
 ## 5      Shelburne         &lt;NA&gt;            0         74            NA  yagi-9        127        NA  Red Knot
 ## 6  BennettMeadow         &lt;NA&gt;            0         74            NA  yagi-9        243        NA  Red Knot
-##            speciesFR       speciesSci speciesGroup tagProjName recvProjName gpsLat gpsLon gpsAlt
-## 1 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
-## 2 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
-## 3 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
-## 4 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
-## 5 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
-## 6 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
-##               sunrise              sunset
-## 1 2015-10-26 11:16:49 2015-10-26 21:52:11
-## 2 2015-10-26 11:16:49 2015-10-26 21:52:11
-## 3 2015-10-26 11:16:49 2015-10-26 21:52:11
-## 4 2015-10-26 11:16:49 2015-10-26 21:52:11
-## 5 2015-10-26 11:16:49 2015-10-26 21:52:11
-## 6 2015-10-26 11:15:58 2015-10-26 21:51:06</code></pre>
+##            speciesFR       speciesSci speciesGroup tagProjName recvProjName gpsLat gpsLon gpsAlt             sunrise
+## 1 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 2 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 3 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 4 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 5 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 6 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:15:58
+##                sunset
+## 1 2015-10-26 21:52:11
+## 2 2015-10-26 21:52:11
+## 3 2015-10-26 21:52:11
+## 4 2015-10-26 21:52:11
+## 5 2015-10-26 21:52:11
+## 6 2015-10-26 21:51:06</code></pre>
 </div>
 </div>
 <div id="plotAllTagsCoord" class="section level2">
@@ -499,9 +526,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-2" class="section level3">
 <h3><span class="header-section-number">C.3.3</span> Example</h3>
 <p>Plot select tags from <code>tbl.alltags</code> with 3 tags per panel</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1"><span class="kw">plotAllTagsCoord</span>(</a>
-<a class="sourceLine" id="cb211-2" data-line-number="2">  <span class="kw">filter</span>(tbl.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">19129</span>, <span class="dv">16011</span>, <span class="dv">17357</span>, <span class="dv">16035</span>, <span class="dv">22897</span>, <span class="dv">23316</span>)), </a>
-<a class="sourceLine" id="cb211-3" data-line-number="3">  <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1"><span class="kw">plotAllTagsCoord</span>(</a>
+<a class="sourceLine" id="cb215-2" data-line-number="2">  <span class="kw">filter</span>(tbl.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">19129</span>, <span class="dv">16011</span>, <span class="dv">17357</span>, <span class="dv">16035</span>, <span class="dv">22897</span>, <span class="dv">23316</span>)), </a>
+<a class="sourceLine" id="cb215-3" data-line-number="3">  <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotAllTagsCoord-1.png" width="672" /></p>
 </div>
 </div>
@@ -524,9 +551,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-3" class="section level3">
 <h3><span class="header-section-number">C.4.3</span> Example</h3>
 <p>Plot tbl file <code>tbl.alltags</code> using gpsLat and 3 tags per panel for select species Red Knot</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1"><span class="kw">plotAllTagsSite</span>(<span class="kw">filter</span>(tbl.alltags, speciesEN <span class="op">==</span><span class="st"> &quot;Red Knot&quot;</span>), </a>
-<a class="sourceLine" id="cb212-2" data-line-number="2">                <span class="dt">coordinate =</span> <span class="st">&quot;recvDeployLat&quot;</span>, </a>
-<a class="sourceLine" id="cb212-3" data-line-number="3">                <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" data-line-number="1"><span class="kw">plotAllTagsSite</span>(<span class="kw">filter</span>(tbl.alltags, speciesEN <span class="op">==</span><span class="st"> &quot;Red Knot&quot;</span>), </a>
+<a class="sourceLine" id="cb216-2" data-line-number="2">                <span class="dt">coordinate =</span> <span class="st">&quot;recvDeployLat&quot;</span>, </a>
+<a class="sourceLine" id="cb216-3" data-line-number="3">                <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotAllTagsSite-1.png" width="672" /></p>
 </div>
 </div>
@@ -547,7 +574,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-4" class="section level3">
 <h3><span class="header-section-number">C.5.3</span> Example</h3>
 <p>Plot of all tag detections at site Longridge using data.frame <code>df.alltags</code></p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1"><span class="kw">plotDailySiteSum</span>(df.alltags, <span class="dt">recvDeployName =</span> <span class="st">&quot;Longridge&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1"><span class="kw">plotDailySiteSum</span>(df.alltags, <span class="dt">recvDeployName =</span> <span class="st">&quot;Longridge&quot;</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotDailySiteSum-1.png" width="672" /></p>
 </div>
 </div>
@@ -568,9 +595,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-5" class="section level3">
 <h3><span class="header-section-number">C.6.2</span> Example</h3>
 <p>Plot routemap of all detection data, with “terrain” maptype, and receivers active between 2016-01-01 and 2017-01-01</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1"><span class="kw">plotRouteMap</span>(sql.motus, </a>
-<a class="sourceLine" id="cb214-2" data-line-number="2">             <span class="dt">maptype =</span> <span class="st">&quot;terrain&quot;</span>,</a>
-<a class="sourceLine" id="cb214-3" data-line-number="3">             <span class="dt">recvStart =</span> <span class="st">&quot;2016-01-01&quot;</span>, <span class="dt">recvEnd =</span> <span class="st">&quot;2016-12-31&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1"><span class="kw">plotRouteMap</span>(sql.motus, </a>
+<a class="sourceLine" id="cb218-2" data-line-number="2">             <span class="dt">maptype =</span> <span class="st">&quot;terrain&quot;</span>,</a>
+<a class="sourceLine" id="cb218-3" data-line-number="3">             <span class="dt">recvStart =</span> <span class="st">&quot;2016-01-01&quot;</span>, <span class="dt">recvEnd =</span> <span class="st">&quot;2016-12-31&quot;</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotRouteMap-1.png" width="672" /></p>
 </div>
 </div>
@@ -590,7 +617,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-6" class="section level3">
 <h3><span class="header-section-number">C.7.3</span> Example</h3>
 <p>Plot only detections at a specific site; Piskwamish for data.frame <code>df.alltags</code></p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1"><span class="kw">plotSite</span>(<span class="kw">filter</span>(df.alltags, recvDeployName <span class="op">==</span><span class="st"> &quot;Piskwamish&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1"><span class="kw">plotSite</span>(<span class="kw">filter</span>(df.alltags, recvDeployName <span class="op">==</span><span class="st"> &quot;Piskwamish&quot;</span>))</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotSite-1.png" width="672" /></p>
 </div>
 </div>
@@ -613,8 +640,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-7" class="section level3">
 <h3><span class="header-section-number">C.8.3</span> Example</h3>
 <p>Plot select tags for site Piskwamish</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" data-line-number="1"><span class="kw">plotSiteSig</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16037</span>, <span class="dv">16039</span>, <span class="dv">16035</span>)), </a>
-<a class="sourceLine" id="cb216-2" data-line-number="2">            <span class="dt">recvDeployName =</span> <span class="st">&quot;Netitishi&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1"><span class="kw">plotSiteSig</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16037</span>, <span class="dv">16039</span>, <span class="dv">16035</span>)), </a>
+<a class="sourceLine" id="cb220-2" data-line-number="2">            <span class="dt">recvDeployName =</span> <span class="st">&quot;Netitishi&quot;</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotSiteSig-1.png" width="672" /></p>
 </div>
 </div>
@@ -638,7 +665,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-8" class="section level3">
 <h3><span class="header-section-number">C.9.3</span> Example</h3>
 <p>Plot signal strength of a specified tag using <code>tbl</code> file <code>tbl.alltags</code></p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1"><span class="kw">plotTagSig</span>(tbl.alltags, <span class="dt">motusTagID =</span> <span class="dv">16035</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1"><span class="kw">plotTagSig</span>(tbl.alltags, <span class="dt">motusTagID =</span> <span class="dv">16035</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotTagSig-1.png" width="672" /></p>
 </div>
 </div>
@@ -658,8 +685,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-9" class="section level3">
 <h3><span class="header-section-number">C.10.3</span> Example</h3>
 <p>To get a data.frame called <code>simSites</code> of just simultaneous detections from a data.frame <code>df.alltags</code></p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1">simSites &lt;-<span class="st"> </span><span class="kw">simSiteDet</span>(df.alltags)</a>
-<a class="sourceLine" id="cb218-2" data-line-number="2"><span class="kw">head</span>(simSites)</a></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1">simSites &lt;-<span class="st"> </span><span class="kw">simSiteDet</span>(df.alltags)</a>
+<a class="sourceLine" id="cb222-2" data-line-number="2"><span class="kw">head</span>(simSites)</a></code></pre></div>
 <pre><code>##  [1] motusTagID     ts             num.dup        hitID          runID          batchID        tsCorrected   
 ##  [8] sig            sigsd          noise          freq           freqsd         slop           burstSlop     
 ## [15] done           ambigID        port           runLen         bootnum        tagProjID      mfgID         
@@ -691,12 +718,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-10" class="section level3">
 <h3><span class="header-section-number">C.11.3</span> Example</h3>
 <p>Create site summaries for select sites with time in minutes</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1">site_summary &lt;-<span class="st"> </span><span class="kw">siteSum</span>(<span class="kw">filter</span>(df.alltags, </a>
-<a class="sourceLine" id="cb220-2" data-line-number="2">                               recvDeployName <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Niapiskau&quot;</span>, <span class="st">&quot;Netitishi&quot;</span>, </a>
-<a class="sourceLine" id="cb220-3" data-line-number="3">                                                     <span class="st">&quot;Old Cur&quot;</span>, <span class="st">&quot;Washkaugou&quot;</span>)), </a>
-<a class="sourceLine" id="cb220-4" data-line-number="4">                        <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1">site_summary &lt;-<span class="st"> </span><span class="kw">siteSum</span>(<span class="kw">filter</span>(df.alltags, </a>
+<a class="sourceLine" id="cb224-2" data-line-number="2">                               recvDeployName <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Niapiskau&quot;</span>, <span class="st">&quot;Netitishi&quot;</span>, </a>
+<a class="sourceLine" id="cb224-3" data-line-number="3">                                                     <span class="st">&quot;Old Cur&quot;</span>, <span class="st">&quot;Washkaugou&quot;</span>)), </a>
+<a class="sourceLine" id="cb224-4" data-line-number="4">                        <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)</a></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/siteSum-1.png" width="672" /></p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1"><span class="kw">head</span>(site_summary)</a></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1"><span class="kw">head</span>(site_summary)</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 6
 ##   recvDeployName         first_ts            last_ts             tot_ts            num.tags num.det
 ##   &lt;fct&gt;                  &lt;dttm&gt;              &lt;dttm&gt;              &lt;drtn&gt;               &lt;int&gt;   &lt;int&gt;
@@ -723,22 +750,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-11" class="section level3">
 <h3><span class="header-section-number">C.12.3</span> Example</h3>
 <p>Create site summaries for all sites within detection data with time in minutes using <code>tbl</code> file <code>tbl.alltags</code></p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1">daily_site_summary &lt;-<span class="st"> </span><span class="kw">siteSumDaily</span>(tbl.alltags, <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)</a>
-<a class="sourceLine" id="cb223-2" data-line-number="2"><span class="kw">head</span>(daily_site_summary)</a></code></pre></div>
-<pre><code>##                            recvDeployName       date            first_ts             last_ts         tot_ts
-## 1      Assateague State Park\n38.2, -75.1 2015-09-13 2015-09-13 10:12:50 2015-09-13 10:14:40  1.828847 mins
-## 2                    Baccaro\n43.5, -65.5 2017-05-19 2017-05-19 16:01:21 2017-05-19 16:02:40  1.323297 mins
-## 3              BennettMeadow\n42.7, -72.5 2015-10-26 2015-10-26 11:12:04 2015-10-26 11:30:49 18.747692 mins
-## 4 Binbrook_Conservation_Area\n43.1, -79.8 2017-05-18 2017-05-18 03:13:25 2017-05-18 03:13:46  0.353195 mins
-## 5                       BISE\n41.2, -71.6 2015-10-26 2015-10-26 17:55:47 2015-10-26 19:16:55 81.132212 mins
-## 6                  Blandford\n44.5, -64.1 2015-12-26 2015-12-26 14:58:27 2015-12-26 14:58:47  0.323150 mins
-##   num_tags num_det
-## 1        1       6
-## 2        3       6
-## 3        1      27
-## 4        2       6
-## 5        1      44
-## 6        1       2</code></pre>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1">daily_site_summary &lt;-<span class="st"> </span><span class="kw">siteSumDaily</span>(tbl.alltags, <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)</a>
+<a class="sourceLine" id="cb227-2" data-line-number="2"><span class="kw">head</span>(daily_site_summary)</a></code></pre></div>
+<pre><code>##                            recvDeployName       date            first_ts             last_ts         tot_ts num_tags
+## 1      Assateague State Park\n38.2, -75.1 2015-09-13 2015-09-13 10:12:50 2015-09-13 10:14:40  1.828847 mins        1
+## 2                    Baccaro\n43.5, -65.5 2017-05-19 2017-05-19 16:01:21 2017-05-19 16:02:40  1.323297 mins        3
+## 3              BennettMeadow\n42.7, -72.5 2015-10-26 2015-10-26 11:12:04 2015-10-26 11:30:49 18.747692 mins        1
+## 4 Binbrook_Conservation_Area\n43.1, -79.8 2017-05-18 2017-05-18 03:13:25 2017-05-18 03:13:46  0.353195 mins        2
+## 5                       BISE\n41.2, -71.6 2015-10-26 2015-10-26 17:55:47 2015-10-26 19:16:55 81.132212 mins        1
+## 6                  Blandford\n44.5, -64.1 2015-12-26 2015-12-26 14:58:27 2015-12-26 14:58:47  0.323150 mins        1
+##   num_det
+## 1       6
+## 2       6
+## 3      27
+## 4       6
+## 5      44
+## 6       2</code></pre>
 </div>
 </div>
 <div id="siteTrans" class="section level2">
@@ -760,21 +787,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-12" class="section level3">
 <h3><span class="header-section-number">C.13.3</span> Example</h3>
 <p>View site transitions for only tag 16037 from data.frame <code>df.alltags</code></p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1">transitions &lt;-<span class="st"> </span><span class="kw">siteTrans</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16037</span>), </a>
-<a class="sourceLine" id="cb225-2" data-line-number="2">                         <span class="dt">latCoord =</span> <span class="st">&quot;recvDeployLat&quot;</span>, <span class="dt">lonCoord =</span> <span class="st">&quot;recvDeployLon&quot;</span>)</a>
-<a class="sourceLine" id="cb225-3" data-line-number="3"><span class="kw">head</span>(transitions)</a></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1">transitions &lt;-<span class="st"> </span><span class="kw">siteTrans</span>(<span class="kw">filter</span>(df.alltags, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16037</span>), </a>
+<a class="sourceLine" id="cb229-2" data-line-number="2">                         <span class="dt">latCoord =</span> <span class="st">&quot;recvDeployLat&quot;</span>, <span class="dt">lonCoord =</span> <span class="st">&quot;recvDeployLon&quot;</span>)</a>
+<a class="sourceLine" id="cb229-3" data-line-number="3"><span class="kw">head</span>(transitions)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 16
 ## # Groups:   motusTagID, tagDeployID [1]
-##   motusTagID tagDeployID        data consec ts.x                lat.x lon.x recvDeployName.x ts.y               
-##        &lt;int&gt;       &lt;int&gt; &lt;list&lt;df[,&gt; &lt;list&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;            &lt;dttm&gt;             
-## 1      16037        1825 [1,353 × 4] &lt;tibb… 2015-08-17 17:02:39  NA    NA   NP mobile_NA, NA 2015-08-23 15:13:57
-## 2      16037        1825 [1,353 × 4] &lt;tibb… 2015-08-28 16:40:18  51.5 -80.4 North Bluff_51.… 2015-08-30 01:36:08
-## 3      16037        1825 [1,353 × 4] &lt;tibb… 2015-09-08 01:10:13  51.3 -80.1 Netitishi_51.3,… 2015-09-08 18:29:57
-## 4      16037        1825 [1,353 × 4] &lt;tibb… 2015-09-08 18:37:16  44.6 -65.8 Comeau (Marshal… 2015-09-13 15:36:30
-## 5      16037        1825 [1,353 × 4] &lt;tibb… 2015-09-13 19:46:27  39.0 -74.8 NWW_39, -74.8    2015-09-14 15:55:48
-## 6      16037        1825 [1,353 × 4] &lt;tibb… 2015-09-14 15:56:49  37.1 -76.0 BULL_37.1, -76   2015-10-15 11:14:46
-## # … with 7 more variables: lat.y &lt;dbl&gt;, lon.y &lt;dbl&gt;, recvDeployName.y &lt;chr&gt;, tot_ts &lt;drtn&gt;, dist &lt;dbl&gt;, rate &lt;dbl&gt;,
-## #   bearing &lt;dbl&gt;</code></pre>
+##   motusTagID tagDeployID data  consec ts.x                lat.x lon.x recvDeployName.x ts.y                lat.y lon.y
+##        &lt;int&gt;       &lt;int&gt; &lt;lis&gt; &lt;list&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;            &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;
+## 1      16037        1825 &lt;tib… &lt;tibb… 2015-08-17 17:02:39  NA    NA   NP mobile_NA, NA 2015-08-23 15:13:57  51.5 -80.4
+## 2      16037        1825 &lt;tib… &lt;tibb… 2015-08-28 16:40:18  51.5 -80.4 North Bluff_51.… 2015-08-30 01:36:08  51.3 -80.1
+## 3      16037        1825 &lt;tib… &lt;tibb… 2015-09-08 01:10:13  51.3 -80.1 Netitishi_51.3,… 2015-09-08 18:29:57  44.6 -65.8
+## 4      16037        1825 &lt;tib… &lt;tibb… 2015-09-08 18:37:16  44.6 -65.8 Comeau (Marshal… 2015-09-13 15:36:30  39.0 -74.8
+## 5      16037        1825 &lt;tib… &lt;tibb… 2015-09-13 19:46:27  39.0 -74.8 NWW_39, -74.8    2015-09-14 15:55:48  37.1 -76.0
+## 6      16037        1825 &lt;tib… &lt;tibb… 2015-09-14 15:56:49  37.1 -76.0 BULL_37.1, -76   2015-10-15 11:14:46  42.6 -80.4
+## # … with 5 more variables: recvDeployName.y &lt;chr&gt;, tot_ts &lt;drtn&gt;, dist &lt;dbl&gt;, rate &lt;dbl&gt;, bearing &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <div id="tagSum" class="section level2">
@@ -796,8 +822,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-13" class="section level3">
 <h3><span class="header-section-number">C.14.3</span> Example</h3>
 <p>Create tag summary for all tags within detection data using tbl file <code>tbl.alltags</code></p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1">tag_summary &lt;-<span class="st"> </span><span class="kw">tagSum</span>(tbl.alltags)</a>
-<a class="sourceLine" id="cb227-2" data-line-number="2"><span class="kw">head</span>(tag_summary)</a></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1">tag_summary &lt;-<span class="st"> </span><span class="kw">tagSum</span>(tbl.alltags)</a>
+<a class="sourceLine" id="cb231-2" data-line-number="2"><span class="kw">head</span>(tag_summary)</a></code></pre></div>
 <pre><code>##                               fullID            first_ts             last_ts              first_site
 ## 1      Niles#152:6.1@166.38(M.10811) 2015-08-03 06:37:11 2015-08-03 06:37:35 North Bluff_51.5, -80.5
 ## 2                   ?proj?-0#395:9.7 2015-07-23 10:10:54 2015-09-02 20:06:13     Machias_44.5, -67.1
@@ -838,9 +864,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-14" class="section level3">
 <h3><span class="header-section-number">C.15.3</span> Example</h3>
 <p>Create tag summaries for only select tags with time in default hours with data.frame <code>df.alltags</code></p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1">tag_site_summary &lt;-<span class="st"> </span><span class="kw">tagSumSite</span>(<span class="kw">filter</span>(df.alltags, </a>
-<a class="sourceLine" id="cb229-2" data-line-number="2">                                      motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16047</span>, <span class="dv">16037</span>, <span class="dv">16039</span>)))</a>
-<a class="sourceLine" id="cb229-3" data-line-number="3"><span class="kw">head</span>(tag_site_summary)</a></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1">tag_site_summary &lt;-<span class="st"> </span><span class="kw">tagSumSite</span>(<span class="kw">filter</span>(df.alltags, </a>
+<a class="sourceLine" id="cb233-2" data-line-number="2">                                      motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16047</span>, <span class="dv">16037</span>, <span class="dv">16039</span>)))</a>
+<a class="sourceLine" id="cb233-3" data-line-number="3"><span class="kw">head</span>(tag_site_summary)</a></code></pre></div>
 <pre><code>##                               fullID                     recvDeployName            first_ts             last_ts
 ## 1 SampleData#179:6.1@166.38(M.16037)                    BULL\n37.1, -76 2015-09-14 15:55:48 2015-09-14 15:56:49
 ## 2 SampleData#179:6.1@166.38(M.16037) Comeau (Marshalltown)\n44.6, -65.8 2015-09-08 18:29:57 2015-09-08 18:37:16
@@ -874,8 +900,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-15" class="section level3">
 <h3><span class="header-section-number">C.16.3</span> Example</h3>
 <p>Get sunrise and sunset information with units in minutes using tbl file <code>tbl.alltags</code></p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1">sunrise &lt;-<span class="st"> </span><span class="kw">timeToSunriset</span>(tbl.alltags, <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)</a>
-<a class="sourceLine" id="cb231-2" data-line-number="2"><span class="kw">head</span>(sunrise)</a></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1">sunrise &lt;-<span class="st"> </span><span class="kw">timeToSunriset</span>(tbl.alltags, <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)</a>
+<a class="sourceLine" id="cb235-2" data-line-number="2"><span class="kw">head</span>(sunrise)</a></code></pre></div>
 <pre><code>##    hitID runID batchID                  ts tsCorrected sig sigsd noise freq freqsd  slop burstSlop done motusTagID
 ## 1  45107  8886      53 2015-10-26 11:19:49  1445858390  52     0   -96    4      0 1e-04    0.0000    1      16047
 ## 2  45108  8886      53 2015-10-26 11:20:28  1445858429  54     0   -96    4      0 1e-04   -0.0021    1      16047
@@ -918,20 +944,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4      Shelburne         &lt;NA&gt;            0         74            NA  yagi-9        127        NA  Red Knot
 ## 5      Shelburne         &lt;NA&gt;            0         74            NA  yagi-9        127        NA  Red Knot
 ## 6  BennettMeadow         &lt;NA&gt;            0         74            NA  yagi-9        243        NA  Red Knot
-##            speciesFR       speciesSci speciesGroup tagProjName recvProjName gpsLat gpsLon gpsAlt
-## 1 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
-## 2 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
-## 3 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
-## 4 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
-## 5 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
-## 6 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
-##               sunrise              sunset ts_to_set ts_since_set  ts_to_rise ts_since_rise
-## 1 2015-10-26 11:16:49 2015-10-26 21:52:11  632.3533     806.2056 1438.215974      3.013824
-## 2 2015-10-26 11:16:49 2015-10-26 21:52:11  631.7104     806.8485 1437.573097      3.656701
-## 3 2015-10-26 11:16:49 2015-10-26 21:52:11  630.9109     807.6480 1436.773577      4.456221
-## 4 2015-10-26 11:16:49 2015-10-26 21:52:11  630.2513     808.3076 1436.113997      5.115801
-## 5 2015-10-26 11:16:49 2015-10-26 21:52:11  629.4518     809.1071 1435.314477      5.915321
-## 6 2015-10-26 11:15:58 2015-10-26 21:51:06  639.0310     799.5242    3.896393   1437.332308</code></pre>
+##            speciesFR       speciesSci speciesGroup tagProjName recvProjName gpsLat gpsLon gpsAlt             sunrise
+## 1 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 2 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 3 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 4 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 5 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49
+## 6 Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:15:58
+##                sunset ts_to_set ts_since_set  ts_to_rise ts_since_rise
+## 1 2015-10-26 21:52:11  632.3533     806.2056 1438.215974      3.013824
+## 2 2015-10-26 21:52:11  631.7104     806.8485 1437.573097      3.656701
+## 3 2015-10-26 21:52:11  630.9109     807.6480 1436.773577      4.456221
+## 4 2015-10-26 21:52:11  630.2513     808.3076 1436.113997      5.115801
+## 5 2015-10-26 21:52:11  629.4518     809.1071 1435.314477      5.915321
+## 6 2015-10-26 21:51:06  639.0310     799.5242    3.896393   1437.332308</code></pre>
 
 </div>
 </div>
@@ -947,11 +973,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -959,12 +987,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -976,6 +1003,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
