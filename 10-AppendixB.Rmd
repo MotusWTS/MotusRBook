@@ -11,6 +11,26 @@ As a first step, always ensure you are using the latest version of the motus pac
 
 While attempting to download data with the motus package, you may encounter errors, many of which are likely due to an interrupted connection. **Always ensure you are connected to the internet when using the `tagme()` function with `update = TRUE`**.  Most issues can be solved by either logging out of the motus package, or by restarting R and resuming the download using `tagme()`. If errors persist and you are unable to download your data, the server may be temporarily offline. Please contact Motus with any concerns at motus@birdscanada.org.
 
+## General Problems
+
+Many, *many*, problems arise from conflicts between R packages which may be out of date. 
+If you have a problem that you can't seem to resolve, try the following steps in order (stopping when the problem goes away):
+
+1. Update `motus` and packages that `motus` depends on. (You may first need to install the `remotes` package). **Re-start R**
+
+```{r eval = FALSE}
+remotes::update_packages("motus")
+```
+
+2. Update all your packages. **Re-start R**
+
+```{r eval = FALSE}
+remotes::update_packages()
+```
+
+3. Update R <https://cran.r-project.org/>. (You may have to reinstall packages)
+
+
 ## Logging out of motus {#motusLogout}
 ```{r motusLogout, eval = FALSE}
 motusLogout()
