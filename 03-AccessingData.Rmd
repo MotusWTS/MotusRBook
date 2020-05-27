@@ -54,7 +54,8 @@ The .motus file contains a series of interrelated tables where data are stored i
 In addition to these tables, there are also 'virtual' tables or 'views', which have been created through queries that merge data from the various tables into a single convenient 'view' that contains all of the fields you are likely to need. The following views are currently included in each .motus file:
 
 1. **allambigs**: lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.
-2. **alltags**: provides the full detection data for all tags, and all ambiguous (duplicate) tags,  associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID. 
+2. **alltags**: provides the full detection data for all tags, and all ambiguous (duplicate) tags,  associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID.  Note that because joining the GPS values was very slow, these fields (`gpsLat`, `gpsLon`, and `gpsAlt`) have been removed from the default alltags view. If your project database is small enough, you can use alltagsGPS to include those values, but we recommend using the 'getGPS()' function instead.
+3. **alltagsGPS**: provides the full detection data for all tags, and all ambiguous (duplicate) tags,  associated with your project, **including** GPS data (**may take several hours to run for large projects**). Ambiguous detections are repeated for each motusTagID represented by each ambigID. 
 
 Because the file is a dplyr::src_sqlite file, all of the dplyr functions can be used to filter and summarize the .motus database, without needing to first save the data as a *flat* file (a typical two-dimensional dataframe). The SQL format is very advantageous when you have a large file -- the queries using SQL will be substantially faster than those done on a flat dataframe. 
 
@@ -255,7 +256,7 @@ dbListFields(file.name, "species")
 
 ```
 
-The *virtual* table 'alltags' contains the detection data, along with all metadata variables that most users will ever need from the various underlying .motus tables. We access the tables using the tbl() function from the dplyr package which we installed in Chapter 2:  
+The *virtual* table 'alltags' contains the detection data, along with all metadata variables that most users will ever need from the various underlying .motus tables (but now excludes GPS data). We access the tables using the tbl() function from the dplyr package which we installed in Chapter 2:  
 
 ```{r getAllTagsTable, eval = FALSE}
 
@@ -263,6 +264,39 @@ The *virtual* table 'alltags' contains the detection data, along with all metada
 tbl.alltags <- tbl(sql.motus, "alltags") # virtual table
 
 ```
+
+If your project database is relatively small and you prefer to include the GPS data, you can use the previous version of the *virtual* table, which was renamed *alltagsGPS*:  
+
+```{r getAllTagsTableGPS, eval = FALSE}
+
+# this retrieves the "alltagsGPS" table from the "sql.motus" SQLite file we read in earlier
+tbl.alltags <- tbl(sql.motus, "alltagsGPS") # virtual table
+
+```
+
+If your project database is larger, you can now use the 'getGPS()' function to get the GPS data associated with your records. The 'getGPS()' function returns a dataframe of all hitID present in the 'alltags' view, and the associated GPS data based on one of 3 methods.
+
+# 'by = X' Where 'X' is a duration in minutes. 'ts' is converted to a specific time block of duration 'X'. Median GPS lat/longs for the time block are returned, matching associated 'batchID'/'hitID' time blocks. Be aware that you should ideally not chose a period smaller than the frequency at which GPS fixes are recorded, or some hits will not be associated with GPS.
+# 'by = "daily"' (the default). Similar to 'by = X' except the duration is 24hr (same as 'by = 1440'). This method is most suitable for receiver deployments at fixed location.
+# 'by = "closest"' Individual GPS lat/lons are returned, matching the closest 'batchID'/'hitID' timestamp. This method is most accurate for mobile deployments, but is potentially slower than 'by = X'.
+
+
+```{r getGPS, eval = FALSE}
+
+# this retrieves the GPS data associated with all batchID and runID for all availables hits in the database, using a period of 1 hour. The keepAll option forces to keep all records, including those that do not have GPS data associated for a period.
+df.gps <- getGPS(sql.motus, keepAll = TRUE, by=60)
+
+# alternatively, using the 'closest' method, which returns the closest GPS fix for each hit, for a subset of data (e.g. motusTagID 12345). 
+
+tbl.alltags <- tbl(sql.motus, "alltags") # virtual table
+df.tag12345 <- tbl(sql.motus, "alltags") %>% filter(motusTagID == 12345) %>% collect()
+df.gps <- getGPS(sql.motus, data=df.tag12345, keepAll=TRUE, by="closest")
+
+# merge the data and gps dataframes
+df.tag12345 <- merge(df.tag12345, df.gps, by=c("batchID", "hitID")
+
+```
+
 
 We now have a new 'tbl.alltags' object in R. The underlying structure of these tables is a list of length 2:
 
