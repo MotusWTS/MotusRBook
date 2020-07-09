@@ -1,5 +1,10 @@
 # Bird's Eye View of Motus Data #
 
+This document has been adapted from a version written by John Brzustowsky in 2017. It provides an overview 
+of the fundamentals of how Motus data processing works. The document has been adapted to incorporate more recent 
+developments, particularly the addition of new digital tags and base stations manufactured by Cellular 
+Tracking Technologies (CTT), who took over the development from Cornell University.
+
 ## What data look like ##
 
 Here's a segment of data from a receiver (with a single antenna):
@@ -8,11 +13,13 @@ Here's a segment of data from a receiver (with a single antenna):
 Receiver R
                                                  Time ->
           \==========================================================================\
-   Tag A: /         1-----1--1----1-----1-----1            4---4-----4--4-------4--4-/
+   Tag A: /         1-----1--1----1-----1-----1            4---4-----4--4-------4--4-/  <- antenna #1
           \. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \
-   Tag B: /                       3-----3--3--3--3--3-------3----3--3                /
+   Tag B: /                       3-----3--3--3--3--3-------3----3--3                /  <- antenna #1
           \. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \
-   Tag C: /            2--2---2--2--2--2--2--2--2--2--2--2--2--2--2--2--2--2--2--2   /
+   Tag C: /            2--2---2--2--2--2--2--2--2--2--2--2--2--2--2--2--2--2--2--2   /  <- antenna #1
+          \. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \
+   Tag C: /                      5--------5--5--5--5--5--5-----5--------5--------5   /  <- antenna #2
           \==========================================================================\
 
 ```
@@ -21,44 +28,113 @@ Receiver R
  - horizontal *lanes*, separated by `. . .` correspond to individual tags, labelled at left
 
  - **hits** (detections) of a tag are plotted as single digits within its lane
-
- - for Lotek coded ID tags, individual hits are not sufficient
-   to determine which tag is being detected, because multiple tags
-   transmit the same ID.  However, the period (spacing between consecutive
-   transmissions) is precise, and differs among tags sharing the same
-   ID.
-
- - so the fundamental unit of detection for Lotek coded ID tags is the
-   **run**, or sequence of hits of a given ID, with spacing
-   **compatible** with the value for that tag.  i.e. two hits
-   might differ by the tag's period, or by twice its period, or three
-   times its period, ..., up to a limit required by drift between
-   clocks on the transmit and receive sides.
-
- - for Cornell ID tags, there are 2^32 unique codes, but:
-    - there is a significant false positive rate, meaning some "hits" are not from tags
-    - there is a significant bit error rate, meaning some "hits" are from tags
-      whose actual code differs by a few bits from the code detected.
-    - there is no fixed period for a tag, as transmission depends on accumulation of
-      sufficient energy from the photovoltaic cell.
-
- - so for Cornell ID tags, the fundamental unit of detection is again
-   the run, but assembled from hits based on low inter-code
-   Manhattan distance (i.e. # of bits difference), rather than time gaps.
-
+ 
  - in the diagram above, runs are labelled by digits. So all hits of tag
    A above are either in run `1` or in run `4`.
 
- - for Lotek ID tags, a run can have gaps (missing hits) up to a
-   certain size.  Beyond that size, measurement error and clock drift
-   are large enough that we can't be sure that the next detection of
-   the same ID code is after a compatible time interval.  So for tag A
-   above, we're not sure the gap between the last detection in run 1
-   and the first detection in run 4 is really compatible with tag A,
-   so run 1 is ended and a new run is begun.  We could link runs 1 and
-   4 post-hoc, once we saw that run 4 was being built with gaps
-   compatible with tag A, but at present, the run-building algorithm
-   doesn't backtrack.)
+ - the same tag can be detected simultaneously on multiple antennae, and therefore be part
+   of runs that overlap in time. For example, tag C is detected on antenna 1 and 2.
+   
+ - In principle, the same tag should never be part of overlapping runs on the SAME antenna,
+   but in practice this can happen in noisy environments with Lotek tags, and it should be assumed
+   that these runs are likely from other sources than actual tags (false positives).
+   
+ - Overlapping run would not happen with CTT tags because of the way runs are built, but the rate of hits  
+   would still be expected to be around 1 per second or lower.
+   
+ - for Lotek coded ID tags, individual hits are not sufficient to determine which tag is being detected, 
+   because multiple tags transmit the same ID.  However, the period (spacing between consecutive
+   transmissions) is precise, and differs among tags sharing the same ID.
+
+ - the fundamental unit of detection for Lotek coded ID tags is the **run**, or sequence of 
+   hits of a given ID, with spacing **compatible** with the value for that tag.  i.e. two hits
+   might differ by the tag's period, or by twice its period, or three times its period, ..., 
+   up to a limit required by drift between clocks on the transmit and receive sides.
+
+   - for Lotek ID tags, a run can have gaps (missing hits) up to a certain size.  Beyond that size, 
+   measurement error and clock drift are large enough that we can't be sure that the next detection of
+   the same ID code is after a compatible time interval.  So for tag A above, we're not sure the gap 
+   between the last detection in run 1 and the first detection in run 4 is really compatible with tag A,
+   so run 1 is ended and a new run is begun.  We could link runs 1 and 4 post-hoc, once we saw that run 4 was being built with gaps
+   compatible with tag A, but at present, the run-building algorithm doesn't backtrack.)
+
+   - for CTT tags, there are 2^32 unique codes, which ensures that each of them is unique. Contrary to Lotek  
+   tags, runs are not limited to consecutive detections matching a precise period, in part because the period may 
+   vary depending on the energy available from the photovoltaic cell. Run are still assembled
+   based on consecutive detections on a single antenna (or node, if applicable), as long as they 
+   are not spaced by more than an arbitrary period (600 seconds).
+
+## False positives ##
+
+   False positives (apparent detections of tags actually caused by other sources) exist in all technologies
+   and need to be taken into account. These can happen for quite a number of reasons, and will sometimes 
+   affect Lotek and CTT tags in different measure. False positives are difficult to identify, but there are
+   approaches to identify conditions in which the are more likely to occur, and potential ways to mitigate them.
+   
+ - Noisy environments: radio noise from interference can create bursts that look like tags. As the amoung of radio
+   pulses from other sources increases in the environment, so it the expected number of false positives.
+  
+ - Bit errors: actual tag signals may be incorrectly transmitted. Those should rarely produce valid ID's, but
+   they will be more likely with CTT tags, mostly because where is a very high number of possible combinations 
+   (4 billions). They should still rarely produce an ID of a tag actually manufactured. In CTT tags, bit errors 
+   has been found to lead more often to certain patterns (e.g. the last trailing digits being all 7 or F's: xxxFFFF 
+   due to only a partial signal being received), and those patterns   have since been excluded from the list of valid tags.
+   
+ - Aliasing: aliasing happens when the combination of multiple tags create the appearance of a tag that is not present
+   but matches another known tag. This can happen in at least 2 ways: 1) 2 tags with distinct ID's, but with the same period
+   (both Lotek and CTT). 2) 2 tags with the same ID, but with distinct periods (only for Lotek). In the first case,
+   if the burst of both tags overlap, they may interfere with each other and create the appearance of a new tag for a while.
+   Assuming that the 2 tags do not have exactly the same period, their bursts should eventually drift apart and the precise alias
+   probably will not persist over a very long run. In the second case, if you have multiple tags with the same ID but distinct 
+   periods, this may potentially also result in new periods, but those would likely rarely exceed 2 consecutive hits (run 
+   length = 2). Both types of aliasing is mostly problematic in environments where you have many tags present simultaneously 
+   that increases the incidence of overlapping tags (e.g. colonies).
+
+For both Lotek and CTT tags, their manufacturers have integrated various methods to reduce the incidence of false detections 
+into their proprietary technologies. Data collected by Sensor Gnomes are processed in Motus by the "Tag finder", which looks at 
+properties of the signal to exclude likely false positives (e.g. higher deviation in the frequency of pulses within a burst). The
+parameters can potentially be adjusted, but an aggressive approach aimed at reducing false positives will also result in an increase
+in false negatives.
+
+  - Run length: With both types of tag technologies, the likelihood of obtaining false positives should decrease as the run length increases. 
+    For Lotek tags, we generally recommend ignoring runs comprised only of 2 or 3 hits. Some (many?) probably relate
+    to real tag detections, but the vast majority probably do not. For CTT tags, we do not yet have a suggested minimum threshold.
+	In most cases, given that tag period is short, one would expect that true single-hit runs to be quite rare, so those should 
+	likely be excluded to be safer. The likelihood of obtaining the same false ID in consecutive detections is probably very low,
+	except for some specific tag ID's that are more prone to error. Runs of 2 detections or more are probably safe in most instances.
+
+  - Measures of noise. A higher amount of radio pulses is likely a good predictor of false positives, though other factors are also 
+    at play, and not all radio noise is problematic in the same way. We recommend that you use the number of runs comprised of only 2 hits,
+	which is provided by the activity table (see details here). In noisy environments, shorter runs are much more likely to be false
+    positives and should be excluded. 
+  
+  - Missed detections: False positives should more often lead to gaps in detections during a run. A run that contains several gaps in detection
+    would therefore be deemed less reliable. A simple metric for this would be to divide the number of hits in a run (the run lenght) by the 
+	duration of the run (tsEnd - tsStart). Longer runs with few or no gaps in detection would be optimal. 
+	
+  - Overlapping runs. Runs of the same tag on the same antenna should also be an indication of false positives, but this should be highly correlated
+    with the number and/or ratio of short runs described above.
+	
+  - Spatio-temporal models. State-space models and other approach can be used to assess whether movement make sense from a biological 
+    point of view, and can help assign probabilities that individual detections are valid.
+	
+  - If you have any suggestions about techniques you are using to separate true detections from false positives, we encourage you to share
+    them with us!
+ 
+
+## False negatives ##
+
+False negatives are usually even more difficult to detect.
+
+  - Faulty equipement or installation is always possible of course. Please refer to the installation guidelines to make sure
+    you follow all the recommendations.
+
+  - DO NOT FORGET to register your tags! (details here)
+	
+  - DO NOT FORGET to activate your tags before deploying them!
+  
+  - Make sure that you report your tag and receiver deployment details BEFORE uploading your data. Motus tag finder only seek tags
+    that are known to be deployed.
 
 ## Complication:  data are processed in batches ##
 
@@ -228,7 +304,7 @@ reasons:
    have "used up" signals that could instead have come from other
    tags, thereby causing both its own false positives, and false
    negatives on other tags.  (This is only true for Lotek ID tags;
-   Cornell should be unaffected, provided deployed tags are well
+   CTT should be unaffected, provided deployed tags are well
    dispersed in the ID codespace.)
 
  - bug fixes or improvements in the tag finding algorithm
