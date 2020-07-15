@@ -265,20 +265,36 @@ dbListFields(file.name, "species")
 The *virtual* table `alltags` contains the detection data, along with most metadata variables that users need from the various underlying .motus tables. We access the tables using the `tbl()` function from the `dplyr` package which we installed in Chapter 2:  
 
 ```{r getAllTagsTable, eval = TRUE}
-
 # this retrieves the "alltags" table from the "sql.motus" SQLite file we read in earlier
 tbl.alltags <- tbl(sql.motus, "alltags") # virtual table
-
 ```
 
-However, if GPS data is required, users will either have to use the `alltagsGPS` view, or will have to add GPS values to a data subset. 
+We now have a new `tbl.alltags` object in R. The underlying structure of these tables is a list of length 2:
+
+```{r dfStructure, eval = TRUE}
+str(tbl.alltags)
+```
+
+The first part of the list, `src`, is a list that provides details of the SQLiteConnection, including the directory where the database is stored. The second part is a list that includes the underlying table. Thus, the R object `alltags` is a *virtual* table that stores the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and functions within the dplyr package can be used to manipulate and summarize the tables before collecting the results into a typical 'flat' format dataframe.
+
+If you want to use familiar functions to get access to components of the underlying data frame, then use the `collect()` function. For example, to look at the names of the variables in the alltags table:
+
+```{r, eval = TRUE}
+tbl.alltags %>% 
+  collect() %>%
+  names() # list the variable names in the table
+```
+
+### Adding GPS Data {#addGPS}
+
+If GPS data is required, users will either have to use the `alltagsGPS` view, or will have to add GPS values to a data subset. 
 
 To use the `alltagsGPS` view (note that this can be slow, which is why GPS data is excluded by default):
 ```{r getAllTagsGPSTable, eval = TRUE}
 tbl.alltagsGPS <- tbl(sql.motus, "alltagsGPS")
 ```
 
-Alternatively, you can first filter your data, then use the `getGPS()` function to retrieve GPS values, and use the `left_join()` function to add GPS to your data subset (see Chapter \@ref(addGPS) for more details).
+Alternatively, to speed things up you can first filter your data, then use the `getGPS()` function to retrieve GPS values.
 
 ```{r}
 # Filter the data
@@ -286,52 +302,44 @@ tbl.Dunlin <- tbl(sql.motus, "alltags") %>%
   filter(speciesEN == "Dunlin") %>%
   collect()
 
-# Get the GPS points for these data
-Dunlin.GPS <- getGPS(sql.motus, data = tbl.Dunlin)
+# Get the daily median location of GPS points for these data
+Dunlin.GPS <- getGPS(src = sql.motus, data = tbl.Dunlin)
+```
 
-# Add in the GPS points
+We match GPS locations to `hitID`s according to one of several different time values, specified by the `by` argument.
+
+This can be one of three options:
+
+1. the median location within **`by = X`** minutes of a `hitID`
+    - here, `X` can be any number greater than zero and represents the size of the time block in minutes over which to calculate a median location
+    - be aware that you should ideally not chose a period smaller than the frequency at which GPS fixes are recorded, or some hits will not be associated with GPS
+2. **`by = "daily"`** median location (**default**, implied in the above example)
+    - similar to `by = X` except the duration is 24hr (same as `by = 1440`)
+    - this method is most suitable for receiver deployments at fixed location.
+3. or the **`by = "closest"`** location in time
+    - individual GPS lat/lons are returned, matching the closest `hitID` timestamp
+    - this method is most accurate for mobile deployments, but is potentially slower than `by = X`.
+    - you can also specify a `cutoff` which will only match GPS records which are within `cutoff = X` minutes of the hit. This way you can avoid having situations where the 'closest' GPS record is actually days away.
+
+```{r}
+Dunlin.GPS <- getGPS(src = sql.motus, data = tbl.Dunlin, by = 60)
+Dunlin.GPS <- getGPS(src = sql.motus, data = tbl.Dunlin, by = "closest", cutoff = 120)
+```
+
+To keep all `hitID`s, regardless of whether they GPS data or not, use the argument `keepAll = TRUE`.
+
+```{r}
+Dunlin.GPS <- getGPS(src = sql.motus, data = tbl.Dunlin, keepAll = TRUE)
+```
+
+
+Finally, use the `left_join()` function to add GPS to your data subset. Note that this sample data doesn't actually have GPS values so these examples are for illustration only.
+
+```{r}
 tbl.Dunlin.GPS <- left_join(tbl.Dunlin, Dunlin.GPS, by = "hitID")
 ```
 
-Going back to our original `alltags` view, we now have a new `tbl.alltags` object in R. The underlying structure of these tables is a list of length 2:
-
-```{r dfStructure, eval = TRUE}
-
-str(tbl.alltags)
-
-```
-
-If your project database is larger, you can now use the 'getGPS()' function to get the GPS data associated with your records. The 'getGPS()' function returns a dataframe of all hitID present in the 'alltags' view, and the associated GPS data based on one of 3 methods.
-
-# 'by = X' Where 'X' is a duration in minutes. 'ts' is converted to a specific time block of duration 'X'. Median GPS lat/longs for the time block are returned, matching associated 'batchID'/'hitID' time blocks. Be aware that you should ideally not chose a period smaller than the frequency at which GPS fixes are recorded, or some hits will not be associated with GPS.
-# 'by = "daily"' (the default). Similar to 'by = X' except the duration is 24hr (same as 'by = 1440'). This method is most suitable for receiver deployments at fixed location.
-# 'by = "closest"' Individual GPS lat/lons are returned, matching the closest 'batchID'/'hitID' timestamp. This method is most accurate for mobile deployments, but is potentially slower than 'by = X'.
-
-```{r getGPS, eval = FALSE}
-
-# this retrieves the GPS data associated with all batchID and runID for all availables hits in the database, using a period of 1 hour. The keepAll option forces to keep all records, including those that do not have GPS data associated for a period.
-df.gps <- getGPS(sql.motus, keepAll = TRUE, by=60)
-
-# alternatively, using the 'closest' method, which returns the closest GPS fix for each hit, for a subset of data (e.g. motusTagID 12345). 
-
-tbl.alltags <- tbl(sql.motus, "alltags") # virtual table
-df.tag.12345 <- tbl(sql.motus, "alltags") %>% filter(motusTagID == 12345) %>% collect()
-df.gps <- getGPS(sql.motus, data=df.tag.12345, keepAll=TRUE, by="closest")
-
-# merge the data and gps dataframes
-df.tag.12345 <- merge(df.tag.12345, df.gps, by=c("hitID")
-
-```
-
-The first part of the list, `src`, is a list that provides details of the SQLiteConnection, including the directory where the database is stored. The second part is a list that includes the underlying table. Thus, the R object `alltags` is a *virtual* table that stores the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and functions within the dplyr package can be used to manipulate and summarize the tables before collecting the results into a typical 'flat' format dataframe.
-
-If you want to use familiar functions to get access to components of the underlying data frame, then use the `collect` function. For example, to look at the names of the variables in the alltags table:
-
-```{r, eval = TRUE}
-tbl.alltags %>% 
-  collect() %>%
-  names() # list the variable names in the table
-```
+As there is no GPS data in this example data set, we'll continue with our original `tbl.alltags` file. 
 
 ### Converting to flat file {#convertToFlat}
 To convert the `alltags` view or other table in the .motus file into a typical 'flat' format, i.e., with every record for each field filled in, use the `collect()` and `as.data.frame()` functions. The output can then be further manipulated, or used to generate a RDS file of your data for archiving or export. 
