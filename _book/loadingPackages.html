@@ -62,9 +62,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -73,14 +73,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -89,9 +91,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -245,19 +247,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="appendixA.html"><a href="appendixA.html"><i class="fa fa-check"></i><b>A</b> Appendix - <code>alltags</code> and <code>alltagsGPS</code> structure</a></li>
 <li class="chapter" data-level="B" data-path="appendixB.html"><a href="appendixB.html"><i class="fa fa-check"></i><b>B</b> Appendix - Troubleshooting</a><ul>
-<li class="chapter" data-level="B.1" data-path="appendixB.html"><a href="appendixB.html#motusLogout"><i class="fa fa-check"></i><b>B.1</b> Logging out of motus</a></li>
-<li class="chapter" data-level="B.2" data-path="appendixB.html"><a href="appendixB.html#resumeDownload"><i class="fa fa-check"></i><b>B.2</b> Resume data download</a></li>
-<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#googleMapsKey"><i class="fa fa-check"></i><b>B.3</b> Google Maps</a></li>
-<li class="chapter" data-level="B.4" data-path="appendixB.html"><a href="appendixB.html#common-problems-and-solutions"><i class="fa fa-check"></i><b>B.4</b> Common problems and solutions:</a><ul>
-<li class="chapter" data-level="B.4.1" data-path="appendixB.html"><a href="appendixB.html#i-cannot-access-project-176-i-download-0-records-from-project-176"><i class="fa fa-check"></i><b>B.4.1</b> I cannot access Project 176 / I download 0 records from Project 176</a></li>
-<li class="chapter" data-level="B.4.2" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.4.2</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
-<li class="chapter" data-level="B.4.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.4.3</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
-<li class="chapter" data-level="B.4.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.4.4</b> I get an “Error: Forbidden” message when using tagme()</a></li>
-<li class="chapter" data-level="B.4.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.4.5</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
-<li class="chapter" data-level="B.4.6" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.4.6</b> I get an error <code>Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file</code> when attempting to run <code>tagme()</code></a></li>
-<li class="chapter" data-level="B.4.7" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.4.7</b> I see GPS coordinates of “0” or “999”</a></li>
-<li class="chapter" data-level="B.4.8" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.4.8</b> I see port with a value of -1</a></li>
-<li class="chapter" data-level="B.4.9" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.4.9</b> I get the error <code>Error in rsqlite_fetch(res@ptr, n = n) : database disk image is malformed</code></a></li>
+<li class="chapter" data-level="B.1" data-path="appendixB.html"><a href="appendixB.html#general-problems"><i class="fa fa-check"></i><b>B.1</b> General Problems</a></li>
+<li class="chapter" data-level="B.2" data-path="appendixB.html"><a href="appendixB.html#motusLogout"><i class="fa fa-check"></i><b>B.2</b> Logging out of motus</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#resumeDownload"><i class="fa fa-check"></i><b>B.3</b> Resume data download</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixB.html"><a href="appendixB.html#googleMapsKey"><i class="fa fa-check"></i><b>B.4</b> Google Maps</a></li>
+<li class="chapter" data-level="B.5" data-path="appendixB.html"><a href="appendixB.html#common-problems-and-solutions"><i class="fa fa-check"></i><b>B.5</b> Common problems and solutions:</a><ul>
+<li class="chapter" data-level="B.5.1" data-path="appendixB.html"><a href="appendixB.html#i-cannot-access-project-176-i-download-0-records-from-project-176"><i class="fa fa-check"></i><b>B.5.1</b> I cannot access Project 176 / I download 0 records from Project 176</a></li>
+<li class="chapter" data-level="B.5.2" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.5.2</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
+<li class="chapter" data-level="B.5.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.5.3</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
+<li class="chapter" data-level="B.5.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.5.4</b> I get an “Error: Forbidden” message when using tagme()</a></li>
+<li class="chapter" data-level="B.5.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.5.5</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
+<li class="chapter" data-level="B.5.6" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.5.6</b> I get an error <code>Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file</code> when attempting to run <code>tagme()</code></a></li>
+<li class="chapter" data-level="B.5.7" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.5.7</b> I see GPS coordinates of “0” or “999”</a></li>
+<li class="chapter" data-level="B.5.8" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.5.8</b> I see port with a value of -1</a></li>
+<li class="chapter" data-level="B.5.9" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.5.9</b> I get the error <code>Error in rsqlite_fetch(res@ptr, n = n) : database disk image is malformed</code></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - <code>motus</code> - Summary and plotting functions</a><ul>
@@ -393,71 +396,71 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Motus <strong>users</strong> can install the latest stable versions of the R packages using the following code. As with all R packages, you only need to install the packages once; after installation, you need to load each package (using <code>library()</code>) each time you open a new R session.</p>
 <p>Please note that some functionalities of the <code>remotes</code> package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of <a href="https://www.r-project.org/">R</a> and <a href="https://www.rstudio.com/products/RStudio/">RStudio</a>, and update your R packages using <code>update.packages()</code> in the R console.</p>
 <p>To update your existing packages:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">update.packages</span>()                         </a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="loadingPackages.html#cb1-1"></a><span class="kw">update.packages</span>()                         </span></code></pre></div>
 <p>Begin by installing the required packages, if not already installed.</p>
 <p>If you have used the older version of <code>motus</code> which included use of the <code>motusClient</code> package, it is recommended to first uninstall both packages.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">remove.packages</span>(<span class="kw">c</span>(<span class="st">&quot;motus&quot;</span>, <span class="st">&quot;motusClient&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="loadingPackages.html#cb2-1"></a><span class="kw">remove.packages</span>(<span class="kw">c</span>(<span class="st">&quot;motus&quot;</span>, <span class="st">&quot;motusClient&quot;</span>))</span></code></pre></div>
 <p>Then proceed with the installation of the <code>motus</code> package</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">library</span>(remotes)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># install motus</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw">install_github</span>(<span class="st">&quot;MotusWTS/motus&quot;</span>)</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co"># install motusData package which contains sample datasets, e.g., vanishBearing</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co"># used in Chapter 7</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw">install_github</span>(<span class="st">&quot;MotusWTS/motusData&quot;</span>)</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="kw">library</span>(motus)</a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="kw">library</span>(motusData)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="loadingPackages.html#cb3-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb3-2"><a href="loadingPackages.html#cb3-2"></a><span class="kw">library</span>(remotes)</span>
+<span id="cb3-3"><a href="loadingPackages.html#cb3-3"></a></span>
+<span id="cb3-4"><a href="loadingPackages.html#cb3-4"></a><span class="co"># install motus</span></span>
+<span id="cb3-5"><a href="loadingPackages.html#cb3-5"></a><span class="kw">install_github</span>(<span class="st">&quot;MotusWTS/motus&quot;</span>)</span>
+<span id="cb3-6"><a href="loadingPackages.html#cb3-6"></a></span>
+<span id="cb3-7"><a href="loadingPackages.html#cb3-7"></a><span class="co"># install motusData package which contains sample datasets, e.g., vanishBearing</span></span>
+<span id="cb3-8"><a href="loadingPackages.html#cb3-8"></a><span class="co"># used in Chapter 7</span></span>
+<span id="cb3-9"><a href="loadingPackages.html#cb3-9"></a><span class="kw">install_github</span>(<span class="st">&quot;MotusWTS/motusData&quot;</span>)</span>
+<span id="cb3-10"><a href="loadingPackages.html#cb3-10"></a></span>
+<span id="cb3-11"><a href="loadingPackages.html#cb3-11"></a><span class="kw">library</span>(motus)</span>
+<span id="cb3-12"><a href="loadingPackages.html#cb3-12"></a><span class="kw">library</span>(motusData)</span></code></pre></div>
 <p>If you need to update the existing <code>motus</code> package, you need to specify <code>force = TRUE</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># force a re-installation of motus package in case of required updates</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">install_github</span>(<span class="st">&quot;MotusWTS/motus&quot;</span>, <span class="dt">force =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">library</span>(motus)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="loadingPackages.html#cb4-1"></a><span class="co"># force a re-installation of motus package in case of required updates</span></span>
+<span id="cb4-2"><a href="loadingPackages.html#cb4-2"></a><span class="kw">install_github</span>(<span class="st">&quot;MotusWTS/motus&quot;</span>, <span class="dt">force =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-3"><a href="loadingPackages.html#cb4-3"></a></span>
+<span id="cb4-4"><a href="loadingPackages.html#cb4-4"></a><span class="kw">library</span>(motus)</span></code></pre></div>
 <p>If you want to know what version of the motus package you currently have installed:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">packageVersion</span>(<span class="st">&quot;motus&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="loadingPackages.html#cb5-1"></a><span class="kw">packageVersion</span>(<span class="st">&quot;motus&quot;</span>)</span></code></pre></div>
 <div id="troubleshooting-the-installation" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> Troubleshooting the installation</h3>
 <p>Occasionally users run into problems while trying to install or update <code>motus</code>. Often this is related to problems with different versions of package dependencies. Here we suggest several solutions.</p>
 <ol style="list-style-type: decimal">
 <li>Update all packages during the installation</li>
 </ol>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;MotusWTS/motus&quot;</span>, <span class="dt">upgrade =</span> <span class="st">&quot;always&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="loadingPackages.html#cb6-1"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;MotusWTS/motus&quot;</span>, <span class="dt">upgrade =</span> <span class="st">&quot;always&quot;</span>)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>If the installation of Motus generates errors saying that some of the existing packages cannot be removed, you can try to quit any R session, manually delete the problematic package folder from your R libraries and manually install the package again before trying to install motus. You can also try to set up a custom R library folder with .libPaths() and ensure that you have full write permissions on that folder, or try to start R in administrator (Windows) or SUDO mode (Linux/Ubuntu) and try installing again.</li>
 </ol>
 <p>To set a custom library folder for installing new packages:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">.libPaths</span>(<span class="st">&quot;C:/r-libraries/&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="loadingPackages.html#cb7-1"></a><span class="kw">.libPaths</span>(<span class="st">&quot;C:/r-libraries/&quot;</span>)</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li><p>In some cases, it is easier to upgrade R itself by reinstalling the newest version of R: <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>. <strong>Note:</strong> While this results in a nice clean installation with fewer problems, it necessitates the re-installation of R packages which can be time-consuming.</p></li>
 <li><p>If reinstalling R is not an option, you get an error related to packages built under a current version of R, AND updating your packages doesn’t help, you can consider overriding the error with the following code. <strong>Note:</strong> This might help you install <code>motus</code> but may result in other problems. If possible, it’s best to resolve the errors rather than ignoring them.</p></li>
 </ol>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">Sys.setenv</span>(<span class="st">&quot;R_REMOTES_NO_ERRORS_FROM_WARNINGS&quot;</span>=<span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;MotusWTS/motus&quot;</span>, <span class="dt">upgrade =</span> <span class="st">&quot;always&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="loadingPackages.html#cb8-1"></a><span class="kw">Sys.setenv</span>(<span class="st">&quot;R_REMOTES_NO_ERRORS_FROM_WARNINGS&quot;</span>=<span class="ot">TRUE</span>)</span>
+<span id="cb8-2"><a href="loadingPackages.html#cb8-2"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;MotusWTS/motus&quot;</span>, <span class="dt">upgrade =</span> <span class="st">&quot;always&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="installing-other-packages" class="section level2">
 <h2><span class="header-section-number">2.2</span> Installing other packages</h2>
 <p>Throughout the book, we use <code>tidyverse</code>, which is a collection of R packages for data science, including <code>tidyr</code>, <code>dplyr</code>, <code>ggplot2</code>, and <code>lubridate</code> for managing and manipulating dates. More information on <code>tidyverse</code> can be found at <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>, or by browsing (or better still, thoroughly reading) ‘R for Data Science’ by Garrett Grolemund and Hadley Wickham (<a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>). For mapping we also use the <code>rworldmap</code>, and <code>ggmap</code> packages. These can be installed from CRAN, as follows:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;maps&quot;</span>)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">library</span>(maps)</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="kw">install.packages</span>(<span class="st">&quot;rworldmap&quot;</span>)</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="kw">library</span>(rworldmap)</a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="kw">install.packages</span>(<span class="st">&quot;ggmap&quot;</span>)</a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="kw">library</span>(ggmap)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="loadingPackages.html#cb9-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;maps&quot;</span>)</span>
+<span id="cb9-2"><a href="loadingPackages.html#cb9-2"></a><span class="kw">library</span>(maps)</span>
+<span id="cb9-3"><a href="loadingPackages.html#cb9-3"></a></span>
+<span id="cb9-4"><a href="loadingPackages.html#cb9-4"></a><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
+<span id="cb9-5"><a href="loadingPackages.html#cb9-5"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb9-6"><a href="loadingPackages.html#cb9-6"></a></span>
+<span id="cb9-7"><a href="loadingPackages.html#cb9-7"></a><span class="kw">install.packages</span>(<span class="st">&quot;rworldmap&quot;</span>)</span>
+<span id="cb9-8"><a href="loadingPackages.html#cb9-8"></a><span class="kw">library</span>(rworldmap)</span>
+<span id="cb9-9"><a href="loadingPackages.html#cb9-9"></a></span>
+<span id="cb9-10"><a href="loadingPackages.html#cb9-10"></a><span class="kw">install.packages</span>(<span class="st">&quot;ggmap&quot;</span>)</span>
+<span id="cb9-11"><a href="loadingPackages.html#cb9-11"></a><span class="kw">library</span>(ggmap)</span></code></pre></div>
 <p>We also install but do not load the <code>plyr</code> package; we use it directly for the handy <code>round_any</code> function (with the code <code>plyr::round_any()</code>), but loading it can cause problems with the <code>dplyr</code> functions:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;plyr&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="loadingPackages.html#cb10-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;plyr&quot;</span>)</span></code></pre></div>
 </div>
 <div id="internalProcessing" class="section level2">
 <h2><span class="header-section-number">2.3</span> Internal data processing</h2>
 <p>As an animal moves within the detection range of a Motus station, radio transmissions, or ‘bursts’, are detected by antenna(s) and recorded by a receiver. These raw detection data are either uploaded to the Motus database instantaneously via internet connection, or downloaded from the receiver and uploaded to Motus manually. Behind the scenes, various functions read and process the raw detections data to produce the tag detections file that users access using the R package (see Chapter <a href="accessingData.html#accessingData">3</a>). While most users will not need to call on the internal data processing functions, a complete list of functions within the Motus server R package can be found on GitHub (<a href="https://github.com/jbrzusto/motusServer" class="uri">https://github.com/jbrzusto/motusServer</a>). The code behind each function can be viewed on GitHub, or by typing the following in the R console after loading the R package, replacing <code>function.name</code> with the name of the R function of interest:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">function.name</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="loadingPackages.html#cb11-1"></a>function.name</span></code></pre></div>
 <p>In the next chapter we will examine and load some data.</p>
 
 </div>
