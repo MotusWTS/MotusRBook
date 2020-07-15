@@ -206,16 +206,21 @@ df.block.0 <- filter(tbl.alltags, probability == 0) %>%
 
 The `filterByActivity()` function uses the `alltags` view by default, which is faster than the `alltagsGPS` view, but does not contain GPS values.
 
-However, we can use the `getGPS()` function to add in GPS values to a subset (`alltags`) after the data has been filtered.
+However, we can use the `getGPS()` function to retrieve the GPS values of a data subset (`data`) after the data has been filtered.
 
 > Note that in this example, the sample dataset doesn't have GPS data
 
 ```{r}
-gps_index <- getGPS(sql.motus, alltags = df.alltags.sub, by = "closest")
+# Retrieve GPS data for each hitID
+gps_index <- getGPS(sql.motus, data = df.alltags.sub, by = "closest")
+
+# Merge GPS points in with our data
 df.alltags.sub <- left_join(df.alltags.sub, gps_index, by = "hitID")
 ```
 
-We match GPS locations to `hitID`s by `batchID` and according to one of several different time values, specified by the `by` argument. This can be the `closest` location in time, the `daily` median location, or the median location within `X` minutes of a `hitID` (here, `X` can be any number greater than zero and represents the size of the time block in minutes over which to calculate a median location).
+We match GPS locations to `hitID`s according to one of several different time values, specified by the `by` argument.
+This can be the `closest` location in time, the `daily` median location, or the median location within `X` minutes of a `hitID` (here, `X` can be any number greater than zero and represents the size of the time block in minutes over which to calculate a median location).
+If using the `closest` option, you can also specify a `cutoff` which will only match GPS records which are within `cutoff = X` minutes of the hit. This way you can avoid having situations where the 'closest' GPS record is actually days away.
 
 We then create receiver latitude and longitude variables (`recvLat`, `recvLon`, `recvAlt`) based on the coordinates recorded by the receiver GPS (`gpsLat`, `gpsLon`, `gpsAlt`), and where those are not available, infilled with coordinates from the receiver deployment metadata (`recvDeployLat`, `recvDeployLon`, `recvDeployAlt`). 
 Missing gps coordinates may appear as `NA` if they are missing, or as `0` or `999` if there was a problem with the unit recording.

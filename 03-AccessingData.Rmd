@@ -271,13 +271,29 @@ tbl.alltags <- tbl(sql.motus, "alltags") # virtual table
 
 ```
 
-However, if GPS data is required, users will either have to use the `alltagsGPS` view, or will have to add GPS values to a data subset (see Chapter 5 \@ref(addGPS)). 
+However, if GPS data is required, users will either have to use the `alltagsGPS` view, or will have to add GPS values to a data subset. 
 
+To use the `alltagsGPS` view (note that this can be slow, which is why GPS data is excluded by default):
 ```{r getAllTagsGPSTable, eval = TRUE}
 tbl.alltagsGPS <- tbl(sql.motus, "alltagsGPS")
 ```
 
-We now have a new `tbl.alltags` object in R. The underlying structure of these tables is a list of length 2:
+Alternatively, you can first filter your data, then use the `getGPS()` function to retrieve GPS values, and use the `left_join()` function to add GPS to your data subset (see Chapter \@ref(addGPS) for more details).
+
+```{r}
+# Filter the data
+tbl.Dunlin <- tbl(sql.motus, "alltags") %>%
+  filter(speciesEN == "Dunlin") %>%
+  collect()
+
+# Get the GPS points for these data
+Dunlin.GPS <- getGPS(sql.motus, data = tbl.Dunlin)
+
+# Add in the GPS points
+tbl.Dunlin.GPS <- left_join(tbl.Dunlin, Dunlin.GPS, by = "hitID")
+```
+
+Going back to our original `alltags` view, we now have a new `tbl.alltags` object in R. The underlying structure of these tables is a list of length 2:
 
 ```{r dfStructure, eval = TRUE}
 
