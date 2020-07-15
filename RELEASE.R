@@ -25,6 +25,7 @@ write(s$word, "WORDLIST", append = TRUE)
 
 # 3. Compile Chapters in html and in pdf
 # To compile a single chapter
+bookdown::preview_chapter("03-AccessingData.Rmd")
 bookdown::preview_chapter("05-DataCleaning.Rmd")
 
 # To compile the entire book
