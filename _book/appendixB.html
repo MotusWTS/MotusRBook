@@ -167,7 +167,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloading-multiple-receivers-at-the-same-time"><i class="fa fa-check"></i><b>3.5.4</b> Downloading multiple receivers at the same time</a></li>
 <li class="chapter" data-level="3.5.5" data-path="accessingData.html"><a href="accessingData.html#updating-all-.motus-files-within-a-directory"><i class="fa fa-check"></i><b>3.5.5</b> Updating all .motus files within a directory</a></li>
 <li class="chapter" data-level="3.5.6" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.6</b> Accessing downloaded detection data</a></li>
-<li class="chapter" data-level="3.5.7" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.5.7</b> Converting to flat file</a></li>
+<li class="chapter" data-level="3.5.7" data-path="accessingData.html"><a href="accessingData.html#addGPS"><i class="fa fa-check"></i><b>3.5.7</b> Adding GPS Data</a></li>
+<li class="chapter" data-level="3.5.8" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.5.8</b> Converting to flat file</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.6</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
 <li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.7</b> Update and/or open an existing database</a></li>
@@ -209,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#preparing-the-data"><i class="fa fa-check"></i><b>5.5</b> Preparing the data</a><ul>
 <li class="chapter" data-level="5.5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#label-detections-by-probability"><i class="fa fa-check"></i><b>5.5.1</b> Label detections by probability</a></li>
 <li class="chapter" data-level="5.5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#clean-up"><i class="fa fa-check"></i><b>5.5.2</b> Clean up</a></li>
-<li class="chapter" data-level="5.5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#addGPS"><i class="fa fa-check"></i><b>5.5.3</b> Add GPS data</a></li>
+<li class="chapter" data-level="5.5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#add-gps-data"><i class="fa fa-check"></i><b>5.5.3</b> Add GPS data</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.6</b> Preliminary data checks</a><ul>
 <li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.6.1</b> Summarize tag detections</a></li>
@@ -366,6 +367,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="D.6.3" data-path="appendixD.html"><a href="appendixD.html#examples"><i class="fa fa-check"></i><b>D.6.3</b> Examples</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="E" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html"><i class="fa fa-check"></i><b>E</b> Bird’s Eye View of Motus Data</a><ul>
+<li class="chapter" data-level="E.1" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#what-data-look-like"><i class="fa fa-check"></i><b>E.1</b> What data look like</a></li>
+<li class="chapter" data-level="E.2" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#false-positives"><i class="fa fa-check"></i><b>E.2</b> False positives</a></li>
+<li class="chapter" data-level="E.3" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#false-negatives"><i class="fa fa-check"></i><b>E.3</b> False negatives</a></li>
+<li class="chapter" data-level="E.4" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#complication-data-are-processed-in-batches"><i class="fa fa-check"></i><b>E.4</b> Complication: data are processed in batches</a></li>
+<li class="chapter" data-level="E.5" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#batches"><i class="fa fa-check"></i><b>E.5</b> Batches</a><ul>
+<li class="chapter" data-level="E.5.1" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#receiver-reboots"><i class="fa fa-check"></i><b>E.5.1</b> Receiver Reboots</a></li>
+<li class="chapter" data-level="E.5.2" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#incremental-distribution-of-data"><i class="fa fa-check"></i><b>E.5.2</b> Incremental Distribution of Data</a></li>
+</ul></li>
+<li class="chapter" data-level="E.6" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#reprocessing-data"><i class="fa fa-check"></i><b>E.6</b> Reprocessing Data</a></li>
+<li class="chapter" data-level="E.7" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#the-eventual-reprocessing-contract"><i class="fa fa-check"></i><b>E.7</b> The (eventual) Reprocessing Contract</a></li>
+<li class="chapter" data-level="E.8" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#reprocessing-simplified-only-by-boot-session"><i class="fa fa-check"></i><b>E.8</b> Reprocessing simplified: only by boot session</a></li>
+<li class="chapter" data-level="E.9" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#distributing-reprocessed-data"><i class="fa fa-check"></i><b>E.9</b> Distributing reprocessed data</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -394,23 +409,23 @@ If you have a problem that you can’t seem to resolve, try the following steps 
 <ol style="list-style-type: decimal">
 <li>Update <code>motus</code> and packages that <code>motus</code> depends on. (You may first need to install the <code>remotes</code> package). <strong>Re-start R</strong></li>
 </ol>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="appendixB.html#cb220-1"></a>remotes<span class="op">::</span><span class="kw">update_packages</span>(<span class="st">&quot;motus&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="appendixB.html#cb224-1"></a>remotes<span class="op">::</span><span class="kw">update_packages</span>(<span class="st">&quot;motus&quot;</span>)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Update all your packages. <strong>Re-start R</strong></li>
 </ol>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="appendixB.html#cb221-1"></a>remotes<span class="op">::</span><span class="kw">update_packages</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="appendixB.html#cb225-1"></a>remotes<span class="op">::</span><span class="kw">update_packages</span>()</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Update R <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>. (You may have to reinstall packages)</li>
 </ol>
 </div>
 <div id="motusLogout" class="section level2">
 <h2><span class="header-section-number">B.2</span> Logging out of motus</h2>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="appendixB.html#cb222-1"></a><span class="kw">motusLogout</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="appendixB.html#cb226-1"></a><span class="kw">motusLogout</span>()</span></code></pre></div>
 </div>
 <div id="resumeDownload" class="section level2">
 <h2><span class="header-section-number">B.3</span> Resume data download</h2>
 <p>To resume your data download, run <code>tagme()</code> again, but do not include <code>new = TRUE</code>:</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="appendixB.html#cb223-1"></a><span class="kw">tagme</span>(project.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> ...)</span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="appendixB.html#cb227-1"></a><span class="kw">tagme</span>(project.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> ...)</span></code></pre></div>
 </div>
 <div id="googleMapsKey" class="section level2">
 <h2><span class="header-section-number">B.4</span> Google Maps</h2>
@@ -452,8 +467,8 @@ If you have a problem that you can’t seem to resolve, try the following steps 
 <h3><span class="header-section-number">B.5.5</span> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</h3>
 <p>Be sure to start the steps from the top of the chapter and run them in sequential order. Another possibility is that your .motus database hasn’t been updated to support the latest version of the motus package.</p>
 <p>To ensure that your .motus file is up-to-date with the motus package:</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="appendixB.html#cb224-1"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)</span>
-<span id="cb224-2"><a href="appendixB.html#cb224-2"></a><span class="kw">checkVersion</span>(sql.motus)</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="appendixB.html#cb228-1"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)</span>
+<span id="cb228-2"><a href="appendixB.html#cb228-2"></a><span class="kw">checkVersion</span>(sql.motus)</span></code></pre></div>
 <p>To correct any warnings, you should follow these steps:</p>
 <ol style="list-style-type: decimal">
 <li>download the latest version of the motus package (refer to Chapter <a href="loadingPackages.html#loadingPackages">2</a>).</li>
@@ -462,35 +477,35 @@ If you have a problem that you can’t seem to resolve, try the following steps 
 <li>load your sqlite file. Look for notes on the console indicating that your database is being updated.</li>
 <li>check the version again.</li>
 </ol>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="appendixB.html#cb225-1"></a><span class="kw">library</span>(motus)</span>
-<span id="cb225-2"><a href="appendixB.html#cb225-2"></a>sql &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)</span>
-<span id="cb225-3"><a href="appendixB.html#cb225-3"></a><span class="kw">checkVersion</span>(sql)</span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="appendixB.html#cb229-1"></a><span class="kw">library</span>(motus)</span>
+<span id="cb229-2"><a href="appendixB.html#cb229-2"></a>sql &lt;-<span class="st"> </span><span class="kw">tagme</span>(project.num, <span class="dt">dir=</span> ...)</span>
+<span id="cb229-3"><a href="appendixB.html#cb229-3"></a><span class="kw">checkVersion</span>(sql)</span></code></pre></div>
 </div>
 <div id="i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme" class="section level3">
 <h3><span class="header-section-number">B.5.6</span> I get an error <code>Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file</code> when attempting to run <code>tagme()</code></h3>
 <p>If you get this message, it’s likely that you’re attempting a new download or update to a nonexistant directory. The directory is specified in the <strong><code>dir = ""</code></strong> command of the <code>tagme()</code> function. If the directory is not specified, files will be saved to your working directory. Use <code>getwd()</code> to determine your current working directory. Use <code>setwd()</code> to set a new working directory. To specify a location to save files from your working directory use “./” followed by the file path.</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="appendixB.html#cb226-1"></a><span class="kw">getwd</span>() <span class="co"># show working directory, in this case it&#39;s &quot;C:/Documents&quot;</span></span>
-<span id="cb226-2"><a href="appendixB.html#cb226-2"></a></span>
-<span id="cb226-3"><a href="appendixB.html#cb226-3"></a><span class="co"># downloads data to your working directory</span></span>
-<span id="cb226-4"><a href="appendixB.html#cb226-4"></a><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb226-5"><a href="appendixB.html#cb226-5"></a></span>
-<span id="cb226-6"><a href="appendixB.html#cb226-6"></a><span class="co"># downloads data to the data folder within your working directory</span></span>
-<span id="cb226-7"><a href="appendixB.html#cb226-7"></a><span class="co"># ie. the file path C:/Documents/data</span></span>
-<span id="cb226-8"><a href="appendixB.html#cb226-8"></a><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>) </span>
-<span id="cb226-9"><a href="appendixB.html#cb226-9"></a></span>
-<span id="cb226-10"><a href="appendixB.html#cb226-10"></a><span class="co"># downloads data to the file path C:/Downloads</span></span>
-<span id="cb226-11"><a href="appendixB.html#cb226-11"></a><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;C:/Downloads&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="appendixB.html#cb230-1"></a><span class="kw">getwd</span>() <span class="co"># show working directory, in this case it&#39;s &quot;C:/Documents&quot;</span></span>
+<span id="cb230-2"><a href="appendixB.html#cb230-2"></a></span>
+<span id="cb230-3"><a href="appendixB.html#cb230-3"></a><span class="co"># downloads data to your working directory</span></span>
+<span id="cb230-4"><a href="appendixB.html#cb230-4"></a><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb230-5"><a href="appendixB.html#cb230-5"></a></span>
+<span id="cb230-6"><a href="appendixB.html#cb230-6"></a><span class="co"># downloads data to the data folder within your working directory</span></span>
+<span id="cb230-7"><a href="appendixB.html#cb230-7"></a><span class="co"># ie. the file path C:/Documents/data</span></span>
+<span id="cb230-8"><a href="appendixB.html#cb230-8"></a><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>) </span>
+<span id="cb230-9"><a href="appendixB.html#cb230-9"></a></span>
+<span id="cb230-10"><a href="appendixB.html#cb230-10"></a><span class="co"># downloads data to the file path C:/Downloads</span></span>
+<span id="cb230-11"><a href="appendixB.html#cb230-11"></a><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;C:/Downloads&quot;</span>) </span></code></pre></div>
 </div>
 <div id="i-see-gps-coordinates-of-0-or-999" class="section level3">
 <h3><span class="header-section-number">B.5.7</span> I see GPS coordinates of “0” or “999”</h3>
 <p>These values are recorded from the GPS unit in the field. Values like these should be ignored, you can replace these with <code>NA</code>, or insert the <code>recvDeployLat</code>/<code>recvDeplOyLon</code> values which are taken from receiver deployment metadata entered by users.</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="appendixB.html#cb227-1"></a><span class="co">## to replace gpsLat/gpsLon values of NA, 0, or 999 with that of receiver deployment metadata in the alltags table, and read into a data.frame</span></span>
-<span id="cb227-2"><a href="appendixB.html#cb227-2"></a>df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb227-3"><a href="appendixB.html#cb227-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">recvLat =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLat)<span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </span>
-<span id="cb227-4"><a href="appendixB.html#cb227-4"></a>                           recvDeployLat, gpsLat), </span>
-<span id="cb227-5"><a href="appendixB.html#cb227-5"></a>         <span class="dt">recvLon =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLon)<span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </span>
-<span id="cb227-6"><a href="appendixB.html#cb227-6"></a>                           recvDeployLon, gpsLon)</span>
-<span id="cb227-7"><a href="appendixB.html#cb227-7"></a>  <span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="appendixB.html#cb231-1"></a><span class="co">## to replace gpsLat/gpsLon values of NA, 0, or 999 with that of receiver deployment metadata in the alltags table, and read into a data.frame</span></span>
+<span id="cb231-2"><a href="appendixB.html#cb231-2"></a>df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb231-3"><a href="appendixB.html#cb231-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">recvLat =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLat)<span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </span>
+<span id="cb231-4"><a href="appendixB.html#cb231-4"></a>                           recvDeployLat, gpsLat), </span>
+<span id="cb231-5"><a href="appendixB.html#cb231-5"></a>         <span class="dt">recvLon =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLon)<span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </span>
+<span id="cb231-6"><a href="appendixB.html#cb231-6"></a>                           recvDeployLon, gpsLon)</span>
+<span id="cb231-7"><a href="appendixB.html#cb231-7"></a>  <span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</span></code></pre></div>
 </div>
 <div id="i-see-port-with-a-value-of--1" class="section level3">
 <h3><span class="header-section-number">B.5.8</span> I see port with a value of -1</h3>

@@ -167,7 +167,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloading-multiple-receivers-at-the-same-time"><i class="fa fa-check"></i><b>3.5.4</b> Downloading multiple receivers at the same time</a></li>
 <li class="chapter" data-level="3.5.5" data-path="accessingData.html"><a href="accessingData.html#updating-all-.motus-files-within-a-directory"><i class="fa fa-check"></i><b>3.5.5</b> Updating all .motus files within a directory</a></li>
 <li class="chapter" data-level="3.5.6" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.6</b> Accessing downloaded detection data</a></li>
-<li class="chapter" data-level="3.5.7" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.5.7</b> Converting to flat file</a></li>
+<li class="chapter" data-level="3.5.7" data-path="accessingData.html"><a href="accessingData.html#addGPS"><i class="fa fa-check"></i><b>3.5.7</b> Adding GPS Data</a></li>
+<li class="chapter" data-level="3.5.8" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.5.8</b> Converting to flat file</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.6</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
 <li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.7</b> Update and/or open an existing database</a></li>
@@ -209,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#preparing-the-data"><i class="fa fa-check"></i><b>5.5</b> Preparing the data</a><ul>
 <li class="chapter" data-level="5.5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#label-detections-by-probability"><i class="fa fa-check"></i><b>5.5.1</b> Label detections by probability</a></li>
 <li class="chapter" data-level="5.5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#clean-up"><i class="fa fa-check"></i><b>5.5.2</b> Clean up</a></li>
-<li class="chapter" data-level="5.5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#addGPS"><i class="fa fa-check"></i><b>5.5.3</b> Add GPS data</a></li>
+<li class="chapter" data-level="5.5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#add-gps-data"><i class="fa fa-check"></i><b>5.5.3</b> Add GPS data</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.6</b> Preliminary data checks</a><ul>
 <li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.6.1</b> Summarize tag detections</a></li>
@@ -366,6 +367,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="D.6.3" data-path="appendixD.html"><a href="appendixD.html#examples"><i class="fa fa-check"></i><b>D.6.3</b> Examples</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="E" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html"><i class="fa fa-check"></i><b>E</b> Bird’s Eye View of Motus Data</a><ul>
+<li class="chapter" data-level="E.1" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#what-data-look-like"><i class="fa fa-check"></i><b>E.1</b> What data look like</a></li>
+<li class="chapter" data-level="E.2" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#false-positives"><i class="fa fa-check"></i><b>E.2</b> False positives</a></li>
+<li class="chapter" data-level="E.3" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#false-negatives"><i class="fa fa-check"></i><b>E.3</b> False negatives</a></li>
+<li class="chapter" data-level="E.4" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#complication-data-are-processed-in-batches"><i class="fa fa-check"></i><b>E.4</b> Complication: data are processed in batches</a></li>
+<li class="chapter" data-level="E.5" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#batches"><i class="fa fa-check"></i><b>E.5</b> Batches</a><ul>
+<li class="chapter" data-level="E.5.1" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#receiver-reboots"><i class="fa fa-check"></i><b>E.5.1</b> Receiver Reboots</a></li>
+<li class="chapter" data-level="E.5.2" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#incremental-distribution-of-data"><i class="fa fa-check"></i><b>E.5.2</b> Incremental Distribution of Data</a></li>
+</ul></li>
+<li class="chapter" data-level="E.6" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#reprocessing-data"><i class="fa fa-check"></i><b>E.6</b> Reprocessing Data</a></li>
+<li class="chapter" data-level="E.7" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#the-eventual-reprocessing-contract"><i class="fa fa-check"></i><b>E.7</b> The (eventual) Reprocessing Contract</a></li>
+<li class="chapter" data-level="E.8" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#reprocessing-simplified-only-by-boot-session"><i class="fa fa-check"></i><b>E.8</b> Reprocessing simplified: only by boot session</a></li>
+<li class="chapter" data-level="E.9" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#distributing-reprocessed-data"><i class="fa fa-check"></i><b>E.9</b> Distributing reprocessed data</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -390,150 +405,134 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="load-required-packages" class="section level2">
 <h2><span class="header-section-number">6.1</span> Load required packages</h2>
 <p>Follow the instructions in Chapter <a href="loadingPackages.html#loadingPackages">2</a> to install the following packages before loading, if you haven’t already done so.</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="exploreData.html#cb172-1"></a><span class="kw">library</span>(motus)</span>
-<span id="cb172-2"><a href="exploreData.html#cb172-2"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb172-3"><a href="exploreData.html#cb172-3"></a><span class="kw">library</span>(ggmap)</span>
-<span id="cb172-4"><a href="exploreData.html#cb172-4"></a><span class="kw">library</span>(lubridate)</span></code></pre></div>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="exploreData.html#cb173-1"></a><span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="exploreData.html#cb176-1"></a><span class="kw">library</span>(motus)</span>
+<span id="cb176-2"><a href="exploreData.html#cb176-2"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb176-3"><a href="exploreData.html#cb176-3"></a><span class="kw">library</span>(ggmap)</span>
+<span id="cb176-4"><a href="exploreData.html#cb176-4"></a><span class="kw">library</span>(lubridate)</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="exploreData.html#cb177-1"></a><span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</span></code></pre></div>
 </div>
 <div id="load-data" class="section level2">
 <h2><span class="header-section-number">6.2</span> Load data</h2>
 <p>If you followed along with the the previous Chapter (Chapter <a href="dataCleaning.html#dataCleaning">5</a>) and are working with the cleaned <code>df.alltags.sub</code> file, you can skip this step and move to section <a href="exploreData.html#dataSummaries">6.3</a>.</p>
 <p>Otherwise, if you saved your data as an RDS file, you can load it using:</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="exploreData.html#cb174-1"></a>df.alltags.sub &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/dfAlltagsSub.rds&quot;</span>) <span class="co"># change dir to local directory</span></span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="exploreData.html#cb178-1"></a>df.alltags.sub &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/dfAlltagsSub.rds&quot;</span>) <span class="co"># change dir to local directory</span></span></code></pre></div>
 <p>Or, if you’ve applied a custom filter to your .motus file, you can load the previously downloaded sample motus data (see Chapter <a href="accessingData.html#accessingData">3</a>) and clean it now. Currently the main benefit of using the custom filter is that you apply the filter to the .motus file, which allows you more flexibility in applying <code>dplyr</code> functions to manage and filter the data (e.g., you can select different variables to include in the data than we included in the RDS file in Chapter <a href="dataCleaning.html#dataCleaning">5</a>). This approach also allows you to more readily integrate new data added to your database with the tagme function. Because we are selecting the same variables and filtering the same records, the following gives you the same dataset as the <code>readRDS</code> statement above:</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="exploreData.html#cb175-1"></a><span class="co"># load the .motus file (remember &#39;motus.sample&#39; is both username and password)</span></span>
-<span id="cb175-2"><a href="exploreData.html#cb175-2"></a>proj.num &lt;-<span class="st"> </span><span class="dv">176</span></span>
-<span id="cb175-3"><a href="exploreData.html#cb175-3"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</span>
-<span id="cb175-4"><a href="exploreData.html#cb175-4"></a>tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltagsGPS&quot;</span>)</span>
-<span id="cb175-5"><a href="exploreData.html#cb175-5"></a></span>
-<span id="cb175-6"><a href="exploreData.html#cb175-6"></a><span class="co"># obtain a table object of the filter</span></span>
-<span id="cb175-7"><a href="exploreData.html#cb175-7"></a>tbl.filter &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(sql.motus, <span class="st">&quot;filtAmbigFalsePos&quot;</span>)</span>
-<span id="cb175-8"><a href="exploreData.html#cb175-8"></a></span>
-<span id="cb175-9"><a href="exploreData.html#cb175-9"></a><span class="co"># filter and convert the table into a dataframe, with a few modications</span></span>
-<span id="cb175-10"><a href="exploreData.html#cb175-10"></a>df.alltags.sub &lt;-<span class="st"> </span><span class="kw">left_join</span>(tbl.alltags, tbl.filter, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb175-11"><a href="exploreData.html#cb175-11"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability),</span>
-<span id="cb175-12"><a href="exploreData.html#cb175-12"></a>         <span class="dt">recvLat =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLat)<span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </span>
-<span id="cb175-13"><a href="exploreData.html#cb175-13"></a>                           recvDeployLat, </span>
-<span id="cb175-14"><a href="exploreData.html#cb175-14"></a>                           gpsLat),</span>
-<span id="cb175-15"><a href="exploreData.html#cb175-15"></a>         <span class="dt">recvLon =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLon)<span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </span>
-<span id="cb175-16"><a href="exploreData.html#cb175-16"></a>                           recvDeployLon, </span>
-<span id="cb175-17"><a href="exploreData.html#cb175-17"></a>                           gpsLon),</span>
-<span id="cb175-18"><a href="exploreData.html#cb175-18"></a>         <span class="dt">recvAlt =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(gpsAlt), </span>
-<span id="cb175-19"><a href="exploreData.html#cb175-19"></a>                           recvDeployAlt, </span>
-<span id="cb175-20"><a href="exploreData.html#cb175-20"></a>                           gpsAlt)) <span class="op">%&gt;%</span></span>
-<span id="cb175-21"><a href="exploreData.html#cb175-21"></a><span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></span>
-<span id="cb175-22"><a href="exploreData.html#cb175-22"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>noise, <span class="op">-</span>slop, <span class="op">-</span>burstSlop, <span class="op">-</span>done, <span class="op">-</span>bootnum, <span class="op">-</span>codeSet, </span>
-<span id="cb175-23"><a href="exploreData.html#cb175-23"></a>         <span class="op">-</span>mfg, <span class="op">-</span>nomFreq, <span class="op">-</span>markerNumber, <span class="op">-</span>markerType, <span class="op">-</span>tagDepComments, </span>
-<span id="cb175-24"><a href="exploreData.html#cb175-24"></a>         <span class="op">-</span>fullID, <span class="op">-</span>deviceID, <span class="op">-</span>recvDeployLat, <span class="op">-</span>recvDeployLon, <span class="op">-</span>recvDeployAlt, </span>
-<span id="cb175-25"><a href="exploreData.html#cb175-25"></a>         <span class="op">-</span>speciesGroup, <span class="op">-</span>gpsLat, <span class="op">-</span>gpsLon, <span class="op">-</span>recvAlt, <span class="op">-</span>recvSiteName) <span class="op">%&gt;%</span></span>
-<span id="cb175-26"><a href="exploreData.html#cb175-26"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></span>
-<span id="cb175-27"><a href="exploreData.html#cb175-27"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span></span>
-<span id="cb175-28"><a href="exploreData.html#cb175-28"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts),  <span class="co"># work with dates AFTER transforming to flat file</span></span>
-<span id="cb175-29"><a href="exploreData.html#cb175-29"></a>         <span class="dt">tagDeployStart =</span> <span class="kw">as_datetime</span>(tagDeployStart),</span>
-<span id="cb175-30"><a href="exploreData.html#cb175-30"></a>         <span class="dt">tagDeployEnd =</span> <span class="kw">as_datetime</span>(tagDeployEnd),</span>
-<span id="cb175-31"><a href="exploreData.html#cb175-31"></a>         <span class="dt">recvDeployName =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(recvDeployName), </span>
-<span id="cb175-32"><a href="exploreData.html#cb175-32"></a>                                  <span class="kw">paste</span>(recvLat, recvLon, <span class="dt">sep=</span><span class="st">&quot;:&quot;</span>), </span>
-<span id="cb175-33"><a href="exploreData.html#cb175-33"></a>                                  recvDeployName))</span></code></pre></div>
-<p><strong>Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues.</strong> Details on filtering the tbl prior to collecting as a dataframe are available in section <a href="accessingData.html#convertToFlat">3.5.7</a>.</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="exploreData.html#cb179-1"></a><span class="co"># load the .motus file (remember &#39;motus.sample&#39; is both username and password)</span></span>
+<span id="cb179-2"><a href="exploreData.html#cb179-2"></a>proj.num &lt;-<span class="st"> </span><span class="dv">176</span></span>
+<span id="cb179-3"><a href="exploreData.html#cb179-3"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</span>
+<span id="cb179-4"><a href="exploreData.html#cb179-4"></a>tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltagsGPS&quot;</span>)</span>
+<span id="cb179-5"><a href="exploreData.html#cb179-5"></a></span>
+<span id="cb179-6"><a href="exploreData.html#cb179-6"></a><span class="co"># obtain a table object of the filter</span></span>
+<span id="cb179-7"><a href="exploreData.html#cb179-7"></a>tbl.filter &lt;-<span class="st"> </span><span class="kw">getRunsFilters</span>(sql.motus, <span class="st">&quot;filtAmbigFalsePos&quot;</span>)</span>
+<span id="cb179-8"><a href="exploreData.html#cb179-8"></a></span>
+<span id="cb179-9"><a href="exploreData.html#cb179-9"></a><span class="co"># filter and convert the table into a dataframe, with a few modications</span></span>
+<span id="cb179-10"><a href="exploreData.html#cb179-10"></a>df.alltags.sub &lt;-<span class="st"> </span><span class="kw">left_join</span>(tbl.alltags, tbl.filter, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;runID&quot;</span>, <span class="st">&quot;motusTagID&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb179-11"><a href="exploreData.html#cb179-11"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">probability =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(probability), <span class="dv">1</span>, probability),</span>
+<span id="cb179-12"><a href="exploreData.html#cb179-12"></a>         <span class="dt">recvLat =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLat)<span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLat <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </span>
+<span id="cb179-13"><a href="exploreData.html#cb179-13"></a>                           recvDeployLat, </span>
+<span id="cb179-14"><a href="exploreData.html#cb179-14"></a>                           gpsLat),</span>
+<span id="cb179-15"><a href="exploreData.html#cb179-15"></a>         <span class="dt">recvLon =</span> <span class="kw">if_else</span>((<span class="kw">is.na</span>(gpsLon)<span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">0</span><span class="op">|</span>gpsLon <span class="op">==</span><span class="st"> </span><span class="dv">999</span>), </span>
+<span id="cb179-16"><a href="exploreData.html#cb179-16"></a>                           recvDeployLon, </span>
+<span id="cb179-17"><a href="exploreData.html#cb179-17"></a>                           gpsLon),</span>
+<span id="cb179-18"><a href="exploreData.html#cb179-18"></a>         <span class="dt">recvAlt =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(gpsAlt), </span>
+<span id="cb179-19"><a href="exploreData.html#cb179-19"></a>                           recvDeployAlt, </span>
+<span id="cb179-20"><a href="exploreData.html#cb179-20"></a>                           gpsAlt)) <span class="op">%&gt;%</span></span>
+<span id="cb179-21"><a href="exploreData.html#cb179-21"></a><span class="st">  </span><span class="kw">filter</span>(probability <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb179-22"><a href="exploreData.html#cb179-22"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>noise, <span class="op">-</span>slop, <span class="op">-</span>burstSlop, <span class="op">-</span>done, <span class="op">-</span>bootnum, <span class="op">-</span>codeSet, </span>
+<span id="cb179-23"><a href="exploreData.html#cb179-23"></a>         <span class="op">-</span>mfg, <span class="op">-</span>nomFreq, <span class="op">-</span>markerNumber, <span class="op">-</span>markerType, <span class="op">-</span>tagDepComments, </span>
+<span id="cb179-24"><a href="exploreData.html#cb179-24"></a>         <span class="op">-</span>fullID, <span class="op">-</span>deviceID, <span class="op">-</span>recvDeployLat, <span class="op">-</span>recvDeployLon, <span class="op">-</span>recvDeployAlt, </span>
+<span id="cb179-25"><a href="exploreData.html#cb179-25"></a>         <span class="op">-</span>speciesGroup, <span class="op">-</span>gpsLat, <span class="op">-</span>gpsLon, <span class="op">-</span>recvAlt, <span class="op">-</span>recvSiteName) <span class="op">%&gt;%</span></span>
+<span id="cb179-26"><a href="exploreData.html#cb179-26"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></span>
+<span id="cb179-27"><a href="exploreData.html#cb179-27"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span></span>
+<span id="cb179-28"><a href="exploreData.html#cb179-28"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts),  <span class="co"># work with dates AFTER transforming to flat file</span></span>
+<span id="cb179-29"><a href="exploreData.html#cb179-29"></a>         <span class="dt">tagDeployStart =</span> <span class="kw">as_datetime</span>(tagDeployStart),</span>
+<span id="cb179-30"><a href="exploreData.html#cb179-30"></a>         <span class="dt">tagDeployEnd =</span> <span class="kw">as_datetime</span>(tagDeployEnd),</span>
+<span id="cb179-31"><a href="exploreData.html#cb179-31"></a>         <span class="dt">recvDeployName =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(recvDeployName), </span>
+<span id="cb179-32"><a href="exploreData.html#cb179-32"></a>                                  <span class="kw">paste</span>(recvLat, recvLon, <span class="dt">sep=</span><span class="st">&quot;:&quot;</span>), </span>
+<span id="cb179-33"><a href="exploreData.html#cb179-33"></a>                                  recvDeployName))</span></code></pre></div>
+<p><strong>Note that if your project is very large, you may want to convert only a portion of it to the dataframe, to avoid memory issues.</strong> Details on filtering the tbl prior to collecting as a dataframe are available in section <a href="accessingData.html#convertToFlat">3.5.8</a>.</p>
 <p>Here we do so by adding a filter to the above command, in this case, only creating a dataframe for <code>motusTagID</code> 16047, but you can decide how to best subset your data based on your need (e.g. by species or year):</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="exploreData.html#cb176-1"></a><span class="co"># create a subset for a single tag, to keep the dataframe small</span></span>
-<span id="cb176-2"><a href="exploreData.html#cb176-2"></a>df.alltags<span class="fl">.16047</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16047</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="exploreData.html#cb180-1"></a><span class="co"># create a subset for a single tag, to keep the dataframe small</span></span>
+<span id="cb180-2"><a href="exploreData.html#cb180-2"></a>df.alltags<span class="fl">.16047</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16047</span>) </span></code></pre></div>
 </div>
 <div id="dataSummaries" class="section level2">
 <h2><span class="header-section-number">6.3</span> Summarizing your data</h2>
 <p>Here we will run through some basic commands, starting with the <code>summary()</code> function to view a selection of variables in a data frame:</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="exploreData.html#cb177-1"></a>sql.motus <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb177-2"><a href="exploreData.html#cb177-2"></a><span class="st">  </span><span class="kw">tbl</span>(<span class="st">&quot;alltags&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb177-3"><a href="exploreData.html#cb177-3"></a><span class="st">  </span><span class="kw">select</span>(ts, motusTagID, runLen, speciesEN, tagDepLat, tagDepLon, </span>
-<span id="cb177-4"><a href="exploreData.html#cb177-4"></a>         recvDeployLat, recvDeployLon) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb177-5"><a href="exploreData.html#cb177-5"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></span>
-<span id="cb177-6"><a href="exploreData.html#cb177-6"></a><span class="st">  </span><span class="kw">summary</span>()</span></code></pre></div>
-<pre><code>##        ts              motusTagID        runLen        speciesEN           tagDepLat       tagDepLon      recvDeployLat   
-##  Min.   :1.438e+09   Min.   :10811   Min.   :   2.0   Length:108826      Min.   :11.12   Min.   :-80.69   Min.   :-42.50  
-##  1st Qu.:1.476e+09   1st Qu.:22897   1st Qu.:  30.0   Class :character   1st Qu.:50.19   1st Qu.:-63.75   1st Qu.: 50.20  
-##  Median :1.477e+09   Median :22905   Median : 122.0   Mode  :character   Median :50.19   Median :-63.75   Median : 50.20  
-##  Mean   :1.476e+09   Mean   :22660   Mean   : 355.9                      Mean   :50.14   Mean   :-65.77   Mean   : 49.05  
-##  3rd Qu.:1.477e+09   3rd Qu.:23316   3rd Qu.: 404.0                      3rd Qu.:50.19   3rd Qu.:-63.75   3rd Qu.: 50.20  
-##  Max.   :1.498e+09   Max.   :24303   Max.   :2474.0                      Max.   :51.80   Max.   :-63.75   Max.   : 62.89  
-##                                                                          NA&#39;s   :2025    NA&#39;s   :2025     NA&#39;s   :173     
-##  recvDeployLon    
-##  Min.   :-143.68  
-##  1st Qu.: -63.75  
-##  Median : -63.75  
-##  Mean   : -65.64  
-##  3rd Qu.: -63.75  
-##  Max.   : -60.02  
-##  NA&#39;s   :173</code></pre>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="exploreData.html#cb179-1"></a><span class="co"># same summary for the filtered sql data</span></span>
-<span id="cb179-2"><a href="exploreData.html#cb179-2"></a>df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb179-3"><a href="exploreData.html#cb179-3"></a><span class="st">  </span><span class="kw">select</span>(ts, motusTagID, runLen, speciesEN, tagDepLat, tagDepLon, </span>
-<span id="cb179-4"><a href="exploreData.html#cb179-4"></a>         recvLat, recvLon) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb179-5"><a href="exploreData.html#cb179-5"></a><span class="st">  </span><span class="kw">summary</span>()</span></code></pre></div>
-<pre><code>##        ts                        motusTagID        runLen        speciesEN           tagDepLat       tagDepLon         recvLat     
-##  Min.   :2015-08-03 06:37:11   Min.   :16011   Min.   :   4.0   Length:48133       Min.   :50.19   Min.   :-80.69   Min.   :37.10  
-##  1st Qu.:2016-10-06 19:17:36   1st Qu.:22897   1st Qu.:  27.0   Class :character   1st Qu.:50.19   1st Qu.:-63.75   1st Qu.:50.20  
-##  Median :2016-10-09 21:48:11   Median :22897   Median :  97.0   Mode  :character   Median :50.19   Median :-63.75   Median :50.20  
-##  Mean   :2016-09-05 10:37:42   Mean   :22267   Mean   : 235.1                      Mean   :50.34   Mean   :-65.56   Mean   :50.05  
-##  3rd Qu.:2016-10-19 10:37:42   3rd Qu.:22897   3rd Qu.: 287.0                      3rd Qu.:50.19   3rd Qu.:-63.75   3rd Qu.:50.20  
-##  Max.   :2017-04-20 22:33:19   Max.   :23316   Max.   :1371.0                      Max.   :51.80   Max.   :-63.75   Max.   :51.82  
-##                                                                                                                     NA&#39;s   :164    
-##     recvLon      
-##  Min.   :-80.69  
-##  1st Qu.:-63.75  
-##  Median :-63.75  
-##  Mean   :-65.26  
-##  3rd Qu.:-63.75  
-##  Max.   :-62.99  
-##  NA&#39;s   :164</code></pre>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="exploreData.html#cb181-1"></a>sql.motus <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb181-2"><a href="exploreData.html#cb181-2"></a><span class="st">  </span><span class="kw">tbl</span>(<span class="st">&quot;alltags&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb181-3"><a href="exploreData.html#cb181-3"></a><span class="st">  </span><span class="kw">select</span>(ts, motusTagID, runLen, speciesEN, tagDepLat, tagDepLon, </span>
+<span id="cb181-4"><a href="exploreData.html#cb181-4"></a>         recvDeployLat, recvDeployLon) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb181-5"><a href="exploreData.html#cb181-5"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></span>
+<span id="cb181-6"><a href="exploreData.html#cb181-6"></a><span class="st">  </span><span class="kw">summary</span>()</span></code></pre></div>
+<pre><code>##        ts              motusTagID        runLen        speciesEN           tagDepLat       tagDepLon      recvDeployLat    recvDeployLon    
+##  Min.   :1.438e+09   Min.   :10811   Min.   :   2.0   Length:108826      Min.   :11.12   Min.   :-80.69   Min.   :-42.50   Min.   :-143.68  
+##  1st Qu.:1.476e+09   1st Qu.:22897   1st Qu.:  30.0   Class :character   1st Qu.:50.19   1st Qu.:-63.75   1st Qu.: 50.20   1st Qu.: -63.75  
+##  Median :1.477e+09   Median :22905   Median : 122.0   Mode  :character   Median :50.19   Median :-63.75   Median : 50.20   Median : -63.75  
+##  Mean   :1.476e+09   Mean   :22660   Mean   : 355.9                      Mean   :50.14   Mean   :-65.77   Mean   : 49.05   Mean   : -65.64  
+##  3rd Qu.:1.477e+09   3rd Qu.:23316   3rd Qu.: 404.0                      3rd Qu.:50.19   3rd Qu.:-63.75   3rd Qu.: 50.20   3rd Qu.: -63.75  
+##  Max.   :1.498e+09   Max.   :24303   Max.   :2474.0                      Max.   :51.80   Max.   :-63.75   Max.   : 62.89   Max.   : -60.02  
+##                                                                          NA&#39;s   :2025    NA&#39;s   :2025     NA&#39;s   :173      NA&#39;s   :173</code></pre>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="exploreData.html#cb183-1"></a><span class="co"># same summary for the filtered sql data</span></span>
+<span id="cb183-2"><a href="exploreData.html#cb183-2"></a>df.alltags.sub <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb183-3"><a href="exploreData.html#cb183-3"></a><span class="st">  </span><span class="kw">select</span>(ts, motusTagID, runLen, speciesEN, tagDepLat, tagDepLon, </span>
+<span id="cb183-4"><a href="exploreData.html#cb183-4"></a>         recvLat, recvLon) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb183-5"><a href="exploreData.html#cb183-5"></a><span class="st">  </span><span class="kw">summary</span>()</span></code></pre></div>
+<pre><code>##        ts                        motusTagID        runLen        speciesEN           tagDepLat       tagDepLon         recvLat         recvLon      
+##  Min.   :2015-08-03 06:37:11   Min.   :16011   Min.   :   4.0   Length:48133       Min.   :50.19   Min.   :-80.69   Min.   :37.10   Min.   :-80.69  
+##  1st Qu.:2016-10-06 19:17:36   1st Qu.:22897   1st Qu.:  27.0   Class :character   1st Qu.:50.19   1st Qu.:-63.75   1st Qu.:50.20   1st Qu.:-63.75  
+##  Median :2016-10-09 21:48:11   Median :22897   Median :  97.0   Mode  :character   Median :50.19   Median :-63.75   Median :50.20   Median :-63.75  
+##  Mean   :2016-09-05 10:37:42   Mean   :22267   Mean   : 235.1                      Mean   :50.34   Mean   :-65.56   Mean   :50.05   Mean   :-65.26  
+##  3rd Qu.:2016-10-19 10:37:42   3rd Qu.:22897   3rd Qu.: 287.0                      3rd Qu.:50.19   3rd Qu.:-63.75   3rd Qu.:50.20   3rd Qu.:-63.75  
+##  Max.   :2017-04-20 22:33:19   Max.   :23316   Max.   :1371.0                      Max.   :51.80   Max.   :-63.75   Max.   :51.82   Max.   :-62.99  
+##                                                                                                                     NA&#39;s   :164     NA&#39;s   :164</code></pre>
 <p>The <code>dplyr</code> package allows you to easily summarize data by group, manipulate variables, or create new variables based on your data.</p>
 <p>We can manipulate existing variables or create new ones with <code>dplyr</code>’s <code>mutate()</code> function, here we’ll convert ts to a POSIXct format, then make a new variable for year and day of year (doy).</p>
 <p>We’ll also remove the set of points with missing receiver latitude and longitudes. These may be useful in some contexts (for example if the approximate location of the receiver is known) but can cause warnings or errors when plotting.</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="exploreData.html#cb181-1"></a>df.alltags.sub &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></span>
-<span id="cb181-2"><a href="exploreData.html#cb181-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>), <span class="co"># convert ts to POSIXct format</span></span>
-<span id="cb181-3"><a href="exploreData.html#cb181-3"></a>         <span class="dt">year =</span> <span class="kw">year</span>(ts), <span class="co"># extract year from ts</span></span>
-<span id="cb181-4"><a href="exploreData.html#cb181-4"></a>         <span class="dt">doy =</span> <span class="kw">yday</span>(ts)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># extract numeric day of year from ts</span></span>
-<span id="cb181-5"><a href="exploreData.html#cb181-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(recvLat))</span>
-<span id="cb181-6"><a href="exploreData.html#cb181-6"></a></span>
-<span id="cb181-7"><a href="exploreData.html#cb181-7"></a><span class="kw">head</span>(df.alltags.sub)</span></code></pre></div>
-<pre><code>##    hitID runID batchID                  ts tsCorrected sig sigsd freq freqsd motusTagID ambigID port runLen tagProjID mfgID tagType
-## 1  45107  8886      53 2015-10-26 11:19:49  1445858390  52     0    4      0      16047      NA    3      5       176   378      ID
-## 2  45108  8886      53 2015-10-26 11:20:28  1445858429  54     0    4      0      16047      NA    3      5       176   378      ID
-## 3  45109  8886      53 2015-10-26 11:21:17  1445858477  55     0    4      0      16047      NA    3      5       176   378      ID
-## 4  45110  8886      53 2015-10-26 11:21:55  1445858516  52     0    4      0      16047      NA    3      5       176   378      ID
-## 5  45111  8886      53 2015-10-26 11:22:44  1445858564  49     0    4      0      16047      NA    3      5       176   378      ID
-## 6 199885 23305      64 2015-10-26 11:12:04  1445857924  33     0    4      0      16047      NA    1     11       176   378      ID
-##   tagModel tagLifespan  tagBI pulseLen tagDeployID speciesID      tagDeployStart        tagDeployEnd tagDepLat tagDepLon tagDepAlt
-## 1 NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA
-## 2 NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA
-## 3 NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA
-## 4 NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA
-## 5 NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA
-## 6 NTQB-3-2          NA 9.6971      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA
-##   recvDeployID      recv recvDeployName isRecvMobile recvProjID recvUtcOffset antType antBearing antHeight speciesEN          speciesFR
-## 1         2510 Lotek-159      Shelburne            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche
-## 2         2510 Lotek-159      Shelburne            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche
-## 3         2510 Lotek-159      Shelburne            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche
-## 4         2510 Lotek-159      Shelburne            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche
-## 5         2510 Lotek-159      Shelburne            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche
-## 6         2512 Lotek-164  BennettMeadow            0         74            NA  yagi-9        243        NA  Red Knot Bécasseau maubèche
-##         speciesSci tagProjName recvProjName gpsAlt filterID probability  recvLat   recvLon year doy
-## 1 Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657 2015 299
-## 2 Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657 2015 299
-## 3 Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657 2015 299
-## 4 Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657 2015 299
-## 5 Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657 2015 299
-## 6 Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.68067 -72.47392 2015 299</code></pre>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="exploreData.html#cb185-1"></a>df.alltags.sub &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></span>
+<span id="cb185-2"><a href="exploreData.html#cb185-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>), <span class="co"># convert ts to POSIXct format</span></span>
+<span id="cb185-3"><a href="exploreData.html#cb185-3"></a>         <span class="dt">year =</span> <span class="kw">year</span>(ts), <span class="co"># extract year from ts</span></span>
+<span id="cb185-4"><a href="exploreData.html#cb185-4"></a>         <span class="dt">doy =</span> <span class="kw">yday</span>(ts)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># extract numeric day of year from ts</span></span>
+<span id="cb185-5"><a href="exploreData.html#cb185-5"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(recvLat))</span>
+<span id="cb185-6"><a href="exploreData.html#cb185-6"></a></span>
+<span id="cb185-7"><a href="exploreData.html#cb185-7"></a><span class="kw">head</span>(df.alltags.sub)</span></code></pre></div>
+<pre><code>##    hitID runID batchID                  ts tsCorrected sig sigsd freq freqsd motusTagID ambigID port runLen tagProjID mfgID tagType tagModel tagLifespan  tagBI
+## 1  45107  8886      53 2015-10-26 11:19:49  1445858390  52     0    4      0      16047      NA    3      5       176   378      ID NTQB-3-2          NA 9.6971
+## 2  45108  8886      53 2015-10-26 11:20:28  1445858429  54     0    4      0      16047      NA    3      5       176   378      ID NTQB-3-2          NA 9.6971
+## 3  45109  8886      53 2015-10-26 11:21:17  1445858477  55     0    4      0      16047      NA    3      5       176   378      ID NTQB-3-2          NA 9.6971
+## 4  45110  8886      53 2015-10-26 11:21:55  1445858516  52     0    4      0      16047      NA    3      5       176   378      ID NTQB-3-2          NA 9.6971
+## 5  45111  8886      53 2015-10-26 11:22:44  1445858564  49     0    4      0      16047      NA    3      5       176   378      ID NTQB-3-2          NA 9.6971
+## 6 199885 23305      64 2015-10-26 11:12:04  1445857924  33     0    4      0      16047      NA    1     11       176   378      ID NTQB-3-2          NA 9.6971
+##   pulseLen tagDeployID speciesID      tagDeployStart        tagDeployEnd tagDepLat tagDepLon tagDepAlt recvDeployID      recv recvDeployName isRecvMobile recvProjID
+## 1      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA         2510 Lotek-159      Shelburne            0         74
+## 2      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA         2510 Lotek-159      Shelburne            0         74
+## 3      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA         2510 Lotek-159      Shelburne            0         74
+## 4      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA         2510 Lotek-159      Shelburne            0         74
+## 5      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA         2510 Lotek-159      Shelburne            0         74
+## 6      2.5        1839      4670 2015-09-10 18:00:00 2016-03-10 18:00:00   51.4839    -80.45        NA         2512 Lotek-164  BennettMeadow            0         74
+##   recvUtcOffset antType antBearing antHeight speciesEN          speciesFR       speciesSci tagProjName recvProjName gpsAlt filterID probability  recvLat   recvLon
+## 1            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657
+## 2            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657
+## 3            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657
+## 4            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657
+## 5            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.60699 -72.71657
+## 6            NA  yagi-9        243        NA  Red Knot Bécasseau maubèche Calidris canutus  SampleData         &lt;NA&gt;     NA       NA           1 42.68067 -72.47392
+##   year doy
+## 1 2015 299
+## 2 2015 299
+## 3 2015 299
+## 4 2015 299
+## 5 2015 299
+## 6 2015 299</code></pre>
 <p>We can also summarize information by group, in this case <code>motusTagID</code>, and apply various functions to these groups such as getting the total number of detections (n) for each tag, the number of receivers each tag was detected on, the first and last detection date, and the total number of days there was at least one detection:</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="exploreData.html#cb183-1"></a>tagSummary &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></span>
-<span id="cb183-2"><a href="exploreData.html#cb183-2"></a><span class="st">  </span><span class="kw">group_by</span>(motusTagID) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb183-3"><a href="exploreData.html#cb183-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">nDet =</span> <span class="kw">n</span>(),</span>
-<span id="cb183-4"><a href="exploreData.html#cb183-4"></a>            <span class="dt">nRecv =</span> <span class="kw">length</span>(<span class="kw">unique</span>(recvDeployName)),</span>
-<span id="cb183-5"><a href="exploreData.html#cb183-5"></a>            <span class="dt">tsMin =</span> <span class="kw">min</span>(ts),</span>
-<span id="cb183-6"><a href="exploreData.html#cb183-6"></a>            <span class="dt">tsMax =</span> <span class="kw">max</span>(ts),</span>
-<span id="cb183-7"><a href="exploreData.html#cb183-7"></a>            <span class="dt">totDay =</span> <span class="kw">length</span>(<span class="kw">unique</span>(doy)))</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="exploreData.html#cb187-1"></a>tagSummary &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></span>
+<span id="cb187-2"><a href="exploreData.html#cb187-2"></a><span class="st">  </span><span class="kw">group_by</span>(motusTagID) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb187-3"><a href="exploreData.html#cb187-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">nDet =</span> <span class="kw">n</span>(),</span>
+<span id="cb187-4"><a href="exploreData.html#cb187-4"></a>            <span class="dt">nRecv =</span> <span class="kw">length</span>(<span class="kw">unique</span>(recvDeployName)),</span>
+<span id="cb187-5"><a href="exploreData.html#cb187-5"></a>            <span class="dt">tsMin =</span> <span class="kw">min</span>(ts),</span>
+<span id="cb187-6"><a href="exploreData.html#cb187-6"></a>            <span class="dt">tsMax =</span> <span class="kw">max</span>(ts),</span>
+<span id="cb187-7"><a href="exploreData.html#cb187-7"></a>            <span class="dt">totDay =</span> <span class="kw">length</span>(<span class="kw">unique</span>(doy)))</span></code></pre></div>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="exploreData.html#cb185-1"></a><span class="kw">head</span>(tagSummary)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="exploreData.html#cb189-1"></a><span class="kw">head</span>(tagSummary)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 6
 ##   motusTagID  nDet nRecv tsMin               tsMax               totDay
 ##        &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dttm&gt;              &lt;dttm&gt;               &lt;int&gt;
@@ -544,15 +543,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5      16038    70     1 2015-08-20 18:42:33 2015-08-22 22:19:37      3
 ## 6      16039  1044    10 2015-08-23 02:28:45 2015-09-19 06:08:31      8</code></pre>
 <p>We can also group by multiple variables; applying the same function as above but now grouping by <code>motusTagID</code> and <code>recvDeployName</code>, we will get information for each tag detected on each receiver. Since we are grouping by <code>recvDeployName</code>, there will be by default only one <code>recvDeployName</code> in each group, thus the variable <code>nRecv</code> will be 1 for each row. This in not very informative, however we include this to help illustrate how grouping works:</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="exploreData.html#cb187-1"></a>tagRecvSummary &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></span>
-<span id="cb187-2"><a href="exploreData.html#cb187-2"></a><span class="st">  </span><span class="kw">group_by</span>(motusTagID, recvDeployName) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb187-3"><a href="exploreData.html#cb187-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">nDet =</span> <span class="kw">n</span>(),</span>
-<span id="cb187-4"><a href="exploreData.html#cb187-4"></a>            <span class="dt">nRecv =</span> <span class="kw">length</span>(<span class="kw">unique</span>(recvDeployName)),</span>
-<span id="cb187-5"><a href="exploreData.html#cb187-5"></a>            <span class="dt">tsMin =</span> <span class="kw">min</span>(ts),</span>
-<span id="cb187-6"><a href="exploreData.html#cb187-6"></a>            <span class="dt">tsMax =</span> <span class="kw">max</span>(ts),</span>
-<span id="cb187-7"><a href="exploreData.html#cb187-7"></a>            <span class="dt">totDay =</span> <span class="kw">length</span>(<span class="kw">unique</span>(doy)))</span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="exploreData.html#cb191-1"></a>tagRecvSummary &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></span>
+<span id="cb191-2"><a href="exploreData.html#cb191-2"></a><span class="st">  </span><span class="kw">group_by</span>(motusTagID, recvDeployName) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb191-3"><a href="exploreData.html#cb191-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">nDet =</span> <span class="kw">n</span>(),</span>
+<span id="cb191-4"><a href="exploreData.html#cb191-4"></a>            <span class="dt">nRecv =</span> <span class="kw">length</span>(<span class="kw">unique</span>(recvDeployName)),</span>
+<span id="cb191-5"><a href="exploreData.html#cb191-5"></a>            <span class="dt">tsMin =</span> <span class="kw">min</span>(ts),</span>
+<span id="cb191-6"><a href="exploreData.html#cb191-6"></a>            <span class="dt">tsMax =</span> <span class="kw">max</span>(ts),</span>
+<span id="cb191-7"><a href="exploreData.html#cb191-7"></a>            <span class="dt">totDay =</span> <span class="kw">length</span>(<span class="kw">unique</span>(doy)))</span></code></pre></div>
 <pre><code>## `summarise()` regrouping output by &#39;motusTagID&#39; (override with `.groups` argument)</code></pre>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="exploreData.html#cb189-1"></a><span class="kw">head</span>(tagRecvSummary)</span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="exploreData.html#cb193-1"></a><span class="kw">head</span>(tagRecvSummary)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 7
 ## # Groups:   motusTagID [2]
 ##   motusTagID recvDeployName  nDet nRecv tsMin               tsMax               totDay
@@ -568,216 +567,216 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.4</span> Plotting your data</h2>
 <p>Plotting your data is a powerful way to visualize broad and fine-scale detection patterns. This section will give you a brief introduction to plotting using <code>ggplot2.</code> For more in depth information on the uses of <code>ggplot2</code>, we recommend the <a href="http://www.cookbook-r.com/Graphs/">Cookbook for R</a>, and the Rstudio <a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf"><code>ggplot2</code> cheatsheet</a>.</p>
 <p>To make coarse-scale plots with large files, we suggest first rounding the detection time to the nearest hour or day so that processing time is faster. Here we round detection times to the nearest hour, then make a basic plot of hourly detections by <code>motusTagID</code>:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="exploreData.html#cb191-1"></a>df.alltags.sub<span class="fl">.2</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></span>
-<span id="cb191-2"><a href="exploreData.html#cb191-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">hour =</span> <span class="kw">as.POSIXct</span>(<span class="kw">round</span>(ts, <span class="st">&quot;hour&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb191-3"><a href="exploreData.html#cb191-3"></a><span class="st">  </span><span class="kw">select</span>(motusTagID, port, tagDeployStart, tagDepLat, tagDepLon, </span>
-<span id="cb191-4"><a href="exploreData.html#cb191-4"></a>         recvLat, recvLon, recvDeployName, antBearing, speciesEN, year, doy, hour) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb191-5"><a href="exploreData.html#cb191-5"></a><span class="st">  </span><span class="kw">distinct</span>()</span>
-<span id="cb191-6"><a href="exploreData.html#cb191-6"></a></span>
-<span id="cb191-7"><a href="exploreData.html#cb191-7"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> df.alltags.sub<span class="fl">.2</span>, <span class="kw">aes</span>(<span class="dt">x =</span> hour, <span class="dt">y =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></span>
-<span id="cb191-8"><a href="exploreData.html#cb191-8"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
-<span id="cb191-9"><a href="exploreData.html#cb191-9"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb191-10"><a href="exploreData.html#cb191-10"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time (rounded to hour)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;MotusTagID&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="exploreData.html#cb195-1"></a>df.alltags.sub<span class="fl">.2</span> &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></span>
+<span id="cb195-2"><a href="exploreData.html#cb195-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">hour =</span> <span class="kw">as.POSIXct</span>(<span class="kw">round</span>(ts, <span class="st">&quot;hour&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb195-3"><a href="exploreData.html#cb195-3"></a><span class="st">  </span><span class="kw">select</span>(motusTagID, port, tagDeployStart, tagDepLat, tagDepLon, </span>
+<span id="cb195-4"><a href="exploreData.html#cb195-4"></a>         recvLat, recvLon, recvDeployName, antBearing, speciesEN, year, doy, hour) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb195-5"><a href="exploreData.html#cb195-5"></a><span class="st">  </span><span class="kw">distinct</span>()</span>
+<span id="cb195-6"><a href="exploreData.html#cb195-6"></a></span>
+<span id="cb195-7"><a href="exploreData.html#cb195-7"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> df.alltags.sub<span class="fl">.2</span>, <span class="kw">aes</span>(<span class="dt">x =</span> hour, <span class="dt">y =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></span>
+<span id="cb195-8"><a href="exploreData.html#cb195-8"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb195-9"><a href="exploreData.html#cb195-9"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb195-10"><a href="exploreData.html#cb195-10"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time (rounded to hour)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;MotusTagID&quot;</span>)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/hourlyPlot-1.png" width="672" />
 Let’s focus only on tags deployed in 2016, and we can colour the tags by species:</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="exploreData.html#cb192-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub<span class="fl">.2</span>, <span class="kw">year</span>(tagDeployStart) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>), </span>
-<span id="cb192-2"><a href="exploreData.html#cb192-2"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> hour, <span class="dt">y =</span> <span class="kw">as.factor</span>(motusTagID), <span class="dt">colour =</span> speciesEN)) <span class="op">+</span></span>
-<span id="cb192-3"><a href="exploreData.html#cb192-3"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb192-4"><a href="exploreData.html#cb192-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb192-5"><a href="exploreData.html#cb192-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time (rounded to hour)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;MotusTagID&quot;</span>) <span class="op">+</span></span>
-<span id="cb192-6"><a href="exploreData.html#cb192-6"></a><span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Species&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="exploreData.html#cb196-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub<span class="fl">.2</span>, <span class="kw">year</span>(tagDeployStart) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>), </span>
+<span id="cb196-2"><a href="exploreData.html#cb196-2"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> hour, <span class="dt">y =</span> <span class="kw">as.factor</span>(motusTagID), <span class="dt">colour =</span> speciesEN)) <span class="op">+</span></span>
+<span id="cb196-3"><a href="exploreData.html#cb196-3"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb196-4"><a href="exploreData.html#cb196-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb196-5"><a href="exploreData.html#cb196-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time (rounded to hour)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;MotusTagID&quot;</span>) <span class="op">+</span></span>
+<span id="cb196-6"><a href="exploreData.html#cb196-6"></a><span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Species&quot;</span>)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/hourlyPlotSpecies-1.png" width="672" />
 We can see how tags moved latitudinally by first ordering by hour, and colouring by <code>motusTagID</code>:</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="exploreData.html#cb193-1"></a>df.alltags.sub<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">arrange</span>(df.alltags.sub<span class="fl">.2</span>, hour)</span>
-<span id="cb193-2"><a href="exploreData.html#cb193-2"></a></span>
-<span id="cb193-3"><a href="exploreData.html#cb193-3"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub<span class="fl">.2</span>, <span class="kw">year</span>(tagDeployStart) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>), </span>
-<span id="cb193-4"><a href="exploreData.html#cb193-4"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> hour, <span class="dt">y =</span> recvLat, <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID), </span>
-<span id="cb193-5"><a href="exploreData.html#cb193-5"></a>           <span class="dt">group =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb193-6"><a href="exploreData.html#cb193-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb193-7"><a href="exploreData.html#cb193-7"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb193-8"><a href="exploreData.html#cb193-8"></a><span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span></span>
-<span id="cb193-9"><a href="exploreData.html#cb193-9"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time (rounded to hour)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Receiver latitude&quot;</span>) <span class="op">+</span></span>
-<span id="cb193-10"><a href="exploreData.html#cb193-10"></a><span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="exploreData.html#cb197-1"></a>df.alltags.sub<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">arrange</span>(df.alltags.sub<span class="fl">.2</span>, hour)</span>
+<span id="cb197-2"><a href="exploreData.html#cb197-2"></a></span>
+<span id="cb197-3"><a href="exploreData.html#cb197-3"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub<span class="fl">.2</span>, <span class="kw">year</span>(tagDeployStart) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>), </span>
+<span id="cb197-4"><a href="exploreData.html#cb197-4"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> hour, <span class="dt">y =</span> recvLat, <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID), </span>
+<span id="cb197-5"><a href="exploreData.html#cb197-5"></a>           <span class="dt">group =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb197-6"><a href="exploreData.html#cb197-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb197-7"><a href="exploreData.html#cb197-7"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb197-8"><a href="exploreData.html#cb197-8"></a><span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span></span>
+<span id="cb197-9"><a href="exploreData.html#cb197-9"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time (rounded to hour)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Receiver latitude&quot;</span>) <span class="op">+</span></span>
+<span id="cb197-10"><a href="exploreData.html#cb197-10"></a><span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/hourlyPlotLat-1.png" width="672" />
 Now lets look at more detailed plots of signal variation. We use the full <code>df.alltags.sub</code> dataframe so that we can get signal strength for each detection of a specific tag. Let’s examine fall 2016 detections of tag 22897 at Niapiskau; we facet the plot by deployment name, ordered by decreasing latitude:</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="exploreData.html#cb194-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, </span>
-<span id="cb194-2"><a href="exploreData.html#cb194-2"></a>                     motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22897</span>, </span>
-<span id="cb194-3"><a href="exploreData.html#cb194-3"></a>                     recvDeployName <span class="op">==</span><span class="st"> &quot;Niapiskau&quot;</span>), </span>
-<span id="cb194-4"><a href="exploreData.html#cb194-4"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig)) <span class="op">+</span></span>
-<span id="cb194-5"><a href="exploreData.html#cb194-5"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb194-6"><a href="exploreData.html#cb194-6"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb194-7"><a href="exploreData.html#cb194-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span></span>
-<span id="cb194-8"><a href="exploreData.html#cb194-8"></a><span class="st">  </span><span class="kw">facet_grid</span>(recvDeployName <span class="op">~</span><span class="st"> </span>.)</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="exploreData.html#cb198-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, </span>
+<span id="cb198-2"><a href="exploreData.html#cb198-2"></a>                     motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22897</span>, </span>
+<span id="cb198-3"><a href="exploreData.html#cb198-3"></a>                     recvDeployName <span class="op">==</span><span class="st"> &quot;Niapiskau&quot;</span>), </span>
+<span id="cb198-4"><a href="exploreData.html#cb198-4"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig)) <span class="op">+</span></span>
+<span id="cb198-5"><a href="exploreData.html#cb198-5"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb198-6"><a href="exploreData.html#cb198-6"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb198-7"><a href="exploreData.html#cb198-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span></span>
+<span id="cb198-8"><a href="exploreData.html#cb198-8"></a><span class="st">  </span><span class="kw">facet_grid</span>(recvDeployName <span class="op">~</span><span class="st"> </span>.)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plot22897-1.png" width="672" /></p>
 <p>We use the <code>sunRiseSet()</code> function available in the <code>motus</code> R package (see <a href="appendixC.html#sunRiseSet">C.2</a>) to get sunrise and sunset times for all detections. We then zoom in on a certain timeframe and add that information to the above plot by adding a <code>geom_vline()</code> statement to the code, which adds a yellow line for sunrise time, and a blue line for sunset time:</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="exploreData.html#cb195-1"></a><span class="co"># add sunrise and sunset times to the dataframe</span></span>
-<span id="cb195-2"><a href="exploreData.html#cb195-2"></a>df.alltags.sub &lt;-<span class="st"> </span><span class="kw">sunRiseSet</span>(df.alltags.sub, <span class="dt">lat =</span> <span class="st">&quot;recvLat&quot;</span>, <span class="dt">lon =</span> <span class="st">&quot;recvLon&quot;</span>) </span>
-<span id="cb195-3"><a href="exploreData.html#cb195-3"></a></span>
-<span id="cb195-4"><a href="exploreData.html#cb195-4"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22897</span>,</span>
-<span id="cb195-5"><a href="exploreData.html#cb195-5"></a>                     ts <span class="op">&gt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2016-10-11&quot;</span>),</span>
-<span id="cb195-6"><a href="exploreData.html#cb195-6"></a>                     ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2016-10-17&quot;</span>),</span>
-<span id="cb195-7"><a href="exploreData.html#cb195-7"></a>                     recvDeployName <span class="op">==</span><span class="st"> &quot;Niapiskau&quot;</span>), </span>
-<span id="cb195-8"><a href="exploreData.html#cb195-8"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig)) <span class="op">+</span></span>
-<span id="cb195-9"><a href="exploreData.html#cb195-9"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb195-10"><a href="exploreData.html#cb195-10"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb195-11"><a href="exploreData.html#cb195-11"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time of year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span></span>
-<span id="cb195-12"><a href="exploreData.html#cb195-12"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="kw">aes</span>(<span class="dt">xintercept =</span> sunrise), <span class="dt">col =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb195-13"><a href="exploreData.html#cb195-13"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="kw">aes</span>(<span class="dt">xintercept =</span> sunset), <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="exploreData.html#cb199-1"></a><span class="co"># add sunrise and sunset times to the dataframe</span></span>
+<span id="cb199-2"><a href="exploreData.html#cb199-2"></a>df.alltags.sub &lt;-<span class="st"> </span><span class="kw">sunRiseSet</span>(df.alltags.sub, <span class="dt">lat =</span> <span class="st">&quot;recvLat&quot;</span>, <span class="dt">lon =</span> <span class="st">&quot;recvLon&quot;</span>) </span>
+<span id="cb199-3"><a href="exploreData.html#cb199-3"></a></span>
+<span id="cb199-4"><a href="exploreData.html#cb199-4"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">22897</span>,</span>
+<span id="cb199-5"><a href="exploreData.html#cb199-5"></a>                     ts <span class="op">&gt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2016-10-11&quot;</span>),</span>
+<span id="cb199-6"><a href="exploreData.html#cb199-6"></a>                     ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2016-10-17&quot;</span>),</span>
+<span id="cb199-7"><a href="exploreData.html#cb199-7"></a>                     recvDeployName <span class="op">==</span><span class="st"> &quot;Niapiskau&quot;</span>), </span>
+<span id="cb199-8"><a href="exploreData.html#cb199-8"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig)) <span class="op">+</span></span>
+<span id="cb199-9"><a href="exploreData.html#cb199-9"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb199-10"><a href="exploreData.html#cb199-10"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb199-11"><a href="exploreData.html#cb199-11"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time of year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span></span>
+<span id="cb199-12"><a href="exploreData.html#cb199-12"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="kw">aes</span>(<span class="dt">xintercept =</span> sunrise), <span class="dt">col =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb199-13"><a href="exploreData.html#cb199-13"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="kw">aes</span>(<span class="dt">xintercept =</span> sunset), <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotSunriset22897-1.png" width="672" />
 We can see that during this period, the tag was most often detected during the day, suggesting it may be actively foraging in this area during this time.</p>
 <p>The same plots can provide valuable movement information when the receivers are ordered geographically. We do this for <code>motusTagID</code> 16039:</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="exploreData.html#cb196-1"></a><span class="co"># We&#39;ll first order sitelat by latitude (for plots)</span></span>
-<span id="cb196-2"><a href="exploreData.html#cb196-2"></a>df.alltags.sub &lt;-<span class="st"> </span><span class="kw">mutate</span>(df.alltags.sub, </span>
-<span id="cb196-3"><a href="exploreData.html#cb196-3"></a>                         <span class="dt">recvDeployName =</span> <span class="kw">reorder</span>(recvDeployName, recvLat))</span>
-<span id="cb196-4"><a href="exploreData.html#cb196-4"></a></span>
-<span id="cb196-5"><a href="exploreData.html#cb196-5"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, </span>
-<span id="cb196-6"><a href="exploreData.html#cb196-6"></a>                     motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16039</span>,</span>
-<span id="cb196-7"><a href="exploreData.html#cb196-7"></a>                     ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-10-01&quot;</span>)), </span>
-<span id="cb196-8"><a href="exploreData.html#cb196-8"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> recvDeployName)) <span class="op">+</span></span>
-<span id="cb196-9"><a href="exploreData.html#cb196-9"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb196-10"><a href="exploreData.html#cb196-10"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb196-11"><a href="exploreData.html#cb196-11"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time of year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Receiver name (ordered by latitude)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="exploreData.html#cb200-1"></a><span class="co"># We&#39;ll first order sitelat by latitude (for plots)</span></span>
+<span id="cb200-2"><a href="exploreData.html#cb200-2"></a>df.alltags.sub &lt;-<span class="st"> </span><span class="kw">mutate</span>(df.alltags.sub, </span>
+<span id="cb200-3"><a href="exploreData.html#cb200-3"></a>                         <span class="dt">recvDeployName =</span> <span class="kw">reorder</span>(recvDeployName, recvLat))</span>
+<span id="cb200-4"><a href="exploreData.html#cb200-4"></a></span>
+<span id="cb200-5"><a href="exploreData.html#cb200-5"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, </span>
+<span id="cb200-6"><a href="exploreData.html#cb200-6"></a>                     motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16039</span>,</span>
+<span id="cb200-7"><a href="exploreData.html#cb200-7"></a>                     ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-10-01&quot;</span>)), </span>
+<span id="cb200-8"><a href="exploreData.html#cb200-8"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> recvDeployName)) <span class="op">+</span></span>
+<span id="cb200-9"><a href="exploreData.html#cb200-9"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb200-10"><a href="exploreData.html#cb200-10"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb200-11"><a href="exploreData.html#cb200-11"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time of year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Receiver name (ordered by latitude)&quot;</span>)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/latPlot1-1.png" width="672" /></p>
 <p>We zoom in on a section of this plot and look at antenna bearings to see directional movement past stations:</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="exploreData.html#cb197-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16039</span>, </span>
-<span id="cb197-2"><a href="exploreData.html#cb197-2"></a>                     ts <span class="op">&gt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-09-14&quot;</span>), </span>
-<span id="cb197-3"><a href="exploreData.html#cb197-3"></a>                     ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-10-01&quot;</span>)), </span>
-<span id="cb197-4"><a href="exploreData.html#cb197-4"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">col =</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span></span>
-<span id="cb197-5"><a href="exploreData.html#cb197-5"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb197-6"><a href="exploreData.html#cb197-6"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb197-7"><a href="exploreData.html#cb197-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time of day&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span></span>
-<span id="cb197-8"><a href="exploreData.html#cb197-8"></a><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Antenna bearing&quot;</span>) <span class="op">+</span></span>
-<span id="cb197-9"><a href="exploreData.html#cb197-9"></a><span class="st">  </span><span class="kw">facet_grid</span>(recvDeployName <span class="op">~</span><span class="st"> </span>.)</span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="exploreData.html#cb201-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.alltags.sub, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16039</span>, </span>
+<span id="cb201-2"><a href="exploreData.html#cb201-2"></a>                     ts <span class="op">&gt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-09-14&quot;</span>), </span>
+<span id="cb201-3"><a href="exploreData.html#cb201-3"></a>                     ts <span class="op">&lt;</span><span class="st"> </span><span class="kw">ymd</span>(<span class="st">&quot;2015-10-01&quot;</span>)), </span>
+<span id="cb201-4"><a href="exploreData.html#cb201-4"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">col =</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span></span>
+<span id="cb201-5"><a href="exploreData.html#cb201-5"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb201-6"><a href="exploreData.html#cb201-6"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb201-7"><a href="exploreData.html#cb201-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time of day&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Signal strength&quot;</span>) <span class="op">+</span></span>
+<span id="cb201-8"><a href="exploreData.html#cb201-8"></a><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;Antenna bearing&quot;</span>) <span class="op">+</span></span>
+<span id="cb201-9"><a href="exploreData.html#cb201-9"></a><span class="st">  </span><span class="kw">facet_grid</span>(recvDeployName <span class="op">~</span><span class="st"> </span>.)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plot2-1.png" width="672" /></p>
 <p>This plot shows the typical flyby pattern of a migrating animal, with signal strength increasing and then decreasing as the tag moves through the beams of the antennas.</p>
 </div>
 <div id="mappingData" class="section level2">
 <h2><span class="header-section-number">6.5</span> Mapping your data</h2>
 <p>To generate maps of tag paths, we will once again use summarized data so we can work with a much smaller database for faster processing. Here we’ll summarize detections by day. As we did in Chapter <a href="dataCleaning.html#dataCleaning">5</a>, we create a simple function to summarize the data, since we will likely want to do this type of summary over and over again.</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="exploreData.html#cb198-1"></a><span class="co"># Simplify the data by summarizing by the runID</span></span>
-<span id="cb198-2"><a href="exploreData.html#cb198-2"></a><span class="co"># If you want to summarize at a finer (or coarser) scale, you can also create</span></span>
-<span id="cb198-3"><a href="exploreData.html#cb198-3"></a><span class="co"># other groups. The simplest alternative is a rounded timestamp variable; for</span></span>
-<span id="cb198-4"><a href="exploreData.html#cb198-4"></a><span class="co"># example by using mutate(ts.h = plyr::round_any(ts, 3600) function call. Other</span></span>
-<span id="cb198-5"><a href="exploreData.html#cb198-5"></a><span class="co"># options are to just use date (e.g date = as_date(ts))</span></span>
-<span id="cb198-6"><a href="exploreData.html#cb198-6"></a></span>
-<span id="cb198-7"><a href="exploreData.html#cb198-7"></a>fun.getpath &lt;-<span class="st"> </span><span class="cf">function</span>(df) {</span>
-<span id="cb198-8"><a href="exploreData.html#cb198-8"></a>  df <span class="op">%&gt;%</span></span>
-<span id="cb198-9"><a href="exploreData.html#cb198-9"></a><span class="st">    </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num, <span class="co"># keep only tags registered to the sample project</span></span>
-<span id="cb198-10"><a href="exploreData.html#cb198-10"></a>           <span class="op">!</span><span class="kw">is.na</span>(recvLat) <span class="op">|</span><span class="st"> </span><span class="op">!</span>(recvLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb198-11"><a href="exploreData.html#cb198-11"></a><span class="st">    </span><span class="kw">group_by</span>(motusTagID, runID, recvDeployName, ambigID, </span>
-<span id="cb198-12"><a href="exploreData.html#cb198-12"></a>             tagDepLon, tagDepLat, recvLat, recvLon) <span class="op">%&gt;%</span></span>
-<span id="cb198-13"><a href="exploreData.html#cb198-13"></a><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">max.runLen =</span> <span class="kw">max</span>(runLen), <span class="dt">ts.h =</span> <span class="kw">mean</span>(ts)) <span class="op">%&gt;%</span></span>
-<span id="cb198-14"><a href="exploreData.html#cb198-14"></a><span class="st">    </span><span class="kw">arrange</span>(motusTagID, ts.h) <span class="op">%&gt;%</span></span>
-<span id="cb198-15"><a href="exploreData.html#cb198-15"></a><span class="st">    </span><span class="kw">data.frame</span>()</span>
-<span id="cb198-16"><a href="exploreData.html#cb198-16"></a>} <span class="co"># end of function call</span></span>
-<span id="cb198-17"><a href="exploreData.html#cb198-17"></a></span>
-<span id="cb198-18"><a href="exploreData.html#cb198-18"></a>df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(df.alltags.sub)</span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="exploreData.html#cb202-1"></a><span class="co"># Simplify the data by summarizing by the runID</span></span>
+<span id="cb202-2"><a href="exploreData.html#cb202-2"></a><span class="co"># If you want to summarize at a finer (or coarser) scale, you can also create</span></span>
+<span id="cb202-3"><a href="exploreData.html#cb202-3"></a><span class="co"># other groups. The simplest alternative is a rounded timestamp variable; for</span></span>
+<span id="cb202-4"><a href="exploreData.html#cb202-4"></a><span class="co"># example by using mutate(ts.h = plyr::round_any(ts, 3600) function call. Other</span></span>
+<span id="cb202-5"><a href="exploreData.html#cb202-5"></a><span class="co"># options are to just use date (e.g date = as_date(ts))</span></span>
+<span id="cb202-6"><a href="exploreData.html#cb202-6"></a></span>
+<span id="cb202-7"><a href="exploreData.html#cb202-7"></a>fun.getpath &lt;-<span class="st"> </span><span class="cf">function</span>(df) {</span>
+<span id="cb202-8"><a href="exploreData.html#cb202-8"></a>  df <span class="op">%&gt;%</span></span>
+<span id="cb202-9"><a href="exploreData.html#cb202-9"></a><span class="st">    </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num, <span class="co"># keep only tags registered to the sample project</span></span>
+<span id="cb202-10"><a href="exploreData.html#cb202-10"></a>           <span class="op">!</span><span class="kw">is.na</span>(recvLat) <span class="op">|</span><span class="st"> </span><span class="op">!</span>(recvLat <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb202-11"><a href="exploreData.html#cb202-11"></a><span class="st">    </span><span class="kw">group_by</span>(motusTagID, runID, recvDeployName, ambigID, </span>
+<span id="cb202-12"><a href="exploreData.html#cb202-12"></a>             tagDepLon, tagDepLat, recvLat, recvLon) <span class="op">%&gt;%</span></span>
+<span id="cb202-13"><a href="exploreData.html#cb202-13"></a><span class="st">    </span><span class="kw">summarize</span>(<span class="dt">max.runLen =</span> <span class="kw">max</span>(runLen), <span class="dt">ts.h =</span> <span class="kw">mean</span>(ts)) <span class="op">%&gt;%</span></span>
+<span id="cb202-14"><a href="exploreData.html#cb202-14"></a><span class="st">    </span><span class="kw">arrange</span>(motusTagID, ts.h) <span class="op">%&gt;%</span></span>
+<span id="cb202-15"><a href="exploreData.html#cb202-15"></a><span class="st">    </span><span class="kw">data.frame</span>()</span>
+<span id="cb202-16"><a href="exploreData.html#cb202-16"></a>} <span class="co"># end of function call</span></span>
+<span id="cb202-17"><a href="exploreData.html#cb202-17"></a></span>
+<span id="cb202-18"><a href="exploreData.html#cb202-18"></a>df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(df.alltags.sub)</span></code></pre></div>
 <pre><code>## `summarise()` regrouping output by &#39;motusTagID&#39;, &#39;runID&#39;, &#39;recvDeployName&#39;, &#39;ambigID&#39;, &#39;tagDepLon&#39;, &#39;tagDepLat&#39;, &#39;recvLat&#39; (override with `.groups` argument)</code></pre>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="exploreData.html#cb200-1"></a>df.alltags.sub.path &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></span>
-<span id="cb200-2"><a href="exploreData.html#cb200-2"></a><span class="st">  </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># only tags registered to project</span></span>
-<span id="cb200-3"><a href="exploreData.html#cb200-3"></a><span class="st">  </span><span class="kw">arrange</span>(motusTagID, ts) <span class="op">%&gt;%</span><span class="st">       </span><span class="co"># order by time stamp for each tag</span></span>
-<span id="cb200-4"><a href="exploreData.html#cb200-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">as_date</span>(ts)) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># create date variable</span></span>
-<span id="cb200-5"><a href="exploreData.html#cb200-5"></a><span class="st">  </span><span class="kw">group_by</span>(motusTagID, date, recvDeployName, ambigID, </span>
-<span id="cb200-6"><a href="exploreData.html#cb200-6"></a>           tagDepLon, tagDepLat, recvLat, recvLon)</span>
-<span id="cb200-7"><a href="exploreData.html#cb200-7"></a></span>
-<span id="cb200-8"><a href="exploreData.html#cb200-8"></a>df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(df.alltags.sub.path)</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="exploreData.html#cb204-1"></a>df.alltags.sub.path &lt;-<span class="st"> </span>df.alltags.sub <span class="op">%&gt;%</span></span>
+<span id="cb204-2"><a href="exploreData.html#cb204-2"></a><span class="st">  </span><span class="kw">filter</span>(tagProjID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># only tags registered to project</span></span>
+<span id="cb204-3"><a href="exploreData.html#cb204-3"></a><span class="st">  </span><span class="kw">arrange</span>(motusTagID, ts) <span class="op">%&gt;%</span><span class="st">       </span><span class="co"># order by time stamp for each tag</span></span>
+<span id="cb204-4"><a href="exploreData.html#cb204-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">as_date</span>(ts)) <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># create date variable</span></span>
+<span id="cb204-5"><a href="exploreData.html#cb204-5"></a><span class="st">  </span><span class="kw">group_by</span>(motusTagID, date, recvDeployName, ambigID, </span>
+<span id="cb204-6"><a href="exploreData.html#cb204-6"></a>           tagDepLon, tagDepLat, recvLat, recvLon)</span>
+<span id="cb204-7"><a href="exploreData.html#cb204-7"></a></span>
+<span id="cb204-8"><a href="exploreData.html#cb204-8"></a>df.alltags.path &lt;-<span class="st"> </span><span class="kw">fun.getpath</span>(df.alltags.sub.path)</span></code></pre></div>
 <pre><code>## `summarise()` regrouping output by &#39;motusTagID&#39;, &#39;runID&#39;, &#39;recvDeployName&#39;, &#39;ambigID&#39;, &#39;tagDepLon&#39;, &#39;tagDepLat&#39;, &#39;recvLat&#39; (override with `.groups` argument)</code></pre>
 <div id="ggmaps" class="section level3">
 <h3><span class="header-section-number">6.5.1</span> Mapping with the <code>ggmap</code> package</h3>
 <p>Mapping with <code>ggmap</code> can be a fast way to view flight paths and allows you to select from multiple base layers.<br />
 There are several ways to use the <code>ggmap</code> package. One is with Google Maps, which, as of October 16, 2018, requires a Google Maps API key (see Appendix B section <a href="appendixB.html#googleMapsKey">B.4</a> for more details). An alternative method is to use an open source of map tiles, such as Stamen Map tiles, which do not require an API key. The following example uses Stamen Map tiles.</p>
 <p>The first step is to create a map with a specified map are, maptype (“terrain”, “toner”, or “watercolor”, among others), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale. For stamen maps this represents the level of detail you want). We then add points for receivers and lines connecting consecutive detections by <code>motusTagID.</code> We can also add points for all receivers that were active during a certain time period if we have already downloaded all metadata.</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="exploreData.html#cb202-1"></a>gmap &lt;-<span class="st">  </span><span class="kw">get_stamenmap</span>(<span class="dt">bbox =</span> <span class="kw">c</span>(<span class="dt">left =</span> <span class="dv">-90</span>, <span class="dt">right =</span> <span class="dv">-57</span>, <span class="dt">bottom =</span> <span class="dv">35</span>, <span class="dt">top =</span> <span class="dv">55</span>),</span>
-<span id="cb202-2"><a href="exploreData.html#cb202-2"></a>                       <span class="dt">maptype =</span> <span class="st">&quot;terrain-background&quot;</span>, <span class="co"># select maptype</span></span>
-<span id="cb202-3"><a href="exploreData.html#cb202-3"></a>                       <span class="dt">zoom =</span> <span class="dv">6</span>) <span class="co"># zoom, must be a whole number</span></span>
-<span id="cb202-4"><a href="exploreData.html#cb202-4"></a></span>
-<span id="cb202-5"><a href="exploreData.html#cb202-5"></a><span class="co"># just use the tags that we have examined carefully and filtered (in the</span></span>
-<span id="cb202-6"><a href="exploreData.html#cb202-6"></a><span class="co"># previous chapter)</span></span>
-<span id="cb202-7"><a href="exploreData.html#cb202-7"></a>df.tmp &lt;-<span class="st"> </span>df.alltags.path <span class="op">%&gt;%</span></span>
-<span id="cb202-8"><a href="exploreData.html#cb202-8"></a><span class="st">  </span><span class="kw">filter</span>(motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16011</span>, <span class="dv">16035</span>, <span class="dv">16036</span>, <span class="dv">16037</span>, <span class="dv">16038</span>, <span class="dv">16039</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb202-9"><a href="exploreData.html#cb202-9"></a><span class="st">  </span><span class="kw">arrange</span>(ts.h)  <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># arange by hour</span></span>
-<span id="cb202-10"><a href="exploreData.html#cb202-10"></a><span class="st">  </span><span class="kw">as.data.frame</span>()</span>
-<span id="cb202-11"><a href="exploreData.html#cb202-11"></a></span>
-<span id="cb202-12"><a href="exploreData.html#cb202-12"></a><span class="kw">ggmap</span>(gmap) <span class="op">+</span></span>
-<span id="cb202-13"><a href="exploreData.html#cb202-13"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb202-14"><a href="exploreData.html#cb202-14"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat), </span>
-<span id="cb202-15"><a href="exploreData.html#cb202-15"></a>             <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>) <span class="op">+</span></span>
-<span id="cb202-16"><a href="exploreData.html#cb202-16"></a><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, </span>
-<span id="cb202-17"><a href="exploreData.html#cb202-17"></a>            <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat, <span class="dt">group =</span> motusTagID, <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></span>
-<span id="cb202-18"><a href="exploreData.html#cb202-18"></a><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="exploreData.html#cb206-1"></a>gmap &lt;-<span class="st">  </span><span class="kw">get_stamenmap</span>(<span class="dt">bbox =</span> <span class="kw">c</span>(<span class="dt">left =</span> <span class="dv">-90</span>, <span class="dt">right =</span> <span class="dv">-57</span>, <span class="dt">bottom =</span> <span class="dv">35</span>, <span class="dt">top =</span> <span class="dv">55</span>),</span>
+<span id="cb206-2"><a href="exploreData.html#cb206-2"></a>                       <span class="dt">maptype =</span> <span class="st">&quot;terrain-background&quot;</span>, <span class="co"># select maptype</span></span>
+<span id="cb206-3"><a href="exploreData.html#cb206-3"></a>                       <span class="dt">zoom =</span> <span class="dv">6</span>) <span class="co"># zoom, must be a whole number</span></span>
+<span id="cb206-4"><a href="exploreData.html#cb206-4"></a></span>
+<span id="cb206-5"><a href="exploreData.html#cb206-5"></a><span class="co"># just use the tags that we have examined carefully and filtered (in the</span></span>
+<span id="cb206-6"><a href="exploreData.html#cb206-6"></a><span class="co"># previous chapter)</span></span>
+<span id="cb206-7"><a href="exploreData.html#cb206-7"></a>df.tmp &lt;-<span class="st"> </span>df.alltags.path <span class="op">%&gt;%</span></span>
+<span id="cb206-8"><a href="exploreData.html#cb206-8"></a><span class="st">  </span><span class="kw">filter</span>(motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16011</span>, <span class="dv">16035</span>, <span class="dv">16036</span>, <span class="dv">16037</span>, <span class="dv">16038</span>, <span class="dv">16039</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb206-9"><a href="exploreData.html#cb206-9"></a><span class="st">  </span><span class="kw">arrange</span>(ts.h)  <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># arange by hour</span></span>
+<span id="cb206-10"><a href="exploreData.html#cb206-10"></a><span class="st">  </span><span class="kw">as.data.frame</span>()</span>
+<span id="cb206-11"><a href="exploreData.html#cb206-11"></a></span>
+<span id="cb206-12"><a href="exploreData.html#cb206-12"></a><span class="kw">ggmap</span>(gmap) <span class="op">+</span></span>
+<span id="cb206-13"><a href="exploreData.html#cb206-13"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb206-14"><a href="exploreData.html#cb206-14"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat), </span>
+<span id="cb206-15"><a href="exploreData.html#cb206-15"></a>             <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>) <span class="op">+</span></span>
+<span id="cb206-16"><a href="exploreData.html#cb206-16"></a><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, </span>
+<span id="cb206-17"><a href="exploreData.html#cb206-17"></a>            <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat, <span class="dt">group =</span> motusTagID, <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></span>
+<span id="cb206-18"><a href="exploreData.html#cb206-18"></a><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/ggmap-1.png" width="672" /></p>
 <p>We make the same plot, with additional points for all receivers that were active during a specified time (concentrating on our area of interest):</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="exploreData.html#cb203-1"></a><span class="co"># get receiver metadata</span></span>
-<span id="cb203-2"><a href="exploreData.html#cb203-2"></a>tbl.recvDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;recvDeps&quot;</span>)</span>
-<span id="cb203-3"><a href="exploreData.html#cb203-3"></a>df.recvDeps &lt;-<span class="st"> </span>tbl.recvDeps <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb203-4"><a href="exploreData.html#cb203-4"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb203-5"><a href="exploreData.html#cb203-5"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb203-6"><a href="exploreData.html#cb203-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">tsStart =</span> <span class="kw">as_datetime</span>(tsStart, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>),</span>
-<span id="cb203-7"><a href="exploreData.html#cb203-7"></a>         <span class="dt">tsEnd =</span> <span class="kw">as_datetime</span>(tsEnd, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>),</span>
-<span id="cb203-8"><a href="exploreData.html#cb203-8"></a>         <span class="co"># for deployments with no end dates, make an end date a year from now</span></span>
-<span id="cb203-9"><a href="exploreData.html#cb203-9"></a>         <span class="dt">tsEnd =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(tsEnd), </span>
-<span id="cb203-10"><a href="exploreData.html#cb203-10"></a>                         <span class="kw">as.POSIXct</span>(<span class="kw">format</span>(<span class="kw">Sys.time</span>(), <span class="st">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)) <span class="op">+</span></span>
-<span id="cb203-11"><a href="exploreData.html#cb203-11"></a><span class="st">                           </span><span class="kw">dyears</span>(<span class="dv">1</span>), </span>
-<span id="cb203-12"><a href="exploreData.html#cb203-12"></a>                         tsEnd), </span>
-<span id="cb203-13"><a href="exploreData.html#cb203-13"></a>         <span class="dt">tsEnd =</span> <span class="kw">as.POSIXct</span>(tsEnd, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))</span>
-<span id="cb203-14"><a href="exploreData.html#cb203-14"></a></span>
-<span id="cb203-15"><a href="exploreData.html#cb203-15"></a><span class="co"># get running intervals for all receiver deployments</span></span>
-<span id="cb203-16"><a href="exploreData.html#cb203-16"></a>siteOp &lt;-<span class="st"> </span><span class="kw">with</span>(df.recvDeps, <span class="kw">interval</span>(tsStart, tsEnd))</span>
-<span id="cb203-17"><a href="exploreData.html#cb203-17"></a></span>
-<span id="cb203-18"><a href="exploreData.html#cb203-18"></a><span class="co"># set the date range you&#39;re interested in</span></span>
-<span id="cb203-19"><a href="exploreData.html#cb203-19"></a>dateRange &lt;-<span class="st"> </span><span class="kw">interval</span>(<span class="kw">as.POSIXct</span>(<span class="st">&quot;2015-08-01&quot;</span>), <span class="kw">as.POSIXct</span>(<span class="st">&quot;2016-01-01&quot;</span>))</span>
-<span id="cb203-20"><a href="exploreData.html#cb203-20"></a></span>
-<span id="cb203-21"><a href="exploreData.html#cb203-21"></a><span class="co"># create new variable &quot;active&quot; which will be set to TRUE if the receiver was</span></span>
-<span id="cb203-22"><a href="exploreData.html#cb203-22"></a><span class="co"># active at some point during your specified date range, and FALSE if not</span></span>
-<span id="cb203-23"><a href="exploreData.html#cb203-23"></a>df.recvDeps<span class="op">$</span>active &lt;-<span class="st"> </span><span class="kw">int_overlaps</span>(siteOp, dateRange) </span>
-<span id="cb203-24"><a href="exploreData.html#cb203-24"></a></span>
-<span id="cb203-25"><a href="exploreData.html#cb203-25"></a><span class="co"># create map with receivers active during specified date range as red, and</span></span>
-<span id="cb203-26"><a href="exploreData.html#cb203-26"></a><span class="co"># receivers with detections as yellow</span></span>
-<span id="cb203-27"><a href="exploreData.html#cb203-27"></a><span class="kw">ggmap</span>(gmap) <span class="op">+</span></span>
-<span id="cb203-28"><a href="exploreData.html#cb203-28"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb203-29"><a href="exploreData.html#cb203-29"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(df.recvDeps, active <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>), </span>
-<span id="cb203-30"><a href="exploreData.html#cb203-30"></a>             ggplot2<span class="op">::</span><span class="kw">aes</span>(<span class="dt">x =</span> longitude, <span class="dt">y =</span> latitude), </span>
-<span id="cb203-31"><a href="exploreData.html#cb203-31"></a>             <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
-<span id="cb203-32"><a href="exploreData.html#cb203-32"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat), </span>
-<span id="cb203-33"><a href="exploreData.html#cb203-33"></a>             <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>) <span class="op">+</span></span>
-<span id="cb203-34"><a href="exploreData.html#cb203-34"></a><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, </span>
-<span id="cb203-35"><a href="exploreData.html#cb203-35"></a>            <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat, <span class="dt">group =</span> motusTagID, </span>
-<span id="cb203-36"><a href="exploreData.html#cb203-36"></a>                <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></span>
-<span id="cb203-37"><a href="exploreData.html#cb203-37"></a><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="exploreData.html#cb207-1"></a><span class="co"># get receiver metadata</span></span>
+<span id="cb207-2"><a href="exploreData.html#cb207-2"></a>tbl.recvDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;recvDeps&quot;</span>)</span>
+<span id="cb207-3"><a href="exploreData.html#cb207-3"></a>df.recvDeps &lt;-<span class="st"> </span>tbl.recvDeps <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb207-4"><a href="exploreData.html#cb207-4"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb207-5"><a href="exploreData.html#cb207-5"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb207-6"><a href="exploreData.html#cb207-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">tsStart =</span> <span class="kw">as_datetime</span>(tsStart, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>),</span>
+<span id="cb207-7"><a href="exploreData.html#cb207-7"></a>         <span class="dt">tsEnd =</span> <span class="kw">as_datetime</span>(tsEnd, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>),</span>
+<span id="cb207-8"><a href="exploreData.html#cb207-8"></a>         <span class="co"># for deployments with no end dates, make an end date a year from now</span></span>
+<span id="cb207-9"><a href="exploreData.html#cb207-9"></a>         <span class="dt">tsEnd =</span> <span class="kw">if_else</span>(<span class="kw">is.na</span>(tsEnd), </span>
+<span id="cb207-10"><a href="exploreData.html#cb207-10"></a>                         <span class="kw">as.POSIXct</span>(<span class="kw">format</span>(<span class="kw">Sys.time</span>(), <span class="st">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)) <span class="op">+</span></span>
+<span id="cb207-11"><a href="exploreData.html#cb207-11"></a><span class="st">                           </span><span class="kw">dyears</span>(<span class="dv">1</span>), </span>
+<span id="cb207-12"><a href="exploreData.html#cb207-12"></a>                         tsEnd), </span>
+<span id="cb207-13"><a href="exploreData.html#cb207-13"></a>         <span class="dt">tsEnd =</span> <span class="kw">as.POSIXct</span>(tsEnd, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))</span>
+<span id="cb207-14"><a href="exploreData.html#cb207-14"></a></span>
+<span id="cb207-15"><a href="exploreData.html#cb207-15"></a><span class="co"># get running intervals for all receiver deployments</span></span>
+<span id="cb207-16"><a href="exploreData.html#cb207-16"></a>siteOp &lt;-<span class="st"> </span><span class="kw">with</span>(df.recvDeps, <span class="kw">interval</span>(tsStart, tsEnd))</span>
+<span id="cb207-17"><a href="exploreData.html#cb207-17"></a></span>
+<span id="cb207-18"><a href="exploreData.html#cb207-18"></a><span class="co"># set the date range you&#39;re interested in</span></span>
+<span id="cb207-19"><a href="exploreData.html#cb207-19"></a>dateRange &lt;-<span class="st"> </span><span class="kw">interval</span>(<span class="kw">as.POSIXct</span>(<span class="st">&quot;2015-08-01&quot;</span>), <span class="kw">as.POSIXct</span>(<span class="st">&quot;2016-01-01&quot;</span>))</span>
+<span id="cb207-20"><a href="exploreData.html#cb207-20"></a></span>
+<span id="cb207-21"><a href="exploreData.html#cb207-21"></a><span class="co"># create new variable &quot;active&quot; which will be set to TRUE if the receiver was</span></span>
+<span id="cb207-22"><a href="exploreData.html#cb207-22"></a><span class="co"># active at some point during your specified date range, and FALSE if not</span></span>
+<span id="cb207-23"><a href="exploreData.html#cb207-23"></a>df.recvDeps<span class="op">$</span>active &lt;-<span class="st"> </span><span class="kw">int_overlaps</span>(siteOp, dateRange) </span>
+<span id="cb207-24"><a href="exploreData.html#cb207-24"></a></span>
+<span id="cb207-25"><a href="exploreData.html#cb207-25"></a><span class="co"># create map with receivers active during specified date range as red, and</span></span>
+<span id="cb207-26"><a href="exploreData.html#cb207-26"></a><span class="co"># receivers with detections as yellow</span></span>
+<span id="cb207-27"><a href="exploreData.html#cb207-27"></a><span class="kw">ggmap</span>(gmap) <span class="op">+</span></span>
+<span id="cb207-28"><a href="exploreData.html#cb207-28"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb207-29"><a href="exploreData.html#cb207-29"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(df.recvDeps, active <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>), </span>
+<span id="cb207-30"><a href="exploreData.html#cb207-30"></a>             ggplot2<span class="op">::</span><span class="kw">aes</span>(<span class="dt">x =</span> longitude, <span class="dt">y =</span> latitude), </span>
+<span id="cb207-31"><a href="exploreData.html#cb207-31"></a>             <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb207-32"><a href="exploreData.html#cb207-32"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat), </span>
+<span id="cb207-33"><a href="exploreData.html#cb207-33"></a>             <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;yellow&quot;</span>) <span class="op">+</span></span>
+<span id="cb207-34"><a href="exploreData.html#cb207-34"></a><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, </span>
+<span id="cb207-35"><a href="exploreData.html#cb207-35"></a>            <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat, <span class="dt">group =</span> motusTagID, </span>
+<span id="cb207-36"><a href="exploreData.html#cb207-36"></a>                <span class="dt">col =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></span>
+<span id="cb207-37"><a href="exploreData.html#cb207-37"></a><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&quot;MotusTagID&quot;</span>)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/ggmapRecvs-1.png" width="960" /></p>
 </div>
 <div id="outlineMaps" class="section level3">
 <h3><span class="header-section-number">6.5.2</span> Creating simple outline maps</h3>
 <p>We load the base maps.</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="exploreData.html#cb204-1"></a>na.lakes &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="dt">map =</span> <span class="st">&quot;lakes&quot;</span>)</span>
-<span id="cb204-2"><a href="exploreData.html#cb204-2"></a>na.lakes &lt;-<span class="st"> </span><span class="kw">mutate</span>(na.lakes, <span class="dt">long =</span> long<span class="op">-</span><span class="st"> </span><span class="dv">360</span>)</span>
-<span id="cb204-3"><a href="exploreData.html#cb204-3"></a></span>
-<span id="cb204-4"><a href="exploreData.html#cb204-4"></a><span class="co"># Include all of the Americas to begin</span></span>
-<span id="cb204-5"><a href="exploreData.html#cb204-5"></a>na.map &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="dt">map =</span> <span class="st">&quot;world2&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb204-6"><a href="exploreData.html#cb204-6"></a><span class="st">  </span><span class="kw">filter</span>(region <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;USA&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb204-7"><a href="exploreData.html#cb204-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">long =</span> long <span class="op">-</span><span class="st"> </span><span class="dv">360</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="exploreData.html#cb208-1"></a>na.lakes &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="dt">map =</span> <span class="st">&quot;lakes&quot;</span>)</span>
+<span id="cb208-2"><a href="exploreData.html#cb208-2"></a>na.lakes &lt;-<span class="st"> </span><span class="kw">mutate</span>(na.lakes, <span class="dt">long =</span> long<span class="op">-</span><span class="st"> </span><span class="dv">360</span>)</span>
+<span id="cb208-3"><a href="exploreData.html#cb208-3"></a></span>
+<span id="cb208-4"><a href="exploreData.html#cb208-4"></a><span class="co"># Include all of the Americas to begin</span></span>
+<span id="cb208-5"><a href="exploreData.html#cb208-5"></a>na.map &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="dt">map =</span> <span class="st">&quot;world2&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb208-6"><a href="exploreData.html#cb208-6"></a><span class="st">  </span><span class="kw">filter</span>(region <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;USA&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb208-7"><a href="exploreData.html#cb208-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">long =</span> long <span class="op">-</span><span class="st"> </span><span class="dv">360</span>)</span></code></pre></div>
 <p>Then, to map the paths, we set the x-axis and y-axis limits based on the location of receivers with detections. Depending on your data, these might need to be modified to encompass the deployment location of the tags, if tags were not deployed near towers with detections. We then use <code>ggplot</code> to plot the map and tag paths. Here we use the Mercator projection and are colouring the paths by <code>motusTagID</code>, including a point for where the tag was deployed:</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="exploreData.html#cb205-1"></a><span class="co"># set limits to map based on locations of detections, ensuring they include the</span></span>
-<span id="cb205-2"><a href="exploreData.html#cb205-2"></a><span class="co"># deployment locations</span></span>
-<span id="cb205-3"><a href="exploreData.html#cb205-3"></a>xmin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tmp<span class="op">$</span>recvLon, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">2</span></span>
-<span id="cb205-4"><a href="exploreData.html#cb205-4"></a>xmax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class="op">$</span>recvLon, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">2</span></span>
-<span id="cb205-5"><a href="exploreData.html#cb205-5"></a>ymin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb205-6"><a href="exploreData.html#cb205-6"></a>ymax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb205-7"><a href="exploreData.html#cb205-7"></a></span>
-<span id="cb205-8"><a href="exploreData.html#cb205-8"></a><span class="co"># map</span></span>
-<span id="cb205-9"><a href="exploreData.html#cb205-9"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> na.lakes, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat))<span class="op">+</span><span class="st"> </span></span>
-<span id="cb205-10"><a href="exploreData.html#cb205-10"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb205-11"><a href="exploreData.html#cb205-11"></a><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> na.map, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), </span>
-<span id="cb205-12"><a href="exploreData.html#cb205-12"></a>               <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;grey98&quot;</span>) <span class="op">+</span></span>
-<span id="cb205-13"><a href="exploreData.html#cb205-13"></a><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">group =</span> group), <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
-<span id="cb205-14"><a href="exploreData.html#cb205-14"></a><span class="st">  </span><span class="kw">coord_map</span>(<span class="dt">projection =</span> <span class="st">&quot;mercator&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(xmin, xmax), <span class="dt">ylim =</span> <span class="kw">c</span>(ymin, ymax)) <span class="op">+</span></span>
-<span id="cb205-15"><a href="exploreData.html#cb205-15"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
-<span id="cb205-16"><a href="exploreData.html#cb205-16"></a><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, </span>
-<span id="cb205-17"><a href="exploreData.html#cb205-17"></a>            <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat, </span>
-<span id="cb205-18"><a href="exploreData.html#cb205-18"></a>                <span class="dt">group =</span> <span class="kw">as.factor</span>(motusTagID), <span class="dt">colour =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></span>
-<span id="cb205-19"><a href="exploreData.html#cb205-19"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, </span>
-<span id="cb205-20"><a href="exploreData.html#cb205-20"></a>             <span class="kw">aes</span>(<span class="dt">x =</span> tagDepLon, <span class="dt">y =</span> tagDepLat), <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">shape =</span> <span class="dv">4</span>) <span class="op">+</span></span>
-<span id="cb205-21"><a href="exploreData.html#cb205-21"></a><span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="st">&quot;motusTagID&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="exploreData.html#cb209-1"></a><span class="co"># set limits to map based on locations of detections, ensuring they include the</span></span>
+<span id="cb209-2"><a href="exploreData.html#cb209-2"></a><span class="co"># deployment locations</span></span>
+<span id="cb209-3"><a href="exploreData.html#cb209-3"></a>xmin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tmp<span class="op">$</span>recvLon, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb209-4"><a href="exploreData.html#cb209-4"></a>xmax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class="op">$</span>recvLon, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb209-5"><a href="exploreData.html#cb209-5"></a>ymin &lt;-<span class="st"> </span><span class="kw">min</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb209-6"><a href="exploreData.html#cb209-6"></a>ymax &lt;-<span class="st"> </span><span class="kw">max</span>(df.tmp<span class="op">$</span>recvLat, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb209-7"><a href="exploreData.html#cb209-7"></a></span>
+<span id="cb209-8"><a href="exploreData.html#cb209-8"></a><span class="co"># map</span></span>
+<span id="cb209-9"><a href="exploreData.html#cb209-9"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> na.lakes, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat))<span class="op">+</span><span class="st"> </span></span>
+<span id="cb209-10"><a href="exploreData.html#cb209-10"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb209-11"><a href="exploreData.html#cb209-11"></a><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> na.map, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), </span>
+<span id="cb209-12"><a href="exploreData.html#cb209-12"></a>               <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;grey98&quot;</span>) <span class="op">+</span></span>
+<span id="cb209-13"><a href="exploreData.html#cb209-13"></a><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">group =</span> group), <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
+<span id="cb209-14"><a href="exploreData.html#cb209-14"></a><span class="st">  </span><span class="kw">coord_map</span>(<span class="dt">projection =</span> <span class="st">&quot;mercator&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(xmin, xmax), <span class="dt">ylim =</span> <span class="kw">c</span>(ymin, ymax)) <span class="op">+</span></span>
+<span id="cb209-15"><a href="exploreData.html#cb209-15"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
+<span id="cb209-16"><a href="exploreData.html#cb209-16"></a><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> df.tmp, </span>
+<span id="cb209-17"><a href="exploreData.html#cb209-17"></a>            <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat, </span>
+<span id="cb209-18"><a href="exploreData.html#cb209-18"></a>                <span class="dt">group =</span> <span class="kw">as.factor</span>(motusTagID), <span class="dt">colour =</span> <span class="kw">as.factor</span>(motusTagID))) <span class="op">+</span></span>
+<span id="cb209-19"><a href="exploreData.html#cb209-19"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.tmp, </span>
+<span id="cb209-20"><a href="exploreData.html#cb209-20"></a>             <span class="kw">aes</span>(<span class="dt">x =</span> tagDepLon, <span class="dt">y =</span> tagDepLat), <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">shape =</span> <span class="dv">4</span>) <span class="op">+</span></span>
+<span id="cb209-21"><a href="exploreData.html#cb209-21"></a><span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="st">&quot;motusTagID&quot;</span>) </span></code></pre></div>
 <p><img src="images/mapDetections.png" width="1650" style="display: block; margin: auto;" /></p>
 <p>The functions above provide examples of how you can begin exploring your data and are by no means exhaustive. The next chapter will cover some common errors and troubleshooting you may encounter while trying to download and use the .motus sql files.</p>
 

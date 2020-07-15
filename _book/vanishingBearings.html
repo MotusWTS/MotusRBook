@@ -167,7 +167,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloading-multiple-receivers-at-the-same-time"><i class="fa fa-check"></i><b>3.5.4</b> Downloading multiple receivers at the same time</a></li>
 <li class="chapter" data-level="3.5.5" data-path="accessingData.html"><a href="accessingData.html#updating-all-.motus-files-within-a-directory"><i class="fa fa-check"></i><b>3.5.5</b> Updating all .motus files within a directory</a></li>
 <li class="chapter" data-level="3.5.6" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.6</b> Accessing downloaded detection data</a></li>
-<li class="chapter" data-level="3.5.7" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.5.7</b> Converting to flat file</a></li>
+<li class="chapter" data-level="3.5.7" data-path="accessingData.html"><a href="accessingData.html#addGPS"><i class="fa fa-check"></i><b>3.5.7</b> Adding GPS Data</a></li>
+<li class="chapter" data-level="3.5.8" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.5.8</b> Converting to flat file</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.6</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
 <li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.7</b> Update and/or open an existing database</a></li>
@@ -209,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#preparing-the-data"><i class="fa fa-check"></i><b>5.5</b> Preparing the data</a><ul>
 <li class="chapter" data-level="5.5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#label-detections-by-probability"><i class="fa fa-check"></i><b>5.5.1</b> Label detections by probability</a></li>
 <li class="chapter" data-level="5.5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#clean-up"><i class="fa fa-check"></i><b>5.5.2</b> Clean up</a></li>
-<li class="chapter" data-level="5.5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#addGPS"><i class="fa fa-check"></i><b>5.5.3</b> Add GPS data</a></li>
+<li class="chapter" data-level="5.5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#add-gps-data"><i class="fa fa-check"></i><b>5.5.3</b> Add GPS data</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.6</b> Preliminary data checks</a><ul>
 <li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.6.1</b> Summarize tag detections</a></li>
@@ -366,6 +367,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="D.6.3" data-path="appendixD.html"><a href="appendixD.html#examples"><i class="fa fa-check"></i><b>D.6.3</b> Examples</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="E" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html"><i class="fa fa-check"></i><b>E</b> Bird’s Eye View of Motus Data</a><ul>
+<li class="chapter" data-level="E.1" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#what-data-look-like"><i class="fa fa-check"></i><b>E.1</b> What data look like</a></li>
+<li class="chapter" data-level="E.2" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#false-positives"><i class="fa fa-check"></i><b>E.2</b> False positives</a></li>
+<li class="chapter" data-level="E.3" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#false-negatives"><i class="fa fa-check"></i><b>E.3</b> False negatives</a></li>
+<li class="chapter" data-level="E.4" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#complication-data-are-processed-in-batches"><i class="fa fa-check"></i><b>E.4</b> Complication: data are processed in batches</a></li>
+<li class="chapter" data-level="E.5" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#batches"><i class="fa fa-check"></i><b>E.5</b> Batches</a><ul>
+<li class="chapter" data-level="E.5.1" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#receiver-reboots"><i class="fa fa-check"></i><b>E.5.1</b> Receiver Reboots</a></li>
+<li class="chapter" data-level="E.5.2" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#incremental-distribution-of-data"><i class="fa fa-check"></i><b>E.5.2</b> Incremental Distribution of Data</a></li>
+</ul></li>
+<li class="chapter" data-level="E.6" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#reprocessing-data"><i class="fa fa-check"></i><b>E.6</b> Reprocessing Data</a></li>
+<li class="chapter" data-level="E.7" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#the-eventual-reprocessing-contract"><i class="fa fa-check"></i><b>E.7</b> The (eventual) Reprocessing Contract</a></li>
+<li class="chapter" data-level="E.8" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#reprocessing-simplified-only-by-boot-session"><i class="fa fa-check"></i><b>E.8</b> Reprocessing simplified: only by boot session</a></li>
+<li class="chapter" data-level="E.9" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#distributing-reprocessed-data"><i class="fa fa-check"></i><b>E.9</b> Distributing reprocessed data</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -435,49 +450,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="loadPackages7" class="section level3">
 <h3><span class="header-section-number">7.2.1</span> Load the required packages</h3>
 <p>Follow the instructions in Chapter <a href="loadingPackages.html#loadingPackages">2</a> to install the following packages before loading, if they are not already installed.</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="vanishingBearings.html#cb206-1"></a><span class="kw">library</span>(circular)</span>
-<span id="cb206-2"><a href="vanishingBearings.html#cb206-2"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb206-3"><a href="vanishingBearings.html#cb206-3"></a><span class="kw">library</span>(motus)</span>
-<span id="cb206-4"><a href="vanishingBearings.html#cb206-4"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb206-5"><a href="vanishingBearings.html#cb206-5"></a><span class="kw">library</span>(jpeg)</span>
-<span id="cb206-6"><a href="vanishingBearings.html#cb206-6"></a><span class="kw">library</span>(ggmap)</span>
-<span id="cb206-7"><a href="vanishingBearings.html#cb206-7"></a></span>
-<span id="cb206-8"><a href="vanishingBearings.html#cb206-8"></a><span class="co">#Make sure working on UTC </span></span>
-<span id="cb206-9"><a href="vanishingBearings.html#cb206-9"></a><span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="vanishingBearings.html#cb210-1"></a><span class="kw">library</span>(circular)</span>
+<span id="cb210-2"><a href="vanishingBearings.html#cb210-2"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb210-3"><a href="vanishingBearings.html#cb210-3"></a><span class="kw">library</span>(motus)</span>
+<span id="cb210-4"><a href="vanishingBearings.html#cb210-4"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb210-5"><a href="vanishingBearings.html#cb210-5"></a><span class="kw">library</span>(jpeg)</span>
+<span id="cb210-6"><a href="vanishingBearings.html#cb210-6"></a><span class="kw">library</span>(ggmap)</span>
+<span id="cb210-7"><a href="vanishingBearings.html#cb210-7"></a></span>
+<span id="cb210-8"><a href="vanishingBearings.html#cb210-8"></a><span class="co">#Make sure working on UTC </span></span>
+<span id="cb210-9"><a href="vanishingBearings.html#cb210-9"></a><span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</span></code></pre></div>
 </div>
 <div id="vanishingSample" class="section level3">
 <h3><span class="header-section-number">7.2.2</span> Load the sample data</h3>
 <p>The sample data used in this chapter includes the detections of three Magnolia Warblers that were tagged at the Old Cut field research station of the Long Point Bird Observatory in Ontario, Canada, by Morbey et al. (2017). The warblers were tagged and released in spring 2015.</p>
 <p>The sample data are included in the motusData R package as the “vanishBearing.rda” file. In order to access these data, you will need to first install the motusData package following the instructions in section <a href="loadingPackages.html#loadingPackages">2</a>, <em>prior</em> to running the code in this chapter:</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="vanishingBearings.html#cb207-1"></a><span class="co"># load the motusData package, which contains the sample data for this chapter</span></span>
-<span id="cb207-2"><a href="vanishingBearings.html#cb207-2"></a><span class="kw">library</span>(motusData) </span>
-<span id="cb207-3"><a href="vanishingBearings.html#cb207-3"></a></span>
-<span id="cb207-4"><a href="vanishingBearings.html#cb207-4"></a><span class="co"># Load the sample data we provided from 3 individual warblers departing Old Cut</span></span>
-<span id="cb207-5"><a href="vanishingBearings.html#cb207-5"></a><span class="co"># during the Spring of 2015.</span></span>
-<span id="cb207-6"><a href="vanishingBearings.html#cb207-6"></a></span>
-<span id="cb207-7"><a href="vanishingBearings.html#cb207-7"></a><span class="co"># We also do a couple manipulations here, to reorder the levels of the</span></span>
-<span id="cb207-8"><a href="vanishingBearings.html#cb207-8"></a><span class="co"># recvSiteName factor, and order the data by ts.</span></span>
-<span id="cb207-9"><a href="vanishingBearings.html#cb207-9"></a></span>
-<span id="cb207-10"><a href="vanishingBearings.html#cb207-10"></a>df.vanish &lt;-<span class="st"> </span>vanishBearing <span class="op">%&gt;%</span></span>
-<span id="cb207-11"><a href="vanishingBearings.html#cb207-11"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">recvSiteName =</span> <span class="kw">reorder</span>(recvSiteName, recvLat),</span>
-<span id="cb207-12"><a href="vanishingBearings.html#cb207-12"></a>         <span class="dt">motusTagID =</span> <span class="kw">as.factor</span>(<span class="kw">as.character</span>(motusTagID))) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># order sites by latitude</span></span>
-<span id="cb207-13"><a href="vanishingBearings.html#cb207-13"></a><span class="st">  </span><span class="kw">arrange</span>(ts) <span class="co"># arrange by ts</span></span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="vanishingBearings.html#cb211-1"></a><span class="co"># load the motusData package, which contains the sample data for this chapter</span></span>
+<span id="cb211-2"><a href="vanishingBearings.html#cb211-2"></a><span class="kw">library</span>(motusData) </span>
+<span id="cb211-3"><a href="vanishingBearings.html#cb211-3"></a></span>
+<span id="cb211-4"><a href="vanishingBearings.html#cb211-4"></a><span class="co"># Load the sample data we provided from 3 individual warblers departing Old Cut</span></span>
+<span id="cb211-5"><a href="vanishingBearings.html#cb211-5"></a><span class="co"># during the Spring of 2015.</span></span>
+<span id="cb211-6"><a href="vanishingBearings.html#cb211-6"></a></span>
+<span id="cb211-7"><a href="vanishingBearings.html#cb211-7"></a><span class="co"># We also do a couple manipulations here, to reorder the levels of the</span></span>
+<span id="cb211-8"><a href="vanishingBearings.html#cb211-8"></a><span class="co"># recvSiteName factor, and order the data by ts.</span></span>
+<span id="cb211-9"><a href="vanishingBearings.html#cb211-9"></a></span>
+<span id="cb211-10"><a href="vanishingBearings.html#cb211-10"></a>df.vanish &lt;-<span class="st"> </span>vanishBearing <span class="op">%&gt;%</span></span>
+<span id="cb211-11"><a href="vanishingBearings.html#cb211-11"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">recvSiteName =</span> <span class="kw">reorder</span>(recvSiteName, recvLat),</span>
+<span id="cb211-12"><a href="vanishingBearings.html#cb211-12"></a>         <span class="dt">motusTagID =</span> <span class="kw">as.factor</span>(<span class="kw">as.character</span>(motusTagID))) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># order sites by latitude</span></span>
+<span id="cb211-13"><a href="vanishingBearings.html#cb211-13"></a><span class="st">  </span><span class="kw">arrange</span>(ts) <span class="co"># arrange by ts</span></span></code></pre></div>
 </div>
 <div id="select-individuals-that-show-clear-departure-detections" class="section level3">
 <h3><span class="header-section-number">7.2.3</span> Select individuals that show clear departure detections</h3>
 <p>First, we subset the data to the individuals that showed clear departures from the stopover site of interest. In fact, the sample data only includes three departures of birds we <em>know</em> have clear departures from Old Cut, but we show this step here regardless!</p>
 <p>By selecting only clear departures, we make sure that the bird departed from nearby the station, minimizing the potential for parallax error. We look for clear departures by first plotting latitude against time. In this case, we can see the birds departing north past several stations:</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="vanishingBearings.html#cb208-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> df.vanish, <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> recvLat, <span class="dt">colour =</span> <span class="kw">as.factor</span>(recvSiteName))) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb208-2"><a href="vanishingBearings.html#cb208-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span></span>
-<span id="cb208-3"><a href="vanishingBearings.html#cb208-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>motusTagID, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb208-4"><a href="vanishingBearings.html#cb208-4"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="vanishingBearings.html#cb212-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> df.vanish, <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> recvLat, <span class="dt">colour =</span> <span class="kw">as.factor</span>(recvSiteName))) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb212-2"><a href="vanishingBearings.html#cb212-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span></span>
+<span id="cb212-3"><a href="vanishingBearings.html#cb212-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>motusTagID, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb212-4"><a href="vanishingBearings.html#cb212-4"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/vanishPlotLatvsSIG-1.png" width="672" /></p>
 <p>We also make sure that the bird was being detected by several antennas at once during departure; if detections are on only one antenna, the vanishing bearing will simply be the direction of the lone antenna with detections. We plot signal strength by time for a subset of the data, to show the last few hours of detections of the bird at Old Cut. Let’s try this with tag # 16823 from our sample data:</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="vanishingBearings.html#cb209-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>, ts <span class="op">&gt;</span><span class="st"> &quot;2015-05-30 00:00:00&quot;</span>), </span>
-<span id="cb209-2"><a href="vanishingBearings.html#cb209-2"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour =</span> <span class="kw">as.factor</span>(port))) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb209-3"><a href="vanishingBearings.html#cb209-3"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb209-4"><a href="vanishingBearings.html#cb209-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span></span>
-<span id="cb209-5"><a href="vanishingBearings.html#cb209-5"></a><span class="st">  </span><span class="kw">facet_grid</span>(recvSiteName <span class="op">~</span><span class="st"> </span>.)</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="vanishingBearings.html#cb213-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>, ts <span class="op">&gt;</span><span class="st"> &quot;2015-05-30 00:00:00&quot;</span>), </span>
+<span id="cb213-2"><a href="vanishingBearings.html#cb213-2"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour =</span> <span class="kw">as.factor</span>(port))) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb213-3"><a href="vanishingBearings.html#cb213-3"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb213-4"><a href="vanishingBearings.html#cb213-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">pch =</span> <span class="dv">21</span>) <span class="op">+</span></span>
+<span id="cb213-5"><a href="vanishingBearings.html#cb213-5"></a><span class="st">  </span><span class="kw">facet_grid</span>(recvSiteName <span class="op">~</span><span class="st"> </span>.)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/vanishPlotTSvsSIG-1.png" width="672" /></p>
 <p>We can see the typical detection pattern of a bird departing from a site, shown by a decrease in movement (beginning to roost) at around 00:25 UTC, followed by an increase in activity and departure from the site later in the night after 03:00 UTC. Soon after leaving the site, it gets detected by five other stations further north. Because this bird was detected before and during departure, we can assume it has departed from somewhat close to the Old Cut station.</p>
 <p>With your own data, look at plots like these for each of your tagged individuals, and for the purpose of vanishing bearings, remove any individuals that don’t have a clear departure.</p>
@@ -486,47 +501,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.2.4</span> Obtain departure times</h3>
 <p>In order to estimate vanishing bearings based on the signal strength of departure detections, we must first determine the approximate time that the bird started its departure flight. For now, the best way to do this is by manually going through each set of detections from each bird and obtaining the approximate time by plotting the time versus signal strength.</p>
 <p>Continuing with tag 16823, let’s find the departure time.</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="vanishingBearings.html#cb210-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>), </span>
-<span id="cb210-2"><a href="vanishingBearings.html#cb210-2"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour=</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb210-3"><a href="vanishingBearings.html#cb210-3"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb210-4"><a href="vanishingBearings.html#cb210-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb210-5"><a href="vanishingBearings.html#cb210-5"></a><span class="st">  </span><span class="kw">facet_grid</span>(recvSiteName <span class="op">~</span><span class="st"> </span>.)</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="vanishingBearings.html#cb214-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>), </span>
+<span id="cb214-2"><a href="vanishingBearings.html#cb214-2"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour=</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb214-3"><a href="vanishingBearings.html#cb214-3"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb214-4"><a href="vanishingBearings.html#cb214-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb214-5"><a href="vanishingBearings.html#cb214-5"></a><span class="st">  </span><span class="kw">facet_grid</span>(recvSiteName <span class="op">~</span><span class="st"> </span>.)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/vanishFindDepTime-1.png" width="672" /></p>
 <p>We can see the complete set of detections of tag 16823 for Old Cut and other stations this bird was detected at post-departure.</p>
 <p>We then subset the plot in order to zoom in to the last few minutes of detections at Old Cut, which is where the bird is departing from. By zooming in we can find the exact departure time.</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="vanishingBearings.html#cb211-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, </span>
-<span id="cb211-2"><a href="vanishingBearings.html#cb211-2"></a>                     motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>,  </span>
-<span id="cb211-3"><a href="vanishingBearings.html#cb211-3"></a>                     ts <span class="op">&gt;</span><span class="st"> &quot;2015-05-30 03:03:00&quot;</span>,  </span>
-<span id="cb211-4"><a href="vanishingBearings.html#cb211-4"></a>                     ts <span class="op">&lt;</span><span class="st"> &quot;2015-05-30 03:10:00&quot;</span>), </span>
-<span id="cb211-5"><a href="vanishingBearings.html#cb211-5"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour=</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb211-6"><a href="vanishingBearings.html#cb211-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb211-7"><a href="vanishingBearings.html#cb211-7"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="vanishingBearings.html#cb215-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanish, </span>
+<span id="cb215-2"><a href="vanishingBearings.html#cb215-2"></a>                     motusTagID <span class="op">==</span><span class="st"> </span><span class="dv">16823</span>,  </span>
+<span id="cb215-3"><a href="vanishingBearings.html#cb215-3"></a>                     ts <span class="op">&gt;</span><span class="st"> &quot;2015-05-30 03:03:00&quot;</span>,  </span>
+<span id="cb215-4"><a href="vanishingBearings.html#cb215-4"></a>                     ts <span class="op">&lt;</span><span class="st"> &quot;2015-05-30 03:10:00&quot;</span>), </span>
+<span id="cb215-5"><a href="vanishingBearings.html#cb215-5"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> ts, <span class="dt">y =</span> sig, <span class="dt">colour=</span> <span class="kw">as.factor</span>(antBearing))) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb215-6"><a href="vanishingBearings.html#cb215-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb215-7"><a href="vanishingBearings.html#cb215-7"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/vanishPlotTSvsSIG2-1.png" width="672" /></p>
 <p>In this case, we can see an increase in signal strength beginning at about 3:04 for the 90 and 260 degree antennas at Old Cut. These reach a peak in signal strength at about 3:04:59, after which signal strength declines. This suggests that the bird was likely south of the station when it began it’s departure - signal strength increased and peaked as it passed through the antenna beams, and then declined again as the bird moved away (north) from the Old Cut station. We choose the peak signal strength, i.e., 3:04:59 as the departure time for this bird, to exclude those detections where the bird was likely moving towards the station; we would not want the ‘approaching’ station signals to contribute to the vanishing bearing, because it assumes the bird is moving radially away from the station.</p>
 <p>We create a dataframe with the departure times of each bird and their motusTagIDs, to use later for data filtering. We add departure times for the other two birds in the sample dataset; if you are keen, you can try the plots above on tags 16897 and 16791 to see how we came up with those departure times:</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="vanishingBearings.html#cb212-1"></a><span class="co">## create dataframe and assign column names</span></span>
-<span id="cb212-2"><a href="vanishingBearings.html#cb212-2"></a>dep<span class="fl">.16823</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16823</span>, <span class="st">&quot;2015-05-30 03:04:59&quot;</span>))</span>
-<span id="cb212-3"><a href="vanishingBearings.html#cb212-3"></a></span>
-<span id="cb212-4"><a href="vanishingBearings.html#cb212-4"></a><span class="co">## create dataframes for the other two tags:</span></span>
-<span id="cb212-5"><a href="vanishingBearings.html#cb212-5"></a>dep<span class="fl">.16867</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16867</span>, <span class="st">&quot;2015-05-29 01:56:00&quot;</span>))</span>
-<span id="cb212-6"><a href="vanishingBearings.html#cb212-6"></a>dep<span class="fl">.16791</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16791</span>, <span class="st">&quot;2015-05-08 02:41:40&quot;</span>))</span>
-<span id="cb212-7"><a href="vanishingBearings.html#cb212-7"></a></span>
-<span id="cb212-8"><a href="vanishingBearings.html#cb212-8"></a><span class="co">## put them all together</span></span>
-<span id="cb212-9"><a href="vanishingBearings.html#cb212-9"></a>df.departTime &lt;-<span class="st"> </span><span class="kw">rbind</span>(dep<span class="fl">.16823</span>, dep<span class="fl">.16867</span>, dep<span class="fl">.16791</span>)</span>
-<span id="cb212-10"><a href="vanishingBearings.html#cb212-10"></a><span class="kw">names</span>(df.departTime) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;motusTagID&quot;</span>, <span class="st">&quot;ts_depart&quot;</span>)</span>
-<span id="cb212-11"><a href="vanishingBearings.html#cb212-11"></a></span>
-<span id="cb212-12"><a href="vanishingBearings.html#cb212-12"></a><span class="co">## convert time to posixCT using Lubridate functionality</span></span>
-<span id="cb212-13"><a href="vanishingBearings.html#cb212-13"></a>df.departTime &lt;-<span class="st"> </span><span class="kw">mutate</span>(df.departTime, <span class="dt">ts_depart =</span> <span class="kw">ymd_hms</span>(ts_depart))</span>
-<span id="cb212-14"><a href="vanishingBearings.html#cb212-14"></a></span>
-<span id="cb212-15"><a href="vanishingBearings.html#cb212-15"></a>df.departTime</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="vanishingBearings.html#cb216-1"></a><span class="co">## create dataframe and assign column names</span></span>
+<span id="cb216-2"><a href="vanishingBearings.html#cb216-2"></a>dep<span class="fl">.16823</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16823</span>, <span class="st">&quot;2015-05-30 03:04:59&quot;</span>))</span>
+<span id="cb216-3"><a href="vanishingBearings.html#cb216-3"></a></span>
+<span id="cb216-4"><a href="vanishingBearings.html#cb216-4"></a><span class="co">## create dataframes for the other two tags:</span></span>
+<span id="cb216-5"><a href="vanishingBearings.html#cb216-5"></a>dep<span class="fl">.16867</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16867</span>, <span class="st">&quot;2015-05-29 01:56:00&quot;</span>))</span>
+<span id="cb216-6"><a href="vanishingBearings.html#cb216-6"></a>dep<span class="fl">.16791</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dv">16791</span>, <span class="st">&quot;2015-05-08 02:41:40&quot;</span>))</span>
+<span id="cb216-7"><a href="vanishingBearings.html#cb216-7"></a></span>
+<span id="cb216-8"><a href="vanishingBearings.html#cb216-8"></a><span class="co">## put them all together</span></span>
+<span id="cb216-9"><a href="vanishingBearings.html#cb216-9"></a>df.departTime &lt;-<span class="st"> </span><span class="kw">rbind</span>(dep<span class="fl">.16823</span>, dep<span class="fl">.16867</span>, dep<span class="fl">.16791</span>)</span>
+<span id="cb216-10"><a href="vanishingBearings.html#cb216-10"></a><span class="kw">names</span>(df.departTime) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;motusTagID&quot;</span>, <span class="st">&quot;ts_depart&quot;</span>)</span>
+<span id="cb216-11"><a href="vanishingBearings.html#cb216-11"></a></span>
+<span id="cb216-12"><a href="vanishingBearings.html#cb216-12"></a><span class="co">## convert time to posixCT using Lubridate functionality</span></span>
+<span id="cb216-13"><a href="vanishingBearings.html#cb216-13"></a>df.departTime &lt;-<span class="st"> </span><span class="kw">mutate</span>(df.departTime, <span class="dt">ts_depart =</span> <span class="kw">ymd_hms</span>(ts_depart))</span>
+<span id="cb216-14"><a href="vanishingBearings.html#cb216-14"></a></span>
+<span id="cb216-15"><a href="vanishingBearings.html#cb216-15"></a>df.departTime</span></code></pre></div>
 <pre><code>##   motusTagID           ts_depart
 ## 1      16823 2015-05-30 03:04:59
 ## 2      16867 2015-05-29 01:56:00
 ## 3      16791 2015-05-08 02:41:40</code></pre>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="vanishingBearings.html#cb214-1"></a><span class="co">## optionally, save to .RDS file to preserve time structure (you could save to</span></span>
-<span id="cb214-2"><a href="vanishingBearings.html#cb214-2"></a><span class="co">## .csv, but time structure will not be preserved) not run here:</span></span>
-<span id="cb214-3"><a href="vanishingBearings.html#cb214-3"></a></span>
-<span id="cb214-4"><a href="vanishingBearings.html#cb214-4"></a><span class="co"># saveRDS(df.departTime, file = &quot;./data/departureTimes.RDS&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="vanishingBearings.html#cb218-1"></a><span class="co">## optionally, save to .RDS file to preserve time structure (you could save to</span></span>
+<span id="cb218-2"><a href="vanishingBearings.html#cb218-2"></a><span class="co">## .csv, but time structure will not be preserved) not run here:</span></span>
+<span id="cb218-3"><a href="vanishingBearings.html#cb218-3"></a></span>
+<span id="cb218-4"><a href="vanishingBearings.html#cb218-4"></a><span class="co"># saveRDS(df.departTime, file = &quot;./data/departureTimes.RDS&quot;)</span></span></code></pre></div>
 </div>
 <div id="calculate-vanishing-bearings-for-individuals-with-departure-times." class="section level3">
 <h3><span class="header-section-number">7.2.5</span> Calculate vanishing bearings for individuals with departure times.</h3>
@@ -535,117 +550,117 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Now that we have only the post-departure detections for the bird we are interested in, we calculate its vanishing bearing.</p>
 <p>First, we normalize the signal strengths, as discussed above, using the minimum and maximum observed signal strength across all data collected by the receiver. If there are differences in the range of signal strengths detected by antennas on a receiver, you might want to instead normalize by antenna. We do not have access to the entire database with the sample data, but we know the minimum and maximum signal strengths detected at the Old Cut stations are -78.0691 and -17.8707, respectively.</p>
 <p>We then calculate a weighted mean of departure angle across the entire departure period using the circular function. The numbers -78.0691 and -17.8707 are the minimum and maximum signal strength values for the Old Cut station. If using your own data, make sure you instead use the min and max signal strength for your station (using the full stations’s data, not only from the subset of the tags you are analyzing).</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="vanishingBearings.html#cb215-1"></a><span class="co">## Merge sample data with departure times, subset data, and calculate vanishing bearing</span></span>
-<span id="cb215-2"><a href="vanishingBearings.html#cb215-2"></a></span>
-<span id="cb215-3"><a href="vanishingBearings.html#cb215-3"></a><span class="co">## Note that we use the recvSiteName to specify the departure station of</span></span>
-<span id="cb215-4"><a href="vanishingBearings.html#cb215-4"></a><span class="co">## interest. Depending on whether the station has moved or changed names with</span></span>
-<span id="cb215-5"><a href="vanishingBearings.html#cb215-5"></a><span class="co">## deployments, recvDeployID might be more appropriate.</span></span>
-<span id="cb215-6"><a href="vanishingBearings.html#cb215-6"></a></span>
-<span id="cb215-7"><a href="vanishingBearings.html#cb215-7"></a>depart.station &lt;-<span class="st"> &quot;Old Cut&quot;</span></span>
-<span id="cb215-8"><a href="vanishingBearings.html#cb215-8"></a>min.sig &lt;-<span class="st"> </span><span class="fl">-78.0691</span> <span class="co"># normally max/min sig comes from the complete raw data for a station</span></span>
-<span id="cb215-9"><a href="vanishingBearings.html#cb215-9"></a>max.sig &lt;-<span class="st"> </span><span class="fl">-17.8707</span></span>
-<span id="cb215-10"><a href="vanishingBearings.html#cb215-10"></a></span>
-<span id="cb215-11"><a href="vanishingBearings.html#cb215-11"></a><span class="co"># in this case, right join should drop any individuals that don&#39;t have departure</span></span>
-<span id="cb215-12"><a href="vanishingBearings.html#cb215-12"></a><span class="co"># times in df.departTime</span></span>
-<span id="cb215-13"><a href="vanishingBearings.html#cb215-13"></a>df.vanishBearing &lt;-<span class="st"> </span><span class="kw">right_join</span>(df.vanish, df.departTime, <span class="dt">by =</span> <span class="st">&quot;motusTagID&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb215-14"><a href="vanishingBearings.html#cb215-14"></a><span class="st">  </span><span class="kw">filter</span>(ts <span class="op">&gt;=</span><span class="st"> </span>ts_depart,</span>
-<span id="cb215-15"><a href="vanishingBearings.html#cb215-15"></a>         recvSiteName <span class="op">==</span><span class="st"> </span>depart.station) <span class="op">%&gt;%</span></span>
-<span id="cb215-16"><a href="vanishingBearings.html#cb215-16"></a><span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span></span>
-<span id="cb215-17"><a href="vanishingBearings.html#cb215-17"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sig.norm =</span> (sig <span class="op">-</span><span class="st"> </span>(min.sig))<span class="op">/</span>((max.sig)<span class="op">-</span>(min.sig)), </span>
-<span id="cb215-18"><a href="vanishingBearings.html#cb215-18"></a>         <span class="dt">circ.bear =</span> <span class="kw">circular</span>(antBearing, </span>
-<span id="cb215-19"><a href="vanishingBearings.html#cb215-19"></a>                              <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">&quot;angles&quot;</span>), </span>
-<span id="cb215-20"><a href="vanishingBearings.html#cb215-20"></a>                              <span class="dt">units =</span> <span class="kw">c</span>(<span class="st">&quot;degrees&quot;</span>), </span>
-<span id="cb215-21"><a href="vanishingBearings.html#cb215-21"></a>                              <span class="dt">rotation =</span> <span class="kw">c</span>(<span class="st">&quot;clock&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb215-22"><a href="vanishingBearings.html#cb215-22"></a><span class="st">  </span><span class="kw">group_by</span>(motusTagID, recvSiteName, recvLat, recvLon) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb215-23"><a href="vanishingBearings.html#cb215-23"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">vanish.bearing =</span> <span class="kw">weighted.mean</span>(circ.bear, sig.norm, <span class="dt">na.rm =</span> <span class="ot">FALSE</span>, </span>
-<span id="cb215-24"><a href="vanishingBearings.html#cb215-24"></a>                                           <span class="dt">control.circular =</span> <span class="kw">list</span>(<span class="dt">type =</span> <span class="st">&quot;angles&quot;</span>, </span>
-<span id="cb215-25"><a href="vanishingBearings.html#cb215-25"></a>                                                                   <span class="dt">units =</span> <span class="st">&quot;degrees&quot;</span>, </span>
-<span id="cb215-26"><a href="vanishingBearings.html#cb215-26"></a>                                                                   <span class="dt">template =</span> <span class="st">&quot;none&quot;</span>, </span>
-<span id="cb215-27"><a href="vanishingBearings.html#cb215-27"></a>                                                                   <span class="dt">rotation =</span> <span class="st">&quot;clock&quot;</span>)),</span>
-<span id="cb215-28"><a href="vanishingBearings.html#cb215-28"></a>            <span class="dt">minutes.used =</span> <span class="kw">as.duration</span>(<span class="kw">min</span>(ts) <span class="op">%--%</span><span class="st"> </span><span class="kw">max</span>(ts))) <span class="op">%&gt;%</span></span>
-<span id="cb215-29"><a href="vanishingBearings.html#cb215-29"></a><span class="st">  </span><span class="kw">as.data.frame</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="vanishingBearings.html#cb219-1"></a><span class="co">## Merge sample data with departure times, subset data, and calculate vanishing bearing</span></span>
+<span id="cb219-2"><a href="vanishingBearings.html#cb219-2"></a></span>
+<span id="cb219-3"><a href="vanishingBearings.html#cb219-3"></a><span class="co">## Note that we use the recvSiteName to specify the departure station of</span></span>
+<span id="cb219-4"><a href="vanishingBearings.html#cb219-4"></a><span class="co">## interest. Depending on whether the station has moved or changed names with</span></span>
+<span id="cb219-5"><a href="vanishingBearings.html#cb219-5"></a><span class="co">## deployments, recvDeployID might be more appropriate.</span></span>
+<span id="cb219-6"><a href="vanishingBearings.html#cb219-6"></a></span>
+<span id="cb219-7"><a href="vanishingBearings.html#cb219-7"></a>depart.station &lt;-<span class="st"> &quot;Old Cut&quot;</span></span>
+<span id="cb219-8"><a href="vanishingBearings.html#cb219-8"></a>min.sig &lt;-<span class="st"> </span><span class="fl">-78.0691</span> <span class="co"># normally max/min sig comes from the complete raw data for a station</span></span>
+<span id="cb219-9"><a href="vanishingBearings.html#cb219-9"></a>max.sig &lt;-<span class="st"> </span><span class="fl">-17.8707</span></span>
+<span id="cb219-10"><a href="vanishingBearings.html#cb219-10"></a></span>
+<span id="cb219-11"><a href="vanishingBearings.html#cb219-11"></a><span class="co"># in this case, right join should drop any individuals that don&#39;t have departure</span></span>
+<span id="cb219-12"><a href="vanishingBearings.html#cb219-12"></a><span class="co"># times in df.departTime</span></span>
+<span id="cb219-13"><a href="vanishingBearings.html#cb219-13"></a>df.vanishBearing &lt;-<span class="st"> </span><span class="kw">right_join</span>(df.vanish, df.departTime, <span class="dt">by =</span> <span class="st">&quot;motusTagID&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb219-14"><a href="vanishingBearings.html#cb219-14"></a><span class="st">  </span><span class="kw">filter</span>(ts <span class="op">&gt;=</span><span class="st"> </span>ts_depart,</span>
+<span id="cb219-15"><a href="vanishingBearings.html#cb219-15"></a>         recvSiteName <span class="op">==</span><span class="st"> </span>depart.station) <span class="op">%&gt;%</span></span>
+<span id="cb219-16"><a href="vanishingBearings.html#cb219-16"></a><span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span></span>
+<span id="cb219-17"><a href="vanishingBearings.html#cb219-17"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sig.norm =</span> (sig <span class="op">-</span><span class="st"> </span>(min.sig))<span class="op">/</span>((max.sig)<span class="op">-</span>(min.sig)), </span>
+<span id="cb219-18"><a href="vanishingBearings.html#cb219-18"></a>         <span class="dt">circ.bear =</span> <span class="kw">circular</span>(antBearing, </span>
+<span id="cb219-19"><a href="vanishingBearings.html#cb219-19"></a>                              <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">&quot;angles&quot;</span>), </span>
+<span id="cb219-20"><a href="vanishingBearings.html#cb219-20"></a>                              <span class="dt">units =</span> <span class="kw">c</span>(<span class="st">&quot;degrees&quot;</span>), </span>
+<span id="cb219-21"><a href="vanishingBearings.html#cb219-21"></a>                              <span class="dt">rotation =</span> <span class="kw">c</span>(<span class="st">&quot;clock&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb219-22"><a href="vanishingBearings.html#cb219-22"></a><span class="st">  </span><span class="kw">group_by</span>(motusTagID, recvSiteName, recvLat, recvLon) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb219-23"><a href="vanishingBearings.html#cb219-23"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">vanish.bearing =</span> <span class="kw">weighted.mean</span>(circ.bear, sig.norm, <span class="dt">na.rm =</span> <span class="ot">FALSE</span>, </span>
+<span id="cb219-24"><a href="vanishingBearings.html#cb219-24"></a>                                           <span class="dt">control.circular =</span> <span class="kw">list</span>(<span class="dt">type =</span> <span class="st">&quot;angles&quot;</span>, </span>
+<span id="cb219-25"><a href="vanishingBearings.html#cb219-25"></a>                                                                   <span class="dt">units =</span> <span class="st">&quot;degrees&quot;</span>, </span>
+<span id="cb219-26"><a href="vanishingBearings.html#cb219-26"></a>                                                                   <span class="dt">template =</span> <span class="st">&quot;none&quot;</span>, </span>
+<span id="cb219-27"><a href="vanishingBearings.html#cb219-27"></a>                                                                   <span class="dt">rotation =</span> <span class="st">&quot;clock&quot;</span>)),</span>
+<span id="cb219-28"><a href="vanishingBearings.html#cb219-28"></a>            <span class="dt">minutes.used =</span> <span class="kw">as.duration</span>(<span class="kw">min</span>(ts) <span class="op">%--%</span><span class="st"> </span><span class="kw">max</span>(ts))) <span class="op">%&gt;%</span></span>
+<span id="cb219-29"><a href="vanishingBearings.html#cb219-29"></a><span class="st">  </span><span class="kw">as.data.frame</span>()</span></code></pre></div>
 <p>The resulting <code>df.vanish</code> dataframe contains the <code>motusTagID</code>, the vanishing bearing of the tag, the time in seconds/minutes used to estimate the bearing, and the receiver’s name and coordinates. We can make a circular plot with points for the individual vanishing bearings and an arrow for the mean bearing as follows:</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="vanishingBearings.html#cb216-1"></a><span class="co"># if you have many bearings/points, can use stack = TRUE</span></span>
-<span id="cb216-2"><a href="vanishingBearings.html#cb216-2"></a><span class="kw">plot.circular</span>(df.vanishBearing<span class="op">$</span>vanish.bearing, <span class="dt">zero =</span> pi<span class="op">/</span><span class="dv">2</span>)</span>
-<span id="cb216-3"><a href="vanishingBearings.html#cb216-3"></a><span class="kw">arrows.circular</span>(<span class="kw">mean</span>(df.vanishBearing<span class="op">$</span>vanish.bearing), <span class="dt">zero =</span> pi<span class="op">/</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="vanishingBearings.html#cb220-1"></a><span class="co"># if you have many bearings/points, can use stack = TRUE</span></span>
+<span id="cb220-2"><a href="vanishingBearings.html#cb220-2"></a><span class="kw">plot.circular</span>(df.vanishBearing<span class="op">$</span>vanish.bearing, <span class="dt">zero =</span> pi<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb220-3"><a href="vanishingBearings.html#cb220-3"></a><span class="kw">arrows.circular</span>(<span class="kw">mean</span>(df.vanishBearing<span class="op">$</span>vanish.bearing), <span class="dt">zero =</span> pi<span class="op">/</span><span class="dv">2</span>)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotCircular-1.png" width="672" /></p>
 </div>
 <div id="plot-the-vanishing-bearings-on-a-map" class="section level3">
 <h3><span class="header-section-number">7.2.6</span> Plot the vanishing bearings on a map</h3>
 <p>Mapping your vanishing bearing(s) with <code>ggmap</code> can also be a great way to visualize the departure direction of your bird(s). Here we use Stamen maps to show the stations and orientations of antennas that detected the bird during departure, along with the orientation of the vanishing bearing. For information on using <code>ggmap</code> to create Google Maps, see Appendix B in section <a href="appendixB.html#googleMapsKey">B.4</a>.</p>
 <p>First, pick a tag to map:</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="vanishingBearings.html#cb217-1"></a>tagID &lt;-<span class="st"> </span><span class="dv">16823</span></span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="vanishingBearings.html#cb221-1"></a>tagID &lt;-<span class="st"> </span><span class="dv">16823</span></span></code></pre></div>
 <p>Then, create a map with a specified map centre, maptype (“terrain”, “roadmap”, “satellite”, or “hybrid”), and level of zoom (integer for zoom 3-21, 3 being continent level, 10 being city-scale). We add a yellow point for the stations with detections, yellow lines to represent antenna bearings with detections, and a red line for the vanishing bearing:</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="vanishingBearings.html#cb218-1"></a><span class="co">## First we obtain a map of our location of interest, in this case Old Cut</span></span>
-<span id="cb218-2"><a href="vanishingBearings.html#cb218-2"></a>map.OC &lt;-<span class="st">  </span><span class="kw">get_stamenmap</span>(<span class="dt">bbox =</span> <span class="kw">c</span>(<span class="dt">left =</span> <span class="fl">-80.6</span>, <span class="dt">right =</span> <span class="fl">-80.2</span>, <span class="dt">bottom =</span> <span class="fl">42.5</span>, <span class="dt">top =</span> <span class="fl">42.75</span>),</span>
-<span id="cb218-3"><a href="vanishingBearings.html#cb218-3"></a>                   <span class="dt">maptype =</span> <span class="st">&quot;terrain-background&quot;</span>,</span>
-<span id="cb218-4"><a href="vanishingBearings.html#cb218-4"></a>                   <span class="dt">zoom =</span> <span class="dv">12</span>,</span>
-<span id="cb218-5"><a href="vanishingBearings.html#cb218-5"></a>                   <span class="dt">color =</span> <span class="st">&quot;color&quot;</span>)</span>
-<span id="cb218-6"><a href="vanishingBearings.html#cb218-6"></a></span>
-<span id="cb218-7"><a href="vanishingBearings.html#cb218-7"></a><span class="co">## Do the following to make a scale bar</span></span>
-<span id="cb218-8"><a href="vanishingBearings.html#cb218-8"></a>bb &lt;-<span class="st"> </span><span class="kw">attr</span>(map.OC,<span class="st">&quot;bb&quot;</span>)</span>
-<span id="cb218-9"><a href="vanishingBearings.html#cb218-9"></a>sbar &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">lon.start =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lon <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span>(bb<span class="op">$</span>ur.lon <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lon)),</span>
-<span id="cb218-10"><a href="vanishingBearings.html#cb218-10"></a>                   <span class="dt">lon.end =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lon <span class="op">+</span><span class="st"> </span><span class="fl">0.25</span><span class="op">*</span>(bb<span class="op">$</span>ur.lon <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lon)),</span>
-<span id="cb218-11"><a href="vanishingBearings.html#cb218-11"></a>                   <span class="dt">lat.start =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lat <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span>(bb<span class="op">$</span>ur.lat <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lat)),</span>
-<span id="cb218-12"><a href="vanishingBearings.html#cb218-12"></a>                   <span class="dt">lat.end =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lat <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span>(bb<span class="op">$</span>ur.lat <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lat)))</span>
-<span id="cb218-13"><a href="vanishingBearings.html#cb218-13"></a></span>
-<span id="cb218-14"><a href="vanishingBearings.html#cb218-14"></a>sbar<span class="op">$</span>distance &lt;-<span class="st"> </span>geosphere<span class="op">::</span><span class="kw">distVincentyEllipsoid</span>(<span class="kw">c</span>(sbar<span class="op">$</span>lon.start,sbar<span class="op">$</span>lat.start),</span>
-<span id="cb218-15"><a href="vanishingBearings.html#cb218-15"></a>                                                  <span class="kw">c</span>(sbar<span class="op">$</span>lon.end,sbar<span class="op">$</span>lat.end))</span>
-<span id="cb218-16"><a href="vanishingBearings.html#cb218-16"></a>scalebar.length &lt;-<span class="st"> </span><span class="dv">10</span></span>
-<span id="cb218-17"><a href="vanishingBearings.html#cb218-17"></a>sbar<span class="op">$</span>lon.end &lt;-<span class="st"> </span>sbar<span class="op">$</span>lon.start <span class="op">+</span><span class="st"> </span></span>
-<span id="cb218-18"><a href="vanishingBearings.html#cb218-18"></a><span class="st">  </span>((sbar<span class="op">$</span>lon.end<span class="op">-</span>sbar<span class="op">$</span>lon.start)<span class="op">/</span>sbar<span class="op">$</span>distance)<span class="op">*</span>scalebar.length<span class="op">*</span><span class="dv">1000</span></span>
-<span id="cb218-19"><a href="vanishingBearings.html#cb218-19"></a>ptspermm &lt;-<span class="st"> </span><span class="fl">2.83464567</span>  <span class="co"># need this because geom_text uses mm, and themes use pts.</span></span>
-<span id="cb218-20"><a href="vanishingBearings.html#cb218-20"></a></span>
-<span id="cb218-21"><a href="vanishingBearings.html#cb218-21"></a><span class="co">## To map antenna bearings:</span></span>
-<span id="cb218-22"><a href="vanishingBearings.html#cb218-22"></a><span class="co">## Create a station dataframe with antenna bearings for all antennas with</span></span>
-<span id="cb218-23"><a href="vanishingBearings.html#cb218-23"></a><span class="co">## detections for the tag of interest</span></span>
-<span id="cb218-24"><a href="vanishingBearings.html#cb218-24"></a>df.stations &lt;-<span class="st"> </span>df.vanish <span class="op">%&gt;%</span></span>
-<span id="cb218-25"><a href="vanishingBearings.html#cb218-25"></a><span class="st">  </span><span class="kw">filter</span>(motusTagID <span class="op">==</span><span class="st"> </span>tagID) <span class="op">%&gt;%</span></span>
-<span id="cb218-26"><a href="vanishingBearings.html#cb218-26"></a><span class="st">  </span><span class="kw">select</span>(recvSiteName, antBearing, port, recvLon, recvLat) <span class="op">%&gt;%</span></span>
-<span id="cb218-27"><a href="vanishingBearings.html#cb218-27"></a><span class="st">  </span><span class="kw">distinct</span>()</span>
-<span id="cb218-28"><a href="vanishingBearings.html#cb218-28"></a></span>
-<span id="cb218-29"><a href="vanishingBearings.html#cb218-29"></a><span class="co"># determines length of the vectors for antenna bearings and vanishing bearing lines</span></span>
-<span id="cb218-30"><a href="vanishingBearings.html#cb218-30"></a>arr.sc &lt;-<span class="st"> </span><span class="fl">0.03</span> </span>
-<span id="cb218-31"><a href="vanishingBearings.html#cb218-31"></a>rad &lt;-<span class="st"> </span><span class="cf">function</span>(x) {x <span class="op">*</span><span class="st"> </span>pi<span class="op">/</span><span class="dv">180</span>}</span>
-<span id="cb218-32"><a href="vanishingBearings.html#cb218-32"></a></span>
-<span id="cb218-33"><a href="vanishingBearings.html#cb218-33"></a><span class="co">## Now we make the map</span></span>
-<span id="cb218-34"><a href="vanishingBearings.html#cb218-34"></a></span>
-<span id="cb218-35"><a href="vanishingBearings.html#cb218-35"></a><span class="kw">ggmap</span>(map.OC) <span class="op">+</span></span>
-<span id="cb218-36"><a href="vanishingBearings.html#cb218-36"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.stations, <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat), <span class="dt">size =</span> <span class="dv">1</span>, </span>
-<span id="cb218-37"><a href="vanishingBearings.html#cb218-37"></a>               <span class="dt">colour =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="op">+</span></span>
-<span id="cb218-38"><a href="vanishingBearings.html#cb218-38"></a><span class="st">    </span><span class="co"># Add antenna bearings</span></span>
-<span id="cb218-39"><a href="vanishingBearings.html#cb218-39"></a><span class="st">    </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> df.stations, </span>
-<span id="cb218-40"><a href="vanishingBearings.html#cb218-40"></a>                 <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">xend =</span> recvLon <span class="op">+</span><span class="st"> </span>(<span class="kw">sin</span>(<span class="kw">rad</span>(antBearing))<span class="op">*</span>arr.sc), </span>
-<span id="cb218-41"><a href="vanishingBearings.html#cb218-41"></a>                     <span class="dt">y =</span> recvLat, <span class="dt">yend =</span> recvLat <span class="op">+</span><span class="st"> </span>(<span class="kw">cos</span>(<span class="kw">rad</span>(antBearing))<span class="op">*</span>arr.sc)), </span>
-<span id="cb218-42"><a href="vanishingBearings.html#cb218-42"></a>                 <span class="dt">colour =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="op">+</span><span class="st">  </span></span>
-<span id="cb218-43"><a href="vanishingBearings.html#cb218-43"></a><span class="st">  </span></span>
-<span id="cb218-44"><a href="vanishingBearings.html#cb218-44"></a><span class="st">    </span><span class="co"># add vanishing bearings</span></span>
-<span id="cb218-45"><a href="vanishingBearings.html#cb218-45"></a><span class="st">    </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanishBearing, motusTagID <span class="op">==</span><span class="st"> </span>tagID), </span>
-<span id="cb218-46"><a href="vanishingBearings.html#cb218-46"></a>                 <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">xend =</span> recvLon <span class="op">+</span><span class="st"> </span>(<span class="kw">sin</span>(<span class="kw">rad</span>(vanish.bearing))<span class="op">*</span>arr.sc),</span>
-<span id="cb218-47"><a href="vanishingBearings.html#cb218-47"></a>                     <span class="dt">y =</span> recvLat, <span class="dt">yend =</span> recvLat <span class="op">+</span><span class="st"> </span>(<span class="kw">cos</span>(<span class="kw">rad</span>(vanish.bearing))<span class="op">*</span>arr.sc), </span>
-<span id="cb218-48"><a href="vanishingBearings.html#cb218-48"></a>                     <span class="dt">colour =</span> motusTagID)) <span class="op">+</span></span>
-<span id="cb218-49"><a href="vanishingBearings.html#cb218-49"></a><span class="st">  </span></span>
-<span id="cb218-50"><a href="vanishingBearings.html#cb218-50"></a><span class="st">    </span><span class="co"># Add scale bar  </span></span>
-<span id="cb218-51"><a href="vanishingBearings.html#cb218-51"></a><span class="st">    </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> sbar,</span>
-<span id="cb218-52"><a href="vanishingBearings.html#cb218-52"></a>                 <span class="kw">aes</span>(<span class="dt">x =</span> lon.start, <span class="dt">xend =</span> lon.end,</span>
-<span id="cb218-53"><a href="vanishingBearings.html#cb218-53"></a>                     <span class="dt">y =</span> lat.start, <span class="dt">yend =</span> lat.end), </span>
-<span id="cb218-54"><a href="vanishingBearings.html#cb218-54"></a>                 <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>,</span>
-<span id="cb218-55"><a href="vanishingBearings.html#cb218-55"></a>                 <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;cm&quot;</span>),</span>
-<span id="cb218-56"><a href="vanishingBearings.html#cb218-56"></a>                               <span class="dt">ends =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;open&quot;</span>)) <span class="op">+</span></span>
-<span id="cb218-57"><a href="vanishingBearings.html#cb218-57"></a><span class="st">    </span><span class="kw">geom_text</span>(<span class="dt">data =</span> sbar,</span>
-<span id="cb218-58"><a href="vanishingBearings.html#cb218-58"></a>              <span class="kw">aes</span>(<span class="dt">x =</span> (lon.start <span class="op">+</span><span class="st"> </span>lon.end)<span class="op">/</span><span class="dv">2</span>,</span>
-<span id="cb218-59"><a href="vanishingBearings.html#cb218-59"></a>                  <span class="dt">y =</span> lat.start <span class="op">+</span><span class="st"> </span><span class="fl">0.025</span><span class="op">*</span>(bb<span class="op">$</span>ur.lat <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lat),</span>
-<span id="cb218-60"><a href="vanishingBearings.html#cb218-60"></a>                  <span class="dt">label =</span> <span class="kw">paste</span>(<span class="kw">format</span>(scalebar.length), <span class="st">&#39;km&#39;</span>)),</span>
-<span id="cb218-61"><a href="vanishingBearings.html#cb218-61"></a>              <span class="dt">hjust =</span> <span class="fl">0.5</span>,</span>
-<span id="cb218-62"><a href="vanishingBearings.html#cb218-62"></a>              <span class="dt">vjust =</span> <span class="dv">0</span>,</span>
-<span id="cb218-63"><a href="vanishingBearings.html#cb218-63"></a>              <span class="dt">size =</span> <span class="dv">8</span><span class="op">/</span>ptspermm, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>)  <span class="op">+</span></span>
-<span id="cb218-64"><a href="vanishingBearings.html#cb218-64"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Longitude&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Latitude&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="vanishingBearings.html#cb222-1"></a><span class="co">## First we obtain a map of our location of interest, in this case Old Cut</span></span>
+<span id="cb222-2"><a href="vanishingBearings.html#cb222-2"></a>map.OC &lt;-<span class="st">  </span><span class="kw">get_stamenmap</span>(<span class="dt">bbox =</span> <span class="kw">c</span>(<span class="dt">left =</span> <span class="fl">-80.6</span>, <span class="dt">right =</span> <span class="fl">-80.2</span>, <span class="dt">bottom =</span> <span class="fl">42.5</span>, <span class="dt">top =</span> <span class="fl">42.75</span>),</span>
+<span id="cb222-3"><a href="vanishingBearings.html#cb222-3"></a>                   <span class="dt">maptype =</span> <span class="st">&quot;terrain-background&quot;</span>,</span>
+<span id="cb222-4"><a href="vanishingBearings.html#cb222-4"></a>                   <span class="dt">zoom =</span> <span class="dv">12</span>,</span>
+<span id="cb222-5"><a href="vanishingBearings.html#cb222-5"></a>                   <span class="dt">color =</span> <span class="st">&quot;color&quot;</span>)</span>
+<span id="cb222-6"><a href="vanishingBearings.html#cb222-6"></a></span>
+<span id="cb222-7"><a href="vanishingBearings.html#cb222-7"></a><span class="co">## Do the following to make a scale bar</span></span>
+<span id="cb222-8"><a href="vanishingBearings.html#cb222-8"></a>bb &lt;-<span class="st"> </span><span class="kw">attr</span>(map.OC,<span class="st">&quot;bb&quot;</span>)</span>
+<span id="cb222-9"><a href="vanishingBearings.html#cb222-9"></a>sbar &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">lon.start =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lon <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span>(bb<span class="op">$</span>ur.lon <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lon)),</span>
+<span id="cb222-10"><a href="vanishingBearings.html#cb222-10"></a>                   <span class="dt">lon.end =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lon <span class="op">+</span><span class="st"> </span><span class="fl">0.25</span><span class="op">*</span>(bb<span class="op">$</span>ur.lon <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lon)),</span>
+<span id="cb222-11"><a href="vanishingBearings.html#cb222-11"></a>                   <span class="dt">lat.start =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lat <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span>(bb<span class="op">$</span>ur.lat <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lat)),</span>
+<span id="cb222-12"><a href="vanishingBearings.html#cb222-12"></a>                   <span class="dt">lat.end =</span> <span class="kw">c</span>(bb<span class="op">$</span>ll.lat <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span>(bb<span class="op">$</span>ur.lat <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lat)))</span>
+<span id="cb222-13"><a href="vanishingBearings.html#cb222-13"></a></span>
+<span id="cb222-14"><a href="vanishingBearings.html#cb222-14"></a>sbar<span class="op">$</span>distance &lt;-<span class="st"> </span>geosphere<span class="op">::</span><span class="kw">distVincentyEllipsoid</span>(<span class="kw">c</span>(sbar<span class="op">$</span>lon.start,sbar<span class="op">$</span>lat.start),</span>
+<span id="cb222-15"><a href="vanishingBearings.html#cb222-15"></a>                                                  <span class="kw">c</span>(sbar<span class="op">$</span>lon.end,sbar<span class="op">$</span>lat.end))</span>
+<span id="cb222-16"><a href="vanishingBearings.html#cb222-16"></a>scalebar.length &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb222-17"><a href="vanishingBearings.html#cb222-17"></a>sbar<span class="op">$</span>lon.end &lt;-<span class="st"> </span>sbar<span class="op">$</span>lon.start <span class="op">+</span><span class="st"> </span></span>
+<span id="cb222-18"><a href="vanishingBearings.html#cb222-18"></a><span class="st">  </span>((sbar<span class="op">$</span>lon.end<span class="op">-</span>sbar<span class="op">$</span>lon.start)<span class="op">/</span>sbar<span class="op">$</span>distance)<span class="op">*</span>scalebar.length<span class="op">*</span><span class="dv">1000</span></span>
+<span id="cb222-19"><a href="vanishingBearings.html#cb222-19"></a>ptspermm &lt;-<span class="st"> </span><span class="fl">2.83464567</span>  <span class="co"># need this because geom_text uses mm, and themes use pts.</span></span>
+<span id="cb222-20"><a href="vanishingBearings.html#cb222-20"></a></span>
+<span id="cb222-21"><a href="vanishingBearings.html#cb222-21"></a><span class="co">## To map antenna bearings:</span></span>
+<span id="cb222-22"><a href="vanishingBearings.html#cb222-22"></a><span class="co">## Create a station dataframe with antenna bearings for all antennas with</span></span>
+<span id="cb222-23"><a href="vanishingBearings.html#cb222-23"></a><span class="co">## detections for the tag of interest</span></span>
+<span id="cb222-24"><a href="vanishingBearings.html#cb222-24"></a>df.stations &lt;-<span class="st"> </span>df.vanish <span class="op">%&gt;%</span></span>
+<span id="cb222-25"><a href="vanishingBearings.html#cb222-25"></a><span class="st">  </span><span class="kw">filter</span>(motusTagID <span class="op">==</span><span class="st"> </span>tagID) <span class="op">%&gt;%</span></span>
+<span id="cb222-26"><a href="vanishingBearings.html#cb222-26"></a><span class="st">  </span><span class="kw">select</span>(recvSiteName, antBearing, port, recvLon, recvLat) <span class="op">%&gt;%</span></span>
+<span id="cb222-27"><a href="vanishingBearings.html#cb222-27"></a><span class="st">  </span><span class="kw">distinct</span>()</span>
+<span id="cb222-28"><a href="vanishingBearings.html#cb222-28"></a></span>
+<span id="cb222-29"><a href="vanishingBearings.html#cb222-29"></a><span class="co"># determines length of the vectors for antenna bearings and vanishing bearing lines</span></span>
+<span id="cb222-30"><a href="vanishingBearings.html#cb222-30"></a>arr.sc &lt;-<span class="st"> </span><span class="fl">0.03</span> </span>
+<span id="cb222-31"><a href="vanishingBearings.html#cb222-31"></a>rad &lt;-<span class="st"> </span><span class="cf">function</span>(x) {x <span class="op">*</span><span class="st"> </span>pi<span class="op">/</span><span class="dv">180</span>}</span>
+<span id="cb222-32"><a href="vanishingBearings.html#cb222-32"></a></span>
+<span id="cb222-33"><a href="vanishingBearings.html#cb222-33"></a><span class="co">## Now we make the map</span></span>
+<span id="cb222-34"><a href="vanishingBearings.html#cb222-34"></a></span>
+<span id="cb222-35"><a href="vanishingBearings.html#cb222-35"></a><span class="kw">ggmap</span>(map.OC) <span class="op">+</span></span>
+<span id="cb222-36"><a href="vanishingBearings.html#cb222-36"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.stations, <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">y =</span> recvLat), <span class="dt">size =</span> <span class="dv">1</span>, </span>
+<span id="cb222-37"><a href="vanishingBearings.html#cb222-37"></a>               <span class="dt">colour =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="op">+</span></span>
+<span id="cb222-38"><a href="vanishingBearings.html#cb222-38"></a><span class="st">    </span><span class="co"># Add antenna bearings</span></span>
+<span id="cb222-39"><a href="vanishingBearings.html#cb222-39"></a><span class="st">    </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> df.stations, </span>
+<span id="cb222-40"><a href="vanishingBearings.html#cb222-40"></a>                 <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">xend =</span> recvLon <span class="op">+</span><span class="st"> </span>(<span class="kw">sin</span>(<span class="kw">rad</span>(antBearing))<span class="op">*</span>arr.sc), </span>
+<span id="cb222-41"><a href="vanishingBearings.html#cb222-41"></a>                     <span class="dt">y =</span> recvLat, <span class="dt">yend =</span> recvLat <span class="op">+</span><span class="st"> </span>(<span class="kw">cos</span>(<span class="kw">rad</span>(antBearing))<span class="op">*</span>arr.sc)), </span>
+<span id="cb222-42"><a href="vanishingBearings.html#cb222-42"></a>                 <span class="dt">colour =</span> <span class="st">&quot;goldenrod&quot;</span>) <span class="op">+</span><span class="st">  </span></span>
+<span id="cb222-43"><a href="vanishingBearings.html#cb222-43"></a><span class="st">  </span></span>
+<span id="cb222-44"><a href="vanishingBearings.html#cb222-44"></a><span class="st">    </span><span class="co"># add vanishing bearings</span></span>
+<span id="cb222-45"><a href="vanishingBearings.html#cb222-45"></a><span class="st">    </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> <span class="kw">filter</span>(df.vanishBearing, motusTagID <span class="op">==</span><span class="st"> </span>tagID), </span>
+<span id="cb222-46"><a href="vanishingBearings.html#cb222-46"></a>                 <span class="kw">aes</span>(<span class="dt">x =</span> recvLon, <span class="dt">xend =</span> recvLon <span class="op">+</span><span class="st"> </span>(<span class="kw">sin</span>(<span class="kw">rad</span>(vanish.bearing))<span class="op">*</span>arr.sc),</span>
+<span id="cb222-47"><a href="vanishingBearings.html#cb222-47"></a>                     <span class="dt">y =</span> recvLat, <span class="dt">yend =</span> recvLat <span class="op">+</span><span class="st"> </span>(<span class="kw">cos</span>(<span class="kw">rad</span>(vanish.bearing))<span class="op">*</span>arr.sc), </span>
+<span id="cb222-48"><a href="vanishingBearings.html#cb222-48"></a>                     <span class="dt">colour =</span> motusTagID)) <span class="op">+</span></span>
+<span id="cb222-49"><a href="vanishingBearings.html#cb222-49"></a><span class="st">  </span></span>
+<span id="cb222-50"><a href="vanishingBearings.html#cb222-50"></a><span class="st">    </span><span class="co"># Add scale bar  </span></span>
+<span id="cb222-51"><a href="vanishingBearings.html#cb222-51"></a><span class="st">    </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> sbar,</span>
+<span id="cb222-52"><a href="vanishingBearings.html#cb222-52"></a>                 <span class="kw">aes</span>(<span class="dt">x =</span> lon.start, <span class="dt">xend =</span> lon.end,</span>
+<span id="cb222-53"><a href="vanishingBearings.html#cb222-53"></a>                     <span class="dt">y =</span> lat.start, <span class="dt">yend =</span> lat.end), </span>
+<span id="cb222-54"><a href="vanishingBearings.html#cb222-54"></a>                 <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb222-55"><a href="vanishingBearings.html#cb222-55"></a>                 <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;cm&quot;</span>),</span>
+<span id="cb222-56"><a href="vanishingBearings.html#cb222-56"></a>                               <span class="dt">ends =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;open&quot;</span>)) <span class="op">+</span></span>
+<span id="cb222-57"><a href="vanishingBearings.html#cb222-57"></a><span class="st">    </span><span class="kw">geom_text</span>(<span class="dt">data =</span> sbar,</span>
+<span id="cb222-58"><a href="vanishingBearings.html#cb222-58"></a>              <span class="kw">aes</span>(<span class="dt">x =</span> (lon.start <span class="op">+</span><span class="st"> </span>lon.end)<span class="op">/</span><span class="dv">2</span>,</span>
+<span id="cb222-59"><a href="vanishingBearings.html#cb222-59"></a>                  <span class="dt">y =</span> lat.start <span class="op">+</span><span class="st"> </span><span class="fl">0.025</span><span class="op">*</span>(bb<span class="op">$</span>ur.lat <span class="op">-</span><span class="st"> </span>bb<span class="op">$</span>ll.lat),</span>
+<span id="cb222-60"><a href="vanishingBearings.html#cb222-60"></a>                  <span class="dt">label =</span> <span class="kw">paste</span>(<span class="kw">format</span>(scalebar.length), <span class="st">&#39;km&#39;</span>)),</span>
+<span id="cb222-61"><a href="vanishingBearings.html#cb222-61"></a>              <span class="dt">hjust =</span> <span class="fl">0.5</span>,</span>
+<span id="cb222-62"><a href="vanishingBearings.html#cb222-62"></a>              <span class="dt">vjust =</span> <span class="dv">0</span>,</span>
+<span id="cb222-63"><a href="vanishingBearings.html#cb222-63"></a>              <span class="dt">size =</span> <span class="dv">8</span><span class="op">/</span>ptspermm, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>)  <span class="op">+</span></span>
+<span id="cb222-64"><a href="vanishingBearings.html#cb222-64"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Longitude&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Latitude&quot;</span>)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/vanishMapping-1.png" width="672" /></p>
 <p>Lengths of the yellow and red lines do not represent antenna range or exact path of the bird. For this departure, we have detections on two other stations which corroborate the vanishing bearing.</p>
 <p>If desired, you can print the map to file as follows:</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="vanishingBearings.html#cb219-1"></a><span class="kw">tiff</span>(<span class="dt">file =</span> <span class="kw">paste</span>(tagID, <span class="st">&quot;vanishBearing.tiff&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>))</span>
-<span id="cb219-2"><a href="vanishingBearings.html#cb219-2"></a><span class="kw">print</span>(out.map)</span>
-<span id="cb219-3"><a href="vanishingBearings.html#cb219-3"></a><span class="kw">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="vanishingBearings.html#cb223-1"></a><span class="kw">tiff</span>(<span class="dt">file =</span> <span class="kw">paste</span>(tagID, <span class="st">&quot;vanishBearing.tiff&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>))</span>
+<span id="cb223-2"><a href="vanishingBearings.html#cb223-2"></a><span class="kw">print</span>(out.map)</span>
+<span id="cb223-3"><a href="vanishingBearings.html#cb223-3"></a><span class="kw">dev.off</span>()</span></code></pre></div>
 </div>
 </div>
 <div id="vanishingLitCited" class="section level2">

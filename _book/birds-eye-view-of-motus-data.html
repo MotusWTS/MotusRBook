@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>E Bird’s Eye View of Motus Data | Motus R Book</title>
+  <meta name="description" content="E Bird’s Eye View of Motus Data | Motus R Book" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="E Bird’s Eye View of Motus Data | Motus R Book" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="BSC_Motus_Logo.png" />
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="E Bird’s Eye View of Motus Data | Motus R Book" />
+  
+  
+  <meta name="twitter:image" content="BSC_Motus_Logo.png" />
+
+<meta name="author" content="Tara L. Crewe, Zoe Crysler, and Philip Taylor" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="appendixD.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-12387576-13', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="https://beta.motus.org/MotusRBook">R for Motus</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>A walk through the use of R for Motus automated radio-telemetry data</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#whatBookCovers"><i class="fa fa-check"></i><b>1.1</b> What this book does not cover</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#sampleData"><i class="fa fa-check"></i><b>1.3</b> Sample datasets</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="loadingPackages.html"><a href="loadingPackages.html"><i class="fa fa-check"></i><b>2</b> Loading R Packages</a><ul>
+<li class="chapter" data-level="2.1" data-path="loadingPackages.html"><a href="loadingPackages.html#installing-motus-packages"><i class="fa fa-check"></i><b>2.1</b> Installing Motus packages</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="loadingPackages.html"><a href="loadingPackages.html#troubleshooting-the-installation"><i class="fa fa-check"></i><b>2.1.1</b> Troubleshooting the installation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="loadingPackages.html"><a href="loadingPackages.html#installing-other-packages"><i class="fa fa-check"></i><b>2.2</b> Installing other packages</a></li>
+<li class="chapter" data-level="2.3" data-path="loadingPackages.html"><a href="loadingPackages.html#internalProcessing"><i class="fa fa-check"></i><b>2.3</b> Internal data processing</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="accessingData.html"><a href="accessingData.html"><i class="fa fa-check"></i><b>3</b> Accessing and understanding detections data</a><ul>
+<li class="chapter" data-level="3.1" data-path="accessingData.html"><a href="accessingData.html#databaseStructure"><i class="fa fa-check"></i><b>3.1</b> Data structure</a></li>
+<li class="chapter" data-level="3.2" data-path="accessingData.html"><a href="accessingData.html#databaseTypes"><i class="fa fa-check"></i><b>3.2</b> Database types</a></li>
+<li class="chapter" data-level="3.3" data-path="accessingData.html"><a href="accessingData.html#loadPackages"><i class="fa fa-check"></i><b>3.3</b> Load relevant R packages</a></li>
+<li class="chapter" data-level="3.4" data-path="accessingData.html"><a href="accessingData.html#set-system-environment"><i class="fa fa-check"></i><b>3.4</b> Set system environment</a></li>
+<li class="chapter" data-level="3.5" data-path="accessingData.html"><a href="accessingData.html#importDetections"><i class="fa fa-check"></i><b>3.5</b> Downloading tag detections</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="accessingData.html"><a href="accessingData.html#downloadData"><i class="fa fa-check"></i><b>3.5.1</b> Download data for a project for the <em>first time</em></a></li>
+<li class="chapter" data-level="3.5.2" data-path="accessingData.html"><a href="accessingData.html#userAuthentication"><i class="fa fa-check"></i><b>3.5.2</b> User Authentication</a></li>
+<li class="chapter" data-level="3.5.3" data-path="accessingData.html"><a href="accessingData.html#download-data-for-a-receiver-for-the-first-time"><i class="fa fa-check"></i><b>3.5.3</b> Download data for a receiver for the <em>first time</em></a></li>
+<li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloading-multiple-receivers-at-the-same-time"><i class="fa fa-check"></i><b>3.5.4</b> Downloading multiple receivers at the same time</a></li>
+<li class="chapter" data-level="3.5.5" data-path="accessingData.html"><a href="accessingData.html#updating-all-.motus-files-within-a-directory"><i class="fa fa-check"></i><b>3.5.5</b> Updating all .motus files within a directory</a></li>
+<li class="chapter" data-level="3.5.6" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.6</b> Accessing downloaded detection data</a></li>
+<li class="chapter" data-level="3.5.7" data-path="accessingData.html"><a href="accessingData.html#addGPS"><i class="fa fa-check"></i><b>3.5.7</b> Adding GPS Data</a></li>
+<li class="chapter" data-level="3.5.8" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.5.8</b> Converting to flat file</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.6</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
+<li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.7</b> Update and/or open an existing database</a></li>
+<li class="chapter" data-level="3.8" data-path="accessingData.html"><a href="accessingData.html#tellme"><i class="fa fa-check"></i><b>3.8</b> Check if new data are available</a></li>
+<li class="chapter" data-level="3.9" data-path="accessingData.html"><a href="accessingData.html#forceMeta"><i class="fa fa-check"></i><b>3.9</b> Force an update/re-import of tag and receiver deployment metadata</a></li>
+<li class="chapter" data-level="3.10" data-path="accessingData.html"><a href="accessingData.html#metadata"><i class="fa fa-check"></i><b>3.10</b> Import full tag and receiver metadata</a></li>
+<li class="chapter" data-level="3.11" data-path="accessingData.html"><a href="accessingData.html#checkVersion"><i class="fa fa-check"></i><b>3.11</b> Ensure that you have the correct database version</a></li>
+<li class="chapter" data-level="3.12" data-path="accessingData.html"><a href="accessingData.html#r-object-naming-convention"><i class="fa fa-check"></i><b>3.12</b> R object naming convention</a></li>
+<li class="chapter" data-level="3.13" data-path="accessingData.html"><a href="accessingData.html#importSummary"><i class="fa fa-check"></i><b>3.13</b> Summary: download, access, and export data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="deployments.html"><a href="deployments.html"><i class="fa fa-check"></i><b>4</b> Tag and Receiver Deployments</a><ul>
+<li class="chapter" data-level="4.1" data-path="deployments.html"><a href="deployments.html#load-relevant-r-packages-and-set-working-environment"><i class="fa fa-check"></i><b>4.1</b> Load relevant R packages and set working environment</a></li>
+<li class="chapter" data-level="4.2" data-path="deployments.html"><a href="deployments.html#load-.motus-file"><i class="fa fa-check"></i><b>4.2</b> Load .motus file</a></li>
+<li class="chapter" data-level="4.3" data-path="deployments.html"><a href="deployments.html#tagDeployments"><i class="fa fa-check"></i><b>4.3</b> Tag Deployments</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="deployments.html"><a href="deployments.html#download-full-project-tag-metadata"><i class="fa fa-check"></i><b>4.3.1</b> Download full project tag metadata</a></li>
+<li class="chapter" data-level="4.3.2" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags"><i class="fa fa-check"></i><b>4.3.2</b> Number of registered tags</a></li>
+<li class="chapter" data-level="4.3.3" data-path="deployments.html"><a href="deployments.html#number-of-registered-tags-that-were-deployed"><i class="fa fa-check"></i><b>4.3.3</b> Number of registered tags that were deployed</a></li>
+<li class="chapter" data-level="4.3.4" data-path="deployments.html"><a href="deployments.html#checkNumberTagDeployments"><i class="fa fa-check"></i><b>4.3.4</b> Number of deployments per tag</a></li>
+<li class="chapter" data-level="4.3.5" data-path="deployments.html"><a href="deployments.html#location-of-tag-deployments"><i class="fa fa-check"></i><b>4.3.5</b> Location of tag deployments</a></li>
+<li class="chapter" data-level="4.3.6" data-path="deployments.html"><a href="deployments.html#check-completeness-and-accuracy-of-tag-deployment-metadata"><i class="fa fa-check"></i><b>4.3.6</b> Check completeness and accuracy of tag deployment metadata</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="deployments.html"><a href="deployments.html#recvMetadata"><i class="fa fa-check"></i><b>4.4</b> Check Receiver Metadata</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="deployments.html"><a href="deployments.html#download-full-receiver-metadata"><i class="fa fa-check"></i><b>4.4.1</b> Download full receiver metadata</a></li>
+<li class="chapter" data-level="4.4.2" data-path="deployments.html"><a href="deployments.html#number-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.2</b> Number of project receiver deployments</a></li>
+<li class="chapter" data-level="4.4.3" data-path="deployments.html"><a href="deployments.html#timing-of-project-receiver-deployments"><i class="fa fa-check"></i><b>4.4.3</b> Timing of project receiver deployments</a></li>
+<li class="chapter" data-level="4.4.4" data-path="deployments.html"><a href="deployments.html#location-of-receiver-deployments"><i class="fa fa-check"></i><b>4.4.4</b> Location of receiver deployments</a></li>
+<li class="chapter" data-level="4.4.5" data-path="deployments.html"><a href="deployments.html#completeness-and-accuracy-of-receiver-metadata"><i class="fa fa-check"></i><b>4.4.5</b> Completeness and accuracy of receiver metadata</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="dataCleaning.html"><a href="dataCleaning.html"><i class="fa fa-check"></i><b>5</b> Data Cleaning</a><ul>
+<li class="chapter" data-level="5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#loadDetectionsCleaning"><i class="fa fa-check"></i><b>5.1</b> Load required packages</a></li>
+<li class="chapter" data-level="5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#load-detections-data"><i class="fa fa-check"></i><b>5.2</b> Load detections data</a></li>
+<li class="chapter" data-level="5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#assess-tag-detections"><i class="fa fa-check"></i><b>5.3</b> Assess tag detections</a></li>
+<li class="chapter" data-level="5.4" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-filtering"><i class="fa fa-check"></i><b>5.4</b> Preliminary filtering</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="dataCleaning.html"><a href="dataCleaning.html#understanding-the-motusfilter"><i class="fa fa-check"></i><b>5.4.1</b> Understanding the <code>motusFilter</code></a></li>
+<li class="chapter" data-level="5.4.2" data-path="dataCleaning.html"><a href="dataCleaning.html#how-the-motusfilter-is-generated"><i class="fa fa-check"></i><b>5.4.2</b> How the <code>motusFilter</code> is generated</a></li>
+<li class="chapter" data-level="5.4.3" data-path="dataCleaning.html"><a href="dataCleaning.html#custom-filters-with-the-filterbyactivity-function"><i class="fa fa-check"></i><b>5.4.3</b> Custom filters with the <code>filterByActivity()</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#preparing-the-data"><i class="fa fa-check"></i><b>5.5</b> Preparing the data</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#label-detections-by-probability"><i class="fa fa-check"></i><b>5.5.1</b> Label detections by probability</a></li>
+<li class="chapter" data-level="5.5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#clean-up"><i class="fa fa-check"></i><b>5.5.2</b> Clean up</a></li>
+<li class="chapter" data-level="5.5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#add-gps-data"><i class="fa fa-check"></i><b>5.5.3</b> Add GPS data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.6</b> Preliminary data checks</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.6.1</b> Summarize tag detections</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="dataCleaning.html"><a href="dataCleaning.html#ambigs"><i class="fa fa-check"></i><b>5.7</b> Examining ambiguous detections</a></li>
+<li class="chapter" data-level="5.8" data-path="dataCleaning.html"><a href="dataCleaning.html#checking-validity-of-run-lengths-of-2-or-3"><i class="fa fa-check"></i><b>5.8</b> Checking validity of run lengths of 2 or 3</a></li>
+<li class="chapter" data-level="5.9" data-path="dataCleaning.html"><a href="dataCleaning.html#filtering-the-data"><i class="fa fa-check"></i><b>5.9</b> Filtering the data</a><ul>
+<li class="chapter" data-level="5.9.1" data-path="dataCleaning.html"><a href="dataCleaning.html#filter-and-save-to-rds"><i class="fa fa-check"></i><b>5.9.1</b> Filter and save to RDS</a></li>
+<li class="chapter" data-level="5.9.2" data-path="dataCleaning.html"><a href="dataCleaning.html#saveFilter"><i class="fa fa-check"></i><b>5.9.2</b> Save a custom filter in the motus database, and apply it to the data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exploreData.html"><a href="exploreData.html"><i class="fa fa-check"></i><b>6</b> Exploring data with the Motus R package</a><ul>
+<li class="chapter" data-level="6.1" data-path="exploreData.html"><a href="exploreData.html#load-required-packages"><i class="fa fa-check"></i><b>6.1</b> Load required packages</a></li>
+<li class="chapter" data-level="6.2" data-path="exploreData.html"><a href="exploreData.html#load-data"><i class="fa fa-check"></i><b>6.2</b> Load data</a></li>
+<li class="chapter" data-level="6.3" data-path="exploreData.html"><a href="exploreData.html#dataSummaries"><i class="fa fa-check"></i><b>6.3</b> Summarizing your data</a></li>
+<li class="chapter" data-level="6.4" data-path="exploreData.html"><a href="exploreData.html#dataPlotting"><i class="fa fa-check"></i><b>6.4</b> Plotting your data</a></li>
+<li class="chapter" data-level="6.5" data-path="exploreData.html"><a href="exploreData.html#mappingData"><i class="fa fa-check"></i><b>6.5</b> Mapping your data</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="exploreData.html"><a href="exploreData.html#ggmaps"><i class="fa fa-check"></i><b>6.5.1</b> Mapping with the <code>ggmap</code> package</a></li>
+<li class="chapter" data-level="6.5.2" data-path="exploreData.html"><a href="exploreData.html#outlineMaps"><i class="fa fa-check"></i><b>6.5.2</b> Creating simple outline maps</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="vanishingBearings.html"><a href="vanishingBearings.html"><i class="fa fa-check"></i><b>7</b> Vanishing bearings</a><ul>
+<li class="chapter" data-level="7.1" data-path="vanishingBearings.html"><a href="vanishingBearings.html#thingsToBeAwareOf"><i class="fa fa-check"></i><b>7.1</b> Things to be aware of</a></li>
+<li class="chapter" data-level="7.2" data-path="vanishingBearings.html"><a href="vanishingBearings.html#estimateBearings"><i class="fa fa-check"></i><b>7.2</b> Estimate vanishing bearings: step-by-step</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="vanishingBearings.html"><a href="vanishingBearings.html#loadPackages7"><i class="fa fa-check"></i><b>7.2.1</b> Load the required packages</a></li>
+<li class="chapter" data-level="7.2.2" data-path="vanishingBearings.html"><a href="vanishingBearings.html#vanishingSample"><i class="fa fa-check"></i><b>7.2.2</b> Load the sample data</a></li>
+<li class="chapter" data-level="7.2.3" data-path="vanishingBearings.html"><a href="vanishingBearings.html#select-individuals-that-show-clear-departure-detections"><i class="fa fa-check"></i><b>7.2.3</b> Select individuals that show clear departure detections</a></li>
+<li class="chapter" data-level="7.2.4" data-path="vanishingBearings.html"><a href="vanishingBearings.html#obtain-departure-times"><i class="fa fa-check"></i><b>7.2.4</b> Obtain departure times</a></li>
+<li class="chapter" data-level="7.2.5" data-path="vanishingBearings.html"><a href="vanishingBearings.html#calculate-vanishing-bearings-for-individuals-with-departure-times."><i class="fa fa-check"></i><b>7.2.5</b> Calculate vanishing bearings for individuals with departure times.</a></li>
+<li class="chapter" data-level="7.2.6" data-path="vanishingBearings.html"><a href="vanishingBearings.html#plot-the-vanishing-bearings-on-a-map"><i class="fa fa-check"></i><b>7.2.6</b> Plot the vanishing bearings on a map</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="vanishingBearings.html"><a href="vanishingBearings.html#vanishingLitCited"><i class="fa fa-check"></i><b>7.3</b> Literature Cited</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="advancedModelling.html"><a href="advancedModelling.html"><i class="fa fa-check"></i><b>8</b> Advanced modelling and analysis</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appendixA.html"><a href="appendixA.html"><i class="fa fa-check"></i><b>A</b> Appendix - <code>alltags</code> and <code>alltagsGPS</code> structure</a></li>
+<li class="chapter" data-level="B" data-path="appendixB.html"><a href="appendixB.html"><i class="fa fa-check"></i><b>B</b> Appendix - Troubleshooting</a><ul>
+<li class="chapter" data-level="B.1" data-path="appendixB.html"><a href="appendixB.html#general-problems"><i class="fa fa-check"></i><b>B.1</b> General Problems</a></li>
+<li class="chapter" data-level="B.2" data-path="appendixB.html"><a href="appendixB.html#motusLogout"><i class="fa fa-check"></i><b>B.2</b> Logging out of motus</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixB.html"><a href="appendixB.html#resumeDownload"><i class="fa fa-check"></i><b>B.3</b> Resume data download</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixB.html"><a href="appendixB.html#googleMapsKey"><i class="fa fa-check"></i><b>B.4</b> Google Maps</a></li>
+<li class="chapter" data-level="B.5" data-path="appendixB.html"><a href="appendixB.html#common-problems-and-solutions"><i class="fa fa-check"></i><b>B.5</b> Common problems and solutions:</a><ul>
+<li class="chapter" data-level="B.5.1" data-path="appendixB.html"><a href="appendixB.html#i-cannot-access-project-176-i-download-0-records-from-project-176"><i class="fa fa-check"></i><b>B.5.1</b> I cannot access Project 176 / I download 0 records from Project 176</a></li>
+<li class="chapter" data-level="B.5.2" data-path="appendixB.html"><a href="appendixB.html#i-get-the-message-auto-disconnecting-sqliteconnection-one-or-multiple-times-after-using-tagme"><i class="fa fa-check"></i><b>B.5.2</b> I get the message “Auto-disconnecting SQLiteConnection” one or multiple times after using tagme()</a></li>
+<li class="chapter" data-level="B.5.3" data-path="appendixB.html"><a href="appendixB.html#i-get-an-internal-server-error-message-when-using-tagme-update-true"><i class="fa fa-check"></i><b>B.5.3</b> I get an “Internal Server Error” message when using tagme(…, update = TRUE)</a></li>
+<li class="chapter" data-level="B.5.4" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-forbidden-message-when-using-tagme"><i class="fa fa-check"></i><b>B.5.4</b> I get an “Error: Forbidden” message when using tagme()</a></li>
+<li class="chapter" data-level="B.5.5" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-object-xxxx-not-found-referring-to-a-table-or-field-name-or-some-of-your-examples-in-the-book-do-not-work."><i class="fa fa-check"></i><b>B.5.5</b> I get an error “Object ‘xxxx’ not found”, referring to a table or field name, or some of your examples in the book do not work.</a></li>
+<li class="chapter" data-level="B.5.6" data-path="appendixB.html"><a href="appendixB.html#i-get-an-error-error-in-rsqlite_connectdbname-loadable.extensions-flags-vfs-could-not-connect-to-database-unable-to-open-database-file-when-attempting-to-run-tagme"><i class="fa fa-check"></i><b>B.5.6</b> I get an error <code>Error in rsqlite_connect(dbname, loadable.extensions, flags, vfs) : Could not connect to database: unable to open database file</code> when attempting to run <code>tagme()</code></a></li>
+<li class="chapter" data-level="B.5.7" data-path="appendixB.html"><a href="appendixB.html#i-see-gps-coordinates-of-0-or-999"><i class="fa fa-check"></i><b>B.5.7</b> I see GPS coordinates of “0” or “999”</a></li>
+<li class="chapter" data-level="B.5.8" data-path="appendixB.html"><a href="appendixB.html#i-see-port-with-a-value-of--1"><i class="fa fa-check"></i><b>B.5.8</b> I see port with a value of -1</a></li>
+<li class="chapter" data-level="B.5.9" data-path="appendixB.html"><a href="appendixB.html#i-get-the-error-error-in-rsqlite_fetchresptr-n-n-database-disk-image-is-malformed"><i class="fa fa-check"></i><b>B.5.9</b> I get the error <code>Error in rsqlite_fetch(res@ptr, n = n) : database disk image is malformed</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="appendixC.html"><a href="appendixC.html"><i class="fa fa-check"></i><b>C</b> Appendix - <code>motus</code> - Summary and plotting functions</a><ul>
+<li class="chapter" data-level="C.1" data-path="appendixC.html"><a href="appendixC.html#checkVersionB"><i class="fa fa-check"></i><b>C.1</b> <code>checkVersion</code></a><ul>
+<li class="chapter" data-level="C.1.1" data-path="appendixC.html"><a href="appendixC.html#description"><i class="fa fa-check"></i><b>C.1.1</b> Description</a></li>
+<li class="chapter" data-level="C.1.2" data-path="appendixC.html"><a href="appendixC.html#arguments"><i class="fa fa-check"></i><b>C.1.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.1.3" data-path="appendixC.html"><a href="appendixC.html#example"><i class="fa fa-check"></i><b>C.1.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="C.2" data-path="appendixC.html"><a href="appendixC.html#sunRiseSet"><i class="fa fa-check"></i><b>C.2</b> <code>sunRiseSet</code></a><ul>
+<li class="chapter" data-level="C.2.1" data-path="appendixC.html"><a href="appendixC.html#description-1"><i class="fa fa-check"></i><b>C.2.1</b> Description</a></li>
+<li class="chapter" data-level="C.2.2" data-path="appendixC.html"><a href="appendixC.html#arguments-1"><i class="fa fa-check"></i><b>C.2.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.2.3" data-path="appendixC.html"><a href="appendixC.html#example-1"><i class="fa fa-check"></i><b>C.2.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsCoord"><i class="fa fa-check"></i><b>C.3</b> <code>plotAllTagsCoord</code></a><ul>
+<li class="chapter" data-level="C.3.1" data-path="appendixC.html"><a href="appendixC.html#description-2"><i class="fa fa-check"></i><b>C.3.1</b> Description</a></li>
+<li class="chapter" data-level="C.3.2" data-path="appendixC.html"><a href="appendixC.html#arguments-2"><i class="fa fa-check"></i><b>C.3.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.3.3" data-path="appendixC.html"><a href="appendixC.html#example-2"><i class="fa fa-check"></i><b>C.3.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="C.4" data-path="appendixC.html"><a href="appendixC.html#plotAllTagsSite"><i class="fa fa-check"></i><b>C.4</b> <code>plotAllTagsSite</code></a><ul>
+<li class="chapter" data-level="C.4.1" data-path="appendixC.html"><a href="appendixC.html#description-3"><i class="fa fa-check"></i><b>C.4.1</b> Description</a></li>
+<li class="chapter" data-level="C.4.2" data-path="appendixC.html"><a href="appendixC.html#arguments-3"><i class="fa fa-check"></i><b>C.4.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.4.3" data-path="appendixC.html"><a href="appendixC.html#example-3"><i class="fa fa-check"></i><b>C.4.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="C.5" data-path="appendixC.html"><a href="appendixC.html#plotDailySiteSum"><i class="fa fa-check"></i><b>C.5</b> <code>plotDailySiteSum</code></a><ul>
+<li class="chapter" data-level="C.5.1" data-path="appendixC.html"><a href="appendixC.html#description-4"><i class="fa fa-check"></i><b>C.5.1</b> Description</a></li>
+<li class="chapter" data-level="C.5.2" data-path="appendixC.html"><a href="appendixC.html#arguments-4"><i class="fa fa-check"></i><b>C.5.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.5.3" data-path="appendixC.html"><a href="appendixC.html#example-4"><i class="fa fa-check"></i><b>C.5.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="C.6" data-path="appendixC.html"><a href="appendixC.html#plotRouteMap"><i class="fa fa-check"></i><b>C.6</b> <code>plotRouteMap</code></a><ul>
+<li class="chapter" data-level="C.6.1" data-path="appendixC.html"><a href="appendixC.html#description-5"><i class="fa fa-check"></i><b>C.6.1</b> Description</a></li>
+<li class="chapter" data-level="C.6.2" data-path="appendixC.html"><a href="appendixC.html#example-5"><i class="fa fa-check"></i><b>C.6.2</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="C.7" data-path="appendixC.html"><a href="appendixC.html#plotSite"><i class="fa fa-check"></i><b>C.7</b> <code>plotSite</code></a><ul>
+<li class="chapter" data-level="C.7.1" data-path="appendixC.html"><a href="appendixC.html#description-6"><i class="fa fa-check"></i><b>C.7.1</b> Description</a></li>
+<li class="chapter" data-level="C.7.2" data-path="appendixC.html"><a href="appendixC.html#arguments-5"><i class="fa fa-check"></i><b>C.7.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.7.3" data-path="appendixC.html"><a href="appendixC.html#example-6"><i class="fa fa-check"></i><b>C.7.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="C.8" data-path="appendixC.html"><a href="appendixC.html#plotSiteSig"><i class="fa fa-check"></i><b>C.8</b> <code>plotSiteSig</code></a><ul>
+<li class="chapter" data-level="C.8.1" data-path="appendixC.html"><a href="appendixC.html#description-7"><i class="fa fa-check"></i><b>C.8.1</b> Description</a></li>
+<li class="chapter" data-level="C.8.2" data-path="appendixC.html"><a href="appendixC.html#arguments-6"><i class="fa fa-check"></i><b>C.8.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.8.3" data-path="appendixC.html"><a href="appendixC.html#example-7"><i class="fa fa-check"></i><b>C.8.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="C.9" data-path="appendixC.html"><a href="appendixC.html#plotTagSig"><i class="fa fa-check"></i><b>C.9</b> <code>plotTagSig</code></a><ul>
+<li class="chapter" data-level="C.9.1" data-path="appendixC.html"><a href="appendixC.html#description-8"><i class="fa fa-check"></i><b>C.9.1</b> Description</a></li>
+<li class="chapter" data-level="C.9.2" data-path="appendixC.html"><a href="appendixC.html#arguments-7"><i class="fa fa-check"></i><b>C.9.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.9.3" data-path="appendixC.html"><a href="appendixC.html#example-8"><i class="fa fa-check"></i><b>C.9.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="C.10" data-path="appendixC.html"><a href="appendixC.html#simSiteDet"><i class="fa fa-check"></i><b>C.10</b> <code>simSiteDet</code></a><ul>
+<li class="chapter" data-level="C.10.1" data-path="appendixC.html"><a href="appendixC.html#description-9"><i class="fa fa-check"></i><b>C.10.1</b> Description</a></li>
+<li class="chapter" data-level="C.10.2" data-path="appendixC.html"><a href="appendixC.html#arguments-8"><i class="fa fa-check"></i><b>C.10.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.10.3" data-path="appendixC.html"><a href="appendixC.html#example-9"><i class="fa fa-check"></i><b>C.10.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="C.11" data-path="appendixC.html"><a href="appendixC.html#siteSum"><i class="fa fa-check"></i><b>C.11</b> <code>siteSum</code></a><ul>
+<li class="chapter" data-level="C.11.1" data-path="appendixC.html"><a href="appendixC.html#description-10"><i class="fa fa-check"></i><b>C.11.1</b> Description</a></li>
+<li class="chapter" data-level="C.11.2" data-path="appendixC.html"><a href="appendixC.html#arguments-9"><i class="fa fa-check"></i><b>C.11.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.11.3" data-path="appendixC.html"><a href="appendixC.html#example-10"><i class="fa fa-check"></i><b>C.11.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="C.12" data-path="appendixC.html"><a href="appendixC.html#siteSumDaily"><i class="fa fa-check"></i><b>C.12</b> <code>siteSumDaily</code></a><ul>
+<li class="chapter" data-level="C.12.1" data-path="appendixC.html"><a href="appendixC.html#description-11"><i class="fa fa-check"></i><b>C.12.1</b> Description</a></li>
+<li class="chapter" data-level="C.12.2" data-path="appendixC.html"><a href="appendixC.html#arguments-10"><i class="fa fa-check"></i><b>C.12.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.12.3" data-path="appendixC.html"><a href="appendixC.html#example-11"><i class="fa fa-check"></i><b>C.12.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="C.13" data-path="appendixC.html"><a href="appendixC.html#siteTrans"><i class="fa fa-check"></i><b>C.13</b> <code>siteTrans</code></a><ul>
+<li class="chapter" data-level="C.13.1" data-path="appendixC.html"><a href="appendixC.html#description-12"><i class="fa fa-check"></i><b>C.13.1</b> Description</a></li>
+<li class="chapter" data-level="C.13.2" data-path="appendixC.html"><a href="appendixC.html#arguments-11"><i class="fa fa-check"></i><b>C.13.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.13.3" data-path="appendixC.html"><a href="appendixC.html#example-12"><i class="fa fa-check"></i><b>C.13.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="C.14" data-path="appendixC.html"><a href="appendixC.html#tagSum"><i class="fa fa-check"></i><b>C.14</b> <code>tagSum</code></a><ul>
+<li class="chapter" data-level="C.14.1" data-path="appendixC.html"><a href="appendixC.html#description-13"><i class="fa fa-check"></i><b>C.14.1</b> Description</a></li>
+<li class="chapter" data-level="C.14.2" data-path="appendixC.html"><a href="appendixC.html#arguments-12"><i class="fa fa-check"></i><b>C.14.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.14.3" data-path="appendixC.html"><a href="appendixC.html#example-13"><i class="fa fa-check"></i><b>C.14.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="C.15" data-path="appendixC.html"><a href="appendixC.html#tagSumSite"><i class="fa fa-check"></i><b>C.15</b> <code>tagSumSite</code></a><ul>
+<li class="chapter" data-level="C.15.1" data-path="appendixC.html"><a href="appendixC.html#description-14"><i class="fa fa-check"></i><b>C.15.1</b> Description</a></li>
+<li class="chapter" data-level="C.15.2" data-path="appendixC.html"><a href="appendixC.html#arguments-13"><i class="fa fa-check"></i><b>C.15.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.15.3" data-path="appendixC.html"><a href="appendixC.html#example-14"><i class="fa fa-check"></i><b>C.15.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="C.16" data-path="appendixC.html"><a href="appendixC.html#timeToSunriset"><i class="fa fa-check"></i><b>C.16</b> <code>timeToSunriset</code></a><ul>
+<li class="chapter" data-level="C.16.1" data-path="appendixC.html"><a href="appendixC.html#description-15"><i class="fa fa-check"></i><b>C.16.1</b> Description</a></li>
+<li class="chapter" data-level="C.16.2" data-path="appendixC.html"><a href="appendixC.html#arguments-14"><i class="fa fa-check"></i><b>C.16.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.16.3" data-path="appendixC.html"><a href="appendixC.html#example-15"><i class="fa fa-check"></i><b>C.16.3</b> Example</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="appendixD.html"><a href="appendixD.html"><i class="fa fa-check"></i><b>D</b> Appendix - <code>motus</code> - Data filtering functions</a><ul>
+<li class="chapter" data-level="D.1" data-path="appendixD.html"><a href="appendixD.html#listRunsFilters"><i class="fa fa-check"></i><b>D.1</b> <code>listRunsFilters</code></a><ul>
+<li class="chapter" data-level="D.1.1" data-path="appendixD.html"><a href="appendixD.html#description-16"><i class="fa fa-check"></i><b>D.1.1</b> Description</a></li>
+</ul></li>
+<li class="chapter" data-level="D.2" data-path="appendixD.html"><a href="appendixD.html#arguments-15"><i class="fa fa-check"></i><b>D.2</b> Arguments</a></li>
+<li class="chapter" data-level="D.3" data-path="appendixD.html"><a href="appendixD.html#example-16"><i class="fa fa-check"></i><b>D.3</b> Example</a></li>
+<li class="chapter" data-level="D.4" data-path="appendixD.html"><a href="appendixD.html#createRunsFilter"><i class="fa fa-check"></i><b>D.4</b> <code>createRunsFilter</code></a><ul>
+<li class="chapter" data-level="D.4.1" data-path="appendixD.html"><a href="appendixD.html#description-17"><i class="fa fa-check"></i><b>D.4.1</b> Description</a></li>
+<li class="chapter" data-level="D.4.2" data-path="appendixD.html"><a href="appendixD.html#arguments-16"><i class="fa fa-check"></i><b>D.4.2</b> Arguments</a></li>
+<li class="chapter" data-level="D.4.3" data-path="appendixD.html"><a href="appendixD.html#example-17"><i class="fa fa-check"></i><b>D.4.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="D.5" data-path="appendixD.html"><a href="appendixD.html#getRunsFilters"><i class="fa fa-check"></i><b>D.5</b> <code>getRunsFilters</code></a><ul>
+<li class="chapter" data-level="D.5.1" data-path="appendixD.html"><a href="appendixD.html#description-18"><i class="fa fa-check"></i><b>D.5.1</b> Description</a></li>
+<li class="chapter" data-level="D.5.2" data-path="appendixD.html"><a href="appendixD.html#arguments-17"><i class="fa fa-check"></i><b>D.5.2</b> Arguments</a></li>
+<li class="chapter" data-level="D.5.3" data-path="appendixD.html"><a href="appendixD.html#example-18"><i class="fa fa-check"></i><b>D.5.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="D.6" data-path="appendixD.html"><a href="appendixD.html#writeRunsFilter"><i class="fa fa-check"></i><b>D.6</b> <code>writeRunsFilter</code></a><ul>
+<li class="chapter" data-level="D.6.1" data-path="appendixD.html"><a href="appendixD.html#description-19"><i class="fa fa-check"></i><b>D.6.1</b> Description</a></li>
+<li class="chapter" data-level="D.6.2" data-path="appendixD.html"><a href="appendixD.html#arguments-18"><i class="fa fa-check"></i><b>D.6.2</b> Arguments</a></li>
+<li class="chapter" data-level="D.6.3" data-path="appendixD.html"><a href="appendixD.html#examples"><i class="fa fa-check"></i><b>D.6.3</b> Examples</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html"><i class="fa fa-check"></i><b>E</b> Bird’s Eye View of Motus Data</a><ul>
+<li class="chapter" data-level="E.1" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#what-data-look-like"><i class="fa fa-check"></i><b>E.1</b> What data look like</a></li>
+<li class="chapter" data-level="E.2" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#false-positives"><i class="fa fa-check"></i><b>E.2</b> False positives</a></li>
+<li class="chapter" data-level="E.3" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#false-negatives"><i class="fa fa-check"></i><b>E.3</b> False negatives</a></li>
+<li class="chapter" data-level="E.4" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#complication-data-are-processed-in-batches"><i class="fa fa-check"></i><b>E.4</b> Complication: data are processed in batches</a></li>
+<li class="chapter" data-level="E.5" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#batches"><i class="fa fa-check"></i><b>E.5</b> Batches</a><ul>
+<li class="chapter" data-level="E.5.1" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#receiver-reboots"><i class="fa fa-check"></i><b>E.5.1</b> Receiver Reboots</a></li>
+<li class="chapter" data-level="E.5.2" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#incremental-distribution-of-data"><i class="fa fa-check"></i><b>E.5.2</b> Incremental Distribution of Data</a></li>
+</ul></li>
+<li class="chapter" data-level="E.6" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#reprocessing-data"><i class="fa fa-check"></i><b>E.6</b> Reprocessing Data</a></li>
+<li class="chapter" data-level="E.7" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#the-eventual-reprocessing-contract"><i class="fa fa-check"></i><b>E.7</b> The (eventual) Reprocessing Contract</a></li>
+<li class="chapter" data-level="E.8" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#reprocessing-simplified-only-by-boot-session"><i class="fa fa-check"></i><b>E.8</b> Reprocessing simplified: only by boot session</a></li>
+<li class="chapter" data-level="E.9" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#distributing-reprocessed-data"><i class="fa fa-check"></i><b>E.9</b> Distributing reprocessed data</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Motus R Book</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="birds-eye-view-of-motus-data" class="section level1">
+<h1><span class="header-section-number">E</span> Bird’s Eye View of Motus Data</h1>
+<p>This document has been adapted from a version written by John Brzustowsky in 2017. It provides an overview
+of the fundamentals of how Motus data processing works. The document has been adapted to incorporate more recent
+developments, particularly the addition of new digital tags and base stations manufactured by Cellular
+Tracking Technologies (CTT), who took over the development from Cornell University.</p>
+<div id="what-data-look-like" class="section level2">
+<h2><span class="header-section-number">E.1</span> What data look like</h2>
+<p>Here’s a segment of data from a receiver (with a single antenna):</p>
+<pre><code>Receiver R
+                                                 Time -&gt;
+          \==========================================================================\
+   Tag A: /         1-----1--1----1-----1-----1            4---4-----4--4-------4--4-/  &lt;- antenna #1
+          \. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \
+   Tag B: /                       3-----3--3--3--3--3-------3----3--3                /  &lt;- antenna #1
+          \. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \
+   Tag C: /            2--2---2--2--2--2--2--2--2--2--2--2--2--2--2--2--2--2--2--2   /  &lt;- antenna #1
+          \. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \
+   Tag C: /                      5--------5--5--5--5--5--5-----5--------5--------5   /  &lt;- antenna #2
+          \==========================================================================\
+</code></pre>
+<ul>
+<li><p>time increases from left (earlier) to right (later)</p></li>
+<li><p>horizontal <em>lanes</em>, separated by <code>. . .</code> correspond to individual tags, labelled at left</p></li>
+<li><p><strong>hits</strong> (detections) of a tag are plotted as single digits within its lane</p></li>
+<li><p>in the diagram above, runs are labelled by digits. So all hits of tag
+A above are either in run <code>1</code> or in run <code>4</code>.</p></li>
+<li><p>the same tag can be detected simultaneously on multiple antennae, and therefore be part
+of runs that overlap in time. For example, tag C is detected on antenna 1 and 2.</p></li>
+<li><p>In principle, the same tag should never be part of overlapping runs on the SAME antenna,
+but in practice this can happen in noisy environments with Lotek tags, and it should be assumed
+that these runs are likely from other sources than actual tags (false positives).</p></li>
+<li><p>Overlapping run would not happen with CTT tags because of the way runs are built, but the rate of hits<br />
+would still be expected to be around 1 per second or lower.</p></li>
+<li><p>for Lotek coded ID tags, individual hits are not sufficient to determine which tag is being detected,
+because multiple tags transmit the same ID. However, the period (spacing between consecutive
+transmissions) is precise, and differs among tags sharing the same ID.</p></li>
+<li><p>the fundamental unit of detection for Lotek coded ID tags is the <strong>run</strong>, or sequence of
+hits of a given ID, with spacing <strong>compatible</strong> with the value for that tag. i.e. two hits
+might differ by the tag’s period, or by twice its period, or three times its period, …,
+up to a limit required by drift between clocks on the transmit and receive sides.</p>
+<ul>
+<li><p>for Lotek ID tags, a run can have gaps (missing hits) up to a certain size. Beyond that size,
+measurement error and clock drift are large enough that we can’t be sure that the next detection of
+the same ID code is after a compatible time interval. So for tag A above, we’re not sure the gap
+between the last detection in run 1 and the first detection in run 4 is really compatible with tag A,
+so run 1 is ended and a new run is begun. We could link runs 1 and 4 post-hoc, once we saw that run 4 was being built with gaps
+compatible with tag A, but at present, the run-building algorithm doesn’t backtrack.)</p></li>
+<li><p>for CTT tags, there are 2^32 unique codes, which ensures that each of them is unique. Contrary to Lotek<br />
+tags, runs are not limited to consecutive detections matching a precise period, in part because the period may
+vary depending on the energy available from the photovoltaic cell. Run are still assembled
+based on consecutive detections on a single antenna (or node, if applicable), as long as they
+are not spaced by more than an arbitrary period (600 seconds).</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="false-positives" class="section level2">
+<h2><span class="header-section-number">E.2</span> False positives</h2>
+<p>False positives (apparent detections of tags actually caused by other sources) exist in all technologies
+and need to be taken into account. These can happen for quite a number of reasons, and will sometimes
+affect Lotek and CTT tags in different measure. False positives are difficult to identify, but there are
+approaches to identify conditions in which the are more likely to occur, and potential ways to mitigate them.</p>
+<ul>
+<li><p>Noisy environments: radio noise from interference can create bursts that look like tags. As the amoung of radio
+pulses from other sources increases in the environment, so it the expected number of false positives.</p></li>
+<li><p>Bit errors: actual tag signals may be incorrectly transmitted. Those should rarely produce valid ID’s, but
+they will be more likely with CTT tags, mostly because where is a very high number of possible combinations
+(4 billions). They should still rarely produce an ID of a tag actually manufactured. In CTT tags, bit errors
+has been found to lead more often to certain patterns (e.g. the last trailing digits being all 7 or F’s: xxxFFFF
+due to only a partial signal being received), and those patterns have since been excluded from the list of valid tags.</p></li>
+<li><p>Aliasing: aliasing happens when the combination of multiple tags create the appearance of a tag that is not present
+but matches another known tag. This can happen in at least 2 ways: 1) 2 tags with distinct ID’s, but with the same period
+(both Lotek and CTT). 2) 2 tags with the same ID, but with distinct periods (only for Lotek). In the first case,
+if the burst of both tags overlap, they may interfere with each other and create the appearance of a new tag for a while.
+Assuming that the 2 tags do not have exactly the same period, their bursts should eventually drift apart and the precise alias
+probably will not persist over a very long run. In the second case, if you have multiple tags with the same ID but distinct
+periods, this may potentially also result in new periods, but those would likely rarely exceed 2 consecutive hits (run
+length = 2). Both types of aliasing is mostly problematic in environments where you have many tags present simultaneously
+that increases the incidence of overlapping tags (e.g. colonies).</p></li>
+</ul>
+<p>For both Lotek and CTT tags, their manufacturers have integrated various methods to reduce the incidence of false detections
+into their proprietary technologies. Data collected by Sensor Gnomes are processed in Motus by the “Tag finder”, which looks at
+properties of the signal to exclude likely false positives (e.g. higher deviation in the frequency of pulses within a burst). The
+parameters can potentially be adjusted, but an aggressive approach aimed at reducing false positives will also result in an increase
+in false negatives.</p>
+<ul>
+<li><p>Run length: With both types of tag technologies, the likelihood of obtaining false positives should decrease as the run length increases.
+For Lotek tags, we generally recommend ignoring runs comprised only of 2 or 3 hits. Some (many?) probably relate
+to real tag detections, but the vast majority probably do not. For CTT tags, we do not yet have a suggested minimum threshold.
+In most cases, given that tag period is short, one would expect that true single-hit runs to be quite rare, so those should
+likely be excluded to be safer. The likelihood of obtaining the same false ID in consecutive detections is probably very low,
+except for some specific tag ID’s that are more prone to error. Runs of 2 detections or more are probably safe in most instances.</p></li>
+<li><p>Measures of noise. A higher amount of radio pulses is likely a good predictor of false positives, though other factors are also
+at play, and not all radio noise is problematic in the same way. We recommend that you use the number of runs comprised of only 2 hits,
+which is provided by the activity table (see details here). In noisy environments, shorter runs are much more likely to be false
+positives and should be excluded.</p></li>
+<li><p>Missed detections: False positives should more often lead to gaps in detections during a run. A run that contains several gaps in detection
+would therefore be deemed less reliable. A simple metric for this would be to divide the number of hits in a run (the run lenght) by the
+duration of the run (tsEnd - tsStart). Longer runs with few or no gaps in detection would be optimal.</p></li>
+<li><p>Overlapping runs. Runs of the same tag on the same antenna should also be an indication of false positives, but this should be highly correlated
+with the number and/or ratio of short runs described above.</p></li>
+<li><p>Spatio-temporal models. State-space models and other approach can be used to assess whether movement make sense from a biological
+point of view, and can help assign probabilities that individual detections are valid.</p></li>
+<li><p>If you have any suggestions about techniques you are using to separate true detections from false positives, we encourage you to share
+them with us!</p></li>
+</ul>
+</div>
+<div id="false-negatives" class="section level2">
+<h2><span class="header-section-number">E.3</span> False negatives</h2>
+<p>False negatives are usually even more difficult to detect.</p>
+<ul>
+<li><p>Faulty equipement or installation is always possible of course. Please refer to the installation guidelines to make sure
+you follow all the recommendations.</p></li>
+<li><p>DO NOT FORGET to register your tags! (details here)</p></li>
+<li><p>DO NOT FORGET to activate your tags before deploying them!</p></li>
+<li><p>Make sure that you report your tag and receiver deployment details BEFORE uploading your data. Motus tag finder only seek tags
+that are known to be deployed.</p></li>
+</ul>
+</div>
+<div id="complication-data-are-processed-in-batches" class="section level2">
+<h2><span class="header-section-number">E.4</span> Complication: data are processed in batches</h2>
+<p>The picture above is complicated by several facts:</p>
+<ul>
+<li><p>receivers are often deployed to isolated areas so that we can only
+obtain raw data from them occasionally</p></li>
+<li><p>receivers are not aware of the full set of currently-active tags</p></li>
+<li><p>sensorgnome receivers do not “know” the full Lotek code set; they record
+pulses thought to be from Lotek coded ID tags, but are only able
+to assemble them into tag hits for a small set of tags for
+which they have an on-board database, built from the user’s own
+recordings of their tags. This limitation is due to restrictions
+in the agreement between Lotek and Acadia University for our use
+of their codeset.</p></li>
+<li><p>Lotek receivers report each detected tagID independently, and do not
+assemble them into runs. This means a raw Lotek .DTA file does not
+distinguish between tag 123:4.5 and tag 123:9.1 (i.e. between tags
+with ID <code>123</code> and burst intervals 4.5 seconds and 9.1 seconds).</p></li>
+</ul>
+<p>It follows that:</p>
+<ul>
+<li><p>raw receiver data must be processed on a server with full knowledge of:</p>
+<ul>
+<li><p>which tags are deployed and likely active</p></li>
+<li><p>the Lotek codeset(s)</p></li>
+</ul></li>
+<li><p>raw data should be processed in incremental batches</p></li>
+<li><p>processed data should be distributed to users in incremental batches,
+especially if they wish to obtain results “as they arrive”, rather than
+in one lump after all their tags have expired.</p></li>
+</ul>
+</div>
+<div id="batches" class="section level2">
+<h2><span class="header-section-number">E.5</span> Batches</h2>
+<p>A <strong>batch</strong> is the result of processing one collection of raw data files from a receiver.
+Batches are not inherent in the data, but instead reflect how data were processed.
+Batches arise in these ways:</p>
+<ul>
+<li><p>a user visits an isolated receiver, downloads raw data files from
+it, then uploads the files to motus.org once they are back from the
+field</p></li>
+<li><p>a receiver connected via WiFi, ethernet, or cell modem is polled
+for new data files; this typically happens every hour, with random
+jitter to smooth the processing load on the motus server</p></li>
+<li><p>an archive of data files from a receiver is re-processed on the
+motus server, because important metadata have changed (e.g. new or
+changed tag deployment records), or because a significant change
+has been made to processing algorithms.</p></li>
+</ul>
+<p>Batches are artificial divisions in the data stream, so runs of hits will
+often cross batch boundaries. Adding this complication to the picture above gives
+this:</p>
+<pre><code>Receiver R
+                                                 Time -&gt;
+          \====================|=================================|=====================\
+   Tag A: /         1-----1--1-|---1-----1-----1            4---4|-----4--4-------4--4-/
+          \. . . . . . . . . . | . . . . . . . . . . . . . . . . | . . . . . . . . . . \
+   Tag B: /                    |   3-----3--3--3--3--3-------3---|-3--3                /
+          \. . . . . . . . . . | . . . . . . . . . . . . . . . . | . . . . . . . . . . \
+   Tag C: /            2--2---2|--2--2--2--2--2--2--2--2--2--2--2|--2--2--2--2--2--2   /
+          \====================|=================================|=====================\
+                               |                                 |
+          &lt;---- Batch N ------&gt;|&lt;------- Batch N+1 -------------&gt;|&lt;----- Batch N+2 ----&gt;</code></pre>
+<div id="receiver-reboots" class="section level3">
+<h3><span class="header-section-number">E.5.1</span> Receiver Reboots</h3>
+<p>A receiver <strong>reboots</strong> when it is powered down and then (possibly much later) powered
+back up. Reboots often correspond to a receiver:</p>
+<ul>
+<li>being redeployed</li>
+<li>having its software updated</li>
+<li>or having a change made to its attached radios,</li>
+</ul>
+<p>so motus treats receiver reboots in a special way:</p>
+<ul>
+<li><p>a reboot always begins a new batch; i.e. batches never extend
+across reboots. This simplifies determination of data ownership.
+For example, all data in a boot session (time period between
+consecutive reboots) are deemed to belong to the same motus
+project. This reflects the fact that a receiver is (almost?)
+always turned off between the time it is deployed by one project,
+and the time it is redeployed by another project.</p></li>
+<li><p>any active tag runs are ended when a receiver reboots. Even if the
+same tag is present and broadcasting, and even if the reboot takes
+only a few minutes, hits of a tag before and after the reboot
+will belong to separate runs. This is partly for convenience in
+determining data ownership, as mentioned above. It is also
+necessary because sometimes receiver clocks are not properly set by
+the GPS after a reboot, and so the timestamps for that boot session
+will revert to a machine default, e.g. 1 Jan 2000. Although runs
+from these boot sessions could in principle be re-assembled post
+hoc if the system clock can be pinned from information in field
+notes, this is not done automatially at present.</p></li>
+<li><p>parameters to the tag-finding algorithm are set on a per-batch basis.
+At some field sites, we want to allow more lenient filtering because
+there is very little radio noise. At other sites, filtering should
+be more strict, because there is considerable noise and high false-positive
+rates for tags. motus allows projects to set parameter overrides for
+individual receivers, and these overrides are applied by boot session,
+because redeployments (always?) cause a reboot.</p></li>
+<li><p>when reprocessing data (see below) from an archive of data files,
+each boot session is processed as a batch.</p></li>
+</ul>
+</div>
+<div id="incremental-distribution-of-data" class="section level3">
+<h3><span class="header-section-number">E.5.2</span> Incremental Distribution of Data</h3>
+<p>The <a href="https://github.com/MotusWTS/motus/">Motus R package</a>
+allows users to build a local copy of the database of all their tags’
+(or receivers’) hits incrementally. A user can regularly call the
+<code>tagme()</code> function to obtain any new hits of their tags. Because
+data are processed in batches, <code>tagme()</code> either does nothing, or downloads
+one or more new batches of data into the user’s local DB.</p>
+<p>Each new batch corresponds to a set of files processed from a single
+receiver. A batch record includes these items:
+- receiver device ID
+- how many of hits of their tags occurred in the batch
+- first and last timestamp of the raw data processed in this batch</p>
+<p>Each new batch downloaded will include hits of one or more
+of the users’s tags (or someone’s tags, if the batch is for a “receiver”
+database).</p>
+<p>A new batch might also include some GPS fixes, so that the user knows
+where the receiver was when the tags were detected.</p>
+<p>A new batch will include information about runs. This information comes
+in three versions:</p>
+<ul>
+<li>information about a new run; i.e. one that begins in this batch</li>
+<li>information about a continuing run; i.e. a run that began in a previous batch,
+has some hits in this batch, and is not known to have ended</li>
+<li>information about an ending run; i.e. a run that began in a previous batch,
+might have some hits in this batch, but which is also known to end in this batch
+(because a sufficiently long time has elapsed since the last detection of its tag)</li>
+</ul>
+<p>Although the unique <code>runID</code> identifier for a run doesn’t change when the user calls
+<code>tagme()</code>, the number of hits in that run and its status (<code>done</code> or not), might
+change.</p>
+</div>
+</div>
+<div id="reprocessing-data" class="section level2">
+<h2><span class="header-section-number">E.6</span> Reprocessing Data</h2>
+<p>motus will occasionally need to reprocess raw files from receivers. There are several
+reasons:</p>
+<ul>
+<li><p>new or modified tag deployment records. The tag detection code
+relies on knowing the active life of each tag it looks for, to
+control rates of false positive and false negative hits. If
+the deployment record for a tag only reaches the server after it
+has already processed raw files overlapping the tag’s deployment,
+then those files will need to be reprocessed in order to
+(potentially) find the tag therein. Similary, if a tag was
+mistakenly sought during a period when it was not deployed, it will
+have “used up” signals that could instead have come from other
+tags, thereby causing both its own false positives, and false
+negatives on other tags. (This is only true for Lotek ID tags;
+CTT should be unaffected, provided deployed tags are well
+dispersed in the ID codespace.)</p></li>
+<li><p>bug fixes or improvements in the tag finding algorithm</p></li>
+<li><p>corrections of mis-filed data from receivers. Sometimes,
+duplication among receiver serial numbers (a rare event) is only
+noticed <em>after</em> data from them has already been processed. Those
+data will likely have to be reprocessed so that hits are
+assigned to the correct station. Interleaved data from two
+receivers having the same serial number will typically prevent
+hits from at least one of them, as the tag finder ignores data
+where the clock seems to have jumped backwards significantly.</p></li>
+</ul>
+</div>
+<div id="the-eventual-reprocessing-contract" class="section level2">
+<h2><span class="header-section-number">E.7</span> The (eventual) Reprocessing Contract</h2>
+<p>Reprocessing can be very disruptive from the user’s point of view
+(“What happened to my hits?”), so motus reprocessing will be:</p>
+<ol style="list-style-type: decimal">
+<li><p>optional: users should be able to obtain new data without
+having to accept reprocessed versions of data they already have.</p></li>
+<li><p>reversible: users should be able to “go back” to a previous
+version of any reprocessed data they have accepted.</p></li>
+<li><p>transparent: users will receive a record of what was reprocessed,
+why, when, what was done differently, and what changed</p></li>
+<li><p>all-or-nothing: for each receiver boot session for which users
+have data, these data must come entirely from either the original
+processing, or a subsequent single reprocessing event. The user
+<em>must not</em> end up with an undefined mix of data from original and
+reprocessed sources.</p></li>
+<li><p>in-band: the user’s copy of data will be updated to incorporate
+<em>reprocessed</em> data as part of the normal process of updating to obtain
+<em>new</em> data, unless they choose otherwise. We expect that most users
+will want to accept reprocessed data most of the time.</p></li>
+</ol>
+<p>Initially, motus data processing might not adhere to this contract,
+but it is an eventual goal.</p>
+</div>
+<div id="reprocessing-simplified-only-by-boot-session" class="section level2">
+<h2><span class="header-section-number">E.8</span> Reprocessing simplified: only by boot session</h2>
+<p>A general reprocessing scenario would look like this:</p>
+<pre><code>Receiver R
+                                                 Time -&gt;
+          \=================!==|=================================|======!==============\
+   Tag A: /         1-----1-!1-|---1-----1-----1            4---4|-----4!-4-------4--4-/
+          \. . . . . . . . .!. | . . . . . . . . . . . . . . . . | . . .!. . . . . . . \
+   Tag B: /                 !  |   3-----3--3--3--3--3-------3---|-3--3 !              /
+          \. . . . . . . . .!. | . . . . . . . . . . . . . . . . | . . .!. . . . . . . \
+   Tag C: /            2--2-!-2|--2--2--2--2--2--2--2--2--2--2--2|--2--2!-2--2--2--2   /
+          \=================!==|=================================|======!==============\
+                            !  |                                 |      !
+          &lt;---- Batch N ----!-&gt;|&lt;------- Batch N+1 -------------&gt;|&lt;-----!Batch N+2 ----&gt;
+                            !                                           !
+                            !&lt;- Reprocess this period (no, too hard!) -&gt;!
+</code></pre>
+<p>if raw data records from an arbitrary stretch of time could be reprocessed.
+However, this is complicated because runs like <code>1</code> <code>2</code>, and <code>4</code> above might lose
+or gain hits within the reprocessing period, but not outside of it. This
+might even break an existing run into distinct new runs.</p>
+<p>This situation is challenging (NB: not impossible; might be a TODO) to
+formalize and represent in the database if we want to maintain a full
+history of processing. For example, if reprocessing deletes some hits
+from run <code>2</code>, how do we represent both the old and the new versions of
+that run?</p>
+<p>The complications arise due to runs crossing the reprocessing period
+boundaries, so for simplicity we should <em>choose a reprocessing period
+that <strong>no</strong> runs cross</em>. Currently, that means a boot session, as discussed
+above.</p>
+</div>
+<div id="distributing-reprocessed-data" class="section level2">
+<h2><span class="header-section-number">E.9</span> Distributing reprocessed data</h2>
+<p>The previous section shows why we only reprocess data by boot session.
+Given that, how do we get reprocessed data to users while fulfilling
+the reprocessing contract?</p>
+<p>Note that a reprocessed boot session will fully replace one or more
+existing batches and one or more runs, because batches and runs both
+nest within boot sessions.</p>
+<p>Replacement of data by reprocessed versions should happen in-band
+(<code>5</code> above), so one approach is this:</p>
+<ul>
+<li>the <code>batches_for_XXX</code> API entries should mark new batches which result
+from reprocessing, so that the client can deal with them appropriately.
+This can be done by adding a field called <code>reprocessID</code> with these semantics:
+<ul>
+<li><code>reprocessID == 0</code>: data in this batch are from new raw files; the normal
+situation</li>
+<li><code>reprocessID == X &gt; 0</code>: data in this batch are from reprocessing
+existing raw files.</li>
+<li><code>X</code> is the ID of the reprocessing event, and a new API entry <code>reprocessing_info (X)</code>
+can be called to obtain details about it.</li>
+<li>if the user chooses to accept the reprocessed version, then existing batches, runs, hits and GPS
+fixes from the same receiver and boot session are retired before
+adding the new batches.</li>
+<li>if the user chooses to reject the reprocessed version, then <code>X</code> is added to a client-side blacklist,
+and the user will not receive any data from batches whose reprocessID is on the blacklist.</li>
+<li>later, if a user decides to accept a reprocessing event they had
+earlier declined, then the IDs of new batches for
+that event can be fetched from another new API
+<code>reprocessing_batches (X)</code>, and the original batches will be
+deleted</li>
+</ul></li>
+<li>to let users more efficiently fetch the “best” version of their
+dataset (i.e. accepting all reprocessing events), we should also
+mark batches which are subsequently replaced by a reprocessing
+event. For this, we add the field <code>replacedIn</code> with these
+semantics:
+<ul>
+<li><code>replacedIn == 0</code>: data in this batch have not been replaced by any reprocessing event</li>
+<li><code>replacedIn == X &gt; 0</code>: data in this batch have been replaced by reprocessing event <code>X</code>.
+Then the client can ignore any batches for which <code>replacedIn &gt; 0</code>. We could also add
+a new boolean parameter <code>unreplacedOnly</code> to the <code>batches_for_XXX</code> API entries. It defaults to <code>false</code>,
+but if <code>true</code>, then only batches which have not been replaced by subsequent reprocessing events
+are returned.</li>
+</ul></li>
+<li>users can choose a policy for how reprocessed data are handled by setting the value of
+<code>Motus$acceptReprocessedData</code> in their workspace before calling <code>tagme()</code>:
+<ul>
+<li><code>Motus$acceptReprocessedData &lt;- TRUE</code>; always accept batches of data from reprocessing events</li>
+<li><code>Motus$acceptReprocessedData &lt;- FALSE</code>; never accept batches of data from reprocessing events</li>
+<li><code>Motus$acceptReprocessedData &lt;- NA</code> (default); ask about each reprocessing event</li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="appendixD.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["MotusRBook.pdf"],
+"toc": {
+"collapse": "section"
+},
+"search": true
+});
+});
+</script>
+
+</body>
+
+</html>

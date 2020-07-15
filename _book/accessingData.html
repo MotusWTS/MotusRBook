@@ -167,7 +167,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloading-multiple-receivers-at-the-same-time"><i class="fa fa-check"></i><b>3.5.4</b> Downloading multiple receivers at the same time</a></li>
 <li class="chapter" data-level="3.5.5" data-path="accessingData.html"><a href="accessingData.html#updating-all-.motus-files-within-a-directory"><i class="fa fa-check"></i><b>3.5.5</b> Updating all .motus files within a directory</a></li>
 <li class="chapter" data-level="3.5.6" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.6</b> Accessing downloaded detection data</a></li>
-<li class="chapter" data-level="3.5.7" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.5.7</b> Converting to flat file</a></li>
+<li class="chapter" data-level="3.5.7" data-path="accessingData.html"><a href="accessingData.html#addGPS"><i class="fa fa-check"></i><b>3.5.7</b> Adding GPS Data</a></li>
+<li class="chapter" data-level="3.5.8" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.5.8</b> Converting to flat file</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.6</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
 <li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.7</b> Update and/or open an existing database</a></li>
@@ -209,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#preparing-the-data"><i class="fa fa-check"></i><b>5.5</b> Preparing the data</a><ul>
 <li class="chapter" data-level="5.5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#label-detections-by-probability"><i class="fa fa-check"></i><b>5.5.1</b> Label detections by probability</a></li>
 <li class="chapter" data-level="5.5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#clean-up"><i class="fa fa-check"></i><b>5.5.2</b> Clean up</a></li>
-<li class="chapter" data-level="5.5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#addGPS"><i class="fa fa-check"></i><b>5.5.3</b> Add GPS data</a></li>
+<li class="chapter" data-level="5.5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#add-gps-data"><i class="fa fa-check"></i><b>5.5.3</b> Add GPS data</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.6</b> Preliminary data checks</a><ul>
 <li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.6.1</b> Summarize tag detections</a></li>
@@ -291,57 +292,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="C.6" data-path="appendixC.html"><a href="appendixC.html#plotRouteMap"><i class="fa fa-check"></i><b>C.6</b> <code>plotRouteMap</code></a><ul>
 <li class="chapter" data-level="C.6.1" data-path="appendixC.html"><a href="appendixC.html#description-5"><i class="fa fa-check"></i><b>C.6.1</b> Description</a></li>
-<li class="chapter" data-level="C.6.2" data-path="appendixC.html"><a href="appendixC.html#arguments-5"><i class="fa fa-check"></i><b>C.6.2</b> Arguments</a></li>
-<li class="chapter" data-level="C.6.3" data-path="appendixC.html"><a href="appendixC.html#example-5"><i class="fa fa-check"></i><b>C.6.3</b> Example</a></li>
+<li class="chapter" data-level="C.6.2" data-path="appendixC.html"><a href="appendixC.html#example-5"><i class="fa fa-check"></i><b>C.6.2</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.7" data-path="appendixC.html"><a href="appendixC.html#plotSite"><i class="fa fa-check"></i><b>C.7</b> <code>plotSite</code></a><ul>
 <li class="chapter" data-level="C.7.1" data-path="appendixC.html"><a href="appendixC.html#description-6"><i class="fa fa-check"></i><b>C.7.1</b> Description</a></li>
-<li class="chapter" data-level="C.7.2" data-path="appendixC.html"><a href="appendixC.html#arguments-6"><i class="fa fa-check"></i><b>C.7.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.7.2" data-path="appendixC.html"><a href="appendixC.html#arguments-5"><i class="fa fa-check"></i><b>C.7.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.7.3" data-path="appendixC.html"><a href="appendixC.html#example-6"><i class="fa fa-check"></i><b>C.7.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.8" data-path="appendixC.html"><a href="appendixC.html#plotSiteSig"><i class="fa fa-check"></i><b>C.8</b> <code>plotSiteSig</code></a><ul>
 <li class="chapter" data-level="C.8.1" data-path="appendixC.html"><a href="appendixC.html#description-7"><i class="fa fa-check"></i><b>C.8.1</b> Description</a></li>
-<li class="chapter" data-level="C.8.2" data-path="appendixC.html"><a href="appendixC.html#arguments-7"><i class="fa fa-check"></i><b>C.8.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.8.2" data-path="appendixC.html"><a href="appendixC.html#arguments-6"><i class="fa fa-check"></i><b>C.8.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.8.3" data-path="appendixC.html"><a href="appendixC.html#example-7"><i class="fa fa-check"></i><b>C.8.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.9" data-path="appendixC.html"><a href="appendixC.html#plotTagSig"><i class="fa fa-check"></i><b>C.9</b> <code>plotTagSig</code></a><ul>
 <li class="chapter" data-level="C.9.1" data-path="appendixC.html"><a href="appendixC.html#description-8"><i class="fa fa-check"></i><b>C.9.1</b> Description</a></li>
-<li class="chapter" data-level="C.9.2" data-path="appendixC.html"><a href="appendixC.html#arguments-8"><i class="fa fa-check"></i><b>C.9.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.9.2" data-path="appendixC.html"><a href="appendixC.html#arguments-7"><i class="fa fa-check"></i><b>C.9.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.9.3" data-path="appendixC.html"><a href="appendixC.html#example-8"><i class="fa fa-check"></i><b>C.9.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.10" data-path="appendixC.html"><a href="appendixC.html#simSiteDet"><i class="fa fa-check"></i><b>C.10</b> <code>simSiteDet</code></a><ul>
 <li class="chapter" data-level="C.10.1" data-path="appendixC.html"><a href="appendixC.html#description-9"><i class="fa fa-check"></i><b>C.10.1</b> Description</a></li>
-<li class="chapter" data-level="C.10.2" data-path="appendixC.html"><a href="appendixC.html#arguments-9"><i class="fa fa-check"></i><b>C.10.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.10.2" data-path="appendixC.html"><a href="appendixC.html#arguments-8"><i class="fa fa-check"></i><b>C.10.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.10.3" data-path="appendixC.html"><a href="appendixC.html#example-9"><i class="fa fa-check"></i><b>C.10.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.11" data-path="appendixC.html"><a href="appendixC.html#siteSum"><i class="fa fa-check"></i><b>C.11</b> <code>siteSum</code></a><ul>
 <li class="chapter" data-level="C.11.1" data-path="appendixC.html"><a href="appendixC.html#description-10"><i class="fa fa-check"></i><b>C.11.1</b> Description</a></li>
-<li class="chapter" data-level="C.11.2" data-path="appendixC.html"><a href="appendixC.html#arguments-10"><i class="fa fa-check"></i><b>C.11.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.11.2" data-path="appendixC.html"><a href="appendixC.html#arguments-9"><i class="fa fa-check"></i><b>C.11.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.11.3" data-path="appendixC.html"><a href="appendixC.html#example-10"><i class="fa fa-check"></i><b>C.11.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.12" data-path="appendixC.html"><a href="appendixC.html#siteSumDaily"><i class="fa fa-check"></i><b>C.12</b> <code>siteSumDaily</code></a><ul>
 <li class="chapter" data-level="C.12.1" data-path="appendixC.html"><a href="appendixC.html#description-11"><i class="fa fa-check"></i><b>C.12.1</b> Description</a></li>
-<li class="chapter" data-level="C.12.2" data-path="appendixC.html"><a href="appendixC.html#arguments-11"><i class="fa fa-check"></i><b>C.12.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.12.2" data-path="appendixC.html"><a href="appendixC.html#arguments-10"><i class="fa fa-check"></i><b>C.12.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.12.3" data-path="appendixC.html"><a href="appendixC.html#example-11"><i class="fa fa-check"></i><b>C.12.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.13" data-path="appendixC.html"><a href="appendixC.html#siteTrans"><i class="fa fa-check"></i><b>C.13</b> <code>siteTrans</code></a><ul>
 <li class="chapter" data-level="C.13.1" data-path="appendixC.html"><a href="appendixC.html#description-12"><i class="fa fa-check"></i><b>C.13.1</b> Description</a></li>
-<li class="chapter" data-level="C.13.2" data-path="appendixC.html"><a href="appendixC.html#arguments-12"><i class="fa fa-check"></i><b>C.13.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.13.2" data-path="appendixC.html"><a href="appendixC.html#arguments-11"><i class="fa fa-check"></i><b>C.13.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.13.3" data-path="appendixC.html"><a href="appendixC.html#example-12"><i class="fa fa-check"></i><b>C.13.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.14" data-path="appendixC.html"><a href="appendixC.html#tagSum"><i class="fa fa-check"></i><b>C.14</b> <code>tagSum</code></a><ul>
 <li class="chapter" data-level="C.14.1" data-path="appendixC.html"><a href="appendixC.html#description-13"><i class="fa fa-check"></i><b>C.14.1</b> Description</a></li>
-<li class="chapter" data-level="C.14.2" data-path="appendixC.html"><a href="appendixC.html#arguments-13"><i class="fa fa-check"></i><b>C.14.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.14.2" data-path="appendixC.html"><a href="appendixC.html#arguments-12"><i class="fa fa-check"></i><b>C.14.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.14.3" data-path="appendixC.html"><a href="appendixC.html#example-13"><i class="fa fa-check"></i><b>C.14.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.15" data-path="appendixC.html"><a href="appendixC.html#tagSumSite"><i class="fa fa-check"></i><b>C.15</b> <code>tagSumSite</code></a><ul>
 <li class="chapter" data-level="C.15.1" data-path="appendixC.html"><a href="appendixC.html#description-14"><i class="fa fa-check"></i><b>C.15.1</b> Description</a></li>
-<li class="chapter" data-level="C.15.2" data-path="appendixC.html"><a href="appendixC.html#arguments-14"><i class="fa fa-check"></i><b>C.15.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.15.2" data-path="appendixC.html"><a href="appendixC.html#arguments-13"><i class="fa fa-check"></i><b>C.15.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.15.3" data-path="appendixC.html"><a href="appendixC.html#example-14"><i class="fa fa-check"></i><b>C.15.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="C.16" data-path="appendixC.html"><a href="appendixC.html#timeToSunriset"><i class="fa fa-check"></i><b>C.16</b> <code>timeToSunriset</code></a><ul>
 <li class="chapter" data-level="C.16.1" data-path="appendixC.html"><a href="appendixC.html#description-15"><i class="fa fa-check"></i><b>C.16.1</b> Description</a></li>
-<li class="chapter" data-level="C.16.2" data-path="appendixC.html"><a href="appendixC.html#arguments-15"><i class="fa fa-check"></i><b>C.16.2</b> Arguments</a></li>
+<li class="chapter" data-level="C.16.2" data-path="appendixC.html"><a href="appendixC.html#arguments-14"><i class="fa fa-check"></i><b>C.16.2</b> Arguments</a></li>
 <li class="chapter" data-level="C.16.3" data-path="appendixC.html"><a href="appendixC.html#example-15"><i class="fa fa-check"></i><b>C.16.3</b> Example</a></li>
 </ul></li>
 </ul></li>
@@ -349,23 +349,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="D.1" data-path="appendixD.html"><a href="appendixD.html#listRunsFilters"><i class="fa fa-check"></i><b>D.1</b> <code>listRunsFilters</code></a><ul>
 <li class="chapter" data-level="D.1.1" data-path="appendixD.html"><a href="appendixD.html#description-16"><i class="fa fa-check"></i><b>D.1.1</b> Description</a></li>
 </ul></li>
-<li class="chapter" data-level="D.2" data-path="appendixD.html"><a href="appendixD.html#arguments-16"><i class="fa fa-check"></i><b>D.2</b> Arguments</a></li>
+<li class="chapter" data-level="D.2" data-path="appendixD.html"><a href="appendixD.html#arguments-15"><i class="fa fa-check"></i><b>D.2</b> Arguments</a></li>
 <li class="chapter" data-level="D.3" data-path="appendixD.html"><a href="appendixD.html#example-16"><i class="fa fa-check"></i><b>D.3</b> Example</a></li>
 <li class="chapter" data-level="D.4" data-path="appendixD.html"><a href="appendixD.html#createRunsFilter"><i class="fa fa-check"></i><b>D.4</b> <code>createRunsFilter</code></a><ul>
 <li class="chapter" data-level="D.4.1" data-path="appendixD.html"><a href="appendixD.html#description-17"><i class="fa fa-check"></i><b>D.4.1</b> Description</a></li>
-<li class="chapter" data-level="D.4.2" data-path="appendixD.html"><a href="appendixD.html#arguments-17"><i class="fa fa-check"></i><b>D.4.2</b> Arguments</a></li>
+<li class="chapter" data-level="D.4.2" data-path="appendixD.html"><a href="appendixD.html#arguments-16"><i class="fa fa-check"></i><b>D.4.2</b> Arguments</a></li>
 <li class="chapter" data-level="D.4.3" data-path="appendixD.html"><a href="appendixD.html#example-17"><i class="fa fa-check"></i><b>D.4.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="D.5" data-path="appendixD.html"><a href="appendixD.html#getRunsFilters"><i class="fa fa-check"></i><b>D.5</b> <code>getRunsFilters</code></a><ul>
 <li class="chapter" data-level="D.5.1" data-path="appendixD.html"><a href="appendixD.html#description-18"><i class="fa fa-check"></i><b>D.5.1</b> Description</a></li>
-<li class="chapter" data-level="D.5.2" data-path="appendixD.html"><a href="appendixD.html#arguments-18"><i class="fa fa-check"></i><b>D.5.2</b> Arguments</a></li>
+<li class="chapter" data-level="D.5.2" data-path="appendixD.html"><a href="appendixD.html#arguments-17"><i class="fa fa-check"></i><b>D.5.2</b> Arguments</a></li>
 <li class="chapter" data-level="D.5.3" data-path="appendixD.html"><a href="appendixD.html#example-18"><i class="fa fa-check"></i><b>D.5.3</b> Example</a></li>
 </ul></li>
 <li class="chapter" data-level="D.6" data-path="appendixD.html"><a href="appendixD.html#writeRunsFilter"><i class="fa fa-check"></i><b>D.6</b> <code>writeRunsFilter</code></a><ul>
 <li class="chapter" data-level="D.6.1" data-path="appendixD.html"><a href="appendixD.html#description-19"><i class="fa fa-check"></i><b>D.6.1</b> Description</a></li>
-<li class="chapter" data-level="D.6.2" data-path="appendixD.html"><a href="appendixD.html#arguments-19"><i class="fa fa-check"></i><b>D.6.2</b> Arguments</a></li>
+<li class="chapter" data-level="D.6.2" data-path="appendixD.html"><a href="appendixD.html#arguments-18"><i class="fa fa-check"></i><b>D.6.2</b> Arguments</a></li>
 <li class="chapter" data-level="D.6.3" data-path="appendixD.html"><a href="appendixD.html#examples"><i class="fa fa-check"></i><b>D.6.3</b> Examples</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html"><i class="fa fa-check"></i><b>E</b> Bird’s Eye View of Motus Data</a><ul>
+<li class="chapter" data-level="E.1" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#what-data-look-like"><i class="fa fa-check"></i><b>E.1</b> What data look like</a></li>
+<li class="chapter" data-level="E.2" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#false-positives"><i class="fa fa-check"></i><b>E.2</b> False positives</a></li>
+<li class="chapter" data-level="E.3" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#false-negatives"><i class="fa fa-check"></i><b>E.3</b> False negatives</a></li>
+<li class="chapter" data-level="E.4" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#complication-data-are-processed-in-batches"><i class="fa fa-check"></i><b>E.4</b> Complication: data are processed in batches</a></li>
+<li class="chapter" data-level="E.5" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#batches"><i class="fa fa-check"></i><b>E.5</b> Batches</a><ul>
+<li class="chapter" data-level="E.5.1" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#receiver-reboots"><i class="fa fa-check"></i><b>E.5.1</b> Receiver Reboots</a></li>
+<li class="chapter" data-level="E.5.2" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#incremental-distribution-of-data"><i class="fa fa-check"></i><b>E.5.2</b> Incremental Distribution of Data</a></li>
+</ul></li>
+<li class="chapter" data-level="E.6" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#reprocessing-data"><i class="fa fa-check"></i><b>E.6</b> Reprocessing Data</a></li>
+<li class="chapter" data-level="E.7" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#the-eventual-reprocessing-contract"><i class="fa fa-check"></i><b>E.7</b> The (eventual) Reprocessing Contract</a></li>
+<li class="chapter" data-level="E.8" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#reprocessing-simplified-only-by-boot-session"><i class="fa fa-check"></i><b>E.8</b> Reprocessing simplified: only by boot session</a></li>
+<li class="chapter" data-level="E.9" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#distributing-reprocessed-data"><i class="fa fa-check"></i><b>E.9</b> Distributing reprocessed data</a></li>
 </ul></li>
 </ul>
 
@@ -450,14 +464,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="loadPackages" class="section level2">
 <h2><span class="header-section-number">3.3</span> Load relevant R packages</h2>
 <p>Before we begin working with data, we need to load the required packages for this chapter. If you have not yet <em>installed</em> these packages (from github and CRAN) then please return to Chapter <a href="loadingPackages.html#loadingPackages">2</a> and do so.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="accessingData.html#cb1-1"></a><span class="kw">library</span>(motus)</span>
-<span id="cb1-2"><a href="accessingData.html#cb1-2"></a><span class="kw">library</span>(lubridate)</span>
-<span id="cb1-3"><a href="accessingData.html#cb1-3"></a><span class="kw">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="accessingData.html#cb12-1"></a><span class="kw">library</span>(motus)</span>
+<span id="cb12-2"><a href="accessingData.html#cb12-2"></a><span class="kw">library</span>(lubridate)</span>
+<span id="cb12-3"><a href="accessingData.html#cb12-3"></a><span class="kw">library</span>(dplyr)</span></code></pre></div>
 </div>
 <div id="set-system-environment" class="section level2">
 <h2><span class="header-section-number">3.4</span> Set system environment</h2>
 <p>Set the system environment time zone to Greenwich Mean Time (UTC), to ensure that you are always working in UTC. This is a very important step, and should be part of every working session. If you fail to do this, then two problems can arise. Times are stored in the Motus database in UTC, and if you do not keep your environment in UTC, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="accessingData.html#cb2-1"></a><span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="accessingData.html#cb13-1"></a><span class="kw">Sys.setenv</span>(<span class="dt">TZ =</span> <span class="st">&quot;UTC&quot;</span>)</span></code></pre></div>
 </div>
 <div id="importDetections" class="section level2">
 <h2><span class="header-section-number">3.5</span> Downloading tag detections</h2>
@@ -479,14 +493,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that when downloading data from the Motus server for the <strong>first time</strong>, you must specify <code>new = TRUE</code> and <code>update = TRUE</code>. You will also be prompted to login (see <a href="accessingData.html#userAuthentication">3.5.2</a> below).</p>
 <p><strong>Unless the directory that you want your data saved in is stated explicitly within the function call, data will be downloaded to the current working directory.</strong></p>
 <p>Lets start by determining what our working directory is so we know where our file will be saved.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="accessingData.html#cb3-1"></a><span class="kw">getwd</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="accessingData.html#cb14-1"></a><span class="kw">getwd</span>()</span></code></pre></div>
 <p>Specify the project number you wish to download detections for, in this case the sample data project.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="accessingData.html#cb4-1"></a>proj.num &lt;-<span class="st"> </span><span class="dv">176</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="accessingData.html#cb15-1"></a>proj.num &lt;-<span class="st"> </span><span class="dv">176</span></span></code></pre></div>
 <p>As this is the first time you are downloading data for project 176, set <code>new = TRUE</code> and <code>update = TRUE</code>. This will create a .motus file in your current working directory, which was shown above using <code>getwd()</code> This will also create an SQL object in your R environment called “sql.motus”</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="accessingData.html#cb5-1"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="accessingData.html#cb16-1"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>Alternatively you can specify a different location to save the data by entering your preferred filepath. In this example we save to our data folder using the dir parameter. Note that “./” simply means ‘relative to the current folder’ (shown by <code>getwd()</code>).</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="accessingData.html#cb6-1"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb6-2"><a href="accessingData.html#cb6-2"></a>                   <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="accessingData.html#cb17-1"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb17-2"><a href="accessingData.html#cb17-2"></a>                   <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</span></code></pre></div>
 <blockquote>
 <p><strong>Note:</strong> You’ll need to use the <strong>username</strong> <code>motus.sample</code> and the <strong>password</strong> <code>motus.sample</code> to access this data (see below for more details)!</p>
 </blockquote>
@@ -505,102 +519,88 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="logout" class="section level4">
 <h4><span class="header-section-number">3.5.2.2</span> Logging out</h4>
 <p>Once you are logged in under one user account, you will not be able to access data from another account. If you need to logout of the current account to access other data, you can run the code below.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="accessingData.html#cb7-1"></a><span class="kw">motusLogout</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="accessingData.html#cb18-1"></a><span class="kw">motusLogout</span>()</span></code></pre></div>
 </div>
 </div>
 <div id="download-data-for-a-receiver-for-the-first-time" class="section level3">
 <h3><span class="header-section-number">3.5.3</span> Download data for a receiver for the <em>first time</em></h3>
 <p>We could also download data by receiver through the same process as described above. This will provide you with all detections of any tags on the specified receiver. As there are no receivers registered to sample project 176, <strong>this call will not work</strong>. If you have a receiver registered to your own project, replace the receiver serial number in the tagme call below with the serial number for your own receiver, ensuring that you are logged in using your own credentials (see section <a href="accessingData.html#logout">3.5.2.2</a>).</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="accessingData.html#cb8-1"></a>proj.num &lt;-<span class="st"> &quot;SG-123BBBK1234&quot;</span></span>
-<span id="cb8-2"><a href="accessingData.html#cb8-2"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="accessingData.html#cb19-1"></a>proj.num &lt;-<span class="st"> &quot;SG-123BBBK1234&quot;</span></span>
+<span id="cb19-2"><a href="accessingData.html#cb19-2"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>This will download a file to your working directory named ‘SG-123BBBK1234.motus’.</p>
 <p>Some users may wish to work directly with the .motus SQLite file. However, since many users are more familiar with a ‘flat’ dataframe format, instructions to view the the data as a flat dataframe within R, and on how to export the flat file to .csv or .rds format, are included below. Throughout the majority of this book, we use a flat dataframe format.</p>
 </div>
 <div id="downloading-multiple-receivers-at-the-same-time" class="section level3">
 <h3><span class="header-section-number">3.5.4</span> Downloading multiple receivers at the same time</h3>
 <p>If you have a large number of receivers in your project, and wish to get receiver specific data for each one, rather than downloading them one by one as above, we can download them with a simple loop. Note that since the sample project doesn’t have any receivers associated with it, this script will not result in a download but you can try it with your own project if you have receivers.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="accessingData.html#cb9-1"></a><span class="co"># specify the project whose receivers you wish to download:</span></span>
-<span id="cb9-2"><a href="accessingData.html#cb9-2"></a>proj.num &lt;-<span class="st"> </span><span class="dv">176</span></span>
-<span id="cb9-3"><a href="accessingData.html#cb9-3"></a></span>
-<span id="cb9-4"><a href="accessingData.html#cb9-4"></a><span class="co"># get a copy of the metadata only</span></span>
-<span id="cb9-5"><a href="accessingData.html#cb9-5"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">FALSE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</span>
-<span id="cb9-6"><a href="accessingData.html#cb9-6"></a><span class="kw">metadata</span>(sql.motus, proj.num)</span>
-<span id="cb9-7"><a href="accessingData.html#cb9-7"></a>tbl.recvDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;recvDeps&quot;</span>)</span>
-<span id="cb9-8"><a href="accessingData.html#cb9-8"></a></span>
-<span id="cb9-9"><a href="accessingData.html#cb9-9"></a>df.serno &lt;-<span class="st"> </span>tbl.recvDeps <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb9-10"><a href="accessingData.html#cb9-10"></a><span class="st">  </span><span class="kw">filter</span>(projectID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb9-11"><a href="accessingData.html#cb9-11"></a><span class="st">  </span><span class="kw">select</span>(serno) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb9-12"><a href="accessingData.html#cb9-12"></a><span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb9-13"><a href="accessingData.html#cb9-13"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</span>
-<span id="cb9-14"><a href="accessingData.html#cb9-14"></a></span>
-<span id="cb9-15"><a href="accessingData.html#cb9-15"></a><span class="co"># loop through each receiver (may take a while!)</span></span>
-<span id="cb9-16"><a href="accessingData.html#cb9-16"></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df.serno)) {</span>
-<span id="cb9-17"><a href="accessingData.html#cb9-17"></a>  <span class="kw">tagme</span>(df.serno[row, <span class="st">&quot;serno&quot;</span>], <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb9-18"><a href="accessingData.html#cb9-18"></a>}</span>
-<span id="cb9-19"><a href="accessingData.html#cb9-19"></a></span>
-<span id="cb9-20"><a href="accessingData.html#cb9-20"></a><span class="co"># Note you can remove the dir argument if you want to save it to your working</span></span>
-<span id="cb9-21"><a href="accessingData.html#cb9-21"></a><span class="co"># directory, just make sure that you use the same directory in both calls</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="accessingData.html#cb20-1"></a><span class="co"># specify the project whose receivers you wish to download:</span></span>
+<span id="cb20-2"><a href="accessingData.html#cb20-2"></a>proj.num &lt;-<span class="st"> </span><span class="dv">176</span></span>
+<span id="cb20-3"><a href="accessingData.html#cb20-3"></a></span>
+<span id="cb20-4"><a href="accessingData.html#cb20-4"></a><span class="co"># get a copy of the metadata only</span></span>
+<span id="cb20-5"><a href="accessingData.html#cb20-5"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">FALSE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</span>
+<span id="cb20-6"><a href="accessingData.html#cb20-6"></a><span class="kw">metadata</span>(sql.motus, proj.num)</span>
+<span id="cb20-7"><a href="accessingData.html#cb20-7"></a>tbl.recvDeps &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;recvDeps&quot;</span>)</span>
+<span id="cb20-8"><a href="accessingData.html#cb20-8"></a></span>
+<span id="cb20-9"><a href="accessingData.html#cb20-9"></a>df.serno &lt;-<span class="st"> </span>tbl.recvDeps <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb20-10"><a href="accessingData.html#cb20-10"></a><span class="st">  </span><span class="kw">filter</span>(projectID <span class="op">==</span><span class="st"> </span>proj.num) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb20-11"><a href="accessingData.html#cb20-11"></a><span class="st">  </span><span class="kw">select</span>(serno) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb20-12"><a href="accessingData.html#cb20-12"></a><span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb20-13"><a href="accessingData.html#cb20-13"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</span>
+<span id="cb20-14"><a href="accessingData.html#cb20-14"></a></span>
+<span id="cb20-15"><a href="accessingData.html#cb20-15"></a><span class="co"># loop through each receiver (may take a while!)</span></span>
+<span id="cb20-16"><a href="accessingData.html#cb20-16"></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df.serno)) {</span>
+<span id="cb20-17"><a href="accessingData.html#cb20-17"></a>  <span class="kw">tagme</span>(df.serno[row, <span class="st">&quot;serno&quot;</span>], <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb20-18"><a href="accessingData.html#cb20-18"></a>}</span>
+<span id="cb20-19"><a href="accessingData.html#cb20-19"></a></span>
+<span id="cb20-20"><a href="accessingData.html#cb20-20"></a><span class="co"># Note you can remove the dir argument if you want to save it to your working</span></span>
+<span id="cb20-21"><a href="accessingData.html#cb20-21"></a><span class="co"># directory, just make sure that you use the same directory in both calls</span></span></code></pre></div>
 <p>You can also create a list of receivers you’d like to download if you don’t want to download project-wide receivers:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="accessingData.html#cb10-1"></a><span class="co"># create list of receivers you&#39;d like to download</span></span>
-<span id="cb10-2"><a href="accessingData.html#cb10-2"></a>df.serno &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SG-AB12RPI3CD34&quot;</span>, <span class="st">&quot;SG-1234BBBK4321&quot;</span>)<span class="er">)</span></span>
-<span id="cb10-3"><a href="accessingData.html#cb10-3"></a></span>
-<span id="cb10-4"><a href="accessingData.html#cb10-4"></a><span class="co"># loop through each receiver (may take a while!), and save to the working directory</span></span>
-<span id="cb10-5"><a href="accessingData.html#cb10-5"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(df.serno)) {</span>
-<span id="cb10-6"><a href="accessingData.html#cb10-6"></a>  <span class="kw">tagme</span>(df.serno[k], <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb10-7"><a href="accessingData.html#cb10-7"></a>}</span>
-<span id="cb10-8"><a href="accessingData.html#cb10-8"></a></span>
-<span id="cb10-9"><a href="accessingData.html#cb10-9"></a><span class="co"># loop through each receiver (may take a while!), and save to a specified directory</span></span>
-<span id="cb10-10"><a href="accessingData.html#cb10-10"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(df.serno)) {</span>
-<span id="cb10-11"><a href="accessingData.html#cb10-11"></a>  <span class="kw">tagme</span>(df.serno[k], <span class="dt">dir =</span> <span class="st">&quot;/Users/zoecrysler/Downloads/&quot;</span>, </span>
-<span id="cb10-12"><a href="accessingData.html#cb10-12"></a>        <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb10-13"><a href="accessingData.html#cb10-13"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="accessingData.html#cb21-1"></a><span class="co"># create list of receivers you&#39;d like to download</span></span>
+<span id="cb21-2"><a href="accessingData.html#cb21-2"></a>df.serno &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SG-AB12RPI3CD34&quot;</span>, <span class="st">&quot;SG-1234BBBK4321&quot;</span>)<span class="er">)</span></span>
+<span id="cb21-3"><a href="accessingData.html#cb21-3"></a></span>
+<span id="cb21-4"><a href="accessingData.html#cb21-4"></a><span class="co"># loop through each receiver (may take a while!), and save to the working directory</span></span>
+<span id="cb21-5"><a href="accessingData.html#cb21-5"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(df.serno)) {</span>
+<span id="cb21-6"><a href="accessingData.html#cb21-6"></a>  <span class="kw">tagme</span>(df.serno[k], <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb21-7"><a href="accessingData.html#cb21-7"></a>}</span>
+<span id="cb21-8"><a href="accessingData.html#cb21-8"></a></span>
+<span id="cb21-9"><a href="accessingData.html#cb21-9"></a><span class="co"># loop through each receiver (may take a while!), and save to a specified directory</span></span>
+<span id="cb21-10"><a href="accessingData.html#cb21-10"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(df.serno)) {</span>
+<span id="cb21-11"><a href="accessingData.html#cb21-11"></a>  <span class="kw">tagme</span>(df.serno[k], <span class="dt">dir =</span> <span class="st">&quot;/Users/zoecrysler/Downloads/&quot;</span>, </span>
+<span id="cb21-12"><a href="accessingData.html#cb21-12"></a>        <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb21-13"><a href="accessingData.html#cb21-13"></a>}</span></code></pre></div>
 </div>
 <div id="updating-all-.motus-files-within-a-directory" class="section level3">
 <h3><span class="header-section-number">3.5.5</span> Updating all .motus files within a directory</h3>
 <p>Once you have .motus files, you can also update them all by simply calling the <code>tagme()</code> function but leaving all arguments blank, apart from the directory:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="accessingData.html#cb11-1"></a><span class="co"># If you have them saved your working directory:</span></span>
-<span id="cb11-2"><a href="accessingData.html#cb11-2"></a><span class="kw">tagme</span>()</span>
-<span id="cb11-3"><a href="accessingData.html#cb11-3"></a></span>
-<span id="cb11-4"><a href="accessingData.html#cb11-4"></a><span class="co"># If you have them saved in a different directory:</span></span>
-<span id="cb11-5"><a href="accessingData.html#cb11-5"></a><span class="kw">tagme</span>(<span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="accessingData.html#cb22-1"></a><span class="co"># If you have them saved your working directory:</span></span>
+<span id="cb22-2"><a href="accessingData.html#cb22-2"></a><span class="kw">tagme</span>()</span>
+<span id="cb22-3"><a href="accessingData.html#cb22-3"></a></span>
+<span id="cb22-4"><a href="accessingData.html#cb22-4"></a><span class="co"># If you have them saved in a different directory:</span></span>
+<span id="cb22-5"><a href="accessingData.html#cb22-5"></a><span class="kw">tagme</span>(<span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</span></code></pre></div>
 </div>
 <div id="accessSQL" class="section level3">
 <h3><span class="header-section-number">3.5.6</span> Accessing downloaded detection data</h3>
 <p>Now that we’ve downloaded our data as an SQLite database and loaded it into an R object called <code>sql.motus</code>, we want to access the tables stored within. Detailed descriptions of all the tables stored in the .motus file can be found in section <a href="accessingData.html#databaseStructure">3.1</a>.</p>
 <p>You can also view the list of tables, and variables contained within those tables, using the <code>DBI</code> and <code>RSQLite</code> packages (these are automatically installed when you install <code>motus</code>).</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="accessingData.html#cb12-1"></a><span class="kw">library</span>(DBI)</span>
-<span id="cb12-2"><a href="accessingData.html#cb12-2"></a><span class="kw">library</span>(RSQLite)</span>
-<span id="cb12-3"><a href="accessingData.html#cb12-3"></a></span>
-<span id="cb12-4"><a href="accessingData.html#cb12-4"></a><span class="co"># specify the filepath where your .motus file is saved, and the file name.</span></span>
-<span id="cb12-5"><a href="accessingData.html#cb12-5"></a>file.name &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">SQLite</span>(), <span class="st">&quot;./data/project-176.motus&quot;</span>) </span>
-<span id="cb12-6"><a href="accessingData.html#cb12-6"></a></span>
-<span id="cb12-7"><a href="accessingData.html#cb12-7"></a><span class="co"># get a list of tables in the .motus file specified above.</span></span>
-<span id="cb12-8"><a href="accessingData.html#cb12-8"></a><span class="kw">dbListTables</span>(file.name) </span></code></pre></div>
-<pre><code>##  [1] &quot;activity&quot;    &quot;admInfo&quot;     &quot;allambigs&quot;   &quot;alltags&quot;     &quot;alltagsGPS&quot;  &quot;antDeps&quot;     &quot;batchRuns&quot;   &quot;batches&quot;     &quot;clarified&quot;  
-## [10] &quot;filters&quot;     &quot;gps&quot;         &quot;hits&quot;        &quot;meta&quot;        &quot;nodeData&quot;    &quot;nodeDeps&quot;    &quot;projAmbig&quot;   &quot;projBatch&quot;   &quot;projs&quot;      
-## [19] &quot;recvDeps&quot;    &quot;recvs&quot;       &quot;runs&quot;        &quot;runsFilters&quot; &quot;species&quot;     &quot;tagAmbig&quot;    &quot;tagDeps&quot;     &quot;tagProps&quot;    &quot;tags&quot;</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="accessingData.html#cb14-1"></a><span class="co"># get a list of variables in the &quot;species&quot; table in the .motus file.</span></span>
-<span id="cb14-2"><a href="accessingData.html#cb14-2"></a><span class="kw">dbListFields</span>(file.name, <span class="st">&quot;species&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="accessingData.html#cb23-1"></a><span class="kw">library</span>(DBI)</span>
+<span id="cb23-2"><a href="accessingData.html#cb23-2"></a><span class="kw">library</span>(RSQLite)</span>
+<span id="cb23-3"><a href="accessingData.html#cb23-3"></a></span>
+<span id="cb23-4"><a href="accessingData.html#cb23-4"></a><span class="co"># specify the filepath where your .motus file is saved, and the file name.</span></span>
+<span id="cb23-5"><a href="accessingData.html#cb23-5"></a>file.name &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">SQLite</span>(), <span class="st">&quot;./data/project-176.motus&quot;</span>) </span>
+<span id="cb23-6"><a href="accessingData.html#cb23-6"></a></span>
+<span id="cb23-7"><a href="accessingData.html#cb23-7"></a><span class="co"># get a list of tables in the .motus file specified above.</span></span>
+<span id="cb23-8"><a href="accessingData.html#cb23-8"></a><span class="kw">dbListTables</span>(file.name) </span></code></pre></div>
+<pre><code>##  [1] &quot;activity&quot;    &quot;admInfo&quot;     &quot;allambigs&quot;   &quot;alltags&quot;     &quot;alltagsGPS&quot;  &quot;antDeps&quot;     &quot;batchRuns&quot;   &quot;batches&quot;     &quot;clarified&quot;   &quot;filters&quot;     &quot;gps&quot;        
+## [12] &quot;hits&quot;        &quot;meta&quot;        &quot;nodeData&quot;    &quot;nodeDeps&quot;    &quot;projAmbig&quot;   &quot;projBatch&quot;   &quot;projs&quot;       &quot;recvDeps&quot;    &quot;recvs&quot;       &quot;runs&quot;        &quot;runsFilters&quot;
+## [23] &quot;species&quot;     &quot;tagAmbig&quot;    &quot;tagDeps&quot;     &quot;tagProps&quot;    &quot;tags&quot;</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="accessingData.html#cb25-1"></a><span class="co"># get a list of variables in the &quot;species&quot; table in the .motus file.</span></span>
+<span id="cb25-2"><a href="accessingData.html#cb25-2"></a><span class="kw">dbListFields</span>(file.name, <span class="st">&quot;species&quot;</span>) </span></code></pre></div>
 <pre><code>## [1] &quot;id&quot;         &quot;english&quot;    &quot;french&quot;     &quot;scientific&quot; &quot;group&quot;      &quot;sort&quot;</code></pre>
 <p>The <em>virtual</em> table <code>alltags</code> contains the detection data, along with most metadata variables that users need from the various underlying .motus tables. We access the tables using the <code>tbl()</code> function from the <code>dplyr</code> package which we installed in Chapter 2:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="accessingData.html#cb16-1"></a><span class="co"># this retrieves the &quot;alltags&quot; table from the &quot;sql.motus&quot; SQLite file we read in earlier</span></span>
-<span id="cb16-2"><a href="accessingData.html#cb16-2"></a>tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>) <span class="co"># virtual table</span></span></code></pre></div>
-<p>However, if GPS data is required, users will either have to use the <code>alltagsGPS</code> view, or will have to add GPS values to a data subset.</p>
-<p>To use the <code>alltagsGPS</code> view (note that this can be slow, which is why GPS data is excluded by default):</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="accessingData.html#cb17-1"></a>tbl.alltagsGPS &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltagsGPS&quot;</span>)</span></code></pre></div>
-<p>Alternatively, you can first filter your data, then use the <code>getGPS()</code> function to retrieve GPS values, and use the <code>left_join()</code> function to add GPS to your data subset (see Chapter <a href="dataCleaning.html#addGPS">5.5.3</a> for more details).</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="accessingData.html#cb18-1"></a><span class="co"># Filter the data</span></span>
-<span id="cb18-2"><a href="accessingData.html#cb18-2"></a>tbl.Dunlin &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb18-3"><a href="accessingData.html#cb18-3"></a><span class="st">  </span><span class="kw">filter</span>(speciesEN <span class="op">==</span><span class="st"> &quot;Dunlin&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb18-4"><a href="accessingData.html#cb18-4"></a><span class="st">  </span><span class="kw">collect</span>()</span>
-<span id="cb18-5"><a href="accessingData.html#cb18-5"></a></span>
-<span id="cb18-6"><a href="accessingData.html#cb18-6"></a><span class="co"># Get the GPS points for these data</span></span>
-<span id="cb18-7"><a href="accessingData.html#cb18-7"></a>Dunlin.GPS &lt;-<span class="st"> </span><span class="kw">getGPS</span>(sql.motus, <span class="dt">data =</span> tbl.Dunlin)</span>
-<span id="cb18-8"><a href="accessingData.html#cb18-8"></a></span>
-<span id="cb18-9"><a href="accessingData.html#cb18-9"></a><span class="co"># Add in the GPS points</span></span>
-<span id="cb18-10"><a href="accessingData.html#cb18-10"></a>tbl.Dunlin.GPS &lt;-<span class="st"> </span><span class="kw">left_join</span>(tbl.Dunlin, Dunlin.GPS, <span class="dt">by =</span> <span class="st">&quot;hitID&quot;</span>)</span></code></pre></div>
-<p>Going back to our original <code>alltags</code> view, we now have a new <code>tbl.alltags</code> object in R. The underlying structure of these tables is a list of length 2:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="accessingData.html#cb19-1"></a><span class="kw">str</span>(tbl.alltags)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="accessingData.html#cb27-1"></a><span class="co"># this retrieves the &quot;alltags&quot; table from the &quot;sql.motus&quot; SQLite file we read in earlier</span></span>
+<span id="cb27-2"><a href="accessingData.html#cb27-2"></a>tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>) <span class="co"># virtual table</span></span></code></pre></div>
+<p>We now have a new <code>tbl.alltags</code> object in R. The underlying structure of these tables is a list of length 2:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="accessingData.html#cb28-1"></a><span class="kw">str</span>(tbl.alltags)</span></code></pre></div>
 <pre><code>## List of 2
 ##  $ src:List of 2
 ##   ..$ con  :Formal class &#39;SQLiteConnection&#39; [package &quot;RSQLite&quot;] with 7 slots
@@ -609,7 +609,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   .. .. ..@ loadable.extensions: logi TRUE
 ##   .. .. ..@ flags              : int 70
 ##   .. .. ..@ vfs                : chr &quot;&quot;
-##   .. .. ..@ ref                :&lt;environment: 0x5653cd8660a0&gt; 
+##   .. .. ..@ ref                :&lt;environment: 0x5653c073ff38&gt; 
 ##   .. .. ..@ bigint             : chr &quot;integer64&quot;
 ##   ..$ disco: NULL
 ##   ..- attr(*, &quot;class&quot;)= chr [1:4] &quot;src_SQLiteConnection&quot; &quot;src_dbi&quot; &quot;src_sql&quot; &quot;src&quot;
@@ -619,98 +619,137 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   ..- attr(*, &quot;class&quot;)= chr [1:3] &quot;op_base_remote&quot; &quot;op_base&quot; &quot;op&quot;
 ##  - attr(*, &quot;class&quot;)= chr [1:5] &quot;tbl_SQLiteConnection&quot; &quot;tbl_dbi&quot; &quot;tbl_sql&quot; &quot;tbl_lazy&quot; ...</code></pre>
 <p>The first part of the list, <code>src</code>, is a list that provides details of the SQLiteConnection, including the directory where the database is stored. The second part is a list that includes the underlying table. Thus, the R object <code>alltags</code> is a <em>virtual</em> table that stores the database structure and information required to connect to the underlying data in the .motus file. As stated above, the advantage of storing the data in this way is that it saves memory when accessing very large databases, and functions within the dplyr package can be used to manipulate and summarize the tables before collecting the results into a typical ‘flat’ format dataframe.</p>
-<p>If you want to use familiar functions to get access to components of the underlying data frame, then use the <code>collect</code> function. For example, to look at the names of the variables in the alltags table:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="accessingData.html#cb21-1"></a>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb21-2"><a href="accessingData.html#cb21-2"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></span>
-<span id="cb21-3"><a href="accessingData.html#cb21-3"></a><span class="st">  </span><span class="kw">names</span>() <span class="co"># list the variable names in the table</span></span></code></pre></div>
-<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;    &quot;sig&quot;            &quot;sigsd&quot;         
-##  [8] &quot;noise&quot;          &quot;freq&quot;           &quot;freqsd&quot;         &quot;slop&quot;           &quot;burstSlop&quot;      &quot;done&quot;           &quot;motusTagID&quot;    
-## [15] &quot;ambigID&quot;        &quot;port&quot;           &quot;runLen&quot;         &quot;bootnum&quot;        &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;       
-## [22] &quot;codeSet&quot;        &quot;mfg&quot;            &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;        &quot;tagBI&quot;          &quot;pulseLen&quot;      
-## [29] &quot;tagDeployID&quot;    &quot;speciesID&quot;      &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;   &quot;tagDepLat&quot;     
-## [36] &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot; &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;   &quot;recvDeployLat&quot; 
-## [43] &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;           &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;   &quot;recvProjID&quot;    
-## [50] &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;     &quot;antHeight&quot;      &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;    
-## [57] &quot;speciesGroup&quot;   &quot;tagProjName&quot;    &quot;recvProjName&quot;</code></pre>
+<p>If you want to use familiar functions to get access to components of the underlying data frame, then use the <code>collect()</code> function. For example, to look at the names of the variables in the alltags table:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="accessingData.html#cb30-1"></a>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb30-2"><a href="accessingData.html#cb30-2"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></span>
+<span id="cb30-3"><a href="accessingData.html#cb30-3"></a><span class="st">  </span><span class="kw">names</span>() <span class="co"># list the variable names in the table</span></span></code></pre></div>
+<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;    &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;          &quot;freq&quot;          
+## [10] &quot;freqsd&quot;         &quot;slop&quot;           &quot;burstSlop&quot;      &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;        &quot;port&quot;           &quot;runLen&quot;         &quot;bootnum&quot;       
+## [19] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;        &quot;mfg&quot;            &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;        &quot;tagBI&quot;         
+## [28] &quot;pulseLen&quot;       &quot;tagDeployID&quot;    &quot;speciesID&quot;      &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;   &quot;tagDepLat&quot;      &quot;tagDepLon&quot;     
+## [37] &quot;tagDepAlt&quot;      &quot;tagDepComments&quot; &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;   &quot;recvDeployLat&quot;  &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;          
+## [46] &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;   &quot;recvProjID&quot;     &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;     &quot;antHeight&quot;      &quot;speciesEN&quot;     
+## [55] &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;   &quot;tagProjName&quot;    &quot;recvProjName&quot;</code></pre>
+</div>
+<div id="addGPS" class="section level3">
+<h3><span class="header-section-number">3.5.7</span> Adding GPS Data</h3>
+<p>If GPS data is required, users will either have to use the <code>alltagsGPS</code> view, or will have to add GPS values to a data subset.</p>
+<p>To use the <code>alltagsGPS</code> view (note that this can be slow, which is why GPS data is excluded by default):</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="accessingData.html#cb32-1"></a>tbl.alltagsGPS &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltagsGPS&quot;</span>)</span></code></pre></div>
+<p>Alternatively, to speed things up you can first filter your data, then use the <code>getGPS()</code> function to retrieve GPS values.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="accessingData.html#cb33-1"></a><span class="co"># Filter the data</span></span>
+<span id="cb33-2"><a href="accessingData.html#cb33-2"></a>tbl.Dunlin &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb33-3"><a href="accessingData.html#cb33-3"></a><span class="st">  </span><span class="kw">filter</span>(speciesEN <span class="op">==</span><span class="st"> &quot;Dunlin&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb33-4"><a href="accessingData.html#cb33-4"></a><span class="st">  </span><span class="kw">collect</span>()</span>
+<span id="cb33-5"><a href="accessingData.html#cb33-5"></a></span>
+<span id="cb33-6"><a href="accessingData.html#cb33-6"></a><span class="co"># Get the daily median location of GPS points for these data</span></span>
+<span id="cb33-7"><a href="accessingData.html#cb33-7"></a>Dunlin.GPS &lt;-<span class="st"> </span><span class="kw">getGPS</span>(<span class="dt">src =</span> sql.motus, <span class="dt">data =</span> tbl.Dunlin)</span></code></pre></div>
+<p>We match GPS locations to <code>hitID</code>s according to one of several different time values, specified by the <code>by</code> argument.</p>
+<p>This can be one of three options:</p>
+<ol style="list-style-type: decimal">
+<li>the median location within <strong><code>by = X</code></strong> minutes of a <code>hitID</code>
+<ul>
+<li>here, <code>X</code> can be any number greater than zero and represents the size of the time block in minutes over which to calculate a median location</li>
+<li>be aware that you should ideally not chose a period smaller than the frequency at which GPS fixes are recorded, or some hits will not be associated with GPS</li>
+</ul></li>
+<li><strong><code>by = "daily"</code></strong> median location (<strong>default</strong>, implied in the above example)
+<ul>
+<li>similar to <code>by = X</code> except the duration is 24hr (same as <code>by = 1440</code>)</li>
+<li>this method is most suitable for receiver deployments at fixed location.</li>
+</ul></li>
+<li>or the <strong><code>by = "closest"</code></strong> location in time
+<ul>
+<li>individual GPS lat/lons are returned, matching the closest <code>hitID</code> timestamp</li>
+<li>this method is most accurate for mobile deployments, but is potentially slower than <code>by = X</code>.</li>
+<li>you can also specify a <code>cutoff</code> which will only match GPS records which are within <code>cutoff = X</code> minutes of the hit. This way you can avoid having situations where the ‘closest’ GPS record is actually days away.</li>
+</ul></li>
+</ol>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="accessingData.html#cb34-1"></a>Dunlin.GPS &lt;-<span class="st"> </span><span class="kw">getGPS</span>(<span class="dt">src =</span> sql.motus, <span class="dt">data =</span> tbl.Dunlin, <span class="dt">by =</span> <span class="dv">60</span>)</span>
+<span id="cb34-2"><a href="accessingData.html#cb34-2"></a>Dunlin.GPS &lt;-<span class="st"> </span><span class="kw">getGPS</span>(<span class="dt">src =</span> sql.motus, <span class="dt">data =</span> tbl.Dunlin, <span class="dt">by =</span> <span class="st">&quot;closest&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">120</span>)</span></code></pre></div>
+<p>To keep all <code>hitID</code>s, regardless of whether they GPS data or not, use the argument <code>keepAll = TRUE</code>.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="accessingData.html#cb35-1"></a>Dunlin.GPS &lt;-<span class="st"> </span><span class="kw">getGPS</span>(<span class="dt">src =</span> sql.motus, <span class="dt">data =</span> tbl.Dunlin, <span class="dt">keepAll =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p>Finally, use the <code>left_join()</code> function to add GPS to your data subset. Note that this sample data doesn’t actually have GPS values so these examples are for illustration only.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="accessingData.html#cb36-1"></a>tbl.Dunlin.GPS &lt;-<span class="st"> </span><span class="kw">left_join</span>(tbl.Dunlin, Dunlin.GPS, <span class="dt">by =</span> <span class="st">&quot;hitID&quot;</span>)</span></code></pre></div>
+<p>As there is no GPS data in this example data set, we’ll continue with our original <code>tbl.alltags</code> file.</p>
 </div>
 <div id="convertToFlat" class="section level3">
-<h3><span class="header-section-number">3.5.7</span> Converting to flat file</h3>
+<h3><span class="header-section-number">3.5.8</span> Converting to flat file</h3>
 <p>To convert the <code>alltags</code> view or other table in the .motus file into a typical ‘flat’ format, i.e., with every record for each field filled in, use the <code>collect()</code> and <code>as.data.frame()</code> functions. The output can then be further manipulated, or used to generate a RDS file of your data for archiving or export.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="accessingData.html#cb23-1"></a>df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb23-2"><a href="accessingData.html#cb23-2"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb23-3"><a href="accessingData.html#cb23-3"></a><span class="st">  </span><span class="kw">as.data.frame</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="accessingData.html#cb37-1"></a>df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb37-2"><a href="accessingData.html#cb37-2"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb37-3"><a href="accessingData.html#cb37-3"></a><span class="st">  </span><span class="kw">as.data.frame</span>()</span></code></pre></div>
 <p>Now we have a flat dataframe of the alltags table called <code>df.alltags</code>. We can look at some metrics of the file:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="accessingData.html#cb24-1"></a><span class="kw">names</span>(df.alltags)     <span class="co"># field names</span></span>
-<span id="cb24-2"><a href="accessingData.html#cb24-2"></a><span class="kw">str</span>(df.alltags)       <span class="co"># structure of your data fields</span></span>
-<span id="cb24-3"><a href="accessingData.html#cb24-3"></a><span class="kw">head</span>(df.alltags)      <span class="co"># prints the first 6 rows of your df to the console</span></span>
-<span id="cb24-4"><a href="accessingData.html#cb24-4"></a><span class="kw">summary</span>(df.alltags)   <span class="co"># summary of each column in your df</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="accessingData.html#cb38-1"></a><span class="kw">names</span>(df.alltags)     <span class="co"># field names</span></span>
+<span id="cb38-2"><a href="accessingData.html#cb38-2"></a><span class="kw">str</span>(df.alltags)       <span class="co"># structure of your data fields</span></span>
+<span id="cb38-3"><a href="accessingData.html#cb38-3"></a><span class="kw">head</span>(df.alltags)      <span class="co"># prints the first 6 rows of your df to the console</span></span>
+<span id="cb38-4"><a href="accessingData.html#cb38-4"></a><span class="kw">summary</span>(df.alltags)   <span class="co"># summary of each column in your df</span></span></code></pre></div>
 <p>Note that the format of the time stamp (ts) field is numeric and represents seconds since January 1 1970. We recommend that when you transform your tables into flat dataframes, that you format the time stamp using the lubridate package at that time, e.g.:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="accessingData.html#cb25-1"></a>df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb25-2"><a href="accessingData.html#cb25-2"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb25-3"><a href="accessingData.html#cb25-3"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">     </span><span class="co"># for all fields in the df (data frame)</span></span>
-<span id="cb25-4"><a href="accessingData.html#cb25-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))</span>
-<span id="cb25-5"><a href="accessingData.html#cb25-5"></a></span>
-<span id="cb25-6"><a href="accessingData.html#cb25-6"></a><span class="co"># the tz = &quot;UTC&quot; is not necessary here, provided you have set your system time to UTC</span></span>
-<span id="cb25-7"><a href="accessingData.html#cb25-7"></a><span class="co"># ... but it serves as a useful reminder!</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="accessingData.html#cb39-1"></a>df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb39-2"><a href="accessingData.html#cb39-2"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb39-3"><a href="accessingData.html#cb39-3"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">     </span><span class="co"># for all fields in the df (data frame)</span></span>
+<span id="cb39-4"><a href="accessingData.html#cb39-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))</span>
+<span id="cb39-5"><a href="accessingData.html#cb39-5"></a></span>
+<span id="cb39-6"><a href="accessingData.html#cb39-6"></a><span class="co"># the tz = &quot;UTC&quot; is not necessary here, provided you have set your system time to UTC</span></span>
+<span id="cb39-7"><a href="accessingData.html#cb39-7"></a><span class="co"># ... but it serves as a useful reminder!</span></span></code></pre></div>
 <p>Note that time stamps can only be manipulated in this way <em>after</em> collecting the data into a flat dataframe.</p>
 <p>If you want to load only part of your entire virtual table (e.g. certain fields, certain tags, or all tags from a specified project or species), you can use <code>dplyr</code> functions to filter the data before collecting into a dataframe. Some examples are below:</p>
 <ol style="list-style-type: decimal">
 <li>To select certain variables:</li>
 </ol>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="accessingData.html#cb26-1"></a><span class="co"># to grab a subset of variables, in this case a unique list of Motus tag IDs at</span></span>
-<span id="cb26-2"><a href="accessingData.html#cb26-2"></a><span class="co"># each receiver and antenna.</span></span>
-<span id="cb26-3"><a href="accessingData.html#cb26-3"></a>df.alltagsSub &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></span>
-<span id="cb26-4"><a href="accessingData.html#cb26-4"></a><span class="st">  </span><span class="kw">select</span>(recv, port, motusTagID) <span class="op">%&gt;%</span></span>
-<span id="cb26-5"><a href="accessingData.html#cb26-5"></a><span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-6"><a href="accessingData.html#cb26-6"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-7"><a href="accessingData.html#cb26-7"></a><span class="st">  </span><span class="kw">as.data.frame</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="accessingData.html#cb40-1"></a><span class="co"># to grab a subset of variables, in this case a unique list of Motus tag IDs at</span></span>
+<span id="cb40-2"><a href="accessingData.html#cb40-2"></a><span class="co"># each receiver and antenna.</span></span>
+<span id="cb40-3"><a href="accessingData.html#cb40-3"></a>df.alltagsSub &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></span>
+<span id="cb40-4"><a href="accessingData.html#cb40-4"></a><span class="st">  </span><span class="kw">select</span>(recv, port, motusTagID) <span class="op">%&gt;%</span></span>
+<span id="cb40-5"><a href="accessingData.html#cb40-5"></a><span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb40-6"><a href="accessingData.html#cb40-6"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb40-7"><a href="accessingData.html#cb40-7"></a><span class="st">  </span><span class="kw">as.data.frame</span>() </span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>To select certain tag IDs:</li>
 </ol>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="accessingData.html#cb27-1"></a><span class="co"># filter to include only motusTagIDs 16011, 23316</span></span>
-<span id="cb27-2"><a href="accessingData.html#cb27-2"></a>df.alltagsSub &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></span>
-<span id="cb27-3"><a href="accessingData.html#cb27-3"></a><span class="st">  </span><span class="kw">filter</span>(motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16011</span>, <span class="dv">23316</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb27-4"><a href="accessingData.html#cb27-4"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb27-5"><a href="accessingData.html#cb27-5"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">    </span></span>
-<span id="cb27-6"><a href="accessingData.html#cb27-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))    </span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="accessingData.html#cb41-1"></a><span class="co"># filter to include only motusTagIDs 16011, 23316</span></span>
+<span id="cb41-2"><a href="accessingData.html#cb41-2"></a>df.alltagsSub &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></span>
+<span id="cb41-3"><a href="accessingData.html#cb41-3"></a><span class="st">  </span><span class="kw">filter</span>(motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">16011</span>, <span class="dv">23316</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb41-4"><a href="accessingData.html#cb41-4"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb41-5"><a href="accessingData.html#cb41-5"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">    </span></span>
+<span id="cb41-6"><a href="accessingData.html#cb41-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))    </span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>To select a specific species:</li>
 </ol>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="accessingData.html#cb28-1"></a><span class="co"># filter to only Red Knot (using speciesID)</span></span>
-<span id="cb28-2"><a href="accessingData.html#cb28-2"></a>df<span class="fl">.4670</span> &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></span>
-<span id="cb28-3"><a href="accessingData.html#cb28-3"></a><span class="st">  </span><span class="kw">filter</span>(speciesID <span class="op">==</span><span class="st"> </span><span class="dv">4670</span>) <span class="op">%&gt;%</span><span class="st">  </span></span>
-<span id="cb28-4"><a href="accessingData.html#cb28-4"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-5"><a href="accessingData.html#cb28-5"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">    </span></span>
-<span id="cb28-6"><a href="accessingData.html#cb28-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))  </span>
-<span id="cb28-7"><a href="accessingData.html#cb28-7"></a></span>
-<span id="cb28-8"><a href="accessingData.html#cb28-8"></a><span class="co"># filter to only Red Knot (using English name)</span></span>
-<span id="cb28-9"><a href="accessingData.html#cb28-9"></a>df.redKnot &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></span>
-<span id="cb28-10"><a href="accessingData.html#cb28-10"></a><span class="st">  </span><span class="kw">filter</span>(speciesEN <span class="op">==</span><span class="st"> &quot;Red Knot&quot;</span>) <span class="op">%&gt;%</span><span class="st">   </span></span>
-<span id="cb28-11"><a href="accessingData.html#cb28-11"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-12"><a href="accessingData.html#cb28-12"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">    </span></span>
-<span id="cb28-13"><a href="accessingData.html#cb28-13"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))    </span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="accessingData.html#cb42-1"></a><span class="co"># filter to only Red Knot (using speciesID)</span></span>
+<span id="cb42-2"><a href="accessingData.html#cb42-2"></a>df<span class="fl">.4670</span> &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></span>
+<span id="cb42-3"><a href="accessingData.html#cb42-3"></a><span class="st">  </span><span class="kw">filter</span>(speciesID <span class="op">==</span><span class="st"> </span><span class="dv">4670</span>) <span class="op">%&gt;%</span><span class="st">  </span></span>
+<span id="cb42-4"><a href="accessingData.html#cb42-4"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb42-5"><a href="accessingData.html#cb42-5"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">    </span></span>
+<span id="cb42-6"><a href="accessingData.html#cb42-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))  </span>
+<span id="cb42-7"><a href="accessingData.html#cb42-7"></a></span>
+<span id="cb42-8"><a href="accessingData.html#cb42-8"></a><span class="co"># filter to only Red Knot (using English name)</span></span>
+<span id="cb42-9"><a href="accessingData.html#cb42-9"></a>df.redKnot &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></span>
+<span id="cb42-10"><a href="accessingData.html#cb42-10"></a><span class="st">  </span><span class="kw">filter</span>(speciesEN <span class="op">==</span><span class="st"> &quot;Red Knot&quot;</span>) <span class="op">%&gt;%</span><span class="st">   </span></span>
+<span id="cb42-11"><a href="accessingData.html#cb42-11"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb42-12"><a href="accessingData.html#cb42-12"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st">    </span></span>
+<span id="cb42-13"><a href="accessingData.html#cb42-13"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))    </span></code></pre></div>
 <p>Using <code>dplyr</code>, your virtual table can also be summarized before converting to a flat file. For example, to find the number of different detections for each tag at each receiver:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="accessingData.html#cb29-1"></a>df.detectSum &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb29-2"><a href="accessingData.html#cb29-2"></a><span class="st">  </span><span class="kw">count</span>(motusTagID, recv) <span class="op">%&gt;%</span></span>
-<span id="cb29-3"><a href="accessingData.html#cb29-3"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></span>
-<span id="cb29-4"><a href="accessingData.html#cb29-4"></a><span class="st">  </span><span class="kw">as.data.frame</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="accessingData.html#cb43-1"></a>df.detectSum &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb43-2"><a href="accessingData.html#cb43-2"></a><span class="st">  </span><span class="kw">count</span>(motusTagID, recv) <span class="op">%&gt;%</span></span>
+<span id="cb43-3"><a href="accessingData.html#cb43-3"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></span>
+<span id="cb43-4"><a href="accessingData.html#cb43-4"></a><span class="st">  </span><span class="kw">as.data.frame</span>() </span></code></pre></div>
 <p>In later chapter(s) we will show you additional ways of summarizing and working with your data.</p>
 </div>
 </div>
 <div id="exportDetections" class="section level2">
 <h2><span class="header-section-number">3.6</span> Export your ‘flat’ dataframe to CSV or RDS file</h2>
 <p>A good workflow is to create a script that deals with all your data issues (as described in later chapters), and then saves the resulting dataframe for re-use. If you do this, you can quickly start an analysis or visualization session from a known (and consistent) starting point. We use an .rds file, which preserves all of the associated R data structures (such as time stamps).</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="accessingData.html#cb30-1"></a><span class="kw">saveRDS</span>(df.alltags, <span class="st">&quot;./data/df_alltags.rds&quot;</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="accessingData.html#cb44-1"></a><span class="kw">saveRDS</span>(df.alltags, <span class="st">&quot;./data/df_alltags.rds&quot;</span>)  </span></code></pre></div>
 <p>Some users may also want to export the flat dataframe into a .csv file for analysis in other programs. This can easily be done with the following code. Note that it <strong>does not</strong> preserve time stamps:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="accessingData.html#cb31-1"></a><span class="kw">write.csv</span>(df.alltags, <span class="st">&quot;./data/df_alltags.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="accessingData.html#cb45-1"></a><span class="kw">write.csv</span>(df.alltags, <span class="st">&quot;./data/df_alltags.csv&quot;</span>)</span></code></pre></div>
 </div>
 <div id="tagmeUpdate" class="section level2">
 <h2><span class="header-section-number">3.7</span> Update and/or open an existing database</h2>
 <p>As you or other users upload data to our server, you may have additional tag detections that weren’t present in your initial data download. Since the .motus file is a SQLite database, you can update your existing file with any newly available data, rather than doing a complete new download of the entire database. To open and update a detections database that already exists (has been downloaded previously), we use the <code>tagme()</code> function but set <code>new = FALSE</code>:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="accessingData.html#cb32-1"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">FALSE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="accessingData.html#cb46-1"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">FALSE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>) </span></code></pre></div>
 <p>If you are working offline, and simply want to open an already downloaded database without connecting to the server to update, use <code>new = FALSE</code> and <code>update = FALSE</code>:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="accessingData.html#cb33-1"></a><span class="co"># use dir = to specify a directory</span></span>
-<span id="cb33-2"><a href="accessingData.html#cb33-2"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">FALSE</span>, <span class="dt">update =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="accessingData.html#cb47-1"></a><span class="co"># use dir = to specify a directory</span></span>
+<span id="cb47-2"><a href="accessingData.html#cb47-2"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">FALSE</span>, <span class="dt">update =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 </div>
 <div id="tellme" class="section level2">
 <h2><span class="header-section-number">3.8</span> Check if new data are available</h2>
@@ -723,15 +762,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong><code>numGPS</code></strong>: number of GPS records of new data.</li>
 </ul>
 <p>The following assumes that a local copy of the database already exists:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="accessingData.html#cb34-1"></a><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num)                    <span class="co"># If db is in the working directory</span></span>
-<span id="cb34-2"><a href="accessingData.html#cb34-2"></a><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)   <span class="co"># To specify a different directory</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="accessingData.html#cb48-1"></a><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num)                    <span class="co"># If db is in the working directory</span></span>
+<span id="cb48-2"><a href="accessingData.html#cb48-2"></a><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)   <span class="co"># To specify a different directory</span></span></code></pre></div>
 <p>To check how much data is available for a project but you <em>do not</em> have a database for it, use the ‘new’ parameter:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="accessingData.html#cb35-1"></a><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="accessingData.html#cb49-1"></a><span class="kw">tellme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="forceMeta" class="section level2">
 <h2><span class="header-section-number">3.9</span> Force an update/re-import of tag and receiver deployment metadata</h2>
 <p>Tag and receiver metadata are automatically merged with tag detections when data are downloaded. However, if metadata have been updated since your initial download, you can force re-import of the metadata when updating a database by running:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="accessingData.html#cb36-1"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">forceMeta =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="accessingData.html#cb50-1"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dt">projRecv =</span> proj.num, <span class="dt">forceMeta =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="metadata" class="section level2">
 <h2><span class="header-section-number">3.10</span> Import full tag and receiver metadata</h2>
@@ -743,53 +782,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>In many instances, you will want access to the full metadata for all tags and receivers across the network, e.g., to determine how many of your deployed tags were not detected, or to plot the location of stations with and without detections. The <code>metadata()</code> function can be used to add the complete Motus metadata to your .motus file. The metadata function only needs to be run once, but we suggest that you re-import the metadata occasionally to ensure that you have the most recent and up-to-date information.</p>
 <p>Running the metadata function as follows will add the appropriate metadata from across the network (all tags and all receivers) to the <code>recvDeps</code> and <code>tagDeps</code> tables in your .motus file:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="accessingData.html#cb37-1"></a><span class="co"># access all tag and receiver metadata for all projects in the network.</span></span>
-<span id="cb37-2"><a href="accessingData.html#cb37-2"></a><span class="kw">metadata</span>(sql.motus) </span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="accessingData.html#cb51-1"></a><span class="co"># access all tag and receiver metadata for all projects in the network.</span></span>
+<span id="cb51-2"><a href="accessingData.html#cb51-2"></a><span class="kw">metadata</span>(sql.motus) </span></code></pre></div>
 <p>Alternatively, you can load metadata for a specific project(s) using:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="accessingData.html#cb38-1"></a><span class="co"># access tag and receiver metadata associated with project 176</span></span>
-<span id="cb38-2"><a href="accessingData.html#cb38-2"></a><span class="kw">metadata</span>(sql.motus, <span class="dt">projectIDs =</span> <span class="dv">176</span>) </span>
-<span id="cb38-3"><a href="accessingData.html#cb38-3"></a></span>
-<span id="cb38-4"><a href="accessingData.html#cb38-4"></a><span class="co"># access tag and receiver metadata associated with projects 176 and 1</span></span>
-<span id="cb38-5"><a href="accessingData.html#cb38-5"></a><span class="kw">metadata</span>(sql.motus, <span class="dt">projectIDs =</span> <span class="kw">c</span>(<span class="dv">176</span>, <span class="dv">1</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="accessingData.html#cb52-1"></a><span class="co"># access tag and receiver metadata associated with project 176</span></span>
+<span id="cb52-2"><a href="accessingData.html#cb52-2"></a><span class="kw">metadata</span>(sql.motus, <span class="dt">projectIDs =</span> <span class="dv">176</span>) </span>
+<span id="cb52-3"><a href="accessingData.html#cb52-3"></a></span>
+<span id="cb52-4"><a href="accessingData.html#cb52-4"></a><span class="co"># access tag and receiver metadata associated with projects 176 and 1</span></span>
+<span id="cb52-5"><a href="accessingData.html#cb52-5"></a><span class="kw">metadata</span>(sql.motus, <span class="dt">projectIDs =</span> <span class="kw">c</span>(<span class="dv">176</span>, <span class="dv">1</span>)) </span></code></pre></div>
 </div>
 <div id="checkVersion" class="section level2">
 <h2><span class="header-section-number">3.11</span> Ensure that you have the correct database version</h2>
 <p>When you call the tagme function to load the sqlite database, the version of the R package used to download the data is stored in an admInfo table. Over time, changes will be made to the functionality of the R package that may require adding new tables, views or fields to the database. If your version of the database does not match the version of the R package, some of the examples contained in this book may not work. The following call will check that your database has been updated to the version matching the current version of the <code>motus</code> R package. If your database does not match the most current version of the R package, use <code>tagme()</code> with <code>update = TRUE</code> to update your database to the correct format. Refer to Appendix B if the <code>checkVersion()</code> call returns a warning.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="accessingData.html#cb39-1"></a><span class="kw">checkVersion</span>(sql.motus)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="accessingData.html#cb53-1"></a><span class="kw">checkVersion</span>(sql.motus)</span></code></pre></div>
 </div>
 <div id="r-object-naming-convention" class="section level2">
 <h2><span class="header-section-number">3.12</span> R object naming convention</h2>
 <p>Throughout this chapter and the rest of the book, we name R objects according to their structure and the source of the data contained in the object. So, SQLite objects will be prefixed with <code>sql.</code>, virtual table objects will be prefixed with <code>tbl.</code>, and dataframe objects will be prefixed with <code>df.</code>; the rest of the name will include the name of the .motus table that the data originates from. Throughout the rest of the book we will be relying on and referencing the naming formats below; please ensure that you are familiar with these before continuing to the next chapter. The following code assumes you have already downloaded the sample data and do not need to update it; if you have not downloaded the data, see section <a href="accessingData.html#downloadData">3.5.1</a> for instructions on initial download:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="accessingData.html#cb40-1"></a><span class="co"># SQLite R object, which links to the .motus file:</span></span>
-<span id="cb40-2"><a href="accessingData.html#cb40-2"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)  </span>
-<span id="cb40-3"><a href="accessingData.html#cb40-3"></a></span>
-<span id="cb40-4"><a href="accessingData.html#cb40-4"></a><span class="co"># virtual table object of the alltags table in the sample.motus file:</span></span>
-<span id="cb40-5"><a href="accessingData.html#cb40-5"></a>tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)  </span>
-<span id="cb40-6"><a href="accessingData.html#cb40-6"></a>df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></span>
-<span id="cb40-7"><a href="accessingData.html#cb40-7"></a><span class="st">                </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></span>
-<span id="cb40-8"><a href="accessingData.html#cb40-8"></a><span class="st">                </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># dataframe (&quot;flat&quot;) object of alltags table</span></span>
-<span id="cb40-9"><a href="accessingData.html#cb40-9"></a><span class="st">                </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))              </span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="accessingData.html#cb54-1"></a><span class="co"># SQLite R object, which links to the .motus file:</span></span>
+<span id="cb54-2"><a href="accessingData.html#cb54-2"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)  </span>
+<span id="cb54-3"><a href="accessingData.html#cb54-3"></a></span>
+<span id="cb54-4"><a href="accessingData.html#cb54-4"></a><span class="co"># virtual table object of the alltags table in the sample.motus file:</span></span>
+<span id="cb54-5"><a href="accessingData.html#cb54-5"></a>tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)  </span>
+<span id="cb54-6"><a href="accessingData.html#cb54-6"></a>df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></span>
+<span id="cb54-7"><a href="accessingData.html#cb54-7"></a><span class="st">                </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></span>
+<span id="cb54-8"><a href="accessingData.html#cb54-8"></a><span class="st">                </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># dataframe (&quot;flat&quot;) object of alltags table</span></span>
+<span id="cb54-9"><a href="accessingData.html#cb54-9"></a><span class="st">                </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))              </span></code></pre></div>
 </div>
 <div id="importSummary" class="section level2">
 <h2><span class="header-section-number">3.13</span> Summary: download, access, and export data</h2>
 <p>Throughout the book we will predominantly be working with the <code>alltags</code> table in flat format. Although described in detail above, here we include a quick summary of how you download, access, and convert the sample data for use in the rest of the book. In later sections of the book, we include additional recommended modifications and filtering of unnecessary variables, more information is available in section <a href="dataCleaning.html#loadDetectionsCleaning">5.1</a> in Chapter <a href="dataCleaning.html#dataCleaning">5</a>.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="accessingData.html#cb41-1"></a><span class="co"># set proj.num to 176 for sample data</span></span>
-<span id="cb41-2"><a href="accessingData.html#cb41-2"></a>proj.num &lt;-<span class="st"> </span><span class="dv">176</span></span>
-<span id="cb41-3"><a href="accessingData.html#cb41-3"></a></span>
-<span id="cb41-4"><a href="accessingData.html#cb41-4"></a><span class="co"># - download and load detection data from the sample project and save in data folder</span></span>
-<span id="cb41-5"><a href="accessingData.html#cb41-5"></a><span class="co"># - login and password for sample data is &quot;motus.sample&quot;</span></span>
-<span id="cb41-6"><a href="accessingData.html#cb41-6"></a><span class="co"># - if you are accessing already-downloaded data, use new = FALSE; if you don&#39;t</span></span>
-<span id="cb41-7"><a href="accessingData.html#cb41-7"></a><span class="co">#   want to update your data, also set update = FALSE</span></span>
-<span id="cb41-8"><a href="accessingData.html#cb41-8"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</span>
-<span id="cb41-9"><a href="accessingData.html#cb41-9"></a></span>
-<span id="cb41-10"><a href="accessingData.html#cb41-10"></a><span class="co"># access the &quot;alltags&quot; table within the SQLite file</span></span>
-<span id="cb41-11"><a href="accessingData.html#cb41-11"></a>tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)</span>
-<span id="cb41-12"><a href="accessingData.html#cb41-12"></a></span>
-<span id="cb41-13"><a href="accessingData.html#cb41-13"></a><span class="co"># convert &quot;tbl.alltags&quot; to a flat dataframe and change numeric time to a datetime object</span></span>
-<span id="cb41-14"><a href="accessingData.html#cb41-14"></a>df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></span>
-<span id="cb41-15"><a href="accessingData.html#cb41-15"></a><span class="st">              </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></span>
-<span id="cb41-16"><a href="accessingData.html#cb41-16"></a><span class="st">              </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span></span>
-<span id="cb41-17"><a href="accessingData.html#cb41-17"></a><span class="st">              </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="accessingData.html#cb55-1"></a><span class="co"># set proj.num to 176 for sample data</span></span>
+<span id="cb55-2"><a href="accessingData.html#cb55-2"></a>proj.num &lt;-<span class="st"> </span><span class="dv">176</span></span>
+<span id="cb55-3"><a href="accessingData.html#cb55-3"></a></span>
+<span id="cb55-4"><a href="accessingData.html#cb55-4"></a><span class="co"># - download and load detection data from the sample project and save in data folder</span></span>
+<span id="cb55-5"><a href="accessingData.html#cb55-5"></a><span class="co"># - login and password for sample data is &quot;motus.sample&quot;</span></span>
+<span id="cb55-6"><a href="accessingData.html#cb55-6"></a><span class="co"># - if you are accessing already-downloaded data, use new = FALSE; if you don&#39;t</span></span>
+<span id="cb55-7"><a href="accessingData.html#cb55-7"></a><span class="co">#   want to update your data, also set update = FALSE</span></span>
+<span id="cb55-8"><a href="accessingData.html#cb55-8"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(proj.num, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data/&quot;</span>)</span>
+<span id="cb55-9"><a href="accessingData.html#cb55-9"></a></span>
+<span id="cb55-10"><a href="accessingData.html#cb55-10"></a><span class="co"># access the &quot;alltags&quot; table within the SQLite file</span></span>
+<span id="cb55-11"><a href="accessingData.html#cb55-11"></a>tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltags&quot;</span>)</span>
+<span id="cb55-12"><a href="accessingData.html#cb55-12"></a></span>
+<span id="cb55-13"><a href="accessingData.html#cb55-13"></a><span class="co"># convert &quot;tbl.alltags&quot; to a flat dataframe and change numeric time to a datetime object</span></span>
+<span id="cb55-14"><a href="accessingData.html#cb55-14"></a>df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span></span>
+<span id="cb55-15"><a href="accessingData.html#cb55-15"></a><span class="st">              </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></span>
+<span id="cb55-16"><a href="accessingData.html#cb55-16"></a><span class="st">              </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span></span>
+<span id="cb55-17"><a href="accessingData.html#cb55-17"></a><span class="st">              </span><span class="kw">mutate</span>(<span class="dt">ts =</span> <span class="kw">as_datetime</span>(ts, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>, <span class="dt">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>))</span></code></pre></div>
 <p>For your own data we suggest creating a script with the following workflow:</p>
 <ol style="list-style-type: decimal">
 <li>download and/or update your data</li>
@@ -799,8 +838,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>We caution that producing a flat file using the full suite of fields can use a lot of memory, and can slow R down considerably when dealing with large datasets. For some combinations of data sets and computers, it may be impossible to directly use data frames in R. If that is the case, then this is the point in your workflow where you should carefully consider the information you need from within your data set (for example, how it is aggregated) and simplify it. You can always return to this script and creating a new RDS file with different variables, or aggregated at a different scale.</p>
 <p>To read in a saved RDS file you can run:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="accessingData.html#cb42-1"></a><span class="co"># reads in your file &quot;df.alltags.rds&quot; saved in the data folder</span></span>
-<span id="cb42-2"><a href="accessingData.html#cb42-2"></a>df.alltags.saved &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/df_alltags.rds&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="accessingData.html#cb56-1"></a><span class="co"># reads in your file &quot;df.alltags.rds&quot; saved in the data folder</span></span>
+<span id="cb56-2"><a href="accessingData.html#cb56-2"></a>df.alltags.saved &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/df_alltags.rds&quot;</span>) </span></code></pre></div>
 <p>In the next chapter we will check for missing metadata.</p>
 
 </div>

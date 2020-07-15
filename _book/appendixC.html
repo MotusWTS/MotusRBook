@@ -167,7 +167,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.4" data-path="accessingData.html"><a href="accessingData.html#downloading-multiple-receivers-at-the-same-time"><i class="fa fa-check"></i><b>3.5.4</b> Downloading multiple receivers at the same time</a></li>
 <li class="chapter" data-level="3.5.5" data-path="accessingData.html"><a href="accessingData.html#updating-all-.motus-files-within-a-directory"><i class="fa fa-check"></i><b>3.5.5</b> Updating all .motus files within a directory</a></li>
 <li class="chapter" data-level="3.5.6" data-path="accessingData.html"><a href="accessingData.html#accessSQL"><i class="fa fa-check"></i><b>3.5.6</b> Accessing downloaded detection data</a></li>
-<li class="chapter" data-level="3.5.7" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.5.7</b> Converting to flat file</a></li>
+<li class="chapter" data-level="3.5.7" data-path="accessingData.html"><a href="accessingData.html#addGPS"><i class="fa fa-check"></i><b>3.5.7</b> Adding GPS Data</a></li>
+<li class="chapter" data-level="3.5.8" data-path="accessingData.html"><a href="accessingData.html#convertToFlat"><i class="fa fa-check"></i><b>3.5.8</b> Converting to flat file</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="accessingData.html"><a href="accessingData.html#exportDetections"><i class="fa fa-check"></i><b>3.6</b> Export your ‘flat’ dataframe to CSV or RDS file</a></li>
 <li class="chapter" data-level="3.7" data-path="accessingData.html"><a href="accessingData.html#tagmeUpdate"><i class="fa fa-check"></i><b>3.7</b> Update and/or open an existing database</a></li>
@@ -209,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="dataCleaning.html"><a href="dataCleaning.html#preparing-the-data"><i class="fa fa-check"></i><b>5.5</b> Preparing the data</a><ul>
 <li class="chapter" data-level="5.5.1" data-path="dataCleaning.html"><a href="dataCleaning.html#label-detections-by-probability"><i class="fa fa-check"></i><b>5.5.1</b> Label detections by probability</a></li>
 <li class="chapter" data-level="5.5.2" data-path="dataCleaning.html"><a href="dataCleaning.html#clean-up"><i class="fa fa-check"></i><b>5.5.2</b> Clean up</a></li>
-<li class="chapter" data-level="5.5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#addGPS"><i class="fa fa-check"></i><b>5.5.3</b> Add GPS data</a></li>
+<li class="chapter" data-level="5.5.3" data-path="dataCleaning.html"><a href="dataCleaning.html#add-gps-data"><i class="fa fa-check"></i><b>5.5.3</b> Add GPS data</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="dataCleaning.html"><a href="dataCleaning.html#preliminary-data-checks"><i class="fa fa-check"></i><b>5.6</b> Preliminary data checks</a><ul>
 <li class="chapter" data-level="5.6.1" data-path="dataCleaning.html"><a href="dataCleaning.html#summarize-tag-detections"><i class="fa fa-check"></i><b>5.6.1</b> Summarize tag detections</a></li>
@@ -366,6 +367,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="D.6.3" data-path="appendixD.html"><a href="appendixD.html#examples"><i class="fa fa-check"></i><b>D.6.3</b> Examples</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="E" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html"><i class="fa fa-check"></i><b>E</b> Bird’s Eye View of Motus Data</a><ul>
+<li class="chapter" data-level="E.1" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#what-data-look-like"><i class="fa fa-check"></i><b>E.1</b> What data look like</a></li>
+<li class="chapter" data-level="E.2" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#false-positives"><i class="fa fa-check"></i><b>E.2</b> False positives</a></li>
+<li class="chapter" data-level="E.3" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#false-negatives"><i class="fa fa-check"></i><b>E.3</b> False negatives</a></li>
+<li class="chapter" data-level="E.4" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#complication-data-are-processed-in-batches"><i class="fa fa-check"></i><b>E.4</b> Complication: data are processed in batches</a></li>
+<li class="chapter" data-level="E.5" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#batches"><i class="fa fa-check"></i><b>E.5</b> Batches</a><ul>
+<li class="chapter" data-level="E.5.1" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#receiver-reboots"><i class="fa fa-check"></i><b>E.5.1</b> Receiver Reboots</a></li>
+<li class="chapter" data-level="E.5.2" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#incremental-distribution-of-data"><i class="fa fa-check"></i><b>E.5.2</b> Incremental Distribution of Data</a></li>
+</ul></li>
+<li class="chapter" data-level="E.6" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#reprocessing-data"><i class="fa fa-check"></i><b>E.6</b> Reprocessing Data</a></li>
+<li class="chapter" data-level="E.7" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#the-eventual-reprocessing-contract"><i class="fa fa-check"></i><b>E.7</b> The (eventual) Reprocessing Contract</a></li>
+<li class="chapter" data-level="E.8" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#reprocessing-simplified-only-by-boot-session"><i class="fa fa-check"></i><b>E.8</b> Reprocessing simplified: only by boot session</a></li>
+<li class="chapter" data-level="E.9" data-path="birds-eye-view-of-motus-data.html"><a href="birds-eye-view-of-motus-data.html#distributing-reprocessed-data"><i class="fa fa-check"></i><b>E.9</b> Distributing reprocessed data</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -386,19 +401,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="appendixC" class="section level1">
 <h1><span class="header-section-number">C</span> Appendix - <code>motus</code> - Summary and plotting functions</h1>
 <p>The <code>motus</code> R package offers functions that work with .motus data to do common computations, summaries and plots. This appendix outlines these functions and provides examples on function use. Many of these functions work with both <code>tbl</code> and <code>data.frame</code> formats, however some require the data to be in sql format as specified below. Detailed instructions on accessing and formatting data are available in Chapter <a href="accessingData.html#accessingData">3</a>. The examples throughout this chapter work with the sample data which can be accessed and converted to various formats through the following code:</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="appendixC.html#cb228-1"></a><span class="co"># download and access sample data in sql format</span></span>
-<span id="cb228-2"><a href="appendixC.html#cb228-2"></a><span class="co"># username: motus.sample, password: motus.sample</span></span>
-<span id="cb228-3"><a href="appendixC.html#cb228-3"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)</span>
-<span id="cb228-4"><a href="appendixC.html#cb228-4"></a></span>
-<span id="cb228-5"><a href="appendixC.html#cb228-5"></a><span class="co"># extract &quot;alltags&quot;&quot; table from sql file &quot;sql.motus&quot;</span></span>
-<span id="cb228-6"><a href="appendixC.html#cb228-6"></a>tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltagsGPS&quot;</span>) </span>
-<span id="cb228-7"><a href="appendixC.html#cb228-7"></a></span>
-<span id="cb228-8"><a href="appendixC.html#cb228-8"></a><span class="co">## convert the tbl &quot;tbl.alltags&quot; to a data.frame called &quot;df.alltags&quot;</span></span>
-<span id="cb228-9"><a href="appendixC.html#cb228-9"></a>df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb228-10"><a href="appendixC.html#cb228-10"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb228-11"><a href="appendixC.html#cb228-11"></a><span class="st">  </span><span class="kw">as.data.frame</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="appendixC.html#cb232-1"></a><span class="co"># download and access sample data in sql format</span></span>
+<span id="cb232-2"><a href="appendixC.html#cb232-2"></a><span class="co"># username: motus.sample, password: motus.sample</span></span>
+<span id="cb232-3"><a href="appendixC.html#cb232-3"></a>sql.motus &lt;-<span class="st"> </span><span class="kw">tagme</span>(<span class="dv">176</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>, <span class="dt">update =</span> <span class="ot">TRUE</span>, <span class="dt">dir =</span> <span class="st">&quot;./data&quot;</span>)</span>
+<span id="cb232-4"><a href="appendixC.html#cb232-4"></a></span>
+<span id="cb232-5"><a href="appendixC.html#cb232-5"></a><span class="co"># extract &quot;alltags&quot;&quot; table from sql file &quot;sql.motus&quot;</span></span>
+<span id="cb232-6"><a href="appendixC.html#cb232-6"></a>tbl.alltags &lt;-<span class="st"> </span><span class="kw">tbl</span>(sql.motus, <span class="st">&quot;alltagsGPS&quot;</span>) </span>
+<span id="cb232-7"><a href="appendixC.html#cb232-7"></a></span>
+<span id="cb232-8"><a href="appendixC.html#cb232-8"></a><span class="co">## convert the tbl &quot;tbl.alltags&quot; to a data.frame called &quot;df.alltags&quot;</span></span>
+<span id="cb232-9"><a href="appendixC.html#cb232-9"></a>df.alltags &lt;-<span class="st"> </span>tbl.alltags <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb232-10"><a href="appendixC.html#cb232-10"></a><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb232-11"><a href="appendixC.html#cb232-11"></a><span class="st">  </span><span class="kw">as.data.frame</span>()</span></code></pre></div>
 <p>You can access the function help pages using `?sunRiseSet in the R console. Or view the underlying function code like this:</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="appendixC.html#cb229-1"></a>sunRiseSet</span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="appendixC.html#cb233-1"></a>sunRiseSet</span></code></pre></div>
 <pre><code>## function (data, lat = &quot;recvDeployLat&quot;, lon = &quot;recvDeployLon&quot;, 
 ##     ts = &quot;ts&quot;) 
 ## {
@@ -431,7 +446,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="example" class="section level3">
 <h3><span class="header-section-number">C.1.3</span> Example</h3>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="appendixC.html#cb231-1"></a><span class="kw">checkVersion</span>(sql.motus)</span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="appendixC.html#cb235-1"></a><span class="kw">checkVersion</span>(sql.motus)</span></code></pre></div>
 </div>
 </div>
 <div id="sunRiseSet" class="section level2">
@@ -450,29 +465,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-1" class="section level3">
 <h3><span class="header-section-number">C.2.3</span> Example</h3>
 <p>Add sunrise/sunset variables to the <code>alltags</code> data.frame</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="appendixC.html#cb232-1"></a>alltags.df.sun &lt;-<span class="st"> </span><span class="kw">sunRiseSet</span>(df.alltags)</span>
-<span id="cb232-2"><a href="appendixC.html#cb232-2"></a><span class="kw">head</span>(alltags.df.sun)</span></code></pre></div>
-<pre><code>##    hitID runID batchID                  ts tsCorrected sig sigsd noise freq freqsd  slop burstSlop done motusTagID ambigID port runLen
-## 1  45107  8886      53 2015-10-26 11:19:49  1445858390  52     0   -96    4      0 1e-04    0.0000    1      16047      NA    3      5
-## 2  45108  8886      53 2015-10-26 11:20:28  1445858429  54     0   -96    4      0 1e-04   -0.0021    1      16047      NA    3      5
-## 3  45109  8886      53 2015-10-26 11:21:17  1445858477  55     0   -96    4      0 1e-04    0.0001    1      16047      NA    3      5
-## 4  45110  8886      53 2015-10-26 11:21:55  1445858516  52     0   -96    4      0 1e-04   -0.0010    1      16047      NA    3      5
-## 5  45111  8886      53 2015-10-26 11:22:44  1445858564  49     0   -96    4      0 1e-04    0.0001    1      16047      NA    3      5
-## 6 199885 23305      64 2015-10-26 11:12:04  1445857924  33     0   -96    4      0 1e-04    0.0000    1      16047      NA    1     11
-##   bootnum tagProjID mfgID tagType codeSet   mfg tagModel tagLifespan nomFreq  tagBI pulseLen tagDeployID speciesID markerNumber markerType
-## 1      11       176   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band
-## 2      11       176   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band
-## 3      11       176   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band
-## 4      11       176   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band
-## 5      11       176   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band
-## 6       4       176   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band
-##   tagDeployStart tagDeployEnd tagDepLat tagDepLon tagDepAlt
-## 1     1441908000   1457632800   51.4839    -80.45        NA
-## 2     1441908000   1457632800   51.4839    -80.45        NA
-## 3     1441908000   1457632800   51.4839    -80.45        NA
-## 4     1441908000   1457632800   51.4839    -80.45        NA
-## 5     1441908000   1457632800   51.4839    -80.45        NA
-## 6     1441908000   1457632800   51.4839    -80.45        NA
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="appendixC.html#cb236-1"></a>alltags.df.sun &lt;-<span class="st"> </span><span class="kw">sunRiseSet</span>(df.alltags)</span>
+<span id="cb236-2"><a href="appendixC.html#cb236-2"></a><span class="kw">head</span>(alltags.df.sun)</span></code></pre></div>
+<pre><code>##    hitID runID batchID                  ts tsCorrected sig sigsd noise freq freqsd  slop burstSlop done motusTagID ambigID port runLen bootnum tagProjID mfgID tagType
+## 1  45107  8886      53 2015-10-26 11:19:49  1445858390  52     0   -96    4      0 1e-04    0.0000    1      16047      NA    3      5      11       176   378      ID
+## 2  45108  8886      53 2015-10-26 11:20:28  1445858429  54     0   -96    4      0 1e-04   -0.0021    1      16047      NA    3      5      11       176   378      ID
+## 3  45109  8886      53 2015-10-26 11:21:17  1445858477  55     0   -96    4      0 1e-04    0.0001    1      16047      NA    3      5      11       176   378      ID
+## 4  45110  8886      53 2015-10-26 11:21:55  1445858516  52     0   -96    4      0 1e-04   -0.0010    1      16047      NA    3      5      11       176   378      ID
+## 5  45111  8886      53 2015-10-26 11:22:44  1445858564  49     0   -96    4      0 1e-04    0.0001    1      16047      NA    3      5      11       176   378      ID
+## 6 199885 23305      64 2015-10-26 11:12:04  1445857924  33     0   -96    4      0 1e-04    0.0000    1      16047      NA    1     11       4       176   378      ID
+##   codeSet   mfg tagModel tagLifespan nomFreq  tagBI pulseLen tagDeployID speciesID markerNumber markerType tagDeployStart tagDeployEnd tagDepLat tagDepLon tagDepAlt
+## 1  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band     1441908000   1457632800   51.4839    -80.45        NA
+## 2  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band     1441908000   1457632800   51.4839    -80.45        NA
+## 3  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band     1441908000   1457632800   51.4839    -80.45        NA
+## 4  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band     1441908000   1457632800   51.4839    -80.45        NA
+## 5  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band     1441908000   1457632800   51.4839    -80.45        NA
+## 6  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band     1441908000   1457632800   51.4839    -80.45        NA
 ##                                                                                                                                                                                                tagDepComments
 ## 1 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
 ## 2 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
@@ -480,27 +488,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
 ## 5 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
 ## 6 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
-##                               fullID deviceID recvDeployID recvDeployLat recvDeployLon recvDeployAlt      recv recvDeployName recvSiteName
-## 1 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
-## 2 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
-## 3 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
-## 4 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
-## 5 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
-## 6 SampleData#378:9.7@166.38(M.16047)      515         2512      42.68067     -72.47392            NA Lotek-164  BennettMeadow         &lt;NA&gt;
-##   isRecvMobile recvProjID recvUtcOffset antType antBearing antHeight speciesEN          speciesFR       speciesSci speciesGroup
-## 1            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS
-## 2            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS
-## 3            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS
-## 4            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS
-## 5            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS
-## 6            0         74            NA  yagi-9        243        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS
-##   tagProjName recvProjName gpsLat gpsLon gpsAlt             sunrise              sunset
-## 1  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49 2015-10-26 21:52:11
-## 2  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49 2015-10-26 21:52:11
-## 3  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49 2015-10-26 21:52:11
-## 4  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49 2015-10-26 21:52:11
-## 5  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49 2015-10-26 21:52:11
-## 6  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:15:58 2015-10-26 21:51:06</code></pre>
+##                               fullID deviceID recvDeployID recvDeployLat recvDeployLon recvDeployAlt      recv recvDeployName recvSiteName isRecvMobile recvProjID
+## 1 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;            0         74
+## 2 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;            0         74
+## 3 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;            0         74
+## 4 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;            0         74
+## 5 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;            0         74
+## 6 SampleData#378:9.7@166.38(M.16047)      515         2512      42.68067     -72.47392            NA Lotek-164  BennettMeadow         &lt;NA&gt;            0         74
+##   recvUtcOffset antType antBearing antHeight speciesEN          speciesFR       speciesSci speciesGroup tagProjName recvProjName gpsLat gpsLon gpsAlt
+## 1            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
+## 2            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
+## 3            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
+## 4            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
+## 5            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
+## 6            NA  yagi-9        243        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
+##               sunrise              sunset
+## 1 2015-10-26 11:16:49 2015-10-26 21:52:11
+## 2 2015-10-26 11:16:49 2015-10-26 21:52:11
+## 3 2015-10-26 11:16:49 2015-10-26 21:52:11
+## 4 2015-10-26 11:16:49 2015-10-26 21:52:11
+## 5 2015-10-26 11:16:49 2015-10-26 21:52:11
+## 6 2015-10-26 11:15:58 2015-10-26 21:51:06</code></pre>
 </div>
 </div>
 <div id="plotAllTagsCoord" class="section level2">
@@ -522,9 +530,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-2" class="section level3">
 <h3><span class="header-section-number">C.3.3</span> Example</h3>
 <p>Plot select tags from <code>tbl.alltags</code> with 3 tags per panel</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="appendixC.html#cb234-1"></a><span class="kw">plotAllTagsCoord</span>(</span>
-<span id="cb234-2"><a href="appendixC.html#cb234-2"></a>  <span class="kw">filter</span>(tbl.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">19129</span>, <span class="dv">16011</span>, <span class="dv">17357</span>, <span class="dv">16035</span>, <span class="dv">22897</span>, <span class="dv">23316</span>)), </span>
-<span id="cb234-3"><a href="appendixC.html#cb234-3"></a>  <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="appendixC.html#cb238-1"></a><span class="kw">plotAllTagsCoord</span>(</span>
+<span id="cb238-2"><a href="appendixC.html#cb238-2"></a>  <span class="kw">filter</span>(tbl.alltags, motusTagID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">19129</span>, <span class="dv">16011</span>, <span class="dv">17357</span>, <span class="dv">16035</span>, <span class="dv">22897</span>, <span class="dv">23316</span>)), </span>
+<span id="cb238-3"><a href="appendixC.html#cb238-3"></a>  <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotAllTagsCoord-1.png" width="672" /></p>
 </div>
 </div>
@@ -547,9 +555,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-3" class="section level3">
 <h3><span class="header-section-number">C.4.3</span> Example</h3>
 <p>Plot tbl file <code>tbl.alltags</code> using gpsLat and 3 tags per panel for select species Red Knot</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="appendixC.html#cb235-1"></a><span class="kw">plotAllTagsSite</span>(<span class="kw">filter</span>(tbl.alltags, speciesEN <span class="op">==</span><span class="st"> &quot;Red Knot&quot;</span>), </span>
-<span id="cb235-2"><a href="appendixC.html#cb235-2"></a>                <span class="dt">coordinate =</span> <span class="st">&quot;recvDeployLat&quot;</span>, </span>
-<span id="cb235-3"><a href="appendixC.html#cb235-3"></a>                <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="appendixC.html#cb239-1"></a><span class="kw">plotAllTagsSite</span>(<span class="kw">filter</span>(tbl.alltags, speciesEN <span class="op">==</span><span class="st"> &quot;Red Knot&quot;</span>), </span>
+<span id="cb239-2"><a href="appendixC.html#cb239-2"></a>                <span class="dt">coordinate =</span> <span class="st">&quot;recvDeployLat&quot;</span>, </span>
+<span id="cb239-3"><a href="appendixC.html#cb239-3"></a>                <span class="dt">tagsPerPanel =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotAllTagsSite-1.png" width="672" /></p>
 </div>
 </div>
@@ -570,7 +578,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-4" class="section level3">
 <h3><span class="header-section-number">C.5.3</span> Example</h3>
 <p>Plot of all tag detections at site Longridge using data.frame <code>df.alltags</code></p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="appendixC.html#cb236-1"></a><span class="kw">plotDailySiteSum</span>(df.alltags, <span class="dt">recvDeployName =</span> <span class="st">&quot;Longridge&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="appendixC.html#cb240-1"></a><span class="kw">plotDailySiteSum</span>(df.alltags, <span class="dt">recvDeployName =</span> <span class="st">&quot;Longridge&quot;</span>)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotDailySiteSum-1.png" width="672" /></p>
 </div>
 </div>
@@ -591,13 +599,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-5" class="section level3">
 <h3><span class="header-section-number">C.6.2</span> Example</h3>
 <p>Plot routemap of all detection data, with “terrain” maptype, and receivers active between 2016-01-01 and 2017-01-01</p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="appendixC.html#cb237-1"></a><span class="kw">plotRouteMap</span>(sql.motus, </span>
-<span id="cb237-2"><a href="appendixC.html#cb237-2"></a>             <span class="dt">maptype =</span> <span class="st">&quot;terrain&quot;</span>,</span>
-<span id="cb237-3"><a href="appendixC.html#cb237-3"></a>             <span class="dt">recvStart =</span> <span class="st">&quot;2016-01-01&quot;</span>, <span class="dt">recvEnd =</span> <span class="st">&quot;2016-12-31&quot;</span>)</span></code></pre></div>
-<pre><code>## Source : http://tile.stamen.com/terrain/3/1/2.png</code></pre>
-<pre><code>## Source : http://tile.stamen.com/terrain/3/2/2.png</code></pre>
-<pre><code>## Source : http://tile.stamen.com/terrain/3/1/3.png</code></pre>
-<pre><code>## Source : http://tile.stamen.com/terrain/3/2/3.png</code></pre>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="appendixC.html#cb241-1"></a><span class="kw">plotRouteMap</span>(sql.motus, </span>
+<span id="cb241-2"><a href="appendixC.html#cb241-2"></a>             <span class="dt">maptype =</span> <span class="st">&quot;terrain&quot;</span>,</span>
+<span id="cb241-3"><a href="appendixC.html#cb241-3"></a>             <span class="dt">recvStart =</span> <span class="st">&quot;2016-01-01&quot;</span>, <span class="dt">recvEnd =</span> <span class="st">&quot;2016-12-31&quot;</span>)</span></code></pre></div>
 <p><img src="MotusRBook_files/figure-html/plotRouteMap-1.png" width="672" /></p>
 </div>
 </div>
@@ -687,13 +691,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To get a data.frame called <code>simSites</code> of just simultaneous detections from a data.frame <code>df.alltags</code></p>
 <div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="appendixC.html#cb245-1"></a>simSites &lt;-<span class="st"> </span><span class="kw">simSiteDet</span>(df.alltags)</span>
 <span id="cb245-2"><a href="appendixC.html#cb245-2"></a><span class="kw">head</span>(simSites)</span></code></pre></div>
-<pre><code>##  [1] motusTagID     ts             num.dup        hitID          runID          batchID        tsCorrected    sig            sigsd         
-## [10] noise          freq           freqsd         slop           burstSlop      done           ambigID        port           runLen        
-## [19] bootnum        tagProjID      mfgID          tagType        codeSet        mfg            tagModel       tagLifespan    nomFreq       
-## [28] tagBI          pulseLen       tagDeployID    speciesID      markerNumber   markerType     tagDeployStart tagDeployEnd   tagDepLat     
-## [37] tagDepLon      tagDepAlt      tagDepComments fullID         deviceID       recvDeployID   recvDeployLat  recvDeployLon  recvDeployAlt 
-## [46] recv           recvDeployName recvSiteName   isRecvMobile   recvProjID     recvUtcOffset  antType        antBearing     antHeight     
-## [55] speciesEN      speciesFR      speciesSci     speciesGroup   tagProjName    recvProjName   gpsLat         gpsLon         gpsAlt        
+<pre><code>##  [1] motusTagID     ts             num.dup        hitID          runID          batchID        tsCorrected    sig            sigsd          noise         
+## [11] freq           freqsd         slop           burstSlop      done           ambigID        port           runLen         bootnum        tagProjID     
+## [21] mfgID          tagType        codeSet        mfg            tagModel       tagLifespan    nomFreq        tagBI          pulseLen       tagDeployID   
+## [31] speciesID      markerNumber   markerType     tagDeployStart tagDeployEnd   tagDepLat      tagDepLon      tagDepAlt      tagDepComments fullID        
+## [41] deviceID       recvDeployID   recvDeployLat  recvDeployLon  recvDeployAlt  recv           recvDeployName recvSiteName   isRecvMobile   recvProjID    
+## [51] recvUtcOffset  antType        antBearing     antHeight      speciesEN      speciesFR      speciesSci     speciesGroup   tagProjName    recvProjName  
+## [61] gpsLat         gpsLon         gpsAlt        
 ## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
 </div>
 </div>
@@ -783,15 +787,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb252-3"><a href="appendixC.html#cb252-3"></a><span class="kw">head</span>(transitions)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 16
 ## # Groups:   motusTagID, tagDeployID [1]
-##   motusTagID tagDeployID data  consec ts.x                lat.x lon.x recvDeployName.x ts.y                lat.y lon.y recvDeployName.y
-##        &lt;int&gt;       &lt;int&gt; &lt;lis&gt; &lt;list&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;            &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;           
-## 1      16037        1825 &lt;tib… &lt;tibb… 2015-08-17 17:02:39  NA    NA   NP mobile_NA, NA 2015-08-23 15:13:57  51.5 -80.4 North Bluff_51.…
-## 2      16037        1825 &lt;tib… &lt;tibb… 2015-08-28 16:40:18  51.5 -80.4 North Bluff_51.… 2015-08-30 01:36:08  51.3 -80.1 Netitishi_51.3,…
-## 3      16037        1825 &lt;tib… &lt;tibb… 2015-09-08 01:10:13  51.3 -80.1 Netitishi_51.3,… 2015-09-08 18:29:57  44.6 -65.8 Comeau (Marshal…
-## 4      16037        1825 &lt;tib… &lt;tibb… 2015-09-08 18:37:16  44.6 -65.8 Comeau (Marshal… 2015-09-13 15:36:30  39.0 -74.8 NWW_39, -74.8   
-## 5      16037        1825 &lt;tib… &lt;tibb… 2015-09-13 19:46:27  39.0 -74.8 NWW_39, -74.8    2015-09-14 15:55:48  37.1 -76.0 BULL_37.1, -76  
-## 6      16037        1825 &lt;tib… &lt;tibb… 2015-09-14 15:56:49  37.1 -76.0 BULL_37.1, -76   2015-10-15 11:14:46  42.6 -80.4 Old Cut_42.6, -…
-## # … with 4 more variables: tot_ts &lt;drtn&gt;, dist &lt;dbl&gt;, rate &lt;dbl&gt;, bearing &lt;dbl&gt;</code></pre>
+##   motusTagID tagDeployID data   consec  ts.x                lat.x lon.x recvDeployName.x ts.y                lat.y lon.y recvDeployName.y tot_ts    dist   rate bearing
+##        &lt;int&gt;       &lt;int&gt; &lt;list&gt; &lt;list&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;            &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;            &lt;drtn&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+## 1      16037        1825 &lt;tibb… &lt;tibbl… 2015-08-17 17:02:39  NA    NA   NP mobile_NA, NA 2015-08-23 15:13:57  51.5 -80.4 North Bluff_51.…  5118… NA      NA        NA  
+## 2      16037        1825 &lt;tibb… &lt;tibbl… 2015-08-28 16:40:18  51.5 -80.4 North Bluff_51.… 2015-08-30 01:36:08  51.3 -80.1 Netitishi_51.3,…  1185…  3.16e4  0.266   133. 
+## 3      16037        1825 &lt;tibb… &lt;tibbl… 2015-09-08 01:10:13  51.3 -80.1 Netitishi_51.3,… 2015-09-08 18:29:57  44.6 -65.8 Comeau (Marshal…   623…  1.30e6 20.9     119. 
+## 4      16037        1825 &lt;tibb… &lt;tibbl… 2015-09-08 18:37:16  44.6 -65.8 Comeau (Marshal… 2015-09-13 15:36:30  39.0 -74.8 NWW_39, -74.8     4211…  9.69e5  2.30   -126. 
+## 5      16037        1825 &lt;tibb… &lt;tibbl… 2015-09-13 19:46:27  39.0 -74.8 NWW_39, -74.8    2015-09-14 15:55:48  37.1 -76.0 BULL_37.1, -76     725…  2.32e5  3.19   -154. 
+## 6      16037        1825 &lt;tibb… &lt;tibbl… 2015-09-14 15:56:49  37.1 -76.0 BULL_37.1, -76   2015-10-15 11:14:46  42.6 -80.4 Old Cut_42.6, -… 26614…  7.13e5  0.268   -30.8</code></pre>
 </div>
 </div>
 <div id="tagSum" class="section level2">
@@ -815,20 +818,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Create tag summary for all tags within detection data using tbl file <code>tbl.alltags</code></p>
 <div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="appendixC.html#cb254-1"></a>tag_summary &lt;-<span class="st"> </span><span class="kw">tagSum</span>(tbl.alltags)</span>
 <span id="cb254-2"><a href="appendixC.html#cb254-2"></a><span class="kw">head</span>(tag_summary)</span></code></pre></div>
-<pre><code>##                               fullID            first_ts             last_ts              first_site               last_site recvLat.x
-## 1      Niles#152:6.1@166.38(M.10811) 2015-08-03 06:37:11 2015-08-03 06:37:35 North Bluff_51.5, -80.5 North Bluff_51.5, -80.5   51.4839
-## 2                   ?proj?-0#395:9.7 2015-07-23 10:10:54 2015-09-02 20:06:13     Machias_44.5, -67.1     Ruby&#39;s_62.9, -143.7   44.5023
-## 3      Selva#172:6.1@166.38(M.17021) 2015-09-02 04:06:07 2015-09-03 00:27:16   Netitishi_51.3, -80.1           MDR_44, -68.1   51.2913
-## 4 SampleData#152:6.1@166.38(M.16011) 2015-08-03 06:37:11 2015-09-18 09:37:39 North Bluff_51.5, -80.5           NWW_39, -74.8   51.4839
-## 5 SampleData#395:9.7@166.38(M.16052) 2015-09-12 17:38:04 2015-10-20 20:43:43   Longridge_51.8, -80.7    Mount Thom_45.6, -63   51.8231
-## 6 SampleData#179:6.1@166.38(M.16037) 2015-08-17 17:01:38 2015-11-02 13:21:42        NP mobile_NA, NA Hillman_Marsh_42, -82.5        NA
-##   recvLon.x recvLat.y  recvLon.y           tot_ts    dist       rate    bearing num_det
-## 1  -80.4500  51.48390  -80.45000      24.386 secs       0  0.0000000 -180.00000       4
-## 2  -67.1018  62.89072 -143.68170 3578118.674 secs 5087724  1.4218993  -38.36268      12
-## 3  -80.1168  43.96893  -68.12830   73268.958 secs 1211577 16.5360200  127.53144     279
-## 4  -80.4500  39.02827  -74.81004 3985228.228 secs 1452237  0.3644051  160.20437     127
-## 5  -80.6912  45.55480  -62.98590 3294338.784 secs 1472844  0.4470832  111.25011     147
-## 6        NA  42.04270  -82.51440 6639604.044 secs      NA         NA         NA    1353</code></pre>
+<pre><code>##                               fullID            first_ts             last_ts              first_site               last_site recvLat.x recvLon.x recvLat.y  recvLon.y
+## 1      Niles#152:6.1@166.38(M.10811) 2015-08-03 06:37:11 2015-08-03 06:37:35 North Bluff_51.5, -80.5 North Bluff_51.5, -80.5   51.4839  -80.4500  51.48390  -80.45000
+## 2                   ?proj?-0#395:9.7 2015-07-23 10:10:54 2015-09-02 20:06:13     Machias_44.5, -67.1     Ruby&#39;s_62.9, -143.7   44.5023  -67.1018  62.89072 -143.68170
+## 3      Selva#172:6.1@166.38(M.17021) 2015-09-02 04:06:07 2015-09-03 00:27:16   Netitishi_51.3, -80.1           MDR_44, -68.1   51.2913  -80.1168  43.96893  -68.12830
+## 4 SampleData#152:6.1@166.38(M.16011) 2015-08-03 06:37:11 2015-09-18 09:37:39 North Bluff_51.5, -80.5           NWW_39, -74.8   51.4839  -80.4500  39.02827  -74.81004
+## 5 SampleData#395:9.7@166.38(M.16052) 2015-09-12 17:38:04 2015-10-20 20:43:43   Longridge_51.8, -80.7    Mount Thom_45.6, -63   51.8231  -80.6912  45.55480  -62.98590
+## 6 SampleData#179:6.1@166.38(M.16037) 2015-08-17 17:01:38 2015-11-02 13:21:42        NP mobile_NA, NA Hillman_Marsh_42, -82.5        NA        NA  42.04270  -82.51440
+##             tot_ts    dist       rate    bearing num_det
+## 1      24.386 secs       0  0.0000000 -180.00000       4
+## 2 3578118.674 secs 5087724  1.4218993  -38.36268      12
+## 3   73268.958 secs 1211577 16.5360200  127.53144     279
+## 4 3985228.228 secs 1452237  0.3644051  160.20437     127
+## 5 3294338.784 secs 1472844  0.4470832  111.25011     147
+## 6 6639604.044 secs      NA         NA         NA    1353</code></pre>
 </div>
 </div>
 <div id="tagSumSite" class="section level2">
@@ -879,27 +882,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Get sunrise and sunset information with units in minutes using tbl file <code>tbl.alltags</code></p>
 <div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="appendixC.html#cb258-1"></a>sunrise &lt;-<span class="st"> </span><span class="kw">timeToSunriset</span>(tbl.alltags, <span class="dt">units =</span> <span class="st">&quot;mins&quot;</span>)</span>
 <span id="cb258-2"><a href="appendixC.html#cb258-2"></a><span class="kw">head</span>(sunrise)</span></code></pre></div>
-<pre><code>##    hitID runID batchID                  ts tsCorrected sig sigsd noise freq freqsd  slop burstSlop done motusTagID ambigID port runLen
-## 1  45107  8886      53 2015-10-26 11:19:49  1445858390  52     0   -96    4      0 1e-04    0.0000    1      16047      NA    3      5
-## 2  45108  8886      53 2015-10-26 11:20:28  1445858429  54     0   -96    4      0 1e-04   -0.0021    1      16047      NA    3      5
-## 3  45109  8886      53 2015-10-26 11:21:17  1445858477  55     0   -96    4      0 1e-04    0.0001    1      16047      NA    3      5
-## 4  45110  8886      53 2015-10-26 11:21:55  1445858516  52     0   -96    4      0 1e-04   -0.0010    1      16047      NA    3      5
-## 5  45111  8886      53 2015-10-26 11:22:44  1445858564  49     0   -96    4      0 1e-04    0.0001    1      16047      NA    3      5
-## 6 199885 23305      64 2015-10-26 11:12:04  1445857924  33     0   -96    4      0 1e-04    0.0000    1      16047      NA    1     11
-##   bootnum tagProjID mfgID tagType codeSet   mfg tagModel tagLifespan nomFreq  tagBI pulseLen tagDeployID speciesID markerNumber markerType
-## 1      11       176   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band
-## 2      11       176   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band
-## 3      11       176   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band
-## 4      11       176   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band
-## 5      11       176   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band
-## 6       4       176   378      ID  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band
-##   tagDeployStart tagDeployEnd tagDepLat tagDepLon tagDepAlt
-## 1     1441908000   1457632800   51.4839    -80.45        NA
-## 2     1441908000   1457632800   51.4839    -80.45        NA
-## 3     1441908000   1457632800   51.4839    -80.45        NA
-## 4     1441908000   1457632800   51.4839    -80.45        NA
-## 5     1441908000   1457632800   51.4839    -80.45        NA
-## 6     1441908000   1457632800   51.4839    -80.45        NA
+<pre><code>##    hitID runID batchID                  ts tsCorrected sig sigsd noise freq freqsd  slop burstSlop done motusTagID ambigID port runLen bootnum tagProjID mfgID tagType
+## 1  45107  8886      53 2015-10-26 11:19:49  1445858390  52     0   -96    4      0 1e-04    0.0000    1      16047      NA    3      5      11       176   378      ID
+## 2  45108  8886      53 2015-10-26 11:20:28  1445858429  54     0   -96    4      0 1e-04   -0.0021    1      16047      NA    3      5      11       176   378      ID
+## 3  45109  8886      53 2015-10-26 11:21:17  1445858477  55     0   -96    4      0 1e-04    0.0001    1      16047      NA    3      5      11       176   378      ID
+## 4  45110  8886      53 2015-10-26 11:21:55  1445858516  52     0   -96    4      0 1e-04   -0.0010    1      16047      NA    3      5      11       176   378      ID
+## 5  45111  8886      53 2015-10-26 11:22:44  1445858564  49     0   -96    4      0 1e-04    0.0001    1      16047      NA    3      5      11       176   378      ID
+## 6 199885 23305      64 2015-10-26 11:12:04  1445857924  33     0   -96    4      0 1e-04    0.0000    1      16047      NA    1     11       4       176   378      ID
+##   codeSet   mfg tagModel tagLifespan nomFreq  tagBI pulseLen tagDeployID speciesID markerNumber markerType tagDeployStart tagDeployEnd tagDepLat tagDepLon tagDepAlt
+## 1  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band     1441908000   1457632800   51.4839    -80.45        NA
+## 2  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band     1441908000   1457632800   51.4839    -80.45        NA
+## 3  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band     1441908000   1457632800   51.4839    -80.45        NA
+## 4  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band     1441908000   1457632800   51.4839    -80.45        NA
+## 5  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band     1441908000   1457632800   51.4839    -80.45        NA
+## 6  Lotek4 Lotek NTQB-3-2          NA  166.38 9.6971      2.5        1839      4670    135268103 metal band     1441908000   1457632800   51.4839    -80.45        NA
 ##                                                                                                                                                                                                tagDepComments
 ## 1 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
 ## 2 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
@@ -907,27 +903,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
 ## 5 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
 ## 6 {&quot;ageID&quot;:&quot;HY&quot;,&quot;bill&quot;:36.5,&quot;blood&quot;:&quot;Y&quot;,&quot;country&quot;:&quot;Canada&quot;,&quot;culmen&quot;:36.5,&quot;fatScore&quot;:3,&quot;locationID&quot;:&quot;NorthPoint_net&quot;,&quot;province&quot;:&quot;Ontario&quot;,&quot;sexID&quot;:&quot;U&quot;,&quot;tarsus&quot;:33.3,&quot;weight&quot;:137.8,&quot;wing&quot;:162,&quot;comments&quot;:null}
-##                               fullID deviceID recvDeployID recvDeployLat recvDeployLon recvDeployAlt      recv recvDeployName recvSiteName
-## 1 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
-## 2 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
-## 3 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
-## 4 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
-## 5 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;
-## 6 SampleData#378:9.7@166.38(M.16047)      515         2512      42.68067     -72.47392            NA Lotek-164  BennettMeadow         &lt;NA&gt;
-##   isRecvMobile recvProjID recvUtcOffset antType antBearing antHeight speciesEN          speciesFR       speciesSci speciesGroup
-## 1            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS
-## 2            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS
-## 3            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS
-## 4            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS
-## 5            0         74            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS
-## 6            0         74            NA  yagi-9        243        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS
-##   tagProjName recvProjName gpsLat gpsLon gpsAlt             sunrise              sunset ts_to_set ts_since_set  ts_to_rise ts_since_rise
-## 1  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49 2015-10-26 21:52:11  632.3533     806.2056 1438.215974      3.013824
-## 2  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49 2015-10-26 21:52:11  631.7104     806.8485 1437.573097      3.656701
-## 3  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49 2015-10-26 21:52:11  630.9109     807.6480 1436.773577      4.456221
-## 4  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49 2015-10-26 21:52:11  630.2513     808.3076 1436.113997      5.115801
-## 5  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:16:49 2015-10-26 21:52:11  629.4518     809.1071 1435.314477      5.915321
-## 6  SampleData         &lt;NA&gt;     NA     NA     NA 2015-10-26 11:15:58 2015-10-26 21:51:06  639.0310     799.5242    3.896393   1437.332308</code></pre>
+##                               fullID deviceID recvDeployID recvDeployLat recvDeployLon recvDeployAlt      recv recvDeployName recvSiteName isRecvMobile recvProjID
+## 1 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;            0         74
+## 2 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;            0         74
+## 3 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;            0         74
+## 4 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;            0         74
+## 5 SampleData#378:9.7@166.38(M.16047)      486         2510      42.60699     -72.71657            NA Lotek-159      Shelburne         &lt;NA&gt;            0         74
+## 6 SampleData#378:9.7@166.38(M.16047)      515         2512      42.68067     -72.47392            NA Lotek-164  BennettMeadow         &lt;NA&gt;            0         74
+##   recvUtcOffset antType antBearing antHeight speciesEN          speciesFR       speciesSci speciesGroup tagProjName recvProjName gpsLat gpsLon gpsAlt
+## 1            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
+## 2            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
+## 3            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
+## 4            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
+## 5            NA  yagi-9        127        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
+## 6            NA  yagi-9        243        NA  Red Knot Bécasseau maubèche Calidris canutus        BIRDS  SampleData         &lt;NA&gt;     NA     NA     NA
+##               sunrise              sunset ts_to_set ts_since_set  ts_to_rise ts_since_rise
+## 1 2015-10-26 11:16:49 2015-10-26 21:52:11  632.3533     806.2056 1438.215974      3.013824
+## 2 2015-10-26 11:16:49 2015-10-26 21:52:11  631.7104     806.8485 1437.573097      3.656701
+## 3 2015-10-26 11:16:49 2015-10-26 21:52:11  630.9109     807.6480 1436.773577      4.456221
+## 4 2015-10-26 11:16:49 2015-10-26 21:52:11  630.2513     808.3076 1436.113997      5.115801
+## 5 2015-10-26 11:16:49 2015-10-26 21:52:11  629.4518     809.1071 1435.314477      5.915321
+## 6 2015-10-26 11:15:58 2015-10-26 21:51:06  639.0310     799.5242    3.896393   1437.332308</code></pre>
 
 </div>
 </div>
