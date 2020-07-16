@@ -262,7 +262,8 @@ dbListTables(file.name)
 dbListFields(file.name, "species") 
 ```
 
-The *virtual* table `alltags` contains the detection data, along with most metadata variables that users need from the various underlying .motus tables. We access the tables using the `tbl()` function from the `dplyr` package which we installed in Chapter 2:  
+The *virtual* table `alltags` contains the detection data, along with all metadata variables that most users will ever need from the various underlying .motus tables (but now excludes GPS data).
+We access the tables using the `tbl()` function from the dplyr package which we installed in Chapter 2:  
 
 ```{r getAllTagsTable, eval = TRUE}
 # this retrieves the "alltags" table from the "sql.motus" SQLite file we read in earlier
