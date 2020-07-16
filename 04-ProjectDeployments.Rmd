@@ -1,9 +1,11 @@
 # Tag and Receiver Deployments {#deployments}
 
+*This chapter was contributed by Tara L. Crewe, Zoe Crysler, and Philip Taylor.*
+
 ```{r tidyr4, echo = FALSE, message = FALSE, warning = FALSE}
 
 library(knitr)
-opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = FALSE)
 
 ```
 
@@ -15,22 +17,22 @@ We use the James Bay Shorebird Project sample dataset throughout this chapter (s
 
 ## Load relevant R packages and set working environment
 
-Before we begin working with data, we need to load the required packages for this chapter. If you have not yet installed these packages (from github and CRAN) then please return to Chapter \@ref(loadingPackages) and do so.
+Before we begin working with data, we need to load the required packages for this chapter. If you have not yet installed these packages (from GitHub or CRAN) then please return to Chapter \@ref(loadingPackages) and do so.
 
-```{r loadPackages.4, eval = FALSE, warning = FALSE, message = FALSE}
+```{r loadPackages.4, eval = TRUE, warning = FALSE, message = FALSE}
 
 library(tidyverse)
-library(tidyr)
 library(motus)
+library(lubridate)
 
-# Set the system environment time zone to GMT (to ensure that you are always working in GMT)
-Sys.setenv(TZ="GMT")
+# Set the system environment time zone to UTC (to ensure that you are always working in UTC)
+Sys.setenv(TZ = "UTC")
 
 ```
 
 ## Load .motus file
 
-This chapter assumes that the .motus file has already been downloaded, if you have not done so please return to Chapter \@ref(accessingData) for instructions on how to do so. To update and load the existing file into R, use tagme(), you may have to login as described in the previous chapter with username **and** password 'motus.sample'
+This chapter assumes that the .motus file has already been downloaded, if you have not done so please return to Chapter \@ref(accessingData) for instructions on how to do so. To update and load the existing file into R, use `tagme()`, you may have to login as described in the previous chapter with username **and** password 'motus.sample'
 
 ```{r loadDetections, eval = FALSE}
 
@@ -44,17 +46,17 @@ sql.motus <- tagme(proj.num, update = TRUE, dir = "./data")
 
 In your .motus file, when using the tagme function, you are only provided with the metadata for any tags from your project with detections along with metadata for associated ambiguous tags from other projects, and receiver metadata for stations where your tags were detected.  Here we will:
 
-1. download full tag metadata for our project only;  
-2. determine how many tags are registered to your project;  
-3. determine how many of those registered tags were deployed;  
-4. determine location of tag deployments;  
-5. determine completeness and accuracy of tag deployment metadata.  
+1. download full tag metadata for our project only
+2. determine how many tags are registered to your project
+3. determine how many of those registered tags were deployed 
+4. determine location of tag deployments
+5. determine completeness and accuracy of tag deployment metadata
 
 We will run through each of these in sequence.
 
 ### Download full project tag metadata 
 
-Incomplete metadata or missing tag registrations can result in missing detection data. We therefore want to assess the completeness of all tags registered to our projects - not just tags for which we have detections. In order to to this we will use the metadata() function for project 176, described in more detail in section \@ref(metadata).
+Incomplete metadata or missing tag registrations can result in missing detection data. We therefore want to assess the completeness of all tags registered to our projects - not just tags for which we have detections. In order to to this we will use the `metadata()` function for project 176, described in more detail in section \@ref(metadata).
 
 ```{r metadata176, eval = FALSE}
 
@@ -64,19 +66,19 @@ metadata(sql.motus, projectIDs = proj.num)
 
 ### Number of registered tags
 
-Now that we have complete tag metadata for our project, we can check the number of tags registered by loading the 'tags' table in the .motus file. The 'tags' table contains the metadata of each registered tag, including a unique tagID and information on manufacturer, model, nominal and offset frequency, burst interval, and pulse length. The 'tags' table does not include deployment information. We select the metadata specific to the James Bay Shorebird Project, and ignore tag metadata associated with any duplicate tags belonging to other projects:
+Now that we have complete tag metadata for our project, we can check the number of tags registered by loading the `tags` table in the .motus file. The `tags` table contains the metadata of each registered tag, including a unique tagID and information on manufacturer, model, nominal and offset frequency, burst interval, and pulse length. The `tags` table does not include deployment information. We select the metadata specific to the James Bay Shorebird Project, and ignore tag metadata associated with any duplicate tags belonging to other projects:
 
 ```{r importTags, message = FALSE, warning = FALSE}
 
 tbl.tags <- tbl(sql.motus, "tags") 
 df.tags <- tbl.tags %>%
-                filter(projectID == proj.num) %>%
-                collect() %>%
-                as.data.frame()
+  filter(projectID == proj.num) %>%
+  collect() %>%
+  as.data.frame()
 
 ```
 
-The number of rows in the 'df.tags' database is equivalent to the number of tags registered to the James Bay Shorebird Project in the sample dataset (i.e., 18 tags):
+The number of rows in the `df.tags` database is equivalent to the number of tags registered to the James Bay Shorebird Project in the sample dataset (i.e., 18 tags):
 
 ```{r nRegisteredTags}
 
@@ -92,17 +94,18 @@ If you are missing registered tags, please follow the instructions at <https://m
 
 ### Number of registered tags that were deployed
 
-The tag deployment metadata table ('tagDeps') in the .motus file is required to check which registered tags have deployments. This file includes the date, time, species, and location of tag deployment. The database is subset to project '176', and we use the anti_join function to determine which registered tags have (or do not have) corresponding deployment information.
+The tag deployment metadata table (`tagDeps`) in the .motus file is required to check which registered tags have deployments. This file includes the date, time, species, and location of tag deployment. The database is subset to project '176', and we use the `anti_join()` function to determine which registered tags have (or do not have) corresponding deployment information.
 
 ```{r importTagMeta.4, message = FALSE, warning = FALSE}
 
 tbl.tagDeps <- tbl(sql.motus, "tagDeps") 
+
 df.tagDeps <- tbl.tagDeps %>%
-                filter(projectID == proj.num) %>%
-                collect() %>%
-                as.data.frame() %>% # once in df format, can format dates with lubridate
-                mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
-                       tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01")) 
+  filter(projectID == proj.num) %>%
+  collect() %>%
+  as.data.frame() %>% # once in df format, can format dates with lubridate
+  mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
+         tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01")) 
 
 anti_join(df.tags, df.tagDeps, by = "tagID") 
 
@@ -114,9 +117,9 @@ In the sample data, there are no registered tags without deployment metadata, wh
 
 A tag might be deployed more than once, for example, if a previously deployed tag was recovered, and then later re-deployed on another individual. When tags are deployed more than once, the detections data should be considered independently for each deployment. 
 
-Throughout this book we use the 'motusTagID' as a unique identifier for a deployment. However, when a tag is deployed more than once, the 'motusTagID' will remain consistent between deployments, and we instead need to use the 'tagDeployID', or combination of 'motusTagID' and 'tagDeployID' to distinguish which detections belong to which deployment. 
+Throughout this book we use the `motusTagID` as a unique identifier for a deployment. However, when a tag is deployed more than once, the `motusTagID` will remain consistent between deployments, and we instead need to use the `tagDeployID`, or combination of `motusTagID` and `tagDeployID` to distinguish which detections belong to which deployment. 
 
-Here, we check whether there are any tags with more than one deployment in the sample data (there are none), and then show you how to make a combined tagID/deployID variable to use in place of the 'motusTagID' if you have multiple deployments of a tag in your own data:
+Here, we check whether there are any tags with more than one deployment in the sample data (there are none), and then show you how to make a combined tagID/deployID variable to use in place of the `motusTagID` if you have multiple deployments of a tag in your own data:
 
 ```{r CheckMultipleDeploy}
 
@@ -130,7 +133,7 @@ df.alltags %>%
 
 ```
 
-If you do have multiple deployments for a tag, we recommend creating a 'motusTagDepID' to use in place of the 'motusTagID' to define unique deployments of a tag. Moving forward, you would use 'motusTagDepID' in place of 'motusTagID' as you work through the rest of the book:
+If you do have multiple deployments for a tag, we recommend creating a `motusTagDepID` to use in place of the `motusTagID` to define unique deployments of a tag. Moving forward, you would use `motusTagDepID` in place of `motusTagID` as you work through the rest of the book:
 
 ```{r createMotusTagDepID}
 
@@ -149,16 +152,16 @@ df.tagDeps <- df.tagDeps %>%
 
 ### Location of tag deployments
 
-Creating a map of your tag deployments can point out any obvious errors in the tag deployment latitude or longitude that weren't captured by the online metadata message center queries.
+Creating a map of your tag deployments can point out any obvious errors in the tag deployment latitude or longitude that weren't captured by the online metadata message centre queries.
 
 **a. Load base map files**
 
-Load base map files from the rworldmap package:
+Load base map files from the `rworldmap` package:
 
 ```{r loadMapsRecv1DUP, eval = FALSE, message = FALSE, warning = FALSE}
 
 na.lakes <- map_data(map = "lakes")
-na.lakes <- mutate(na.lakes, long = long- 360)
+na.lakes <- mutate(na.lakes, long = long - 360)
 
 # Include all of the Americas to begin
 na.map <- map_data(map = "world2")
@@ -166,7 +169,14 @@ na.map <- filter(na.map, region %in% c("Canada", "USA"))
                                
 na.map <- mutate(na.map, long = long- 360)
                 
-# Others countries in the Americas that you may want to plot, depending on your location: "Mexico", "lakes","Belize", "Costa Rica", "Panama", "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile", "Argentina", "Uruguay"
+# Others countries in the Americas that you may want to plot, depending on your
+# location: "Mexico", "lakes","Belize", "Costa Rica", "Panama", "Guatemala",
+# "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", "Ecuador",
+# "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", "Jamaica",
+# "Cuba", "Haiti", "Dominican Republic", "The Bahamas", "Turks and Caicos
+# Islands", "Puerto Rico", "British Virgin Islands", "Montserrat", "Dominica",
+# "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", "Chile",
+# "Argentina", "Uruguay"
 
 ```
 
@@ -176,26 +186,25 @@ Map the location of tag deployments for the sample data:
 
 ```{r mapRecvs1, eval = FALSE, message = FALSE, warning = FALSE}
 
-# set limits to map based on locations of detections, ensuring they include the deployment locations
+# set limits to map based on locations of detections, ensuring they include the
+# deployment locations
 xmin <- -100 #min(df.tagDeps$longitude, na.rm = TRUE) - 5
 xmax <- max(df.tagDeps$longitude, na.rm = TRUE) + 5
 ymin <- min(df.tagDeps$latitude, na.rm = TRUE) - 5
 ymax <- max(df.tagDeps$latitude, na.rm = TRUE) + 5
                 
 # map using ggplot
-ggplot(na.lakes, aes(long, lat)) + 
-  geom_polygon(
-    data = na.map, 
-    aes(long, lat, group=group), colour = "grey", fill="grey98") + 
-  geom_polygon(
-    aes(group = group), colour = "grey", fill = "white") +
-  coord_map(projection="mercator", 
+ggplot(data = na.lakes, aes(x = long, y = lat)) + 
+  geom_polygon(data = na.map, aes(long, lat, group = group), 
+               colour = "grey", fill="grey98") + 
+  geom_polygon(aes(group = group), colour = "grey", fill = "white") +
+  coord_map(projection = "mercator", 
             xlim = c(xmin, xmax), 
             ylim = c(ymin, ymax)) +
-  xlab("") + ylab("") + 
+  labs(x = "", y = "") + 
   theme_bw() + 
   geom_point(data = filter(df.tagDeps, projectID == 176), 
-             aes(longitude, latitude), cex = 2, pch = 1, colour = "red")
+             aes(longitude, latitude), size = 2, shape = 1, colour = "red")
 
 ```
 
@@ -211,23 +220,23 @@ Required tag metadata includes deployment start date/time, end date/time (if app
 
 **a. Look at range of metadata values**
 
-As a first step, use summary(df.tagDeps) to get an idea of the range of each variable, and whether any variables have missing (NA) or odd values. The following summarizes a subset of the variables in the df.tagDeps database. There are several things to consider: are the range of start and end dates reasonable for your deployments, or are there obvious errors in the timing of deployments? Is the range in deployment latitude and longitude reasonable? Are the values for species IDs correct?  
+As a first step, use `summary(df.tagDeps)` to get an idea of the range of each variable, and whether any variables have missing (`NA`) or odd values. The following summarizes a subset of the variables in the `df.tagDeps` database. There are several things to consider: are the range of start and end dates reasonable for your deployments, or are there obvious errors in the timing of deployments? Is the range in deployment latitude and longitude reasonable? Are the values for species IDs correct?  
 
 ```{r summaryTagMeta}
 
 df.tagDeps %>%
-      select(tagID, projectID, tsStart, tsEnd, speciesID, latitude, longitude) %>%
-      summary()
+  select(tagID, projectID, tsStart, tsEnd, speciesID, latitude, longitude) %>%
+  summary()
 
 ```
 
-There are no missing start dates (tsStart), and deployment start dates range from `r min(year(df.tagDeps$tsStart))` to `r max(year(df.tagDeps$tsStart))`, which is reasonable for this project.  
+There are no missing start dates (`tsStart`), and deployment start dates range from `r min(year(df.tagDeps$tsStart))` to `r max(year(df.tagDeps$tsStart))`, which is reasonable for this project.  
 
 The species IDs are numeric, and somewhat meaningless without an ability to assign an actual species name to the numeric ID, which we do next, however there are no missing values. 
 
 **b. Check that species IDs are appropriate for your data**
 
-The 'species' table in the .motus file associates each numeric species ID with an English, French, and scientific name. We load that table, and subset to the suite of numeric speciesIDs in the tag metadata:
+The `species` table in the .motus file associates each numeric species ID with an English, French, and scientific name. We load that table, and subset to the suite of numeric `speciesID`s in the tag metadata:
 
 ```{r checkSpecies}
 
@@ -237,13 +246,13 @@ sp.list <- unique(df.tagDeps$speciesID)
 # Species metadata
 tbl.species <- tbl(sql.motus, "species") 
 tbl.species %>%
-    filter(id %in% sp.list) %>%
-    collect() %>%
-    as.data.frame()
+  filter(id %in% sp.list) %>%
+  collect() %>%
+  as.data.frame()
 
 ```
 
-This lists all species that are included in the tag deployment metadata for the project. If there are species that do not make sense, this is likely due to a data entry error when assigning a deployment to a species. You can look for records in your tag metadata that are associated with a particular speciesID using the following code; you would then use the deployID associated with the entry/entries to find and update the deployment record in your project metadata online:
+This lists all species that are included in the tag deployment metadata for the project. If there are species that do not make sense, this is likely due to a data entry error when assigning a deployment to a species. You can look for records in your tag metadata that are associated with a particular `speciesID` using the following code; you would then use the `deployID` associated with the entry/entries to find and update the deployment record in your project metadata online:
 
 ```{r listMetaSpecies}
 
@@ -256,22 +265,23 @@ filter(df.tagDeps, speciesID == 4780)
 
 ## Check Receiver Metadata {#recvMetadata}
 
-There are two sources of receiver metadata in Motus detection data: receivers registered to your own project, and receivers registered to the projects of others. You can access metadata for all receivers in the network, because negative data (i.e., my tag was *not* detected at station x even though station x was active) is often as important as positive data. It also allows you to map where your tags were detected relative to the distribution of receivers throughout the Motus network.
+There are two sources of receiver metadata in Motus detection data: receivers registered to your own project, and receivers registered to the projects of others. You can access metadata for all receivers in the network, because negative data (i.e., my tag was *not* detected at station X even though station X was active) is often as important as positive data. It also allows you to map where your tags were detected relative to the distribution of receivers throughout the Motus network.
 
 Receiver metadata errors or omissions that you find in your .motus file can only be fixed for receivers registered to your own project. 
 
 All users are encouraged to enter complete and accurate receiver metadata for the benefit of the entire network. If you anticipate needing specific information on receiver or antenna deployments for stations deployed by others, please consider using the Motus discussion group (<https://motus.org/discussion/>) to request that other registered users record the receiver deployment details you will need; be specific about the exact receiver deployment details you are interested in, and when and where in the network your tags will be deployed and potentially detected. 
+
 In the following steps we will:
 
-1. download full receiver metadata across the network;  
-2. determine number of project receiver deployments;
-3. determine timing of project receiver deployments;
-4. determine location of network-wide and project receiver deployments;
-5. determine completeness and accuracy of receiver metadata.
+1. download full receiver metadata across the network
+2. determine number of project receiver deployments
+3. determine timing of project receiver deployments
+4. determine location of network-wide and project receiver deployments
+5. determine completeness and accuracy of receiver metadata
 
 ### Download full  receiver metadata 
 
-Later on in this chapter we will want to map all receivers in the network, so we will now load metadata from all projects, as opposed to simply project 176 as we did above. The metadata() function is described in more detail in section  \@ref(metadata).
+Later on in this chapter we will want to map all receivers in the network, so we will now load metadata from all projects, as opposed to simply project 176 as we did above. The `metadata()` function is described in more detail in section  \@ref(metadata).
 
 ```{r metadataall, eval = FALSE}
 metadata(sql.motus)
@@ -284,12 +294,13 @@ To see which (if any) receiver deployments are registered to your project, impor
 ```{r projectDeps}
 
 tbl.recvDeps <- tbl(sql.motus, "recvDeps") 
+
 df.projRecvs <- tbl.recvDeps %>%
-                filter(projectID == proj.num) %>%
-                collect() %>%
-                as.data.frame() %>%
-                mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
-                       tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01"))
+  filter(projectID == proj.num) %>%
+  collect() %>%
+  as.data.frame() %>%
+  mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
+         tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01"))
 
 summary(df.projRecvs)
 
@@ -311,48 +322,47 @@ df.projRecvs %>%
 
 The number of receiver deployments in the metadata should correspond with the number of field deployments. 
 
-Looking at the 'isMobile' column for the four receiver deployments that are missing latitude and longitude information, it is evident that these are mobile receivers that do not have a fixed position (ie. they have a value of 1). Because they are mobile, coordinates of the deployment aren't expected, and in this case will remain NA. Receiver deployment coordinates for mobile receivers, when present, are meant to represent the starting point for the deployment.
+Looking at the `isMobile` column for the four receiver deployments that are missing latitude and longitude information, it is evident that these are mobile receivers that do not have a fixed position (ie. they have a value of 1). Because they are mobile, coordinates of the deployment aren't expected, and in this case will remain `NA`. Receiver deployment coordinates for mobile receivers, when present, are meant to represent the starting point for the deployment.
 
 ### Timing of project receiver deployments
 
-The timing of deployments can be displayed graphically; horizontal line(s) in the following plot show the time span for each receiver (deviceID) deployment registered to the James Bay Shorebird Project. Note that for the two receivers without deployment end dates, the code assigns an arbitrary end date based on the maximum end date of the other receivers plus one month - without this fix, deployments without end dates do not get displayed. Different deployments of the same receiver should not overlap in time:
+The timing of deployments can be displayed graphically; horizontal line(s) in the following plot show the time span for each receiver (`deviceID`) deployment registered to the James Bay Shorebird Project. Note that for the two receivers without deployment end dates, the code assigns an arbitrary end date based on the maximum end date of the other receivers plus one month - without this fix, deployments without end dates do not get displayed. Different deployments of the same receiver should not overlap in time:
 
 ```{r projectRecvDeploy, warnings = FALSE, messages = FALSE}
 
 # put data in long format to simplify plotting (or use geom_segment)
 
-df.projRecvs.long <- select(df.projRecvs, deviceID, deployID, tsStart, tsEnd) %>% 
-  tidyr::gather(when, ts, c(tsStart, tsEnd)) %>%
-  mutate(ts = if_else(is.na(ts), max(ts, na.rm = TRUE) + duration(1, "month"), ts)) # fake end date 
+df.projRecvs.long <- df.projRecvs %>%
+  select(deviceID, deployID, tsStart, tsEnd) %>% 
+  gather(when, ts, c(tsStart, tsEnd)) %>%
+  # fake end date:
+  mutate(ts = if_else(is.na(ts), max(ts, na.rm = TRUE) + duration(1, "month"), ts)) 
 
-ggplot(df.projRecvs.long, 
-       aes(y = as.factor(deviceID), x = ts, colour = as.factor(deployID))) +
-  geom_line(lwd=3) + 
-  
-  # instead, center to the right
-  geom_text(data=filter(df.projRecvs.long, when == "tsStart"), 
-            aes(label=deployID), hjust="left", nudge_y = 0.2, size=3, angle = 45) +
+ggplot(data = df.projRecvs.long, 
+       aes(x = ts, y = as.factor(deviceID), colour = as.factor(deployID))) +
+  theme(legend.position = "none") +
+  geom_line(lwd = 3) + 
+  # instead, centre to the right
+  geom_text(data = filter(df.projRecvs.long, when == "tsStart"), 
+            aes(label = deployID), hjust = "left", nudge_y = 0.2, size = 3, angle = 45) +
   theme_bw() +
-  ylab("Receiver ID") + 
-  xlab("Year") + 
-  theme(legend.position="none")
+  labs(x = "Year", y = "Receiver ID")
 
 ```
-If you want more detail for a given year (or all years) you can either subset and re-plot, or use the day of year on the x-axis, and facet_wrap by year. 
+
+If you want more detail for a given year (or all years) you can either subset and re-plot, or use the day of year on the x-axis, and `facet_wrap()` by year. 
 
 ```{r}
-ggplot(df.projRecvs.long, 
-       aes(y = as.factor(deviceID), x = yday(ts), colour = as.factor(deployID))) +
-  geom_line(lwd=3) + 
-  
-  # center labels to the left
-  geom_text(data=filter(df.projRecvs.long, when == "tsStart"), 
-            aes(label=deployID), hjust="left", nudge_y = 0.4, size=3) +
+ggplot(data = df.projRecvs.long, 
+       aes(x = yday(ts), y = as.factor(deviceID), colour = as.factor(deployID))) +
   theme_bw() +
-  ylab("Receiver ID") + 
-  xlab("Day of year") + 
-  theme(legend.position="none") + 
-  facet_grid(year(ts) ~ ., scales="free")
+  theme(legend.position = "none") + 
+  geom_line(lwd = 3) + 
+  # centre labels to the left
+  geom_text(data = filter(df.projRecvs.long, when == "tsStart"), 
+            aes(label = deployID), hjust = "left", nudge_y = 0.4, size = 3) +
+  labs(x = "Day of year", y = "Receiver ID") +
+  facet_grid(year(ts) ~ ., scales = "free")
   
 ```
 
@@ -364,10 +374,10 @@ Maps provide better spatial context than simple plots; the following steps plot 
 ```{r loadRecvDeps, message = FALSE, warning = FALSE}
 
 df.recvDeps <- tbl.recvDeps %>%
-                collect() %>%
-                as.data.frame() %>%
-                mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
-                       tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01"))
+  collect() %>%
+  as.data.frame() %>%
+  mutate(tsStart = as_datetime(tsStart, tz = "UTC", origin = "1970-01-01"),
+         tsEnd = as_datetime(tsEnd, tz = "UTC", origin = "1970-01-01"))
 
 ```
 
@@ -376,18 +386,23 @@ df.recvDeps <- tbl.recvDeps %>%
 ```{r loadMapsRecv2, eval = FALSE, message = FALSE, warning = FALSE}
 
 na.lakes <- map_data(map = "lakes")
-na.lakes <- mutate(na.lakes, long = long- 360)
+na.lakes <- mutate(na.lakes, long = long - 360)
 
 # Include all of the Americas to begin
 na.map <- map_data(map = "world2")
-na.map <- filter(na.map, region %in% c("Canada", "USA", "Mexico", "lakes", "Belize", "Costa Rica", "Panama", 
-             "Guatemala", "Honduras", "Nicaragua", "El Salvador", "Colombia", "Venezuela", 
-             "Ecuador", "Peru", "Brazil", "Guyana","Suriname", "Bolivia", "French Guiana", 
-             "Jamaica", "Cuba", "Haiti", "Dominican Republic", "The Bahamas", 
-             "Turks and Caicos Islands", "Puerto Rico", "British Virgin Islands", 
-             "Montserrat", "Dominica", "Saint Lucia", "Barbados", "Grenada", "Trinidad and Tobago", 
-             "Chile", "Argentina", "Uruguay", "Paraguay")) %>%
-  mutate(long = long- 360)
+na.map <- filter(na.map, 
+                 region %in% c("Canada", "USA", "Mexico", "lakes", "Belize", 
+                               "Costa Rica", "Panama", "Guatemala", "Honduras", 
+                               "Nicaragua", "El Salvador", "Colombia", "Venezuela", 
+                               "Ecuador", "Peru", "Brazil", "Guyana","Suriname", 
+                               "Bolivia", "French Guiana", "Jamaica", "Cuba", 
+                               "Haiti", "Dominican Republic", "The Bahamas", 
+                               "Turks and Caicos Islands", "Puerto Rico", 
+                               "British Virgin Islands", "Montserrat", "Dominica", 
+                               "Saint Lucia", "Barbados", "Grenada", 
+                               "Trinidad and Tobago", "Chile", "Argentina", 
+                               "Uruguay", "Paraguay")) %>%
+  mutate(long = long - 360)
                 
 ```
 
@@ -404,16 +419,16 @@ ymin <- -60 #min(df.recvDeps$longitude, na.rm = TRUE) - 2
 ymax <- max(df.recvDeps$latitude, na.rm = TRUE) + 2
                 
 # map
-ggplot(na.lakes, aes(long, lat))+ 
-  geom_polygon(data = na.map, aes(long, lat, group=group), 
-               colour = "grey", fill="grey98") +
-  geom_polygon(aes(group = group), colour = "grey", fill = "white")+
-  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax))+
-  xlab("") + ylab("") + 
+ggplot(data = na.lakes, aes(x = long, y = lat)) + 
   theme_bw() + 
+  geom_polygon(data = na.map, aes(long, lat, group = group), 
+               colour = "grey", fill = "grey98") +
+  geom_polygon(aes(group = group), colour = "grey", fill = "white") +
+  coord_map(projection = "mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
+  labs(x = "", y = "") + 
   geom_point(data = df.recvDeps, 
              aes(longitude, latitude, colour = as.logical(projectID == 176)), 
-             cex = 0.8, pch = 4)+
+             size = 0.8, shape = 4) +
   scale_colour_manual(values = c("grey30", "red"), name = "Project 176 Deployment") 
 
 ```  
@@ -436,19 +451,18 @@ ymin <- min(df.projRecvs$latitude, na.rm = TRUE) - 1
 ymax <- max(df.projRecvs$latitude, na.rm = TRUE) + 1
                 
 # map
-ggplot(na.lakes, aes(long, lat))+ 
-  geom_polygon(data = na.map, 
-               aes(long, lat, group=group), colour = "grey", fill="grey98") +
-  geom_polygon(aes(group = group), colour = "grey", fill = "white") +
-  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
-#  coord_map(projection="mercator", xlim = c(xmin, xmax), ylim = c(50.154, 52.875)) +
-  xlab("") + ylab("") + 
+ggplot(data = na.lakes, aes(x = long, y = lat))+ 
   theme_bw() + 
+  geom_polygon(data = na.map, aes(long, lat, group = group), 
+               colour = "grey", fill = "grey98") +
+  geom_polygon(aes(group = group), colour = "grey", fill = "white") +
+  coord_map(projection = "mercator", xlim = c(xmin, xmax), ylim = c(ymin, ymax)) +
+  labs(x = "", y = "") +
   geom_point(data = filter(df.projRecvs, 
-                            year(tsStart) == 2016, 
-                            !is.na(latitude)),  # remove mobile receivers
-             aes(longitude, latitude, colour = as.factor(deviceID)), cex = 2, pch = 1)+
-  scale_colour_discrete(name  =  "Receiver ID") 
+                           year(tsStart) == 2016, 
+                           !is.na(latitude)),  # remove mobile receivers
+             aes(longitude, latitude, colour = as.factor(deviceID)), size = 2, shape = 1)+
+  scale_colour_discrete(name = "Receiver ID") 
 
 ```
 
@@ -471,14 +485,16 @@ In this section, the focus is on metadata for receivers registered to a particul
 # antenna metadata for ALL Motus antenna deployments; 
 # to simplify, keep only the variables of interest.
 tbl.antDeps <- tbl(sql.motus, "antDeps") 
+
 df.antDeps <- tbl.antDeps %>%
-                select(deployID, port, antennaType, bearing, heightMeters) %>%
-                collect() %>%
-                as.data.frame()
+  select(deployID, port, antennaType, bearing, heightMeters) %>%
+  collect() %>%
+  as.data.frame()
 
 # receiver deployments; select variables of interest
 df.recvDeps <- df.recvDeps %>%
-                    select(deployID, receiverType, deviceID, name, latitude, longitude, isMobile, tsStart, tsEnd, projectID, elevation) 
+  select(deployID, receiverType, deviceID, name, latitude, longitude, 
+         isMobile, tsStart, tsEnd, projectID, elevation) 
 
 df.stationDeps <- left_join(df.recvDeps, df.antDeps, by = "deployID")
 
@@ -494,7 +510,7 @@ df.stationDeps <- filter(df.stationDeps, projectID == proj.num)
 
 **b. Look at range of metadata values** 
 
-Use summary() to get a general idea of the distribution of the variables in the data. 
+Use `summary()` to get a general idea of the distribution of the variables in the data. 
 
 ```{r SummaryRecv}
 
@@ -509,8 +525,8 @@ Elevation is missing from 74 of 91 records, but elevation is not a required fiel
 Antenna bearing is missing from 18 of 91 records, and height of the antenna(s) is missing for 4 of 91 records.  Subset the records with missing antenna bearing to see if these can be fixed:
 
 ```{r antennaBearing}
-
-filter(df.stationDeps, is.na(bearing)) %>%
+df.stationDeps %>%
+  filter(is.na(bearing)) %>%
   select(-elevation, -deviceID, -tsEnd)
 
 ```

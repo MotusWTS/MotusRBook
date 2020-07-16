@@ -2,7 +2,7 @@ Field,Description
 hitID,unique Motus ID for this tag detection
 runID,unique Motus ID for the run this detection belongs to
 batchID,unique Motus ID for the processing batch this detection came from
-ts,"timestamp, in seconds since 1 Jan, 1970 GMT; precision: 0.1 ms (SG); 2.5 ms (Lotek). "
+ts,"timestamp, in seconds since 1 Jan, 1970 UTC; precision: 0.1 ms (SG); 2.5 ms (Lotek). "
 sig,"signal strength in ""native units""; for SG: dB (max) (logarithmic, 0 = max possible, -10 = 0.1 * max, etc.); for Lotek: raw value (0...255)"
 sigsd,std. dev. in signal strength among pulses in this burst. SG Only; NA for Lotek
 noise,"estimate of background radio noise when tag detected, in dB (max) for SG; NA for Lotek"
@@ -35,7 +35,7 @@ tagDeployEnd,tag deployment end date
 tagDeployLat,"latitude of tag deployment,  in decimal degrees N - negative values for Southern hemisphere"
 tagDeployLon,"longitude of tag deployment, in decimal degrees E - negative values for Western hemisphere"
 tagDeployAlt,"altitude of tag deployment, in meters ASL"
-tagDeployComments,additional comments or unclassified metadata for tag (often in JSON format)
+tagDepComments,additional comments or unclassified metadata for tag (often in JSON format)
 fullID,full tag ID as PROJECT#MFGID:BI@NOMFREQ. Not necessarily unique over time. See motusTagID for a unique tag
 deviceID,Motus device ID associated with the receiver serial number
 recvDeployID,Receiver deployment ID

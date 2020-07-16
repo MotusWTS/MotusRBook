@@ -1,45 +1,50 @@
 # Loading R Packages {#loadingPackages}
+
+*This chapter was contributed by Tara L. Crewe, Zoe Crysler, and Philip Taylor. Revisions by Steffi LaZerte and Denis Lepage*
+
 ```{r tidyr2, echo = FALSE, message = FALSE, warning = FALSE}
 
 library(knitr)
-opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = FALSE)
 
 ```
 
-Three R packages have been developed for Motus users:
+## Installing Motus packages
+Two R packages have been developed for Motus users:
 
-1. motus: provides functions to output summary plots, and to transform (add sun rise/sun set times) and analyze Motus data.
+1. `motus`: provides functions for downloading and updated detections and deployment data, as well as for creating summary plots, and transforming (add sun rise/sun set times) and analyzing Motus data.
 
-2. motusClient: provides functions to download and update detections data and tag and receiver deployment metadata from the Motus server.
+2. `motusData`: provides sample datasets used in some of the chapters of this book.
 
-3. motusData: provides sample datasets used in some of the chapters of this book.
+Motus **users** can install the latest stable versions of the R packages using the following code. As with all R packages, you only need to install the packages once; after installation, you need to load each package (using `library()`) each time you open a new R session. 
 
-Motus **users** can install the latest stable versions of the R packages using the following code. As with all R packages, you only need to install the packages once; after installation, you need to load each package (using library() or require()) each time you open a new R session. 
-
-Please note that some functionalities of the devtools package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of [R](https://www.r-project.org/) and [RStudio](https://www.rstudio.com/products/RStudio/), and update your R packages using update.pacakges() in the R console.
+Please note that some functionalities of the `remotes` package may require updated versions of R and RStudio. To avoid errors, please ensure you are using the most recent releases of [R](https://www.r-project.org/) and [RStudio](https://www.rstudio.com/products/RStudio/), and update your R packages using `update.packages()` in the R console.
 
 To update your existing packages:
 
 ```{r update packages.1, eval = FALSE}
-
 update.packages()                         
-
 ```
 
-Begin by installing the required packages, if not already installed. Note that the motusClient package, which is required to access detection data from the Motus server, is a dependency of the broader motus package, i.e., you should only need to run the code to install the motus package, and the motusClient package will be automatically loaded. The code to install the motusClient R package independently is included below, but you should not need to run it.
+Begin by installing the required packages, if not already installed.
+
+If you have used the older version of `motus` which included use of the `motusClient` package, it is recommended to first uninstall both packages.
+
+```{r, eval = FALSE}
+remove.packages(c("motus", "motusClient"))
+```
+
+Then proceed with the installation of the `motus` package
 
 ```{r install packages, eval = FALSE}
+install.packages("remotes")
+library(remotes)
 
-install.packages("devtools")
-library(devtools)
-
-# install motus for data download, data manipulation, visualization and analysis
+# install motus
 install_github("MotusWTS/motus")
 
-# install motusClient for data download
-install_github("MotusWTS/motusClient")
-
-# install motusData package which contains sample datasets, e.g., vanishBearing used in Chapter 7
+# install motusData package which contains sample datasets, e.g., vanishBearing
+# used in Chapter 7
 install_github("MotusWTS/motusData")
 
 library(motus)
@@ -47,49 +52,70 @@ library(motusData)
 
 ```
 
-If you need to update an existing motus or motusClient package, you need to specify 'force = TRUE':
+If you need to update the existing `motus` package, you need to specify `force = TRUE`:
 ```{r update packages.2, eval = FALSE}
 # force a re-installation of motus package in case of required updates
 install_github("MotusWTS/motus", force = TRUE)
 
-# force a re-installation of motusClient package in case of required updates
-install_github("MotusWTS/motusClient", force = TRUE)
-
 library(motus)
-
 ```
 
-Throughout the book, we use tidyverse, which is a collection of R packages for data science, including tidyr, dplyr, ggplot2, and lubridate for managing and manipulating dates. More information on tidyverse can be found at <https://www.tidyverse.org/>, or by browsing (or better still, thoroughly reading) 'R for Data Science' by Garrett Grolemund and Hadley Wickham (<http://r4ds.had.co.nz/>). For mapping we also use the rworldmap, and ggmap packages.  These can be installed from CRAN, as follows:
+If you want to know what version of the motus package you currently have installed:
+```{r, eval = FALSE}
+packageVersion("motus")
+```
+
+### Troubleshooting the installation
+
+Occasionally users run into problems while trying to install or update `motus`. Often this is related to problems with different versions of package dependencies. Here we suggest several solutions.
+
+1. Update all packages during the installation
+
+```{r, eval = FALSE}
+remotes::install_github("MotusWTS/motus", upgrade = "always")
+```
+
+2. If the installation of Motus generates errors saying that some of the existing packages cannot be removed, you can try to quit any R session, manually delete the problematic package folder from your R libraries and manually install the package again before trying to install motus. You can also try to set up a custom R library folder with .libPaths() and ensure that you have full write permissions on that folder, or try to start R in administrator (Windows) or SUDO mode (Linux/Ubuntu) and try installing again.
+
+To set a custom library folder for installing new packages:
+```{r, eval = FALSE}
+.libPaths("C:/r-libraries/")
+```
+
+3. In some cases, it is easier to upgrade R itself by reinstalling the newest version of R: <https://cran.r-project.org/>. **Note:** While this results in a nice clean installation with fewer problems, it necessitates the re-installation of R packages which can be time-consuming.
+
+4. If reinstalling R is not an option, you get an error related to packages built under a current version of R, AND updating your packages doesn't help, you can consider overriding the error with the following code. **Note:** This might help you install `motus` but may result in other problems. If possible, it's best to resolve the errors rather than ignoring them.
+
+```{r, eval = FALSE}
+Sys.setenv("R_REMOTES_NO_ERRORS_FROM_WARNINGS"=TRUE)
+remotes::install_github("MotusWTS/motus", upgrade = "always")
+```
+
+
+## Installing other packages
+Throughout the book, we use `tidyverse`, which is a collection of R packages for data science, including `tidyr`, `dplyr`, `ggplot2`, and `lubridate` for managing and manipulating dates. More information on `tidyverse` can be found at <https://www.tidyverse.org/>, or by browsing (or better still, thoroughly reading) 'R for Data Science' by Garrett Grolemund and Hadley Wickham (<http://r4ds.had.co.nz/>). For mapping we also use the `rworldmap`, and `ggmap` packages.  These can be installed from CRAN, as follows:
 
 ```{r install tidyverse, eval = FALSE}
-
+install.packages("maps")
 library(maps)
 
 install.packages("tidyverse")
 library(tidyverse)
 
-install.packages("tidyr")
-library(tidyr)
-
 install.packages("rworldmap")
 library(rworldmap)
 
-# Oct 16, 2018: due to recent updates, the development version of ggmap must be used.
-# Ensure that packages are updated prior to installing 
-# (see https://groups.google.com/forum/#!topic/motus-wts/UxqFIO6Pcmo and https://github.com/dkahle/ggmap/issues/51)
-devtools::install_github("dkahle/ggmap", ref = "tidyup", dependencies = TRUE)
+install.packages("ggmap")
 library(ggmap)
 ```
 ```{r loadAllPackages, echo = FALSE, warning = FALSE, message = FALSE}
 library(motus)
 library(maps)
 library(tidyverse)
-library(tidyr)
 library(rworldmap)
 library(ggmap)
-
 ```
-We also install but do not load the plyr package; we use it directly for the handy round_any function, but loading it can cause problems with the dplyr functions:
+We also install but do not load the `plyr` package; we use it directly for the handy `round_any` function (with the code `plyr::round_any()`), but loading it can cause problems with the `dplyr` functions:
 
 ```{r install plyr, eval = FALSE}
 
@@ -99,12 +125,10 @@ install.packages("plyr")
 
 ## Internal data processing {#internalProcessing}
 
-As an animal moves within the detection range of a Motus station, radio transmissions, or 'bursts', are detected by antenna(s) and recorded by a receiver. These raw detection data are either uploaded to the Motus database instantaneously via internet connection, or downloaded from the receiver and uploaded to Motus manually. Behind the scenes, various functions read and process the raw detections data to produce the tag detections file that users access using the R package (see Chapter \@ref(accessingData)). While most users will not need to call on the internal data processing functions, a complete list of functions within the Motus server R package can be found on GitHub (<https://github.com/jbrzusto/motusServer>). The code behind each function can be viewed on GitHub, or by typing the following in the R console after loading the R package, replacing 'function.name' with the name of the R function of interest:
+As an animal moves within the detection range of a Motus station, radio transmissions, or 'bursts', are detected by antenna(s) and recorded by a receiver. These raw detection data are either uploaded to the Motus database instantaneously via internet connection, or downloaded from the receiver and uploaded to Motus manually. Behind the scenes, various functions read and process the raw detections data to produce the tag detections file that users access using the R package (see Chapter \@ref(accessingData)). While most users will not need to call on the internal data processing functions, a complete list of functions within the Motus server R package can be found on GitHub (<https://github.com/jbrzusto/motusServer>). The code behind each function can be viewed on GitHub, or by typing the following in the R console after loading the R package, replacing `function.name` with the name of the R function of interest:
 
 ```{r function.name, eval = FALSE}
-
-function.name() 
-
+function.name
 ```
 
 In the next chapter we will examine and load some data.
