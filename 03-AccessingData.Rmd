@@ -44,7 +44,7 @@ The .motus file contains a series of interrelated tables where data are stored i
 12. **`pulseCounts`**: number of radio pulses measured on each antenna over 1 hour periods (`hourBin`).
 13. **`recvDeps`**: metadata related to receiver deployments, e.g., deployment date, location, receiver characteristics.
 14. **`recvs`**: metadata related to receiver serial number and associated Motus deviceID
-15. **`runs`**: detection data associated with a run (continuous detections of a unique tag on a given receiver).
+15. **`runs`**: detection data associated with a run (continuous detections of a unique tag on a given antenna or node).
 16. **`runsFilters`**: a list of runIDs associated with user created filters and assigned probabilities.  
 17. **`species`**: metadata related to species, e.g., unique identifier, scientific name, common name.
 18. **`tagAmbig`**: metadata related to ambiguous tags, e.g., ambigID and associated motusTagID
