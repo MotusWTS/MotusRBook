@@ -57,7 +57,7 @@ In addition to these tables, there are also 'virtual' tables or 'views', which h
 1. **`allambigs`**: lists in long-data format each motusTagID (up to 6) associated with each negative ambigID.
 2. **`alltags`**: provides the full detection data for all tags, and all ambiguous (duplicate) tags,  associated with your project. Ambiguous detections are repeated for each motusTagID represented by each ambigID.  
 3. **`alltagsGPS`**: same as `alltags` but includes GPS latitude, longitude and altitude (much slower to load on large databases).
-4. **`allruns`**: similar to `alltags` but only provides 1 record per run (with tsBegin and tsEnd instead of ts, and is missing details about signal strengths of individual hits), instead of 1 record per hit. This is a good alternative to the alltags for many types of applications. This virtual table should be both much faster and smaller than alltags.
+4. **`allruns`**: similar to `alltags` but only provides 1 record per run (with tsBegin and tsEnd instead of ts, and is missing details about signal strengths of individual hits), instead of 1 record per hit. This is a good alternative to the alltags for many types of applications. This virtual table should be both much faster and smaller than alltags. We will soon provide examples for using this table.
 
 Because the file is a `dplyr::src_sqlite` file, all of the `dplyr` functions can be used to filter and summarize the .motus database, without needing to first save the data as a *flat* file (a typical two-dimensional dataframe). The SQL format is very advantageous when you have a large file -- the queries using SQL will be substantially faster than those done on a flat dataframe. 
 
