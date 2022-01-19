@@ -206,6 +206,15 @@ df.block.0 <- filter(tbl.alltags, probability == 0) %>%
 
 The `filterByActivity()` function can use the `alltagsGPS` view, but this may be slow. A way around this speed problem is to use the `getGPS()` function to retrieve the GPS values of a data subset (`data`) after the data has been filtered.
 
+Since the getGPS function expects un-modified time stamps, we re-run the code to make a flat file version of the database table with un-modified time stamps.
+
+```{r}
+df.alltags.sub <- tbl.alltags %>% 
+  filter(probability == 1) %>%
+  collect() %>%
+  as.data.frame() 
+```
+
 > Note that in this example, the sample dataset doesn't have GPS data
 
 ```{r}
